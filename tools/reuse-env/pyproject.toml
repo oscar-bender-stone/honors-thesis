@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
+# SPDX-License-Identifier: MIT
+
+[project]
+name = "reuse-env"
+version = "0.1.0"
+description = "Virtual environment for the REUSE linter."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "reuse>=6.1.2",
+]
