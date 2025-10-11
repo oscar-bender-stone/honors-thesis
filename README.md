@@ -21,15 +21,15 @@ Licensed under the [CC-BY-SA-4.0 license](./LICENSES/CC-BY-SA-4.0.txt).
 
 You will need:
 
-- [`uv`](https://github.com/astral-sh/uv): manages python tools.
+- A Python package manager.
+  - Recommended: [`uv`](https://github.com/astral-sh/uv).
 
 - [`typst`](https://github.com/typst/typst): typsetting program for the thesis.
 
   - You will need the **latest version** (`0.14.0-rc.1`).
   For now, you will need [`cargo`](https://doc.rust-lang.org/cargo/getting-started/installation.html)
   and will need to run:
-
-  `cargo install --locked typst-cli --version 0.14.0-rc.1`
+    `cargo install --locked typst-cli --version 0.14.0-rc.1`
 
 ### Generating Documents
 
@@ -37,7 +37,7 @@ You will need:
 
   - (Default): `pdf`
 
-  - (Pandoc-based) `html`
+  - (Pandoc-based): `html`
 
 ### Compliance
 
