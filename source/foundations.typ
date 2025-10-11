@@ -47,6 +47,8 @@ for Welkin are completely contained in $PA$.
 
 == Explicit Computability
 
+#let Hom = math.text("Hom")
+
 *Definition.* An *Explicit Turing Machine (ETM)* is a 3-tape Turing machine with
 the following restrictions:
 - *Read Tape:* the only transitions allowed are those labeled with right (R)
@@ -69,6 +71,23 @@ A function computable by an ETM is said to be *explicitly computable*.
   - Kleene Star
 ]
 
+To explore transformations between Turing machines, we first introduce their encodings.
+
+*Definition* The *description* of a Turing machine is the encoding of its transition
+diagram into a standard format.
+
+*Definition.* Let $M_1, M_2$ be Turing machines. An *explicit transformation*
+$tau: M_1 -> M_2$ is an explicitly computable function from the description of $M_1$
+to the description of $M_2$.
+
+As a natural consequence of the Lemma above,
+we can completely determine the explicitly computable transformations _only_ with
+explicit functions.
+
+*Lemma*. _Let $M_1, M_2$ be Turing machines. Then there is an explicitly computable $sigma$
+that enumerates through all explicit transformations of $M_1$ to $M_2$. We
+write $cal(E)(M_1, M_2)$ as the set of explicit transformations._
+
 == Verifiability and RE Languages
 
 *Definition.* Let $cal(L)$ be a language. A *verifier* $V$ of $cal(L)$ is a decider
@@ -77,11 +96,18 @@ such that:
 $ cal(L) = {w | exists c. (w, c) in L(V)} $
 
 If a verifier of $cal(L)$ exists, then $cal(L)$ is *verifiable*. Moreover, we say $cal(L)$
-is *explicitly verifiable* if $V$ is explicit.
+is *explicitly verifiable* if some verifier $V$ is explicit.
 
 *Theorem.* _A language is recursively enumerable if and only if it explicitly verifiable._
 
 _Proof._ $qed$
+
+This provides the bedrock of our main definition, inspired by Hoprocroft et. al.
+
+*Definition.*
+- A *problem* is an explicitly verifiable language.
+- A *problem instance* is any binary string.
+- A *solution* to a problem $P$ is a Turing machine that recognizes $P$.
 
 == Bases For Turing Machines
 
@@ -132,9 +158,9 @@ for discussing the optimality of the semantics.
 *Definition.* Let $(A, f)$ be a basis on $tms$. The *Mereological
 Category* is the largest category closed under explicit
 transformations on $fin(cal(A))$. In detail, it contains:
-- The set $fin(cal(A))$ as objects.
-- Morphisms $tau: A_1 -> A_2$ are precisely the explicitly transformations from $A_1$
-  to $A_2$. If any such transformation exists,we write $A_1 -> A_2$.
+- Objects: $fin(cal(A))$.
+- Morphisms: $hat(tau): A_1 -> A_2$ are precisely the explicit transformations $tau: g^(-1)(A_1) -> g^(-1)(A_2)$.
+  If any such transformation exists, we write $A_1 -> A_2$.
 
 *Definition.* A *progress theorem* is a propoosition $p$ of the
 form $forall A. exists D_A. forall B. D_A (B) => B -> A$
