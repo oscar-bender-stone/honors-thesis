@@ -19,8 +19,18 @@ suitable for this language.
 
 *Definition.* The *language* of $PA$ is the set $LA = {0, 1, S, +, *}$, with symbols
 called:
+
 - $0$ (*zero*) and $1$ (*one*).
+
 - $+$ (*addition*) and $*$ (*multiplication*).
+
+*Definition.* The axioms of $PA$ are:
+
+-
+
+-
+
+-
 
 $PA$ enjoys several properties.
 
@@ -51,9 +61,12 @@ for Welkin are completely contained in $PA$.
 
 *Definition.* An *Explicit Turing Machine (ETM)* is a 3-tape Turing machine with
 the following restrictions:
+
 - *Read Tape:* the only transitions allowed are those labeled with right (R)
+
 - *Work Tape:* this cannot contain any inner loops. Can access the read and stack
   tapes.
+
 - *Stack Tape:* used ONLY as a stack.
 
 A function computable by an ETM is said to be *explicitly computable*.
@@ -152,26 +165,39 @@ _Proof_ $qed$
 
 == Mereological Rewrite Systems
 
+#let Hom = math.text("Hom")
+#let emptyset = math.diameter
+#let Prog = math.text("Prog")
+
 We generalize a basis to include rewrite components. This will be the starting point
 for discussing the optimality of the semantics.
 
 *Definition.* Let $(A, f)$ be a basis on $tms$. The *Mereological
-Category* is the largest category closed under explicit
+Category* $cal(C)(A, f)$ is the largest category closed under explicit
 transformations on $fin(cal(A))$. In detail, it contains:
 - Objects: $fin(cal(A))$.
-- Morphisms: $hat(tau): A_1 -> A_2$ are precisely the explicit transformations $tau: g^(-1)(A_1) -> g^(-1)(A_2)$.
-  If any such transformation exists, we write $A_1 -> A_2$.
-
-*Definition.* A *progress theorem* is a propoosition $p$ of the
+- Morphisms: $Hom(A_1, A_2) = cal(E)(g^(-1)(A_1), g^(-1)(A_2))$. If $Hom(A_1, A_2) != emptyset$,
+  then we write $A_1 -> A_2$.
+*Definition.* A *progress theorem* is a proposition $p$ of the
 form $forall A. exists D_A. forall B. D_A (B) => B -> A$
 where $D_A$ is a family of explicitly computable unary predicates called the *progress predicate of $p$*.
 We say a Mereological Category has *progress $p$* if it satisfies $p$. Note that $A$
-may be free in $D_A$.
+may be free in $D_A$. We write $Prog(cal(C))$ for the set of progress theorems satisfied
+by $cal(C)$.
 
 *Definition.* A Mereological Category has *universal progress* if the *Universal Progress Theorem (UPT)*
 holds: for every $A in cal(A)$,
 there is a $N$ such that, for every $B$ with $N$ elements, $B -> A$.
 This ensures the existence of $m: fin(cal(A)) -> NN$, given by
 $m(A) = min {N | forall B, |B| >= N. B -> A}$.
+
+*Definition.* The category of Mereological Categories with universal progress consists
+of:
+
+- Objects: Mereological Categories.
+
+- Morphisms: $sigma: cal(C)(A_1, f_1) -> cal(C)(A_2, f_2)$ are the faithful functors.
+
+Our goal is to find the final object in this meta-category above with universal progress.
 
 == Optimality of Decompositions
