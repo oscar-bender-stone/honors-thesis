@@ -11,7 +11,7 @@ additional references will be provided in each sub-section.
 #let PA = math.bold("PA")
 #let ZFC = math.bold("ZFC")
 
-Our foundations of Welkin are based on Peano Arithmetic $PA$. We provide the full
+The foundations of Welkin are based on Peano Arithmetic $PA$. We provide the full
 list of axioms, relevant results, and justify why $PA$ is the most "minimal" theory
 suitable for this language.
 
@@ -25,7 +25,7 @@ called:
 $PA$ enjoys several properties.
 
 *Theorem.* $PA$ _proves the following:_
-- _Every Primitive Recursive Function (PRF) is total_
+- _Every Primitive Recursive Function (PRF) is total._
 
 - $PA$ _is *only* infinitely axiomatizable._
 
@@ -47,8 +47,8 @@ for Welkin are completely contained in $PA$.
 
 == Explicit Computability
 
-*Definition.* An *Explicit Turing Machine (ETM)* is a Turing machine with 3-tapes
-obeying the following:
+*Definition.* An *Explicit Turing Machine (ETM)* is a 3-tape Turing machine with
+the following restrictions:
 - *Read Tape:* the only transitions allowed are those labeled with right (R)
 - *Work Tape:* this cannot contain any inner loops. Can access the read and stack
   tapes.
@@ -83,50 +83,43 @@ is *explicitly verifiable* if $V$ is explicit.
 
 _Proof._ $qed$
 
-== Decompositions of Turing Machines
+== Bases For Turing Machines
 
 #let tms = math.cal("M")
-#let fin(s) = $cal("F")cal(A)$
+#let fin(s) = $cal("F")(cal(A))$
 
 Let $tms$ be the set of all Turing machines.
 We examine a suitable lattice-structure on this set provide a semi-lattice
 as a step towards organizational optimality.
 
-*Definition.* Let $cal(A) subset.eq tms$ and $rho: tms -> tms$.
-
-- $cal(A)$ is *spans* $tms$ if there exists an explicitly computable, surjective #box($f: tms -> fin(cal(A))$)
-  such that for each $A in cal(A)$, $f(A) = {A}$. We call $f$ an a *analyzer* for $cal(A)$.
-
-- $rho$ is a *canonical form of $f$* if $rho$ is explicitly computable, surjective,
-  and has the same kernel equivalence relation as $f$, i.e.,
-  $rho M_1 = rho M_2 <=> f M_1 = f M_2.$
-
-- Let $ker f$ be the kernel of $f$. If $f$ is an analyzer for $cal(A)$ and $rho$
-  is a a canonical
-  form for $f$, then $(cal(A), f, rho)$ is a *(computational) basis* for $tms$.
+*Definition.* Let $cal(A) subset.eq tms$. We say $cal(A)$ *spans* $tms$
+if there is an explicitly computable, surjective $f: tms -> fin(cal(A))$
+such that $cal(A) = {M | f(M) = {M}}$. In this case, we call $f$ an *analyzer* of $cal(A)$.
 
 Analogous to group theory, bases enjoy a computable version of the First Isomorphism
 Theorem.
 
-*Theorem*
+*Theorem.*
 #emph[
-  Suppose $(cal(A), f, rho)$ is a basis for $tms$. The following hold:
-  - The function $g = f compose rho$ is an analyzer for $cal(A)$. We call $g$ the *canonical analyzer*
-    w.r.t the basis.
-  - The inverse $f^(-1): fin(cal(A)) -> ker f$ is explicitly computable; we call
+  Suppose $(cal(A), f)$ is a basis for $tms$. The following hold:
+  - Let $rho$ be the function that takes Turing machines to the smallest Turing machine $M'$
+    such that $f(M) = f(M')$. Then $g = f compose rho$ is an analyzer for $cal(A)$.
+    We call $g$ the *canonical analyzer* w.r.t the basis.
+
+  - The inverse $f^(-1): fin(cal(A)) -> ker(f)$ is explicitly computable; we call
     this
     a *synthesizer*. In particular, so is $g^(-1)$, which we call the *canonical synthesizer*
     (w.r.t. the basis).
 
   - Define the following operations on Turing machines:
-    - $M_1 union.sq M_2 <=> g^(-1)(f(M_1) union f(M_2))$
+    - $M_1 union.sq M_2 = g^(-1)(f(M_1) union f(M_2))$
 
-    - $M_1 inter.sq M_2 <=> g^(-1)(f(M_1) inter f(M_2))$
+    - $M_1 inter.sq M_2 = g^(-1)(f(M_1) inter f(M_2))$
 
     Then $union.sq$ and $inter.sq$ are explicitly computable, and $(M_1, union.sq, inter.sq)$
     is a semi-lattice. We call the induced partial order $M_1 subset.sq.eq M_2 <=> M_1 = M_1 inter.sq M_2$
     a *part-hood* relation, and the system
-    $(M_1, union.sq, inter.sq)$ the *Mereological System* of the basis.
+    $(tms, union.sq, inter.sq)$ the *Mereological System* of the basis.
 ]
 
 _Proof_ $qed$
@@ -136,20 +129,23 @@ _Proof_ $qed$
 We generalize a basis to include rewrite components. This will be the starting point
 for discussing the optimality of the semantics.
 
-*Definition.* Let $(A, f, rho)$ be a basis on $tms$. A *Mereological Rewrite System*
-(MRS) is a graph $(fin(cal(A)), ->)$ such that:
-- $->$ has a unique null element $emptyset$: $emptyset -> A$ iff $A = emptyset$.
-- $->$ extends $supset.eq$.
+*Definition.* Let $(A, f)$ be a basis on $tms$. The *Mereological
+Category* is the largest category closed under explicit
+transformations on $fin(cal(A))$. In detail, it contains:
+- The set $fin(cal(A))$ as objects.
+- Morphisms $tau: A_1 -> A_2$ are precisely the explicitly transformations from $A_1$
+  to $A_2$. If any such transformation exists,we write $A_1 -> A_2$.
 
-*Definition.* A Progress theorem is a *progress theorem*, a propposition $p$ of the
-form $forall A. exists D. forall B. D(B) -> B -> A$
-where $D$ is a explicitly computable predicate and called the *progress predicate of $p$*.
-We say a MRS has *progress $p$* if it satisfies $p$.
+*Definition.* A *progress theorem* is a propoosition $p$ of the
+form $forall A. exists D_A. forall B. D_A (B) => B -> A$
+where $D_A$ is a family of explicitly computable unary predicates called the *progress predicate of $p$*.
+We say a Mereological Category has *progress $p$* if it satisfies $p$. Note that $A$
+may be free in $D_A$.
 
-*Definition.* A MRS has *universal progress* if the *Universal Progress Theorem (UPT)*
+*Definition.* A Mereological Category has *universal progress* if the *Universal Progress Theorem (UPT)*
 holds: for every $A in cal(A)$,
 there is a $N$ such that, for every $B$ with $N$ elements, $B -> A$.
 This ensures the existence of $m: fin(cal(A)) -> NN$, given by
-$m(A) = min {N | forall |B| >= N. B -> A}$.
+$m(A) = min {N | forall B, |B| >= N. B -> A}$.
 
 == Optimality of Decompositions
