@@ -28,3 +28,5 @@
 #include "foundations.typ"
 
 #include "semantics.typ"
+
+#include "bootstrap.typ"

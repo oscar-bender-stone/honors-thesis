@@ -85,7 +85,7 @@ $PA$ enjoys several properties. We will define the first in depth, but it is cit
 
 We choose $PA$ as a well-established theorem and a reasonable "minimal" theory. This contrasts with $bold("Q")$, which is too weak for computability proofs without induction, as well as $ZFC$, which has oa much larger proof ordinal. Welkin requires a rich enough theory that can _directly_ encode its core proofs, even with added verbosity. Note that any of these proofs can be _astronomically large_, but the point is to work in a theory where they are _possible_.
 
-Note that from the work of Sergei Artemov, there is a weak form consistency that can be proven in $PA$ _and_ $ZFC$, separately. However, $PA$ is needed as a meta-theory to ensure that Welkin is self-contained; see more in Boostrap for details. $PA$ can also be used to _define_ Turing machines, which we explore next.
+Note that from the work of Sergei Artemov, there is a weak form consistency that can be proven in $PA$ _and_ $ZFC$,separately. However, $PA$ is needed as a meta-theory to ensure that Welkin is self-contained; see more in Boostrap for details. $PA$ can also be used to _define_ Turing machines, which we explore next.
 
 == Turing Machines
 

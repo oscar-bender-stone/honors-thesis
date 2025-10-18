@@ -13,13 +13,6 @@
 #let large-size = 11.74988pt
 #let text_font = "STIX Two Text"
 
-#let FIGURE_BODY_STYLES = (
-  "theorem": "italic",
-  "lemma": "italic",
-  "corollary": "italic",
-  "definition": "normal"
-  "remark": "normal"
-)
 
 
 // This function gets your whole document as its `body` and formats
@@ -169,40 +162,31 @@
     it
   }
 
-  // Styling for theorems, definitions, and remarks
-  show figure.where(kind: "theorem"): set align(start)
-  show figure.where(kind: "theorem"): it => block(spacing: 11.5pt, {
-    // Label is BOLD
-    strong(figure_label(it))
-    [ ]
-    // Body is italic (using emph reinforces the local styling from the function)
-    emph(it.body)
-  })
+  let figure_layout_block(it, label-weight) = {
+    block(spacing: 11.5pt, align(start, {
+      text(weight: label-weight, {
+        it.supplement // Theorem, Definition, etc.
+        if it.numbering != none {
+          [ ]
+          it.counter.display(it.numbering)
+        }
+        [.]
+      })
 
-  // 2. Rule for Definitions (kind: "definition")
-  // Label: BOLD & Upright. Body: Upright.
-  show figure.where(kind: "definition"): set align(start)
-  show figure.where(kind: "definition"): it => block(spacing: 11.5pt, {
-    // Label is BOLD
-    strong(figure_label(it))
-    [ ]
-    // Body is upright
-    it.body
-  })
+      [ ]
 
-  // 3. Rule for Remarks (kind: "remark")
-  // Label: ITALIC & Regular Weight. Body: Upright.
-  show figure.where(kind: "remark"): set align(start)
-  show figure.where(kind: "remark"): it => block(spacing: 11.5pt, {
-    // Label is ITALIC and Regular Weight
-    {
-      set text(weight: "regular", style: "italic")
-      figure_label(it)
-    }
-    [ ]
-    // Body is upright
-    it.body
-  })
+      it.body
+    }))
+  }
+
+  show figure.where(kind: "theorem"): it => figure_layout_block(it, "bold")
+
+  show figure.where(kind: "definition"): it => figure_layout_block(
+    it,
+    "regular",
+  )
+
+  show figure.where(kind: "remark"): it => figure_layout_block(it, "regular")
 
 
   // Display the title and authors.
@@ -327,6 +311,59 @@
   ],
   numbering: if numbered { n => counter(heading).display() + [#n] },
 )
+
+#let figure_block(style, kind, supplement, body, numbered: true) = {
+  let styled_body = {
+    set text(style: style)
+    body
+  }
+
+  figure(
+    styled_body,
+    kind: kind,
+    supplement: supplement,
+    numbering: if numbered { n => counter(heading).display() + [#n] },
+  )
+}
+
+
+// --- Specialized Functions (Minimal wrappers) ---
+#let theorem(body, numbered: true) = figure_block(
+  "italic",
+  "theorem",
+  [Theorem],
+  body,
+  numbered: numbered,
+)
+#let lemma(body, numbered: true) = figure_block(
+  "italic",
+  "theorem",
+  [Lemma],
+  body,
+  numbered: numbered,
+)
+#let corollary(body, numbered: true) = figure_block(
+  "italic",
+  "theorem",
+  [Corollary],
+  body,
+  numbered: numbered,
+)
+#let definition(body, numbered: true) = figure_block(
+  "normal",
+  "definition",
+  [Definition],
+  body,
+  numbered: numbered,
+)
+#let remark(body, numbered: true) = figure_block(
+  "normal",
+  "remark",
+  [Remark],
+  body,
+  numbered: numbered,
+)
+
 
 // This function creates a scoped environment for a list of equations.
 #let equation_block(prefix: "E", body) = {
