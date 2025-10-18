@@ -14,7 +14,10 @@
       email: "oscar-bender-stone@protonmail.com",
     ),
   ),
-  abstract: lorem(5),
+  abstract: [Welkin is a formalized programming language to store information.
+    We introduce its use cases and rigorously define its sytnax and semantics.
+    From there, we introduce the bootstrap, making Welkin completely self-contained
+    under the meta-theory of Peano Arithmetic.],
   bibliography: bibliography("references.bib"),
 )
 
@@ -23,3 +26,5 @@
 #include "introduction.typ"
 
 #include "foundations.typ"
+
+#include "semantics.typ"

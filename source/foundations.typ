@@ -1,47 +1,66 @@
 // SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template/ams-article.typ": corollary, lemma, theorem
+#import "template/ams-article.typ": corollary, definition, lemma, theorem
 
 = Foundations
 
 We introduce the base theory needed for this thesis. We will keep it self-contained;
 additional references will be provided in each sub-section.
 
-== Peano Arithmetic
-
 #let PA = math.bold("PA")
 #let ZFC = math.bold("ZFC")
 
-The foundations of Welkin are based on Peano Arithmetic $PA$. We provide the full
-list of axioms, relevant results, and justify why $PA$ is the most "minimal" theory
-suitable for this language.
+== First Order Logic
+
+#let LFOL = $ cal(L)_"FOL" $
+
+The foundations of Welkin are based on the first-order theory of Peano Arithmetic. Before introducing this theory, we review key aspects of first-order logic.
+
+#definition[
+  The *language* of first-order logic consists of the symbols $LFOL = {and or -> forall exists ()}$, with symbols called:
+  - *connectives*: *and* $and$, *or* $or$, and *implication* $->$
+  - *quantifiers* called *forall* $forall$ and *exists* $exists$
+  - *left/right parantheses* ()
+]<fol_lang>
+
+== Peano Arithmetic
+
+Now we introduce the full list of axioms for $PA$, the relevant results, and justify why $PA$ is the most "minimal" theory suitable for this language.
 
 #let LA = $ cal(L)_A $
+#let LT = $ cal(L)_T $
 
-*Definition.* The *language* of $PA$ is the set $LA = {0, 1, S, +, *}$, with symbols
-called:
+#definition[
+  The *language* of $PA$ is the set $LA = {0, 1, +, *}$, with symbols
+  called:
 
-- $0$ (*zero*) and $1$ (*one*).
+  - *zero* ($0$) and *one* ($1$).
 
-- $+$ (*addition*) and $*$ (*multiplication*).
+  - *addition* ($+$) and *multiplication* ($*$).
+]<pa_lang>
 
-*Definition.* The axioms of $PA$ are:
+We define the *successor function* by $S(n) equiv n + 1$.
 
--
+Note that the full language of our meta-theory is $LT = LFOL union LA$. We will encode these in the syntax of Welkin; see @semantics.
 
--
+#definition[
+  The theory *Robinson Arithmetic* $bold("Q")$ contains the following axioms:
 
--
+
+  The theory $PA = bold("Q") union {I}$, where the *induction schema*, denoted by $I$, is defined for each first-order formula $phi$ in $LA$:
+
+  $phi(0) and forall n (phi(n) -> phi(n+1)) -> forall n phi(n)$
+]<pa_axioms>
 
 $PA$ enjoys several properties.
 
-#theorem [
-$PA$ proves the following:
+#theorem[
+  $PA$ proves the following:
 
-- _Every Primitive Recursive Function (PRF) is total._
+  - _Every Primitive Recursive Function (PRF) is total._
 
-- $PA$ _is *only* infinitely axiomatizable._
+  - $PA$ _is *only* infinitely axiomatizable._
 ]
 
 We choose $PA$ as a well-established theorem and a reasonable "minimal" theory. This contrasts with $Q$, which is too weak for computability proofs without induction, as well as $ZFC$, which depends on a much larger proof ordinal. Striking a balance, namely with the totality of all PRFS, is quntiessential to the guarantees provided by this thesis. Seeking more minutely minimal theories, possibly with a "weaker" induction schema, would not be productive.
