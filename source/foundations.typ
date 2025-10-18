@@ -1,6 +1,8 @@
 // SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
+#import "template/ams-article.typ": corollary, lemma, theorem
+
 = Foundations
 
 We introduce the base theory needed for this thesis. We will keep it self-contained;
@@ -34,26 +36,18 @@ called:
 
 $PA$ enjoys several properties.
 
-*Theorem.* $PA$ _proves the following:_
+#theorem [
+$PA$ proves the following:
+
 - _Every Primitive Recursive Function (PRF) is total._
 
 - $PA$ _is *only* infinitely axiomatizable._
+]
 
-Our criterion for why we choose $PA$ is the following.
+We choose $PA$ as a well-established theorem and a reasonable "minimal" theory. This contrasts with $Q$, which is too weak for computability proofs without induction, as well as $ZFC$, which depends on a much larger proof ordinal. Striking a balance, namely with the totality of all PRFS, is quntiessential to the guarantees provided by this thesis. Seeking more minutely minimal theories, possibly with a "weaker" induction schema, would not be productive.
+Note that any of these proofs can be _astronomically large_, but the point is to work in a theory where they are _possible_.
 
-*Theorem.* _$PA$ is the smallest theory to prove every Primitive Recursive Function (PRF) is total.
-More precisely, suppose $T'$ is equivalent to a strict subset of $PA$. Then $T'$ fails to prove some PRF is total._
-
-_Remark._ The proof of this theorem is beyond the scope of this thesis. Instead,
-we refer
-to the standard constructions in the literature. Additionally, these proofs can be _astronomically_
-large, but the point is to ensure we can discuss _prove_ any PRF is total, which
-will be key in exploring decompositions.
-
-One key strength of $PA$ is its ability to encode _any_ Turing
-machine and, given a trace, verify its correctness. This enables encodings of _any_
-first-order theory, including $ZFC$. However, the only proofs necessary
-for Welkin are completely contained in $PA$.
+Note that from the work of Sergei Artemov, there is a weak form consistency that can be proven in $PA$ _and_ $ZFC$, separately. However, $PA$ is needed as a meta-theory to ensure that Welkin is self-contained; see more in Boostrap for details.
 
 == Explicit Computability
 
