@@ -162,32 +162,34 @@
     it
   }
 
-  let figure_layout_block(it, label-weight) = {
-    block(spacing: 11.5pt, align(start, {
-      text(weight: label-weight, {
-        it.supplement // Theorem, Definition, etc.
-        if it.numbering != none {
-          [ ]
-          it.counter.display(it.numbering)
-        }
-        [.]
-      })
+  show figure.where(kind: "theorem"): set align(start)
+  show figure.where(kind: "theorem"): it => block(spacing: 11.5pt, {
+    strong({
+      it.supplement
+      if it.numbering != none {
+        [ ]
+        it.counter.display(it.numbering)
+      }
+      [.]
+    })
+    [ ]
+    emph(it.body)
+  })
 
-      [ ]
-
-      it.body
-    }))
-  }
-
-  show figure.where(kind: "theorem"): it => figure_layout_block(it, "bold")
-
-  show figure.where(kind: "definition"): it => figure_layout_block(
-    it,
-    "regular",
-  )
-
-  show figure.where(kind: "remark"): it => figure_layout_block(it, "regular")
-
+  // show figure.where(kind: "definition"): set counter(figure, theorem_counter)
+  show figure.where(kind: "definition"): set align(start)
+  show figure.where(kind: "definition"): it => block(spacing: 11.5pt, {
+    strong({
+      it.supplement
+      if it.numbering != none {
+        [ ]
+        it.counter.display(it.numbering)
+      }
+      [.]
+    })
+    [ ]
+    it.body
+  })
 
   // Display the title and authors.
   v(35pt, weak: true)
@@ -254,65 +256,7 @@
     v(12pt, weak: true)
   }
 }
-
-#let fig-block(kind, supplement, body, numbered: true) = {
-  figure(
-    body,
-    kind: kind,
-    supplement: supplement,
-    numbering: if numbered { n => counter(heading).display() + [#n] },
-  )
-}
-
-#let theorem(body, numbered: true) = fig-block(
-  "theorem",
-  [Theorem],
-  {
-    set text(style: "italic")
-    body
-  },
-  numbered: numbered,
-)
-#let lemma(body, numbered: true) = fig-block(
-  "theorem",
-  [Lemma],
-  {
-    set text(style: "italic")
-    body
-  },
-  numbered: numbered,
-)
-#let corollary(body, numbered: true) = fig-block(
-  "theorem",
-  [Corollary],
-  {
-    set text(style: "italic")
-    body
-  },
-  numbered: numbered,
-)
-
-#let definition(body, numbered: true) = fig-block(
-  "definition",
-  [Definition],
-  {
-    set text(style: "normal")
-    body
-  },
-  numbered: numbered,
-)
-
-#let remark(body, numbered: true) = figure(
-  body,
-  kind: "remark",
-  supplement: [
-    #set text(weight: "regular", style: "italic")
-    Remark
-  ],
-  numbering: if numbered { n => counter(heading).display() + [#n] },
-)
-
-#let figure_block(style, kind, supplement, body, numbered: true) = {
+#let figure_block(style, supplement, body, numbered: true) = {
   let styled_body = {
     set text(style: style)
     body
@@ -320,45 +264,39 @@
 
   figure(
     styled_body,
-    kind: kind,
+    kind: "theorem",
     supplement: supplement,
     numbering: if numbered { n => counter(heading).display() + [#n] },
   )
 }
 
 
-// --- Specialized Functions (Minimal wrappers) ---
 #let theorem(body, numbered: true) = figure_block(
   "italic",
-  "theorem",
   [Theorem],
   body,
   numbered: numbered,
 )
 #let lemma(body, numbered: true) = figure_block(
   "italic",
-  "theorem",
   [Lemma],
   body,
   numbered: numbered,
 )
 #let corollary(body, numbered: true) = figure_block(
   "italic",
-  "theorem",
   [Corollary],
   body,
   numbered: numbered,
 )
 #let definition(body, numbered: true) = figure_block(
   "normal",
-  "definition",
   [Definition],
   body,
   numbered: numbered,
 )
 #let remark(body, numbered: true) = figure_block(
   "normal",
-  "remark",
   [Remark],
   body,
   numbered: numbered,
