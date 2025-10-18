@@ -175,6 +175,22 @@
     emph(it.body)
   })
 
+  // Definitions.
+  show figure.where(kind: "definition"): set align(start)
+  show figure.where(kind: "definition"): it => block(spacing: 11.5pt, {
+    strong({
+      it.supplement
+      if it.numbering != none {
+        [ ]
+        it.counter.display(it.numbering)
+      }
+      [.]
+    })
+    [ ]
+    it.body
+  })
+
+
   // Display the title and authors.
   v(35pt, weak: true)
   align(center, upper({
@@ -261,6 +277,13 @@
   body,
   kind: "theorem",
   supplement: [Corollary],
+  numbering: if numbered { n => counter(heading).display() + [#n] },
+)
+
+#let definition(body, numbered: true) = figure(
+  body,
+  kind: "definition",
+  supplement: [Definition],
   numbering: if numbered { n => counter(heading).display() + [#n] },
 )
 

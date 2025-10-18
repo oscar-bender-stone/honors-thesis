@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template/ams-article.typ": corollary, lemma, theorem
+#import "template/ams-article.typ": corollary, definition, lemma, theorem
 
 = Foundations
 
@@ -19,12 +19,18 @@ suitable for this language.
 
 #let LA = $ cal(L)_A $
 
-*Definition.* The *language* of $PA$ is the set $LA = {0, 1, S, +, *}$, with symbols
-called:
+#definition[
+  The *language* of $PA$ is the set $LA = {0, 1, S, +, *}$, with symbols
+  called:
 
-- $0$ (*zero*) and $1$ (*one*).
+  - *zero* ($0$) and *one* ($1$).
 
-- $+$ (*addition*) and $*$ (*multiplication*).
+  - *addition* ($+$) and *multiplication* ($*$).
+]
+
+#definition[
+  The theory *Robinson Arithmetic* $Q$ contains the following axioms:
+]
 
 *Definition.* The axioms of $PA$ are:
 
