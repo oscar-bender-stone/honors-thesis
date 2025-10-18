@@ -1,7 +1,9 @@
 // SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template/ams-article.typ": corollary, definition, lemma, theorem
+#import "template/ams-article.typ": (
+  definition, equation_block, labeled_equation, lemma, theorem,
+)
 
 = Foundations
 
@@ -38,39 +40,64 @@ Now we introduce the full list of axioms for $PA$, the relevant results, and jus
   - *zero* ($0$) and *one* ($1$).
 
   - *addition* ($+$) and *multiplication* ($*$).
+
+  - *less than or equals* ($<=$)
 ]<pa_lang>
 
 We define the *successor function* by $S(n) equiv n + 1$.
 
 Note that the full language of our meta-theory is $LT = LFOL union LA$. We will encode these in the syntax of Welkin; see @semantics.
 
-#definition[
-  The theory *Robinson Arithmetic* $bold("Q")$ contains the following axioms:
 
+#definition[
+  The theory *Robinson Arithmetic* $bold("Q")$ contains axioms:
+
+
+  #equation_block(prefix: "Q", [
+    - $forall x. x + 1 != 0$
+    - $forall x. forall y. x + 1 = y + 1 -> x + y$
+    - $forall x. (x != 0 -> exists y. x = y + 1)$
+    - $forall x. x + 0 = x$
+    - $forall x.forall y.(x + (y + 1) = (x + y) + 1)$
+    - $forall x.forall y.x * (y + 1) = x * y + x$
+    - $forall x. x * 0 = 0$
+    - $forall x.forall y.x * (y + 1) = x * y + x$
+  ])
+
+  We define inequality via $x <= y equiv exists z.z + x = y$.
 
   The theory $PA = bold("Q") union {I}$, where the *induction schema*, denoted by $I$, is defined for each first-order formula $phi$ in $LA$:
 
-  $phi(0) and forall n (phi(n) -> phi(n+1)) -> forall n phi(n)$
+  #labeled_equation[
+    $phi(0) and forall n (phi(n) -> phi(n+1)) -> forall n phi(n)$
+  ]
 ]<pa_axioms>
 
-$PA$ enjoys several properties.
+$PA$ enjoys several properties. We will define the first in depth, but it is cited here for clarity.
 
 #theorem[
   $PA$ proves the following:
 
-  - _Every Primitive Recursive Function (PRF) is total._
+  - Every Primitive Recursive Function (PRF) is total.
 
-  - $PA$ _is *only* infinitely axiomatizable._
+  - $PA$ is infinitely axiomatizable but not finitely so.
 ]
 
-We choose $PA$ as a well-established theorem and a reasonable "minimal" theory. This contrasts with $Q$, which is too weak for computability proofs without induction, as well as $ZFC$, which depends on a much larger proof ordinal. Striking a balance, namely with the totality of all PRFS, is quntiessential to the guarantees provided by this thesis. Seeking more minutely minimal theories, possibly with a "weaker" induction schema, would not be productive.
-Note that any of these proofs can be _astronomically large_, but the point is to work in a theory where they are _possible_.
+We choose $PA$ as a well-established theorem and a reasonable "minimal" theory. This contrasts with $bold("Q")$, which is too weak for computability proofs without induction, as well as $ZFC$, which has oa much larger proof ordinal. Welkin requires a rich enough theory that can _directly_ encode its core proofs, even with added verbosity. Note that any of these proofs can be _astronomically large_, but the point is to work in a theory where they are _possible_.
 
-Note that from the work of Sergei Artemov, there is a weak form consistency that can be proven in $PA$ _and_ $ZFC$, separately. However, $PA$ is needed as a meta-theory to ensure that Welkin is self-contained; see more in Boostrap for details.
+Note that from the work of Sergei Artemov, there is a weak form consistency that can be proven in $PA$ _and_ $ZFC$, separately. However, $PA$ is needed as a meta-theory to ensure that Welkin is self-contained; see more in Boostrap for details. $PA$ can also be used to _define_ Turing machines, which we explore next.
+
+== Turing Machines
+
+#definition[
+  A *Turing machine* is a tuple (Q, )
+]
 
 == Explicit Computability
 
 #let Hom = math.text("Hom")
+
+We now enter the first original results produced for this thesis.
 
 *Definition.* An *Explicit Turing Machine (ETM)* is a 3-tape Turing machine with
 the following restrictions:

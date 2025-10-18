@@ -13,6 +13,15 @@
 #let large-size = 11.74988pt
 #let text_font = "STIX Two Text"
 
+#let FIGURE_BODY_STYLES = (
+  "theorem": "italic",
+  "lemma": "italic",
+  "corollary": "italic",
+  "definition": "normal"
+  "remark": "normal"
+)
+
+
 // This function gets your whole document as its `body` and formats
 // it as an article in the style of the American Mathematical Society.
 #let ams_article(
@@ -160,33 +169,38 @@
     it
   }
 
-  // Theorems.
+  // Styling for theorems, definitions, and remarks
   show figure.where(kind: "theorem"): set align(start)
   show figure.where(kind: "theorem"): it => block(spacing: 11.5pt, {
-    strong({
-      it.supplement
-      if it.numbering != none {
-        [ ]
-        it.counter.display(it.numbering)
-      }
-      [.]
-    })
+    // Label is BOLD
+    strong(figure_label(it))
     [ ]
+    // Body is italic (using emph reinforces the local styling from the function)
     emph(it.body)
   })
 
-  // Definitions.
+  // 2. Rule for Definitions (kind: "definition")
+  // Label: BOLD & Upright. Body: Upright.
   show figure.where(kind: "definition"): set align(start)
   show figure.where(kind: "definition"): it => block(spacing: 11.5pt, {
-    strong({
-      it.supplement
-      if it.numbering != none {
-        [ ]
-        it.counter.display(it.numbering)
-      }
-      [.]
-    })
+    // Label is BOLD
+    strong(figure_label(it))
     [ ]
+    // Body is upright
+    it.body
+  })
+
+  // 3. Rule for Remarks (kind: "remark")
+  // Label: ITALIC & Regular Weight. Body: Upright.
+  show figure.where(kind: "remark"): set align(start)
+  show figure.where(kind: "remark"): it => block(spacing: 11.5pt, {
+    // Label is ITALIC and Regular Weight
+    {
+      set text(weight: "regular", style: "italic")
+      figure_label(it)
+    }
+    [ ]
+    // Body is upright
     it.body
   })
 
@@ -257,35 +271,99 @@
   }
 }
 
-// The ASM template also provides a theorem function.
-#let theorem(body, numbered: true) = figure(
+#let fig-block(kind, supplement, body, numbered: true) = {
+  figure(
+    body,
+    kind: kind,
+    supplement: supplement,
+    numbering: if numbered { n => counter(heading).display() + [#n] },
+  )
+}
+
+#let theorem(body, numbered: true) = fig-block(
+  "theorem",
+  [Theorem],
+  {
+    set text(style: "italic")
+    body
+  },
+  numbered: numbered,
+)
+#let lemma(body, numbered: true) = fig-block(
+  "theorem",
+  [Lemma],
+  {
+    set text(style: "italic")
+    body
+  },
+  numbered: numbered,
+)
+#let corollary(body, numbered: true) = fig-block(
+  "theorem",
+  [Corollary],
+  {
+    set text(style: "italic")
+    body
+  },
+  numbered: numbered,
+)
+
+#let definition(body, numbered: true) = fig-block(
+  "definition",
+  [Definition],
+  {
+    set text(style: "normal")
+    body
+  },
+  numbered: numbered,
+)
+
+#let remark(body, numbered: true) = figure(
   body,
-  kind: "theorem",
-  supplement: [Theorem],
+  kind: "remark",
+  supplement: [
+    #set text(weight: "regular", style: "italic")
+    Remark
+  ],
   numbering: if numbered { n => counter(heading).display() + [#n] },
 )
 
-// Adapted from theorem
-#let lemma(body, numbered: true) = figure(
-  body,
-  kind: "theorem",
-  supplement: [Lemma],
-  numbering: if numbered { n => counter(heading).display() + [#n] },
-)
+// This function creates a scoped environment for a list of equations.
+#let equation_block(prefix: "E", body) = {
+  let counter = counter("block-eq-counter")
+  counter.update(0)
 
-#let corollary(body, numbered: true) = figure(
-  body,
-  kind: "theorem",
-  supplement: [Corollary],
-  numbering: if numbered { n => counter(heading).display() + [#n] },
-)
+  let marker-func = {
+    let label = "(" + prefix + context (counter.display()) + ")"
+    counter.step()
 
-#let definition(body, numbered: true) = figure(
-  body,
-  kind: "definition",
-  supplement: [Definition],
-  numbering: if numbered { n => counter(heading).display() + [#n] },
-)
+    box(align(left, strong(label)), width: 3em)
+  }
+
+  set list(
+    marker: marker-func,
+    indent: 0em, // No overall block indent
+    body-indent: 1.5em, // Space between the label and the equation
+  )
+
+  block(body)
+}
+
+#let labeled_equation(label: "I", content) = {
+  set math.equation(numbering: none, supplement: none)
+
+  let final_label = "(" + label + ")"
+  let label_box = box(align(left, strong(final_label)), width: 3em)
+
+  block({
+    grid(
+      columns: (4.5em, auto, 1fr),
+      // Left buffer, equation content, label width
+      align: (center + horizon),
+      label_box, content, [],
+    )
+  })
+}
 
 
 // And a function for a proof.
