@@ -77,10 +77,6 @@ $PA$ enjoys several properties. We will define the first in depth, but it is cit
 
 #theorem[
   $PA$ proves the following:
-
-  - Every Primitive Recursive Function (PRF) is total.
-
-  - $PA$ is infinitely axiomatizable but not finitely so.
 ]
 
 We choose $PA$ as a well-established theorem and a reasonable "minimal" theory. This contrasts with $bold("Q")$, which is too weak for computability proofs without induction, as well as $ZFC$, which has oa much larger proof ordinal. Welkin requires a rich enough theory that can _directly_ encode its core proofs, even with added verbosity. Note that any of these proofs can be _astronomically large_, but the point is to work in a theory where they are _possible_.

@@ -173,21 +173,6 @@
       [.]
     })
     [ ]
-    emph(it.body)
-  })
-
-  // show figure.where(kind: "definition"): set counter(figure, theorem_counter)
-  show figure.where(kind: "definition"): set align(start)
-  show figure.where(kind: "definition"): it => block(spacing: 11.5pt, {
-    strong({
-      it.supplement
-      if it.numbering != none {
-        [ ]
-        it.counter.display(it.numbering)
-      }
-      [.]
-    })
-    [ ]
     it.body
   })
 
