@@ -27,6 +27,8 @@
 
 #include "foundations.typ"
 
+#include "information_systems.typ"
+
 #include "syntax.typ"
 
 #include "semantics.typ"

@@ -25,19 +25,12 @@ However, these theories lack a suitable _semantics_. These were expanded upon in
 
 This thesis proposes to rexamine a topic in the literature: the notion of _information_. Using the etymology in Latin, "to form", this thesis develops a formalized programming language to organize information.This provides the missing link to the _semantics_ of information, more so than labels within Knowledge Graphs or ones commonly used in AI.
 
-Past studies have looked into using data . More recently, AI is gaining a prominent role in managing large swarthes of data.
-
-
-These statistics point to an overwhelming problem: the difficulty to _organize_ this data. The state of academia provides a clear case study: *each* journal has their own formatting guidelines, often with their a custom citation style. Seeking data through manual reading is ineffec
-
-
-- In mathematics,
-
-- In the sciences, there is an estimated
-
-The behemoth of data gives way for the need
-
-
 == Goals
 
-The aim of this thesis is to create a formalized programing language, called Welkin, derived from an archaic German word meaning "sky, heavens".
+The aim of this thesis is to create a formalized programing language, called Welkin, derived from an archaic German word meaning "sky, heavens". The key goals outline the defencies observed in the formalisms above:
+
+-
+
+-
+
+-

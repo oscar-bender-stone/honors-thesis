@@ -4,11 +4,13 @@
 #import "template/ams-article.typ": (
   definition, equation_block, labeled_equation, lemma, remark, theorem,
 )
+#import "template/ams-article.typ": proof
 
 = Foundations
 
 We introduce the base theory needed for this thesis. We will keep it self-contained;
 additional references will be provided in each sub-section.
+We introduce an informal, set-theoretic definition, followed by the appropriate encoding into the meta-theory.
 
 #let PA = math.bold("PA")
 #let ZFC = math.bold("ZFC")
@@ -25,6 +27,8 @@ The foundations of Welkin are based on the first-order theory of Peano Arithmeti
   - *quantifiers* called *forall* $forall$ and *exists* $exists$
   - *left/right parantheses* ()
 ]<fol_lang>
+
+We will restrict our _primary_ language to ensure simplicity of the checker, but extra notation is added throughout in a meta-theoretic sense.
 
 == Peano Arithmetic
 
@@ -90,33 +94,25 @@ $PA$ enjoys several properties. We will define the first in depth, but it is cit
 
 We choose $PA$ as a well-established theorem and a reasonable "minimal" theory. This contrasts with $bold("Q")$, which is too weak for computability proofs without induction, as well as $ZFC$, which has oa much larger proof ordinal. Welkin requires a rich enough theory that can _directly_ encode its core proofs, even with added verbosity. Note that any of these proofs can be _astronomically large_, but the point is to work in a theory where they are _possible_.
 
-Note that from the work of Sergei Artemov, there is a weak form consistency that can be proven in $PA$ _and_ $ZFC$,separately. However, $PA$ is needed as a meta-theory to ensure that Welkin is self-contained; see more in Boostrap for details. $PA$ can also be used to _define_ Turing machines, which we explore in a later section (see <turing_machines>)
+Note that from the work of Sergei Artemov, there is a weak form consistency that can be proven in $PA$ _and_ $ZFC$,separately. However, $PA$ is needed as a meta-theory to ensure that Welkin is self-contained; see more in Boostrap for details. $PA$ can also be used to _define_ Turing machines, which we next.
 
 
-== Structures <structures>
+== Set Theoretic Notions
 
-In FOL, the usual definition of a structure relies on a tuple of finitely many relations and function symbols on a domain. We simplify the definition; this will be expanded upon in @semantics.
-
-
+We wish to define our notions in terms of set-theory, as that is predominant in the definitions of computability. To do this, we introduce suitable _encodings_ into PA. We will elaborate when necessary.
 
 
 #definition[
-  A *structure* is a *bigraph*, namely a tuple $(X, T, G)$, where
-  - $X$ is a *domain*, a set of binary strings
-  - $T$ is a tree on $X$, the *hierarchy* of $X$. We make this more precise with the following constructors:
-    - We add a symbol $emptyset in.not X$ called the *root*.
-    - There is a *parent function* $p: X -> X union {emptyset}$ that is surjective. The preimage $p^(-1)(x)$ is the set of *children of $x$*. this can be encoded by a binary predicate $phi_p$ such that it is functional,
+  We encode the following set-theoretic notions recursively:
+  -
 
-      $forall x. forall y_1. forall y_2. (p(x, y_1) and p(x, y_2) -> y_1 = y_2)$
+]<basic_set_theory>
 
-      and surjective,
 
-      $forall x. exists y. p(y, x)$.
-  - $G$ is a *hypergraph* on $X$, encoded by a definable binary predicate $phi_G$ in $PA$.
-]
 
-Any hypergraph can be used to represent a FOL-structure via a disjoint; the latter can then be considered to be an indexed family of relations.
+- Instead of considering arbitrary alphabets, we consider binary ${0, 1}$.
 
+- Any finite set is encoded by a natural numb3er
 
 == Turing Machines <turing_machines>
 
@@ -126,13 +122,14 @@ Any hypergraph can be used to represent a FOL-structure via a disjoint; the latt
   - $Sigma$ is a finite *alphabet*
   - $Gamma$ is a finite set of *tape symbols*
   - $delta: Q times Gamma -> Q times Gamma times {L, R}$ is a *transition function*, where ${L, R}$ denote directions *left* and *right*, respectively.
-
-  For simplicity, we will fix $Sigma = {0, 1}$ for all Turing machines.
 ]
 
-#remark[
-  Because of the Löwenheim-Skolem Theorem, we cannot _define_ a finite set in first-order logic with a single formula. Non-standard behavior occurs and is often uncomptuable. To best standardize our theory, we only rely on the theorems provable in Peano Arithmetic proper. Thus, these definitions *must* be taken to be inductively defined over binary strings; this is made more precise in @bootstrap.
-]
+The encoding of TMs is more involved but possible through several mechanisms.
+
+#definition()[
+  Let $T$ be a TM. The *description* $d_T$ of a Turing machine is the encoding of its transition
+  diagram into a standard format.
+]<turing_machine_description>
 
 == Explicit Computability
 
@@ -140,20 +137,20 @@ Any hypergraph can be used to represent a FOL-structure via a disjoint; the latt
 
 We now enter the first original results produced for this thesis.
 
-*Definition.* An *Explicit Turing Machine (ETM)* is a 2-tape Turing machine with
-the following restrictions:
+#definition[
+  An *Explicit Turing Machine (ETM)* is a 2-tape Turing machine with
+  the following restrictions:
 
-- *Read Tape:* the only transitions allowed are those labeled with right (R)
+  - *Read Tape:* the only transitions allowed are those labeled with right (R)
 
-- *Work Tape:* this cannot contain any inner loops. Can access the read and stack
-  tapes.
+  - *Work Tape:* this cannot contain any inner loops. Can access the read and stack
+    tapes.
 
-- *Stack Tape:* used ONLY as a stack.
+  A function computable by an ETM is said to be *explicitly computable*.
 
-A function computable by an ETM is said to be *explicitly computable*.
+]
 
-*Lemma.*
-#emph[
+#lemma[
   ETMs are closed under:
 
   - Composition
@@ -165,43 +162,47 @@ A function computable by an ETM is said to be *explicitly computable*.
   - Kleene Star
 ]
 
-To explore transformations between Turing machines, we first introduce their encodings.
-
-*Definition* The *description* of a Turing machine is the encoding of its transition
-diagram into a standard format.
-
-*Definition.* Let $M_1, M_2$ be Turing machines. An *explicit transformation*
-$tau: M_1 -> M_2$ is an explicitly computable function from the description of $M_1$
-to the description of $M_2$.
+#definition[
+  Let $M_1, M_2$ be Turing machines. An *explicit transformation*
+  $tau: M_1 -> M_2$ is an explicitly computable function from the description of $M_1$
+  to the description of $M_2$.
+]
 
 As a natural consequence of the Lemma above,
 we can completely determine the explicitly computable transformations _only_ with
 explicit functions.
 
-*Lemma*. _Let $M_1, M_2$ be Turing machines. Then there is an explicitly computable $sigma$
-that enumerates through all explicit transformations of $M_1$ to $M_2$. We
-write $cal(E)(M_1, M_2)$ as the set of explicit transformations._
+#lemma[
+  Let $M_1, M_2$ be Turing machines. Then there is an explicitly computable $sigma$
+  that enumerates through all explicit transformations of $M_1$ to $M_2$. We
+  write $cal(E)(M_1, M_2)$ as the set of explicit transformations.
+]
 
 == Verifiability and RE Languages
 
-*Definition.* Let $cal(L)$ be a language. A *verifier* $V$ of $cal(L)$ is a decider
-such that:
+#definition[
+  Let $cal(L)$ be a language. A *verifier* $V$ of $cal(L)$ is a decider
+  such that:
+]
 
 $ cal(L) = {w | exists c. (w, c) in L(V)} $
 
 If a verifier of $cal(L)$ exists, then $cal(L)$ is *verifiable*. Moreover, we say $cal(L)$
 is *explicitly verifiable* if some verifier $V$ is explicit.
 
-*Theorem.* _A language is recursively enumerable if and only if it explicitly verifiable._
+#theorem[
+  A language is recursively enumerable if and only if it explicitly verifiable.
+]
 
 _Proof._ $qed$
 
 This provides the bedrock of our main definition, inspired by Hoprocroft et. al.
 
-*Definition.*
-- A *problem* is an explicitly verifiable language.
-- A *problem instance* is any binary string.
-- A *solution* to a problem $P$ is a Turing machine that recognizes $P$.
+#definition[
+  - A *problem* is an explicitly verifiable language.
+  - A *problem instance* is any binary string.
+  - A *solution* to a problem $P$ is a Turing machine that recognizes $P$.
+]
 
 == Bases For Turing Machines
 
@@ -253,32 +254,42 @@ _Proof_ $qed$
 We generalize a basis to include rewrite components. This will be the starting point
 for discussing the optimality of the semantics.
 
-*Definition.* Let $(A, f)$ be a basis on $tms$. The *Mereological
-Category* $cal(C)(A, f)$ is the largest category closed under explicit
-transformations on $fin(cal(A))$. In detail, it contains:
-- Objects: $fin(cal(A))$.
-- Morphisms: $Hom(A_1, A_2) = cal(E)(g^(-1)(A_1), g^(-1)(A_2))$. If $Hom(A_1, A_2) != emptyset$,
-  then we write $A_1 -> A_2$.
-*Definition.* A *progress theorem* is a proposition $p$ of the
-form $forall A. exists D_A. forall B. D_A (B) => B -> A$
-where $D_A$ is a family of explicitly computable unary predicates called the *progress predicate of $p$*.
-We say a Mereological Category has *progress $p$* if it satisfies $p$. Note that $A$
-may be free in $D_A$. We write $Prog(cal(C))$ for the set of progress theorems satisfied
-by $cal(C)$.
+#definition[
+  Let $(A, f)$ be a basis on $tms$. The *Mereological
+  Category* $cal(C)(A, f)$ is the largest category closed under explicit
+  transformations on $fin(cal(A))$. In detail, it contains:
+  - Objects: $fin(cal(A))$.
+  - Morphisms: $Hom(A_1, A_2) = cal(E)(g^(-1)(A_1), g^(-1)(A_2))$. If $Hom(A_1, A_2) != emptyset$,
+    then we write $A_1 -> A_2$.
+]
 
-*Definition.* A Mereological Category has *universal progress* if the *Universal Progress Theorem (UPT)*
-holds: for every $A in cal(A)$,
-there is a $N$ such that, for every $B$ with $N$ elements, $B -> A$.
-This ensures the existence of $m: fin(cal(A)) -> NN$, given by
-$m(A) = min {N | forall B, |B| >= N. B -> A}$.
+#definition[
+  *Definition.* A *progress theorem* is a proposition $p$ of the
+  form $forall A. exists D_A. forall B. D_A (B) => B -> A$
+  where $D_A$ is a family of explicitly computable unary predicates called the *progress predicate of $p$*.
+  We say a Mereological Category has *progress $p$* if it satisfies $p$. Note that $A$
+  may be free in $D_A$. We write $Prog(cal(C))$ for the set of progress theorems satisfied
+  by $cal(C)$.
+]
 
-*Definition.* The category of Mereological Categories with universal progress consists
-of:
+#definition[
+  A Mereological Category has *universal progress* if the *Universal Progress Theorem (UPT)*
+  holds: for every $A in cal(A)$,
+  there is a $N$ such that, for every $B$ with $N$ elements, $B -> A$.
+  This ensures the existence of $m: fin(cal(A)) -> NN$, given by
+  $m(A) = min {N | forall B, |B| >= N. B -> A}$.
+]
 
-- Objects: Mereological Categories.
+#definition[
+  The category of Mereological Categories with universal progress consists
+  of:
 
-- Morphisms: $sigma: cal(C)(A_1, f_1) -> cal(C)(A_2, f_2)$ are the faithful functors.
+  - Objects: Mereological Categories.
 
-Our goal is to find the final object in this meta-category above with universal progress.
+  - Morphisms: $sigma: cal(C)(A_1, f_1) -> cal(C)(A_2, f_2)$ are the faithful functors.
 
-== Optimality of Decompositions
+  Our goal is to find the final object in this meta-category above with universal progress.
+]
+
+
+
