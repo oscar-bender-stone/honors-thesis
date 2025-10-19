@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 #import "template/ams-article.typ": (
-  definition, equation_block, labeled_equation, lemma, theorem,
+  definition, equation_block, labeled_equation, lemma, remark, theorem,
 )
 
 = Foundations
@@ -42,15 +42,21 @@ Now we introduce the full list of axioms for $PA$, the relevant results, and jus
   - *addition* ($+$) and *multiplication* ($*$).
 
   - *less than or equals* ($<=$)
+
+  We add two informal abbreviations:
+
+  - *successor function* $S$, given by: $S(n) equiv N + 1$
+
+  - *inequality*, given by: $x <= y equiv exists z.z + x = y$
 ]<pa_lang>
 
-We define the *successor function* by $S(n) equiv n + 1$.
+
 
 Note that the full language of our meta-theory is $LT = LFOL union LA$. We will encode these in the syntax of Welkin; see @semantics.
 
 
 #definition[
-  The theory *Robinson Arithmetic* $bold("Q")$ contains axioms:
+  The theory *Robinson Arithmetic* $bold("Q")$ contains the following axioms:
 
 
   #equation_block(prefix: "Q", [
@@ -64,29 +70,60 @@ Note that the full language of our meta-theory is $LT = LFOL union LA$. We will 
     - $forall x.forall y.x * (y + 1) = x * y + x$
   ])
 
-  We define inequality via $x <= y equiv exists z.z + x = y$.
 
-  The theory $PA = bold("Q") union {I}$, where the *induction schema*, denoted by $I$, is defined for each first-order formula $phi$ in $LA$:
+  The theory $PA = bold("Q") union bold("I")$, where $bold("I")$ is an *induction schema*, defined over each first-order formula $phi$ in $LA$:
 
   #labeled_equation[
     $phi(0) and forall n (phi(n) -> phi(n+1)) -> forall n phi(n)$
-  ]
+  ]<induction>
 ]<pa_axioms>
 
 $PA$ enjoys several properties. We will define the first in depth, but it is cited here for clarity.
 
 #theorem[
   $PA$ proves the following:
+
+  - Every Primitive Recursive Function (PRF) is total.
+
+  - $PA$ is infinitely axiomatizable but not finitely so.
 ]
 
 We choose $PA$ as a well-established theorem and a reasonable "minimal" theory. This contrasts with $bold("Q")$, which is too weak for computability proofs without induction, as well as $ZFC$, which has oa much larger proof ordinal. Welkin requires a rich enough theory that can _directly_ encode its core proofs, even with added verbosity. Note that any of these proofs can be _astronomically large_, but the point is to work in a theory where they are _possible_.
 
-Note that from the work of Sergei Artemov, there is a weak form consistency that can be proven in $PA$ _and_ $ZFC$,separately. However, $PA$ is needed as a meta-theory to ensure that Welkin is self-contained; see more in Boostrap for details. $PA$ can also be used to _define_ Turing machines, which we explore next.
+Note that from the work of Sergei Artemov, there is a weak form consistency that can be proven in $PA$ _and_ $ZFC$,separately. However, $PA$ is needed as a meta-theory to ensure that Welkin is self-contained; see more in Boostrap for details. $PA$ can also be used to _define_ Turing machines, which we explore in a later section (see <turing_machines>)
 
-== Turing Machines
+
+== Structures <structures>
+
+In FOL, the usual definition of a structure relies on a tuple of finitely many relations and function symbols on a domain. We simplify the definition; this will be expanded upon in @semantics.
+
+
+
 
 #definition[
-  A *Turing machine* is a tuple (Q, )
+  A *structure* is a *bigraph*, namely a tuple $(X, T, G)$, where
+  - $X$ is a *domain*, a set of binary strings
+  - $T$ is a tree on $X$, the *hierarchy* of $X$. We make this more precise with the following constructors:
+    - We add a symbol $emptyset in.not X$ called the *root*.
+    - There is a *parent function* $p: X -> X union {emptyset}$ that is surjective. The preimage $p^(-1)(x)$ is the set of *children of $x$*.
+  - $G$ is a hypergraph on $X$, encoded by a definable predicate $phi_G$ in $PA$.
+]
+
+
+== Turing Machines <turing_machines>
+
+#definition[
+  A *Turing machine (TM)* is a 7-tuple $(Q, Sigma, Gamma, delta, q_0, B, F)$, where:
+  - $Q$ is a finite set of *states*
+  - $Sigma$ is a finite *alphabet*
+  - $Gamma$ is a finite set of *tape symbols*
+  - $delta: Q times Gamma -> Q times Gamma times {L, R}$ is a *transition function*, where ${L, R}$ denote directions *left* and *right*, respectively.
+
+  For simplicity, we will fix $Sigma = {0, 1}$ for all Turing machines.
+]
+
+#remark[
+  Because of the Löwenheim-Skolem Theorem, we cannot _define_ a finite set in first-order logic with a single formula. Non-standard behavior occurs and is often uncomptuable. To best standardize our theory, we only rely on the theorems provable in Peano Arithmetic proper. Thus, these definitions *must* be taken to be inductively defined over binary strings; this is made more precise in @bootstrap.
 ]
 
 == Explicit Computability

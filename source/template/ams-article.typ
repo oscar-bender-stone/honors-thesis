@@ -282,7 +282,7 @@
 )
 #let remark(body, numbered: true) = figure_block(
   "normal",
-  [Remark],
+  [_Remark_],
   body,
   numbered: numbered,
 )
