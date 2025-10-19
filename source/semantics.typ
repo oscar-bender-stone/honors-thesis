@@ -3,6 +3,6 @@
 
 = Semantics <semantics>
 
-== Terms ==
+== Terms
 
 We expand upon <structures> to anaylze the ASTs generated from @syntax.
