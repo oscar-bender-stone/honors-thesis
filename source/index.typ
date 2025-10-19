@@ -27,6 +27,10 @@
 
 #include "foundations.typ"
 
+#include "syntax.typ"
+
 #include "semantics.typ"
 
 #include "bootstrap.typ"
+
+#include "conclusion.typ"

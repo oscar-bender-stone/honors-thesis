@@ -105,9 +105,17 @@ In FOL, the usual definition of a structure relies on a tuple of finitely many r
   - $X$ is a *domain*, a set of binary strings
   - $T$ is a tree on $X$, the *hierarchy* of $X$. We make this more precise with the following constructors:
     - We add a symbol $emptyset in.not X$ called the *root*.
-    - There is a *parent function* $p: X -> X union {emptyset}$ that is surjective. The preimage $p^(-1)(x)$ is the set of *children of $x$*.
-  - $G$ is a hypergraph on $X$, encoded by a definable predicate $phi_G$ in $PA$.
+    - There is a *parent function* $p: X -> X union {emptyset}$ that is surjective. The preimage $p^(-1)(x)$ is the set of *children of $x$*. this can be encoded by a binary predicate $phi_p$ such that it is functional,
+
+      $forall x. forall y_1. forall y_2. (p(x, y_1) and p(x, y_2) -> y_1 = y_2)$
+
+      and surjective,
+
+      $forall x. exists y. p(y, x)$.
+  - $G$ is a *hypergraph* on $X$, encoded by a definable binary predicate $phi_G$ in $PA$.
 ]
+
+Any hypergraph can be used to represent a FOL-structure via a disjoint; the latter can then be considered to be an indexed family of relations.
 
 
 == Turing Machines <turing_machines>
@@ -132,7 +140,7 @@ In FOL, the usual definition of a structure relies on a tuple of finitely many r
 
 We now enter the first original results produced for this thesis.
 
-*Definition.* An *Explicit Turing Machine (ETM)* is a 3-tape Turing machine with
+*Definition.* An *Explicit Turing Machine (ETM)* is a 2-tape Turing machine with
 the following restrictions:
 
 - *Read Tape:* the only transitions allowed are those labeled with right (R)
