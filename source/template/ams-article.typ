@@ -175,16 +175,23 @@
   // === CHANGE 4: Remove old figure rule, add new *separate* rules ===
 
   // This helper creates the supplement (e.g., "Theorem 1.1.")
-  let theorem-supplement(it) = {
+  let theorem-supplement(it, style: "bold") = {
     theorem-counter.step() // Use the shared counter
-    strong({
+
+    let content = {
       it.supplement
       if it.numbering != none {
         [ ]
         theorem-counter.display(it.numbering)
       }
       [.]
-    })
+    }
+
+    if style == "bold" {
+      strong(content)
+    } else {
+      emph(content)
+    }
   }
 
   // Rule for Theorems, Lemmas, Corollaries (italic)
@@ -209,7 +216,7 @@
   // Rule for Remarks (normal font, italic supplement)
   show figure.where(kind: "remark"): set align(start)
   show figure.where(kind: "remark"): it => block(spacing: 11.5pt, {
-    emph(theorem-supplement(it))
+    emph(theorem-supplement(it, style: "italic"))
     [ ]
     it.body
   })

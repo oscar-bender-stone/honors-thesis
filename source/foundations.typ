@@ -22,10 +22,11 @@ We introduce an informal, set-theoretic definition, followed by the appropriate 
 The foundations of Welkin are based on the first-order theory of Peano Arithmetic. We will integrate the presentation of both. We only introduce one notion general to first-order logic:
 
 #definition[
-  The *language* of first-order logic consists of the symbols $LFOL = {not and or -> forall exists ()}$, with symbols called:
-  - *connectives*: *not* $not$, *and* $and$, *or* $or$, *implication* $->$
+  The *language* of first-order logic consists of the symbols $LFOL = {not and or -> <-> forall exists ()} union {x_i}$, with symbols called:
+  - *connectives*: *not* $not$, *and* $and$, *or* $or$, *implication* $->$, and *iff* $<->$
   - *quantifiers* called *forall* $forall$ and *exists* $exists$
   - *left/right parantheses* ()
+  - a *variable* $x_i$ for each binary string $i$
 ]<fol_lang>
 
 We will restrict our _primary_ language to ensure simplicity of the checker, limited to the language of Peano Arithmetic, but extra notation is added throughout in a meta-theoretic sense.
@@ -55,24 +56,43 @@ We require the notion of *well-formed formula* to introduce the axioms, specific
   An *atomic formula* in Peano Arithmetic is defined recursivley:
   - *Base case:*
     - The constants $0$ and $1$ are atomic formulas.
-    - Each variable $x_i$ is an atomic formulas.
-  - *Recursive case*: let $alpha$ and $beta$ be atomic formulas. Then $alpha + beta$ and $alpha * beta$ are atomic formulas.
-
+    - Each variable $x_i$ is an atomic formula.
+  - *Recursive case*: let $alpha$ and $beta$ be atomic formulas. Then $alpha + beta$, $alpha * beta$, and $(alpha)$ are atomic formulas.
 ]
 
 #definition[
   A *well-formed formula (wff)* in Peano Arithmetic is defined recursively:
-  - *Base case:* each atomic formula $alpha$ is a wff.
+  - *Base case:*
+    - Each atomic formula $alpha$ is a wff.
+    - For atomic formulas $alpha$ and $beta$, $alpha = beta$ is a  wff.
   - *Recursive case*: let $phi$ and $psi$ be wffs.
+    - *Connectives*: $not phi$, $phi and psi$, $phi or psi$, $phi -> psi$, and $phi <-> psi$ are wffs.
+    - *Quantifiers*: Let $x$ be a variable. Then $forall x. phi$ and $exists x. phi$ are wffs.
 
-  We add two informal abbreviations:
-
-  - *successor function* $S$, given by: $S(n) equiv N + 1$
-
-  - *inequality*, given by: $x <= y equiv exists z.z + x = y$
 ]
 
+#remark[To simplify writing formulas, we add the following:
 
+  - We add two informal abbreviations:
+
+    - *successor function* $S$, given by: $S(n) equiv N + 1$
+
+    - *inequality* $<=$, given by: $x <= y equiv exists z.z + x = y$
+
+  - We assume the binary connectives are *right-associative*. More precisely, for any wffs $phi$, $psi$, and $rho$, we add the following abbreivations:
+    - $phi and psi and rho equiv phi and (psi and rho)$
+
+    - $phi or psi or rho equiv phi or (psi or rho)$
+
+    - $phi or psi or rho equiv phi or (psi or rho)$
+
+    - $phi -> psi -> rho equiv phi -> (psi -> rho)$
+
+    - $phi <-> psi <-> rho equiv phi <-> (psi <-> rho)$
+
+    Note that the third is _crucial_ and without these can lead o ambiguity.
+
+]
 
 Before we introduce proof, we introduce the axioms of $PA$.
 
@@ -97,12 +117,23 @@ Before we introduce proof, we introduce the axioms of $PA$.
   #labeled_equation[
     $phi(0) and forall n (phi(n) -> phi(n+1)) -> forall n phi(n)$
   ]<induction>
+
+
+  We adopt a single rule of inference, namely *modus ponens*:
+
+  #labeled_equation(label: "MP", [
+    $A "and" A -> B "implies" B$
+  ])
+
+  Note that this is a meta-theoretic rule.
 ]<pa_axioms>
 
 
+Now we can define a proof.
 
-
-
+#definition[
+  A *proof* in Peano Arithmetic is defined recursively.
+]
 
 
 $PA$ enjoys several properties. We will define the first in depth, but it is cited here for clarity.
