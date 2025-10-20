@@ -33,6 +33,9 @@
   // The document's content.
   body,
 ) = {
+  // === CHANGE 1: Create a single, shared counter ===
+  let theorem-counter = counter("theorem-shared")
+
   // Formats the author's names in a list with commas and a
   // final "and".
   let names = authors.map(author => author.name)
@@ -99,6 +102,8 @@
 
   // Configure headings.
   set heading(numbering: "1.")
+
+  // === CHANGE 2: Wrap heading 'show' in a block to fix style "leaking" ===
   show heading: it => {
     // Create the heading numbering.
     let number = if it.numbering != none {
@@ -106,27 +111,32 @@
       h(7pt, weak: true)
     }
 
-    // Level 1 headings are centered and smallcaps.
-    // The other ones are run-in.
-    set text(size: normal-size, weight: 400)
-    set par(first-line-indent: 0em)
-    if it.level == 1 {
-      set align(center)
-      set text(size: normal-size)
-      smallcaps[
-        #v(15pt, weak: true)
-        #number
-        #it.body
-        #v(normal-size, weak: true)
-      ]
-      counter(figure.where(kind: "theorem")).update(0)
-    } else {
-      v(11pt, weak: true)
-      number
-      let styled = if it.level == 2 { strong } else { emph }
-      styled(it.body + [. ])
-      h(7pt, weak: true)
-    }
+    // Wrap in a block to scope the `set text` rule
+    block({
+      // Level 1 headings are centered and smallcaps.
+      // The other ones are run-in.
+      set text(size: normal-size, weight: 400) // This is now safely scoped
+      set par(first-line-indent: 0em)
+      if it.level == 1 {
+        set align(center)
+        set text(size: normal-size)
+        smallcaps[
+          #v(15pt, weak: true)
+          #number
+          #it.body
+          #v(normal-size, weak: true)
+        ]
+
+        // === CHANGE 3: Reset the new shared counter ===
+        theorem-counter.update(0)
+      } else {
+        v(11pt, weak: true)
+        number
+        let styled = if it.level == 2 { strong } else { emph }
+        styled(it.body + [. ])
+        h(7pt, weak: true)
+      }
+    })
   }
 
   // Configure lists and links.
@@ -162,16 +172,44 @@
     it
   }
 
-  show figure.where(kind: "theorem"): set align(start)
-  show figure.where(kind: "theorem"): it => block(spacing: 11.5pt, {
+  // === CHANGE 4: Remove old figure rule, add new *separate* rules ===
+
+  // This helper creates the supplement (e.g., "Theorem 1.1.")
+  let theorem-supplement(it) = {
+    theorem-counter.step() // Use the shared counter
     strong({
       it.supplement
       if it.numbering != none {
         [ ]
-        it.counter.display(it.numbering)
+        theorem-counter.display(it.numbering)
       }
       [.]
     })
+  }
+
+  // Rule for Theorems, Lemmas, Corollaries (italic)
+  show figure.where(kind: "theorem"): set align(start)
+  show figure.where(kind: "theorem"): it => block(spacing: 11.5pt, {
+    theorem-supplement(it)
+    [ ]
+    {
+      show strong: s => text(weight: 700, style: "normal", s.body)
+      emph(it.body)
+    }
+  })
+
+  // Rule for Definitions (normal font, preserves bold)
+  show figure.where(kind: "definition"): set align(start)
+  show figure.where(kind: "definition"): it => block(spacing: 11.5pt, {
+    theorem-supplement(it)
+    [ ]
+    it.body
+  })
+
+  // Rule for Remarks (normal font, italic supplement)
+  show figure.where(kind: "remark"): set align(start)
+  show figure.where(kind: "remark"): it => block(spacing: 11.5pt, {
+    emph(theorem-supplement(it))
     [ ]
     it.body
   })
@@ -194,11 +232,13 @@
 
   // Display the abstract
   if abstract != none {
-    v(20pt, weak: true)
-    set text(script-size)
-    show: pad.with(x: 35pt)
-    smallcaps[Abstract. ]
-    abstract
+    block({
+      v(20pt, weak: true)
+      set text(script-size) // Now scoped to this block
+      show: pad.with(x: 35pt)
+      smallcaps[Abstract. ]
+      abstract
+    })
   }
 
   // Display the article's contents.
@@ -214,77 +254,68 @@
   }
 
   // Display details about the authors at the end.
-  v(12pt, weak: true)
-  show: pad.with(x: 11.5pt)
-  set par(first-line-indent: 0pt)
-  set text(script-size)
-
-  for author in authors {
-    let keys = ("department", "organization", "location")
-
-    let dept-str = keys
-      .filter(key => key in author)
-      .map(key => author.at(key))
-      .join(", ")
-
-    smallcaps(dept-str)
-    linebreak()
-
-    if "email" in author [
-      _Email address:_ #link("mailto:" + author.email) \
-    ]
-
-    if "url" in author [
-      _URL:_ #link(author.url)
-    ]
-
+  block({
     v(12pt, weak: true)
-  }
+    show: pad.with(x: 11.5pt)
+    set par(first-line-indent: 0pt)
+    set text(script-size) // Now scoped to this block
+
+    for author in authors {
+      let keys = ("department", "organization", "location")
+
+      let dept-str = keys
+        .filter(key => key in author)
+        .map(key => author.at(key))
+        .join(", ")
+
+      smallcaps(dept-str)
+      linebreak()
+
+      if "email" in author [
+        _Email address:_ #link("mailto:" + author.email) \
+      ]
+
+      if "url" in author [
+        _URL:_ #link(author.url)
+      ]
+
+      v(12pt, weak: true)
+    }
+  })
 }
-#let figure_block(style, supplement, body, numbered: true) = {
-  let styled_body = {
-    set text(style: style)
-    body
-  }
 
-  figure(
-    styled_body,
-    kind: "theorem",
-    supplement: supplement,
-    numbering: if numbered { n => counter(heading).display() + [#n] },
-  )
-}
+// Use a single numbering that applies to all blocks
+#let thm-numbering-format = n => counter(heading).display() + [#n]
 
-
-#let theorem(body, numbered: true) = figure_block(
-  "italic",
-  [Theorem],
+#let theorem(body, numbered: true) = figure(
   body,
-  numbered: numbered,
+  kind: "theorem",
+  supplement: [Theorem],
+  numbering: if numbered { thm-numbering-format },
 )
-#let lemma(body, numbered: true) = figure_block(
-  "italic",
-  [Lemma],
+#let lemma(body, numbered: true) = figure(
   body,
-  numbered: numbered,
+  kind: "theorem",
+  supplement: [Lemma],
+  numbering: if numbered { thm-numbering-format },
 )
-#let corollary(body, numbered: true) = figure_block(
-  "italic",
-  [Corollary],
+#let corollary(body, numbered: true) = figure(
   body,
-  numbered: numbered,
+  kind: "theorem",
+  supplement: [Corollary],
+  numbering: if numbered { thm-numbering-format },
 )
-#let definition(body, numbered: true) = figure_block(
-  "normal",
-  [Definition],
+#let definition(body, numbered: true) = figure(
   body,
-  numbered: numbered,
+  kind: "definition",
+  supplement: [Definition],
+  numbering: if numbered { thm-numbering-format },
 )
-#let remark(body, numbered: true) = figure_block(
-  "normal",
-  [_Remark_],
+#let remark(body, numbered: true) = figure(
   body,
-  numbered: numbered,
+  kind: "remark",
+  supplement: [_Remark_],
+  numbering: if numbered { thm-numbering-format },
 )
 
 
