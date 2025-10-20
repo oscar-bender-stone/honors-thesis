@@ -15,24 +15,20 @@ We introduce an informal, set-theoretic definition, followed by the appropriate 
 #let PA = math.bold("PA")
 #let ZFC = math.bold("ZFC")
 
-== First Order Logic
+== Peano Arithmetic
 
 #let LFOL = $ cal(L)_"FOL" $
 
-The foundations of Welkin are based on the first-order theory of Peano Arithmetic. Before introducing this theory, we review key aspects of first-order logic.
+The foundations of Welkin are based on the first-order theory of Peano Arithmetic. We will integrate the presentation of both. We only introduce one notion general to first-order logic:
 
 #definition[
-  The *language* of first-order logic consists of the symbols $LFOL = {and or -> forall exists ()}$, with symbols called:
-  - *connectives*: *and* $and$, *or* $or$, and *implication* $->$
+  The *language* of first-order logic consists of the symbols $LFOL = {not and or -> forall exists ()}$, with symbols called:
+  - *connectives*: *not* $not$, *and* $and$, *or* $or$, *implication* $->$
   - *quantifiers* called *forall* $forall$ and *exists* $exists$
   - *left/right parantheses* ()
 ]<fol_lang>
 
-We will restrict our _primary_ language to ensure simplicity of the checker, but extra notation is added throughout in a meta-theoretic sense.
-
-== Peano Arithmetic
-
-Now we introduce the full list of axioms for $PA$, the relevant results, and justify why $PA$ is the most "minimal" theory suitable for this language.
+We will restrict our _primary_ language to ensure simplicity of the checker, limited to the language of Peano Arithmetic, but extra notation is added throughout in a meta-theoretic sense.
 
 #let LA = $ cal(L)_A $
 #let LT = $ cal(L)_T $
@@ -46,18 +42,39 @@ Now we introduce the full list of axioms for $PA$, the relevant results, and jus
   - *addition* ($+$) and *multiplication* ($*$).
 
   - *less than or equals* ($<=$)
-
-  We add two informal abbreviations:
-
-  - *successor function* $S$, given by: $S(n) equiv N + 1$
-
-  - *inequality*, given by: $x <= y equiv exists z.z + x = y$
 ]<pa_lang>
 
 
 
 Note that the full language of our meta-theory is $LT = LFOL union LA$. We will encode these in the syntax of Welkin; see @semantics.
 
+We require the notion of *well-formed formula* to introduce the axioms, specific to Peano-Arithmetic.
+
+
+#definition[
+  An *atomic formula* in Peano Arithmetic is defined recursivley:
+  - *Base case:*
+    - The constants $0$ and $1$ are atomic formulas.
+    - Each variable $x_i$ is an atomic formulas.
+  - *Recursive case*: let $alpha$ and $beta$ be atomic formulas. Then $alpha + beta$ and $alpha * beta$ are atomic formulas.
+
+]
+
+#definition[
+  A *well-formed formula (wff)* in Peano Arithmetic is defined recursively:
+  - *Base case:* each atomic formula $alpha$ is a wff.
+  - *Recursive case*: let $phi$ and $psi$ be wffs.
+
+  We add two informal abbreviations:
+
+  - *successor function* $S$, given by: $S(n) equiv N + 1$
+
+  - *inequality*, given by: $x <= y equiv exists z.z + x = y$
+]
+
+
+
+Before we introduce proof, we introduce the axioms of $PA$.
 
 #definition[
   The theory *Robinson Arithmetic* $bold("Q")$ contains the following axioms:
@@ -81,6 +98,12 @@ Note that the full language of our meta-theory is $LT = LFOL union LA$. We will 
     $phi(0) and forall n (phi(n) -> phi(n+1)) -> forall n phi(n)$
   ]<induction>
 ]<pa_axioms>
+
+
+
+
+
+
 
 $PA$ enjoys several properties. We will define the first in depth, but it is cited here for clarity.
 
