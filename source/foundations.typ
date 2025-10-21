@@ -54,65 +54,85 @@ We require the notion of *well-formed formula* to introduce the axioms, specific
 
 
 #definition[
-  An *term* in Peano Arithmetic is defined recursivley:
+  A *term* in Peano Arithmetic is defined recursively:
   - *Base case:*
     - The constants $0$ and $1$ are terms.
     - Each variable $x_i$ is a term.
   - *Recursive case*: let $alpha$ and $beta$ be terms. Then $alpha + beta$, $alpha * beta$, and $(alpha)$ are terms.
+
+  A *constant term* is a term without variables. More precisely:
+  - *Base case:* $0$ and $1$ are constant terms.
+  - *Inductive step*: let $alpha$ and $beta$ be constant terms. Then $alpha + beta$, $alpha * beta$, and $(alpha)$ are constant terms.
 ]
-
-
 
 #definition[
   A *well-formed formula (wff)* in Peano Arithmetic is defined recursively:
-  - *Base case:* each atomic formula $phi$
-    - Each atomic formula $alpha$ is a wff.
-    - For atomic formulas $alpha$ and $beta$, $alpha = beta$ is a  wff.
+  - *Base case:* given terms $alpha$ and $beta$, $alpha = beta$ is a wff.
   - *Recursive case*: let $phi$ and $psi$ be wffs.
     - *Connectives*: $not phi$, $phi and psi$, $phi or psi$, $phi -> psi$, and $phi <-> psi$ are wffs.
     - *Quantifiers*: Let $x$ be a variable. Then $forall x. phi$ and $exists x. phi$ are wffs.
 
 ]
 
-#remark[To simplify writing formulas, we add the following:
+#remark[To simplify writing formulas, we add several abbreviations.
 
-  - We add two informal abbreviations:
+  - We add two symbols:
 
     - *successor function* $S$, given by: $S(n) equiv N + 1$
 
     - *inequality* $<=$, given by: $x <= y equiv exists z.z + x = y$
 
-  - We assume the binary connectives are *right-associative*. More precisely, for any wffs $phi$, $psi$, and $rho$, we add the following abbreivations:
+  - We assume _most_ of the binary connectives are *right-associative*. More precisely, for any wffs $phi$, $psi$, and $rho$, we add the following abbreviations:
     - $phi and psi and rho equiv phi and (psi and rho)$
 
     - $phi or psi or rho equiv phi or (psi or rho)$
 
-    - $phi -> psi -> rho equiv phi -> (psi -> rho)$
-
     - $phi <-> psi <-> rho equiv phi <-> (psi <-> rho)$
 
-    Note that the third is _crucial_ and without these can lead to ambiguity.
+    We exclude $->$ due to a a higher risk of ambiguity. However, in our theory, the remaining connectives are provably associative, and therefore, this notation is permissible (see @fol_axioms).
 
+  - We exclude parantheses between _different_ connectives through the following *order of operations* or *priorities:* first $not$, then either $and$ or $or$, next either $forall$ and $exists$, and finally $->$ and $<->$.
+
+]
+
+#definition[
+  Let $x$ be a variable and $alpha$ be a term. We define when $x$ *occurs* in $alpha$ inductively.
+  - *Base case:*
+    - $x$ does not occur in $0$ and $1$.
+    - $x$ occurs in $x_i$ iff $x = x_i$.
+  - *Inductive step:* let $alpha$ and $beta$ be terms.
+    - $x$ occurs in $(alpha)$ iff $x$ occurs in $alpha$.
+    - $x$ occurs in $alpha + beta$, $alpha * beta$ iff $x$ occurs in both $alpha$ and $beta$.
 ]
 
 
 #definition[
-  Let $x$ be a variable and $phi$ a wff. We recursively define when $x$ is *bound* to $x$.
+  Let $x$ be a variable and $phi$ a wff. We recursively define when $x$ is *bound* to $phi$:
 
+  - *Base case:* for atomic formulas $phi$, $x$ is bound in $phi$ iff $x$ occurs in $phi$.
+  - *Inductive step:* let $phi$, $psi$ be formulas.
+    - $x$ is bound in $not phi$ iff $x$ is bound in $phi$.
+    - $x$ is bound in $not phi$, $phi and psi$, $phi or psi$, $phi -> psi$, and $phi <-> psi$ iff $x$ is bound in both $phi$ and $psi$.
+    - Let $y$ be a variable. Then $x$ is bound in $forall y. phi(y)$, $exists y. phi(y)$ iff either $x = y$ or $x$ is bound in $phi$.
 
-  On the other hand, $x$ is *free* in $phi$ if it is not bound.
+  We say $x$ is *free* in $phi$ if it is not bound in $phi$.
 ]
 
 #definition[
-  A *sentence* is a first-order
+  A *sentence* is a wff with no free variables. For completeness, we define this inductively:
+  - *Base case*: for constant terms $alpha$ and $beta$, $alpha = beta$ is a sentence.
+  - *Recursive case*: let $phi$ and $psi$ be sentences.
+    - *Connectives:* $not phi$, $phi and psi$, $phi or psi$, $phi -> psi$, and $phi <-> psi$ are sentences.
 ]
-
 
 == Peano Arithmetic: Axioms and Proofs
 
 Before we introduce proof, we introduce the axioms of $PA$.
 
-Using this, we can provide the full axioms of $PA$.
+
+#definition[The *axioms of FOL* include:
+
+]<fol_axioms>
 
 
 #definition[
@@ -207,166 +227,4 @@ The encoding of TMs is more involved but possible through several mechanisms.
   Let $T$ be a TM. The *description* $d_T$ of a Turing machine is the encoding of its transition
   diagram into a standard format.
 ]<turing_machine_description>
-
-== Explicit Computability
-
-#let Hom = math.text("Hom")
-
-We now enter the first original results produced for this thesis.
-
-#definition[
-  An *Explicit Turing Machine (ETM)* is a 2-tape Turing machine with
-  the following restrictions:
-
-  - *Read Tape:* the only transitions allowed are those labeled with right (R)
-
-  - *Work Tape:* this cannot contain any inner loops. Can access the read and stack
-    tapes.
-
-  A function computable by an ETM is said to be *explicitly computable*.
-
-]
-
-#lemma[
-  ETMs are closed under:
-
-  - Composition
-
-  - Finite Unions and Finite Intersections
-
-  - Complements
-
-  - Kleene Star
-]
-
-#definition[
-  Let $M_1, M_2$ be Turing machines. An *explicit transformation*
-  $tau: M_1 -> M_2$ is an explicitly computable function from the description of $M_1$
-  to the description of $M_2$.
-]
-
-As a natural consequence of the Lemma above,
-we can completely determine the explicitly computable transformations _only_ with
-explicit functions.
-
-#lemma[
-  Let $M_1, M_2$ be Turing machines. Then there is an explicitly computable $sigma$
-  that enumerates through all explicit transformations of $M_1$ to $M_2$. We
-  write $cal(E)(M_1, M_2)$ as the set of explicit transformations.
-]
-
-== Verifiability and RE Languages
-
-#definition[
-  Let $cal(L)$ be a language. A *verifier* $V$ of $cal(L)$ is a decider
-  such that:
-]
-
-$ cal(L) = {w | exists c. (w, c) in L(V)} $
-
-If a verifier of $cal(L)$ exists, then $cal(L)$ is *verifiable*. Moreover, we say $cal(L)$
-is *explicitly verifiable* if some verifier $V$ is explicit.
-
-#theorem[
-  A language is recursively enumerable if and only if it explicitly verifiable.
-]
-
-_Proof._ $qed$
-
-This provides the bedrock of our main definition, inspired by Hoprocroft et. al.
-
-#definition[
-  - A *problem* is an explicitly verifiable language.
-  - A *problem instance* is any binary string.
-  - A *solution* to a problem $P$ is a Turing machine that recognizes $P$.
-]
-
-== Bases For Turing Machines
-
-#let tms = math.cal("M")
-#let fin(s) = $cal("F")(cal(A))$
-
-Let $tms$ be the set of all Turing machines.
-We examine a suitable lattice-structure on this set provide a semi-lattice
-as a step towards organizational optimality.
-
-*Definition.* Let $cal(A) subset.eq tms$. We say $cal(A)$ *spans* $tms$
-if there is an explicitly computable, surjective $f: tms -> fin(cal(A))$
-such that $cal(A) = {M | f(M) = {M}}$. In this case, we call $f$ an *analyzer* of $cal(A)$.
-
-Analogous to group theory, bases enjoy a computable version of the First Isomorphism
-Theorem.
-
-*Theorem.*
-#emph[
-  Suppose $(cal(A), f)$ is a basis for $tms$. The following hold:
-  - Let $rho$ be the function that takes Turing machines to the smallest Turing machine $M'$
-    such that $f(M) = f(M')$. Then $g = f compose rho$ is an analyzer for $cal(A)$.
-    We call $g$ the *canonical analyzer* w.r.t the basis.
-
-  - The inverse $f^(-1): fin(cal(A)) -> ker(f)$ is explicitly computable; we call
-    this
-    a *synthesizer*. In particular, so is $g^(-1)$, which we call the *canonical synthesizer*
-    (w.r.t. the basis).
-
-  - Define the following operations on Turing machines:
-    - $M_1 union.sq M_2 = g^(-1)(f(M_1) union f(M_2))$
-
-    - $M_1 inter.sq M_2 = g^(-1)(f(M_1) inter f(M_2))$
-
-    Then $union.sq$ and $inter.sq$ are explicitly computable, and $(M_1, union.sq, inter.sq)$
-    is a semi-lattice. We call the induced partial order $M_1 subset.sq.eq M_2 <=> M_1 = M_1 inter.sq M_2$
-    a *part-hood* relation, and the system
-    $(tms, union.sq, inter.sq)$ the *Mereological System* of the basis.
-]
-
-_Proof_ $qed$
-
-== Mereological Rewrite Systems
-
-#let Hom = math.text("Hom")
-#let emptyset = math.diameter
-#let Prog = math.text("Prog")
-
-We generalize a basis to include rewrite components. This will be the starting point
-for discussing the optimality of the semantics.
-
-#definition[
-  Let $(A, f)$ be a basis on $tms$. The *Mereological
-  Category* $cal(C)(A, f)$ is the largest category closed under explicit
-  transformations on $fin(cal(A))$. In detail, it contains:
-  - Objects: $fin(cal(A))$.
-  - Morphisms: $Hom(A_1, A_2) = cal(E)(g^(-1)(A_1), g^(-1)(A_2))$. If $Hom(A_1, A_2) != emptyset$,
-    then we write $A_1 -> A_2$.
-]
-
-#definition[
-  *Definition.* A *progress theorem* is a proposition $p$ of the
-  form $forall A. exists D_A. forall B. D_A (B) => B -> A$
-  where $D_A$ is a family of explicitly computable unary predicates called the *progress predicate of $p$*.
-  We say a Mereological Category has *progress $p$* if it satisfies $p$. Note that $A$
-  may be free in $D_A$. We write $Prog(cal(C))$ for the set of progress theorems satisfied
-  by $cal(C)$.
-]
-
-#definition[
-  A Mereological Category has *universal progress* if the *Universal Progress Theorem (UPT)*
-  holds: for every $A in cal(A)$,
-  there is a $N$ such that, for every $B$ with $N$ elements, $B -> A$.
-  This ensures the existence of $m: fin(cal(A)) -> NN$, given by
-  $m(A) = min {N | forall B, |B| >= N. B -> A}$.
-]
-
-#definition[
-  The category of Mereological Categories with universal progress consists
-  of:
-
-  - Objects: Mereological Categories.
-
-  - Morphisms: $sigma: cal(C)(A_1, f_1) -> cal(C)(A_2, f_2)$ are the faithful functors.
-
-  Our goal is to find the final object in this meta-category above with universal progress.
-]
-
-
 

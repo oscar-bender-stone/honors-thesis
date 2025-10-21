@@ -4,6 +4,7 @@
 // Adapted from typst/templates
 // under the MIT license:
 // https://github.com/typst/templates
+
 // Sizes used across the template.
 #let script-size = 7.97224pt
 #let footnote-size = 8.50012pt
@@ -31,8 +32,17 @@
   bibliography: none,
   // The document's content.
   body,
+  // Front Matter Parameters
+  // Author "thanks" (e.g., funding)
+  thanks: none,
+  // Date of submission
+  date: none,
+  // 2020 Mathematics Subject Classification
+  msc: none,
+  // Keywords
+  keywords: none,
 ) = {
-  // Create a single, shared counter
+  // Create a single, shared counter for theorem-like environments
   let theorem-counter = counter("theorem-shared")
 
   // Formats the author's names in a list with commas and a
@@ -49,6 +59,9 @@
 
   // Set the body font.
   set text(size: normal-size, font: text_font)
+
+  // Set equation numbering to (section.equation)
+  set math.equation(numbering: "(1.1)")
 
   // Configure the page.
   set page(
@@ -89,11 +102,42 @@
       )
     },
 
-    // On the first page, the footer should contain the page number.
+    // Updated footer for metadata on page 1
     footer-descent: 12pt,
     footer: context {
       let i = counter(page).get().first()
       if i == 1 {
+        // Page 1 footer
+        v(1fr) // Push content to bottom of footer area
+
+        // Metadata block
+        if (date, msc, keywords, thanks).any(it => it != none) {
+          set par(first-line-indent: 0pt)
+          set text(script-size)
+
+          // The short line above the metadata
+          line(length: 2em)
+          v(0.5em)
+
+          if thanks != none {
+            show: par.with(first-line-indent: 0pt)
+            thanks
+            v(0.5em, weak: true)
+          }
+
+          if date != none {
+            [#emph[Date:] #date.]
+          }
+          if msc != none {
+            [#emph[2020 Mathematics Subject Classification.] #msc.join(", ").]
+          }
+          if keywords != none {
+            [#emph[Key words and phrases.] #keywords.join(", ").]
+          }
+        }
+
+        // Page number (always at the very bottom-center)
+        v(1em, weak: true)
         align(center, text(size: script-size, [#i]))
       }
     },
@@ -104,17 +148,13 @@
 
   // Wrap heading 'show' in a block to fix style "leaking"
   show heading: it => {
-    // Create the heading numbering.
     let number = if it.numbering != none {
       counter(heading).display(it.numbering)
       h(7pt, weak: true)
     }
 
-    // Wrap in a block to scope the `set text` rule
     block({
-      // Level 1 headings are centered and smallcaps.
-      // The other ones are run-in.
-      set text(size: normal-size, weight: 400) // This is now safely scoped
+      set text(size: normal-size, weight: 400)
       set par(first-line-indent: 0em)
       if it.level == 1 {
         set align(center)
@@ -126,8 +166,9 @@
           #v(normal-size, weak: true)
         ]
 
-        // Reset the new shared counter
         theorem-counter.update(0)
+        // Reset equation counter at each new section
+        counter(math.equation).update(0)
       } else {
         v(11pt, weak: true)
         number
@@ -138,27 +179,22 @@
     })
   }
 
-  // === FIX IS HERE ===
   // Configure lists and links.
-  // Set standard ams-art list markers
   set list(
     marker: ([•], [–], [\*], [.]),
     indent: 20pt,
     body-indent: 5pt,
   )
-  // Set standard ams-art enum markers
   set enum(
     numbering: "1.(a).(i).(A)",
     indent: 20pt,
     body-indent: 5pt,
   )
-  // === END OF FIX ===
 
   show link: set text(font: text_font)
 
-  // Configure equations.
+  // Configure equations (now only sets spacing).
   show math.equation: set block(below: 8pt, above: 9pt)
-  show math.equation: set text(weight: 400)
 
   // Configure citation and bibliography styles.
   set std.bibliography(style: "springer-mathphys", title: [References])
@@ -184,10 +220,12 @@
     it
   }
 
-  // This helper creates the supplement (e.g., "Theorem 1.1.")
-  let theorem-supplement(it) = {
-    theorem-counter.step() // Use the shared counter
+  // Rule for Theorems, Lemmas, Corollaries (italic body, bold supplement)
+  show figure.where(kind: "theorem"): set align(start)
+  show figure.where(kind: "theorem"): it => block(spacing: 11.5pt, {
+    theorem-counter.step()
     strong({
+      // Bold supplement
       it.supplement
       if it.numbering != none {
         [ ]
@@ -195,35 +233,47 @@
       }
       [.]
     })
-  }
-
-  // Rule for Theorems, Lemmas, Corollaries (italic)
-  show figure.where(kind: "theorem"): set align(start)
-  show figure.where(kind: "theorem"): it => block(spacing: 11.5pt, {
-    theorem-supplement(it)
     [ ]
-    // This is the correct way to get italics + nested bold
     {
       show strong: s => text(weight: 700, style: "normal", s.body)
       emph(it.body)
     }
   })
 
-  // Rule for Definitions (normal font, preserves bold)
+  // Rule for Definitions (normal body, bold supplement)
   show figure.where(kind: "definition"): set align(start)
   show figure.where(kind: "definition"): it => block(spacing: 11.5pt, {
-    theorem-supplement(it)
+    theorem-counter.step()
+    strong({
+      // Bold supplement
+      it.supplement
+      if it.numbering != none {
+        [ ]
+        theorem-counter.display(it.numbering)
+      }
+      [.]
+    })
     [ ]
-    it.body // Pass body directly, preserving all formatting
+    it.body
   })
 
-  // Rule for Remarks (normal font, preserves bold)
+  // === FIX IS HERE ===
+  // Rule for Remarks (normal body, italic supplement name, upright number)
   show figure.where(kind: "remark"): set align(start)
   show figure.where(kind: "remark"): it => block(spacing: 11.5pt, {
-    theorem-supplement(it)
-    [ ]
-    it.body // Pass body directly, preserving all formatting
+    theorem-counter.step()
+    // Italicize ONLY the supplement word, not the number.
+    emph(it.supplement)
+    if it.numbering != none {
+      [ ] // Add a space
+      strong(theorem-counter.display(it.numbering))
+    }
+    [.] // Add the period
+    [ ] // Add a space after the supplement
+    it.body
   })
+  // === END OF FIX ===
+
 
   // Display the title and authors.
   v(35pt, weak: true)
@@ -242,11 +292,10 @@
   )
 
   // Display the abstract
-  // Wrap abstract in a block to scope `set text`
   if abstract != none {
     block({
       v(20pt, weak: true)
-      set text(script-size) // Now scoped to this block
+      set text(script-size)
       show: pad.with(x: 35pt)
       smallcaps[Abstract. ]
       abstract
@@ -266,12 +315,11 @@
   }
 
   // Display details about the authors at the end.
-  // Wrap author details in a block to scope `set text`
   block({
     v(12pt, weak: true)
     show: pad.with(x: 11.5pt)
     set par(first-line-indent: 0pt)
-    set text(script-size) // Now scoped to this block
+    set text(script-size)
 
     for author in authors {
       let keys = ("department", "organization", "location")
@@ -302,34 +350,38 @@
 
 #let theorem(body, numbered: true) = figure(
   body,
-  kind: "theorem", // This kind is italic
+  kind: "theorem",
   supplement: [Theorem],
   numbering: if numbered { thm-numbering-format },
 )
 #let lemma(body, numbered: true) = figure(
   body,
-  kind: "theorem", // This kind is italic
+  kind: "theorem",
   supplement: [Lemma],
   numbering: if numbered { thm-numbering-format },
 )
 #let corollary(body, numbered: true) = figure(
   body,
-  kind: "theorem", // This kind is italic
+  kind: "theorem",
   supplement: [Corollary],
   numbering: if numbered { thm-numbering-format },
 )
 #let definition(body, numbered: true) = figure(
   body,
-  kind: "definition", // This kind is normal
+  kind: "definition",
   supplement: [Definition],
   numbering: if numbered { thm-numbering-format },
 )
+
+// === FIX IS HERE ===
+// Removed the markup `_` from around "Remark".
 #let remark(body, numbered: true) = figure(
   body,
-  kind: "remark", // This kind is normal
-  supplement: [_Remark_],
+  kind: "remark",
+  supplement: [Remark],
   numbering: if numbered { thm-numbering-format },
 )
+// === END OF FIX ===
 
 
 // This function creates a scoped environment for a list of equations.
@@ -346,13 +398,15 @@
 
   set list(
     marker: marker-func,
-    indent: 0em, // No overall block indent
-    body-indent: 1.5em, // Space between the label and the equation
+    indent: 0em,
+    body-indent: 1.5em,
   )
 
   block(body)
 }
 
+// This function remains backwards-compatible.
+// Its local `set math.equation` rule overrides the global "(1.1)" style.
 #let labeled_equation(label: "I", content) = {
   set math.equation(numbering: none, supplement: none)
 
@@ -362,7 +416,6 @@
   block({
     grid(
       columns: (4.5em, auto, 1fr),
-      // Left buffer, equation content, label width
       align: (center + horizon),
       label_box, content, [],
     )
@@ -377,13 +430,26 @@
   body
   h(1fr)
 
-  // Add a word-joiner so that the proof square and the last word before the
-  // 1fr spacing are kept together.
   sym.wj
-
-  // Add a non-breaking space to ensure a minimum amount of space between the
-  // text and the proof square.
   sym.space.nobreak
 
   $square.stroked$
 })
+
+// Unnumbered Acknowledgment Section
+#let acknowledgment(body) = {
+  block({
+    set par(first-line-indent: 0em)
+    set align(center)
+    set text(size: normal-size)
+    smallcaps[
+      #v(15pt, weak: true)
+      Acknowledgments
+      #v(normal-size, weak: true)
+    ]
+  })
+
+  set par(first-line-indent: 1.2em)
+  set align(start)
+  body
+}
