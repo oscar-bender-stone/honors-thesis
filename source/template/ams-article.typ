@@ -4,7 +4,6 @@
 // Adapted from typst/templates
 // under the MIT license:
 // https://github.com/typst/templates
-
 // Sizes used across the template.
 #let script-size = 7.97224pt
 #let footnote-size = 8.50012pt
@@ -33,7 +32,7 @@
   // The document's content.
   body,
 ) = {
-  // === CHANGE 1: Create a single, shared counter ===
+  // Create a single, shared counter
   let theorem-counter = counter("theorem-shared")
 
   // Formats the author's names in a list with commas and a
@@ -103,7 +102,7 @@
   // Configure headings.
   set heading(numbering: "1.")
 
-  // === CHANGE 2: Wrap heading 'show' in a block to fix style "leaking" ===
+  // Wrap heading 'show' in a block to fix style "leaking"
   show heading: it => {
     // Create the heading numbering.
     let number = if it.numbering != none {
@@ -127,7 +126,7 @@
           #v(normal-size, weak: true)
         ]
 
-        // === CHANGE 3: Reset the new shared counter ===
+        // Reset the new shared counter
         theorem-counter.update(0)
       } else {
         v(11pt, weak: true)
@@ -139,9 +138,22 @@
     })
   }
 
+  // === FIX IS HERE ===
   // Configure lists and links.
-  set list(indent: 24pt, body-indent: 5pt)
-  set enum(indent: 24pt, body-indent: 5pt)
+  // Set standard ams-art list markers
+  set list(
+    marker: ([•], [–], [\*], [.]),
+    indent: 20pt,
+    body-indent: 5pt,
+  )
+  // Set standard ams-art enum markers
+  set enum(
+    numbering: "1.(a).(i).(A)",
+    indent: 20pt,
+    body-indent: 5pt,
+  )
+  // === END OF FIX ===
+
   show link: set text(font: text_font)
 
   // Configure equations.
@@ -172,26 +184,17 @@
     it
   }
 
-  // === CHANGE 4: Remove old figure rule, add new *separate* rules ===
-
   // This helper creates the supplement (e.g., "Theorem 1.1.")
-  let theorem-supplement(it, style: "bold") = {
+  let theorem-supplement(it) = {
     theorem-counter.step() // Use the shared counter
-
-    let content = {
+    strong({
       it.supplement
       if it.numbering != none {
         [ ]
         theorem-counter.display(it.numbering)
       }
       [.]
-    }
-
-    if style == "bold" {
-      strong(content)
-    } else {
-      emph(content)
-    }
+    })
   }
 
   // Rule for Theorems, Lemmas, Corollaries (italic)
@@ -199,6 +202,7 @@
   show figure.where(kind: "theorem"): it => block(spacing: 11.5pt, {
     theorem-supplement(it)
     [ ]
+    // This is the correct way to get italics + nested bold
     {
       show strong: s => text(weight: 700, style: "normal", s.body)
       emph(it.body)
@@ -210,15 +214,15 @@
   show figure.where(kind: "definition"): it => block(spacing: 11.5pt, {
     theorem-supplement(it)
     [ ]
-    it.body
+    it.body // Pass body directly, preserving all formatting
   })
 
-  // Rule for Remarks (normal font, italic supplement)
+  // Rule for Remarks (normal font, preserves bold)
   show figure.where(kind: "remark"): set align(start)
   show figure.where(kind: "remark"): it => block(spacing: 11.5pt, {
-    emph(theorem-supplement(it, style: "italic"))
+    theorem-supplement(it)
     [ ]
-    it.body
+    it.body // Pass body directly, preserving all formatting
   })
 
   // Display the title and authors.
@@ -238,6 +242,7 @@
   )
 
   // Display the abstract
+  // Wrap abstract in a block to scope `set text`
   if abstract != none {
     block({
       v(20pt, weak: true)
@@ -261,6 +266,7 @@
   }
 
   // Display details about the authors at the end.
+  // Wrap author details in a block to scope `set text`
   block({
     v(12pt, weak: true)
     show: pad.with(x: 11.5pt)
@@ -291,36 +297,36 @@
   })
 }
 
-// Use a single numbering that applies to all blocks
+// This is the single numbering format all our environments will use
 #let thm-numbering-format = n => counter(heading).display() + [#n]
 
 #let theorem(body, numbered: true) = figure(
   body,
-  kind: "theorem",
+  kind: "theorem", // This kind is italic
   supplement: [Theorem],
   numbering: if numbered { thm-numbering-format },
 )
 #let lemma(body, numbered: true) = figure(
   body,
-  kind: "theorem",
+  kind: "theorem", // This kind is italic
   supplement: [Lemma],
   numbering: if numbered { thm-numbering-format },
 )
 #let corollary(body, numbered: true) = figure(
   body,
-  kind: "theorem",
+  kind: "theorem", // This kind is italic
   supplement: [Corollary],
   numbering: if numbered { thm-numbering-format },
 )
 #let definition(body, numbered: true) = figure(
   body,
-  kind: "definition",
+  kind: "definition", // This kind is normal
   supplement: [Definition],
   numbering: if numbered { thm-numbering-format },
 )
 #let remark(body, numbered: true) = figure(
   body,
-  kind: "remark",
+  kind: "remark", // This kind is normal
   supplement: [_Remark_],
   numbering: if numbered { thm-numbering-format },
 )

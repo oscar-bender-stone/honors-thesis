@@ -15,7 +15,7 @@ We introduce an informal, set-theoretic definition, followed by the appropriate 
 #let PA = math.bold("PA")
 #let ZFC = math.bold("ZFC")
 
-== Peano Arithmetic
+== Well-formed Formulas
 
 #let LFOL = $ cal(L)_"FOL" $
 
@@ -23,9 +23,10 @@ The foundations of Welkin are based on the first-order theory of Peano Arithmeti
 
 #definition[
   The *language* of first-order logic consists of the symbols $LFOL = {not and or -> <-> forall exists ()} union {x_i}$, with symbols called:
-  - *connectives*: *not* $not$, *and* $and$, *or* $or$, *implication* $->$, and *iff* $<->$
-  - *quantifiers* called *forall* $forall$ and *exists* $exists$
-  - *left/right parantheses* ()
+  - *Unary connective*: *not* $not$
+  - *Binary connectives*: *and* $and$, *or* $or$, *implication* $->$, and *iff* $<->$
+  - *Quantifiers* called *for all* $forall$ and *exists* $exists$
+  - *Left/Right parantheses* ()
   - a *variable* $x_i$ for each binary string $i$
 ]<fol_lang>
 
@@ -53,16 +54,18 @@ We require the notion of *well-formed formula* to introduce the axioms, specific
 
 
 #definition[
-  An *atomic formula* in Peano Arithmetic is defined recursivley:
+  An *term* in Peano Arithmetic is defined recursivley:
   - *Base case:*
-    - The constants $0$ and $1$ are atomic formulas.
-    - Each variable $x_i$ is an atomic formula.
-  - *Recursive case*: let $alpha$ and $beta$ be atomic formulas. Then $alpha + beta$, $alpha * beta$, and $(alpha)$ are atomic formulas.
+    - The constants $0$ and $1$ are terms.
+    - Each variable $x_i$ is a term.
+  - *Recursive case*: let $alpha$ and $beta$ be terms. Then $alpha + beta$, $alpha * beta$, and $(alpha)$ are terms.
 ]
+
+
 
 #definition[
   A *well-formed formula (wff)* in Peano Arithmetic is defined recursively:
-  - *Base case:*
+  - *Base case:* each atomic formula $phi$
     - Each atomic formula $alpha$ is a wff.
     - For atomic formulas $alpha$ and $beta$, $alpha = beta$ is a  wff.
   - *Recursive case*: let $phi$ and $psi$ be wffs.
@@ -84,17 +87,33 @@ We require the notion of *well-formed formula* to introduce the axioms, specific
 
     - $phi or psi or rho equiv phi or (psi or rho)$
 
-    - $phi or psi or rho equiv phi or (psi or rho)$
-
     - $phi -> psi -> rho equiv phi -> (psi -> rho)$
 
     - $phi <-> psi <-> rho equiv phi <-> (psi <-> rho)$
 
-    Note that the third is _crucial_ and without these can lead o ambiguity.
+    Note that the third is _crucial_ and without these can lead to ambiguity.
 
 ]
 
+
+#definition[
+  Let $x$ be a variable and $phi$ a wff. We recursively define when $x$ is *bound* to $x$.
+
+
+  On the other hand, $x$ is *free* in $phi$ if it is not bound.
+]
+
+#definition[
+  A *sentence* is a first-order
+]
+
+
+== Peano Arithmetic: Axioms and Proofs
+
 Before we introduce proof, we introduce the axioms of $PA$.
+
+Using this, we can provide the full axioms of $PA$.
+
 
 #definition[
   The theory *Robinson Arithmetic* $bold("Q")$ contains the following axioms:
@@ -119,21 +138,25 @@ Before we introduce proof, we introduce the axioms of $PA$.
   ]<induction>
 
 
-  We adopt a single rule of inference, namely *modus ponens*:
+  We adopt a single rule of inference, namely *modus ponens*, a meta-theoretic rule:
 
   #labeled_equation(label: "MP", [
     $A "and" A -> B "implies" B$
   ])
-
-  Note that this is a meta-theoretic rule.
 ]<pa_axioms>
 
 
-Now we can define a proof.
+Now we can define proofs.
 
 #definition[
-  A *proof* in Peano Arithmetic is defined recursively.
+  A *proof* in $PA$ is defined recursively.
+
+  - *Base Case:*
+
+  - *Recursive Case:*
 ]
+
+== Key Properties of Peano Arithmetic
 
 
 $PA$ enjoys several properties. We will define the first in depth, but it is cited here for clarity.
