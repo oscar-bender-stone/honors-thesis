@@ -141,11 +141,10 @@ Before we introduce proof, we introduce the axioms of $PA$.
 
   #equation_block(prefix: "Q", [
     - $forall x. x + 1 != 0$
-    - $forall x. forall y. x + 1 = y + 1 -> x + y$
+    - $forall x. forall y. x + 1 = y + 1 -> x = y$
     - $forall x. (x != 0 -> exists y. x = y + 1)$
     - $forall x. x + 0 = x$
     - $forall x.forall y.(x + (y + 1) = (x + y) + 1)$
-    - $forall x.forall y.x * (y + 1) = x * y + x$
     - $forall x. x * 0 = 0$
     - $forall x.forall y.x * (y + 1) = x * y + x$
   ])
