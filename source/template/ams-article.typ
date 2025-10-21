@@ -266,7 +266,8 @@
     emph(it.supplement)
     if it.numbering != none {
       [ ] // Add a space
-      strong(theorem-counter.display(it.numbering))
+      // Number is upright (not bold)
+      theorem-counter.display(it.numbering)
     }
     [.] // Add the period
     [ ] // Add a space after the supplement
@@ -373,15 +374,27 @@
   numbering: if numbered { thm-numbering-format },
 )
 
-// === FIX IS HERE ===
-// Removed the markup `_` from around "Remark".
 #let remark(body, numbered: true) = figure(
   body,
   kind: "remark",
   supplement: [Remark],
   numbering: if numbered { thm-numbering-format },
 )
-// === END OF FIX ===
+
+// === NEW DEFINITIONS ADDED HERE ===
+
+#let recursion(base_case, recursive_step) = [
+  - *Base case:* #base_case
+  - *Recursive step:* #recursive_step
+]
+
+
+#let induction(base_case, inductive_step) = proof[
+  - *Base case:* #base_case
+  - *Inductive step:* #inductive_step
+]
+
+// === END OF NEW DEFINITIONS ===
 
 
 // This function creates a scoped environment for a list of equations.
@@ -423,7 +436,6 @@
 }
 
 
-// And a function for a proof.
 #let proof(body) = block(spacing: 11.5pt, {
   emph[Proof.]
   [ ]
@@ -436,7 +448,6 @@
   $square.stroked$
 })
 
-// Unnumbered Acknowledgment Section
 #let acknowledgment(body) = {
   block({
     set par(first-line-indent: 0em)
