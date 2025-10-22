@@ -435,7 +435,6 @@
   })
 }
 
-
 #let proof(body) = block(spacing: 11.5pt, {
   emph[Proof.]
   [ ]
