@@ -74,16 +74,15 @@ For additional context, please consult @laan_type_history.
 The simply typed lambda calculus on its own is too weak for proofs on
 computability. The solution is to augment this with induction, via Kurt Gödel's
 System T @goedel_system_t. and the entire theory can be defined in a single
-page. We closely follow the presentation from William Tait @tait_system_t, but
-for further reading, we recommend @girard_proofs_and_types. The full definitions
-are provided in @system_t_types and @system_t_terms.
+page. We closely follow the presentation from @girard_proofs_and_types. Our full
+definitions are provided in @system_t_types and @system_t_terms.
 
 #let Var = math.bold("Var")
 
 #definition[
   The *base language of System T* consists of symbols
-  $L_(B T) = {NN thin BB thin x -> times \( \)}$. The *types* of System T are
-  defined recursively:
+  $L_(B T) = {0 1 + * NN thin BB thin x thin : thin -> times thin lambda thin angle.l thin angle.r thin \( thin \)}$.
+  The *types* of System T are defined recursively:
   #recursion(
     [These are called *base types*.
       - $NN$ is a type, called the *natural numbers type*.
@@ -93,14 +92,29 @@ are provided in @system_t_types and @system_t_terms.
       are types. Moreover, we set $(sigma) equiv sigma$],
   )
   The *(complete) language* is $L_(S T) = L_(B T) union Var$, where $Var$
-  consists of the *variables*, symbols $x_i^T$ for each binary string $i$ (the
-  *index*) and type $T$. A recursive definition can be adapted from
+  consists of the *variables*, symbols $x_i^tau$ for each binary string $i$ (the
+  *index*) and type $tau$. A recursive definition can be adapted from
   @binary_strings and the one above.
 
 ]<system_t_types>
 
 #definition[
-  The *terms* of System T are defined recursively:
+  The *terms* of System T are defined recursively.
+  #recursion(
+    [
+      - Each variable $x_i^tau$ is a term of $tau$.
+    ],
+    [
+      - If $u$ is a term of $U$ and $v$ is a term of $V$, then
+        $lr(angle.l u, v angle.r)$ is a term of $U times V$.
+      - Given a term $lr(angle.l u, v angle.r)$ of $U times V$, then $u$ is a
+        term of $U$ and $v$ is a term of $V$.
+      - If $t$ has type $tau$ and $f$ has type $T -> U$, then $f(t)$ has type
+        $U$.
+      - For each variable $x_i^T$ of type $T$ and $t(s)$ has type $U$, then
+        $lambda x_i^T. t(x_i^T)$ has type $T -> U$.
+    ],
+  )
 
 ]<system_t_terms>
 
