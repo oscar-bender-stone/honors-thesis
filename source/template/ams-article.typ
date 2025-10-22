@@ -374,6 +374,13 @@
   numbering: if numbered { thm-numbering-format },
 )
 
+#let example(body, numbered: true) = figure(
+  body,
+  kind: "definition",
+  supplement: [Example],
+  numbering: if numbered { thm-numbering-format },
+)
+
 #let remark(body, numbered: true) = figure(
   body,
   kind: "remark",

@@ -216,6 +216,7 @@ statements_ we wish to verify. With Sergei's theorem, we obtian:
 ]
 
 
-With this, we can _definitively claim_ which statements are proven correctly in
-the realm of computatbility. This is key for the reliablity of the method
-presented in the remaining sections of this paper.
+With this corollary, in combination to @equi_consistency, we can _definitively
+claim_ which statements are proven correctly in the realm of computatbility.
+This is key for the reliablity of the method presented in the remaining sections
+of this paper.
