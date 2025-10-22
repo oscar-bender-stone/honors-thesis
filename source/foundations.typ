@@ -16,12 +16,13 @@ suitable, simple type system, definable in a single page.
 We will keep this self-contained; additional references will be provided in each
 sub-section.
 
-== Computability
+== Base Notions
 
 Before continuing, we must introduce some fundamental recursive definitions.
 
 #definition[
-  Fix the symbols $cal(L)_B = {. thin 0 thin 1}$:
+  Define the *language of binary strings* as
+  $cal(L)_B = {. thin 0 thin 1 thin w}$:
   - *concatenation* "."
   - *zero* $0$ and *one* $1$.
 
@@ -33,6 +34,13 @@ Before continuing, we must introduce some fundamental recursive definitions.
 
   As notation, we will write $w 0$ for $w.0$, and similarly, $w 1$ denotes
   $w.1$.
+
+  *Equality* on binary strings is defined recursively:
+  #recursion(
+    [$0 = 0$ and $1 = 1$, but $0 != 1$],
+    [let $w$, $w'$ be binary strings. Then if $w = w'$, then $w.0 = w'.0$ and
+      $w.1 = w'.1$],
+  )
 ]<binary_strings>
 
 #remark[The definition for binary strings, as the remaining recursive
@@ -44,6 +52,10 @@ Before continuing, we must introduce some fundamental recursive definitions.
   On the other hand, proof checking will be done in an ultra-finitistic setting
   and is addressed in @bootstrap.
 ]
+
+For simplicity, our primary encoding uses binary. We directly use this in the
+notion of a variable in the next section.
+
 
 == System T
 
@@ -62,20 +74,47 @@ For additional context, please consult @laan_type_history.
 The simply typed lambda calculus on its own is too weak for proofs on
 computability. The solution is to augment this with induction, via Kurt Gödel's
 System T @goedel_system_t. and the entire theory can be defined in a single
-page.
+page. We closely follow the presentation from William Tait @tait_system_t, but
+for further reading, we recommend @girard_proofs_and_types. The full definitions
+are provided in @system_t_types and @system_t_terms.
 
-We know introduce System T as our underlying meta-theory. We closely follow the
-presentation from William Tait @tait_system_t, but for further reading, we
-recommend @girard_proofs_and_types.
+#let Var = math.bold("Var")
 
 #definition[
-  *System T* is the theory defined as follows.
-
-  First we define *terms* recursively:
+  The *base language of System T* consists of symbols
+  $L_(B T) = {NN thin BB thin x -> times \( \)}$. The *types* of System T are
+  defined recursively:
   #recursion(
-    [],
-    [],
+    [These are called *base types*.
+      - $NN$ is a type, called the *natural numbers type*.
+      - $BB$ is a type, called the *boolean type*.
+    ],
+    [let $sigma$ and $tau$ be types. Then $sigma -> tau$ and $sigma times tau$
+      are types. Moreover, we set $(sigma) equiv sigma$],
   )
+  The *(complete) language* is $L_(S T) = L_(B T) union Var$, where $Var$
+  consists of the *variables*, symbols $x_i^T$ for each binary string $i$ (the
+  *index*) and type $T$. A recursive definition can be adapted from
+  @binary_strings and the one above.
+
+]<system_t_types>
+
+#definition[
+  The *terms* of System T are defined recursively:
+
+]<system_t_terms>
+
+#remark[For notational ease of use, we will add several conventions:
+  - Variables will be denoted with letter names $a, b, ..., z$ with an implicit
+    index. Note that distinguishing variables is important, so we will use
+    distinct names when possible.
+  - We define new notation with parantheses via recursion (with the base case
+    already set above): let $sigma$, $tau$, $rho$ be types.
+    - We set products to be *left-associative*:
+      $sigma times tau times rho equiv (sigma times tau) times rho$.
+    - We add *greater precedence* for $->$ over $times$:
+      $sigma -> tau times rho equiv (sigma -> tau) times rho$ and
+      $sigma times tau -> rho equiv sigma times (tau -> rho)$.
 ]
 
 
