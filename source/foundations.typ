@@ -76,50 +76,76 @@ For additional context, please consult @laan_type_history.
 
 The simply typed lambda calculus on its own is too weak for proofs on
 computability. The solution is to augment this with induction, via Kurt Gödel's
-System T @goedel_system_t. and the entire theory can be defined in a single
-page. We closely follow the presentation from @girard_proofs_and_types. Our full
-definitions are provided in @system_t_types and @system_t_terms.
+System T @goedel_system_t. We closely follow the presentation from
+@girard_proofs_and_types. This theory consists of three key parts:
+
+- *Types:* @system_t_types.
+
+- *Terms:* @system_t_terms.
+
+- *Operational Semantics:* @system_t_semantics.
+
+- *Normal forms:* @system_t_normal_form.
 
 #let Var = math.bold("Var")
 
 #definition[
   The *base language of System T* consists of symbols
-  $L_(B T) = {0 1 + * NN thin BB thin x thin : thin -> times thin lambda thin angle.l thin angle.r thin \( thin \)}$.
+  $L_(B T) = {top thin bot thin 0 thin 1 thin + thin * thin BB thin NN thin x thin : thin -> times thin lambda thin D thin R thin angle.l thin angle.r thin \( thin \)}$.
   The *types* of System T are defined recursively:
   #recursion(
     [These are called *base types*.
-      - $NN$ is a type, called the *natural numbers type*.
       - $BB$ is a type, called the *boolean type*.
+      - $NN$ is a type, called the *natural numbers type*.
     ],
-    [let $sigma$ and $tau$ be types. Then $sigma -> tau$ and $sigma times tau$
-      are types. Moreover, we set $(sigma) equiv sigma$.],
+    [let $U$ and $S$ be types. Then $U -> S$ and $U times S$ are types.
+      Moreover, we set $(U) equiv U$.],
   )
   The *(complete) language* is $L_(S T) = L_(B T) union Var$, where $Var$
-  consists of the *variables*, symbols $x_i^tau$ for each binary string $i$ (the
-  *index*) and type $tau$. A recursive definition can be adapted from
+  consists of the *variables*, symbols $x_i^S$ for each binary string $i$ (the
+  *index*) and type $S$. A recursive definition can be adapted from
   @binary_strings and the one above.
 
 ]<system_t_types>
+
 
 #definition[
   The *terms* of System T are defined recursively.
   #recursion(
     [
-      - Each variable $x_i^tau$ is a term of $tau$.
+      - Each variable $x_i^S$ is a term of $S$.
+      - $top$ and $bot$ are the _only_ terms of $BB$.
+      - $0$ and $1$ are terms of $NN$.
     ],
     [
       - If $u$ is a term of $U$ and $v$ is a term of $V$, then
         $lr(angle.l u, v angle.r)$ is a term of $U times V$.
       - Given a term $lr(angle.l u, v angle.r)$ of $U times V$, then $u$ is a
         term of $U$ and $v$ is a term of $V$.
-      - If $t$ has type $tau$ and $f$ has type $T -> U$, then $f(t)$ has type
+      - If $t$ has type $tau$ and $f$ has type $S -> U$, then $f(t)$ has type
         $U$.
-      - For each variable $x_i^T$ of type $T$, if $f(s)$ has type $U$, then
-        $lambda x_i^T. f(x_i^T)$ has type $T -> U$.
+      - For each variable $x_i^S$ of type $S$, if $f(s)$ has type $U$, then
+        $lambda x_i^S. f(x_i^S)$ has type $T -> U$.
+      - If $u: U$, $v: U$ and $t : BB$, then $D thin u thin v thin t$ has type
+        $U$.
+      - For each term $n$ of $NN$, $n+1$ is a term of $NN$.
+      - Let $u : U$, $v : U -> (NN -> U)$, and $t: NN$. Then
+        $R thin u thin v thin t : U$.
     ],
   )
 
 ]<system_t_terms>
+
+
+
+#definition[
+
+]<system_t_normal_form>
+
+
+#definition[
+
+]<system_t_semantics>
 
 #remark[For notational ease of use, we will add several conventions:
   - Variables will be denoted with letter names $a, b, ..., z$ with an implicit
@@ -128,6 +154,7 @@ definitions are provided in @system_t_types and @system_t_terms.
     already set above): let $sigma$, $tau$, $rho$ be types.
     - We set products to be *left-associative*:
       $sigma times tau times rho equiv (sigma times tau) times rho$.
+    - Similarly, $+$ and $*$ on $NN$ are left-associative.
     - We add *greater precedence* for $->$ over $times$:
       $sigma -> tau times rho equiv (sigma -> tau) times rho$ and
       $sigma times tau -> rho equiv sigma times (tau -> rho)$.
