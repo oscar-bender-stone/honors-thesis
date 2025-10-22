@@ -4,7 +4,10 @@
 #import "template/ams-article.typ": (
   definition, equation_block, labeled_equation, remark,
 )
-#import "template/ams-article.typ": lemma, proof, recursion, theorem
+#import "template/ams-article.typ": corollary, lemma, proof, recursion, theorem
+
+#let PA = math.bold("PA")
+#let HA = math.bold("HA")
 
 = Foundations
 
@@ -89,7 +92,7 @@ definitions are provided in @system_t_types and @system_t_terms.
       - $BB$ is a type, called the *boolean type*.
     ],
     [let $sigma$ and $tau$ be types. Then $sigma -> tau$ and $sigma times tau$
-      are types. Moreover, we set $(sigma) equiv sigma$],
+      are types. Moreover, we set $(sigma) equiv sigma$.],
   )
   The *(complete) language* is $L_(S T) = L_(B T) union Var$, where $Var$
   consists of the *variables*, symbols $x_i^tau$ for each binary string $i$ (the
@@ -111,8 +114,8 @@ definitions are provided in @system_t_types and @system_t_terms.
         term of $U$ and $v$ is a term of $V$.
       - If $t$ has type $tau$ and $f$ has type $T -> U$, then $f(t)$ has type
         $U$.
-      - For each variable $x_i^T$ of type $T$ and $t(s)$ has type $U$, then
-        $lambda x_i^T. t(x_i^T)$ has type $T -> U$.
+      - For each variable $x_i^T$ of type $T$, if $f(s)$ has type $U$, then
+        $lambda x_i^T. f(x_i^T)$ has type $T -> U$.
     ],
   )
 
@@ -120,8 +123,7 @@ definitions are provided in @system_t_types and @system_t_terms.
 
 #remark[For notational ease of use, we will add several conventions:
   - Variables will be denoted with letter names $a, b, ..., z$ with an implicit
-    index. Note that distinguishing variables is important, so we will use
-    distinct names when possible.
+    index.
   - We define new notation with parantheses via recursion (with the base case
     already set above): let $sigma$, $tau$, $rho$ be types.
     - We set products to be *left-associative*:
@@ -136,10 +138,10 @@ definitions are provided in @system_t_types and @system_t_terms.
 == Serial Consistency
 
 As mentioned, System T is closely related to Peano Arithmetic. Specifically,
-Gödel proved that Peano Arithmetic is equi-consistent to System T. He did this
-to base the former on an intuisonistic logic, further compounded by a theory of
-functionals. The proof is extremely technical and out of the scope of this
-thesis; we refer to @goedel_system_t for details.
+Gödel proved that Peano Arithmetic ($PA$) is equi-consistent to System T. He did
+this to base the former on an intuisonistic logic via Heyting Arithmetic ($HA$),
+further compounded by a theory of functionals. The proof is extremely technical
+and out of the scope of this thesis; we refer to @goedel_system_t for details.
 
 #theorem[
   The consistency of the following theories are equivalent:
@@ -149,10 +151,44 @@ thesis; we refer to @goedel_system_t for details.
 ]<equi_consistency>
 
 
-However, a weaker property is _provable_ within these systems, a revival of
-Hilbert's program. This was discovered by Sergei Artemov, outlined in multiple
-papers. We refer to his latest one but recommend the others.
+Due to Gödel's second incompletness theorem, none of these theories can prove
+that _any_ of them are consistent. However, a weaker property is _is_ provable
+within these systems and represents a revival of Hilbert's program. This was
+discovered by Sergei Artemov, outlined in multiple papers
+@artemov_serial_consistency. We refer to his latest one but recommend the
+others.
 
 #theorem[
-  Peano Arithmetic proves that.
+  $PA$ proves that there exists a primitive recursive function (PRF) $s$ such
+  that, given a proof of $D$, verifies that it contains no contradictions. We
+  call $s$ a *selector* and say that $PA$ is *serial-consistent*.
 ]<serial_consistency>
+
+Note that Artemov's condition is distinct from the normal definition of
+consistency, that there is a _single_ proof to demonstrate this consistency.
+Thus, this does _not_ contradict Gödel's incompleteness theorems, and in fact
+underlies an important principle, closely aligning to Artemov's views:
+
+
+#show quote.where(block: true): block.with(stroke: (
+  left: 2pt + gray,
+  rest: none,
+))
+#quote(block: true)[
+  *_Finitistic consistency relies on inductively verifying proof-checkers as
+  combinatorial objects._*
+]
+
+This is closely tied to an equivalent notion: $Sigma^0_1$ proofs. This involves
+the arithmetic hierarchy, but in short, this is the set of _partial computable
+statements_ we wish to verify. With Sergei's theorem, we obtian:
+
+#corollary[
+  $PA$ is *serial-$Sigma^0_1$-sound*, which means that there is a PRF $t$ that,
+  given a statement of a $Sigma^0_1$ statement in $PA$, provides a $PA$-proof.
+]
+
+
+With this, we can _definitively claim_ which statements are proven correctly in
+the realm of computatbility. This is key for the reliablity of the method
+presented in the remaining sections of this paper.
