@@ -117,8 +117,8 @@ System T @goedel_system_t. We closely follow the presentation from
       - $BB$ is a type, called the *boolean type*.
       - $NN$ is a type, called the *natural numbers type*.
     ],
-    [let $U$ and $S$ be types. Then $U -> S$ and $U times S$ are types.
-      Moreover, we set $(U) equiv U$.],
+    [let $U$ and $S$ be types. Then $U -> S$ is a *function type* and
+      $U times S$ is a *product type*. Moreover, we set $(U) equiv U$.],
   )
 ]<system_t_types>
 
@@ -243,6 +243,7 @@ obtain:
 With this corollary, in combination to @equi_consistency, we can _definitively
 claim_ which statements are proven correctly in the realm of computatbility.
 This is key for the reliablity of the method presented in the remaining sections
-of this paper. It suffices to exmaine serial-consistency for this claim, so we
+of this paper. It suffices to examine serial-consistency for this claim, so we
 will impose a _constructive proof_ of serial-consistency for theories at least
-as strong as $PA$.
+as strong as $PA$. Computationally, this corresponds to _correctly_ providing
+proofs of termination of lambda terms.
