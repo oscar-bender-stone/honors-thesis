@@ -84,19 +84,44 @@ following goals resolve the deficiencies observed in the formalisms above:
 
 == Outline
 
-This thesis is organized as follows:
+#let outline = table(
+  columns: (auto, auto),
+  inset: 10pt,
+  align: horizon,
+  table.header([*Section*], [*Description*]),
+  [@foundations],
+  [Discusses foundations, providing the meta-theory based on Gödel's System T to
+    more easily encode computability and have a theory equi-consistent to Peano
+    Arithmetic.
+  ],
 
-- *@foundations* discusses foundations, providing the meta-theory based on
-  Gödel's System T to more easily encode computability and have a theory
-  equi-consistent to Peano Arithmetic.
-- *@information_systems* defines information and the optimal encoding proven in
-  this thesis. This is optimal w.r.t. to a certain class of efficient computable
-  functions.
-- *@syntax* introduces the LL(1) grammar for Welkin, a graph-based language that
-  easily encodes lambda terms.
-- *@semantics* explains the semantics of terms in the theory and finalizes the
-  encoding. This also introduces the 64-bit hashing scheme.
-- *@bootstrap* overviews the work done in the Standard and ensures Welkin is
-  "strong enough" to "encode itself".
-- *@conclusion* reviews the work in this thesis and provides insights to
-  potential applications and languages built on top of Welkin.
+  [@information_systems],
+  [Defines information and the optimal encoding proven in this thesis. This is
+    optimal w.r.t. to a certain efficiently computable class of encodings.
+  ],
+
+  [@syntax],
+  [Introduces the LL(1) grammar for Welkin, a graph-based language that
+    naturally encodes lambda terms.],
+
+  [@semantics],
+  [Explains the semantics of terms in the theory and finalizes the encoding.
+    This also introduces the 64-bit hashing scheme.],
+
+  [@bootstrap],
+  [Reviews the Welkin Standard and justifies why Welkin is "strong enough" to
+    "encode itself".],
+
+  [@conclusion],
+  [Reviews the work in this thesis and provides insights to applications for
+    formal verification and creating custom languages that compile into Welkin.
+  ],
+)
+
+This thesis is organized linearly, shown in @outline.
+
+#figure(
+  outline,
+  caption: [Outline of the thesis.],
+)<outline>
+

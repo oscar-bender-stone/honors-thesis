@@ -13,7 +13,7 @@
 
 We introduce the base theory needed for this thesis. This theory embodies a
 unifying concept for formal systems: computatbility. We capture this through a
-suitable, simple type system, definable in a single page.
+suitable simple type theory.
 
 
 We will keep this self-contained; additional references will be provided in each
