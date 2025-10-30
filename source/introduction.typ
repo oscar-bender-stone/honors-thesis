@@ -118,7 +118,11 @@ following goals resolve the deficiencies observed in the formalisms above:
   ],
 )
 
-This thesis is organized linearly, shown in @outline.
+This thesis is organized linearly, shown in @outline. Note that this thesis
+serves as a _high-level_, but precise, guide to the Welkin language. The
+_precise_ specification is the Standard itself, with _minimal_ abbreviations and
+all details explicitly mentioned.
+
 
 #figure(
   outline,

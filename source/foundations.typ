@@ -25,39 +25,58 @@ Before continuing, we must introduce some fundamental recursive definitions.
 
 #definition[
   Define the *language of binary strings* as
-  $cal(L)_B = {. thin 0 thin 1 thin w}$:
+  $cal(L)_B = {. thin 0 thin 1 thin w thin = thin !=}$:
   - *concatenation* "."
   - *zero* $0$ and *one* $1$.
+  - *equality* $=$ and *inequality* $!=$.
+]<lang_binary>
 
-  A *binary string* is defined recursively:
-  #recursion(
+#definition[
+  A *binary string* is defined recursively: #recursion(
     [$0$ and $1$ are binary strings.],
-    [if $w$ is a binary string, then so are $w.0$ and $w.1$.],
-  )
+    [if $w$ is a binary string, then so are $w.0$ (denoted $w 0$) and $w.1$
+      (denoted $w 1$).],
+  )]<binary_strings>
 
-  As notation, we will write $w 0$ for $w.0$, and similarly, $w 1$ denotes
-  $w.1$.
-
-  *Equality* on binary strings is defined recursively:
+#definition[*Equality* on binary strings is defined recursively:
   #recursion(
-    [$0 = 0$ and $1 = 1$, but $0 != 1$],
+    [$0 = 0$ and $1 = 1$, but _not_ $0 = 1$.],
     [let $w$, $w'$ be binary strings. Then if $w = w'$, then $w.0 = w'.0$ and
       $w.1 = w'.1$],
   )
-]<binary_strings>
+]<equality_binary_strings>
+
+Whenever two binary strings $w_1, w_2$ are not equal, we write $w_1 != w_2$.
 
 #remark[The definition for binary strings, as the remaining recursive
   definitions, serves as a suitable _uniform_ abstraction for data. From a
   physical viewpoint, we cannot _verify_ each finite string, a phenomena related
   to the notion of "Kripkenstein" @kripke_wittgenstein. However, we _can_
   provide the template and is more suitable as a definition, and we presume
-  these definitions are completely contained (i.e., no other rules are allowed).
-  On the other hand, proof checking will be done in an ultra-finitistic setting
-  and is addressed in @bootstrap.
+  these definitions are completely contained (i.e., binary strings are defined
+  by a finite combination of _only_ the rules above). On the other hand, proof
+  checking will be done in an ultra-finitistic setting and is addressed in
+  @bootstrap.
 ]
 
 For simplicity, our primary encoding uses binary. We directly use this in the
-notion of a variable in the next section.
+notion of a variable in the next section. We review the primary number systems
+natively supported by Welkin.
+
+
+#definition[
+  A *number base* consists of a set of *digits* that map to binary strings, such
+  that each binary string can be written as a sum of powers of these digits. In
+  particular, we define:
+  - *Decimal*, with ten digits ${0, 1, 2, 3, 4, 5, 6, 7, 8, 9}$. We take this as
+    the _default_ base in the grammar, so no prefix is needed.
+  - *Binary*, with two digits ${0, 1}$. We use the prefix $"0b"$. We set this as
+    our base for _encodings_, particularly for variables (see
+    @system_t_lang_full).
+  - *Hexadecimal*, with sixteen digits
+    ${0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F"}$. We use the
+    prefix $"0x"$.
+]<number_systems>
 
 
 == System T
@@ -101,12 +120,15 @@ System T @goedel_system_t. We closely follow the presentation from
     [let $U$ and $S$ be types. Then $U -> S$ and $U times S$ are types.
       Moreover, we set $(U) equiv U$.],
   )
+]<system_t_types>
+
+#definition[
   The *(complete) language* is $L_(S T) = L_(B T) union Var$, where $Var$
   consists of the *variables*, symbols $x_i^S$ for each binary string $i$ (the
   *index*) and type $S$. A recursive definition can be adapted from
   @binary_strings and the one above.
 
-]<system_t_types>
+]<system_t_lang_full>
 
 
 #definition[
@@ -173,8 +195,8 @@ and out of the scope of this thesis; we refer to @goedel_system_t for details.
 #theorem[
   The consistency of the following theories are equivalent:
   - System T
-  - Heyting Arithmetic
-  - Peano Arithmetic
+  - $HA$
+  - $PA$
 ]<equi_consistency>
 
 
@@ -202,21 +224,25 @@ underlies an important principle, closely aligning to Artemov's views:
   rest: none,
 ))
 #quote(block: true)[
-  *_Finitistic consistency relies on inductively verifying proof-checkers as
-  combinatorial objects._*
-]
+  *(P1) _Finitistic consistency relies on inductively verifying proof-checkers
+  as combinatorial objects._*
+]<finitistic_consistency>
 
-This is closely tied to an equivalent notion: $Sigma^0_1$ proofs. This involves
-the arithmetic hierarchy, but in short, this is the set of _partial computable
-statements_ we wish to verify. With Sergei's theorem, we obtian:
+This is closely tied to an equivalent notion: proofs on $Sigma^0_1$ statements.
+This involves the arithmetic hierarchy, but in short, this is the set of
+_partial computable statements_ we wish to verify. With Sergei's theorem, we
+obtain:
 
 #corollary[
   $PA$ is *serial-$Sigma^0_1$-sound*, which means that there is a PRF $t$ that,
-  given a statement of a $Sigma^0_1$ statement in $PA$, provides a $PA$-proof.
+  given a proof of $Sigma^0_1$ statement in $PA$, $t$ returns a $PA$-proof of
+  this statement.
 ]
 
 
 With this corollary, in combination to @equi_consistency, we can _definitively
 claim_ which statements are proven correctly in the realm of computatbility.
 This is key for the reliablity of the method presented in the remaining sections
-of this paper.
+of this paper. It suffices to exmaine serial-consistency for this claim, so we
+will impose a _constructive proof_ of serial-consistency for theories at least
+as strong as $PA$.
