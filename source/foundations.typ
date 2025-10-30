@@ -9,7 +9,7 @@
 #let PA = math.bold("PA")
 #let HA = math.bold("HA")
 
-= Foundations
+= Foundations <foundations>
 
 We introduce the base theory needed for this thesis. This theory embodies a
 unifying concept for formal systems: computatbility. We capture this through a

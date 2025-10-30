@@ -22,7 +22,7 @@ organized and the relations between them, with recent integration with AI
 systems. The most prominent ones are *ontologies*, particularly OWL, or
 *knowledge graphs*, e.g., John Sowa's Conceptual Graphs. More recently, AI
 systems are being more deeply integrated with databases, providing an easier way
-for users to query accross a large amount of websites or resources at a time.
+for users to query across a large amount of websites or resources at a time.
 However, most approaches focus on information via a _theory_, connecting data by
 true relations and facts. The potential for contradictory facts can compromise
 the reliability of a knowledge base, though there are some promising approaches,
@@ -45,8 +45,8 @@ limitations:
 - *Kolmogorov complexity:* Andrey Kolomogorov founded Algorithmic Information
   Theory, independently connecting Shannon's work to computability. This is
   defined on the *Minimum Description Length (MDL)* principle, that the best
-  representation of a string is the smallest one possible. Kolomogorv formalized
-  this idea with Kolmogorv complexity, the size of the smallest Turing machine
+  representation of a string is the smallest one possible. Kolmogorov formalized
+  this idea with Kolmogorov complexity, the size of the smallest Turing machine
   that accepts a string. While this is more structural in nature
 
 - *Scott domains:* Dana Scott introduced an algebraic structure to represent
@@ -56,26 +56,47 @@ limitations:
   between information_.
 
 
-This thesis proposes to rexamine a topic in the literature: the notion of
-_information_. Using the etymology in Latin, "to form", this thesis develops a
-formalized programming language to organize information.This provides the
-missing link to the _semantics_ of information, more so than labels within
-Knowledge Graphs or ones commonly used in AI.
+This thesis proposes to re-examine the notion of information. Using the
+etymology in Latin, "to form", this thesis develops a formalized programming
+language to organize information.This provides the missing link to the
+_semantics_ of information, more so than labels within Knowledge Graphs or ones
+commonly used in AI.
 
 == Goals
 
-The aim of this thesis is to create a formalized programing language, called
-Welkin, derived from an archaic German word meaning "sky, heavens". The key
-goals outline the defecincies bserved in the formalisms above:
+The aim of this thesis is to create a formalized programming language, called
+Welkin, originating from the German word _wolke_ (cloud) @oed:welkin. The
+following goals resolve the deficiencies observed in the formalisms above:
 
-- *Universality:* we provide a theory to work with _any_ partial
-computable function. Thus, we ensure that checking a certificate is always
-decidable, and encode appropriately (for set theory, type theories, etc.).
+- *Universality (G1):* we provide a theory to work with _any_ partial computable
+  function. Thus, we ensure that checking a certificate is always decidable, and
+  encode appropriately (for set theory, type theories, etc.).
 
-- *Standarization:* the language must be specified by an unambiguous standard
-and have a reliable *Trusted Computing Base*. To ensure this, the language must
-have an unambiguous syntax and semantics, as well as a reliable meta-theory.
+- *Standardization (G2):* the language must be specified by an unambiguous
+  standard and have a reliable *Trusted Computing Base*. To ensure this, the
+  language must have an unambiguous syntax and semantics, as well as a reliable
+  meta-theory.
 
-- *Encoding:* the . We provide a 64-bit hashing scheme for most
-implementations, as this ensures enough unique IDs while being efficient on
-modern hardware.
+- *Encoding (G3):* information must be encoded in an optimal yet efficient way
+  (effective linear-time checking). We provide a 64-bit hashing scheme for most
+  implementations, as this ensures enough unique IDs while being efficient on
+  modern hardware.
+
+== Outline
+
+This thesis is organized as follows:
+
+- *@foundations* discusses foundations, providing the meta-theory based on
+  Gödel's System T to more easily encode computability and have a theory
+  equi-consistent to Peano Arithmetic.
+- *@information_systems* defines information and the optimal encoding proven in
+  this thesis. This is optimal w.r.t. to a certain class of efficient computable
+  functions.
+- *@syntax* introduces the LL(1) grammar for Welkin, a graph-based language that
+  easily encodes lambda terms.
+- *@semantics* explains the semantics of terms in the theory and finalizes the
+  encoding. This also introduces the 64-bit hashing scheme.
+- *@bootstrap* overviews the work done in the Standard and ensures Welkin is
+  "strong enough" to "encode itself".
+- *@conclusion* reviews the work in this thesis and provides insights to
+  potential applications and languages built on top of Welkin.
