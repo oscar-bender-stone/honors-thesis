@@ -359,16 +359,18 @@
       )
     })
   } else if conclusion != none {
-    // Single-rule mode: Just create one tree
+    // Single-rule mode: Create one tree
     let internal-rule = make-internal-rule((
       premises: premises,
       conclusion: conclusion,
       label: label,
     ))
-    content = prooftree(
+    // FIX: Wrap in a full-width block that centers its content.
+    // This defeats the parent's `set align(start)`.
+    content = block(width: 100%, align(center, prooftree(
       internal-rule,
       stroke: 0.4pt,
-    )
+    )))
   } else {
     content = box()
   }
@@ -381,11 +383,7 @@
     )
   }
 
-  // Center the final output, *unless* it's a multi-rule layout
-  // (which handles its own line-by-line centering).
-  if rules == none {
-    content = align(center, content)
-  }
-
+  // Final content is ready
   content
 }
+

@@ -102,6 +102,7 @@ Before continuing, we must introduce some fundamental notions.
 #definition[*Equality* on binary strings is defined recursively:
   #judgement(
     conclusion: $0 = 0, 1 = 1, 0 != 1$,
+    caption: "Test",
   )
   #judgement(
     premises: ($w, w': W, w = w'$),
