@@ -472,10 +472,7 @@
     [*Symbol*],
     [*Name*],
 
-    ..for (i, (symbol-str, name-str)) in symbols-data.pairs().enumerate() {
-      // First line includes
-      // notation, and the
-      // rest are blank
+    ..for (i, (symbol-str, name-str)) in symbols-data.enumerate() {
       if i == 0 {
         (
           [ $#notation$ ],
@@ -486,7 +483,7 @@
       } else {
         (
           [],
-          [],
+          [$|$],
           [ $#symbol-str$ ],
           [ *#name-str* ],
         )
@@ -540,7 +537,6 @@
     caption: caption,
   )
 }
-
 
 #let acknowledgment(body) = {
   block({

@@ -73,11 +73,11 @@ Before continuing, we must introduce some fundamental notions.
   #lang-def-vertical(
     $LW$,
     (
-      "Digit": "",
-      "epsilon": "empty word",
-      ".": "Concatenation",
-      "=": "equality",
-      "not =": "inequality",
+      ($Digit$, [See @lang_digits]),
+      ($epsilon$, "Empty word"),
+      ($.$, "Concatenation"),
+      ($=$, "Equality"),
+      ($!=$, "Inequality"),
     ),
     caption: "Language of words",
   )<lang_words>
@@ -87,6 +87,7 @@ Before continuing, we must introduce some fundamental notions.
       (
         premises: none,
         conclusion: $epsilon: W$,
+        name: "Empty",
       ),
       (
         premises: $w : W$,
@@ -107,7 +108,8 @@ Before continuing, we must introduce some fundamental notions.
   //   // caption: [Recursive definition of words.],
   // )
 
-]<binary_strings>
+]<words>
+
 
 
 // #definition[*Equality* on binary strings is defined recursively:
@@ -126,7 +128,6 @@ Before continuing, we must introduce some fundamental notions.
 //   )
 // ]<equality_binary_strings>
 
-Whenever two binary strings $w_1, w_2$ are not equal, we write $w_1 != w_2$.
 
 #remark[The definition for binary strings, as the remaining recursive
   definitions, serves as a suitable _uniform_ abstraction for data. From a
@@ -190,8 +191,8 @@ System T @goedel_system_t. We closely follow the presentation from
 #definition[
   The *(complete) language* is $L_(S T) = L_(B T) union Var$, where $Var$
   consists of the *variables*, symbols $x_i^S$ for each binary string $i$ (the
-  *index*) and type $S$. A recursive definition can be adapted from
-  @binary_strings and the one above.
+  *index*) and type $S$. A recursive definition can be adapted from @words and
+  the one above.
 
 ]<system_t_lang_full>
 

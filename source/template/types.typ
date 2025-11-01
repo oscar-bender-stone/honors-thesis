@@ -1,13 +1,11 @@
 // SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-
 #import calc.max // We need this for max
 
 // --- Core Rule Function ---
-// This new function builds the rule but does NOT wrap it in a figure,
-// so it can be composed with other elements.
-// (This function is unchanged)
+// This builds the rule (premises, line, conclusion)
+// and attaches the name if it exists.
 #let judgement-rule(premises, conclusion, name: none) = {
   // We must use a `context` block to be able to `measure` elements.
   // The block will evaluate its contents and return the result,
@@ -39,29 +37,28 @@
     )
   } // `rule-body` is now defined
 
-  // 2. Create the final content, adding the name if it exists.
-  let final-content = if name == none {
-    // If no name, just use the rule body.
-    rule-body
+  // 3. Create final content, attaching name if it exists
+  if name == none {
+    rule-body // Just return the stack
   } else {
-    // If a name exists, use a 2-column grid.
-    grid(
-      columns: (auto, auto),
-      column-gutter: 0.6em,
-      // `align: bottom` is valid for grid and aligns
-      // cells vertically to the bottom.
-      align: bottom,
-
-      rule-body, $ (#name) $,
-      // Display the name in math mode
+    // `attach` is a method on content, so we call it on `rule-body`.
+    // We use `right + bottom` for the position.
+    rule-body.attach(
+      right + bottom,
+      // Add a bit of horizontal space before the name
+      // We create a content block `[]` to hold the space
+      // and the math-formatted name.
+      [#h(0.6em)
+        $ (#name) $],
     )
   }
-
-  // 3. Return the final, unwrapped content
-  final-content
 }
 
 
+// --- Main Figure Function ---
+// This function is now "smarter". It can handle
+// either a single rule (using positional args)
+// or multiple rules (using the new `rules` named arg).
 #let judgement(
   premises: none,
   conclusion: none,
@@ -72,16 +69,22 @@
   // 1. Determine the content: single rule or list of rules?
   let final-content = if rules != none {
     // --- Multiple Rule Mode ---
-    // We have an array of rules. Stack them vertically.
-    // We use `.at()` for safe dictionary access.
-    stack(
-      dir: ttb,
-      spacing: 1.2em,
+    // Use a grid to automatically arrange rules in rows
+    // and wrap as needed.
+    grid(
+      // Set a gutter between columns and rows
+      column-gutter: 2.5em, // Horizontal space between rules
+      row-gutter: 1.5em, // Vertical space between rules
+      // Align all rules in a row to their bottom edge
+      // This makes the conclusions and names line up.
+      align: bottom,
+
+      // Map each rule dictionary to a rule element
       ..rules.map(rule => judgement-rule(
         rule.at("premises", default: ()),
         rule.at("conclusion", default: ()),
-        name: rule.at("name", default: none),
-      )),
+        name: rule.at("name", default: none), // <-- Fixed: Added 'name:'
+      ))
     )
   } else {
     // --- Single Rule Mode ---
@@ -91,6 +94,7 @@
 
   // 2. Wrap the final content in a figure
   figure(
+    // Center the whole block (either the single rule or the grid of rules)
     align(center, final-content),
     caption: caption,
   )
