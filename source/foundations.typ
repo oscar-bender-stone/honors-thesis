@@ -99,20 +99,26 @@ Before continuing, we must introduce some fundamental notions.
 ]<words>
 
 
-#definition[*Equality* on binary strings is defined recursively:
-  #judgement(
-    conclusion: $0 = 0, 1 = 1, 0 != 1$,
-    caption: "Test",
-  )
-  #judgement(
-    premises: ($w, w': W, w = w'$),
-    conclusion: $w.0 = w'.0, w.1 = w'.1$,
-  )
+#definition[*Equality* on binary strings is defined recursively.
 
   #judgement(
-    premises: $w, w': W, w != w'$,
-    conclusion: $w.0 != w'.0, w.1 != w'.1$,
+    rules: (
+      (
+        premises: none,
+        conclusion: $0 = 0, 1 = 1, 0 != 1$,
+      ),
+      (
+        premises: ($w, w': W, w = w'$),
+        conclusion: $w.0 = w'.0, w.1 = w'.1$,
+      ),
+      (
+        premises: $w, w': W, w != w'$,
+        conclusion: $w.0 != w'.0, w.1 != w'.1$,
+      ),
+    ),
+    caption: "Recursive definition of equality.",
   )
+
 ]<equality_binary_strings>
 
 
