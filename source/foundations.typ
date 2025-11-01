@@ -138,7 +138,7 @@ notion of a variable in the next section. We review the primary number systems
 natively supported by Welkin.
 
 
-== System T
+== Untyped Lambda Calculus
 
 The choice for foundations go back to the very foundational crisis of the 20th
 century. During this time, logicians sought a rigorous underpinning of
@@ -152,10 +152,24 @@ the Kleene-Rosser paradox, but was fixed in 1936 with a revision
 theory @church_simple_types, which is the basis today for most proof assistants.
 For additional context, please consult @laan_type_history.
 
-The simply typed lambda calculus on its own is too weak for proofs on
-computability. The solution is to augment this with induction, via Kurt Gödel's
-System T @goedel_system_t. We closely follow the presentation from
-@girard_proofs_and_types. This theory consists of three key parts:
+We first review Church's revised untyped lambda calculus.
+
+#definition(
+  [
+    - A *variable* $x_w$ is a term, indexed by each word $w$.
+    - For a term $tau$, $lambda x. tau$ is a term.
+    - Given terms $tau, sigma$, $tau(sigma)$ is a term.
+  ],
+)
+
+== System T
+
+Now, the untyped lambda calculus has non-terminating functions and is therefore
+not suitable for proofs on decidability. On the other hand, the simply typed
+lambda calculus on its own is too weak for proofs on computability. The solution
+is to augment this with induction, via Kurt Gödel's System T @goedel_system_t.
+We closely follow the presentation from @girard_proofs_and_types. This theory
+consists of three key parts:
 
 - *Types:* @system_t_types.
 

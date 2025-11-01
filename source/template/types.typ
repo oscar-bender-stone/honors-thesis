@@ -317,7 +317,7 @@
       }
     }
     rule(
-      name: r.label,
+      name: r.at("label", default: none),
       r.conclusion,
       ..internal-premises,
     )
@@ -365,8 +365,6 @@
       conclusion: conclusion,
       label: label,
     ))
-    // FIX: Wrap in a full-width block that centers its content.
-    // This defeats the parent's `set align(start)`.
     content = block(width: 100%, align(center, prooftree(
       internal-rule,
       stroke: 0.4pt,
