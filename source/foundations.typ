@@ -33,7 +33,7 @@ Before continuing, we must introduce some fundamental notions.
 
 #definition[
   The set of *hexadecimal digits* is the set of symbols given by $Digit$, shown
-  in @digits. The *binary digits (bits)* are $Bit := 0 thin thin 1$.
+  in @digits. The *binary digits (bits)* are $Bit := 0 thin | thin 1$.
 
   #lang-def-horizontal(
     $Digit$,
@@ -54,12 +54,6 @@ Before continuing, we must introduce some fundamental notions.
   )<digits>
 
   The *binary digits (bits)* are $Bit = 0 thin thin 1$.
-
-  // Define the *language of binary strings* as
-  // $cal(L)_B = {. thin 0 thin 1 thin w thin = thin !=}$:
-  // - *concatenation* "."
-  // - *zero* $0$ and *one* $1$.
-  // - *equality* $=$ and *inequality* $!=$.
 ]<lang_digits>
 
 #let LW = $cal(L)_W$
