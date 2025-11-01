@@ -8,6 +8,7 @@
 #import "template/ams-article.typ": (
   corollary, lemma, proof, recursion, remark, theorem,
 )
+#import "template/types.typ": judgement
 
 #let PA = math.bold("PA")
 #let HA = math.bold("HA")
@@ -66,30 +67,64 @@ Before continuing, we must introduce some fundamental notions.
 #let vdash = $tack.r$
 
 #definition[
-  The *language of words* is given by $LW$ in @lang_words. A *word* is defined
-  by the judgments in @word_judgements.
+  The *language of words* is given by $LW$ in @lang_words. A *word* is given
+  recursively.
 
   #lang-def-vertical(
     $LW$,
-    ("Digit": "", ".": "Concatenation", "=": "equality", "not =": "inequality"),
+    (
+      "Digit": "",
+      "epsilon": "empty word",
+      ".": "Concatenation",
+      "=": "equality",
+      "not =": "inequality",
+    ),
     caption: "Language of words",
   )<lang_words>
 
-  #figure(
-    [$(Gamma vdash w : W) / (Gamma vdash w.0 : W, w.1 : W)$],
-    caption: [Recursive definition of words.],
-  )<word_judgements>
+  #judgement(
+    rules: (
+      (
+        premises: none,
+        conclusion: $epsilon: W$,
+      ),
+      (
+        premises: $w : W$,
+        conclusion: $w."0", w."1", w."2", w."3", w."4", w."5", w."6", w."7", w."8", w."9" : W$,
+      ),
+      (
+        premises: $w: W$,
+        conclusion: $w."A", w."B", w."C", w."D", w."E", w."F" : W$,
+      ),
+    ),
+    caption: "Recursive definition of words.",
+  )
+
+
+  // #judgement(
+  //   premises: $w : W$,
+  //   conclusion: $w."A", w."B", w."C", w."D", w."E", w."F" : W$,
+  //   // caption: [Recursive definition of words.],
+  // )
+
 ]<binary_strings>
 
 
+// #definition[*Equality* on binary strings is defined recursively:
+//   #judgement(
+//     $$,
+//     $0 = 0, 1 = 1, 0 != 1$,
+//   )
+//   #judgement(
+//     premises: ($w, w': W, w = w'$),
+//     conclusion: $w.0 = w'.0, w.1 = w'.1$,
+//   )
 
-#definition[*Equality* on binary strings is defined recursively:
-  #recursion(
-    [$0 = 0$ and $1 = 1$, but _not_ $0 = 1$ (which we denote by $0 != 1$).],
-    [let $w$, $w'$ be binary strings. Then if $w = w'$, then $w.0 = w'.0$ and
-      $w.1 = w'.1$],
-  )
-]<equality_binary_strings>
+//   #judgement(
+//     $w, w': W, w != w'$,
+//     $w.0 != w'.0, w.1 != w'.1$,
+//   )
+// ]<equality_binary_strings>
 
 Whenever two binary strings $w_1, w_2$ are not equal, we write $w_1 != w_2$.
 
