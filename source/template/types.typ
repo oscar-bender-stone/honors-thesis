@@ -1,101 +1,151 @@
 // SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import calc.max // We need this for max
-
-// --- Core Rule Function ---
-// This builds the rule (premises, line, conclusion)
-// and attaches the name if it exists.
-#let judgement-rule(premises, conclusion, name: none) = {
-  // We must use a `context` block to be able to `measure` elements.
-  // The block will evaluate its contents and return the result,
-  // which we store in `rule-body`.
-  let rule-body = context {
-    // 1. Measure content and define the core rule
-    let premises-content = box(premises)
-    let conclusion-content = box(conclusion)
-
-    let premises-width = measure(premises-content).width
-    let conclusion-width = measure(conclusion-content).width
-    // We use the max width, plus a little padding for aesthetics
-    let rule-width = max(premises-width, conclusion-width) + 2pt
-
-    // We use a vertical `stack`. The cross-axis alignment
-    // is controlled by wrapping children in `align()`.
-    stack(
-      spacing: 0.4em,
-
-      // Premises above the line, centered
-      align(center, premises-content),
-
-      // The horizontal line, with its length
-      // explicitly set to the max width.
-      line(length: rule-width, stroke: 0.5pt),
-
-      // Conclusion below the line, centered
-      align(center, conclusion-content),
-    )
-  } // `rule-body` is now defined
-
-  // 3. Create final content, attaching name if it exists
-  if name == none {
-    rule-body // Just return the stack
-  } else {
-    // `attach` is a method on content, so we call it on `rule-body`.
-    // We use `right + bottom` for the position.
-    rule-body.attach(
-      right + bottom,
-      // Add a bit of horizontal space before the name
-      // We create a content block `[]` to hold the space
-      // and the math-formatted name.
-      [#h(0.6em)
-        $ (#name) $],
-    )
-  }
-}
+// This implementation is adapted from the `prooftree` function in
+// the `curryst` library (https://github.com/pauladam94/curryst),
+// which is available under the MIT License.
 
 
-// --- Main Figure Function ---
-// This function is now "smarter". It can handle
-// either a single rule (using positional args)
-// or multiple rules (using the new `rules` named arg).
-#let judgement(
+// A helper function to draw a single inference rule.
+#let draw-rule(
   premises: none,
-  conclusion: none,
-  rules: none, // This is the new argument
-  name: none, // Used only for single-rule mode
-  caption: none,
+  conclusion: [],
+  label: none,
+  stroke: 0.4pt,
+  spacing: 0.65em,
+  gutter: 0.5em,
 ) = {
-  // 1. Determine the content: single rule or list of rules?
-  let final-content = if rules != none {
-    // --- Multiple Rule Mode ---
-    // Use a grid to automatically arrange rules in rows
-    // and wrap as needed.
-    grid(
-      // Set a gutter between columns and rows
-      column-gutter: 2.5em, // Horizontal space between rules
-      row-gutter: 1.5em, // Vertical space between rules
-      // Align all rules in a row to their bottom edge
-      // This makes the conclusions and names line up.
-      align: bottom,
+  // We MUST wrap the entire logic in `layout` so that
+  // the `measure` function has access to the context.
+  layout(available => {
+    // 1. Resolve `em` units to absolute `pt` lengths
+    //    by measuring them in the current context.
+    let min-bar-height = measure(box(height: 0.8em)).height
+    let dy-adjust = measure(box(height: -0.15em)).height
 
-      // Map each rule dictionary to a rule element
-      ..rules.map(rule => judgement-rule(
-        rule.at("premises", default: ()),
-        rule.at("conclusion", default: ()),
-        name: rule.at("name", default: none), // <-- Fixed: Added 'name:'
-      ))
+    // 2. Prepare content
+    let premises-content = if premises != none { premises } else { [] }
+    let conclusion-content = conclusion
+
+    // 3. Measure content
+    let (premises-width, conclusion-width) = (
+      measure(premises-content).width,
+      measure(conclusion-content).width,
+    )
+
+    // 4. Determine bar length and offsets
+    let bar-length = calc.max(premises-width, conclusion-width)
+    let premises-offset = (bar-length - premises-width) / 2
+    let conclusion-offset = (bar-length - conclusion-width) / 2
+
+    // 5. Create baked label and measure it
+    let baked-label = if label != none {
+      // Move text up by an absolute amount for precise centering
+      move(dy: dy-adjust, label)
+    } else {
+      none
+    }
+
+    let (label-width, label-height) = if baked-label != none {
+      (measure(baked-label).width, measure(baked-label).height)
+    } else {
+      (0pt, 0pt)
+    }
+
+    // 6. Create the bar row (using the `curryst` technique)
+    let bar-row = {
+      box(
+        // Now `calc.max` compares two absolute lengths (pt vs pt)
+        height: calc.max(label-height, min-bar-height),
+        {
+          set align(horizon)
+          let bar-line = line(length: bar-length, stroke: stroke)
+
+          let parts = (bar-line, baked-label).filter(p => p != none)
+          stack(dir: ltr, spacing: gutter, ..parts)
+        },
+      )
+    }
+
+    // 7. Assemble the final stack
+    //    `align: left` was removed, as it's not a valid stack argument.
+    //    The `h()` functions handle the alignment.
+    let final-stack = stack(
+      dir: ttb,
+      spacing: spacing,
+
+      // 1. Premises (with horizontal padding)
+      h(premises-offset) + premises-content,
+
+      // 2. Bar Row
+      bar-row,
+
+      // 3. Conclusion (with horizontal padding)
+      h(conclusion-offset) + conclusion-content,
+    )
+
+    // 8. Return the stack directly.
+    //    The `layout` function provides the block context.
+    //    Wrapping in *another* `block` was redundant and
+    //    likely caused the overlapping issue.
+    final-stack
+  })
+}
+
+
+// Displays one or more judgement rules.
+//
+// - For a single rule:
+//   #judgement(premises: ..., conclusion: ..., label: ...)
+//
+// - For multiple rules in a grid:
+//   #judgement(rules: ( (premises: ...), ... ), caption: ...)
+//
+#let judgement(
+  // For multiple rules
+  rules: none,
+  caption: none,
+  columns: 3,
+  // For single rule
+  premises: none,
+  conclusion: [],
+  label: none,
+  // Styling
+  stroke: 0.4pt,
+  spacing: 0.65em, // Vertical space
+  gutter: 0.5em, // Space between line and label
+) = {
+  // Case 1: Multiple rules provided in an array
+  if rules != none {
+    figure(
+      grid(
+        columns: columns,
+        row-gutter: 2em,
+        column-gutter: 1.5em,
+        align: top,
+
+        // Map each rule dictionary to the `draw-rule` helper
+        ..rules.map(rule => draw-rule(
+          premises: rule.at("premises", default: none),
+          conclusion: rule.at("conclusion", default: []),
+          label: rule.at("label", default: none),
+          stroke: stroke,
+          spacing: spacing,
+          gutter: gutter,
+        ))
+      ),
+      caption: caption,
     )
   } else {
-    // --- Single Rule Mode ---
-    // Just call the core rule function with the provided args.
-    judgement-rule(premises, conclusion, name: name)
+    // Case 2: Single rule arguments provided directly
+    draw-rule(
+      premises: premises,
+      conclusion: conclusion,
+      label: label,
+      stroke: stroke,
+      spacing: spacing,
+      gutter: gutter,
+    )
   }
-
-  // 2. Wrap the final content in a figure
-  figure(
-    // Center the whole block (either the single rule or the grid of rules)
-    align(center, final-content),
-    caption: caption,
-  )
 }
+

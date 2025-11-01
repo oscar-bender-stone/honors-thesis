@@ -67,8 +67,8 @@ Before continuing, we must introduce some fundamental notions.
 #let vdash = $tack.r$
 
 #definition[
-  The *language of words* is given by $LW$ in @lang_words. A *word* is given
-  recursively.
+  The *language of words* is given by $LW$ in @lang_words. A *word* $w : W$ is
+  given recursively.
 
   #lang-def-vertical(
     $LW$,
@@ -87,56 +87,48 @@ Before continuing, we must introduce some fundamental notions.
       (
         premises: none,
         conclusion: $epsilon: W$,
-        name: "Empty",
+        label: $T$,
       ),
       (
         premises: $w : W$,
         conclusion: $w."0", w."1", w."2", w."3", w."4", w."5", w."6", w."7", w."8", w."9" : W$,
+        label: "Decimal digits",
       ),
       (
         premises: $w: W$,
         conclusion: $w."A", w."B", w."C", w."D", w."E", w."F" : W$,
+        label: "Hex Digits",
       ),
     ),
     caption: "Recursive definition of words.",
   )
-
-
-  // #judgement(
-  //   premises: $w : W$,
-  //   conclusion: $w."A", w."B", w."C", w."D", w."E", w."F" : W$,
-  //   // caption: [Recursive definition of words.],
-  // )
-
 ]<words>
 
 
+#definition[*Equality* on binary strings is defined recursively:
+  #judgement(
+    conclusion: $0 = 0, 1 = 1, 0 != 1$,
+  )
+  #judgement(
+    premises: ($w, w': W, w = w'$),
+    conclusion: $w.0 = w'.0, w.1 = w'.1$,
+  )
 
-// #definition[*Equality* on binary strings is defined recursively:
-//   #judgement(
-//     $$,
-//     $0 = 0, 1 = 1, 0 != 1$,
-//   )
-//   #judgement(
-//     premises: ($w, w': W, w = w'$),
-//     conclusion: $w.0 = w'.0, w.1 = w'.1$,
-//   )
-
-//   #judgement(
-//     $w, w': W, w != w'$,
-//     $w.0 != w'.0, w.1 != w'.1$,
-//   )
-// ]<equality_binary_strings>
+  #judgement(
+    premises: $w, w': W, w != w'$,
+    conclusion: $w.0 != w'.0, w.1 != w'.1$,
+  )
+]<equality_binary_strings>
 
 
 #remark[The definition for binary strings, as the remaining recursive
   definitions, serves as a suitable _uniform_ abstraction for data. From a
-  physical viewpoint, we cannot _verify_ each finite string, a phenomena related
-  to the notion of "Kripkenstein" @kripke_wittgenstein. However, we _can_
-  provide the template and is more suitable as a definition, and we presume
-  these definitions are completely contained (i.e., binary strings are defined
-  by a finite combination of _only_ the rules above). On the other hand, proof
-  checking will be done in an ultra-finitistic setting and is addressed in
+  physical viewpoint, we cannot _verify_ each finite string, a phenomenon
+  related to the notion of "Kripkenstein" @kripke_wittgenstein. However, we
+  _can_ provide the template and is more suitable as a definition, and we
+  presume these definitions are completely contained (i.e., binary strings are
+  defined by a finite combination of _only_ the rules above). On the other hand,
+  proof checking will be done in an ultra-finitistic setting and is addressed in
   @bootstrap.
 ]
 
