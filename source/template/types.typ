@@ -1,387 +1,169 @@
 // SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-/*
- * Core proof tree layout logic adapted from 'curryst' (MIT License).
- * https://github.com/pauladam94/curryst
- */
 
-/// Creates an inference rule. (Internal logic from curryst)
-#let rule(
-  label: none,
-  name: none,
-  conclusion,
-  ..premises,
-) = {
-  assert.ne(
-    type(conclusion),
-    dictionary,
-    message: "the conclusion of a rule must be some content (it cannot be another rule)",
-  )
-  assert.eq(
-    premises.named().len(),
-    0,
-    message: "unexpected named arguments to `rule`",
-  )
-  (
-    label: label,
-    name: name,
-    conclusion: conclusion,
-    premises: premises.pos(),
-  )
-}
-
-/// Lays out a proof tree. (Internal logic from curryst)
-#let prooftree(
-  rule,
-  min-premise-spacing: 1.5em,
-  title-inset: 0.2em,
-  stroke: stroke(0.05em),
-  vertical-spacing: 0pt,
-  min-bar-height: 0.8em,
-  dir: btt,
-) = {
-  // --- Internal layout functions (from curryst) ---
-
-  let layout-content(content) = {
-    let dimensions = measure(content)
-    (
-      content: box(..dimensions, content),
-      left-blank: 0pt,
-      right-blank: 0pt,
-    )
-  }
-
-  let layout-premises(premises, min-spacing, optimal-inner-width) = {
-    let arity = premises.len()
-    if arity == 0 { return layout-content(none) }
-    if arity == 1 { return premises.at(0) }
-
-    let left-blank = premises.at(0).left-blank
-    let right-blank = premises.at(-1).right-blank
-    let initial-content = stack(
-      dir: ltr,
-      spacing: min-spacing,
-      ..premises.map(p => p.content),
-    )
-    let initial-inner-width = (
-      measure(initial-content).width - left-blank - right-blank
-    )
-
-    if initial-inner-width >= optimal-inner-width {
-      return (
-        content: box(initial-content),
-        left-blank: left-blank,
-        right-blank: right-blank,
-      )
-    }
-
-    let remaining-space = optimal-inner-width - initial-inner-width
-    let final-content = stack(
-      dir: ltr,
-      spacing: min-spacing + remaining-space / (arity + 1),
-      ..premises.map(p => p.content),
-    )
-    (
-      content: box(final-content),
-      left-blank: left-blank,
-      right-blank: right-blank,
-    )
-  }
-
-  let layout-leaf-premises(premises, min-spacing, available-width) = {
-    let line-builder = stack.with(dir: ltr, spacing: min-spacing)
-    let lines = ((),)
-    for premise in premises {
-      let augmented-line = lines.last() + (premise,)
-      if measure(line-builder(..augmented-line)).width <= available-width {
-        lines.last() = augmented-line
-      } else {
-        lines.push((premise,))
-      }
-    }
-    layout-content(align(center, stack(
-      dir: ttb,
-      spacing: 0.7em,
-      ..lines.filter(line => line.len() != 0).map(line => line-builder(..line)),
-    )))
-  }
-
-  let layout-bar(stroke, length, hang, label, name, margin, min-height) = {
-    let bar = line(
-      start: (0pt, 0pt),
-      length: length + 2 * hang,
-      stroke: stroke,
-    )
-    let (width: label-width, height: label-height) = measure(label)
-    let (width: name-width, height: name-height) = measure(name)
-    let content = {
-      show: box.with(height: calc.max(label-height, name-height, min-height))
-      set align(horizon)
-      let bake(body) = if body == none {
-        none
-      } else {
-        move(dy: -0.15em, box(body, ..measure(body)))
-      }
-      let parts = (bake(label), bar, bake(name)).filter(p => p != none)
-      stack(dir: ltr, spacing: margin, ..parts)
-    }
-    (
-      content: content,
-      left-blank: if label == none { hang } else {
-        hang + margin + label-width
-      },
-      right-blank: if name == none { hang } else { hang + margin + name-width },
-    )
-  }
-
-  let layout-rule(
-    premises,
-    conclusion,
-    bar-stroke,
-    bar-hang,
-    label,
-    name,
-    bar-margin,
-    vertical-spacing,
-    min-bar-height,
-  ) = {
-    conclusion = box(conclusion, ..measure(conclusion))
-    let premises-inner-width = (
-      measure(premises.content).width
-        - premises.left-blank
-        - premises.right-blank
-    )
-    let conclusion-width = measure(conclusion).width
-    let bar-length = calc.max(premises-inner-width, conclusion-width)
-    let bar = layout-bar(
-      bar-stroke,
-      bar-length,
-      bar-hang,
-      label,
-      name,
-      bar-margin,
-      min-bar-height,
-    )
-
-    let left-start
-    let right-start
-    let premises-left-offset
-    let conclusion-left-offset
-
-    if premises-inner-width > conclusion-width {
-      left-start = calc.max(premises.left-blank, bar.left-blank)
-      right-start = calc.max(premises.right-blank, bar.right-blank)
-      premises-left-offset = left-start - premises.left-blank
-      conclusion-left-offset = (
-        left-start + (premises-inner-width - conclusion-width) / 2
-      )
-    } else {
-      let premises-left-hang = (
-        premises.left-blank - (bar-length - premises-inner-width) / 2
-      )
-      let premises-right-hang = (
-        premises.right-blank - (bar-length - premises-inner-width) / 2
-      )
-      left-start = calc.max(premises-left-hang, bar.left-blank)
-      right-start = calc.max(premises-right-hang, bar.right-blank)
-      premises-left-offset = (
-        left-start
-          + (bar-length - premises-inner-width) / 2
-          - premises.left-blank
-      )
-      conclusion-left-offset = left-start
-    }
-    let bar-left-offset = left-start - bar.left-blank
-
-    let content = {
-      let stack-dir = dir.inv()
-      let align-y = dir.start()
-      set align(align-y + left)
-      stack(
-        dir: stack-dir,
-        spacing: vertical-spacing,
-        h(premises-left-offset) + premises.content,
-        h(bar-left-offset) + bar.content,
-        h(conclusion-left-offset) + conclusion,
-      )
-    }
-    (
-      content: box(content),
-      left-blank: left-start + (bar-length - conclusion-width) / 2,
-      right-blank: right-start + (bar-length - conclusion-width) / 2,
-    )
-  }
-
-  let layout-tree(
-    rule,
-    available-width,
-    min-premise-spacing,
-    bar-stroke,
-    bar-hang,
-    bar-margin,
-    vertical-spacing,
-    min-bar-height,
-  ) = {
-    if type(rule) != dictionary {
-      return layout-content(rule)
-    }
-    let layout-with-baked-premises(premises) = {
-      layout-rule(
-        premises,
-        rule.conclusion,
-        bar-stroke,
-        bar-hang,
-        rule.label,
-        rule.name,
-        bar-margin,
-        vertical-spacing,
-        min-bar-height,
-      )
-    }
-    let side-to-side-premises = layout-premises(
-      rule.premises.map(premise => layout-tree(
-        premise,
-        none,
-        min-premise-spacing,
-        bar-stroke,
-        bar-hang,
-        bar-margin,
-        vertical-spacing,
-        min-bar-height,
-      )),
-      min-premise-spacing,
-      measure(rule.conclusion).width,
-    )
-    let result = layout-with-baked-premises(side-to-side-premises)
-    let premises-are-all-leaves = rule.premises.all(p => type(p) != dictionary)
-    if (
-      available-width == none
-        or measure(result.content).width <= available-width
-        or not premises-are-all-leaves
-    ) {
-      return result
-    }
-    let used-width = bar-hang * 2
-    if rule.name != none { used-width += bar-margin + measure(rule.name).width }
-    if rule.label != none {
-      used-width += bar-margin + measure(rule.label).width
-    }
-    let stacked-premises = layout-leaf-premises(
-      rule.premises,
-      min-premise-spacing,
-      available-width - used-width,
-    )
-    layout-with-baked-premises(stacked-premises)
-  }
-
-  // --- Main prooftree layout ---
-  layout(available => {
-    let tree = layout-tree(
-      rule,
-      available.width,
-      min-premise-spacing.to-absolute(),
-      stroke,
-      title-inset.to-absolute(),
-      title-inset.to-absolute(),
-      vertical-spacing.to-absolute(),
-      min-bar-height.to-absolute(),
-    ).content
-    block(..measure(tree), breakable: false, tree)
-  })
-}
-
-/// Creates one or more inference rules, centered and with wrapping.
+/// Creates one or more inference rules with guaranteed alignment.
+///
+/// This version uses a table with manual alignment overrides
+/// to *guarantee* that the *vertical center* of labels
+/// is aligned with the *vertical center* of the inference bar.
 ///
 /// Args:
 ///   rules (array): An array of dictionaries, each defining a rule.
+///     - premises (content, array): Premises for the rule.
+///     - conclusion (content): Conclusion for the rule.
+///     - lhs-label (content): Optional label for the *left* side (e..g, "T").
+///     - label (content): Optional label for the *right* side (e.g., "Axiom").
 ///   premises (content, array): Premises for a single rule.
 ///   conclusion (content): Conclusion for a single rule.
-///   label (content): Label (on right) for a single rule.
+///   lhs-label (content): Left-side label for a single rule.
+///   label (content): Right-side label for a single rule.
 ///   caption (content): A caption for the figure.
+///
 #let judgement(
   rules: none,
   premises: none,
   conclusion: none,
-  label: none,
+  lhs-label: none, // For the left side (e.g., "T")
+  label: none, // For the right side (e.g., "Decimal digits")
   caption: none,
 ) = {
-  // Helper to convert to `curryst` rule format
-  let make-internal-rule(r) = {
-    let internal-premises = ()
-    if r.premises != none {
-      if type(r.premises) == array {
-        internal-premises = r.premises
-      } else {
-        internal-premises = (r.premises,)
-      }
+  // --- Internal Helper to lay out a SINGLE rule ---
+  let _layout-rule(r) = {
+    let premises-arr = r.at("premises", default: none)
+    let conclusion = r.at("conclusion", default: [error: no conclusion])
+    let lhs = r.at("lhs-label", default: none)
+    let rhs = r.at("label", default: none)
+    let spacing = 0.5em
+
+    // 1. Standardize premises
+    if premises-arr == none {
+      premises-arr = ()
+    } else if type(premises-arr) != array {
+      premises-arr = (premises-arr,)
     }
-    rule(
-      name: r.at("label", default: none),
-      r.conclusion,
-      ..internal-premises,
+
+    // 2. Build the top (premises) and bottom (conclusion) content
+    let top-content = if premises-arr.len() > 0 {
+      stack(dir: ltr, spacing: 2em, ..premises-arr)
+    } else {
+      // Use an empty content box [ ]
+      // This has a standard line height, just like a premise.
+      [ ]
+    }
+    let bot-content = conclusion
+
+    // 3. Find the width of the bar
+    let top-width = measure(top-content).width
+    let bot-width = measure(bot-content).width
+    let bar-width = calc.max(top-width, bot-width)
+
+    // 4. Create the three *centered* core components
+    let top-part = box(width: bar-width, align(center, top-content))
+    let bar-part = line(length: bar-width, stroke: 0.4pt)
+    let bot-part = box(width: bar-width, align(center, bot-content))
+
+    // 5. Stack the core tree
+    let core-tree = stack(
+      dir: ttb,
+      spacing: spacing,
+      top-part,
+      bar-part,
+      bot-part,
+    )
+
+    // --- THE GUARANTEED ALIGNMENT (CENTER) ---
+    // We need to find the vertical *center* of the bar
+    // relative to the top of the core-tree.
+    let top-height = measure(top-part).height
+    let bar-height = measure(bar-part).height
+    // This is the distance from the top of the tree to the *center* of the bar
+    let bar-v-center = top-height + spacing + (bar-height / 2)
+
+    // 6. Place the core tree and labels in a table
+    table(
+      columns: (auto, auto, auto),
+      rows: auto,
+      gutter: 1em,
+      // Align all cell tops as our starting reference
+      align: top,
+      stroke: none,
+      // No borders
+
+      // Col 1: Left Label
+      if lhs != none {
+        // Find the dy to align the label's center with the bar's center
+        let lhs-height = measure(lhs).height
+        let lhs-dy = bar-v-center - (lhs-height / 2)
+        move(dy: lhs-dy, align(right, lhs))
+      },
+
+      // Col 2: The Proof Tree
+      core-tree,
+
+      // Col 3: Right Label
+      if rhs != none {
+        // Find the dy to align the label's center with the bar's center
+        let rhs-height = measure(rhs).height
+        let rhs-dy = bar-v-center - (rhs-height / 2)
+        move(dy: rhs-dy, align(left, rhs))
+      },
+    )
+  }
+  // --- End of internal helper ---
+
+  // Standardize input:
+  if rules == none {
+    rules = (
+      (
+        premises: premises,
+        conclusion: conclusion,
+        "lhs-label": lhs-label, // Pass LHS
+        "label": label, // Pass RHS
+      ),
     )
   }
 
-  let content
+  // --- Main Layout (WITH WRAPPING) ---
+  // The wrapping logic is here, inside the layout() function.
+  let content = layout(available => {
+    // 1. Render all the individual rule trees
+    let rule-trees = rules.map(r => _layout-rule(r))
 
-  if rules != none {
-    // Multi-rule mode: Use `layout` to get available width and wrap rules
-    content = layout(available => {
-      let rule-trees = rules.map(r => {
-        prooftree(make-internal-rule(r), stroke: 0.4pt)
-      })
+    // 2. Wrapping logic
+    let line-builder = stack.with(dir: ltr, spacing: 2em)
+    let lines = ((),)
+    let available-width = available.width
 
-      let line-builder = stack.with(dir: ltr, spacing: 2em)
-      let lines = ((),)
-      let available-width = available.width
-
-      for tree in rule-trees {
-        let augmented-line = lines.last() + (tree,)
-        // Add to line if it fits, or if the line is empty (to force at least one item)
-        if (
-          measure(line-builder(..augmented-line)).width <= available-width
-            or lines.last().len() == 0
-        ) {
-          lines.last() = augmented-line
-        } else {
-          lines.push((tree,))
-        }
+    for tree in rule-trees {
+      let augmented-line = lines.last() + (tree,)
+      // Add to line if it fits, or if the line is empty
+      if (
+        measure(line-builder(..augmented-line)).width <= available-width
+          or lines.last().len() == 0
+      ) {
+        lines.last() = augmented-line
+      } else {
+        // Otherwise, start a new line
+        lines.push((tree,))
       }
+    }
 
-      // Build the final stack of centered lines
-      stack(
-        dir: ttb,
-        spacing: 1em,
-        ..lines
-          .filter(line => line.len() > 0)
-          .map(line => align(center, line-builder(..line))),
-      )
-    })
-  } else if conclusion != none {
-    // Single-rule mode: Create one tree
-    let internal-rule = make-internal-rule((
-      premises: premises,
-      conclusion: conclusion,
-      label: label,
-    ))
-    content = block(width: 100%, align(center, prooftree(
-      internal-rule,
-      stroke: 0.4pt,
-    )))
-  } else {
-    content = box()
-  }
+    // 3. Build the final stack of lines
+    stack(
+      dir: ttb,
+      spacing: 1em,
+      ..lines
+        .filter(line => line.len() > 0)
+        .map(line => align(center, line-builder(..line))),
+    )
+  })
 
   // Add caption if provided
   if caption != none {
-    content = figure(
-      content,
-      caption: caption,
-    )
+    content = figure(content, caption: caption)
   }
 
-  // Final content is ready
   content
 }
 
