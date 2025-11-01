@@ -454,10 +454,18 @@
   $square.stroked$
 })
 
-#let lang-def-vertical(notation, symbols-data) = {
+#let lang-def-vertical(
+  notation,
+  symbols-data,
+  base-symbols: none,
+  caption: none,
+) = {
+  let column-count = 4
+
   let lang-table = table(
     align: (center, center),
     stroke: none,
+    columns: column-count,
 
     [],
     [],
@@ -487,39 +495,49 @@
   )
   figure(
     lang-table,
+    caption: caption,
   )
 }
 
 
 
-#let lang-def-horizontal(notation, symbols-data) = {
+#let lang-def-horizontal(
+  notation,
+  base-symbols: none,
+  symbols-data,
+  anon-symbols: none,
+  caption: none,
+) = {
   let column-count = 12
 
   let symbol-keys = symbols-data.keys()
-  let symbol-names = symbols-data.values()
+  let symbol-names = symbols-data.values().map(name => strong[#name])
 
   let symbol-rows = ((notation, $:=$) + symbol-keys).chunks(column-count)
   let name-rows = symbol-names.chunks(column-count).map(arr => ("", "") + arr)
 
   let symbol-chunks = symbol-rows.zip(name-rows)
 
+  let anon-symbol-row = ("", "") + anon-symbols
+
   let lang-table = table(
     columns: column-count,
-    rows: 1,
+    rows: 2,
     align: (center, center),
     stroke: none,
 
-    ..symbol-chunks.at(0).at(0),
-    ..symbol-chunks.at(0).at(1),
+    ..for chunk in symbol-chunks {
+      for item in chunk {
+        item
+      }
+    },
 
-    ..symbol-chunks.at(1).at(0),
-    ..symbol-chunks.at(1).at(1)
+    ..anon-symbol-row
   )
 
   figure(
     lang-table,
-    supplement: "Figure",
-    caption: "Hexadecimal digits.",
+    caption: caption,
   )
 }
 

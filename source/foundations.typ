@@ -27,42 +27,61 @@ sub-section. For general notation, we write $:=$ to mean "defined as".
 
 Before continuing, we must introduce some fundamental notions.
 
+#let Bit = math.bold("Bit")
 #let Digit = math.bold("Digit")
 
 #definition[
-  The set of *hexadecimal digits* is given by $Digit$, shown in @digits.
-  #lang-def-horizontal($Digit$, (
-    "0": "zero",
-    "1": "one",
-    "2": "two",
-    "3": "three",
-    "4": "four",
-    "5": "five",
-    "6": "six",
-    "7": "seven",
-    "8": "eight",
-    "9": "nine",
-    "A": "",
-    "B": "",
-    "C": "",
-    "D": "",
-    "E": "",
-    "F": "",
-  ))<digits>
+  The set of *hexadecimal digits* is the set of symbols given by $Digit$, shown
+  in @digits. The *binary digits (bits)* are $Bit := 0 thin thin 1$.
+
+  #lang-def-horizontal(
+    $Digit$,
+    (
+      "0": "zero",
+      "1": "one",
+      "2": "two",
+      "3": "three",
+      "4": "four",
+      "5": "five",
+      "6": "six",
+      "7": "seven",
+      "8": "eight",
+      "9": "nine",
+    ),
+    anon-symbols: ("A", "B", "C", "D", "E", "F"),
+    caption: "Hexadecimal digits.",
+  )<digits>
+
+  The *binary digits (bits)* are $Bit = 0 thin thin 1$.
 
   // Define the *language of binary strings* as
   // $cal(L)_B = {. thin 0 thin 1 thin w thin = thin !=}$:
   // - *concatenation* "."
   // - *zero* $0$ and *one* $1$.
   // - *equality* $=$ and *inequality* $!=$.
-]<lang_binary>
+]<lang_digits>
+
+#let LW = $cal(L)_W$
+
+#let vdash = $tack.r$
 
 #definition[
-  A *binary string* is defined recursively: #recursion(
-    [$0$ and $1$ are binary strings.],
-    [if $w$ is a binary string, then so are $w.0$ (denoted $w 0$) and $w.1$
-      (denoted $w 1$).],
-  )]<binary_strings>
+  The *language of words* is given by $LW$ in @lang_words. A *word* is defined
+  by the judgments in @word_judgements.
+
+  #lang-def-vertical(
+    $LW$,
+    ("Digit": "", ".": "Concatenation", "=": "equality", "not =": "inequality"),
+    caption: "Language of words",
+  )<lang_words>
+
+  #figure(
+    [$(Gamma vdash w : W) / (Gamma vdash w.0 : W, w.1 : W)$],
+    caption: [Recursive definition of words.],
+  )<word_judgements>
+]<binary_strings>
+
+
 
 #definition[*Equality* on binary strings is defined recursively:
   #recursion(
