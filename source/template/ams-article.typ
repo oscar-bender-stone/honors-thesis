@@ -454,6 +454,35 @@
   $square.stroked$
 })
 
+#let lang-def(notation, symbols-data) = {
+  table(
+    columns: 3,
+    align: (center, left),
+
+    [],
+    [#text(weight: "bold")[Symbol]],
+    [#text(weight: "bold")[Name]],
+
+    ..for (i, (symbol-str, name-str)) in symbols-data.pairs().enumerate() {
+      // First line includes
+      // notation, and the
+      // rest are blank
+      if i == 0 {
+        (
+          [ #notation ],
+          [ $#symbol-str$ ],
+          [ #name-str ],
+        )
+      } else {
+        (
+          [ ],
+          [ $#symbol-str$ ],
+          [ #name-str ],
+        )
+      }
+    },
+  )
+}
 #let acknowledgment(body) = {
   block({
     set par(first-line-indent: 0em)

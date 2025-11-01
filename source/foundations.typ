@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 #import "template/ams-article.typ": (
-  definition, equation_block, labeled_equation, remark,
+  definition, equation_block, labeled_equation, lang-def, remark,
 )
 #import "template/ams-article.typ": corollary, lemma, proof, recursion, theorem
 
@@ -12,23 +12,26 @@
 = Foundations <foundations>
 
 We introduce the base theory needed for this thesis. This theory embodies a
-unifying concept for formal systems: computatbility. We capture this through a
+unifying concept for formal systems: computability. We capture this through a
 suitable simple type theory.
 
 
 We will keep this self-contained; additional references will be provided in each
-sub-section.
+sub-section. For general notation, we write $:=$ to mean "defined as".
+
 
 == Base Notions
 
-Before continuing, we must introduce some fundamental recursive definitions.
+Before continuing, we must introduce some fundamental notions.
 
 #definition[
-  Define the *language of binary strings* as
-  $cal(L)_B = {. thin 0 thin 1 thin w thin = thin !=}$:
-  - *concatenation* "."
-  - *zero* $0$ and *one* $1$.
-  - *equality* $=$ and *inequality* $!=$.
+  The set of *hexadecimal digits* is
+  #lang-def($"Digit"$, ("0": "zero", "1": "one"))
+  // Define the *language of binary strings* as
+  // $cal(L)_B = {. thin 0 thin 1 thin w thin = thin !=}$:
+  // - *concatenation* "."
+  // - *zero* $0$ and *one* $1$.
+  // - *equality* $=$ and *inequality* $!=$.
 ]<lang_binary>
 
 #definition[
@@ -40,7 +43,7 @@ Before continuing, we must introduce some fundamental recursive definitions.
 
 #definition[*Equality* on binary strings is defined recursively:
   #recursion(
-    [$0 = 0$ and $1 = 1$, but _not_ $0 = 1$.],
+    [$0 = 0$ and $1 = 1$, but _not_ $0 = 1$ (which we denote by $0 != 1$).],
     [let $w$, $w'$ be binary strings. Then if $w = w'$, then $w.0 = w'.0$ and
       $w.1 = w'.1$],
   )
@@ -62,21 +65,6 @@ Whenever two binary strings $w_1, w_2$ are not equal, we write $w_1 != w_2$.
 For simplicity, our primary encoding uses binary. We directly use this in the
 notion of a variable in the next section. We review the primary number systems
 natively supported by Welkin.
-
-
-#definition[
-  A *number base* consists of a set of *digits* that map to binary strings, such
-  that each binary string can be written as a sum of powers of these digits. In
-  particular, we define:
-  - *Decimal*, with ten digits ${0, 1, 2, 3, 4, 5, 6, 7, 8, 9}$. We take this as
-    the _default_ base in the grammar, so no prefix is needed.
-  - *Binary*, with two digits ${0, 1}$. We use the prefix $"0b"$. We set this as
-    our base for _encodings_, particularly for variables (see
-    @system_t_lang_full).
-  - *Hexadecimal*, with sixteen digits
-    ${0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "D", "E", "F"}$. We use the
-    prefix $"0x"$.
-]<number_systems>
 
 
 == System T
