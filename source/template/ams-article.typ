@@ -454,14 +454,15 @@
   $square.stroked$
 })
 
-#let lang-def(notation, symbols-data) = {
-  table(
-    columns: 3,
-    align: (center, left),
+#let lang-def-vertical(notation, symbols-data) = {
+  let lang-table = table(
+    align: (center, center),
+    stroke: none,
 
     [],
-    [#text(weight: "bold")[Symbol]],
-    [#text(weight: "bold")[Name]],
+    [],
+    [*Symbol*],
+    [*Name*],
 
     ..for (i, (symbol-str, name-str)) in symbols-data.pairs().enumerate() {
       // First line includes
@@ -469,20 +470,60 @@
       // rest are blank
       if i == 0 {
         (
-          [ #notation ],
+          [ $#notation$ ],
+          [ $:=$],
           [ $#symbol-str$ ],
-          [ #name-str ],
+          [ *#name-str* ],
         )
       } else {
         (
-          [ ],
+          [],
+          [],
           [ $#symbol-str$ ],
-          [ #name-str ],
+          [ *#name-str* ],
         )
       }
     },
   )
+  figure(
+    lang-table,
+  )
 }
+
+
+
+#let lang-def-horizontal(notation, symbols-data) = {
+  let column-count = 12
+
+  let symbol-keys = symbols-data.keys()
+  let symbol-names = symbols-data.values()
+
+  let symbol-rows = ((notation, $:=$) + symbol-keys).chunks(column-count)
+  let name-rows = symbol-names.chunks(column-count).map(arr => ("", "") + arr)
+
+  let symbol-chunks = symbol-rows.zip(name-rows)
+
+  let lang-table = table(
+    columns: column-count,
+    rows: 1,
+    align: (center, center),
+    stroke: none,
+
+    ..symbol-chunks.at(0).at(0),
+    ..symbol-chunks.at(0).at(1),
+
+    ..symbol-chunks.at(1).at(0),
+    ..symbol-chunks.at(1).at(1)
+  )
+
+  figure(
+    lang-table,
+    supplement: "Figure",
+    caption: "Hexadecimal digits.",
+  )
+}
+
+
 #let acknowledgment(body) = {
   block({
     set par(first-line-indent: 0em)

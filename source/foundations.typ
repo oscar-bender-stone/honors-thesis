@@ -2,9 +2,12 @@
 // SPDX-License-Identifier: MIT
 
 #import "template/ams-article.typ": (
-  definition, equation_block, labeled_equation, lang-def, remark,
+  definition, equation_block, labeled_equation, lang-def-horizontal,
+  lang-def-vertical,
 )
-#import "template/ams-article.typ": corollary, lemma, proof, recursion, theorem
+#import "template/ams-article.typ": (
+  corollary, lemma, proof, recursion, remark, theorem,
+)
 
 #let PA = math.bold("PA")
 #let HA = math.bold("HA")
@@ -24,9 +27,29 @@ sub-section. For general notation, we write $:=$ to mean "defined as".
 
 Before continuing, we must introduce some fundamental notions.
 
+#let Digit = math.bold("Digit")
+
 #definition[
-  The set of *hexadecimal digits* is
-  #lang-def($"Digit"$, ("0": "zero", "1": "one"))
+  The set of *hexadecimal digits* is given by $Digit$, shown in @digits.
+  #lang-def-horizontal($Digit$, (
+    "0": "zero",
+    "1": "one",
+    "2": "two",
+    "3": "three",
+    "4": "four",
+    "5": "five",
+    "6": "six",
+    "7": "seven",
+    "8": "eight",
+    "9": "nine",
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": "",
+    "E": "",
+    "F": "",
+  ))<digits>
+
   // Define the *language of binary strings* as
   // $cal(L)_B = {. thin 0 thin 1 thin w thin = thin !=}$:
   // - *concatenation* "."
