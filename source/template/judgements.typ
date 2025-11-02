@@ -27,36 +27,58 @@
   rules: none,
   caption: none,
   stroke: 0.4pt,
-  bar-padding: 4pt,
+  vspace: 4pt,
+  hspace: 2pt,
   label-padding: 6pt,
 ) = {
   let rule-grid(premises: content, conclusion: content) = {
     return grid(
       columns: 1,
       rows: 2,
-      row-gutter: bar-padding,
+      row-gutter: vspace,
       grid.cell(stroke: (bottom: stroke + black), pad(
         premises,
-        bottom: bar-padding + 1pt,
+        bottom: vspace + 1pt,
       )),
-      conclusion,
+      pad(conclusion, left: hspace, right: hspace),
     )
   }
 
+  let rule-figure(
+    premises: content,
+    conclusion: content,
+    label: none,
+  ) = {
+    let label-cell
 
-  let rule-figure(premises: content, conclusion: content, label: none) = {
-    return grid(
-      columns: (auto, auto),
-      rule-grid(premises: premises, conclusion: conclusion),
+    if label == none {
+      label-cell = []
+    } else {
+      label-cell = pad(label, left: label-padding)
+    }
+
+    return figure(
+      grid(
+        columns: (auto, auto),
+        rule-grid(premises: premises, conclusion: conclusion), label-cell,
+      ),
+      caption: caption,
     )
   }
 
   if rules.len() == 1 {
-    rule-grid()
+    let rule = rules.at(0)
+
+    rule-figure(
+      premises: rule.at("premises", default: none),
+      conclusion: rule.at("conclusion", default: none),
+      label: rule("label", default: none),
+    )
   } else {
     rule-figure(
       premises: rules.at(0).at("premises", default: none),
       conclusion: rules.at(0).at("conclusion", default: none),
+      label: rules.at(0).at("label", default: none),
     )
   }
 }

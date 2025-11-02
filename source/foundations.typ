@@ -99,7 +99,6 @@ Before continuing, we must introduce some fundamental notions.
 
 
 #definition[*Equality* on binary strings is defined recursively.
-
   #judgement(
     rules: (
       (
