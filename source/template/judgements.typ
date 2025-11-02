@@ -31,7 +31,7 @@
   hspace: 2pt,
   label-padding: 6pt,
 ) = {
-  let rule-grid(premises: content, conclusion: content) = {
+  let rule-cell(premises: content, conclusion: content) = {
     return grid(
       columns: 1,
       rows: 2,
@@ -44,43 +44,37 @@
     )
   }
 
-  let rule-figure(
+  let rule-grid(
     premises: content,
     conclusion: content,
     label: none,
   ) = {
-    let label-cell
-
-    if label == none {
-      label-cell = []
+    let label-vspace
+    if premises == none {
+      label-vspace = vspace + 2pt
     } else {
-      label-cell = pad(label, left: label-padding)
+      label-vspace = 0pt
     }
 
-    return figure(
-      grid(
-        columns: (auto, auto),
-        rule-grid(premises: premises, conclusion: conclusion), label-cell,
-      ),
-      caption: caption,
+    let label-cell = pad(label, bottom: label-vspace, left: label-padding)
+
+    grid(
+      columns: (auto, auto),
+      align: center + horizon,
+      rule-cell(premises: premises, conclusion: conclusion), label-cell,
     )
   }
 
-  if rules.len() == 1 {
-    let rule = rules.at(0)
-
-    rule-figure(
-      premises: rule.at("premises", default: none),
-      conclusion: rule.at("conclusion", default: none),
-      label: rule("label", default: none),
-    )
-  } else {
-    rule-figure(
-      premises: rules.at(0).at("premises", default: none),
-      conclusion: rules.at(0).at("conclusion", default: none),
-      label: rules.at(0).at("label", default: none),
-    )
-  }
+  figure(
+    for rule in rules {
+      rule-grid(
+        premises: rule.at("premises", default: none),
+        conclusion: rule.at("conclusion", default: none),
+        label: rule.at("label", default: none),
+      )
+    },
+    caption: caption,
+  )
 }
 
 
