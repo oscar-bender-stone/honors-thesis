@@ -185,8 +185,9 @@ Now, the untyped lambda calculus has non-terminating functions and is therefore
 not suitable for proofs on decidability. On the other hand, the simply typed
 lambda calculus on its own is too weak for proofs on computability. The solution
 is to augment this with induction, via Kurt Gödel's System T @goedel_system_t.
-We closely follow the presentation from @girard_proofs_and_types. This theory
-consists of three key parts:
+We closely follow the presentation from @hoffmann_2023_system_t. #footnote([Note
+  that the original lecture notes contain some typos, and we fix these as
+  appropriate.]) This theory consists of four key parts:
 
 - *Types:* @system_t_types.
 
@@ -199,9 +200,23 @@ consists of three key parts:
 #let Var = math.bold("Var")
 
 #definition[
-  The *base language of System T* consists of symbols
-  $L_(B T) = {top thin bot thin 0 thin 1 thin + thin * thin BB thin NN thin x thin : thin -> times thin lambda thin D thin R thin angle.l thin angle.r thin \( thin \)}$.
-  The *types* of System T are defined recursively:
+  The *base language of System T* is
+  #lang-def-vertical(
+    $L_(B T)$,
+    (
+      // ($top$, "True"),
+      // ($bot$, "False"),
+      ($"z"$, "zero"),
+      ($"s"$, "successor"),
+      ($->$, "function"),
+      ($lambda$, "lambda"),
+      ($"rec"$, "recursion"),
+      ($\( thin thin thin \)$, "left/right parentheses"),
+    ),
+  )
+
+
+  The *types* of System T are defined recursively.
   #recursion(
     [These are called *base types*.
       - $BB$ is a type, called the *boolean type*.
