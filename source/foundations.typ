@@ -189,8 +189,6 @@ We closely follow the presentation from @hoffmann_2023_system_t. #footnote([Note
   that the original lecture notes contain some typos, and we fix these as
   appropriate.]) This theory consists of four key parts:
 
-- *Types:* @system_t_types.
-
 - *Terms:* @system_t_terms.
 
 - *Operational Semantics:* @system_t_semantics.
@@ -198,6 +196,7 @@ We closely follow the presentation from @hoffmann_2023_system_t. #footnote([Note
 - *Normal forms:* @system_t_normal_form.
 
 #let Var = math.bold("Var")
+#let nat = math.text("nat")
 
 #definition[
   The *base language of System T* is
@@ -208,65 +207,42 @@ We closely follow the presentation from @hoffmann_2023_system_t. #footnote([Note
       // ($bot$, "False"),
       ($"z"$, "zero"),
       ($"s"$, "successor"),
+      ($nat$, "natural numbers"),
       ($->$, "function"),
       ($lambda$, "lambda"),
       ($"rec"$, "recursion"),
       ($\( thin thin thin \)$, "left/right parentheses"),
     ),
   )
+  A *type* is given by either $"nat"$, or given types $tau, sigma$, by the
+  *function type* $tau -> sigma$. The *(complete) language* is
+  $L_(S T) = L_(B T) union Var$, where $Var$ consists of the *variables*,
+  symbols $x_i^S$ for each binary string $i$ (the *index*) and type $S$. A
+  recursive definition can be adapted from @words and the one above.
 
-
-  The *types* of System T are defined recursively.
-  #recursion(
-    [These are called *base types*.
-      - $BB$ is a type, called the *boolean type*.
-      - $NN$ is a type, called the *natural numbers type*.
-    ],
-    [let $U$ and $S$ be types. Then $U -> S$ is a *function type* and
-      $U times S$ is a *product type*. Moreover, we set $(U) equiv U$.],
-  )
 ]<system_t_types>
-
-#definition[
-  The *(complete) language* is $L_(S T) = L_(B T) union Var$, where $Var$
-  consists of the *variables*, symbols $x_i^S$ for each binary string $i$ (the
-  *index*) and type $S$. A recursive definition can be adapted from @words and
-  the one above.
-
-]<system_t_lang_full>
 
 
 #definition[
   The *terms* of System T are defined recursively.
-  #recursion(
-    [
-      - Each variable $x_i^S$ is a term of $S$.
-      - $top$ and $bot$ are the _only_ terms of $BB$.
-      - $0$ and $1$ are terms of $NN$.
-    ],
-    [
-      - If $u$ is a term of $U$ and $v$ is a term of $V$, then
-        $lr(angle.l u, v angle.r)$ is a term of $U times V$.
-      - Given a term $lr(angle.l u, v angle.r)$ of $U times V$, then $u$ is a
-        term of $U$ and $v$ is a term of $V$.
-      - If $t$ has type $tau$ and $f$ has type $S -> U$, then $f(t)$ has type
-        $U$.
-      - For each variable $x_i^S$ of type $S$, if $f(s)$ has type $U$, then
-        $lambda x_i^S. f(x_i^S)$ has type $T -> U$.
-      - If $u: U$, $v: U$ and $t : BB$, then $D thin u thin v thin t$ has type
-        $U$.
-      - For each term $n$ of $NN$, $n+1$ is a term of $NN$.
-      - Let $u : U$, $v : U -> (NN -> U)$, and $t: NN$. Then
-        $R thin u thin v thin t : U$.
-    ],
-  )
 
+  #judgement(
+    rules: (
+      // Base cases
+      (conclusion: $x_i^S : S$, label: $T_"var"$),
+      (conclusion: $0, 1 : nat$),
+      // Recursive steps
+      (premises: $t : tau, f : S -> U$, conclusion: $f(t) : U$),
+      (
+        premises: $x_i^S : S, f(x_i^S) : U$,
+        conclusion: $lambda (x : S) f(x) : U$,
+      ),
+    ),
+  )
 ]<system_t_terms>
 
 
-
 #definition[
-
 ]<system_t_normal_form>
 
 
