@@ -80,17 +80,17 @@ Before continuing, we must introduce some fundamental notions.
       (
         premises: none,
         conclusion: $epsilon: W$,
-        label: $T$,
+        label: $"Empty"$,
       ),
       (
         premises: $w : W$,
         conclusion: $w."0", w."1", w."2", w."3", w."4", w."5", w."6", w."7", w."8", w."9" : W$,
-        label: "Decimal digits",
+        label: $"Decimal digits"$,
       ),
       (
         premises: $w: W$,
         conclusion: $w."A", w."B", w."C", w."D", w."E", w."F" : W$,
-        label: "Hex Digits",
+        label: $"Hex Digits"$,
       ),
     ),
     caption: "Recursive definition of words.",
@@ -110,13 +110,16 @@ Before continuing, we must introduce some fundamental notions.
         conclusion: $w.0 = w'.0, w.1 = w'.1$,
       ),
       (
-        premises: $w, w': W, w != w'$,
-        conclusion: $w.0 != w'.0, w.1 != w'.1$,
+        premises: $w, w' : W, w.0 = w'.0$,
+        conclusion: ($w, w': W, w = w'$),
+      ),
+      (
+        premises: $w, w': W, "not" w = w'$,
+        conclusion: $w != w'$,
       ),
     ),
     caption: "Recursive definition of equality.",
   )
-
 ]<equality_binary_strings>
 
 
@@ -150,13 +153,29 @@ the Kleene-Rosser paradox, but was fixed in 1936 with a revision
 theory @church_simple_types, which is the basis today for most proof assistants.
 For additional context, please consult @laan_type_history.
 
-We first review Church's revised untyped lambda calculus.
+We first review Church's revised (pure) untyped Lambda Calculus.
 
 #definition(
   [
-    - A *variable* $x_w$ is a term, indexed by each word $w$.
-    - For a term $tau$, $lambda x. tau$ is a term.
-    - Given terms $tau, sigma$, $tau(sigma)$ is a term.
+    The *Untyped Lambda Calculus (ULC)* is given by the following judgements,
+    where $Lambda$ is the *set of terms*.
+
+    #judgement(
+      rules: (
+        (conclusion: $x_w in Lambda$, label: $T_"var"$),
+        (
+          premises: $tau in Lambda$,
+          conclusion: $lambda x_w. tau in Lambda$,
+          label: $T_"abs"$,
+        ),
+        (
+          premises: $tau, sigma in Lambda$,
+          conclusion: $tau(sigma) in Lambda$,
+          label: $T_"app"$,
+        ),
+      ),
+      caption: [Judgement rules that define the ULC.],
+    )
   ],
 )
 

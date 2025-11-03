@@ -31,6 +31,10 @@
   hspace: 2pt,
   label-padding: 6pt,
 ) = {
+  if rules == none or rules.len() == 0 {
+    return
+  }
+
   let rule-cell(premises: content, conclusion: content) = {
     return grid(
       columns: 1,
