@@ -66,11 +66,11 @@ Before continuing, we must introduce some fundamental notions.
   #lang-def-vertical(
     $LW$,
     (
-      ($Digit$, [See @lang_digits]),
-      ($epsilon$, "Empty word"),
-      ($.$, "Concatenation"),
-      ($=$, "Equality"),
-      ($!=$, "Inequality"),
+      ($"Digit"$, $Digit$, [See @lang_digits]),
+      ($"empty"$, $epsilon$, "Empty word"),
+      ($"."$, $.$, "Concatenation"),
+      ($"="$, $=$, "Equality"),
+      ($"!="$, $!=$, "Inequality"),
     ),
     caption: "Language of words",
   )<lang_words>
@@ -204,13 +204,17 @@ We closely follow Jan Hoffmann's notes @hoffmann_2023_system_t. #footnote([Note
     (
       // ($top$, "True"),
       // ($bot$, "False"),
-      ($"z"$, "zero"),
-      ($"s"$, "successor"),
-      ($nat$, "natural numbers"),
-      ($->$, "function"),
-      ($lambda$, "lambda"),
-      ($"rec"$, "recursion"),
-      ($\( thin thin thin \)$, "left/right parentheses"),
+      ($"z"$, $z$, "zero"),
+      ($"s"$, $s$, "successor"),
+      ($nat$, $NN$, "natural numbers"),
+      ("->", $->$, "function"),
+      ($"lambda"$, $lambda$, "lambda"),
+      ($"rec"$, $Rho$, "recursion"),
+      (
+        $"(" thin thin thin ")"$,
+        $\( thin thin thin \)$,
+        "left/right parentheses",
+      ),
     ),
   )
   A *type* is given by either $"nat"$, or given types $tau, sigma$, by the

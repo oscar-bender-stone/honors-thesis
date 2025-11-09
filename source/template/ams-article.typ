@@ -457,10 +457,9 @@
 #let lang-def-vertical(
   notation,
   symbols-data,
-  base-symbols: none,
   caption: none,
 ) = {
-  let column-count = 4
+  let column-count = 5
 
   let lang-table = table(
     align: (center, center),
@@ -470,14 +469,19 @@
     [],
     [],
     [*Symbol*],
+    [*Notation*],
     [*Name*],
 
-    ..for (i, (symbol-str, name-str)) in symbols-data.enumerate() {
+    ..for (
+      i,
+      (symbol-str, notation-str, name-str),
+    ) in symbols-data.enumerate() {
       if i == 0 {
         (
           [ $#notation$ ],
           [ $:=$],
           [ $#symbol-str$ ],
+          [ #notation-str ],
           [ *#name-str* ],
         )
       } else {
@@ -485,6 +489,7 @@
           [],
           [$|$],
           [ $#symbol-str$ ],
+          [ $#notation-str$],
           [ *#name-str* ],
         )
       }
@@ -499,8 +504,7 @@
 
 
 #let lang-def-horizontal(
-  notation,
-  base-symbols: none,
+  lang,
   symbols-data,
   anon-symbols: none,
   caption: none,
@@ -510,7 +514,7 @@
   let symbol-keys = symbols-data.keys()
   let symbol-names = symbols-data.values().map(name => strong[#name])
 
-  let symbol-rows = ((notation, $:=$) + symbol-keys).chunks(column-count)
+  let symbol-rows = ((lang, $:=$) + symbol-keys).chunks(column-count)
   let name-rows = symbol-names.chunks(column-count).map(arr => ("", "") + arr)
 
   let symbol-chunks = symbol-rows.zip(name-rows)
