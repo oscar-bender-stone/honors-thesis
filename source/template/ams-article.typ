@@ -11,8 +11,7 @@
 #let small-size = 9.24994pt
 #let normal-size = 10.00002pt
 #let large-size = 11.74988pt
-#let text_font = "STIX Two Text"
-
+#let text-font = "STIX Two Text"
 
 
 // This function gets your whole document as its `body` and formats
@@ -58,7 +57,10 @@
   set document(title: title, author: names)
 
   // Set the body font.
-  set text(size: normal-size, font: text_font)
+  set text(size: normal-size, font: text-font)
+
+  // Set the code font.
+  show raw: set text(font: "DejaVu Sans Mono")
 
   // Set equation numbering to (section.equation)
   set math.equation(numbering: "(1.1)")
@@ -191,7 +193,7 @@
     body-indent: 5pt,
   )
 
-  show link: set text(font: text_font)
+  show link: set text(font: text-font)
 
   // Configure equations (now only sets spacing).
   show math.equation: set block(below: 8pt, above: 9pt)
