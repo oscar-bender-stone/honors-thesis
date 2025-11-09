@@ -27,56 +27,33 @@
   rules: none,
   caption: none,
   stroke: 0.4pt,
-  vspace: 4pt,
-  hspace: 2pt,
+  hspace: 4.3pt,
   label-padding: 6pt,
 ) = {
   if rules == none or rules.len() == 0 {
     return
   }
 
-  let rule-cell(premises: content, conclusion: content) = {
-    return grid(
-      columns: 1,
-      rows: 2,
-      row-gutter: vspace,
-      grid.cell(stroke: (bottom: stroke + black), pad(
-        premises,
-        bottom: vspace + 1pt,
-      )),
-      pad(conclusion, left: hspace, right: hspace),
+  let rule-cell(rule) = {
+    grid(
+      columns: (auto, auto),
+      inset: hspace,
+      stroke: (x, y) => if (x, y) == (0, 0) { (bottom: stroke) },
+      align: center + horizon,
+      pad(rule.at("premises", default: $$)),
+      grid.cell(rowspan: 2, rule.at("label", default: none)),
+      [#rule.at("conclusion", default: none)],
     )
   }
 
-  let rule-grid(
-    premises: content,
-    conclusion: content,
-    label: none,
-  ) = {
-    let label-vspace
-    if premises == none {
-      label-vspace = vspace + 2pt
-    } else {
-      label-vspace = 0pt
-    }
+  let rules-grid() = {
+    let rule = rules.at(0, default: none)
 
-    let label-cell = pad(label, bottom: label-vspace, left: label-padding)
-
-    grid(
-      columns: (auto, auto),
-      align: center + horizon,
-      rule-cell(premises: premises, conclusion: conclusion), label-cell,
-    )
+    stack(dir: ltr, ..rules.map(rule => rule-cell(rule)))
   }
 
   figure(
-    for rule in rules {
-      rule-grid(
-        premises: rule.at("premises", default: none),
-        conclusion: rule.at("conclusion", default: none),
-        label: rule.at("label", default: none),
-      )
-    },
+    rules-grid(),
     caption: caption,
   )
 }

@@ -118,7 +118,6 @@ Recursive definitions are given in the form of a *judgement* (@judgement), consi
   #judgement(
     rules: (
       (
-        premises: none,
         conclusion: $epsilon: W$,
         label: $"Empty"$,
       ),
@@ -263,19 +262,24 @@ We closely follow Jan Hoffmann's notes @hoffmann_2023_system_t. #footnote([Note
 
 
 #definition[
-  The *terms* of System T are defined recursively.
+  The *terms* of System T are defined in @system_t_terms.
 
   #judgement(
     rules: (
       // Base cases
-      (conclusion: $z : nat$, label: $T_"zero"$),
+      (conclusion: $"z" : nat$, label: $T_"zero"$),
       (premises: $e : nat$, conclusion: $"s"(e) : nat$, label: $T_"succ"$),
       // (conclusion: $x : tau$, label: $T_"var"$),
       // Recursive steps
-      (premises: $x : tau, f : tau -> sigma$, conclusion: $f(x) : sigma$),
+      (
+        premises: $x : tau, f : tau -> sigma$,
+        conclusion: $f(x) : sigma$,
+        label: $T_"lambda"$,
+      ),
       (
         premises: $x : tau, f(x) : sigma$,
         conclusion: $lambda (x : tau) f(x) : tau -> sigma$,
+        label: $T_"apply"$,
       ),
     ),
   )
