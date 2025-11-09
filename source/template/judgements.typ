@@ -49,7 +49,9 @@
   let rules-grid() = {
     let rule = rules.at(0, default: none)
 
-    stack(dir: ltr, ..rules.map(rule => rule-cell(rule)))
+    for rule-sublist in rules.chunks(3) {
+      stack(dir: ltr, ..rule-sublist.map(rule => rule-cell(rule)))
+    }
   }
 
   figure(

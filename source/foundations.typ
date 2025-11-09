@@ -17,11 +17,11 @@
 
 We introduce the base theory needed for this thesis. This theory embodies a
 unifying concept for formal systems: computability. We capture this through a
-suitable simple type theory.
+suitable simple type theory. These steps are closely replicated in the boostrap, see @bootstrap.
 
 
 We will keep this self-contained; additional references will be provided in each
-sub-section. For general notation, we write $:=$ to mean "defined as".
+sub-section. For general notation, we write $equiv$ to mean "defined as".
 
 
 == Base Notions
@@ -100,7 +100,7 @@ Recursive definitions are given in the form of a *judgement* (@judgement), consi
 )<judgement>
 
 #definition[
-  The *language of words* $LW$ is provided in @lang_words. A *word* $w : W$ is
+  The *language of words* $LW$ is provided in @lang_words. A *word* $w in W$ is
   given by the judgements in @words.
 
   #lang-def-vertical(
@@ -118,17 +118,17 @@ Recursive definitions are given in the form of a *judgement* (@judgement), consi
   #judgement(
     rules: (
       (
-        conclusion: $epsilon: W$,
+        conclusion: $epsilon in W$,
         label: $"Empty"$,
       ),
       (
-        premises: $w : W$,
-        conclusion: $w.0: W$,
+        premises: $w in W$,
+        conclusion: $w.0 in W$,
         label: $"Zero"$,
       ),
       (
-        premises: $w : W$,
-        conclusion: $w.1: W$,
+        premises: $w in W$,
+        conclusion: $w.1 in W$,
         label: $"One"$,
       ),
     ),
@@ -137,29 +137,34 @@ Recursive definitions are given in the form of a *judgement* (@judgement), consi
 ]<words>
 
 
-#definition[*Equality* on binary strings is defined recursively.
-  #judgement(
-    rules: (
-      (
-        premises: none,
-        conclusion: $0 = 0, 1 = 1, 0 != 1$,
-      ),
-      (
-        premises: ($w, w': W, w = w'$),
-        conclusion: $w.0 = w'.0, w.1 = w'.1$,
-      ),
-      (
-        premises: $w, w' : W, w.0 = w'.0$,
-        conclusion: ($w, w': W, w = w'$),
-      ),
-      (
-        premises: $w, w': W, "not" w = w'$,
-        conclusion: $w != w'$,
-      ),
-    ),
-    caption: "Recursive definition of equality.",
-  )
-]<equality_binary_strings>
+// #definition[*Equality* on binary strings is defined recursively.
+//   #judgement(
+//     rules: (
+//       (
+//         conclusion: $0 = 0$,
+//       ),
+//       (
+//         conclusion: $1 = 1$,
+//       ),
+//       (
+//         conclusion: $0 != 1$,
+//       ),
+//       (
+//         premises: ($w, w': W, w = w'$),
+//         conclusion: $w.0 = w'.0, w.1 = w'.1$,
+//       ),
+//       (
+//         premises: $w, w' : W, w.0 = w'.0$,
+//         conclusion: ($w, w': W, w = w'$),
+//       ),
+//       // (
+//       //   premises: $w, w': W, "not" w = w'$,
+//       //   conclusion: $w != w'$,
+//       // ),
+//     ),
+//     caption: "Recursive definition of equality.",
+//   )
+// ]<equality_binary_strings>
 
 
 #remark[The definition for binary strings, as the remaining recursive
@@ -201,15 +206,15 @@ We first review Church's revised (pure) untyped Lambda Calculus.
 
     #judgement(
       rules: (
-        (premises: $w : W$, conclusion: $x_w in Lambda$, label: $T_"var"$),
+        (premises: $w in W$, conclusion: $x_w in Lambda$, label: $T_"var"$),
         (
-          premises: $tau in Lambda$,
-          conclusion: $lambda x_w. tau in Lambda$,
+          premises: $f in Lambda, w in W$,
+          conclusion: $lambda x_w. f in Lambda$,
           label: $T_"abs"$,
         ),
         (
-          premises: $tau, sigma in Lambda$,
-          conclusion: $tau(sigma) in Lambda$,
+          premises: $f, g in Lambda$,
+          conclusion: $f(g) in Lambda$,
           label: $T_"app"$,
         ),
       ),
@@ -222,8 +227,8 @@ We first review Church's revised (pure) untyped Lambda Calculus.
 
 Now, the untyped lambda calculus has non-terminating functions and is therefore
 not suitable for proofs on decidability. On the other hand, the simply typed
-lambda calculus on its own is too weak for proofs on computability. The solution
-is to augment this with induction, via Kurt Gödel's System T @goedel_system_t.
+lambda calculus is too weak for proofs on computability. The solution
+is to augment this with primitive recursion, via Kurt Gödel's System T @goedel_system_t.
 We closely follow Jan Hoffmann's notes @hoffmann_2023_system_t. #footnote([Note
   that the original lecture notes contain some typos, and we fix these as needed.]) This theory consists of four key parts:
 
@@ -256,7 +261,7 @@ We closely follow Jan Hoffmann's notes @hoffmann_2023_system_t. #footnote([Note
       ),
     ),
   )
-  A *type* is given by either $"nat"$, or given types $tau, sigma$, by the
+  A *type* is given by either $NN$, or given types $tau, sigma$, by the
   *function type* $tau -> sigma$.
 ]<system_t_types>
 
