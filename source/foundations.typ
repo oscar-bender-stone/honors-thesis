@@ -27,50 +27,90 @@ sub-section. For general notation, we write $:=$ to mean "defined as".
 == Base Notions
 
 Before continuing, we must introduce some fundamental notions.
+We introduce *alphabets*, using three columns: the first is the symbol name, in monospace font; the second is the mathematical notation used; and the third is the symbol's name. See @alphabet for the template. Note that we informally use natural numbers. However, each definition is self-contained. See @kripkenstein for a related discussion.
+
+
+#lang-def-vertical(
+  $cal(A)$,
+  (
+    (`s0`, $s_0$, "symbol zero"),
+    (`s1`, $s_1$, "symbol one"),
+    ("", $...$, ""),
+    (`sn`, $s_n$, [symbol $n$]),
+  ),
+  caption: [Template for an alphabet $A$.],
+)<alphabet>
+
 
 #let Bit = math.bold("Bit")
 #let Digit = math.bold("Digit")
 
 #definition[
-  The set of *hexadecimal digits* is the set of symbols given by $Digit$, shown
-  in @digits. The *binary digits (bits)* are $Bit := 0 | 1$.
-
-  #lang-def-horizontal(
-    $Digit$,
+  The *binary digits (bits)* are given by:
+  #lang-def-vertical(
+    $"Bit"$,
     (
-      "0": "zero",
-      "1": "one",
-      "2": "two",
-      "3": "three",
-      "4": "four",
-      "5": "five",
-      "6": "six",
-      "7": "seven",
-      "8": "eight",
-      "9": "nine",
+      (`0`, $0$, "zero"),
+      (`1`, $1$, "one"),
     ),
-    anon-symbols: ("A", "B", "C", "D", "E", "F"),
-    caption: "Hexadecimal digits.",
-  )<digits>
+    caption: "The symbols used in bits.",
+  )
+]<bits>
 
-]<lang_digits>
+
+// #definition[
+//   The set of *hexadecimal digits* is the set of symbols given by $Digit$, shown
+//   in @digits. The *binary digits (bits)* are $Bit := 0 | 1$.
+
+//   #lang-def-horizontal(
+//     $Digit$,
+//     (
+//       "0": "zero",
+//       "1": "one",
+//       "2": "two",
+//       "3": "three",
+//       "4": "four",
+//       "5": "five",
+//       "6": "six",
+//       "7": "seven",
+//       "8": "eight",
+//       "9": "nine",
+//     ),
+//     anon-symbols: ("A", "B", "C", "D", "E", "F"),
+//     caption: "Hexadecimal digits.",
+//   )<digits>
+
+// ]<lang_digits>
 
 #let LW = $cal(L)_W$
 
 #let vdash = $tack.r$
 
+Recursive definitions are given in the form of a *judgement* (@judgement), consisting of *premises* on top and a *conclusion* on the bottom.
+
+#judgement(
+  rules: (
+    (
+      premises: $P$,
+      conclusion: $C$,
+      label: $J$,
+    ),
+  ),
+  caption: "Template for a judgement.",
+)<judgement>
+
 #definition[
-  The *language of words* is given by $LW$ in @lang_words. A *word* $w : W$ is
-  given recursively.
+  The *language of words* $LW$ is provided in @lang_words. A *word* $w : W$ is
+  given by the judgements in @words.
 
   #lang-def-vertical(
     $LW$,
     (
-      ($"Digit"$, $Digit$, [See @lang_digits]),
-      ($"empty"$, $epsilon$, "Empty word"),
-      ($"."$, $.$, "Concatenation"),
-      ($"="$, $=$, "Equality"),
-      ($"!="$, $!=$, "Inequality"),
+      (`Bit`, $"Bit"$, [See @bits]),
+      (`{}`, $epsilon$, "Empty word"),
+      (`.`, $.$, "Concatenation"),
+      (`=`, $=$, "Equality"),
+      (`!=`, $!=$, "Inequality"),
     ),
     caption: "Language of words",
   )<lang_words>
@@ -84,13 +124,13 @@ Before continuing, we must introduce some fundamental notions.
       ),
       (
         premises: $w : W$,
-        conclusion: $w."0", w."1", w."2", w."3", w."4", w."5", w."6", w."7", w."8", w."9" : W$,
-        label: $"Decimal digits"$,
+        conclusion: $w.0: W$,
+        label: $"Zero"$,
       ),
       (
-        premises: $w: W$,
-        conclusion: $w."A", w."B", w."C", w."D", w."E", w."F" : W$,
-        label: $"Hex Digits"$,
+        premises: $w : W$,
+        conclusion: $w.1: W$,
+        label: $"One"$,
       ),
     ),
     caption: "Recursive definition of words.",
@@ -132,7 +172,7 @@ Before continuing, we must introduce some fundamental notions.
   defined by a finite combination of _only_ the rules above). On the other hand,
   proof checking will be done in an ultra-finitistic setting and is addressed in
   @bootstrap.
-]
+]<kripkenstein>
 
 For simplicity, our primary encoding uses binary. We directly use this in the
 notion of a variable in the next section. We review the primary number systems
@@ -162,7 +202,7 @@ We first review Church's revised (pure) untyped Lambda Calculus.
 
     #judgement(
       rules: (
-        (conclusion: $x_w in Lambda$, label: $T_"var"$),
+        (premises: $w : W$, conclusion: $x_w in Lambda$, label: $T_"var"$),
         (
           premises: $tau in Lambda$,
           conclusion: $lambda x_w. tau in Lambda$,
@@ -209,7 +249,7 @@ We closely follow Jan Hoffmann's notes @hoffmann_2023_system_t. #footnote([Note
       ($nat$, $NN$, "natural numbers"),
       ("->", $->$, "function"),
       ($"lambda"$, $lambda$, "lambda"),
-      ($"rec"$, $Rho$, "recursion"),
+      ($"rec"$, $"R"$, "recursion"),
       (
         $"(" thin thin thin ")"$,
         $\( thin thin thin \)$,
@@ -218,11 +258,7 @@ We closely follow Jan Hoffmann's notes @hoffmann_2023_system_t. #footnote([Note
     ),
   )
   A *type* is given by either $"nat"$, or given types $tau, sigma$, by the
-  *function type* $tau -> sigma$. The *(complete) language* is
-  $L_(S T) = L_(B T) union Var$, where $Var$ consists of the *variables*,
-  symbols $x_i^S$ for each binary string $i$ (the *index*) and type $S$. A
-  recursive definition can be adapted from @words and the one above.
-
+  *function type* $tau -> sigma$.
 ]<system_t_types>
 
 
