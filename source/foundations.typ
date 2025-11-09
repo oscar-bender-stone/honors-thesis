@@ -17,7 +17,7 @@
 
 We introduce the base theory needed for this thesis. This theory embodies a
 unifying concept for formal systems: computability. We capture this through a
-suitable simple type theory. These steps are closely replicated in the boostrap, see @bootstrap.
+suitable simple type theory. These sections are closely replicated as steps in the boostrap (see @bootstrap).
 
 
 We will keep this self-contained; additional references will be provided in each
@@ -27,7 +27,7 @@ sub-section. For general notation, we write $equiv$ to mean "defined as".
 == Base Notions
 
 Before continuing, we must introduce some fundamental notions.
-We introduce *alphabets*, using three columns: the first is the symbol name, in monospace font; the second is the mathematical notation used; and the third is the symbol's name. See @alphabet for the template. Note that we informally use natural numbers. However, each definition is self-contained. See @kripkenstein for a related discussion.
+We introduce *alphabets*, using three columns: the first is the symbol name, in monospace font; the second is the mathematical notation used; and the third is the symbol's name. See @alphabet for the template. Note that we informally use natural numbers. However, each definition is self-contained. See @kripkenstein for a related discussion. Additionally, sometimes our symbols may be _multiple_ tokens; this is addressed in @syntax.
 
 
 #lang-def-vertical(
@@ -178,10 +178,7 @@ Recursive definitions are given in the form of a *judgement* (@judgement), consi
   @bootstrap.
 ]<kripkenstein>
 
-For simplicity, our primary encoding uses binary. We directly use this in the
-notion of a variable in the next section. We review the primary number systems
-natively supported by Welkin.
-
+Natively, our encoding uses binary. But to simplify this notation, we introduce shorthands using two other number systems.
 
 == Untyped Lambda Calculus
 
@@ -194,15 +191,14 @@ Alonzo Church introduced his original untyped lambda calculus
 @original_lambda_calculus. However, it was quickly shown to be inconsistent, via
 the Kleene-Rosser paradox, but was fixed in 1936 with a revision
 @church_revised_calculus. He then restricted it further in 1940 with simple type
-theory @church_simple_types, which is the basis today for most proof assistants.
+theory @church_simple_types, which is the starting point for most modern proof assistants.
 For additional context, please consult @laan_type_history.
 
 We first review Church's revised (pure) untyped Lambda Calculus.
 
 #definition(
   [
-    The *Untyped Lambda Calculus (ULC)* is given by the following judgements,
-    where $Lambda$ is the *set of terms*.
+    The *Untyped Lambda Calculus (ULC)* is given by two components. The *terms* $t in Lambda$ are defined recursively in @ulc_terms.
 
     #judgement(
       rules: (
@@ -219,7 +215,7 @@ We first review Church's revised (pure) untyped Lambda Calculus.
         ),
       ),
       caption: [Judgement rules that define the ULC.],
-    )
+    )<ulc_terms>
   ],
 )
 
@@ -248,16 +244,21 @@ We closely follow Jan Hoffmann's notes @hoffmann_2023_system_t. #footnote([Note
     (
       // ($top$, "True"),
       // ($bot$, "False"),
-      ($"z"$, $z$, "zero"),
-      ($"s"$, $s$, "successor"),
-      ($nat$, $NN$, "natural numbers"),
-      ("->", $->$, "function"),
-      ($"lambda"$, $lambda$, "lambda"),
-      ($"rec"$, $"R"$, "recursion"),
+      (`z`, $z$, "zero"),
+      (`s`, $s$, "successor"),
+      (`nat`, $NN$, "natural numbers"),
+      (`-->`, $->$, "function"),
+      (`lambda`, $lambda$, "lambda"),
+      (`rec`, $"R"$, "recursion"),
       (
-        $"(" thin thin thin ")"$,
-        $\( thin thin thin \)$,
-        "left/right parentheses",
+        `(`,
+        $\($,
+        "left parentheses",
+      ),
+      (
+        `)`,
+        $\)$,
+        "right parentheses",
       ),
     ),
   )
