@@ -185,9 +185,8 @@ Now, the untyped lambda calculus has non-terminating functions and is therefore
 not suitable for proofs on decidability. On the other hand, the simply typed
 lambda calculus on its own is too weak for proofs on computability. The solution
 is to augment this with induction, via Kurt Gödel's System T @goedel_system_t.
-We closely follow the presentation from @hoffmann_2023_system_t. #footnote([Note
-  that the original lecture notes contain some typos, and we fix these as
-  appropriate.]) This theory consists of four key parts:
+We closely follow Jan Hoffmann's notes @hoffmann_2023_system_t. #footnote([Note
+  that the original lecture notes contain some typos, and we fix these as needed.]) This theory consists of four key parts:
 
 - *Terms:* @system_t_terms.
 
@@ -229,17 +228,20 @@ We closely follow the presentation from @hoffmann_2023_system_t. #footnote([Note
   #judgement(
     rules: (
       // Base cases
-      (conclusion: $x_i^S : S$, label: $T_"var"$),
-      (conclusion: $0, 1 : nat$),
+      (conclusion: $z : nat$, label: $T_"zero"$),
+      (premises: $e : nat$, conclusion: $"s"(e) : nat$, label: $T_"succ"$),
+      // (conclusion: $x : tau$, label: $T_"var"$),
       // Recursive steps
-      (premises: $t : tau, f : S -> U$, conclusion: $f(t) : U$),
+      (premises: $x : tau, f : tau -> sigma$, conclusion: $f(x) : sigma$),
       (
-        premises: $x_i^S : S, f(x_i^S) : U$,
-        conclusion: $lambda (x : S) f(x) : U$,
+        premises: $x : tau, f(x) : sigma$,
+        conclusion: $lambda (x : tau) f(x) : tau -> sigma$,
       ),
     ),
   )
 ]<system_t_terms>
+
+We set $0 equiv "z"$ and $1 equiv "s"("z")$.
 
 
 #definition[
