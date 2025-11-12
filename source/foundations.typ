@@ -1,13 +1,8 @@
 // SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template/ams-article.typ": (
-  definition, equation_block, labeled_equation, lang-def-horizontal,
-  lang-def-vertical,
-)
-#import "template/ams-article.typ": (
-  corollary, lemma, proof, recursion, remark, theorem,
-)
+#import "template/ams-article.typ": definition, equation_block, labeled_equation, lang-def-horizontal, lang-def-vertical
+#import "template/ams-article.typ": corollary, lemma, proof, recursion, remark, theorem
 #import "template/judgements.typ": judgement
 
 #let PA = math.bold("PA")
@@ -15,12 +10,11 @@
 
 = Foundations <foundations>
 
-
 We introduce the base theory needed for this thesis. Our work builds on deep
 inference, developed by Strassburger @deep_inference_to_proof_nets. and many
 others. We formally define a formal system and then proceed to show this can be
 encompassed in a deep inference framework. These sections are closely replicated
-as steps in the boostrap (see @bootstrap).
+as steps in the bootstrap (see @bootstrap).
 
 We will keep this self-contained; additional references will be provided in each
 sub-section. For general notation, we write $:=$ to mean "defined as".

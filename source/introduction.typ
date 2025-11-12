@@ -84,11 +84,12 @@ following goals resolve the deficiencies observed in the formalisms above:
 
 == Outline
 
+
 #let outline = table(
   columns: (auto, auto),
   inset: 10pt,
   align: horizon,
-  table.header([*Section*], [*Description*]),
+  table.header([Section], [Description]),
   [@foundations],
   [Discusses foundations, providing the meta-theory based on Gödel's System T to
     more easily encode computability and have a theory equi-consistent to Peano
