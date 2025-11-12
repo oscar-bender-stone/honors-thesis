@@ -10,7 +10,7 @@
 We now define the universal framework for analyzing information. Our approach
 describes information as a _relation_. We show that this framework encompasses both ontology and formal systems.
 
-From there, we analyze the notion of _compressing_ information in an effectively realizable way. We establish two key constructions and generalize them as _information transformations_. The main result in this section is showing that the best _effectively realizable compression scheme_ can be obtained by appealing to Tarski's fixed-point theorem on these transformations.
+From there, we analyze the notion of _compressing_ information in an effectively realizable way. We establish two key constructions and generalize them as _information transformations_. The main result in this section is showing that the best _effectively realizable compression scheme_ can be obtained by appealing to Tarski's fixed-point theorem on the lattice of these transformations.
 
 == Information
 
@@ -24,9 +24,13 @@ However, we quickly run into philosophical blockades when we want to _use_ infor
 
 #experiment[Suppose a person describes their feelings through a painting. Does this painting _convey_ information? Perhaps we can infer some emotions, such as sadness in a rainy scene or happiness in a cheerful one. How exactly do we _use_ or even _store_ this information? Is this information only conveyed when _experienced_ as a person]
 
-We avoid these ideas by focusing on _formal_ information. This can be rigorously defined into two key compoents: a *hierarchy* and a set of *connections*.
+We avoid these ideas by focusing on _formal_ information. This can be rigorously defined into two key components: a *hierarchy* and a set of *connections*.
 
-== Ontologies
+#definition[*Information* is a *bigraph*, a triple $(X, T_X, G_X)$ where:
+  - $X$ is the *domain*, a countable set of binary strings.
+  - $T_X$ is the *place graph* or *hierarchy*, a tree with nodes in $X$.
+  - $G_X subset.eq cal(P)(X) times cal(P)(X) times cal(P)(X)$ is the *link graph*.
+]
 
 == Formal Systems
 
