@@ -8,11 +8,11 @@
 
 
 We now define the universal framework for analyzing information. Our approach
-describes information as _representatives of terms in formal systems_.
+describes information as _representatives of formal systems_.
 
 == Formal Systems
 
-We must first define a suitable, general class of systems to analyze.
+We must first define a general class of formal systems.
 Considering the diversity of formal reasoning, we need a _static_ and _dynamic_
 component. These have interpretations in *logic* and *computability*, outlined
 in @formal_system_features.
@@ -50,6 +50,14 @@ loosely based on the definition provided by Strassburger @strassburger_what_is_a
   $cal(F)$.
 ]
 
-Note that the first condition on $cal(F)$ is redundant: reflexivity in $cal(R)$ ensures that each formula can be recognized in polynomial-time.
+Note that the first condition on $cal(F)$ is redundant: reflexivity in $cal(R)$ ensures that each formula can be recognized in polynomial-time. Additionally,
+
+== Information
+
+We will now demonstrate that formal systems are _equivalent_ to (formalized) information. Broadly, our motto is this: _information is a relation_. We will consider several examples:
+
+- *Example 1:* Alice tells Bob that "I have a cat". This is a relation that relates Alice to some cat. In contrast, "a cat" is not a relation, and therefore not information.
+
+- *Example 2:* A statement like $2 + 2 = 4$ is information. But it is also _true_ information, or _knowledge_. We allow $2 + 2 = 5$ to be information as well, because it asserts _some_ relation between $2 + 2$ and $5$. A non-example is simply the number $2$ or a random binary string `0b010001`. Neither of these are relations because they are missing an _explicit connection_. Note that this can be unary, such as $2 = 2$.
 
 
