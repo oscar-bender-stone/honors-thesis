@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template/ams-article.typ": definition, example
+#import "template/ams-article.typ": definition, example, experiment
 
 
 = Information Systems <information_systems>
@@ -16,13 +16,13 @@ From there, we analyze the notion of _compressing_ information in an effectively
 
 Our motto is this: _information is a relation_. We will consider several examples:
 
-- *Example 1:* Alice tells Bob that "I have a cat". This is a relation that relates Alice to some cat. In contrast, "a cat" is not a relation, and therefore not information.
+#example[Alice tells Bob that "I have a cat". This is a relation that relates Alice to some cat. In contrast, "a cat" is not a relation, and therefore not information.]
 
-- *Example 2:* A statement like $2 + 2 = 4$ is information. But it is also _true_ information, or _knowledge_. We allow $2 + 2 = 5$ to be information as well, because it asserts _some_ relation between $2 + 2$ and $5$. A non-example is simply the number $2$ or a random binary string `0b010001`. Neither of these are relations because they are missing an _explicit connection_. Note that these relations can be unary, such as $2 = 2$.
+#example[A statement like $2 + 2 = 4$ is information. But it is also _true_ information, or _knowledge_. We allow $2 + 2 = 5$ to be information as well, because it asserts _some_ relation between $2 + 2$ and $5$. A non-example is simply the number $2$ or a random binary string `0b010001`. Neither of these are relations because they are missing an _explicit connection_. Note that these relations can be unary, such as $2 = 2$.]
 
 However, we quickly run into philosophical blockades when we want to _use_ information.
 
-- *Experiment 1:* Suppose a person describes their feelings through a painting. Does this painting _convey_ information? Perhaps we can infer some emotions, such as sadness in a rainy scene or happiness in a cheerful one. How exactly do we _use_ or even _store_ this information? Is this information only conveyed when _experienced_ as a person?
+#experiment[Suppose a person describes their feelings through a painting. Does this painting _convey_ information? Perhaps we can infer some emotions, such as sadness in a rainy scene or happiness in a cheerful one. How exactly do we _use_ or even _store_ this information? Is this information only conveyed when _experienced_ as a person]
 
 We avoid these ideas by focusing on _formal_ information. This can be rigorously defined into two key compoents: a *hierarchy* and a set of *connections*.
 

@@ -327,10 +327,7 @@
     for author in authors {
       let keys = ("department", "organization", "location")
 
-      let dept-str = keys
-        .filter(key => key in author)
-        .map(key => author.at(key))
-        .join(", ")
+      let dept-str = keys.filter(key => key in author).map(key => author.at(key)).join(", ")
 
       smallcaps(dept-str)
       linebreak()
@@ -382,6 +379,15 @@
   supplement: [Example],
   numbering: if numbered { thm-numbering-format },
 )
+
+
+#let experiment(body, numbered: true) = figure(
+  body,
+  kind: "definition",
+  supplement: [Experiment],
+  numbering: if numbered { thm-numbering-format },
+)
+
 
 #let remark(body, numbered: true) = figure(
   body,
