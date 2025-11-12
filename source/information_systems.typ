@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template/ams-article.typ": definition, example, experiment
+#import "template/ams-article.typ": definition, example, experiment, remark
 
 
 = Information Systems <information_systems>
@@ -46,15 +46,28 @@ information.
 We avoid these ideas by focusing on _formal_ information. This can be rigorously
 defined into two key components: a *hierarchy* and a set of *connections*. Our notion is based on *bigraphs*, a data structure created by Robin Milner @robin_milner_bigraphs.
 
+#let In = math.text("In")
+#let Out = math.text("Out")
+#let Link = math.text("Link")
+
 #definition[*Information* is a *bigraph*, a triple $(X, T_X, G_X)$ where:
   - $X$ is the *domain*, a countable set of binary strings.
   - $T_X$ is the *place graph* or *hierarchy*, a tree with nodes in $cal(P)(X) union {bot}$, where $bot in.not X$ is a distinguished element called the *root*. When $A$ is a descendant of $P$, we write $A : P$.
   - $G_X subset.eq cal(P)(X) times cal(P)(X) times cal(P)(X)$ is the *link
-    graph*. We write $(A, B, C) in G_X$ as $A - B -> C$.
+    graph*. We write $(A, B, C) in G_X$ as $A - B -> C$. In the case where $B = emptyset$, we simply write $A -> C$.
+
+  We define three kinds of *neighborhoods* for each node $A$:
+  - $In(A) = {A - B -> C | B, C in X}$
+  - $Out(A) = {B - C -> A | B, C in X}$
+  - $Link(A) = {B - A -> C | B, C in X}$
+]
+
+#remark[
+  Our notion of bigraph diverges from Milner @robin_milner_bigraphs in several important ways. Firstly, Milner's theory focuses around modeling concurrency, which involves non-determinism in programming languages. Briefly, he considers place graphs which are _forests_ (with special regions), and allows for "holes" in the link graph. We simplify his definition by using a tree (with a designated root $bot$), and modelling holes more naturally as any of the neighborhoods $In(A)$, $Out(B)$, or $Link(A)$.
 ]
 
 
-We interpret the elements of $X$ to represent _parts_, and the tree $T_X$ represent generalized part-whole relations. For example, in the domain $X = {}$. But we can consider more broader ideas, such as considering a $"dog": "animal"$ in $X = {"animal", "dog", "bird"}$.
+We interpret the elements of $X$ to represent _parts_, and the tree $T_X$ represent generalized part-whole relations. For example, in the domain $X = {"house", "wall", "floor"}$, we have $"wall", "floor" : "house"$. But we can consider more broader ideas, such as considering $"dog": "animal"$ in $X = {"animal", "dog", "bird"}$.
 
 Links have a special property called *mereological extension*: given $A - D -> C$ and $D : B$, we obtain $A - B -> C$. In other words, along a path via a link $D$, we can think of it equivalently as a path using $B$ but restricted to $D$.
 
