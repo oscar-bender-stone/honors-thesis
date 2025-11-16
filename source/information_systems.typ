@@ -34,17 +34,30 @@ examples.
   are relations because they are missing an _explicit connection_. Note that
   these relations can be unary, such as $2 = 2$.]
 
+
+#example[Information can include quantifiers: "Joe has at least one egg." This
+  asserts the existence of _some_ egg. Similarly, we can . However, we want to
+  include more general notions. For instance, we could have quantifiers on
+  _surfaces_: "This ball is red everywhere". This is not builtin directly as a
+  first-order quantifier. Additionally, we would like to allow for modal
+  sentences, like "There is necesarially one marble in the bag" or "There is
+  possibly one marble in the basket". We will consider these generalized
+  connectives into our definition (see @information).
+]
+
 However, we quickly run into philosophical blockades when we want to _use_
 information.
 
 #experiment[Suppose a person describes their feelings through a painting. Does
   this painting _convey_ information? Perhaps we can infer some emotions, such
-  as sadness in a rainy scene or happiness in a cheerful one. How exactly do we
-  _use_ or even _store_ this information? Is this information only conveyed when
-  _experienced_ as a person]
+  as feelings of sadness in a rainy scene or happiness in a cheerful one. How
+  exactly do we _use_ or even _store_ this information? Is this data
+  _subjectively_ information, requiring a person as an observer?]
 
 We avoid these ideas by focusing on _formal_ information. This can be rigorously
-defined into two key components: a *hierarchy* and a set of *connections*. Our notion is based on *bigraphs*, a data structure created by Robin Milner @robin_milner_bigraphs.
+defined into two key components: a *hierarchy* and a set of *connections*. Our
+notion is based on *bigraphs*, a data structure created by Robin Milner
+@robin_milner_bigraphs.
 
 #let In = math.text("In")
 #let Out = math.text("Out")
@@ -52,24 +65,56 @@ defined into two key components: a *hierarchy* and a set of *connections*. Our n
 
 #definition[*Information* is a *bigraph*, a triple $(X, T_X, G_X)$ where:
   - $X$ is the *domain*, a countable set of binary strings.
-  - $T_X$ is the *place graph* or *hierarchy*, a tree with nodes in $cal(P)(X) union {bot}$, where $bot in.not X$ is a distinguished element called the *root*. When $A$ is a descendant of $P$, we write $A : P$.
+  - $T_X$ is the *place graph* or *hierarchy*, a tree with nodes in
+    $cal(P)(X) union {bot}$, where the root is a distinguished element
+    $bot in.not X$.
   - $G_X subset.eq cal(P)(X) times cal(P)(X) times cal(P)(X)$ is the *link
-    graph*. We write $(A, B, C) in G_X$ as $A - B -> C$. In the case where $B = emptyset$, we simply write $A -> C$.
+    graph*. We write $(A, B, C) in G_X$ as $A - B -> C$. In the case where
+    $B = emptyset$, we simply write $A -> C$.
 
   We define three kinds of *neighborhoods* for each node $A$:
-  - $In(A) = {A - B -> C | B, C in X}$
-  - $Out(A) = {B - C -> A | B, C in X}$
-  - $Link(A) = {B - A -> C | B, C in X}$
-]
+  - $In(A) = {A - B -> C | B, C in X}$.
+  - $Out(A) = {B - C -> A | B, C in X}$.
+  - $Link(A) = {B - A -> C | B, C in X}$.
+]<information>
 
 #remark[
-  Our notion of bigraph diverges from Milner @robin_milner_bigraphs in several important ways. Firstly, Milner's theory focuses around modeling concurrency, which involves non-determinism in programming languages. Briefly, he considers place graphs which are _forests_ (with special regions), and allows for "holes" in the link graph. We simplify his definition by using a tree (with a designated root $bot$), and modelling holes more naturally as any of the neighborhoods $In(A)$, $Out(B)$, or $Link(A)$.
+  Our notion of bigraph diverges from Milner @robin_milner_bigraphs in several
+  important ways. Firstly, Milner's theory focuses around modeling concurrency,
+  which involves non-determinism in programming languages. Briefly, he considers
+  place graphs which are _forests_ (with special regions), and allows for
+  "holes" in the link graph. We simplify his definition by using a tree (with a
+  designated root $bot$), and modelling holes more naturally as any of the
+  neighborhoods $In(A)$, $Out(B)$, or $Link(A)$. Secondly, Milner's approach
+  defines an algebra for bigraphs, as well as dynamic semantics (via
+  _bigraphical reactive systems_). This is not immediately natural for our
+  generalized setting; we will return to this issue in @transformations.
 ]
 
+We interpret the elements of $X$ as _parts_, and think of the tree $T_X$ as
+defining a _part-whole_ relation. A key design of Welkin is to enable _multiple_
+notions of part-hood and seamlessly work among these. We provide a motivating
+example one possible construction.
 
-We interpret the elements of $X$ to represent _parts_, and the tree $T_X$ represent generalized part-whole relations. For example, in the domain $X = {"house", "wall", "floor"}$, we have $"wall", "floor" : "house"$. But we can consider more broader ideas, such as considering $"dog": "animal"$ in $X = {"animal", "dog", "bird"}$.
+#example[
+  - *Physical Composition:* Let $X_1 = {"house", "wall", "floor"}$ and suppose
+    $"wall"$ and $"floor"$ are parts of $"house"$. In this case, parthood means
+    _physical composition_.
+  - *Classification:* Let $X_2 = {"animal", "dog", "bird"}$, and let $"dog"$ and
+    $"bird"$ be parts of $"animal"$. Parthood is treated as a _taxonomy_ among
+    things, specifically animals.
+  - *Hybrid:* Suppose we want to put $X_1$ and $X_2$ above into a knowledge
+    base. One way to distinguish between _physical composition_ and _taxonomy_
+    is to introduce new nodes: $"makes"$ and $"isa"$, respectively. We take
+    $T_3 = T_1 union T_2$ and introduce new relations:
+    $"wall" ->^"makes" "floor" ->^"makes" "house"$
+    $"dog" ->^"isa" "animal", "bird" ->^"isa" "animal"$, respectively.
+]<parts_examples>
 
-Links have a special property called *mereological extension*: given $A - D -> C$ and $D : B$, we obtain $A - B -> C$. In other words, along a path via a link $D$, we can think of it equivalently as a path using $B$ but restricted to $D$.
+// Links have a special property called *mereological extension*: given
+// $A - D -> C$ and $D : B$, we obtain $A - B -> C$. In other words, along a path
+// via a link $D$, we can think of it equivalently as a path using $B$ but
+// restricted to $D$.
 
 == Formal Systems
 
@@ -117,7 +162,7 @@ definition provided by Strassburger @strassburger_what_is_a_logic.
 Note that the first condition on $cal(F)$ is redundant: reflexivity in $cal(R)$
 ensures that each formula can be recognized in polynomial-time.
 
-== Information Transformations
+== Information Transformations <transformations>
 
 == Optimal Compression Scheme
 
