@@ -1,8 +1,13 @@
 // SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template/ams-article.typ": definition, equation_block, labeled_equation, lang-def-horizontal, lang-def-vertical
-#import "template/ams-article.typ": corollary, lemma, proof, recursion, remark, theorem
+#import "template/ams-article.typ": (
+  definition, equation_block, labeled_equation, lang-def-horizontal,
+  lang-def-vertical,
+)
+#import "template/ams-article.typ": (
+  corollary, lemma, proof, recursion, remark, theorem,
+)
 #import "template/judgements.typ": judgement
 
 #let PA = math.bold("PA")

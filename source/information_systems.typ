@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 #import "template/ams-article.typ": definition, example, experiment, remark
+#import "template/judgements.typ": judgement
 
 
 = Information Systems <information_systems>
@@ -66,19 +67,48 @@ notion is based on *bigraphs*, a data structure created by Robin Milner
 #definition[*Information* is a *bigraph*, a triple $(X, T_X, G_X)$ where:
   - $X = V union T$ is the *domain*, where $V$ is the set of *variables* and $T$
     is the set of *bound terms*, each of which are countable sets of binary
-    strings.
+    strings. We call $cal(P)(X)$ the set of *nodes*.
   - $T_X$ is the *place graph* or *hierarchy*, a tree with nodes in
     $cal(P)(X) union {bot}$, where the root is a distinguished element
-    $bot in.not X$.
+    $bot in.not X$. For nodes $A, B$ we write $A <= B$ if $A = B$ or $A$ is a
+    descendant of $B$.
   - $G_X subset.eq cal(P)(X) times cal(P)(X) times cal(P)(X)$ is the *link
-    graph*. We write $(A, B, C) in G_X$ as $A - B -> C$. In the case where
-    $B = emptyset$, we simply write $A -> C$.
+    graph*. We write $(A, B, C) in G_X$ as $tack A - B -> C$. In the case where
+    $B = emptyset$, we simply write $tack A -> C$. Additionally, we write
+    $tack A = B$ iff $A -> B$ and $B -> A$. We impose several requirements,
+    displayed in @link_graph_conditions, adapted from Meseguer
+    @twenty_years_rewriting_logic.
+
+    #judgement(
+      rules: (
+        (conclusion: $tack A -> A$, label: "Refl"),
+        (
+          premises: $tack A -> B, B -> C$,
+          conclusion: $tack A -> C$,
+        ),
+        (
+          premises: $tack A -> B, A = A', B = B'$,
+          conclusion: $tack A' -> B'$,
+          label: "Equality",
+        ),
+      ),
+      caption: "Conditions on the link graph.",
+    )<link_graph_conditions>
+
+    - *Reflexivity:* $tack a -> a$ for each $a in X$.
+
+    - *Transitivity:* $a -> b, b -> c$ entail $a -> c$ for $a, b, c in X$.
+
+  A *pattern* $P$ is a node such that for some $P' <= P$,
+  $P' in V$.#footnote[Our terminology is adapted from Grigore Roșu's _matching
+    logic_ @matching_logic. We will return to this comparison later.]
 
   // We define three kinds of *neighborhoods* for each node $A$:
   // - $In(A) = {A - B -> C | B, C in X}$.
   // - $Out(A) = {B - C -> A | B, C in X}$.
   // - $Link(A) = {B - A -> C | B, C in X}$.
 ]<information>
+
 
 #remark[
   Our notion of bigraph diverges from Milner @robin_milner_bigraphs in several
@@ -112,6 +142,12 @@ example one possible construction.
     $"wall" ->^"makes" "floor" ->^"makes" "house"$
     $"dog" ->^"isa" "animal", "bird" ->^"isa" "animal"$, respectively.
 ]<parts_examples>
+
+
+#definition[
+  W
+]<connection_axioms>
+
 
 // Links have a special property called *mereological extension*: given
 // $A - D -> C$ and $D : B$, we obtain $A - B -> C$. In other words, along a path
