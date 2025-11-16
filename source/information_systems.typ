@@ -64,7 +64,9 @@ notion is based on *bigraphs*, a data structure created by Robin Milner
 #let Link = math.text("Link")
 
 #definition[*Information* is a *bigraph*, a triple $(X, T_X, G_X)$ where:
-  - $X$ is the *domain*, a countable set of binary strings.
+  - $X = V union T$ is the *domain*, where $V$ is the set of *variables* and $T$
+    is the set of *bound terms*, each of which are countable sets of binary
+    strings.
   - $T_X$ is the *place graph* or *hierarchy*, a tree with nodes in
     $cal(P)(X) union {bot}$, where the root is a distinguished element
     $bot in.not X$.
@@ -72,23 +74,23 @@ notion is based on *bigraphs*, a data structure created by Robin Milner
     graph*. We write $(A, B, C) in G_X$ as $A - B -> C$. In the case where
     $B = emptyset$, we simply write $A -> C$.
 
-  We define three kinds of *neighborhoods* for each node $A$:
-  - $In(A) = {A - B -> C | B, C in X}$.
-  - $Out(A) = {B - C -> A | B, C in X}$.
-  - $Link(A) = {B - A -> C | B, C in X}$.
+  // We define three kinds of *neighborhoods* for each node $A$:
+  // - $In(A) = {A - B -> C | B, C in X}$.
+  // - $Out(A) = {B - C -> A | B, C in X}$.
+  // - $Link(A) = {B - A -> C | B, C in X}$.
 ]<information>
 
 #remark[
   Our notion of bigraph diverges from Milner @robin_milner_bigraphs in several
-  important ways. Firstly, Milner's theory focuses around modeling concurrency,
-  which involves non-determinism in programming languages. Briefly, he considers
+  important ways. Firstly, Milner's theory focuses around modeling
+  non-deterministic operations in programming languages. Briefly, he considers
   place graphs which are _forests_ (with special regions), and allows for
   "holes" in the link graph. We simplify his definition by using a tree (with a
-  designated root $bot$), and modelling holes more naturally as any of the
-  neighborhoods $In(A)$, $Out(B)$, or $Link(A)$. Secondly, Milner's approach
-  defines an algebra for bigraphs, as well as dynamic semantics (via
-  _bigraphical reactive systems_). This is not immediately natural for our
-  generalized setting; we will return to this issue in @transformations.
+  designated root $bot$), and incorporating holes instead as patterns. Secondly,
+  Milner's approach defines an algebra for bigraphs, as well as dynamic
+  semantics (via _bigraphical reactive systems_). This is not immediately
+  natural for our generalized setting; we will return to this issue in
+  @transformations.
 ]
 
 We interpret the elements of $X$ as _parts_, and think of the tree $T_X$ as
@@ -105,7 +107,7 @@ example one possible construction.
     things, specifically animals.
   - *Hybrid:* Suppose we want to put $X_1$ and $X_2$ above into a knowledge
     base. One way to distinguish between _physical composition_ and _taxonomy_
-    is to introduce new nodes: $"makes"$ and $"isa"$, respectively. We take
+    is to introduce new links: $"makes"$ and $"isa"$, respectively. We take
     $T_3 = T_1 union T_2$ and introduce new relations:
     $"wall" ->^"makes" "floor" ->^"makes" "house"$
     $"dog" ->^"isa" "animal", "bird" ->^"isa" "animal"$, respectively.
