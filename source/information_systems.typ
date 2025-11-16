@@ -75,29 +75,7 @@ notion is based on *bigraphs*, a data structure created by Robin Milner
   - $G_X subset.eq cal(P)(X) times cal(P)(X) times cal(P)(X)$ is the *link
     graph*. We write $(A, B, C) in G_X$ as $tack A - B -> C$. In the case where
     $B = emptyset$, we simply write $tack A -> C$. Additionally, we write
-    $tack A = B$ iff $A -> B$ and $B -> A$. We impose several requirements,
-    displayed in @link_graph_conditions, adapted from Meseguer
-    @twenty_years_rewriting_logic.
-
-    #judgement(
-      rules: (
-        (conclusion: $tack A -> A$, label: "Refl"),
-        (
-          premises: $tack A -> B, B -> C$,
-          conclusion: $tack A -> C$,
-        ),
-        (
-          premises: $tack A -> B, A = A', B = B'$,
-          conclusion: $tack A' -> B'$,
-          label: "Equality",
-        ),
-      ),
-      caption: "Conditions on the link graph.",
-    )<link_graph_conditions>
-
-    - *Reflexivity:* $tack a -> a$ for each $a in X$.
-
-    - *Transitivity:* $a -> b, b -> c$ entail $a -> c$ for $a, b, c in X$.
+    $tack A = B$ iff $A -> B$ and $B -> A$.
 
   A *pattern* $P$ is a node such that for some $P' <= P$,
   $P' in V$.#footnote[Our terminology is adapted from Grigore Roșu's _matching
@@ -143,10 +121,31 @@ example one possible construction.
     $"dog" ->^"isa" "animal", "bird" ->^"isa" "animal"$, respectively.
 ]<parts_examples>
 
+#definition[The *consequence operator* $tack$ of a bigraph $(X, T, G)$ is
+  defined by the judgements in @consequence_operator_axioms.
 
-#definition[
-  W
-]<connection_axioms>
+  #judgement(
+    rules: (
+      (conclusion: $tack A -> A$, label: "Refl"),
+      (
+        premises: $tack A -> B, B -> C$,
+        conclusion: $tack A -> C$,
+      ),
+      (
+        premises: $tack A -> B, A = A', B = B'$,
+        conclusion: $tack A' -> B'$,
+        label: "Equality",
+      ),
+      (
+        premises: $tack a_1 -> b_1, ..., a_n -> b_n$,
+        conclusion: $tack {a_1, ..., a_n} -> {b_1, .., b_n}$,
+        label: "Group",
+      ),
+    ),
+    caption: [Conditions on the link graph, adapted from Meseguer
+      @twenty_years_rewriting_logic.],
+  )<consequence_operator_axioms>
+]<consequence_operator>
 
 
 // Links have a special property called *mereological extension*: given
