@@ -150,8 +150,11 @@ example one possible construction.
 == Formal Systems
 
 To bridge information graphs with formal reasoning, We must first define formal
-systems generally. Our definition is based on Mendelson @mendelson_logic, as
-well as "formal proof systems" in Cook and Reckhow @cook_proof_systems.
+systems generally. Our definition is based on three sources:
+
+- Mendelson @mendelson_logic.
+- Cook and Reckhow @cook_proof_systems with "formal proof systems".
+- Jean-Yves Béziau @universal_logic and field of Universal Logic.
 
 #definition[
   A *formal system* is a pair $(cal(F), cal(R))$ consisting of:
@@ -162,8 +165,10 @@ well as "formal proof systems" in Cook and Reckhow @cook_proof_systems.
     closure of $cal(R)$. Furthermore, we require that $tack_R$ is computable in
     polynomial time.
 
-  A *sentence* is a closed derivation. A *theory* is a set of sentences in
-  $cal(F)$, which has *axioms* $A = {a in T | tack_R a}$.
+  A *sentence* is a closed derivation. A *theory* $cal(T)$ is a set of sentences
+  in $cal(F)$ that is deductively closed. A set of sentences $cal(A)$ are
+  *axioms* for $cal(T)$ iff $cal(T)$ is equal to the deductive closure under
+  $cal(A)$.
 ]
 
 Note that the first condition on $cal(F)$ is redundant: reflexivity in $cal(R)$
