@@ -65,7 +65,7 @@ commonly used in AI.
 == Goals
 
 The aim of this thesis is to create a formalized programming language, called
-Welkin, originating from the German word _wolke_ (cloud) @oed:welkin. The
+Welkin, originating from the German word _wolke_ (cloud) @dictionary:welkin. The
 following goals resolve the deficiencies observed in the formalisms above:
 
 - *Universality (G1):* we provide a theory to work with _any_ partial computable

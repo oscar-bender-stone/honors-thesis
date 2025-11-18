@@ -22,7 +22,9 @@
   bibliography: bibliography("references.bib"),
 )
 
+#outline()
 #set text(font: "STIX Two Text")
+
 
 #include "introduction.typ"
 

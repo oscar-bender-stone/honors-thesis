@@ -137,8 +137,8 @@ example one possible construction.
         label: "Equality",
       ),
       (
-        premises: $tack a_1 -> b_1, ..., a_n -> b_n$,
-        conclusion: $tack {a_1, ..., a_n} -> {b_1, .., b_n}$,
+        premises: $tack A_1 -> B_1, ..., A_n -> B_n$,
+        conclusion: $tack {A_1, ..., A_n} -> {B_1, .., B_n}$,
         label: "Group",
       ),
     ),
@@ -180,17 +180,18 @@ this is intentionally _general_ to encompass any other interpretation.
 )<formal_system_features>
 
 
-Given this criterion, we define a formal system as follows, loosely based on the
-definition provided by Strassburger @strassburger_what_is_a_logic.
+Given this criterion, we define a formal system as follows, closely following
+Mendelson @mendelson_logic.
 
 #definition[
   A *formal system* is a pair $cal(S) equiv (cal(F), cal(R))$ consisting of:
 
   - *formulas* $cal(F)$, a decidable set of binary strings.
-  - a set of *derivation rules* #box[$cal(R) subset.eq cal(F) times cal(F)$]. We
-    define the *derivation relation* $=>$ to be the reflexive, transitive
-    closure of $cal(R)$. Furthermore, we require that $=>$ is computable in
-    polynomial time.
+  - a set of *derivation rules*
+    #box[$cal(R) subset.eq cal(P)(cal(F)) times cal(F)$]. We define the
+    *derivation relation* $=>$ to be the reflexive, transitive closure of
+    $cal(R)$. Furthermore, we require that $=>$ is computable in polynomial
+    time.
 
   A *sentence* is a closed derivation, and a *theory* is a set of sentences in
   $cal(F)$.
