@@ -218,6 +218,11 @@ Frameworks closely relate to the notion of *universal* formal systems.
   $phi tack_cal(R) psi <=> G_cal(S)(phi) tack_cal(R)_U G_cal(S)(psi)$.
 ]
 
+Our motivation for defining universal systes is a property called *reflection*,
+similar to the one outlined in @twenty_years_rewriting_logic. That is, universal
+systems _themselves_ can be studied in the context of a single universal system.
+This enables meta-theoretic reasoning.
+
 #theorem[
   Every universal formal system induces a framework $FF'$, with formal systems
   $("Image"(G_cal(S)), cal(R)_U inter "Image"(G_cal(S))^2)$. Conversely, every
