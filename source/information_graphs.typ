@@ -149,34 +149,9 @@ example one possible construction.
 
 == Formal Systems
 
-
-We must first define a general class of formal systems. Considering the
-diversity of formal reasoning, we need a _static_ and _dynamic_ component. These
-have interpretations in *logic* and *computability*, outlined in
-@formal_system_features.
-
-#let features = table(
-  columns: (auto, auto, auto),
-  inset: 10pt,
-  align: horizon,
-  table.header([*Feature*], [*Logic*], [*Computation*]),
-  [*Static*], [Formulas], [States],
-  [*Dynamic*], [Inference], [Transitions],
-)
-
-We will focus on the _logical_ interpretation in our terminology, but note that
-this is intentionally _general_ to encompass any other interpretation.
-
-
-#figure(
-  features,
-  caption: [Features needed in a general formal system.],
-)<formal_system_features>
-
-
-Given this criterion, we define a formal system as follows. This definition is
-based on Mendelson @mendelson_logic, as well as "formal proof systems" in Cook
-and Reckhow @cook_proof_systems.
+To bridge information graphs with formal reasoning, We must first define formal
+systems generally. Our definition is based on Mendelson @mendelson_logic, as
+well as "formal proof systems" in Cook and Reckhow @cook_proof_systems.
 
 #definition[
   A *formal system* is a pair $(cal(F), cal(R))$ consisting of:
@@ -216,4 +191,30 @@ maps, between formal systems.
   - *Morphisms:* defined in @formal_system_morphism.
 
   This algebraic structure satisfies reflexivity and existence of composites.
+]
+
+A *(full) sub-category* $FF'$ of $FF$ consists of a set of objects and all the
+morphisms. A *framework* is a subcategory equivalent to $FF$ such that the
+objects form a decidable set.
+
+#theorem[
+  The set of information graphs and the morphisms between them form a framework
+  for $FF$.
+]
+
+Frameworks closely relate to the notion of *universal* formal systems.
+
+#definition[
+  A formal system $(cal(F)_U, cal(R)_U)$ is *universal* if there is a computable
+  family
+  $G = {G_cal(S): cal(F) -> cal(F)_U | cal(S) equiv (cal(F), cal(R)) in FF}$
+  over all formal systems such that at each fixed system $cal(S)$ and for all
+  formulas $phi, psi in cal(F)$,
+  $phi tack_cal(R) psi <=> G_cal(S)(phi) tack_cal(R)_U G_cal(S)(psi)$.
+]
+
+#theorem[
+  Every universal formal system induces a framework $FF'$, with formal systems
+  $("Image"(G_cal(S)), cal(R)_U inter "Image"(G_cal(S))^2)$. Conversely, every
+  framework induces a universal formal system.
 ]
