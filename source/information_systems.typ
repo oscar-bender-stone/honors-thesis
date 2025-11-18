@@ -180,21 +180,21 @@ this is intentionally _general_ to encompass any other interpretation.
 )<formal_system_features>
 
 
-Given this criterion, we define a formal system as follows, closely following
-Mendelson @mendelson_logic.
+Given this criterion, we define a formal system as follows. This definition is
+based on Mendelson @mendelson_logic, as well as "formal proof systems" in Cook
+and Reckhow @cook_proof_systems.
 
 #definition[
-  A *formal system* is a pair $cal(S) equiv (cal(F), cal(R))$ consisting of:
+  A *formal system* is a pair $(cal(F), cal(R))$ consisting of:
 
   - *formulas* $cal(F)$, a decidable set of binary strings.
-  - a set of *derivation rules*
-    #box[$cal(R) subset.eq cal(P)(cal(F)) times cal(F)$]. We define the
-    *derivation relation* $=>$ to be the reflexive, transitive closure of
-    $cal(R)$. Furthermore, we require that $=>$ is computable in polynomial
-    time.
+  - a set of *derivation rules* #box[$cal(R) subset.eq cal(F) times cal(F)$]. We
+    define the *derivation relation* $tack_R$ to be the reflexive, transitive
+    closure of $cal(R)$. Furthermore, we require that $tack_R$ is computable in
+    polynomial time.
 
-  A *sentence* is a closed derivation, and a *theory* is a set of sentences in
-  $cal(F)$.
+  A *sentence* is a closed derivation. A *theory* is a set of sentences in
+  $cal(F)$, which has *axioms* $A = {a in T | tack_R a}$.
 ]
 
 Note that the first condition on $cal(F)$ is redundant: reflexivity in $cal(R)$
