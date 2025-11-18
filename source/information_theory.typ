@@ -5,7 +5,7 @@
 #import "template/judgements.typ": judgement
 
 
-= Information Systems <information_systems>
+= Information Theory <information_theory>
 
 
 We now define the universal framework for analyzing information. Our approach
@@ -19,7 +19,7 @@ the best _effectively realizable compression scheme_ can be obtained by
 appealing to Tarski's fixed-point theorem on the lattice of these
 transformations.
 
-== Information
+== Information Graphs
 
 Our motto is this: _information is a relation_. We will consider several
 examples.

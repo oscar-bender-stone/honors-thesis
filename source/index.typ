@@ -30,7 +30,7 @@
 
 #include "foundations.typ"
 
-#include "information_systems.typ"
+#include "information_theory.typ"
 
 #include "syntax.typ"
 
