@@ -96,7 +96,7 @@ following goals resolve the deficiencies observed in the formalisms above:
     Arithmetic.
   ],
 
-  [@information_theory],
+  [@information_graphs],
   [Defines information and the optimal encoding proven in this thesis. This is
     optimal w.r.t. to a certain efficiently computable class of encodings.
   ],

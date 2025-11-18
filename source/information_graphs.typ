@@ -6,7 +6,7 @@
 #import "template/judgements.typ": judgement
 
 
-= Information Theory <information_theory>
+= Information Graphs <information_graphs>
 
 
 We now define the universal framework for analyzing information. Our approach
@@ -20,7 +20,7 @@ the best _effectively realizable compression scheme_ can be obtained by
 appealing to Tarski's fixed-point theorem on the lattice of these
 transformations.
 
-== Information Graphs
+== Motivating Examples
 
 Our motto is this: _information is a relation_. We will consider several
 examples.
@@ -61,9 +61,7 @@ defined into two key components: a *hierarchy* and a set of *connections*. Our
 notion is based on *bigraphs*, a data structure created by Robin Milner
 @robin_milner_bigraphs.
 
-#let In = math.text("In")
-#let Out = math.text("Out")
-#let Link = math.text("Link")
+== Formal Approach
 
 #definition[*Information* is a *bigraph*, a triple $(X, T_X, G_X)$ where:
   - $X = V union T$ is the *domain*, where $V$ is the set of *variables* and $T$
@@ -81,11 +79,6 @@ notion is based on *bigraphs*, a data structure created by Robin Milner
   A *pattern* $P$ is a node such that for some $P' <= P$,
   $P' in V$.#footnote[Our terminology is adapted from Grigore Roșu's _matching
     logic_ @matching_logic. We will return to this comparison later.]
-
-  // We define three kinds of *neighborhoods* for each node $A$:
-  // - $In(A) = {A - B -> C | B, C in X}$.
-  // - $Out(A) = {B - C -> A | B, C in X}$.
-  // - $Link(A) = {B - A -> C | B, C in X}$.
 ]<information>
 
 
@@ -99,7 +92,7 @@ notion is based on *bigraphs*, a data structure created by Robin Milner
   Milner's approach defines an algebra for bigraphs, as well as dynamic
   semantics (via _bigraphical reactive systems_). This is not immediately
   natural for our generalized setting; we will return to this issue in
-  @transformations.
+  information @information_compression.
 ]
 
 We interpret the elements of $X$ as _parts_, and think of the tree $T_X$ as
@@ -201,7 +194,6 @@ and Reckhow @cook_proof_systems.
 Note that the first condition on $cal(F)$ is redundant: reflexivity in $cal(R)$
 ensures that each formula can be recognized in polynomial-time.
 
-
 We want a suitable notion of embedding from formal systems into information
 systems. We adapt this notion from José Meseguer's notion of
 $epsilon$-representation distance, introduced in @twenty_years_rewriting_logic.
@@ -225,10 +217,3 @@ maps, between formal systems.
 
   This algebraic structure satisfies reflexivity and existence of composites.
 ]
-
-
-
-== Information Transformations <transformations>
-
-== Optimal Compression Scheme
-
