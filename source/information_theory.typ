@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 #import "template/ams-article.typ": definition, example, experiment, remark
+#import "template/ams-article.typ": lemma, theorem
 #import "template/judgements.typ": judgement
 
 
@@ -199,6 +200,33 @@ and Reckhow @cook_proof_systems.
 
 Note that the first condition on $cal(F)$ is redundant: reflexivity in $cal(R)$
 ensures that each formula can be recognized in polynomial-time.
+
+
+We want a suitable notion of embedding from formal systems into information
+systems. We adapt this notion from José Meseguer's notion of
+$epsilon$-representation distance, introduced in @twenty_years_rewriting_logic.
+To formalize this, we start with defining *momorphisms*, structure preserving
+maps, between formal systems.
+
+#definition[
+  Let $(cal(F)_1, cal(R)_1), (cal(F)_2, cal(R)_2)$ be formal systems. Then a
+  *momorphism* $f: (cal(F)_1, cal(R)_1) -> (cal(F)_2, cal(R)_2)$ is a computable
+  function $f: cal(F)_1 -> cal(F)_2$ such that for all formulas
+  $phi, psi in cal(F_1)$,
+  $phi tack_cal(R)_1 psi => f(phi) tack_cal(R)_2 f(psi)$.
+]<formal_system_morphism>
+
+#lemma[
+  The *category of formal systems* $FF$ consists of:
+
+  - *Objects:* formal systems.
+
+  - *Morphisms:* defined in @formal_system_morphism.
+
+  This algebraic structure satisfies reflexivity and existence of composites.
+]
+
+
 
 == Information Transformations <transformations>
 
