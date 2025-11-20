@@ -177,15 +177,21 @@ ensures that each formula can be recognized in polynomial-time.
 We want a suitable notion of embedding from formal systems into information
 systems. We adapt this notion from José Meseguer's notion of
 $epsilon$-representation distance, introduced in @twenty_years_rewriting_logic.
-To formalize this, we start with defining *momorphisms*, structure preserving
-maps, between formal systems.
+To formalize this, we start with defining *transformations*, mappings on the
+formulas, and then proceed to *morphisms*, which are structure preservig.
 
 #definition[
   Let $(cal(F)_1, cal(R)_1), (cal(F)_2, cal(R)_2)$ be formal systems. Then a
-  *momorphism* $f: (cal(F)_1, cal(R)_1) -> (cal(F)_2, cal(R)_2)$ is a computable
-  function $f: cal(F)_1 -> cal(F)_2$ such that for all formulas
-  $phi, psi in cal(F_1)$,
-  $phi tack_cal(R)_1 psi => f(phi) tack_cal(R)_2 f(psi)$.
+  *transformation* $f: (cal(F)_1, cal(R)_1) -> (cal(F)_2, cal(R)_2)$ is a
+  computable function $f: cal(F)_1 -> cal(F)_2$. This induces a function
+  $r_f: cal(R)_1 -> cal(R)_2$ given by $r_f (phi, psi) = (f(phi), f(psi))$.
+]<formal_system_transformation>
+
+
+#definition[
+  A *morphism* $f$ is a transformation such that $r_f$ preserves derivations.
+  More explicitly, $phi tack_cal(R)_1 psi => f(phi) tack_cal(R)_2 f(psi)$. An
+  *isomorphism* is an invertible morphism.
 ]<formal_system_morphism>
 
 #lemma[
@@ -198,9 +204,10 @@ maps, between formal systems.
   This algebraic structure satisfies reflexivity and existence of composites.
 ]
 
-A *(full) sub-category* $FF'$ of $FF$ consists of a set of objects and all the
-morphisms. A *framework* is a subcategory equivalent to $FF$ such that the
-objects form a decidable set.
+#definition[A *(full) sub-category* $FF'$ of $FF$ consists of a set of objects
+  and all the morphisms. A *framework* is a subcategory equivalent to $FF$ such
+  that the objects form a decidable set.
+]
 
 #theorem[
   The set of information graphs and the morphisms between them form a framework
