@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 compile:
-    typst compile source/index.typ document/thesis.pdf
+    typst compile source/0_index.typ document/thesis.pdf
 
 watch:
-    typst watch source/index.typ document/thesis.pdf
+    typst watch source/0_index.typ document/thesis.pdf

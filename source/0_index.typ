@@ -25,10 +25,9 @@
 #outline()
 #set text(font: "STIX Two Text")
 
+#include "1_introduction.typ"
 
-#include "introduction.typ"
-
-#include "foundations.typ"
+#include "2_foundations.typ"
 
 #include "information_graphs.typ"
 
