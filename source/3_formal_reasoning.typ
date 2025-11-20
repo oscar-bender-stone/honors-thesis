@@ -7,6 +7,8 @@
 
 #import "template/ams-article.typ": equation_block, lemma, proof, theorem
 
+#import "template/ams-article.typ": equation_block
+
 
 = Formal Reasoning
 
@@ -88,9 +90,10 @@ Frameworks closely relate to the notion of *universal* formal systems.
   formulas $phi, psi in cal(F)$,
 
   $phi tack_cal(R) psi <=> G_cal(S)(phi) tack_cal(R)_cal(U) G_cal(S)(psi)$.
+
 ]
 
-Our motivation for defining universal systes is a property called *reflection*,
+Our motivation for defining universal systems is a property called *reflection*,
 similar to the one outlined in @twenty_years_rewriting_logic. That is, universal
 systems _themselves_ can be studied in the context of a single universal system.
 This enables meta-theoretic reasoning.
@@ -99,16 +102,24 @@ This enables meta-theoretic reasoning.
   Every universal formal system induces a framework $FF'$, as the image of the
   functor $cal(G): FF -> FF'$, given by
 
-  $cal(G)(cal(S)) = ("Image"(G_cal(S)), cal(R)_U inter "Image"(G_cal(S))^2)$.
+  #equation_block(
+    prefix: "U",
+    [$cal(G)(cal(S)) = ("Image"(G_cal(S)), cal(R)_cal(U) inter "Image"(G_cal(S))^2)$.],
+  )
 
   Conversely, every framework induces a universal formal system.
 ]
 
 #proof[
   We must show that $FF'$ is a framework for $FF$. Clearly this is a computable
-  sub-category. To prove $cal(G)$ is an equivalence, . This completes the proof
-  of the forward direction.
+  sub-category. To prove $cal(G)$ is an equivalence, notice that $cal(G)$ is
+  full and faithful as a full sub-category of $FF$. Additionally, $cal(G)$ is
+  essentially surjective because $$ iff $$ precisely by the defining property of
+  universal systems. This completes the forwards direction.
 
-  Conversely,
+  Conversely, a univeral framework can be formed from a system by creating a
+  computable encoding of the formulas and rules of a system. The family $G$ can
+  then be defined from an equivalence from $FF$ to $FF'$, which can be easily
+  verified to preserve and reflection derivations.
 ]
 
