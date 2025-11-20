@@ -5,7 +5,7 @@
 
 #import "template/ams-article.typ": definition, example, remark
 
-#import "template/ams-article.typ": lemma, theorem
+#import "template/ams-article.typ": equation_block, lemma, proof, theorem
 
 
 = Formal Reasoning
@@ -81,12 +81,13 @@ formulas, and then proceed to *morphisms*, which are structure preservig.
 Frameworks closely relate to the notion of *universal* formal systems.
 
 #definition[
-  A formal system $(cal(F)_U, cal(R)_U)$ is *universal* if there is a computable
-  family
-  $G = {G_cal(S): cal(F) -> cal(F)_U | cal(S) equiv (cal(F), cal(R)) in FF}$
+  A formal system $cal(U) equiv (cal(F)_cal(U), cal(R)_cal(U))$ is *universal*
+  if there is a computable family of injective functions
+  $G = {G_cal(S): cal(F)_cal(S) -> cal(F)_cal(U) | cal(S) equiv (cal(F), cal(R)) in FF}$
   over all formal systems such that at each fixed system $cal(S)$ and for all
   formulas $phi, psi in cal(F)$,
-  $phi tack_cal(R) psi <=> G_cal(S)(phi) tack_cal(R)_U G_cal(S)(psi)$.
+
+  $phi tack_cal(R) psi <=> G_cal(S)(phi) tack_cal(R)_cal(U) G_cal(S)(psi)$.
 ]
 
 Our motivation for defining universal systes is a property called *reflection*,
@@ -95,8 +96,19 @@ systems _themselves_ can be studied in the context of a single universal system.
 This enables meta-theoretic reasoning.
 
 #theorem[
-  Every universal formal system induces a framework $FF'$, with formal systems
-  $("Image"(G_cal(S)), cal(R)_U inter "Image"(G_cal(S))^2)$. Conversely, every
-  framework induces a universal formal system.
+  Every universal formal system induces a framework $FF'$, as the image of the
+  functor $cal(G): FF -> FF'$, given by
+
+  $cal(G)(cal(S)) = ("Image"(G_cal(S)), cal(R)_U inter "Image"(G_cal(S))^2)$.
+
+  Conversely, every framework induces a universal formal system.
+]
+
+#proof[
+  We must show that $FF'$ is a framework for $FF$. Clearly this is a computable
+  sub-category. To prove $cal(G)$ is an equivalence, . This completes the proof
+  of the forward direction.
+
+  Conversely,
 ]
 
