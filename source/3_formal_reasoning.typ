@@ -52,15 +52,13 @@ formulas, and then proceed to *morphisms*, which are structure preservig.
 #definition[
   Let $(cal(F)_1, cal(R)_1), (cal(F)_2, cal(R)_2)$ be formal systems. Then a
   *transformation* $f: (cal(F)_1, cal(R)_1) -> (cal(F)_2, cal(R)_2)$ is a
-  computable function $f: cal(F)_1 -> cal(F)_2$. This induces a function
-  $r_f: cal(R)_1 -> cal(R)_2$ given by $r_f (phi, psi) = (f(phi), f(psi))$.
+  computable function $f: cal(F)_1 -> cal(F)_2$.
 ]<formal_system_transformation>
 
 
 #definition[
-  A *morphism* $f$ is a transformation such that $r_f$ preserves derivations.
-  More explicitly, $phi tack_cal(R)_1 psi => f(phi) tack_cal(R)_2 f(psi)$. An
-  *isomorphism* is an invertible morphism.
+  A *morphism* $f$ is a transformation such that $phi tack_cal(R)_1 psi => f(phi) tack_cal(R)_2 f(psi)$. An
+  *isomorphism* is an invertible morphism whose inverse is also a morphism.
 ]<formal_system_morphism>
 
 #lemma[
@@ -114,8 +112,7 @@ This enables meta-theoretic reasoning.
   We must show that $FF'$ is a framework for $FF$. Clearly this is a computable
   sub-category. To prove $cal(G)$ is an equivalence, notice that $cal(G)$ is
   full and faithful as a full sub-category of $FF$. Additionally, $cal(G)$ is
-  essentially surjective because $$ iff $$ precisely by the defining property of
-  universal systems. This completes the forwards direction.
+  essentially surjective precisely by construction. This completes the forwards direction.
 
   Conversely, a univeral framework can be formed from a system by creating a
   computable encoding of the formulas and rules of a system. The family $G$ can
