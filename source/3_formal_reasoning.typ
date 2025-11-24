@@ -23,8 +23,7 @@ systems generally. Our definition is based on three sources:
 
 - Mendelson @mendelson_logic.
 - Cook and Reckhow @cook_proof_systems with "formal proof systems".
-- Béziau @universal_logic and the field of Universal Logic. A related definition
-  is from Strassburger @strassburger_what_is_a_logic.
+- Strassburger @strassburger_what_is_a_logic.
 
 #let vdash(..args) = {
   let pos-args = args.pos()
@@ -37,36 +36,69 @@ systems generally. Our definition is based on three sources:
   }
 }
 
+#let imp(..args) = {
+  let pos-args = args.pos()
+
+  if pos-args.len() > 0 {
+    let subscript = pos-args.at(0)
+    return math.attach(math.arrow.r.double, br: subscript)
+  } else {
+    return math.arrow.r.double
+  }
+}
+
 #definition[
   A *formal system* is a pair $(cal(F), cal(R))$ consisting of:
 
   - *formulas* $cal(F)$, a decidable set of binary strings.
   - a set of *derivation rules* #box[$cal(R) subset.eq cal(F) times cal(F)$]. We
-    define the *derivation relation* $vdash(cal(R))$ to be the reflexive,
-    transitive closure of $cal(R)$. Furthermore, we require that $vdash(cal(R))$
+    define the *derivation relation* $imp(cal(R))$ to be the reflexive,
+    transitive closure of $cal(R)$. Furthermore, we require that $imp(cal(R))$
     has a polynomial time verifier $V_cal(R)$.
-
-
-  #set par(justify: true)
-  Let $cal(T)$ be a set of formulas. The *deductive closure* of $cal(T)$ by
-  $"Th"(cal(T)) = {phi in cal(F) | exists psi in cal(T). psi vdash(cal(R)) phi}$.
-  We call $cal(T)$ a *theory* if $cal(T) = "Th"(cal(T))$. The *axioms* of a
-  theory $cal(T)$ is the minimal set $cal(A)$ such that $cal(T) = "Th"(cal(A))$,
-  i.e.,
-  $cal(A) = inter.big {cal(T') subset.eq cal(T) | cal(T) = "Th"(cal(T'))}$.
 ]
 
 Note that the first condition on $cal(F)$ is redundant: reflexivity in $cal(R)$
 ensures that each formula can be recognized in polynomial-time.
 
-We want a suitable notion of embedding from formal systems into information
-systems. We adapt this notion from José Meseguer's notion of
-$epsilon$-representation distance, introduced in @twenty_years_rewriting_logic.
-The idea there is to minimize the distance between actual mathematical objects
-and their representations. More precisely, this notion means that in a
-framework, isomorphisms must be preserved and reflected. To formalize this in
-general, we start with defining *transformations*, mappings on the formulas, and
-then proceed to *morphisms*, which are structure preservig.
+#definition[
+  Let $cal(S) equiv (cal(F), cal(R))$ be a formal system. A *derivation* or
+  *proof* is a sequence of derivation rules. The *category of proofs*
+  $"Proof"(cal(S))$ consists of:
+
+  - *Objects:* formulas.
+
+  - *Morphisms:* proofs between formulas. Concatenation is defined by
+    concatenating sequences.
+
+]
+
+#remark[
+  Strassburger @strassburger_what_is_a_logic advocates to _define_ a logic as a
+  category. But this is not immediate for certain logics. For instance, in the
+  sequence calculus, composition of two proofs is not uniquely defined. Our
+  definition approaches this by using an artificial, inefficient representation.
+  Strassburger's work on deep inference addresses this problem, and we treat
+  this as an optimization; see @information_compression.
+]
+
+#definition[
+  Let $(cal(F), cal(R))$ be a formal system, and let $cal(T)$ be a set of
+  formulas. The *deductive closure* of $cal(T)$ is
+  $"Th"(cal(T)) = {phi in cal(F) | exists psi in cal(T). psi vdash(cal(R)) phi}$.
+  We call $cal(T)$ a *theory* if $cal(T) = "Th"(cal(T))$. A set of formulas
+  $cal(A)$ serve as *axioms* for a theory $cal(T)$ if $cal(T) = "Th"(cal(A))$.
+]
+
+
+== Categories
+
+We adapt this notion from José Meseguer's notion of $epsilon$-representation
+distance, introduced in @twenty_years_rewriting_logic. The idea there is to
+minimize the distance between actual mathematical objects and their
+representations. More precisely, this notion means that in a framework,
+isomorphisms must be preserved and reflected. To formalize this in general, we
+start with defining *transformations*, mappings on the formulas, and then
+proceed to *morphisms*, which are structure preserving.
 
 #definition[
   Let $(cal(F)_1, cal(R)_1), (cal(F)_2, cal(R)_2)$ be formal systems. Then a
@@ -78,10 +110,10 @@ then proceed to *morphisms*, which are structure preservig.
 
 
 #definition[
-  A *morphism* $f equiv (F, R)$ is a transformation such that the reflexive,
-  transitive closure of $R$ is functional. More explicitly,
-  $phi tack_cal(R)_1 psi => F(phi) tack_cal(R)_2 F(psi)$. An *isomorphism* is an
-  invertible morphism whose inverse is also a morphism.
+  A *morphism* $f equiv (F, R)$ is a transformation such that $imp(R)$ is
+  functional. More explicitly,
+  $phi vdash(cal(R)_1) psi => F(phi) vdash(cal(R)_2) F(psi)$. An *isomorphism*
+  is an invertible morphism whose inverse is also a morphism.
 ]<formal_system_morphism>
 
 #lemma[
