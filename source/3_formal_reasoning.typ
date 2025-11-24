@@ -45,14 +45,14 @@ ensures that each formula can be recognized in polynomial-time.
 
 We want a suitable notion of embedding from formal systems into information
 systems. We adapt this notion from José Meseguer's notion of
-$epsilon$-representation distance, introduced in @twenty_years_rewriting_logic.
-To formalize this, we start with defining *transformations*, mappings on the
+$epsilon$-representation distance, introduced in @twenty_years_rewriting_logic. The idea there is to minimize the distance between actual mathematical objects and their representations. More precisely, this notion means that in a framework, isomorphisms must be preserved and reflected.
+To formalize this in general, we start with defining *transformations*, mappings on the
 formulas, and then proceed to *morphisms*, which are structure preservig.
 
 #definition[
   Let $(cal(F)_1, cal(R)_1), (cal(F)_2, cal(R)_2)$ be formal systems. Then a
   *transformation* $f: (cal(F)_1, cal(R)_1) -> (cal(F)_2, cal(R)_2)$ is a
-  pair $(F, R)$, where $F: cal(F)_1 -> cal(F)_2$ is computable and $R subset.eq cal(R)_1 times cal(R)_2$ is left-total, RE, and if $F(phi) = psi$, then $phi R psi$.
+  pair $(F, R)$, where $F: cal(F)_1 -> cal(F)_2$ is computable and $R subset.eq cal(R)_1 times cal(R)_2$ is left-total and if $F(phi) = psi$, then $phi R psi$.
 ]<formal_system_transformation>
 
 
