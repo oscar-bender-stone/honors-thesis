@@ -23,21 +23,37 @@ systems generally. Our definition is based on three sources:
 
 - Mendelson @mendelson_logic.
 - Cook and Reckhow @cook_proof_systems with "formal proof systems".
-- Jean-Yves Béziau @universal_logic and field of Universal Logic.
+- Béziau @universal_logic and the field of Universal Logic. A related definition
+  is from Strassburger @strassburger_what_is_a_logic.
+
+#let vdash(..args) = {
+  let pos-args = args.pos()
+
+  if pos-args.len() > 0 {
+    let subscript = pos-args.at(0)
+    return math.attach(math.tack, br: subscript)
+  } else {
+    return math.tack
+  }
+}
 
 #definition[
   A *formal system* is a pair $(cal(F), cal(R))$ consisting of:
 
   - *formulas* $cal(F)$, a decidable set of binary strings.
   - a set of *derivation rules* #box[$cal(R) subset.eq cal(F) times cal(F)$]. We
-    define the *derivation relation* $tack_R$ to be the reflexive, transitive
-    closure of $cal(R)$. Furthermore, we require that $tack_R$ is computable in
-    polynomial time.
+    define the *derivation relation* $vdash(cal(R))$ to be the reflexive,
+    transitive closure of $cal(R)$. Furthermore, we require that $vdash(cal(R))$
+    has a polynomial time verifier $V_cal(R)$.
 
-  A *sentence* is a closed derivation. A *theory* $cal(T)$ is a set of sentences
-  in $cal(F)$ that is deductively closed. A set of sentences $cal(A)$ are
-  *axioms* for $cal(T)$ iff $cal(T)$ is equal to the deductive closure under
-  $cal(A)$.
+
+  #set par(justify: true)
+  Let $cal(T)$ be a set of formulas. The *deductive closure* of $cal(T)$ by
+  $"Th"(cal(T)) = {phi in cal(F) | exists psi in cal(T). psi vdash(cal(R)) phi}$.
+  We call $cal(T)$ a *theory* if $cal(T) = "Th"(cal(T))$. The *axioms* of a
+  theory $cal(T)$ is the minimal set $cal(A)$ such that $cal(T) = "Th"(cal(A))$,
+  i.e.,
+  $cal(A) = inter.big {cal(T') subset.eq cal(T) | cal(T) = "Th"(cal(T'))}$.
 ]
 
 Note that the first condition on $cal(F)$ is redundant: reflexivity in $cal(R)$
@@ -45,20 +61,27 @@ ensures that each formula can be recognized in polynomial-time.
 
 We want a suitable notion of embedding from formal systems into information
 systems. We adapt this notion from José Meseguer's notion of
-$epsilon$-representation distance, introduced in @twenty_years_rewriting_logic. The idea there is to minimize the distance between actual mathematical objects and their representations. More precisely, this notion means that in a framework, isomorphisms must be preserved and reflected.
-To formalize this in general, we start with defining *transformations*, mappings on the
-formulas, and then proceed to *morphisms*, which are structure preservig.
+$epsilon$-representation distance, introduced in @twenty_years_rewriting_logic.
+The idea there is to minimize the distance between actual mathematical objects
+and their representations. More precisely, this notion means that in a
+framework, isomorphisms must be preserved and reflected. To formalize this in
+general, we start with defining *transformations*, mappings on the formulas, and
+then proceed to *morphisms*, which are structure preservig.
 
 #definition[
   Let $(cal(F)_1, cal(R)_1), (cal(F)_2, cal(R)_2)$ be formal systems. Then a
-  *transformation* $f: (cal(F)_1, cal(R)_1) -> (cal(F)_2, cal(R)_2)$ is a
-  pair $(F, R)$, where $F: cal(F)_1 -> cal(F)_2$ is computable and $R subset.eq cal(R)_1 times cal(R)_2$ is left-total and if $F(phi) = psi$, then $phi R psi$.
+  *transformation* $f: (cal(F)_1, cal(R)_1) -> (cal(F)_2, cal(R)_2)$ is a pair
+  $(F, R)$, where $F: cal(F)_1 -> cal(F)_2$ is computable and
+  $R subset.eq cal(R)_1 times cal(R)_2$ is left-total and if $F(phi) = psi$,
+  then $phi R psi$.
 ]<formal_system_transformation>
 
 
 #definition[
-  A *morphism* $f equiv (F, R)$ is a transformation such that the reflexive, transitive closure of $R$ is functional. More explicitly, $phi tack_cal(R)_1 psi => F(phi) tack_cal(R)_2 F(psi)$. An
-  *isomorphism* is an invertible morphism whose inverse is also a morphism.
+  A *morphism* $f equiv (F, R)$ is a transformation such that the reflexive,
+  transitive closure of $R$ is functional. More explicitly,
+  $phi tack_cal(R)_1 psi => F(phi) tack_cal(R)_2 F(psi)$. An *isomorphism* is an
+  invertible morphism whose inverse is also a morphism.
 ]<formal_system_morphism>
 
 #lemma[
@@ -71,7 +94,8 @@ formulas, and then proceed to *morphisms*, which are structure preservig.
   This algebraic structure satisfies reflexivity and existence of composites.
 ]
 #proof[
-  Reflexivity holds because the identity map is a morphism, and composites exists due to transitivity in $tack$.
+  Reflexivity holds because the identity map is a morphism, and composites
+  exists due to transitivity in $tack$.
 ]
 
 == Universal Systems
@@ -103,10 +127,7 @@ This enables meta-theoretic reasoning.
   Every universal formal system induces a framework $FF'$, as the image of the
   functor $cal(G): FF -> FF'$, given by
 
-  #equation_block(
-    prefix: "U",
-    [$cal(G)(cal(S)) = ("Image"(G_cal(S)), cal(R)_cal(U) inter "Image"(G_cal(S))^2)$.],
-  )
+  $inline(cal(G)(cal(S)) = ("Image"(G_cal(S)), cal(R)_cal(U) inter "Image"(G_cal(S))^2))$.
 
   Conversely, every framework induces a universal formal system.
 ]
@@ -115,7 +136,8 @@ This enables meta-theoretic reasoning.
   We must show that $FF'$ is a framework for $FF$. Clearly this is a computable
   sub-category. To prove $cal(G)$ is an equivalence, notice that $cal(G)$ is
   full and faithful as a full sub-category of $FF$. Additionally, $cal(G)$ is
-  essentially surjective precisely by construction. This completes the forwards direction.
+  essentially surjective precisely by construction. This completes the forwards
+  direction.
 
   Conversely, a univeral framework can be formed from a system by creating a
   computable encoding of the formulas and rules of a system. The family $G$ can
