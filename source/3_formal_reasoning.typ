@@ -52,12 +52,12 @@ formulas, and then proceed to *morphisms*, which are structure preservig.
 #definition[
   Let $(cal(F)_1, cal(R)_1), (cal(F)_2, cal(R)_2)$ be formal systems. Then a
   *transformation* $f: (cal(F)_1, cal(R)_1) -> (cal(F)_2, cal(R)_2)$ is a
-  computable function $f: cal(F)_1 -> cal(F)_2$.
+  pair $(F, R)$, where $F: cal(F)_1 -> cal(F)_2$ is computable and $R subset.eq cal(R)_1 times cal(R)_2$ is left-total, RE, and if $F(phi) = psi$, then $phi R psi$.
 ]<formal_system_transformation>
 
 
 #definition[
-  A *morphism* $f$ is a transformation such that $phi tack_cal(R)_1 psi => f(phi) tack_cal(R)_2 f(psi)$. An
+  A *morphism* $f equiv (F, R)$ is a transformation such that the reflexive, transitive closure of $R$ is functional. More explicitly, $phi tack_cal(R)_1 psi => F(phi) tack_cal(R)_2 F(psi)$. An
   *isomorphism* is an invertible morphism whose inverse is also a morphism.
 ]<formal_system_morphism>
 
@@ -69,6 +69,9 @@ formulas, and then proceed to *morphisms*, which are structure preservig.
   - *Morphisms:* defined in @formal_system_morphism.
 
   This algebraic structure satisfies reflexivity and existence of composites.
+]
+#proof[
+  Reflexivity holds because the identity map is a morphism, and composites exists due to transitivity in $tack$.
 ]
 
 == Universal Systems
