@@ -59,7 +59,8 @@
     - My aim: show that _information_ is precisely this building block,
       restricted to a computable setting.
 
-- Review past results in Information theory
+- Review past results in Information theory. Possibly expand upon in a separate
+  section.
 
   - Main theories:
 
@@ -72,14 +73,69 @@
       - primarily probabilistic and based on _communication of bits_. Not enough
         for _semantics_!
 
+      - Takeaway: information is _used_ in communication
+
     - Kolomogorov + complexity:
 
       - Minimum Description Length (MDL): we should describe objects with the
         smallest description possible.
 
-      - Kolmogorov complexity is uncomputable
+      - Kolmogorov complexity = length of _smallest_ program accepting a string
 
-      - Main problem: _measures_ information, but does not _define it_
+      - Practical problem: not computable!
 
-    - Scott domains
+      - Bigger problem: _measures_ information, but does not _define it_
+
+      - Takeaway: provides a _computational_ lens for information
+
+    - Scott domains:
+
+      - Introduced information systems!
+
+      - Problem: divergence from . Also divergence from information in other
+        senses, like ontology (OWL, etc.)
+
+    - Ontologies:
+
+      - Frameworks: OWL, Conceptual Graphs, etc.
+
+      - Problem: pretty restricted! Might only be first-order.
+
+
+- Synthesis of information theory + past paragraph
+
+  - First: _define things by how they are checked_.
+
+    - To simplify this: we have _verifiers_/_checkers_
+    that take in binary strings called _certificates_. Correct certificates are
+    accepted by the checker, and rejected otherwise.
+
+    - Checking _must be computable_. This is the whole point!
+
+      - BUT, finding a certificate is _not_ guaranteed, e.g., finding a proof of
+        a theorem in first order logic.
+
+      - Use Turing machines as a universal, standard notion!
+
+    - This is the _property_ we want to hold.
+    But it's not the _thing_ we want to study itself, per se. It's the shadow of
+    the thing itself.
+
+    - Need to start somewhere! We'll capture _what_
+    this checker is doing next.
+
+  - Second: establish the building blocks are (pieces of) _information_.
+  This is _the_ univeral abstraction.
+
+  - We can define _broad_ pieces of information, but anything we
+  do in formal reasoning is actually based on information!
+
+  - And ultimately, even in informal settings, we
+  have to store this _as_ information someway or another!
+
+  - Note that information here is formalized.
+  So intangible things, like perceptions or feelings, are _not_ considered to be
+  information (at least, not _formal_ information, which we default to using).
+
+
 
