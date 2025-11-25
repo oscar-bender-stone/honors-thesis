@@ -120,8 +120,7 @@ proceed to *morphisms*, which are structure preserving maps.
   Note that this algebraic structure satisfies reflexivity and existence of composites.
 ]
 
-#definition[A *(full) sub-category* $FF'$ of $FF$ consists of a set of objects
-  and all the morphisms. A *framework* is a subcategory equivalent to $FF$ such
+#definition[A *sub-category* $FF'$ of $FF$ consists of a subset of objects and a subset of morphisms. A sub-category is *full* if it removes no morphisms. A *framework* is a subcategory equivalent to $FF$ such
   that the objects form a decidable set.
 ]
 
@@ -158,3 +157,6 @@ This enables meta-theoretic reasoning.
   verified to preserve and reflection derivations.
 ]
 
+#theorem[
+  Let $cal(U)$ be a unviersal system. Then for every formal system $cal(S)$, $"Proof"(cal(S))$ is equivalent to a subcategory of $"Proof"(cal(U))$.
+]
