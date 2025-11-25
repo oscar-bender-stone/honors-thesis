@@ -25,10 +25,14 @@ tranformations that we _can_ effectively check, no optimal formal system exists.
 #theorem[
   With respect to the class of all computable transformations that can be
   computably verified, there is no optimal formal system.
-]
+]<impossible_complete_compression>
 
-= Deep Inference
+= Efficient Querying
 
-= Optimal System
+Instead of making proofs most efficient as is,
+we want to support finding optimal representations.
+But we want to do this from an efficiently queryable
+system, which _is_ the most optimal.
+
 
 
