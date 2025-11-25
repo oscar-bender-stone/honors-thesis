@@ -77,8 +77,7 @@ ensures that each formula can be recognized in polynomial-time.
   category. But this is not immediate for certain logics. For instance, in the
   sequence calculus, composition of two proofs is not uniquely defined. Our
   definition approaches this by using an artificial, inefficient representation.
-  Strassburger's work on deep inference addresses this problem, and we treat
-  this as an optimization; see @information_compression.
+  Strassburger's work on deep inference addresses this problem, but instead of a generalization, we intrepret it as an _optimization_; see @information_compression.
 ]
 
 #definition[
@@ -90,15 +89,10 @@ ensures that each formula can be recognized in polynomial-time.
 ]
 
 
-== Categories
+== Universal Systems
 
-We adapt this notion from José Meseguer's notion of $epsilon$-representation
-distance, introduced in @twenty_years_rewriting_logic. The idea there is to
-minimize the distance between actual mathematical objects and their
-representations. More precisely, this notion means that in a framework,
-isomorphisms must be preserved and reflected. To formalize this in general, we
-start with defining *transformations*, mappings on the formulas, and then
-proceed to *morphisms*, which are structure preserving.
+We want to study formal systems in general. A key invariant we want to preserve is _faithful representations_, or the notion of "$epsilon$-representatoin distance" from José Meseguer @twenty_years_rewriting_logic. The idea is that a _good_ representation of a mathematical object is one which preserves and reflects isomorphism. We can treat this as _soundness_ (isomorphic representations have actually isomorphic objects) and _completeness_ (isomorphib objects produce isomorphic representations) of the representation, respectively. To make this precise,we introduce *transformations*, which are mappings between formulas of two systems, and then
+proceed to *morphisms*, which are structure preserving maps.
 
 #definition[
   Let $(cal(F)_1, cal(R)_1), (cal(F)_2, cal(R)_2)$ be formal systems. Then a
@@ -112,25 +106,19 @@ proceed to *morphisms*, which are structure preserving.
 #definition[
   A *morphism* $f equiv (F, R)$ is a transformation such that $imp(R)$ is
   functional. More explicitly,
-  $phi vdash(cal(R)_1) psi => F(phi) vdash(cal(R)_2) F(psi)$. An *isomorphism*
+  $phi imp(cal(R)_1) psi => F(phi) imp(cal(R)_2) F(psi)$. An *isomorphism*
   is an invertible morphism whose inverse is also a morphism.
 ]<formal_system_morphism>
 
-#lemma[
+#definition[
   The *category of formal systems* $FF$ consists of:
 
   - *Objects:* formal systems.
 
   - *Morphisms:* defined in @formal_system_morphism.
 
-  This algebraic structure satisfies reflexivity and existence of composites.
+  Note that this algebraic structure satisfies reflexivity and existence of composites.
 ]
-#proof[
-  Reflexivity holds because the identity map is a morphism, and composites
-  exists due to transitivity in $tack$.
-]
-
-== Universal Systems
 
 #definition[A *(full) sub-category* $FF'$ of $FF$ consists of a set of objects
   and all the morphisms. A *framework* is a subcategory equivalent to $FF$ such
@@ -144,10 +132,7 @@ Frameworks closely relate to the notion of *universal* formal systems.
   if there is a computable family of injective functions
   $G = {G_cal(S): cal(F)_cal(S) -> cal(F)_cal(U) | cal(S) equiv (cal(F), cal(R)) in FF}$
   over all formal systems such that at each fixed system $cal(S)$ and for all
-  formulas $phi, psi in cal(F)$,
-
-  $phi tack_cal(R) psi <=> G_cal(S)(phi) tack_cal(R)_cal(U) G_cal(S)(psi)$.
-
+  formulas $phi, psi in cal(F)$, $phi imp(cal(R)) psi <=> G_cal(S)(phi) imp(cal(R)_cal(U)) G_cal(S)(psi)$.
 ]
 
 Our motivation for defining universal systems is a property called *reflection*,
@@ -157,11 +142,7 @@ This enables meta-theoretic reasoning.
 
 #theorem[
   Every universal formal system induces a framework $FF'$, as the image of the
-  functor $cal(G): FF -> FF'$, given by
-
-  $inline(cal(G)(cal(S)) = ("Image"(G_cal(S)), cal(R)_cal(U) inter "Image"(G_cal(S))^2))$.
-
-  Conversely, every framework induces a universal formal system.
+  functor $cal(G): FF -> FF'$, given by $cal(G)(cal(S)) = ("Image"(G_cal(S)), cal(R)_cal(U) inter "Image"(G_cal(S))^2)$. Conversely, every framework induces a universal formal system.
 ]
 
 #proof[
