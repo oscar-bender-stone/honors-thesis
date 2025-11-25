@@ -7,10 +7,10 @@
 
 A natural question arises with universal formal systems: _which_ one do we
 choose? While we have reflection, what is the criterion for the _base_ theory?
-Can this be done?
+Can this be done? One loose, but natural, mteric is this: _a universal system which stores as many "interesting" proofs as possible_. The motivation behind this metric is to enable effective querying of "good" proofs.
 
 We will show that, under a restricted notion of transformation, there is an
-optimal theory. This will form the encoding under @semantics and provide a
+optimal universal system. This will form the encoding under @semantics and provide a
 justification for Welkin as this base theory.
 
 
@@ -26,3 +26,9 @@ tranformations that we _can_ effectively check, no optimal formal system exists.
   With respect to the class of all computable transformations that can be
   computably verified, there is no optimal formal system.
 ]
+
+= Deep Inference
+
+= Optimal System
+
+
