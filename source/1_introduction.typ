@@ -101,41 +101,74 @@
 
       - Problem: pretty restricted! Might only be first-order.
 
-
 - Synthesis of information theory + past paragraph
 
-  - First: _define things by how they are checked_.
+  - We want to explore _information_ as a universal framework.
 
-    - To simplify this: we have _verifiers_/_checkers_
-    that take in binary strings called _certificates_. Correct certificates are
-    accepted by the checker, and rejected otherwise.
+    - Major goal: address information _on_ information.
 
-    - Checking _must be computable_. This is the whole point!
+      - Motivation: transfer between different things!
 
-      - BUT, finding a certificate is _not_ guaranteed, e.g., finding a proof of
-        a theorem in first order logic.
+        - Logics: proofs!
 
-      - Use Turing machines as a universal, standard notion!
+        - Models: properties!
 
-    - This is the _property_ we want to hold.
-    But it's not the _thing_ we want to study itself, per se. It's the shadow of
-    the thing itself.
+        - Solvers: techniques and checkpoints! Reduces computation!
 
-    - Need to start somewhere! We'll capture _what_
-    this checker is doing next.
+        - And more!
 
-  - Second: establish the building blocks are (pieces of) _information_.
-  This is _the_ univeral abstraction.
+  - But what _is_ information?
 
-  - We can define _broad_ pieces of information, but anything we
-  do in formal reasoning is actually based on information!
+    - We'll exclude less tangible notions, like perception or emotions.
 
-  - And ultimately, even in informal settings, we
-  have to store this _as_ information someway or another!
+    - Ultimately, even in an informal setting,
+    will need to store (tangible) information as a computable string!
 
-  - Note that information here is formalized.
-  So intangible things, like perceptions or feelings, are _not_ considered to be
-  information (at least, not _formal_ information, which we default to using).
+    - So many examples: hard to know where we should go!
+
+      - Algorithmic ideas.
+
+      - Specific formulations in logics.
+
+      - High level properties.
+
+      - Probabilistic information.
+
+    - Need to do some detective work - that's part of this thesis!
+
+    - _Can_ start at an indirect approach to ensure we don't
+    miss anything: indirectly define things by how they are _checked_. This
+    checker/verifier MUST be a Turing machine (using a standard notion!).
+
+    - Emphasize: finding a certificate is _not_ guaranteed, e.g., finding a
+      proof of a theorem in first order logic.
 
 
+    - To simplify this: we have _verifiers_/_checkers_ that take in binary
+      strings called _certificates_. Correct certificates are accepted by the
+      checker, and rejected otherwise.
+
+    - _Use this definition to justify universality!_
+
+- Aim of thesis: create a universal information language to store information in
+  a standardized way.
+
+  - Goal 1: universality. This language applies to ANY checker.
+
+  - Goal 2: standardized. Needs to be rigorously and formally specified.
+
+  - Goal 3: optimal reuse. With respect to some critierion, enable _as much_
+    reuse on information as possible.
+
+  - Goal 4: efficiency. Checking if we have enough information _given_ a
+    database much be efficient!
+
+
+- Organization (Maybe provide as another table _with_ descriptions?)
+
+  - Section 2. Base Notions: define the meta-theory used + verifiers.
+
+  - Section 3. .
+
+  - Section 4.
 
