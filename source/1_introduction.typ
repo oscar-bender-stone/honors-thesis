@@ -166,9 +166,27 @@
 
 - Organization (Maybe provide as another table _with_ descriptions?)
 
-  - Section 2. Base Notions: define the meta-theory used + verifiers.
+  - Section 2. Foundations: define the meta-theory used + verifiers.
 
-  - Section 3. .
+  - Section 3. Information Systems: explore information in the context of
+    verifiers. Then synthesize a definition to satisfy Goal 1.
 
-  - Section 4.
+  - Section 4. Information Reuse. Develops the optimal informal system (w.r.t to
+    a metric defined in this system) to satisfy Goal 3.
+
+  - Section 5. Syntax: Go over the simple LL(1) grammar, which is similar to
+    JSON and uses python like imports.
+
+  - Section 6. Semantics: Defines information graphs and their correspondence
+    with the optimal informal system in Section 3.
+
+  - Section 7. Bootstrap. Fulfill Goal 2 with both the Standard AND the complete
+    bootstrap.
+
+  - Section ?. Prototype. Time permitting, develop a prototype to showcase the
+    language, implemented in python with a GUI frontend (Qt) and possibly a
+    hand-made LL(1) parser.
+
+  - Section 8. Conclusion. Reviews the work done in the previous sections. Then
+    outlines several possible applications.
 
