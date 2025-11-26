@@ -18,20 +18,26 @@ This section develops two major components for this thesis:
 
 == Metatheory
 
-#let tree = $TT$
+To formally define computatbility, we require a metatheory $cal(T)$ such that:
+
+- $cal(T)$ is already well established.
+
+- $cal(T)$ is $Sigma_1$ sound: it only proves true properties about computable
+  functions.
+
+- $cal(T)$ has efficiently computable proof checking.
+
+The last condition is not strictly necessary, but it does make the bootstrap in
+this thesis more practical.
 
 #definition[
-  We define the *theory of binary trees* as $tree$ follows.
+  We define *Heyting Arithmetic* as follows.
 ]
 
 
-#theorem[The theory $tree$ is equivalent to the theory of hereditarily finite
-  ets, and hence, to Peano Arithmetic.
+#theorem[
+  Heyting Arithmetic is equi-consistent to Peano Arithmetic.
 ]
-#proof[The first claim is a straightforward conversion, done recursively. The
-  second claim follows from Ackermann's well known encoding of hereditarily
-  finite sets to natural numbers.]
-
 
 == Verifiers
 
