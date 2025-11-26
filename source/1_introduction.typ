@@ -19,11 +19,10 @@
       definitions!
 
     - Maybe cite original example of BSM + UDGs, in which combinatorialists
-    operate separately from SMT-LIB, even though both can support the other.
+      operate separately from SMT-LIB, even though both can support the other.
 
-    - Another example: My Cryptographic professor and
-    a CS researcher that has made a cryptographic tool are not aware of each
-    other!
+    - Another example: My Cryptographic professor and a CS researcher that has
+      made a cryptographic tool are not aware of each other!
 
   - My realization: lots of _potential_ for collaboration, BUT can be difficult.
     Cite Madhusdan P. in my first meeting with him, in which he said that PL
@@ -70,7 +69,7 @@
 
       - Information = "reduced uncertainty"
 
-      - primarily probabilistic and based on _communication of bits_. Not enough
+      - Primarily probabilistic and based on _communication of bits_. Not enough
         for _semantics_!
 
       - Takeaway: information is _used_ in communication
@@ -175,7 +174,7 @@
     a metric defined in this system) to satisfy Goal 3.
 
   - Section 5. Syntax: Go over the simple LL(1) grammar, which is similar to
-    JSON and uses python like imports.
+    JSON and uses python syntax for modules.
 
   - Section 6. Semantics: Defines information graphs and their correspondence
     with the optimal informal system in Section 3.
