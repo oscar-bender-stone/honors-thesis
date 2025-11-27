@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT
 
 #import "template/ams-article.typ": definition, example, remark
-
 #import "template/ams-article.typ": equation_block, lemma, proof, theorem
 
 = Foundations <foundations>
@@ -22,21 +21,32 @@ To formally define computatbility, we require a metatheory $cal(T)$ such that:
 
 - $cal(T)$ is already well established.
 
-- $cal(T)$ is $Sigma_1$ sound: it only proves true properties about computable
-  functions.
+- $cal(T)$ is reflective: it can prove properties about itself.
 
-- $cal(T)$ has efficiently computable proof checking.
+- $cal(T)$ only proves true properties about computable functions.
 
-The last condition is not strictly necessary, but it does make the bootstrap in
-this thesis more practical.
+- $cal(T)$ has has efficient proof checking.
+
+The last condition is not strictly necessary, but it does aid in verifying the
+bootstrap in @bootstrap.
+
+We could define Zermelo Frankel Set Theory (ZF) or Peano Arithmetic (PA)
+directly. However, we want _explicit_ definitions for terms, using simple
+algorithms. This ensures we have true statements in computability, _and_
+provides a simpler, self-contained presentation over PA, which is quite
+involved. Our theory is thus based on Combinatory Logic, specifically designed
+to be a simpler alternative to first order logic by removing variables. We
+closely follow Scott @scott_data_types_as_lattices.
+
 
 #definition[
-  We define *Heyting Arithmetic* as follows.
+  We define *Combinatory Logic (CL)* as follows.
 ]
 
 
 #theorem[
-  Heyting Arithmetic is equi-consistent to Peano Arithmetic.
+  Each term in $bold("CL")$ is equivalent to a $Sigma^0_1$ formula in
+  $bold("PA")$.
 ]
 
 == Verifiers
