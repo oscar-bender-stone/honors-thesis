@@ -37,13 +37,20 @@ We could define *Zermelo Frankel Set Theory ($ZF$)* or *Peano Arithmetic ($PA$)*
 directly, but these theories have two problems. First, defining first-order
 logic, is tedious, specifically free and bound variables. Second, recursively
 enumerable functions are _encoded_ into the theory, rather than being first
-class citizens. Type theories face the opposite problem: partial functions are
-secondary and are awkward to define. Under the Curry Howard correspondence,
-which interprets proofs as programs, non-terminating functions translate into
-proofs of inconsistency. Moreover, in more expressive type theories, like those
-with dependent types, proof checking has extreme complexities.
+class citizens. Computable functions are more naturally expressed in type
+theories, but partial functions are secondary and are awkward to define. By
+interpreting proofs as programs, under the Curry Howard correspondence,
+non-terminating functions translate into proofs of inconsistency. Moreover, in
+more expressive type theories, like those with dependent types, proof checking
+has an extreme time complexity.
 
-Our solution to these issues is to build on Solomon's framework.
+Our solution to these issues is to build on Solomon's framework on explicit
+mathematics @solomon_logic. His work builds on two key ideas. First, separating
+partial functions from proofs is useful. Second, presenting a theory of
+computable functions is simpler with combinatory logic, which was specifically
+developed to remove involved calculations with variables. We will start with a
+theory equi-consistent to $PA$ and augment this approach further further by
+using combinatory logic in _both_ levels.
 
 #let step = math.attach(math.arrow.r, br: $1$)
 
