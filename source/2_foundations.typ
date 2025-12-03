@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 #import "template/ams-article.typ": definition, example, remark
+#import "template/ams-article.typ": lang-def-vertical
 #import "template/ams-article.typ": equation_block, lemma, proof, theorem
 
 = Foundations <foundations>
@@ -19,35 +20,32 @@ This section develops two major components for this thesis:
 
 To formally define computatbility, we require a metatheory $cal(T)$ such that:
 
-- $cal(T)$ is already well established.
-
-- $cal(T)$ is reflective: it can prove properties about itself.
-
-- $cal(T)$ only proves true properties about computable functions.
-
-- $cal(T)$ has has efficient proof checking.
++ $cal(T)$ is already well established.
++ $cal(T)$ is reflective: it can prove properties about itself.
++ $cal(T)$ is straightforward to define.
++ $cal(T)$ proves only true properties about computable functions.
++ $cal(T)$ has has efficient proof checking.
 
 The last condition is not strictly necessary, but it does aid in verifying the
 bootstrap in @bootstrap.
 
-We could define Zermelo Frankel Set Theory (ZF) or Peano Arithmetic (PA)
-directly. However, we want _explicit_ definitions for terms, using simple
-algorithms. This ensures we have true statements in computability, _and_
-provides a simpler, self-contained presentation over PA, which is quite
-involved. Our theory is thus based on Combinatory Logic, specifically designed
-to be a simpler alternative to first order logic by removing variables. We
-closely follow Scott @scott_data_types_as_lattices.
+#let ZF = math.bold("ZF")
+#let PA = math.bold("PA")
+#let CL = math.bold("CL")
 
+We could define *Zermelo Frankel Set Theory ($ZF$)* or *Peano Arithmetic ($PA$)*
+directly, but these theories have two problems. First, defining first-order
+logic, is tedious, specifically free and bound variables. Second, recursively
+enumerable functions are _encoded_ into the theory, rather than being first
+class citizens. Type theories face the opposite problem: partial functions are
+secondary and are awkward to define. Under the Curry Howard correspondence,
+which interprets proofs as programs, non-terminating functions translate into
+proofs of inconsistency. Moreover, in more expressive type theories, like those
+with dependent types, proof checking has extreme complexities.
 
-#definition[
-  We define *Combinatory Logic (CL)* as follows.
-]
+Our solution to these issues is to build on Solomon's framework.
 
-
-#theorem[
-  Each term in $bold("CL")$ is equivalent to a $Sigma^0_1$ formula in
-  $bold("PA")$.
-]
+#let step = math.attach(math.arrow.r, br: $1$)
 
 == Verifiers
 
