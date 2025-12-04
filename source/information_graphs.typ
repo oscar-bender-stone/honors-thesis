@@ -3,7 +3,6 @@
 
 #import "template/ams-article.typ": definition, example, experiment, remark
 #import "template/ams-article.typ": lemma, theorem
-#import "template/judgements.typ": judgement
 
 
 = Information Graphs <information_graphs>

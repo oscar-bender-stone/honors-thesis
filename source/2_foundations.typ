@@ -50,27 +50,41 @@ partial functions from proofs is useful. Second, presenting a theory of
 computable functions is simpler with combinatory logic, which was specifically
 developed to remove involved calculations with variables. This is easier still
 using illative combinatory logic, which has useful logical constants (see
-@czajka_illative_cl). We will start with a theory equi-consistent to $PA$ and
-augment this approach further further by using illative combinatory logic in
-_both_ levels.
+@czajka_illative_cl). We will start with a theory equi-consistent to
+constructive $PA$ and augment this approach further further by using illative
+combinatory logic in _both_ levels. Our system uses a Hilbert-style calculi,
+which presents the logic with many axioms and few rules of inference. This
+enables the system to avoid contexts, which pose similar challenges as
+variables.
 
 #let step = math.attach(math.arrow.r, br: $1$)
 
 #let ICA = math.bold("ICA")
+#let Imp(x, y) = $"Imp" thin #x thin #y$
+#let pair(x, y) = $"pair" thin #x thin #y$
+
+#let vdash = math.tack
 
 #definition[
   We define *Illative Combinatory Arithmetic ($ICA$)* as follows.
 
   - The *language* $cal(L)_ICA$ consists of:
-
-    - *Constants*: $0 | "nat"$
-
-    - *Base combinators*: $"k" | "s"$
+    - *Constants*: $bot | 0 | "nat"$
+    - *Consequence Relation*: $vdash$
+    - *Base Combinators*: $"k" | "s"$
     - *Pairing*: $"pair" | "fst" | "snd"$
-
     - *Connectives*: $"if" | "join" | "meet" | "A" | "Imp" | "id"$
-  - Two sets of axioms called *computational* and *logical*. These are displayed
-    as judgements.
+  - *Terms* are defined recursively:
+  - We add useful notation, where $X, Y$ are terms:
+    - $X => Y equiv Imp(X, Y)$.
+    - $(X, Y) equiv pair(X, Y)$.
+    - $(X) equiv X$.
+  - Two sets of axioms called *computational* and *logical*. We write these
+    using $vdash$.
+    - $vdash X -> (Y -> Z)$
+    - $vdash (X -> (Y -> Z)) -> ((X -> Y) -> (Y -> Z))$
+  - One rule of inference called *Modus Ponens*: $vdash X$ and $vdash X -> Y$
+    implies $vdash Y$.
 ]
 
 == Verifiers

@@ -31,10 +31,6 @@
 
 #include "3_formal_reasoning.typ"
 
-#include "information_graphs.typ"
-
-#include "information_compression.typ"
-
 #include "syntax.typ"
 
 #include "semantics.typ"
