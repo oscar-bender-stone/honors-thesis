@@ -48,11 +48,30 @@ Our solution to these issues is to build on Solomon's framework on explicit
 mathematics @solomon_logic. His work builds on two key ideas. First, separating
 partial functions from proofs is useful. Second, presenting a theory of
 computable functions is simpler with combinatory logic, which was specifically
-developed to remove involved calculations with variables. We will start with a
-theory equi-consistent to $PA$ and augment this approach further further by
-using combinatory logic in _both_ levels.
+developed to remove involved calculations with variables. This is easier still
+using illative combinatory logic, which has useful logical constants (see
+@czajka_illative_cl). We will start with a theory equi-consistent to $PA$ and
+augment this approach further further by using illative combinatory logic in
+_both_ levels.
 
 #let step = math.attach(math.arrow.r, br: $1$)
+
+#let ICA = math.bold("ICA")
+
+#definition[
+  We define *Illative Combinatory Arithmetic ($ICA$)* as follows.
+
+  - The *language* $cal(L)_ICA$ consists of:
+
+    - *Constants*: $0 | "nat"$
+
+    - *Base combinators*: $"k" | "s"$
+    - *Pairing*: $"pair" | "fst" | "snd"$
+
+    - *Connectives*: $"if" | "join" | "meet" | "A" | "Imp" | "id"$
+  - Two sets of axioms called *computational* and *logical*. These are displayed
+    as judgements.
+]
 
 == Verifiers
 
