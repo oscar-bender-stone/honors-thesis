@@ -20,7 +20,7 @@ This section develops two major components for this thesis:
 
 To formally define computatbility, we require a metatheory $cal(T)$ such that:
 
-+ $cal(T)$ is already well established.
++ $cal(T)$ is equivalent to an established theory.
 + $cal(T)$ is reflective: it can prove properties about itself.
 + $cal(T)$ is straightforward to define.
 + $cal(T)$ proves only true properties about computable functions.
@@ -31,37 +31,40 @@ bootstrap in @bootstrap.
 
 #let ZF = math.bold("ZF")
 #let PA = math.bold("PA")
-#let CL = math.bold("CL")
+#let PA = math.bold("HA")
 
-We could define *Zermelo Frankel Set Theory ($ZF$)* or *Peano Arithmetic ($PA$)*
-directly, but these theories have two problems. First, defining first-order
-logic, is tedious, specifically free and bound variables. Second, recursively
-enumerable functions are _encoded_ into the theory, rather than being first
-class citizens. Computable functions are more naturally expressed in type
-theories, but partial functions are secondary and are awkward to define. By
-interpreting proofs as programs, under the Curry Howard correspondence,
-non-terminating functions translate into proofs of inconsistency. Moreover, in
-more expressive type theories, like those with dependent types, proof checking
-has an extreme time complexity.
+We could use *Zermelo Frankel Set Theory ($ZF$)* or *Peano Arithmetic ($PA$)*
+directly, as well established first-order theories, but they have two problems.
+First, defining first-order logic is tedious, specifically free and bound
+variables. Second, recursively enumerable functions are _encoded_ into the
+theory, rather than being first class citizens. Computable functions are more
+naturally expressed in type theories, but partial functions are secondary and
+are awkward to define. By interpreting proofs as programs, under the
+Curry-Howard correspondence, non-terminating functions translate into proofs of
+inconsistency. Moreover, in more expressive type theories, like those with
+dependent types, proof checking has an extreme time complexity.
 
 Our solution to these issues is to build on Feferman's framework on explicit
-mathematics @solomon_logic. His work builds on two key ideas. First, separating
+mathematics @feferman_logic. His work builds on two key ideas. First, separating
 partial functions from proofs is useful. Second, presenting a theory of
 computable functions is simpler with combinatory logic, which was specifically
 developed to remove involved calculations with variables. This is easier still
 using illative combinatory logic, which has useful logical constants (see
-@czajka_illative_cl). We will start with a theory equi-consistent to
-constructive $PA$ and augment this approach further further by using illative
-combinatory logic in _both_ levels. Our system uses a Hilbert-style calculi,
-which presents the logic with many axioms and few rules of inference. This
-enables the system to avoid contexts, which pose similar challenges as
-variables.
+@czajka_illative_cl).
+
+We will build on Feferman's framework and present _both_ levels entirely with
+combinators. The main component of this section is proving that this theory is
+equivalent to *Heyting Arithmetic (HA)*. Additionally, we build on Artemov's
+Logic of Proofs @artemov_lp for quantification, generalizing equality on terms.
+Finally, we present our system with Hilbert proof system, which favors many
+axims and few rules of inference presents the logic with many axioms and few
+rules of inference. This enables the system to avoid contexts, which pose
+similar challenges as variables.
 
 #let step = math.attach(math.arrow.r, br: $1$)
 
 #let ICA = math.bold("ICA")
 #let Imp(x, y) = $"Imp" thin #x thin #y$
-#let Ext(x, y) = $"Ext" thin #x thin #y$
 #let pair(x, y) = $"pair" thin #x thin #y$
 #let ext = $attach(->, br: A)$
 
@@ -75,13 +78,19 @@ variables.
     - *Consequence Relation*: $vdash$
     - *Equality*: $=$
     - *Base Combinators*: $"K" | "S"$
+    - *Auxilary Combinators*: $"I" | "id" | "B" | "C" | "swap" | "bop"$
     - *Pairing*: $"pair" | "fst" | "snd"$
     - *Connectives*:
-      $"if" | "join" | "meet" | "A" | "Arr" | "Imp" | "Ext" | "id"$
+      $"if" | "join" | "meet" | "Imp" | "A"$
   - *Terms* are defined recursively:
-  - We add useful notation, where $X, Y$ are terms:
+  - We add useful notation, where $X, Y, F, G$ are terms:
+    // TODO: determine if period should be outside or inside equation
+    - $"id" equiv I equiv S K K$
+    - $"swap" equiv C equiv S B B S$.
+    - $F (G X) = B F G X$, where $B equiv S (K S) K$.
+    - *Phoenix*: $"bop" equiv B(B S)B$
     - $X -> Y equiv Imp(X, Y)$.
-    - $X ext Y equiv Ext(X, Y)$.
+    - $X ext Y equiv S (B (X -> Y))$.
     - $(X, Y) equiv pair(X, Y)$.
     - $(X) equiv X$.
   - Two sets of axioms called *computational* and *logical*.
@@ -97,7 +106,6 @@ variables.
   - One rule of inference called *Modus Ponens*: $vdash X$ and $vdash X -> Y$
     implies $vdash Y$.
 ]
-
 
 
 == Verifiers
