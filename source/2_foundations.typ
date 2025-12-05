@@ -44,7 +44,7 @@ non-terminating functions translate into proofs of inconsistency. Moreover, in
 more expressive type theories, like those with dependent types, proof checking
 has an extreme time complexity.
 
-Our solution to these issues is to build on Solomon's framework on explicit
+Our solution to these issues is to build on Feferman's framework on explicit
 mathematics @solomon_logic. His work builds on two key ideas. First, separating
 partial functions from proofs is useful. Second, presenting a theory of
 computable functions is simpler with combinatory logic, which was specifically
@@ -61,7 +61,9 @@ variables.
 
 #let ICA = math.bold("ICA")
 #let Imp(x, y) = $"Imp" thin #x thin #y$
+#let Ext(x, y) = $"Ext" thin #x thin #y$
 #let pair(x, y) = $"pair" thin #x thin #y$
+#let ext = $attach(->, br: A)$
 
 #let vdash = math.tack
 
@@ -71,21 +73,32 @@ variables.
   - The *language* $cal(L)_ICA$ consists of:
     - *Constants*: $bot | 0 | "nat"$
     - *Consequence Relation*: $vdash$
-    - *Base Combinators*: $"k" | "s"$
+    - *Equality*: $=$
+    - *Base Combinators*: $"K" | "S"$
     - *Pairing*: $"pair" | "fst" | "snd"$
-    - *Connectives*: $"if" | "join" | "meet" | "A" | "Imp" | "id"$
+    - *Connectives*:
+      $"if" | "join" | "meet" | "A" | "Arr" | "Imp" | "Ext" | "id"$
   - *Terms* are defined recursively:
   - We add useful notation, where $X, Y$ are terms:
-    - $X => Y equiv Imp(X, Y)$.
+    - $X -> Y equiv Imp(X, Y)$.
+    - $X ext Y equiv Ext(X, Y)$.
     - $(X, Y) equiv pair(X, Y)$.
     - $(X) equiv X$.
-  - Two sets of axioms called *computational* and *logical*. We write these
-    using $vdash$.
-    - $vdash X -> (Y -> Z)$
-    - $vdash (X -> (Y -> Z)) -> ((X -> Y) -> (Y -> Z))$
+  - Two sets of axioms called *computational* and *logical*.
+    - *Propositional Logic*:
+      - $vdash X -> (Y -> Z)$
+      - $vdash (X -> (Y -> Z)) -> ((X -> Y) -> (Y -> Z))$
+    - *Base Combinators:*
+      - $vdash K X Y = X$
+      - $vdash S X Y Z = S X Z$
+    - *Quantifiers:*
+      - $vdash A(K(A X)) ext X$
+      - $vdash X -> A(K X)$
   - One rule of inference called *Modus Ponens*: $vdash X$ and $vdash X -> Y$
     implies $vdash Y$.
 ]
+
+
 
 == Verifiers
 
