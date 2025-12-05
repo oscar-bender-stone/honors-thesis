@@ -55,11 +55,13 @@ using illative combinatory logic, which has useful logical constants (see
 We will build on Feferman's framework and present _both_ levels entirely with
 combinators. The main component of this section is proving that this theory is
 equivalent to *Heyting Arithmetic (HA)*. Additionally, we build on Artemov's
-Logic of Proofs @artemov_lp for quantification, generalizing equality on terms.
-Finally, we present our system with Hilbert proof system, which favors many
-axims and few rules of inference presents the logic with many axioms and few
-rules of inference. This enables the system to avoid contexts, which pose
-similar challenges as variables.
+Logic of Proofs @artemov_lp for quantification, augmenting equality on terms
+with proof certificates. This enables us to discuss programs _and_ their proofs
+in the same logic, while being simpler than dependent types. Finally, we present
+our system with Hilbert proof system, which favors many axims and few rules of
+inference presents the logic with many axioms and few rules of inference. This
+enables the system to avoid contexts, which pose similar challenges as
+variables.
 
 #let step = math.attach(math.arrow.r, br: $1$)
 
@@ -84,6 +86,8 @@ similar challenges as variables.
       $"if" | "join" | "meet" | "Imp" | "A"$
   - *Terms* are defined recursively:
   - We add useful notation, where $X, Y, F, G$ are terms:
+    // TODO: determine best way to organize these axioms!
+    // Maybe refer to appendix for *full* list and proofs?
     // TODO: determine if period should be outside or inside equation
     - $"id" equiv I equiv S K K$
     - $"swap" equiv C equiv S B B S$.
@@ -99,14 +103,18 @@ similar challenges as variables.
       - $vdash (X -> (Y -> Z)) -> ((X -> Y) -> (Y -> Z))$
     - *Base Combinators:*
       - $vdash K X Y = X$
-      - $vdash S X Y Z = S X Z$
+      - $vdash S X Y Z = X Z(Y Z)$
+    - *Equality:*
+      - *Symmetry:* $vdash X = Y -> Y = X$
+      - *Transitivity:* $vdash X = Y -> ((Y = Z) -> X = Z)$
+      - *Congruence:* $vdash X = Y -> Z X = Z Y$
+      - *Application:* $vdash X = Y -> X Z = Y Z$
     - *Quantifiers:*
       - $vdash A(K(A X)) ext X$
       - $vdash X -> A(K X)$
   - One rule of inference called *Modus Ponens*: $vdash X$ and $vdash X -> Y$
     implies $vdash Y$.
 ]
-
 
 == Verifiers
 
