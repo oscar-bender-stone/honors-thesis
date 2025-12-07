@@ -16,32 +16,21 @@ systems.
 
 == Motivating Examples
 
-
-== Faithful Embeddings
-
-We want a notion that is complete. One may be tempted to simply say that we
-could define information systems precisely as partial computable functions.
-However, we will show this is not the case.
-
-#theorem[
-  There is no faithful embedding from partial computable functions into
-  information systems.
-]
-
-Now, even with this new setup, we are limited with the unconditional aspect of
-rules. Meseguer @twenty_years_rewriting_logic mention that they cannot
-faithfully represent conditional rewrite, provided by informal argument. We
-formalize this now.
+We want to _define_ information as a relation, and will therefore need clear
+endpoints. This is aided by separating out the data points from the information
+itself. But because we are limited because of _uncoditional_ rules. Meseguer
+@twenty_years_rewriting_logic mention that they cannot faithfully represent
+conditional rewrite, provided by informal argument. We formalize this now.
 
 #theorem[
   There is no faithful embedding from unconditional rewrite systems to
   conditional ones.
 ]
 
-#theorem[
-  Conditional rewrite systems can faithfuly represent any extension to the
-  notion of system.
-]
+How do we bring back the simplicity of the first definition, while ensuring we
+include conditional rewrite systems? The answer is to use a tradic relation
+instead and allow this relation to faithfully represent _any_ condition that is
+expressible by a TM.
 
 == Main Definition
 
@@ -53,6 +42,11 @@ formalize this now.
 ]
 
 TODO: Discuss how information reuse is possible via transformations.
+
+#theorem[
+  Information systems can faithfuly represent any extension to the notion of
+  system.
+]
 
 #let Info = math.bold("Info")
 
