@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT
 
 
-
 #import "template/ams-article.typ": definition, example, remark
 
 #import "template/ams-article.typ": equation_block, lemma, proof, theorem

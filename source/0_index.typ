@@ -29,7 +29,7 @@
 
 #include "2_foundations.typ"
 
-#include "3_formal_reasoning.typ"
+#include "3_information_systems.typ"
 
 #include "syntax.typ"
 
