@@ -9,169 +9,186 @@
 #import "template/ams-article.typ": equation_block
 
 
-= Formal Reasoning
+= Information Systems
 
-Now with our meta-theory in @foundations, we can proceed to discuss formal
+Now with our meta-theory in @foundations, we can proceed to discuss information
 systems.
 
-
-== Formal Systems
-
-To bridge information graphs with formal reasoning, We must first define formal
-systems generally. Our definition is based on three sources:
-
-- Mendelson @mendelson_logic.
-- Cook and Reckhow @cook_proof_systems with "formal proof systems".
-- Strassburger @strassburger_what_is_a_logic.
-
-#let vdash(..args) = {
-  let pos-args = args.pos()
-
-  if pos-args.len() > 0 {
-    let subscript = pos-args.at(0)
-    return math.attach(math.tack, br: subscript)
-  } else {
-    return math.tack
-  }
-}
-
-#let imp(..args) = {
-  let pos-args = args.pos()
-
-  if pos-args.len() > 0 {
-    let subscript = pos-args.at(0)
-    return math.attach(math.arrow.r.double, br: subscript)
-  } else {
-    return math.arrow.r.double
-  }
-}
-
-#definition[
-  A *formal system* is a pair $(cal(F), cal(R))$ consisting of:
-
-  - *formulas* $cal(F)$, a decidable set of binary strings.
-  - a set of *derivation rules* #box[$cal(R) subset.eq cal(F) times cal(F)$]. We
-    define the *derivation relation* $imp(cal(R))$ to be the reflexive,
-    transitive closure of $cal(R)$. Furthermore, we require that $imp(cal(R))$
-    has a polynomial time verifier $V_cal(R)$.
-]
-
-Note that the first condition on $cal(F)$ is redundant: reflexivity in $cal(R)$
-ensures that each formula can be recognized in polynomial-time.
-
-#definition[
-  Let $cal(S) equiv (cal(F), cal(R))$ be a formal system. A *derivation* or
-  *proof* is a sequence of derivation rules. The *category of proofs*
-  $"Proof"(cal(S))$ consists of:
-
-  - *Objects:* formulas.
-
-  - *Morphisms:* proofs between formulas. Concatenation is defined by
-    concatenating sequences.
-
-]
-
-#remark[
-  Strassburger @strassburger_what_is_a_logic advocates to _define_ a logic as a
-  category. But this is not immediate for certain logics. For instance, in the
-  sequence calculus, composition of two proofs is not uniquely defined. Our
-  definition approaches this by using an artificial, inefficient representation.
-  Strassburger's work on deep inference addresses this problem, but instead of a
-  generalization, we intrepret it as an _optimization_.
-]
-
-#definition[
-  Let $(cal(F), cal(R))$ be a formal system, and let $cal(T)$ be a set of
-  formulas. The *deductive closure* of $cal(T)$ is
-  $"Th"(cal(T)) = {phi in cal(F) | exists psi in cal(T). psi vdash(cal(R)) phi}$.
-  We call $cal(T)$ a *theory* if $cal(T) = "Th"(cal(T))$. A set of formulas
-  $cal(A)$ serve as *axioms* for a theory $cal(T)$ if $cal(T) = "Th"(cal(A))$.
-]
-
-
-== Universal Systems
-
-We want to study formal systems in general. A key invariant we want to preserve
-is _faithful representations_, or the notion of "$epsilon$-representatoin
-distance" from José Meseguer @twenty_years_rewriting_logic. The idea is that a
-_good_ representation of a mathematical object is one which preserves and
-reflects isomorphism. We can treat this as _soundness_ (isomorphic
-representations have actually isomorphic objects) and _completeness_ (isomorphib
-objects produce isomorphic representations) of the representation, respectively.
-To make this precise,we introduce *transformations*, which are mappings between
-formulas of two systems, and then proceed to *morphisms*, which are structure
-preserving maps.
-
-#definition[
-  Let $(cal(F)_1, cal(R)_1), (cal(F)_2, cal(R)_2)$ be formal systems. Then a
-  *transformation* $f: (cal(F)_1, cal(R)_1) -> (cal(F)_2, cal(R)_2)$ is a pair
-  $(F, R)$, where $F: cal(F)_1 -> cal(F)_2$ is computable and
-  $R subset.eq cal(R)_1 times cal(R)_2$ is left-total and if $F(phi) = psi$,
-  then $phi R psi$.
-]<formal_system_transformation>
-
-
-#definition[
-  A *morphism* $f equiv (F, R)$ is a transformation such that $imp(R)$ is
-  functional. More explicitly,
-  $phi imp(cal(R)_1) psi => F(phi) imp(cal(R)_2) F(psi)$. An *isomorphism* is an
-  invertible morphism whose inverse is also a morphism.
-]<formal_system_morphism>
-
-#definition[
-  The *category of formal systems* $FF$ consists of:
-
-  - *Objects:* formal systems.
-
-  - *Morphisms:* defined in @formal_system_morphism.
-
-  Note that this algebraic structure satisfies reflexivity and existence of
-  composites.
-]
-
-#definition[A *sub-category* $FF'$ of $FF$ consists of a subset of objects and a
-  subset of morphisms. A sub-category is *full* if it removes no morphisms. A
-  *framework* is a subcategory equivalent to $FF$ such that the objects form a
-  decidable set.
-]
-
-Frameworks closely relate to the notion of *universal* formal systems.
-
-#definition[
-  A formal system $cal(U) equiv (cal(F)_cal(U), cal(R)_cal(U))$ is *universal*
-  if there is a computable family of injective functions
-  $G = {G_cal(S): cal(F)_cal(S) -> cal(F)_cal(U) | cal(S) equiv (cal(F), cal(R)) in FF}$
-  over all formal systems such that at each fixed system $cal(S)$ and for all
-  formulas $phi, psi in cal(F)$,
-  $phi imp(cal(R)) psi <=> G_cal(S)(phi) imp(cal(R)_cal(U)) G_cal(S)(psi)$.
-]
-
-Our motivation for defining universal systems is a property called *reflection*,
-similar to the one outlined in @twenty_years_rewriting_logic. That is, universal
-systems _themselves_ can be studied in the context of a single universal system.
-This enables meta-theoretic reasoning.
+== Faithful Embeddings
 
 #theorem[
-  Every universal formal system induces a framework $FF'$, as the image of the
-  functor $cal(G): FF -> FF'$, given by
-  $cal(G)(cal(S)) = ("Image"(G_cal(S)), cal(R)_cal(U) inter "Image"(G_cal(S))^2)$.
-  Conversely, every framework induces a universal formal system.
-]
-
-#proof[
-  We must show that $FF'$ is a framework for $FF$. Clearly this is a computable
-  sub-category. To prove $cal(G)$ is an equivalence, notice that $cal(G)$ is
-  full and faithful as a full sub-category of $FF$. Additionally, $cal(G)$ is
-  essentially surjective precisely by construction. This completes the forwards
-  direction.
-
-  Conversely, a univeral framework can be formed from a system by creating a
-  computable encoding of the formulas and rules of a system. The family $G$ can
-  then be defined from an equivalence from $FF$ to $FF'$, which can be easily
-  verified to preserve and reflection derivations.
+  There is no faithful embedding from partial computable functions into
+  information systems.
 ]
 
 #theorem[
-  Let $cal(U)$ be a unviersal system. Then for every formal system $cal(S)$,
-  $"Proof"(cal(S))$ is equivalent to a subcategory of $"Proof"(cal(U))$.
+  There is no faithful embedding from unconditional rewrite systems to
+  conditional ones.
 ]
+
+#theorem[
+  Conditional rewrite systems can faithfuly represent any extension to the
+  notion of system.
+]
+
+== Main Definition
+
+
+// To bridge information graphs with formal reasoning, We must first define formal
+// systems generally. Our definition is based on three sources:
+
+// - Mendelson @mendelson_logic.
+// - Cook and Reckhow @cook_proof_systems with "formal proof systems".
+// - Strassburger @strassburger_what_is_a_logic.
+
+// #let vdash(..args) = {
+//   let pos-args = args.pos()
+
+//   if pos-args.len() > 0 {
+//     let subscript = pos-args.at(0)
+//     return math.attach(math.tack, br: subscript)
+//   } else {
+//     return math.tack
+//   }
+// }
+
+// #let imp(..args) = {
+//   let pos-args = args.pos()
+
+//   if pos-args.len() > 0 {
+//     let subscript = pos-args.at(0)
+//     return math.attach(math.arrow.r.double, br: subscript)
+//   } else {
+//     return math.arrow.r.double
+//   }
+// }
+
+// #definition[
+//   A *formal system* is a pair $(cal(F), cal(R))$ consisting of:
+
+//   - *formulas* $cal(F)$, a decidable set of binary strings.
+//   - a set of *derivation rules* #box[$cal(R) subset.eq cal(F) times cal(F)$]. We
+//     define the *derivation relation* $imp(cal(R))$ to be the reflexive,
+//     transitive closure of $cal(R)$. Furthermore, we require that $imp(cal(R))$
+//     has a polynomial time verifier $V_cal(R)$.
+// ]
+
+// Note that the first condition on $cal(F)$ is redundant: reflexivity in $cal(R)$
+// ensures that each formula can be recognized in polynomial-time.
+
+// #definition[
+//   Let $cal(S) equiv (cal(F), cal(R))$ be a formal system. A *derivation* or
+//   *proof* is a sequence of derivation rules. The *category of proofs*
+//   $"Proof"(cal(S))$ consists of:
+
+//   - *Objects:* formulas.
+
+//   - *Morphisms:* proofs between formulas. Concatenation is defined by
+//     concatenating sequences.
+
+// ]
+
+// #remark[
+//   Strassburger @strassburger_what_is_a_logic advocates to _define_ a logic as a
+//   category. But this is not immediate for certain logics. For instance, in the
+//   sequence calculus, composition of two proofs is not uniquely defined. Our
+//   definition approaches this by using an artificial, inefficient representation.
+//   Strassburger's work on deep inference addresses this problem, but instead of a
+//   generalization, we intrepret it as an _optimization_.
+// ]
+
+// #definition[
+//   Let $(cal(F), cal(R))$ be a formal system, and let $cal(T)$ be a set of
+//   formulas. The *deductive closure* of $cal(T)$ is
+//   $"Th"(cal(T)) = {phi in cal(F) | exists psi in cal(T). psi vdash(cal(R)) phi}$.
+//   We call $cal(T)$ a *theory* if $cal(T) = "Th"(cal(T))$. A set of formulas
+//   $cal(A)$ serve as *axioms* for a theory $cal(T)$ if $cal(T) = "Th"(cal(A))$.
+// ]
+
+
+// == Universal Systems
+
+// We want to study formal systems in general. A key invariant we want to preserve
+// is _faithful representations_, or the notion of "$epsilon$-representatoin
+// distance" from José Meseguer @twenty_years_rewriting_logic. The idea is that a
+// _good_ representation of a mathematical object is one which preserves and
+// reflects isomorphism. We can treat this as _soundness_ (isomorphic
+// representations have actually isomorphic objects) and _completeness_ (isomorphib
+// objects produce isomorphic representations) of the representation, respectively.
+// To make this precise,we introduce *transformations*, which are mappings between
+// formulas of two systems, and then proceed to *morphisms*, which are structure
+// preserving maps.
+
+// #definition[
+//   Let $(cal(F)_1, cal(R)_1), (cal(F)_2, cal(R)_2)$ be formal systems. Then a
+//   *transformation* $f: (cal(F)_1, cal(R)_1) -> (cal(F)_2, cal(R)_2)$ is a pair
+//   $(F, R)$, where $F: cal(F)_1 -> cal(F)_2$ is computable and
+//   $R subset.eq cal(R)_1 times cal(R)_2$ is left-total and if $F(phi) = psi$,
+//   then $phi R psi$.
+// ]<formal_system_transformation>
+
+
+// #definition[
+//   A *morphism* $f equiv (F, R)$ is a transformation such that $imp(R)$ is
+//   functional. More explicitly,
+//   $phi imp(cal(R)_1) psi => F(phi) imp(cal(R)_2) F(psi)$. An *isomorphism* is an
+//   invertible morphism whose inverse is also a morphism.
+// ]<formal_system_morphism>
+
+// #definition[
+//   The *category of formal systems* $FF$ consists of:
+
+//   - *Objects:* formal systems.
+
+//   - *Morphisms:* defined in @formal_system_morphism.
+
+//   Note that this algebraic structure satisfies reflexivity and existence of
+//   composites.
+// ]
+
+// #definition[A *sub-category* $FF'$ of $FF$ consists of a subset of objects and a
+//   subset of morphisms. A sub-category is *full* if it removes no morphisms. A
+//   *framework* is a subcategory equivalent to $FF$ such that the objects form a
+//   decidable set.
+// ]
+
+// Frameworks closely relate to the notion of *universal* formal systems.
+
+// #definition[
+//   A formal system $cal(U) equiv (cal(F)_cal(U), cal(R)_cal(U))$ is *universal*
+//   if there is a computable family of injective functions
+//   $G = {G_cal(S): cal(F)_cal(S) -> cal(F)_cal(U) | cal(S) equiv (cal(F), cal(R)) in FF}$
+//   over all formal systems such that at each fixed system $cal(S)$ and for all
+//   formulas $phi, psi in cal(F)$,
+//   $phi imp(cal(R)) psi <=> G_cal(S)(phi) imp(cal(R)_cal(U)) G_cal(S)(psi)$.
+// ]
+
+// Our motivation for defining universal systems is a property called *reflection*,
+// similar to the one outlined in @twenty_years_rewriting_logic. That is, universal
+// systems _themselves_ can be studied in the context of a single universal system.
+// This enables meta-theoretic reasoning.
+
+// #theorem[
+//   Every universal formal system induces a framework $FF'$, as the image of the
+//   functor $cal(G): FF -> FF'$, given by
+//   $cal(G)(cal(S)) = ("Image"(G_cal(S)), cal(R)_cal(U) inter "Image"(G_cal(S))^2)$.
+//   Conversely, every framework induces a universal formal system.
+// ]
+
+// #proof[
+//   We must show that $FF'$ is a framework for $FF$. Clearly this is a computable
+//   sub-category. To prove $cal(G)$ is an equivalence, notice that $cal(G)$ is
+//   full and faithful as a full sub-category of $FF$. Additionally, $cal(G)$ is
+//   essentially surjective precisely by construction. This completes the forwards
+//   direction.
+
+//   Conversely, a univeral framework can be formed from a system by creating a
+//   computable encoding of the formulas and rules of a system. The family $G$ can
+//   then be defined from an equivalence from $FF$ to $FF'$, which can be easily
+//   verified to preserve and reflection derivations.
+// ]
+
+// #theorem[
+//   Let $cal(U)$ be a unviersal system. Then for every formal system $cal(S)$,
+//   $"Proof"(cal(S))$ is equivalent to a subcategory of $"Proof"(cal(U))$.
+// ]
