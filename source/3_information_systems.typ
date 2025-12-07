@@ -14,12 +14,24 @@
 Now with our meta-theory in @foundations, we can proceed to discuss information
 systems.
 
+== Motivating Examples
+
+
 == Faithful Embeddings
+
+We want a notion that is complete. One may be tempted to simply say that we
+could define information systems precisely as partial computable functions.
+However, we will show this is not the case.
 
 #theorem[
   There is no faithful embedding from partial computable functions into
   information systems.
 ]
+
+Now, even with this new setup, we are limited with the unconditional aspect of
+rules. Meseguer @twenty_years_rewriting_logic mention that they cannot
+faithfully represent conditional rewrite, provided by informal argument. We
+formalize this now.
 
 #theorem[
   There is no faithful embedding from unconditional rewrite systems to
@@ -65,12 +77,13 @@ Special systems:
 ]
 
 #theorem[
-  The discrete information system cannot represent $Info$. However, $Info$ can
-  represent Info onitself and therefore induces an idempotent operator.
+  - The discrete information system cannot represent $cal(H)$.
+  - $cal(H)$ can represent any extension of this structure and therefore induces
+    an idempotent operator.
 ]
 
-- Show that a formal system provides a proof system that
-is a way to _optimize_ the search space of information systems.
+TODO: Show that a formal system provides a proof system that is a way to
+_optimize_ the search space of information systems.
 
 
 == Universality
@@ -95,52 +108,6 @@ is a way to _optimize_ the search space of information systems.
   then be defined from an equivalence from $FF$ to $FF'$, which can be easily
   verified to preserve and reflection derivations.
 ]
-
-#theorem[
-  Let $cal(U)$ be a unviersal system. Then for every formal system $cal(S)$,
-  $"Proof"(cal(S))$ is equivalent to a subcategory of $"Proof"(cal(U))$.
-]
-
-// To bridge information graphs with formal reasoning, We must first define formal
-// systems generally. Our definition is based on three sources:
-
-// - Mendelson @mendelson_logic.
-// - Cook and Reckhow @cook_proof_systems with "formal proof systems".
-// - Strassburger @strassburger_what_is_a_logic.
-
-// #let vdash(..args) = {
-//   let pos-args = args.pos()
-
-//   if pos-args.len() > 0 {
-//     let subscript = pos-args.at(0)
-//     return math.attach(math.tack, br: subscript)
-//   } else {
-//     return math.tack
-//   }
-// }
-
-// #let imp(..args) = {
-//   let pos-args = args.pos()
-
-//   if pos-args.len() > 0 {
-//     let subscript = pos-args.at(0)
-//     return math.attach(math.arrow.r.double, br: subscript)
-//   } else {
-//     return math.arrow.r.double
-//   }
-// }
-
-// #definition[
-//   Let $cal(S) equiv (cal(F), cal(R))$ be a formal system. A *derivation* or
-//   *proof* is a sequence of derivation rules. The *category of proofs*
-//   $"Proof"(cal(S))$ consists of:
-
-//   - *Objects:* formulas.
-
-//   - *Morphisms:* proofs between formulas. Concatenation is defined by
-//     concatenating sequences.
-
-// ]
 
 // #remark[
 //   Strassburger @strassburger_what_is_a_logic advocates to _define_ a logic as a
@@ -180,69 +147,3 @@ is a way to _optimize_ the search space of information systems.
 //   $R subset.eq cal(R)_1 times cal(R)_2$ is left-total and if $F(phi) = psi$,
 //   then $phi R psi$.
 // ]<formal_system_transformation>
-
-
-// #definition[
-//   A *morphism* $f equiv (F, R)$ is a transformation such that $imp(R)$ is
-//   functional. More explicitly,
-//   $phi imp(cal(R)_1) psi => F(phi) imp(cal(R)_2) F(psi)$. An *isomorphism* is an
-//   invertible morphism whose inverse is also a morphism.
-// ]<formal_system_morphism>
-
-// #definition[
-//   The *category of formal systems* $FF$ consists of:
-
-//   - *Objects:* formal systems.
-
-//   - *Morphisms:* defined in @formal_system_morphism.
-
-//   Note that this algebraic structure satisfies reflexivity and existence of
-//   composites.
-// ]
-
-// #definition[A *sub-category* $FF'$ of $FF$ consists of a subset of objects and a
-//   subset of morphisms. A sub-category is *full* if it removes no morphisms. A
-//   *framework* is a subcategory equivalent to $FF$ such that the objects form a
-//   decidable set.
-// ]
-
-// Frameworks closely relate to the notion of *universal* formal systems.
-
-// #definition[
-//   A formal system $cal(U) equiv (cal(F)_cal(U), cal(R)_cal(U))$ is *universal*
-//   if there is a computable family of injective functions
-//   $G = {G_cal(S): cal(F)_cal(S) -> cal(F)_cal(U) | cal(S) equiv (cal(F), cal(R)) in FF}$
-//   over all formal systems such that at each fixed system $cal(S)$ and for all
-//   formulas $phi, psi in cal(F)$,
-//   $phi imp(cal(R)) psi <=> G_cal(S)(phi) imp(cal(R)_cal(U)) G_cal(S)(psi)$.
-// ]
-
-// Our motivation for defining universal systems is a property called *reflection*,
-// similar to the one outlined in @twenty_years_rewriting_logic. That is, universal
-// systems _themselves_ can be studied in the context of a single universal system.
-// This enables meta-theoretic reasoning.
-
-// #theorem[
-//   Every universal formal system induces a framework $FF'$, as the image of the
-//   functor $cal(G): FF -> FF'$, given by
-//   $cal(G)(cal(S)) = ("Image"(G_cal(S)), cal(R)_cal(U) inter "Image"(G_cal(S))^2)$.
-//   Conversely, every framework induces a universal formal system.
-// ]
-
-// #proof[
-//   We must show that $FF'$ is a framework for $FF$. Clearly this is a computable
-//   sub-category. To prove $cal(G)$ is an equivalence, notice that $cal(G)$ is
-//   full and faithful as a full sub-category of $FF$. Additionally, $cal(G)$ is
-//   essentially surjective precisely by construction. This completes the forwards
-//   direction.
-
-//   Conversely, a univeral framework can be formed from a system by creating a
-//   computable encoding of the formulas and rules of a system. The family $G$ can
-//   then be defined from an equivalence from $FF$ to $FF'$, which can be easily
-//   verified to preserve and reflection derivations.
-// ]
-
-// #theorem[
-//   Let $cal(U)$ be a unviersal system. Then for every formal system $cal(S)$,
-//   $"Proof"(cal(S))$ is equivalent to a subcategory of $"Proof"(cal(U))$.
-// ]
