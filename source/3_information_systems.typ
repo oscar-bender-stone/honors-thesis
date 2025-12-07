@@ -33,6 +33,73 @@ systems.
 
 == Main Definition
 
+#definition[
+  An *information system* is a pair $(D, I)$, where:
+  - $D$ is the *domain*, a finite set of *data* in $NN$
+  - $I$ is *information*, a computable subset of
+    $D times D times D$
+]
+
+TODO: Discuss how information reuse is possible via transformations.
+
+#let Info = math.bold("Info")
+
+== Reflection
+
+Let $Info$ be the set of all information systems.
+
+#theorem[
+  Any R.E. structure on $$ can be represented in $$
+]
+
+Special systems:
+
+- $(emptyset, emptyset)$ is the *null information system*
+- $(NN, NN times NN times NN)$ is the *discrete information system*
+
+#lemma[
+  Let $cal(H) equiv (Info, <=)$, where $(D_1, I_1) <= (D_2, I_2)$ iff
+  $D_1 subset.eq D_2$ and $I_1 subset.eq I_2$. Then $cal(H)$ forms a Heyting
+  Algebra, with bottom element being the null information system and the top
+  element being the discrete one.
+]
+
+#theorem[
+  The discrete information system cannot represent $Info$. However, $Info$ can
+  represent Info onitself and therefore induces an idempotent operator.
+]
+
+- Show that a formal system provides a proof system that
+is a way to _optimize_ the search space of information systems.
+
+
+== Universality
+
+
+#theorem[
+  Every universal formal system induces a framework $FF'$, as the image of the
+  functor $cal(G): FF -> FF'$, given by
+  $cal(G)(cal(S)) = ("Image"(G_cal(S)), cal(R)_cal(U) inter "Image"(G_cal(S))^2)$.
+  Conversely, every framework induces a universal formal system.
+]
+
+#proof[
+  We must show that $FF'$ is a framework for $FF$. Clearly this is a computable
+  sub-category. To prove $cal(G)$ is an equivalence, notice that $cal(G)$ is
+  full and faithful as a full sub-category of $FF$. Additionally, $cal(G)$ is
+  essentially surjective precisely by construction. This completes the forwards
+  direction.
+
+  Conversely, a univeral framework can be formed from a system by creating a
+  computable encoding of the formulas and rules of a system. The family $G$ can
+  then be defined from an equivalence from $FF$ to $FF'$, which can be easily
+  verified to preserve and reflection derivations.
+]
+
+#theorem[
+  Let $cal(U)$ be a unviersal system. Then for every formal system $cal(S)$,
+  $"Proof"(cal(S))$ is equivalent to a subcategory of $"Proof"(cal(U))$.
+]
 
 // To bridge information graphs with formal reasoning, We must first define formal
 // systems generally. Our definition is based on three sources:
@@ -62,19 +129,6 @@ systems.
 //     return math.arrow.r.double
 //   }
 // }
-
-// #definition[
-//   A *formal system* is a pair $(cal(F), cal(R))$ consisting of:
-
-//   - *formulas* $cal(F)$, a decidable set of binary strings.
-//   - a set of *derivation rules* #box[$cal(R) subset.eq cal(F) times cal(F)$]. We
-//     define the *derivation relation* $imp(cal(R))$ to be the reflexive,
-//     transitive closure of $cal(R)$. Furthermore, we require that $imp(cal(R))$
-//     has a polynomial time verifier $V_cal(R)$.
-// ]
-
-// Note that the first condition on $cal(F)$ is redundant: reflexivity in $cal(R)$
-// ensures that each formula can be recognized in polynomial-time.
 
 // #definition[
 //   Let $cal(S) equiv (cal(F), cal(R))$ be a formal system. A *derivation* or
