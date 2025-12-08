@@ -14,43 +14,40 @@
 Now with our meta-theory in @foundations, we can proceed to discuss information
 systems.
 
-== Motivating Examples
+== Motivating Examples and Definition
 
-#theorem[
-  There is no faithful embedding from unconditional rewrite systems to
-  conditional ones.
-]
+We start with simple informal examples to explore the concept of information:
 
-How do we bring back the simplicity of the first definition, while ensuring we
-include conditional rewrite systems? The answer is to use a tradic relation
-instead and allow this relation to faithfully represent _any_ condition that is
-expressible by a TM.
+- Statements about the world.
 
-== Main Definition
+- Taxonomies.
+
+- Mathematical relations.
+
+- More sophisticated: formal theories.
 
 Each of the previous examples suggests a common definition: _information is a
 relation_. However, we want to express any formalizable kind of information. A
 binary relation _can_ encode any other computable one, but not without clear
 reasons or connections. We add this missing component by using triadic relations
-instead, building off of semiotics and many other thinkers.
+instead, building off of semiotics and related schools of thought.
 
 #definition[
   An *information system* is a pair $(D, I)$, where:
   - $D$ is the *domain*, a finite set of *data* in $NN$
-  - $I$ is *information*, a computable subset of
+  - $I$ is *(partial) information*, a partially computable subset of
     $D times D times D$
 ]
 
-We will show this definition is suitable because a related concept can naturally
-define formal systems.
-
-TODO: Discuss how information reuse is possible via transformations.
+== Meta-Information Reflection
 
 #let Info = math.bold("Info")
 
-== Reflection
-
 Let $Info$ be the set of all information systems.
+
+A natural question that arises is: what is information _between_ information? We
+can naturally model formal systems as information systems simply by asserting
+that $I$ is reflexive and transitive in a general sense, formalized by below.
 
 #theorem[
   Any R.E. structure on $$ can be represented in $$
