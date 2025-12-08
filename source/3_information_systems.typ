@@ -16,12 +16,6 @@ systems.
 
 == Motivating Examples
 
-We want to _define_ information as a relation, and will therefore need clear
-endpoints. This is aided by separating out the data points from the information
-itself. But because we are limited because of _uncoditional_ rules. Meseguer
-@twenty_years_rewriting_logic mention that they cannot faithfully represent
-conditional rewrite, provided by informal argument. We formalize this now.
-
 #theorem[
   There is no faithful embedding from unconditional rewrite systems to
   conditional ones.
@@ -34,6 +28,12 @@ expressible by a TM.
 
 == Main Definition
 
+Each of the previous examples suggests a common definition: _information is a
+relation_. However, we want to express any formalizable kind of information. A
+binary relation _can_ encode any other computable one, but not without clear
+reasons or connections. We add this missing component by using triadic relations
+instead, building off of semiotics and many other thinkers.
+
 #definition[
   An *information system* is a pair $(D, I)$, where:
   - $D$ is the *domain*, a finite set of *data* in $NN$
@@ -41,12 +41,10 @@ expressible by a TM.
     $D times D times D$
 ]
 
-TODO: Discuss how information reuse is possible via transformations.
+We will show this definition is suitable because a related concept can naturally
+define formal systems.
 
-#theorem[
-  Information systems can faithfuly represent any extension to the notion of
-  system.
-]
+TODO: Discuss how information reuse is possible via transformations.
 
 #let Info = math.bold("Info")
 
