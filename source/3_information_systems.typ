@@ -36,7 +36,8 @@ instead, building off of semiotics and related schools of thought.
   An *information system* is a pair $(D, I)$, where:
   - $D$ is the *domain*, a finite set of *data* in $NN$
   - $I$ is *(partial) information*, a partially computable subset of
-    $D times D times D$
+    $D times D times D$. This information is *complete* if $I$ is totally
+    computable.
 ]
 
 == Constructions and Reflection
@@ -57,7 +58,7 @@ transformations _as_ information systems themselves.
 #definition[
   Let $cal(S)_1 equiv (D_1, I_1)$ and $cal(S)_2 equiv (D_2, I_2)$ be information
   systems. A *transformation* $T$ from $cal(S)_1$ to $cal(S)_2$ is an
-  information system $(D_1 times D_2, I')$, where $I' inter D_1 = I_1$ and
+  information system $(D_1 union.dot D_2, I')$, where $I' inter D_1 = I_1$ and
   $I' inter D_2 = I_2$.
 ]
 
@@ -65,9 +66,10 @@ transformations _as_ information systems themselves.
 We can naturally model formal systems as information systems simply by asserting
 that $I$ is reflexive and transitive in a general sense, formalized by below.
 
-#theorem[
-  Any R.E. structure on $$ can be represented in $$
+#definition[
+
 ]
+
 
 Special systems:
 
