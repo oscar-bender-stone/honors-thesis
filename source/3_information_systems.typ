@@ -46,6 +46,17 @@ instead, building off of semiotics and related schools of thought.
 
 Let $Info$ be the set of all information systems.
 
+
+A natural construction to include is a system with _indexed information_, akin
+to index families of sets.
+
+#definition[
+  Let $cal(S) = {(D_i, I_i)}_{i in NN}$ be a family of information systems,
+  indexed by a computable function $e: NN -> cal(S)$. Then the *sum* of these is
+  $(union.dot.big D_i, union.dot.big I_i)$.
+]
+
+
 A natural question that arises is: what is information _between_ information?
 Before we address this question, we want to conceptualize information _reuse_.
 Traditionally, if we view information as being a _true formula_ in a theory,
@@ -63,12 +74,16 @@ transformations _as_ information systems themselves.
 ]
 
 
-We can naturally model formal systems as information systems simply by asserting
-that $I$ is reflexive and transitive in a general sense, formalized by below.
+As another construction, we can naturally model formal systems by asserting that
+$I$ is reflexive and transitive in a general sense, formalized by below.
 
 #definition[
-
+  A *formal system* is an information system such that the information relation
+  is reflexive and .
 ]
+
+This construction is *information compressing*: we can encode information into a
+different representation and decode it back computably.
 
 
 Special systems:
