@@ -39,14 +39,30 @@ instead, building off of semiotics and related schools of thought.
     $D times D times D$
 ]
 
-== Meta-Information Reflection
+== Constructions and Reflection
 
 #let Info = math.bold("Info")
 
 Let $Info$ be the set of all information systems.
 
-A natural question that arises is: what is information _between_ information? We
-can naturally model formal systems as information systems simply by asserting
+A natural question that arises is: what is information _between_ information?
+Before we address this question, we want to conceptualize information _reuse_.
+Traditionally, if we view information as being a _true formula_ in a theory,
+then we would want to preserve truth between theories. Our definition is more
+general, and we can to capture of a transformation instead, which takes all of
+one system and relates it into another. We generalize beyond functions to
+naturally model bisimulations and other relations. We intentionally express
+transformations _as_ information systems themselves.
+
+#definition[
+  Let $cal(S)_1 equiv (D_1, I_1)$ and $cal(S)_2 equiv (D_2, I_2)$ be information
+  systems. A *transformation* $T$ from $cal(S)_1$ to $cal(S)_2$ is an
+  information system $(D_1 times D_2, I')$, where $I' inter D_1 = I_1$ and
+  $I' inter D_2 = I_2$.
+]
+
+
+We can naturally model formal systems as information systems simply by asserting
 that $I$ is reflexive and transitive in a general sense, formalized by below.
 
 #theorem[
