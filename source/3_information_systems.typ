@@ -34,7 +34,7 @@ instead, building off of semiotics and related schools of thought.
 
 #definition[
   An *information system* is a pair $(D, I)$, where:
-  - $D$ is the *domain*, a finite set of *data* in $NN$
+  - $D$ is the *domain*, a finite, computable set of *data* in $NN$
   - $I$ is *(partial) information*, a partially computable subset of
     $D times D times D$. This information is *complete* if $I$ is totally
     computable.
@@ -48,38 +48,24 @@ Let $Info$ be the set of all information systems.
 
 
 A natural construction to include is a system with _indexed information_, akin
-to index families of sets.
+to indexed families of sets. But we want to have information between information
+as well. We can think of a disjoint union of systems as the weakest
+transformation between systems.
 
 #definition[
   Let $cal(S) = {(D_i, I_i)}_{i in NN}$ be a family of information systems,
-  indexed by a computable function $e: NN -> cal(S)$. Then the *sum* of these is
-  $(union.dot.big D_i, union.dot.big I_i)$.
+  indexed by a partial computable function. Then the *sum* of $cal(S)$ is
+  $(union.dot.big D_i, union.dot.big I_i)$. A *transformation* on $cal(S)$ is an
+  information system $(union.dot.big D_i, I')$ such that for each $i in I$,
+  $I' inter (D_i times D_i) = I_i$.
 ]
-
-
-A natural question that arises is: what is information _between_ information?
-Before we address this question, we want to conceptualize information _reuse_.
-Traditionally, if we view information as being a _true formula_ in a theory,
-then we would want to preserve truth between theories. Our definition is more
-general, and we can to capture of a transformation instead, which takes all of
-one system and relates it into another. We generalize beyond functions to
-naturally model bisimulations and other relations. We intentionally express
-transformations _as_ information systems themselves.
-
-#definition[
-  Let $cal(S)_1 equiv (D_1, I_1)$ and $cal(S)_2 equiv (D_2, I_2)$ be information
-  systems. A *transformation* $T$ from $cal(S)_1$ to $cal(S)_2$ is an
-  information system $(D_1 union.dot D_2, I')$, where $I' inter D_1 = I_1$ and
-  $I' inter D_2 = I_2$.
-]
-
 
 As another construction, we can naturally model formal systems by asserting that
 $I$ is reflexive and transitive in a general sense, formalized by below.
 
 #definition[
   A *formal system* is an information system such that the information relation
-  is reflexive and .
+  is reflexive and "transitive in a general sense" (WIP).
 ]
 
 This construction is *information compressing*: we can encode information into a
