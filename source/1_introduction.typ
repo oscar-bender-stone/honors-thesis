@@ -45,9 +45,9 @@ LLVM has faced numerous challenges, with a brief list including breaking changes
 and maintence difficulties accross systems, with one approach to a subset of
 these problems being MILR @milr_llvm as another IR to abstract away from the
 original. Implementing these systems for _general_ programs is beyond the scope
-of this thesis. We will instead focus on proof assistants, which are still
-difficult to translate between.
-
+of this thesis. We will instead focus on computable programs, which we can
+interpret as verifiers to proof assistants. Even here, translations are
+difficult. // TODO: clean this up! Do we need to say we intrepret programming languages where all programs compute as a proof assistant? Do we ONLY focus on proof assistants/verifieres?
 
 To illustrate the challenge in translations between two proof assistants,
 consider quotient types in Lean4 vs Rocq. [TODO: complete + cite relevant
@@ -56,18 +56,19 @@ literature!]
 Creating bridges beetween formal representations does require a historical
 change in perspective: _embracing reflection rather than focusing on a single
 theory_. This train of thought comes from Universal Logic, initiated by Béziau
-@universal_logic. Previously, in the twentith century, logicians sought the "one
-true logic", a system to be the basis for all mathematics. Such a system was
-quickly shown to be impossible by Gödel's incompleteness theorems, with certain
-results requiring an infinite chain of increasingly more powerful theories. But
-this was a symptom of a larger problem: translating into the _exact_ language of
-a base logic can be unnatural. To work back in the original logic, a key
-requirement is _faithfulness_, that isomorphisms in a theory must be reflected,
-a notion called "$epsilon$-representation distance" by Meseguer
-@twenty_years_rewriting_logic. However, the researchers surrounding Universal
-Logic are, too, their own community, and have their own broad defnition of a
-logic, which is distinct from those in Categorical Logic, Type Theory, and
-others.
+@universal_logic. Previously, during the rapid expansion of foundations in the
+20th century, logicians sought the "one true logic", a system to be the basis
+for all mathematics. Such a system was quickly shown to be impossible by Gödel's
+incompleteness theorems, with certain results requiring an infinite chain of
+increasingly more powerful theories. But this was a symptom of a larger problem:
+translating into the _exact_ language of a base logic can be unnatural, just as
+it is unnatural to represent quotient types in Rocq without an additional theory
+ontop. To work back in the original logic, a key requirement is _faithfulness_,
+that isomorphisms in a theory must be reflected, a notion called
+"$epsilon$-representation distance" by Meseguer @twenty_years_rewriting_logic.
+However, the researchers surrounding Universal Logic are, too, their own
+community, and have their own broad defnition of a logic, which is distinct from
+those in Categorical Logic, Type Theory, and others.
 
 
 Beyond Universal Logic, a further leap is needed, from the idea a _universal
