@@ -87,7 +87,8 @@ corresponds to an effective verifier in an important way.
   and $t in L(V_phi)$.
 ]
 
-For the rest of this thesis, all verifiers mentioned will be effective.
+For the rest of this thesis, all verifiers mentioned will be effective. Note
+that we will return to practical verifiers, those with realistic constants.
 
 == Serial Soundness
 
@@ -114,16 +115,43 @@ For the rest of this thesis, all verifiers mentioned will be effective.
       proofs (so technically fewer things shown). We'll get back to this in
       extensions
 
-  - Extensions: a theory T is reliable iff HA proves "T proves that T is serial
-    sound"
+  - Extensions: a theory T is reliable iff HA proves "T _constructively_ proves
+    that T is serial sound"
 
-    - From Artemov, can't hope to show this for stronger theories. But because
-      the proof is inherently inductive on combinatorial objects, this makes
-      sense. Using a weaker theory is like using a weaker principle of
-      induction! Not the right shape/complexity for a larger theory (e.g., ZFC)
+    - Constructive is key, so we might forbid proof by contradiction altogether
+      (unless proven first constructively. Need to refine!). This should be
+      inductive in of itself!
+
+    - From Artemov, can't hope to show serial consistentcy from weaker theories.
+      But because the proof is inherently inductive on combinatorial objects,
+      this makes sense. Using a weaker theory is like using a weaker principle
+      of induction! Not the right shape/complexity for a larger theory (e.g.,
+      ZFC)
 
     - So from there we _can_ work with that theory. BUT, always start with HA as
       our basis
+
+// Transitivity of reliability
+// TODO: translate into a computability context
+#lemma[
+  If $T$ is reliable and $T$ proves that $T'$ constructively proves $T'$ is
+  serial sound, then $T'$ is reliable.
+]
+
+- Idea of criterion for TCBs seems fine, BUT seems like we need to embed these
+  _as_ first order theories. Can we instead translate _into_ verifiers entirely?
+
+  - Going back to FOL is an _optimization_. Definitely want to streamline this
+    when we can, but may not be natural! E.g., maybe highlight translations from
+    dependently typed theories into simple ones
+
+  - How do we highlight the logical content of verifiers in an efficient way? IF
+    we use dependent types, we want explicit annotations
+
+    - Also require that we have intuitionistic logic, so essentially we do
+      require on partial computability at _some_ rate
+
+  -
 
 - Transition: what is information?
 
