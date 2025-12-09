@@ -3,37 +3,35 @@
 
 = Introduction
 
-- Engineering Research has empowered humanity for centuries.
+Undergraduates are taught many things in lecture, books, and papers, but there
+is one unspoken truth: researchers have extremely _diverse_ communities. Each
+community has their own approaches, their own conferences, and their own
+communication style. I didn't notice in my early mathematical journey; I wanted
+to absorb a wide range of papers, from number theory to set theory. At the time,
+I did research on my own, with few people to actively talk to. CU changed this
+experience for me and look forward to collaboration. This diversity is
+fundamental to research as a whole, even in the many subjects I cannot comment
+on, including the sciences, liberal arts, and more.
 
-  - Provide examples (mechanics, steam engine, medicine, transistors, etc).
+With research being diverse as is, I started to notice how independent
+communities can be. For example, I wrote a poster for a Cryptography class,
+concerning an MIT research who created programs of common crytographic schemes
+and mathematically proved their correctness. I met this researcher at a
+conference and discovered that _neither_ knew about the other! As another
+example, at my time in the Budapest Semesters in Mathematics, I explored using
+SMT solvers, a key tool in program verification. According to my advisor, that
+approach had _never_ been considered before.
 
-  - Cite history of research, with STEM in mind. (Maybe mention liberal arts?).
+- My realization: lots of _potential_ for collaboration, BUT can be difficult.
+  Cite Madhusdan P. in my first meeting with him, in which he said that PL
+  communities are separate for a reason.
 
-- Research _communities_ are extremely diverse.
+  - Also cite work on Universal Logic; discuss history of not a _single_ logic
+    prevailing, but instead many. Same thing with structures, computational
+    models, and other mathematical objects.
 
-  - Examples: many concentrations in CS, Math, etc.
-
-  - Discuss pervasive issues in _bridging_ research.
-
-    - Different languages, approaches, journals, even subtly distinct
-      definitions!
-
-    - Maybe cite original example of BSM + UDGs, in which combinatorialists
-      operate separately from SMT-LIB, even though both can support the other.
-
-    - Another example: My Cryptographic professor and a CS researcher that has
-      made a cryptographic tool are not aware of each other!
-
-  - My realization: lots of _potential_ for collaboration, BUT can be difficult.
-    Cite Madhusdan P. in my first meeting with him, in which he said that PL
-    communities are separate for a reason.
-
-    - Also cite work on Universal Logic; discuss history of not a _single_ logic
-      prevailing, but instead many. Same thing with structures, computational
-      models, and other mathematical objects.
-
-    - Mention Meseguer's work with rewriting logic and how representations can
-      be difficult! Also outline potential missing elements in rewriting logic.
+  - Mention Meseguer's work with rewriting logic and how representations can be
+    difficult! Also outline potential missing elements in rewriting logic.
 
 - Develop the idea of a _framework_: shift from a _universal theory_ to
   _universal "building blocks"_
