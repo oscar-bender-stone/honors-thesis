@@ -58,126 +58,131 @@ This section develops two major components for this thesis:
 
     - Want to use the whole input as well: represents that the _whole_ input
       matters for the query. This limits the inputs themselves: we want a
-      definition of a trace that goes from initial state TO accept. For reject,
-      we _want_ to do so early if needed.
+      definition of a trace that goes from initial state TO accept. In other
+      words, for THAT specific trace, _each_ step is *needed*. For reject, we
+      _want_ to do so early if needed.
 
     - Need to encode this into the meta-theory! Maybe have a further subset to
       make this easier? Can think of this as an _initial_ representation.
 
+== Verifiers
+
 #definition[
   An *effective verifier* is a Turing machine that runs in linear time and it
-  accepts an input _must_ consume the entire input.
+  accepts an input _must_ have read the entire input.
 ]
 
+Given a partial computable function $phi$, let $L(phi)$ be the language
+recognized by $phi$.
+
 #lemma[
-  Given an RE set $S$ and recognizer $phi$, there is an effective verifier
-  $V_phi$ such that $x in S$ iff there is some trace $phi$ that starts with $x$
-  with $phi x in S(V_phi)$.
+  For every RE set $S$ with recognizer $phi$, there is an effective verifier
+  $V_phi$ such that $x in S$ iff there is some trace $t$ that starts with $x$
+  and $t in L(V_phi)$.
 ]
 
 - Note: this lemma is very close to Kleene representability
 
 For the rest of this thesis, all verifiers mentioned will be effective.
 
-== Metatheory
+// TODO: connect back with computability!
+// == Metatheory
 
-To formally define computatbility, we require a metatheory $cal(T)$ such that:
+// To formally define computatbility, we require a metatheory $cal(T)$ such that:
 
-+ $cal(T)$ is equivalent to an established theory.
-+ $cal(T)$ is reflective: it can prove properties about itself.
-+ $cal(T)$ is straightforward to define.
-+ $cal(T)$ proves only true properties about computable functions.
-+ $cal(T)$ has has efficient proof checking.
+// + $cal(T)$ is equivalent to an established theory.
+// + $cal(T)$ is reflective: it can prove properties about itself.
+// + $cal(T)$ is straightforward to define.
+// + $cal(T)$ proves only true properties about computable functions.
+// + $cal(T)$ has has efficient proof checking.
 
-The last condition is not strictly necessary, but it does aid in verifying the
-bootstrap in @bootstrap.
+// The last condition is not strictly necessary, but it does aid in verifying the
+// bootstrap in @bootstrap.
 
-#let ZF = math.bold("ZF")
-#let PA = math.bold("PA")
-#let PA = math.bold("HA")
+// #let ZF = math.bold("ZF")
+// #let PA = math.bold("PA")
+// #let PA = math.bold("HA")
 
-We could use *Zermelo Frankel Set Theory ($ZF$)* or *Peano Arithmetic ($PA$)*
-directly, as well established first-order theories, but they have two problems.
-First, defining first-order logic is tedious, specifically free and bound
-variables. Second, recursively enumerable functions are _encoded_ into the
-theory, rather than being first class citizens. Computable functions are more
-naturally expressed in type theories, but partial functions are secondary and
-are awkward to define. By interpreting proofs as programs, under the
-Curry-Howard correspondence, non-terminating functions translate into proofs of
-inconsistency. Moreover, in more expressive type theories, like those with
-dependent types, proof checking has an extreme time complexity.
+// We could use *Zermelo Frankel Set Theory ($ZF$)* or *Peano Arithmetic ($PA$)*
+// directly, as well established first-order theories, but they have two problems.
+// First, defining first-order logic is tedious, specifically free and bound
+// variables. Second, recursively enumerable functions are _encoded_ into the
+// theory, rather than being first class citizens. Computable functions are more
+// naturally expressed in type theories, but partial functions are secondary and
+// are awkward to define. By interpreting proofs as programs, under the
+// Curry-Howard correspondence, non-terminating functions translate into proofs of
+// inconsistency. Moreover, in more expressive type theories, like those with
+// dependent types, proof checking has an extreme time complexity.
 
-Our solution to these issues is to build on Feferman's framework on explicit
-mathematics @feferman_logic. His work builds on two key ideas. First, separating
-partial functions from proofs is useful. Second, presenting a theory of
-computable functions is simpler with combinatory logic, which was specifically
-developed to remove involved calculations with variables. This is easier still
-using illative combinatory logic, which has useful logical constants (see
-@czajka_illative_cl).
+// Our solution to these issues is to build on Feferman's framework on explicit
+// mathematics @feferman_logic. His work builds on two key ideas. First, separating
+// partial functions from proofs is useful. Second, presenting a theory of
+// computable functions is simpler with combinatory logic, which was specifically
+// developed to remove involved calculations with variables. This is easier still
+// using illative combinatory logic, which has useful logical constants (see
+// @czajka_illative_cl).
 
-We will build on Feferman's framework and present _both_ levels entirely with
-combinators. The main component of this section is proving that this theory is
-equivalent to *Heyting Arithmetic (HA)*. Additionally, we build on Artemov's
-Logic of Proofs @artemov_lp for quantification, augmenting equality on terms
-with proof certificates. This enables us to discuss programs _and_ their proofs
-in the same logic, while being simpler than dependent types. Finally, we present
-our system with Hilbert proof system, which favors many axims and few rules of
-inference presents the logic with many axioms and few rules of inference. This
-enables the system to avoid contexts, which pose similar challenges as
-variables.
+// We will build on Feferman's framework and present _both_ levels entirely with
+// combinators. The main component of this section is proving that this theory is
+// equivalent to *Heyting Arithmetic (HA)*. Additionally, we build on Artemov's
+// Logic of Proofs @artemov_lp for quantification, augmenting equality on terms
+// with proof certificates. This enables us to discuss programs _and_ their proofs
+// in the same logic, while being simpler than dependent types. Finally, we present
+// our system with Hilbert proof system, which favors many axims and few rules of
+// inference presents the logic with many axioms and few rules of inference. This
+// enables the system to avoid contexts, which pose similar challenges as
+// variables.
 
-#let step = math.attach(math.arrow.r, br: $1$)
+// #let step = math.attach(math.arrow.r, br: $1$)
 
-#let ICA = math.bold("ICA")
-#let Imp(x, y) = $"Imp" thin #x thin #y$
-#let pair(x, y) = $"pair" thin #x thin #y$
-#let ext = $attach(->, br: A)$
+// #let ICA = math.bold("ICA")
+// #let Imp(x, y) = $"Imp" thin #x thin #y$
+// #let pair(x, y) = $"pair" thin #x thin #y$
+// #let ext = $attach(->, br: A)$
 
-#let vdash = math.tack
+// #let vdash = math.tack
 
-#definition[
-  We define *Illative Combinatory Arithmetic ($ICA$)* as follows.
+// #definition[
+//   We define *Illative Combinatory Arithmetic ($ICA$)* as follows.
 
-  - The *language* $cal(L)_ICA$ consists of:
-    - *Constants*: $bot | 0 | "nat"$
-    - *Consequence Relation*: $vdash$
-    - *Equality*: $=$
-    - *Base Combinators*: $"K" | "S"$
-    - *Auxilary Combinators*: $"I" | "id" | "B" | "C" | "swap" | "bop"$
-    - *Pairing*: $"pair" | "fst" | "snd"$
-    - *Connectives*:
-      $"if" | "join" | "meet" | "Imp" | "A"$
-  - *Terms* are defined recursively:
-  - We add useful notation, where $X, Y, F, G$ are terms:
-    // TODO: determine best way to organize these axioms!
-    // Maybe refer to appendix for *full* list and proofs?
-    // TODO: determine if period should be outside or inside equation
-    - $"id" equiv I equiv S K K$
-    - $"swap" equiv C equiv S B B S$.
-    - $F (G X) = B F G X$, where $B equiv S (K S) K$.
-    - *Phoenix*: $"bop" equiv B(B S)B$
-    - $X -> Y equiv Imp(X, Y)$.
-    - $X ext Y equiv S (B (X -> Y))$.
-    - $(X, Y) equiv pair(X, Y)$.
-    - $(X) equiv X$.
-  - Two sets of axioms called *computational* and *logical*.
-    - *Propositional Logic*:
-      - $vdash X -> (Y -> Z)$
-      - $vdash (X -> (Y -> Z)) -> ((X -> Y) -> (Y -> Z))$
-    - *Base Combinators:*
-      - $vdash K X Y = X$
-      - $vdash S X Y Z = X Z(Y Z)$
-    - *Equality:*
-      - *Symmetry:* $vdash X = Y -> Y = X$
-      - *Transitivity:* $vdash X = Y -> ((Y = Z) -> X = Z)$
-      - *Congruence:* $vdash X = Y -> Z X = Z Y$
-      - *Application:* $vdash X = Y -> X Z = Y Z$
-    - *Quantifiers:*
-      - $vdash A(K(A X)) ext X$
-      - $vdash X -> A(K X)$
-  - One rule of inference called *Modus Ponens*: $vdash X$ and $vdash X -> Y$
-    implies $vdash Y$.
-]
-
-== Verifiers
+//   - The *language* $cal(L)_ICA$ consists of:
+//     - *Constants*: $bot | 0 | "nat"$
+//     - *Consequence Relation*: $vdash$
+//     - *Equality*: $=$
+//     - *Base Combinators*: $"K" | "S"$
+//     - *Auxilary Combinators*: $"I" | "id" | "B" | "C" | "swap" | "bop"$
+//     - *Pairing*: $"pair" | "fst" | "snd"$
+//     - *Connectives*:
+//       $"if" | "join" | "meet" | "Imp" | "A"$
+//   - *Terms* are defined recursively:
+//   - We add useful notation, where $X, Y, F, G$ are terms:
+//     // TODO: determine best way to organize these axioms!
+//     // Maybe refer to appendix for *full* list and proofs?
+//     // TODO: determine if period should be outside or inside equation
+//     - $"id" equiv I equiv S K K$
+//     - $"swap" equiv C equiv S B B S$.
+//     - $F (G X) = B F G X$, where $B equiv S (K S) K$.
+//     - *Phoenix*: $"bop" equiv B(B S)B$
+//     - $X -> Y equiv Imp(X, Y)$.
+//     - $X ext Y equiv S (B (X -> Y))$.
+//     - $(X, Y) equiv pair(X, Y)$.
+//     - $(X) equiv X$.
+//   - Two sets of axioms called *computational* and *logical*.
+//     - *Propositional Logic*:
+//       - $vdash X -> (Y -> Z)$
+//       - $vdash (X -> (Y -> Z)) -> ((X -> Y) -> (Y -> Z))$
+//     - *Base Combinators:*
+//       - $vdash K X Y = X$
+//       - $vdash S X Y Z = X Z(Y Z)$
+//     - *Equality:*
+//       - *Symmetry:* $vdash X = Y -> Y = X$
+//       - *Transitivity:* $vdash X = Y -> ((Y = Z) -> X = Z)$
+//       - *Congruence:* $vdash X = Y -> Z X = Z Y$
+//       - *Application:* $vdash X = Y -> X Z = Y Z$
+//     - *Quantifiers:*
+//       - $vdash A(K(A X)) ext X$
+//       - $vdash X -> A(K X)$
+//   - One rule of inference called *Modus Ponens*: $vdash X$ and $vdash X -> Y$
+//     implies $vdash Y$.
+// ]
 
