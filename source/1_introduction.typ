@@ -5,22 +5,26 @@
 
 Undergraduates are taught many things in lecture, books, and papers, but there
 is one unspoken truth: researchers have extremely _diverse_ communities. Each
-community has their own approaches, their own conferences, and their own
-communication style. I didn't notice in my early mathematical journey; I wanted
-to absorb a wide range of papers, from number theory to set theory. At the time,
-I did research on my own, with few people to actively talk to. CU changed this
-experience for me and look forward to collaboration. This diversity is
-fundamental to research as a whole, even in the many subjects I cannot comment
-on, including the sciences, liberal arts, and more.
+community has their own approaches, their own conferences, and even their
+preference of chalk, dry-erase marker, or neither. I didn't notice in my early
+mathematical journey; I wanted to absorb a wide range of papers, from number
+theory to set theory. At the time, I was in secondary education and was around
+few active researchers. CU changed this experience for me and look forward to
+collaboration. This diversity is fundamental to research as a whole, even in the
+many subjects I have not deeply explored, including the sciences, liberal arts,
+and more.
 
 With research being diverse as is, I started to notice how independent
-communities can be. For example, I wrote a poster for a Cryptography class,
+communities can be. For example, I wrote a poster for a cryptography class,
 concerning an MIT research who created programs of common crytographic schemes
 and mathematically proved their correctness. I met this researcher at a
-conference and discovered that _neither_ knew about the other! As another
-example, at my time in the Budapest Semesters in Mathematics, I explored using
-SMT solvers, a key tool in program verification. According to my advisor, that
-approach had _never_ been considered before.
+conference and discovered that _neither_ knew about the other! They provided
+their own contributions, but I initially assumed that _everyone_ in
+cryptography. This does depend on the community, but even a key topic like this
+can have separate communities. As another example, at my time in the Budapest
+Semesters in Mathematics, I explored using SMT solvers, a key tool in program
+verification. According to my advisor, that approach had _never_ been considered
+before.
 
 - My realization: lots of _potential_ for collaboration, BUT can be difficult.
   Cite Madhusdan P. in my first meeting with him, in which he said that PL
