@@ -64,9 +64,19 @@ systems.
       make this easier? Can think of this as an _initial_ representation.
 
 #definition[
-  An * (effective) verifier* is a Turing machine that runs in linear time and it
+  An *effective verifier* is a Turing machine that runs in linear time and it
   accepts an input _must_ consume the entire input.
 ]
+
+#lemma[
+  Given an RE set $S$ and recognizer $phi$, there is an effective verifier
+  $V_phi$ such that $x in S$ iff there is some trace $phi$ that starts with $x$
+  with $phi x in S(V_phi)$.
+]
+
+- Note: this lemma is very close to Kleene representability
+
+For the rest of this thesis, all verifiers mentioned will be effective.
 
 == Motivating Examples and Definition
 
