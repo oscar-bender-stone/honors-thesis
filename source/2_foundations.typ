@@ -25,9 +25,9 @@ This section develops two major components for this thesis:
 
 - From intro: we formally represent something by _how we check it_.
 
-  - Initial idea: use computable functions. _Can_ associate
-  a checker to any RE set, even if we restrict these checkers, e.g., to specific
-  linear time functions.
+  - Initial idea: use computable functions. _Can_ associate a checker to any RE
+    set, even if we restrict these checkers, e.g., to specific linear time
+    functions.
 
   - BUT, we want to include RE sets
 
@@ -122,6 +122,10 @@ that we will return to practical verifiers, those with realistic constants.
       (unless proven first constructively. Need to refine!). This should be
       inductive in of itself!
 
+    - Only mentioning HA so that we have a good basis. Can think of this as
+      just: T constructively proves that T is serial sound. Our quantification
+      for this general T _comes from_ HA
+
     - From Artemov, can't hope to show serial consistentcy from weaker theories.
       But because the proof is inherently inductive on combinatorial objects,
       this makes sense. Using a weaker theory is like using a weaker principle
@@ -151,7 +155,17 @@ that we will return to practical verifiers, those with realistic constants.
     - Also require that we have intuitionistic logic, so essentially we do
       require on partial computability at _some_ rate
 
-  -
+  - Exploration on possible definitions:
+
+    - M simulates M' iff if for some surjective computable function
+      $f: L(V_M) -> L(V_M')$ that sends traces of $M$ to traces of $M'$
+
+      - If we took this to be bijective, we get language equivalence, which
+        isn't computable. So we need to state this as a Pi formula instead...
+        but how do we reconcile that with our goal to focus on $Sigma^0_1$
+        formulas? Roughly we want to say there is a proof of this fact, or posit
+        a machine M'' that searches for a _proof_ of such a construction
+        existing
 
 - Transition: what is information?
 
@@ -160,9 +174,9 @@ that we will return to practical verifiers, those with realistic constants.
     - _May_ be implied by other information, but we want EXACTLY the trace
       itself.
 
-    - NOTE: think about multiple traces. May be a SUP in a different sense
-    (or we don't distingush traces for a _specific problem_ if they show x in S,
-    BUT it may aid in others)
+    - NOTE: think about multiple traces. May be a SUP in a different sense (or
+      we don't distingush traces for a _specific problem_ if they show x in S,
+      BUT it may aid in others)
 
     - Want to build from this idea, that we want to _enhance_ our perception
     of information, NOT just as traces.
