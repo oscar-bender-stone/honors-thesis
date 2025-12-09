@@ -38,12 +38,23 @@ the standard notion, Turing computable, our inquiry is now exactly about the
 proliferation of programming languages. These, too, are extremely distinct and
 built for different purposes. Translations between these, also known as
 _transpilation_, is incredibly difficult, as this is generally equivalent to the
-Halting Problem. Even established classes of _terminating_ programs can be
-difficult to transpile between, especially those used in proof assistants.
+Halting Problem. A major project towards this goal is LLVM @llvm_main, a
+compiler library for other programming languages. Languages can implement in an
+intermediate form called LLVM IR. While being an industry and research standard
+LLVM has faced numerous challenges, with a brief list including breaking changes
+and maintence difficulties accross systems, with one approach to a subset of
+these problems being MILR @milr_llvm as another IR to abstract away from the
+original. Implementing these systems for _general_ programs is beyond the scope
+of this thesis. We will instead focus on proof assistants, which are still
+difficult to translate between.
 
-After examining many attempts at transpilation, I argue that the fundamental
-problem is _organization_. [Introduce a relevant example. Maybe between two
-proof assistants? MAYBE mention deep inference?]
+
+To illustrate the challenge in translations between two proof assistants,
+consider ...
+
+Even established classes of _terminating_ programs can be difficult to transpile
+between, especially those used in proof assistants. Take for example, an
+inductive proof from the proof assistant Rocq to Lean.
 
 Creating bridges beetween formal representations does require a historical
 change in perspective: _embracing reflection rather than focusing on a single

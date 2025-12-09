@@ -14,9 +14,27 @@
   - How do we discuss BOTH partial AND computable functions?
 
     - Can't define the _whole_ set of computable functions on binary strings,
-      i.e., need more indirection (like a non $Sigma^0_1$ formula in HA)
+      i.e., need more indirection (like a non $Sigma^0_1$ formula in HA). This
+      is by Blum's compression theorem.
 
-    -
+    - BUT can argue for choosing a _computable subset_ of these, even if it
+      feels restrictive. Key reason: separate _query_ from _search_. Main
+      organizational insight! (TODO: highlight this in intro!)
+
+    - So we need to focus our efforts on the _query_ part itself.
+
+      - We're not focusing on operational semantics here. We're focusing on a
+        framework that can _then_ define operational semantics. So we're not
+        concerned about _implementing_ the desired model by anymeans - mention
+        this as a future work!
+
+      - For now: take a well established class of computable functions, say
+        PRFs. Reason: hard to think about most computable functions, e.g., Busy
+        Beavers! BUT we want the definition to be self-contained, not _yet_
+        getting into complexity or such
+
+      - _Could_ we bring back System T? Maybe simplify the judgements so that we
+        don't need contexts, i.e., use a Hilbert style presentation instead?
 
 == Verifiers
 
