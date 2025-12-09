@@ -89,6 +89,17 @@ corresponds to an effective verifier in an important way.
 
 For the rest of this thesis, all verifiers mentioned will be effective.
 
+== Serial Soundness
+
+- Need to established for next section!
+
+  - _How_ do we "trust" the output of another TM? Pretty key!
+
+  - Need to base off of meta-theory that has reliable computing base: HA
+
+    - Stick to constructive proofs so we have an _actual_ witness; closely
+      corresponds to completeness theorem
+
 - Transition: what is information?
 
   - Goal: traces = SUP information needed. We can prove this, but just refer.
@@ -102,6 +113,7 @@ For the rest of this thesis, all verifiers mentioned will be effective.
 
     - Want to build from this idea, that we want to _enhance_ our perception
     of information, NOT just as traces.
+
 
 // TODO: connect back with computability!
 // == Metatheory
