@@ -14,6 +14,47 @@
 Now with our meta-theory in @foundations, we can proceed to discuss information
 systems.
 
+== Computability
+
+// TODO: combine with metatheory.
+// How do we *connect* a Turing complete language *and* a language for logic
+// that is Sigma^0_1 sound?
+
+- From intro: we formally represent something by _how we check it_.
+
+  - Initial idea: use computable functions. _Can_ associate
+  a checker to any RE set, even if we restrict these checkers, e.g., to specific
+  linear time functions.
+
+  - BUT, we want to include RE sets
+
+    - Need UTMs! Provides a general appartus to explore _any_ RE set
+
+    - Clear Completeness Problem: Halting Problem (decide if x in RE set)
+
+      - Logic in Meta theory: we need _proofs_ of this. This is our verifier!
+        Maybe still restrict the verifier suitably for _effective_ verification.
+
+  - Introduce set of all RE sets and define UTMs simply. Maybe use lambda terms
+    or meta-theory encoding to simplify this?
+
+  - Problem: too many UTMs!
+
+    - Trivial permutations: relabeling, small changes, etc.
+
+    - How to go from one UTM to another? Lots of "bloat" is possible
+
+  - Key inquiry: _how to effectively reuse answers to Halting_?
+
+    - Want to separate _queries_ (straightforward) from _search_ (hard)!
+
+    - Main solution: represent this as _information_. Show that better systems
+      have _better information compression_.
+
+  - Go back to verifier idea: we'll abstractly assume linear time, BUT for
+    Welkin 64, we can impose specific bounds on _steps_. (Or, provide a demo
+    verifier that can then be improved).
+
 == Motivating Examples and Definition
 
 We start with simple informal examples to explore the concept of information:
@@ -46,7 +87,6 @@ instead, building off of semiotics and related schools of thought.
 
 Let $Info$ be the set of all information systems.
 
-
 A natural construction to include is a system with _indexed information_, akin
 to indexed families of sets. But we want to have information between information
 as well. We can think of a disjoint union of systems as the weakest
@@ -57,7 +97,7 @@ transformation between systems.
   indexed by a partial computable function. Then the *sum* of $cal(S)$ is
   $(union.dot.big D_i, union.dot.big I_i)$. A *transformation* on $cal(S)$ is an
   information system $(union.dot.big D_i, I')$ such that for each $i in I$,
-  $I' inter (D_i times D_i) = I_i$.
+  $I' inter (D_i times D_i times D_i) = I_i$.
 ]
 
 As another construction, we can naturally model formal systems by asserting that
@@ -68,9 +108,8 @@ $I$ is reflexive and transitive in a general sense, formalized by below.
   is reflexive and "transitive in a general sense" (WIP).
 ]
 
-This construction is *information compressing*: we can encode information into a
-different representation and decode it back computably.
-
+This construction is *information compressing*: we can compuably encode
+information into a different representation and computably decode it back.
 
 Special systems:
 
