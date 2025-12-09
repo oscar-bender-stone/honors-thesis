@@ -7,14 +7,25 @@
 
 = Foundations <foundations>
 
-Our first step is to define the set of _verifiers_, a subset of the computable
+Our first step is to define the set of verifiers, a subset of the computable
 functions. Based on our architecture to separate _query_ from _search_, we focus
 this subset to primitive recursive functions.
 
-While we can easily verify if a given input is accepted by a verifier, how do we
-tell when there is _no_ such input? This is where our metatheory come in. [TODO:
-explore arithmetic hierarchy briefly? How do we know _which_ results on
-computability are trustworthy? This is ESSENTIAL for the TCB!]
+To explore verifiers, we need a reliable metatheory, establishing our logical
+TCB. How can we establish what _reliable_ means? [TODO: cite that ZFC, or ZFC +
+inaccessibles, is common in literature. ] However, each of these are _specific
+theories_, and while ZFC + inaccessibilies likely suffices for, e.g., formal
+verification, what about other subjects? We want to make this _as extensible_ as
+possible, akin to an infinite hierarchy of theories via reflection. So we will
+need a different approach.
+
+The key problem to reliability is, while we can easily verify if a given input
+is accepted by a verifier, how do we tell when there is _no_ such input? We use
+a novel criterion developed by Artemov's Logic of Proofs @artemov_lp.
+
+This is where our metatheory come in. [TODO: explore arithmetic hierarchy
+briefly? How do we know _which_ results on computability are trustworthy? This
+is ESSENTIAL for the TCB!]
 
 == Computability
 
@@ -23,6 +34,8 @@ computability are trustworthy? This is ESSENTIAL for the TCB!]
 Given a partial computable function $phi$, let $L(phi)$ be the language
 recognized by $phi$.
 
+// TODO: maybe define verifiers with a specific form?
+// That way, we don't have cases of functions where we don't even know it's linear time. We need to PROVE this class has all linear time, or something desirable.
 #definition[
   An *effective verifier* is a Turing machine that runs in linear time and it
   accepts an input _must_ have read the entire input.

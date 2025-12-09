@@ -169,10 +169,17 @@ has established several different major trains of thoughts:
     - _Use this definition to justify universality!_
 
 Our overarching architecture is based on a key idea: separate _cheap queries_
-from _expensive search_. We focus on implementing the queries completeley,
-enabling arbitrary extensions to search procedures. This is inspired by and
-generalizes DPLL(T) @dpll_t for SMT-LIB solvers. Additionally, this enables
-future exploration for implementing general programs.
+from _expensive search_. We develop the entire theory of queries and enable
+arbitrary extensions to the search prcoedures. This is inspired by and
+generalizes DPLL(T) @dpll_t for SMT-LIB solvers. In DPLL(T), the goal is to find
+a proof of a first-order statement into two parts: solve propositional
+statements in a SAT solver, and solve theory-specific problems with theory
+solvers. // TODO: clean this up and make this more detailed but concise!
+Additionally, this enables future exploration for implementing general programs.
+
+In addition to this architecture, we tackle reliability with a novel technique:
+Artemov's Logic of Proofs @artemov_lp. This establishes our metatheory
+(@foundations).
 
 == Goals
 
