@@ -24,7 +24,26 @@ cryptography. This does depend on the community, but even a key topic like this
 can have separate communities. As another example, at my time in the Budapest
 Semesters in Mathematics, I explored using SMT solvers, a key tool in program
 verification. According to my advisor, that approach had _never_ been considered
-before.
+before. The boundaries between these communities isn't so clear, and it seems to
+take years to begin to remotely find them.
+
+The separation of these communities raises a key question: _can_ research
+results be bridged together? Can they be written in _one_ place for retrieval,
+similar to how the internet is the standard for global communication? This is
+more vague for certain disciplines, such as connecting two distinct areas in
+philosophy, but we can focus on their _representations_ instead: binary strings.
+Specifically, we can consider _formalized representations_, so sets of strings
+that are computable, i.e., accpeted by a computer. By taking computable to mean
+the standard notion, Turing computable, our inquiry is now exactly about the
+proliferation of programming languages. These, too, are extremely distinct and
+built for different purposes. Translations between these, also known as
+_transpilation_, is incredibly difficult, as this is generally equivalent to the
+Halting Problem.
+
+
+fuels my current research problem within STEM: _organizing the formal
+representations of research_.
+
 
 - My realization: lots of _potential_ for collaboration, BUT can be difficult.
   Cite Madhusdan P. in my first meeting with him, in which he said that PL
