@@ -93,12 +93,37 @@ For the rest of this thesis, all verifiers mentioned will be effective.
 
 - Need to established for next section!
 
-  - _How_ do we "trust" the output of another TM? Pretty key!
+  - _How_ do we "trust" the output of another TM? Absolutely essential!
 
-  - Need to base off of meta-theory that has reliable computing base: HA
+  - This _is_ our approach to the Trusted Computing Base (TCB), at least the
+    theory
+
+  - Basis: HA
 
     - Stick to constructive proofs so we have an _actual_ witness; closely
       corresponds to completeness theorem
+
+    - Becuse of Artemov's argument, including explosion is fine; will NOT prove
+      everything, luckily
+
+    - Why not PRA? Because we need to know _what_ we assume to ensure the theory
+      _is_ self serial-verifying! Want a _clear basis_ for _clear reflection_.
+      TODO: define serial-verifying and connect back to mm0 @mm0
+
+    - Iterate that this is used in mm0 @mm0, except with focus on constructive
+      proofs (so technically fewer things shown). We'll get back to this in
+      extensions
+
+  - Extensions: a theory T is reliable iff HA proves "T proves that T is serial
+    sound"
+
+    - From Artemov, can't hope to show this for stronger theories. But because
+      the proof is inherently inductive on combinatorial objects, this makes
+      sense. Using a weaker theory is like using a weaker principle of
+      induction! Not the right shape/complexity for a larger theory (e.g., ZFC)
+
+    - So from there we _can_ work with that theory. BUT, always start with HA as
+      our basis
 
 - Transition: what is information?
 
