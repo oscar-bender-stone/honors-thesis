@@ -96,6 +96,13 @@ we can look at the space of _all_ these traces.
   - Our goal: how to organize when we have a *space* of things like (1)
   that are _interconnected_?
 
+  - Old approach (diagram!): show that people had _different_ ways to tackle the
+    stuff in-between. That's where most theories like (e.g., dependently typed
+    theories, HOL, etc.)
+
+  - New approach: separate _query_ from _search_! Unify the previous approaches
+    by foucsing on optimizing the _left side_ that we _can_ control effectively
+
 == Motivating Examples and Definition
 
 We start with simple informal examples to explore the concept of information:
