@@ -22,10 +22,10 @@ conference and discovered that _neither_ knew about the other! They provided
 their own contributions, but I initially assumed that _everyone_ in
 cryptography. This does depend on the community, but even a key topic like this
 can have separate communities. As another example, at my time in the Budapest
-Semesters in Mathematics, I explored using SMT solvers, a key tool in program
-verification. According to my advisor, that approach had _never_ been considered
-before. The boundaries between these communities isn't so clear, and it seems to
-take years to begin to remotely find them.
+Semesters in Mathematics, I explored a key tool in program verification to find
+proofs for a combinatorial problem. According to my advisor, that approach had
+_never_ been considered before. The boundaries between these communities isn't
+so clear, and it seems to take years to begin to _remotely_ find them.
 
 The separation of these communities raises a key question: _can_ research
 results be bridged together? Can they be written in _one_ place for retrieval,
@@ -33,51 +33,42 @@ similar to how the internet is the standard for global communication? This is
 more vague for certain disciplines, such as connecting two distinct areas in
 philosophy, but we can focus on their _representations_ instead: binary strings.
 Specifically, we can consider _formalized representations_, so sets of strings
-that are computable, i.e., accpeted by a computer. By taking computable to mean
+that are computable, i.e., accepted by a computer. By taking computable to mean
 the standard notion, Turing computable, our inquiry is now exactly about the
 proliferation of programming languages. These, too, are extremely distinct and
 built for different purposes. Translations between these, also known as
 _transpilation_, is incredibly difficult, as this is generally equivalent to the
-Halting Problem.
+Halting Problem. Even established classes of _terminating_ programs can be
+difficult to transpile between, especially those used in proof assistants.
+
+After examining many attempts at transpilation, I argue that the fundamental
+problem is _organization_. [Introduce a relevant example. Maybe between two
+proof assistants? MAYBE mention deep inference?]
+
+Creating bridges beetween formal representations does require a historical
+change in perspective: _embracing reflection rather than focusing on a single
+theory_. This train of thought comes from Universal Logic, initiated by Béziau
+@universal_logic. Previously, in the twentith century, logicians sought the "one
+true logic", a system to be the basis for all mathematics. Such a system was
+quickly shown to be impossible by Gödel's incompleteness theorems, with certain
+results requiring an infinite chain of increasingly more powerful theories. But
+this was a symptom of a larger problem: translating into the _exact_ language of
+a base logic can be unnatural. To work back in the original logic, a key
+requirement is _faithfulness_, that isomorphisms in a theory must be reflected,
+a notion called "$epsilon$-representation distance" by Meseguer
+@twenty_years_rewriting_logic. However, the researchers surrounding Universal
+Logic are, too, their own community, and have their own broad defnition of a
+logic, which is distinct from those in Categorical Logic, Type Theory, and
+others.
 
 
-fuels my current research problem within STEM: _organizing the formal
-representations of research_.
+Beyond Universal Logic, a further leap is needed, from the idea a _universal
+theory_ to _universal building blocks_. To support the wide diversity of
+languages, a spectrum of these building blocks, which we consider to be
+_information_. This thesis creates a universal information language for this
+purpose, to express information about _any formal representation_. This includes
+improving the representation itself!
 
-
-- My realization: lots of _potential_ for collaboration, BUT can be difficult.
-  Cite Madhusdan P. in my first meeting with him, in which he said that PL
-  communities are separate for a reason.
-
-  - Also cite work on Universal Logic; discuss history of not a _single_ logic
-    prevailing, but instead many. Same thing with structures, computational
-    models, and other mathematical objects.
-
-  - Mention Meseguer's work with rewriting logic and how representations can be
-    difficult! Also outline potential missing elements in rewriting logic.
-
-- Develop the idea of a _framework_: shift from a _universal theory_ to
-  _universal "building blocks"_
-
-  - Original idea (pre-20th century): there is a _single_ theory/object we must
-    mold everything else into. (Draw a picture!)
-
-  - Shaken up by the foundational crises in the 20th century, but also in
-    _every_ field in different ways. Physics with quantum mechanics, biology
-    with diversity of organisms, etc.
-
-  - Highlight: communities NEED to keep their notions! This is a _strength_ -
-    people have done great things with this philosophy!
-
-  - New idea: _every_ formal object is _made_ of the same content, but in
-    different ways.
-
-    - This allows communities to shape their own notions _differently_, but this
-      can be compared precisely because they are made of the _same_ things.
-      Highlight an analogy with atoms.
-
-    - My aim: show that _information_ is precisely this building block,
-      restricted to a computable setting.
 
 - Review past results in Information theory. Possibly expand upon in a separate
   section.
