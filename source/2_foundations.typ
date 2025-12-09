@@ -50,7 +50,8 @@ This section develops two major components for this thesis:
     - Want to separate _queries_ (straightforward) from _search_ (hard)!
 
     - Main solution: represent this as _information_. Show that better systems
-      have _better information compression_.
+      have _better information compression_. This IS our solution to
+      organization.
 
   - Go back to verifier idea: we'll abstractly assume linear time, BUT for
     Welkin 64, we can impose specific bounds on _steps_. (Or, provide a demo
@@ -67,13 +68,16 @@ This section develops two major components for this thesis:
 
 == Verifiers
 
+Given a partial computable function $phi$, let $L(phi)$ be the language
+recognized by $phi$.
+
 #definition[
   An *effective verifier* is a Turing machine that runs in linear time and it
   accepts an input _must_ have read the entire input.
 ]
 
-Given a partial computable function $phi$, let $L(phi)$ be the language
-recognized by $phi$.
+In a refined form of Kleene representability, we show that every RE set
+corresponds to an effective verifier in an important way.
 
 #lemma[
   For every RE set $S$ with recognizer $phi$, there is an effective verifier
@@ -81,9 +85,32 @@ recognized by $phi$.
   and $t in L(V_phi)$.
 ]
 
-- Note: this lemma is very close to Kleene representability
-
 For the rest of this thesis, all verifiers mentioned will be effective.
+
+- Now can study the set of _verifiers_. A univeral verifier is a verifier of a
+  UTM. So we only need _one_ such verifier. We encode the TM AND the input in
+  question, and then simulate the whole TM.
+
+  - Same problems as before: _how_ do we organize this?
+
+  - Instead of asking what information is broadly (we'll come back to that in
+    the overarching semantics), we want to ask, what is information _for
+    verifiers_?
+
+    - Recall translation from before: we _define_ things by how they _are
+      checked_. To information on mathematical objects corresponds to
+      _information on how they are checked_.
+
+      - By how, this includes:
+
+        - _what_ things are/are not checked.
+
+        - If it speeds it up/is a slow route.
+
+      - We capture this how by defining information _as_
+      a relation between an input and a language _per_ a trace
+
+      -
 
 // TODO: connect back with computability!
 // == Metatheory
