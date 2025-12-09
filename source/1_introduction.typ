@@ -177,9 +177,11 @@ statements in a SAT solver, and solve theory-specific problems with theory
 solvers. // TODO: clean this up and make this more detailed but concise!
 Additionally, this enables future exploration for implementing general programs.
 
-In addition to this architecture, we tackle reliability with a novel technique:
-Artemov's Logic of Proofs @artemov_lp. This establishes our metatheory
-(@foundations).
+In addition to this architecture, we establish a small Trusted Computing Base
+(TCB). In our base logic, uses a a novel technique: Artemov's Logic of Proofs
+@artemov_lp. This establishes our metatheory, which is equi-consistent to [TODO:
+find this!] (@foundations). [TODO: talk about prototype! Key!]
+
 
 == Goals
 
