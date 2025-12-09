@@ -46,13 +46,8 @@ This section develops two major components for this thesis:
     handle carefully!
 
 #definition[
-  A *Partial Computable Abstract Rewriting System* is a pair $(X, R)$ where $R$
-  is an RE subset of $X times X$.
+  A *formal system* is a pair $(X, R)$ where $R$ is an RE subset of $X times X$.
 ]
-
-- We'll focus on _efficiency_ with the chosen universal rewrite system, as this
-  is important! Make sure to include definitions from
-  @twenty_years_rewriting_logic
 
 - From intro: we formally represent something by _how we check it_.
 
