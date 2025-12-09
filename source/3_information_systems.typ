@@ -69,6 +69,11 @@ we can look at the space of _all_ these traces.
     (1) explicit = trace(s) <= faster trace 1 <= faster trace 2 <= ... <=
     implicit = statement of problem (x in S)
 
+    - TODO: create diagram that highlights this! Make the outer circle the
+      problem, Halting instance, and then the center is the set of explicit
+      traces. When we union these, then the an explicit trace in one machine is
+      the implicit one for another - maybe show this in a simple lemma?
+
     - ... ensured by Blum's speedup theorem - we will make this result
       self-contained + define Blum complexity measures!
 
@@ -77,13 +82,16 @@ we can look at the space of _all_ these traces.
     uncomputable means, that still adds "extra" to the search itself.
 
     - Note that <= here is NOT necesarially implication; we are more thinking
-    about a rough _measure_ of being an _exact_ trace of a TM
+      about a rough _measure_ of being an _exact_ trace of a TM
 
-    - Blum says you can always do better (_in general_).
-    TODO: show that this corresponds to _shorter traces_, fixing the main
-    measure as the size of the trace. Again, to separate _query_ from _search_,
-    we do NOT want to involve any aspect of time, so the main other attribute is
-    the space itself. (But we'll refine this!)
+    - Blum @blum_speedup says you can always do better (_in general_).
+
+      - Cite example: palindromes! Easy to discuss on efficiency
+
+    - TODO: show that this corresponds to _shorter traces_, fixing the main
+      measure as the size of the trace. Again, to separate _query_ from
+      _search_, we do NOT want to involve any aspect of time, so the main other
+      attribute is the space itself.
 
   - Our goal: how to organize when we have a *space* of things like (1)
   that are _interconnected_?

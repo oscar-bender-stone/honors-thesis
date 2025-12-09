@@ -20,6 +20,8 @@ This section develops two major components for this thesis:
 
 // TODO: How do we *connect* a Turing complete language *and* a language for logic
 // that is Sigma^0_1 sound?
+// TODO: should we bring back the idea of a formal problem and a solution?
+// Might make sense.
 
 - From intro: we formally represent something by _how we check it_.
 
