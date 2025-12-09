@@ -56,6 +56,38 @@ systems.
         - Currently: we treat _proofs_ as being traces. Need to resolve in the
           meta-theory!
 
+- Assuming we have a representation for traces (maybe via lambda terms?
+  Review!),
+we can look at the space of _all_ these traces.
+
+- HOW do we organize them? They are _base_ information, but pretty dense.
+
+  - Inefficient with equivalence modulo labeling
+
+  - So we explore information systems based on these bounds:
+
+    (1) explicit = trace(s) <= faster trace 1 <= faster trace 2 <= ... <=
+    implicit = statement of problem (x in S)
+
+    - ... ensured by Blum's speedup theorem - we will make this result
+      self-contained + define Blum complexity measures!
+
+    - Consider _statement_ of problem to be "most implicit" by fiat:
+    even if we use a proof search approach (so this may NOT halt) or use more
+    uncomputable means, that still adds "extra" to the search itself.
+
+    - Note that <= here is NOT necesarially implication; we are more thinking
+    about a rough _measure_ of being an _exact_ trace of a TM
+
+    - Blum says you can always do better (_in general_).
+    TODO: show that this corresponds to _shorter traces_, fixing the main
+    measure as the size of the trace. Again, to separate _query_ from _search_,
+    we do NOT want to involve any aspect of time, so the main other attribute is
+    the space itself. (But we'll refine this!)
+
+  - Our goal: how to organize when we have a *space* of things like (1)
+  that are _interconnected_?
+
 == Motivating Examples and Definition
 
 We start with simple informal examples to explore the concept of information:
