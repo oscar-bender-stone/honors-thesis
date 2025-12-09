@@ -55,6 +55,19 @@ systems.
     Welkin 64, we can impose specific bounds on _steps_. (Or, provide a demo
     verifier that can then be improved).
 
+    - Want to use the whole input as well: represents that the _whole_ input
+      matters for the query. This limits the inputs themselves: we want a
+      definition of a trace that goes from initial state TO accept. For reject,
+      we _want_ to do so early if needed.
+
+    - Need to encode this into the meta-theory! Maybe have a further subset to
+      make this easier? Can think of this as an _initial_ representation.
+
+#definition[
+  An * (effective) verifier* is a Turing machine that runs in linear time and it
+  accepts an input _must_ consume the entire input.
+]
+
 == Motivating Examples and Definition
 
 We start with simple informal examples to explore the concept of information:
