@@ -41,32 +41,62 @@ This section develops two major components for this thesis:
   - Introduce set of all RE sets and define UTMs simply. Maybe use lambda terms
     or meta-theory encoding to simplify this?
 
-  - Problem: too many UTMs!
+  - TODO: focus discussion on abstract rewriting system, _with_ computability in
+    mind. Simplifies lots of things. Need to be careful about composition -
+    handle carefully!
 
-    - Trivial permutations: relabeling, small changes, etc.
+#definition[
+  A *Partial Computable Abstract Rewriting System* is a pair $(X, R)$ where $R$
+  is an RE subset of $X times X$.
+]
 
-    - How to go from one UTM to another? Lots of "bloat" is possible
+- We'll focus on _efficiency_ with the chosen universal rewrite system, as this
+  is important! Make sure to include definitions from
+  @twenty_years_rewriting_logic
 
-  - Key inquiry: _how to effectively reuse answers to Halting_?
+- From intro: we formally represent something by _how we check it_.
 
-    - Want to separate _queries_ (straightforward) from _search_ (hard)!
+  - Initial idea: use computable functions. _Can_ associate a checker to any RE
+    set, even if we restrict these checkers, e.g., to specific linear time
+    functions.
 
-    - Main solution: represent this as _information_. Show that better systems
-      have _better information compression_. This IS our solution to
-      organization.
+  - BUT, we want to include RE sets
 
-  - Go back to verifier idea: we'll abstractly assume linear time, BUT for
-    Welkin 64, we can impose specific bounds on _steps_. (Or, provide a demo
-    verifier that can then be improved).
+    - Need UTMs! Provides a general appartus to explore _any_ RE set
 
-    - Want to use the whole input as well: represents that the _whole_ input
-      matters for the query. This limits the inputs themselves: we want a
-      definition of a trace that goes from initial state TO accept. In other
-      words, for THAT specific trace, _each_ step is *needed*. For reject, we
-      _want_ to do so early if needed.
+    - Clear Completeness Problem: Halting Problem (decide if x in RE set)
 
-    - Need to encode this into the meta-theory! Maybe have a further subset to
-      make this easier? Can think of this as an _initial_ representation.
+      - Logic in Meta theory: we need _proofs_ of this. This is our verifier!
+        Maybe still restrict the verifier suitably for _effective_ verification.
+
+  - Introduce set of all RE sets and define UTMs simply. Maybe use lambda terms
+    or meta-theory encoding to simplify this?
+
+- Problem: too many UTMs!
+
+  - Trivial permutations: relabeling, small changes, etc.
+
+  - How to go from one UTM to another? Lots of "bloat" is possible
+
+- Key inquiry: _how to effectively reuse answers to Halting_?
+
+  - Want to separate _queries_ (straightforward) from _search_ (hard)!
+
+  - Main solution: represent this as _information_. Show that better systems
+    have _better information compression_. This IS our solution to organization.
+
+- Go back to verifier idea: we'll abstractly assume linear time, BUT for Welkin
+  64, we can impose specific bounds on _steps_. (Or, provide a demo verifier
+  that can then be improved).
+
+  - Want to use the whole input as well: represents that the _whole_ input
+    matters for the query. This limits the inputs themselves: we want a
+    definition of a trace that goes from initial state TO accept. In other
+    words, for THAT specific trace, _each_ step is *needed*. For reject, we
+    _want_ to do so early if needed.
+
+  - Need to encode this into the meta-theory! Maybe have a further subset to
+    make this easier? Can think of this as an _initial_ representation.
 
 == Verifiers
 
@@ -166,6 +196,9 @@ that we will return to practical verifiers, those with realistic constants.
         formulas? Roughly we want to say there is a proof of this fact, or posit
         a machine M'' that searches for a _proof_ of such a construction
         existing
+
+
+      - Motivation: want to _skip_ calculating M'. Maybe M is faster?
 
 - Transition: what is information?
 
