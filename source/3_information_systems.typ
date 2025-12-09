@@ -14,6 +14,48 @@
 Now with our meta-theory in @foundations, we can proceed to discuss information
 systems.
 
+- Now can study the set of _verifiers_. A univeral verifier is a verifier of a
+  UTM. So we only need _one_ such verifier. We encode the TM AND the input in
+  question, and then simulate the whole TM.
+
+  - Same problems as before: _how_ do we organize this?
+
+  - Instead of asking what information is broadly (we'll come back to that in
+    the overarching semantics), we want to ask, what is information _for
+    verifiers_?
+
+    - Recall translation from before: we _define_ things by how they _are
+      checked_. To information on mathematical objects corresponds to
+      _information on how they are checked_.
+
+      - By how, this includes:
+
+        - _what_ things are/are not checked.
+
+        - If it speeds it up/is a slow route.
+
+      - We capture this how by defining information _as_
+      a relation between an input and a language _per_ a trace.
+
+      - Current idea in a formal setting: _information are traces_.
+
+        - Broadly treat information _as_ a relation. Manifested
+        as traces to include source, target, _and_ steps inbetween.
+
+        - Problem: this isn't efficient! Come up
+        with non-trivial examples that, while we discern here, doesn't resolve
+        the problem!
+
+        - Also note: may not be _nice_ w.r.t. certain systems. E.g., for sequent
+          calculus, composition may not be guaranteed! So we can say a composite
+          exist if _some_ steps inbetween do, but this isn't always nice! Not
+          _isomorphic_ to sequent calculus proofs (depending on the system)!
+          TODO: cite Strassburger deep inference paper to cite this issue and
+          his approach.
+
+        - Currently: we treat _proofs_ as being traces. Need to resolve in the
+          meta-theory!
+
 == Motivating Examples and Definition
 
 We start with simple informal examples to explore the concept of information:

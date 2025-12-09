@@ -87,30 +87,19 @@ corresponds to an effective verifier in an important way.
 
 For the rest of this thesis, all verifiers mentioned will be effective.
 
-- Now can study the set of _verifiers_. A univeral verifier is a verifier of a
-  UTM. So we only need _one_ such verifier. We encode the TM AND the input in
-  question, and then simulate the whole TM.
+- Transition: what is information?
 
-  - Same problems as before: _how_ do we organize this?
+  - Goal: traces = SUP information needed. We can prove this, but just refer.
 
-  - Instead of asking what information is broadly (we'll come back to that in
-    the overarching semantics), we want to ask, what is information _for
-    verifiers_?
+    - _May_ be implied by other information, but we want EXACTLY the trace
+      itself.
 
-    - Recall translation from before: we _define_ things by how they _are
-      checked_. To information on mathematical objects corresponds to
-      _information on how they are checked_.
+    - NOTE: think about multiple traces. May be a SUP in a different sense
+    (or we don't distingush traces for a _specific problem_ if they show x in S,
+    BUT it may aid in others)
 
-      - By how, this includes:
-
-        - _what_ things are/are not checked.
-
-        - If it speeds it up/is a slow route.
-
-      - We capture this how by defining information _as_
-      a relation between an input and a language _per_ a trace
-
-      -
+    - Want to build from this idea, that we want to _enhance_ our perception
+    of information, NOT just as traces.
 
 // TODO: connect back with computability!
 // == Metatheory
