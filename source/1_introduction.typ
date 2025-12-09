@@ -50,11 +50,8 @@ difficult to translate between.
 
 
 To illustrate the challenge in translations between two proof assistants,
-consider ...
-
-Even established classes of _terminating_ programs can be difficult to transpile
-between, especially those used in proof assistants. Take for example, an
-inductive proof from the proof assistant Rocq to Lean.
+consider quotient types in Lean4 vs Rocq. [TODO: complete + cite relevant
+literature!]
 
 Creating bridges beetween formal representations does require a historical
 change in perspective: _embracing reflection rather than focusing on a single
