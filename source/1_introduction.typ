@@ -68,49 +68,52 @@ languages, a spectrum of these building blocks, which we consider to be
 _information_. This thesis creates a universal information language for this
 purpose, to express information about _any formal representation_. This includes
 improving the representation itself!
+// TODO: conclude this paragraph!
 
+== Background on Information Theory
 
-- Review past results in Information theory. Possibly expand upon in a separate
-  section.
+Given the desire to _use_ information, how do we define it? Information Theory
+has established several different major trains of thoughts:
 
-  - Main theories:
+- Shannon + entropy:
 
-    - Shannon + entropy:
+  - Main founder of information theory
 
-      - Main founder of information theory
+  - Information = "reduced uncertainty"
 
-      - Information = "reduced uncertainty"
+  - Primarily probabilistic and based on _communication of bits_. Not enough for
+    _semantics_!
 
-      - Primarily probabilistic and based on _communication of bits_. Not enough
-        for _semantics_!
+  - Takeaway: information is _used_ in communication
 
-      - Takeaway: information is _used_ in communication
+- Kolomogorov + complexity:
 
-    - Kolomogorov + complexity:
+  - Minimum Description Length (MDL): we should describe objects with the
+    smallest description possible.
 
-      - Minimum Description Length (MDL): we should describe objects with the
-        smallest description possible.
+  - Kolmogorov complexity = length of _smallest_ program accepting a string
 
-      - Kolmogorov complexity = length of _smallest_ program accepting a string
+  - Practical problem: not computable!
 
-      - Practical problem: not computable!
+  - Bigger problem: _measures_ information, but does not _define it_
 
-      - Bigger problem: _measures_ information, but does not _define it_
+  - Takeaway: provides a _computational_ lens for information
 
-      - Takeaway: provides a _computational_ lens for information
+- Scott domains:
 
-    - Scott domains:
+  - Introduced information systems, but in the context of programming language
+    semantics.
 
-      - Introduced information systems!
+  - Problem: provides the axioms and key models, but not clearly tied to the
+    other theories. Also divergence from information in other senses, like
+    ontology (OWL, etc.)
 
-      - Problem: divergence from . Also divergence from information in other
-        senses, like ontology (OWL, etc.)
+- Ontologies:
 
-    - Ontologies:
+  - Frameworks: OWL, Conceptual Graphs, etc.
 
-      - Frameworks: OWL, Conceptual Graphs, etc.
-
-      - Problem: pretty restricted! Might only be first-order.
+  - Problem: pretty restricted! Most theories are only first-order, so difficult
+    for certain type theories, e.g., dependently typed.
 
 - Synthesis of information theory + past paragraph
 
@@ -130,11 +133,6 @@ improving the representation itself!
 
   - But what _is_ information?
 
-    - We'll exclude less tangible notions, like perception or emotions.
-
-    - Ultimately, even in an informal setting,
-    will need to store (tangible) information as a computable string!
-
     - So many examples: hard to know where we should go!
 
       - Algorithmic ideas.
@@ -145,8 +143,8 @@ improving the representation itself!
 
       - Probabilistic information.
 
-    - Need to do some detective work - that's part of this thesis!
 
+    // TODO: refine this! This is almost the PREMISE of what we're doing
     - _Can_ start at an indirect approach to ensure we don't
     miss anything: indirectly define things by how they are _checked_. This
     checker/verifier MUST be a Turing machine (using a standard notion!).
@@ -161,43 +159,49 @@ improving the representation itself!
 
     - _Use this definition to justify universality!_
 
-- Aim of thesis: create a universal information language to store information in
-  a standardized way.
+== Goals
 
-  - Goal 1: universality. This language applies to ANY checker.
+The aim of this thesis is to create a universal information language to
+standardize _all_ formal representations. I call this language *Welkin*, an old
+German word meaning cloud @dictionary:welkin. This aim will be made more precise
+in the later sections, where we will formally define a verifier for a
+programming language.
+- *Goal 1:* universality. This language applies to ANY checker.
 
-  - Goal 2: standardized. Needs to be rigorously and formally specified.
+- *Goal 2:* standardized. Needs to be rigorously and formally specified.
 
-  - Goal 3: optimal reuse. With respect to some critierion, enable _as much_
-    reuse on information as possible.
+- *Goal 3:* optimal reuse. With respect to some critierion, enable _as much_
+  reuse on information as possible.
 
-  - Goal 4: efficiency. Checking if we have enough information _given_ a
-    database much be efficient!
+- *Goal 4:* efficiency. Checking if we have enough information _given_ a
+  database much be efficient!
 
 
-- Organization (Maybe provide as another table _with_ descriptions?)
+== Organization
 
-  - Section 2. Foundations: define the meta-theory used + verifiers.
+// TODO: Maybe provide as another table _with_ descriptions?
 
-  - Section 3. Information Systems: explore information in the context of
-    verifiers. Then synthesize a definition to satisfy Goal 1.
+- Section 2. Foundations: define the meta-theory used + verifiers.
 
-  - Section 4. Information Reuse. Develops the optimal informal system (w.r.t to
-    a metric defined in this system) to satisfy Goal 3.
+- Section 3. Information Systems: explore information in the context of
+  verifiers. Then synthesize a definition to satisfy Goal 1.
 
-  - Section 5. Syntax: Go over the simple LL(1) grammar, which is similar to
-    JSON and uses python syntax for modules.
+- Section 4. Information Reuse. Develops the optimal informal system (w.r.t to a
+  metric defined in this system) to satisfy Goal 3.
 
-  - Section 6. Semantics: Defines information graphs and their correspondence
-    with the optimal informal system in Section 3.
+- Section 5. Syntax: Go over the simple LL(1) grammar, which is similar to JSON
+  and uses python syntax for modules.
 
-  - Section 7. Bootstrap. Fulfill Goal 2 with both the Standard AND the complete
-    bootstrap.
+- Section 6. Semantics: Defines information graphs and their correspondence with
+  the optimal informal system in Section 3.
 
-  - Section ?. Prototype. Time permitting, develop a prototype to showcase the
-    language, implemented in python with a GUI frontend (Qt) and possibly a
-    hand-made LL(1) parser.
+- Section 7. Bootstrap. Fulfill Goal 2 with both the Standard AND the complete
+  bootstrap.
 
-  - Section 8. Conclusion. Reviews the work done in the previous sections. Then
-    outlines several possible applications.
+- Section ?. Prototype. Time permitting, develop a prototype to showcase the
+  language, implemented in python with a GUI frontend (Qt) and possibly a
+  hand-made LL(1) parser.
+
+- Section 8. Conclusion. Reviews the work done in the previous sections. Then
+  outlines several possible applications.
 
