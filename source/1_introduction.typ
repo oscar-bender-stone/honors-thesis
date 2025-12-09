@@ -168,6 +168,12 @@ has established several different major trains of thoughts:
 
     - _Use this definition to justify universality!_
 
+Our overarching architecture is based on a key idea: separate _cheap queries_
+from _expensive search_. We focus on implementing the queries completeley,
+enabling arbitrary extensions to search procedures. This is inspired by and
+generalizes DPLL(T) @dpll_t for SMT-LIB solvers. Additionally, this enables
+future exploration for implementing general programs.
+
 == Goals
 
 The aim of this thesis is to create a universal information language to
@@ -190,7 +196,8 @@ programming language.
 
 // TODO: Maybe provide as another table _with_ descriptions?
 
-- Section 2. Foundations: define the meta-theory used + verifiers.
+- Section 2. Foundations: define the meta-theory used + verifiers. Also outline
+  the Trusted Computing Base. // TODO: maybe introduce this term beforehand?
 
 - Section 3. Information Systems: explore information in the context of
   verifiers. Then synthesize a definition to satisfy Goal 1.
