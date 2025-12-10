@@ -3,37 +3,46 @@
 
 = Introduction
 
+// TODO: create a stronger connection the fact that the papers I read WERE online.
+// This is crucial!
 Undergraduates are taught many things in lecture, books, and papers, but there
 is one unspoken truth: researchers have extremely _diverse_ communities. Each
 community has their own approaches, their own conferences, and their own
 formatting. They even have a distinct preference to chalk, dry-erase marker, or
 neither. I didn't notice their prominence in my early mathematical journey, in
 which I explored papers from set theory, logic, and more. At the time, I was in
-secondary education and was around few active researchers. This quickly changed
-when I enrolled in CU. I participated in several research groups and found how
-rich and fulfilling _each_ was. Sometimes, I heard about research groups during
-lecture, and this too opened my perception of research as a whole. I recognize
-now that diversity _drives_ research, including in the sciences, liberal arts,
-and many more I have hardly explored.
-
-With research being diverse as is, I started to notice how independent
-communities can be. For example, I wrote a poster for a cryptography class,
-concerning an MIT research who created programs of common crytographic schemes
+secondary education and had few physical resources. I was fortunate to have vast
+archives available on the internet, but my ability to _collaborate_ in research
+was limited. This quickly changed in college. I participated in several research
+groups and found how rich and fulfilling each was. Sometimes, I heard about
+research groups during lecture, and this too opened my perception of research as
+a whole. I recognize now that diversity _drives_ research, including in the
+sciences, liberal arts, and many more subjects I have hardly explored. Because
+of how diverse research is, these communities are extremely independent and have
+separate results. For example, I wrote a poster for a cryptography class,
+concerning an MIT researcher who created programs of common crytographic schemes
 and mathematically proved their correctness. I met this researcher at a
 conference and discovered that _neither_ knew about the other! They provided
-their own contributions, but I initially assumed that _everyone_ in
-cryptography. This does depend on the community, but even a key topic like this
-can have separate communities. As another example, at my time in the Budapest
-Semesters in Mathematics, I explored a key tool in program verification to find
-proofs for a combinatorial problem. According to my advisor, that approach had
-_never_ been considered before. The boundaries between these communities isn't
-so clear, and it seems to take years to begin to _remotely_ find them.
+their own contributions, but I initially assumed that _everyone_ contributing to
+cryptography work on common projects. As another example, at my time in the
+Budapest Semesters in Mathematics, I explored a key tool in program verification
+to find proofs for a combinatorial problem. According to my advisor, that
+approach had _never_ been considered before. The boundaries between these
+communities isn't so clear, and it seems to take years to begin to _remotely_
+find them.
 
+// TODO: cite main claims about journals/research communities/etc as needed
+// TODO: finish main problems. THEN get into ontologies as one proposals, and then explore other options possibly? Maybe just ontologies
 The separation of these communities raises a key question: _can_ research
-results be bridged together? This goes beyond the preservation of _articles_
-themselves, generally as _binary strings_ in digital archives. A notable example
-in the medical field is PubMed @medical_databases.
-
+results be bridged together? Many _publications_ are digitally availble, but
+fostering interdisciplinary research requires more. This extends beyond
+publications themselves; many of these are digitally available, at least with an
+abstract for search. The key issue is actually _using_ these articles in
+interdisciplinary research, even within two distinct subfields of some subject.
+Most journals are highly specialized, and beginning to learn the _basics_ needed
+to understand these articles is an obstacle. Additionally, . Fundamentally, this
+issue rests on communicating the _semantic knowledge_ of these topics. The
+natural approach to this are ontology frameworks.
 
 Specifically, we can consider _formalized representations_, so sets of strings
 that are computable, i.e., accepted by a computer. By taking computable to mean
