@@ -57,16 +57,21 @@ There is one existing approach to these problems: ontologies. [Explain use of AI
 AND how it doesn't work well with, e.g., logical formulas or such, IF this is
 true. Or maybe this IS still limited?]
 
-Addressing truth management is a whole topic in of itself and would not be done
-justice here. What can be done is addressing _information_, the storage of the
-_asserted_ facts themselves, regardless of truth. As one example, suppose a
-scientist claims, "X is true about Y". One could debate the veracity of that
-claim, but what we can say is, "This scientist claims, 'X is true about Y'".
-Even if we doubt that, we could do: "We can formulate a claim: This scientist
-claims 'X is true about Y'". Via some annotation, like "This claim is
-expressible", the _syntactic expression_ of the claim can be separated from its
-_semantic truth value_. I will make this more rigorous in later sections, but
-this enables a truth checking to be a _flexible extension_ to an information
+To create a suitable knowledge base, truth needs to be managed as well. This is
+a whole topic in of itself and would not be done justice here. What can be done
+is addressing _information_, the storage of the _asserted_ facts themselves,
+regardless of truth. As one example, suppose a scientist claims, "X is true
+about Y". One could debate the veracity of that claim, but what we can say is,
+"This scientist claims, 'X is true about Y'". Even if we doubt that, we could
+do: "This claim can be formulated: 'This scientist claims 'X is true about Y''".
+By using these justifications, stating that a claim is _expressible_, the
+_syntactic expression_ of the claim can be separated from its _semantic truth
+value_.#footnote[One might be worried about a paradox, such as "This claim is
+  expressible: this claim is not expressible." We will avoid this using a clear
+  separation of the overarching metatheory and object theory, with the former
+  being syntactical in nature. To express this separation, we write quotes
+  around the claim itself.] I will make this more rigorous in later sections,
+but this enables a truth checking to be a _flexible extension_ to an information
 system. This is the best we can do as a faithful representation, like human
 dependent feelings and emotions.
 
@@ -79,17 +84,18 @@ computability is being computed by a Turing machine, and by taking this, we are
 now _exactly_ discussing the problem of interoperability of programming
 languages. These, too, are extremely distinct and built for different purposes.
 Translations between these, also known as _transpilations_, is incredibly
-difficult, as this is generally equivalent to the Halting Problem.An alternative
-approach is to create an Intermediate Representation (IR) that can be shared by
-multiple languages, and then compiled onto multiple machine architectures. The
-driving standard in industry and research for this purpose is the LLVM compiler
-project. @llvm_main However, this project faces ongoing challenges, with a brief
-list including breaking changes and a massive packaging task accross different
-Operating Systems. One approach that addresses a subset of these problems is
-MILR @milr_llvm, another IR to abstract away from the original. Implementing
-these systems for _general_ programs is beyond the scope of this thesis. We will
-instead focus on computable programs, which we can interpret as verifiers to
-proof assistants. Even here, translations are difficult. // TODO: clean this up! Do we need to say we intrepret programming languages where all programs compute as a proof assistant? Do we ONLY focus on proof assistants/verifieres?
+difficult, as this is generally equivalent to the Halting Problem. An
+alternative approach is to create an Intermediate Representation (IR) that other
+languages can compile into (_frontends_), and then compiled onto multiple
+machine architectures (_backends_). The driving standard in industry and
+research for this purpose is the LLVM compiler project @llvm_main However, this
+project faces ongoing challenges, with a brief list including breaking changes
+and a massive packaging task accross different Operating Systems. One approach
+that addresses a subset of these problems is MILR @milr_llvm, another IR to
+abstract away from the original. Implementing these systems for _general_
+programs is not the intent of this thesis, and instead, is to _bridge_
+information accross languages. Therefore, we are interested in _unifying
+representations_ of these languages. // TODO: clean this up! Do we need to say we intrepret programming languages where all programs compute as a proof assistant? Do we ONLY focus on proof assistants/verifieres?
 
 To illustrate the challenge in translations between two proof assistants,
 consider quotient types in Lean4 vs Rocq. [TODO: complete + cite relevant
