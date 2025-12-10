@@ -72,19 +72,19 @@ value_.#footnote[One might be worried about a paradox, such as "This claim is
   being syntactical in nature. To express this separation, we write quotes
   around the claim itself.] I will make this more rigorous in later sections,
 but this enables a truth checking to be a _flexible extension_ to an information
-system. This is the best we can do as a faithful representation, like human
-dependent feelings and emotions.
+system.
 
 // TODO: I like mentioning information earlier. But then we really need to get to information theory pretty quickly! Do we *need* these two paragraphs? Might be worth noting in conclusion
 // TODO: make sure to talk about FAIR from one of the papers listed! Very important!]
-// TODO: revise as necessary. WHY are we now talking about OS's? This is a bit of a sudden shift and should be explained why, e.g., machine architectures are relevant.
-Our inquiry can now shift onto formal representations, which are sets of strings
-that are computable, i.e., accepted by a computer. The standard notion of
-computability is being computed by a Turing machine, and by taking this, we are
-now _exactly_ discussing the problem of interoperability of programming
-languages. These, too, are extremely distinct and built for different purposes.
-Translations between these, also known as _transpilations_, is incredibly
-difficult, as this is generally equivalent to the Halting Problem. An
+// TODO: revise as necessary. WHY are we now talking about OS's? This is a bit of a sudden shift and should be explained why, e.g., machine architectures are relevant.Maybe we should talk about program language semantics? Seems like we should still talk about proof assistants *somewhere*, and probably on solvers
+Our inquiry can now shift onto a formal representation of information. Formal
+representations, in general, are sets of strings that are computable, i.e.,
+accepted by a computer. The standard notion of computability is being computed
+by a Turing machine, and by taking this, we are now _exactly_ discussing the
+problem of interoperability of programming languages. These, too, are extremely
+distinct and built for different purposes. Semantic preserving and reflecting
+translations between these, also known as _transpilations_, are incredibly
+difficult, as they are generally equivalent to the Halting Problem. An
 alternative approach is to create an Intermediate Representation (IR) that other
 languages can compile into (_frontends_), and then compiled onto multiple
 machine architectures (_backends_). The driving standard in industry and
@@ -94,7 +94,7 @@ and a massive packaging task accross different Operating Systems. One approach
 that addresses a subset of these problems is MILR @milr_llvm, another IR to
 abstract away from the original. Implementing these systems for _general_
 programs is not the intent of this thesis, and instead, is to _bridge_
-information accross languages. Therefore, we are interested in _unifying
+information _about_ programs. Therefore, we are interested in _unifying
 representations_ of these languages.
 
 // TODO: determine languages
@@ -135,10 +135,8 @@ Why?]
 )<transpilation_example>
 
 
-// To illustrate the challenge in translations between two proof assistants,
-// consider quotient types in Lean4 vs Rocq. [TODO: complete + cite relevant
-// literature!]
-
+// TODO: explain WHY we need a change in perspective. This is key!
+// Maybe we can *bridge* this with the example to say that translations are unnatural. For instance, in python, you have to use the whole C specific translations in order to get into memory issues! But this itself is fragile...
 Creating bridges beetween formal representations does require a historical
 change in perspective: _embracing reflection rather than focusing on a single
 theory_. This train of thought comes from Universal Logic, initiated by Béziau
