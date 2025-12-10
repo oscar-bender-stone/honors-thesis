@@ -28,10 +28,11 @@ _never_ been considered before. The boundaries between these communities isn't
 so clear, and it seems to take years to begin to _remotely_ find them.
 
 The separation of these communities raises a key question: _can_ research
-results be bridged together? Can they be written in _one_ place for retrieval,
-similar to how the internet is the standard for global communication? This is
-more vague for certain disciplines, such as connecting two distinct areas in
-philosophy, but we can focus on their _representations_ instead: binary strings.
+results be bridged together? This goes beyond the preservation of _articles_
+themselves, generally as _binary strings_ in digital archives. A notable example
+in the medical field is PubMed @medical_databases.
+
+
 Specifically, we can consider _formalized representations_, so sets of strings
 that are computable, i.e., accepted by a computer. By taking computable to mean
 the standard notion, Turing computable, our inquiry is now exactly about the
