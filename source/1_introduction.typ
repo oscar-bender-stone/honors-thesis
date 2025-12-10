@@ -39,7 +39,7 @@ available thanks to the internet, even behind a paywall or subscriptions.
 However, there are more challenges to storing the knowledge therein, as
 recognized by several papers, including @FAIR_guiding_science. Firstly, journals
 are usually highly specialized, require an immense understanding of the broader
-concepts involved and nomenclautre used. This is clear in the sciences, as
+concepts involved and nomenclature used. This is clear in the sciences, as
 explored in @hierarchy_science, @specialized_science. Additionally, representing
 knowledge can be difficult. In mathematics, for example, several attempts have
 been made to catalog major theories and results. [DESCRIBE ATTEMPTS &
@@ -97,9 +97,17 @@ programs is not the intent of this thesis, and instead, is to _bridge_
 information accross languages. Therefore, we are interested in _unifying
 representations_ of these languages.
 
+// TODO: determine languages
+// for the example.
+// Do we *want* proof assistants here?
+// We should get straight to the point and quickly wrap up this part of the intro
+// TODO: configure syntax highlighting to be accessible
 To demonstrate the difficulty of a unified representation, we provide an example
-with Python and C.
-
+with Python and C @transpilation_example. [PROVIDE DETAILS ON EXAMPLE] Using
+LLVM IR would not remove this issue. The fundamental differences in memory
+management would persist, and while this is possible to some extent, it's not
+completely seamless. Manual work is generally required. [TODO: what manual work?
+Why?]
 
 #figure(
   grid(
@@ -108,7 +116,7 @@ with Python and C.
     [
       ```c
       int main() {
-
+        return 0;
       }
       ```
     ],
@@ -123,8 +131,9 @@ with Python and C.
       ```
     ],
   ),
-  caption: "Example programs in C and Python.",
-)
+  caption: "Example programs in C (left) and Python (right).",
+)<transpilation_example>
+
 
 // To illustrate the challenge in translations between two proof assistants,
 // consider quotient types in Lean4 vs Rocq. [TODO: complete + cite relevant
