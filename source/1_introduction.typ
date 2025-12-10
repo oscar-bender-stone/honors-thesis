@@ -5,14 +5,16 @@
 
 Undergraduates are taught many things in lecture, books, and papers, but there
 is one unspoken truth: researchers have extremely _diverse_ communities. Each
-community has their own approaches, their own conferences, and even their
-preference of chalk, dry-erase marker, or neither. I didn't notice in my early
-mathematical journey; I wanted to absorb a wide range of papers, from number
-theory to set theory. At the time, I was in secondary education and was around
-few active researchers. CU changed this experience for me and look forward to
-collaboration. This diversity is fundamental to research as a whole, even in the
-many subjects I have not deeply explored, including the sciences, liberal arts,
-and more.
+community has their own approaches, their own conferences, and their own
+formatting. They even have a distinct preference to chalk, dry-erase marker, or
+neither. I didn't notice their prominence in my early mathematical journey, in
+which I explored papers from set theory, logic, and more. At the time, I was in
+secondary education and was around few active researchers. This quickly changed
+when I enrolled in CU. I participated in several research groups and found how
+rich and fulfilling _each_ was. Sometimes, I heard about research groups during
+lecture, and this too opened my perception of research as a whole. I recognize
+now that diversity _drives_ research, including in the sciences, liberal arts,
+and many more I have hardly explored.
 
 With research being diverse as is, I started to notice how independent
 communities can be. For example, I wrote a poster for a cryptography class,
