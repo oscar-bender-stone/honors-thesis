@@ -64,7 +64,7 @@ regardless of truth. As one example, suppose a scientist claims, "X is true
 about Y". One could debate the veracity of that claim, but what we can say is,
 "This scientist claims, 'X is true about Y'". Even if we doubt that, we could
 do: "This claim can be formulated: 'This scientist claims 'X is true about Y''".
-By using these justifications, stating that a claim is _expressible_, the
+By using these justifications, stating that a claim is expressible, the
 _syntactic expression_ of the claim can be separated from its _semantic truth
 value_.#footnote[One might be worried about a paradox, such as "This claim is
   expressible: this claim is not expressible." We will avoid this using a clear
@@ -88,18 +88,47 @@ difficult, as this is generally equivalent to the Halting Problem. An
 alternative approach is to create an Intermediate Representation (IR) that other
 languages can compile into (_frontends_), and then compiled onto multiple
 machine architectures (_backends_). The driving standard in industry and
-research for this purpose is the LLVM compiler project @llvm_main However, this
+research for this purpose is the LLVM compiler project @llvm_main. However, this
 project faces ongoing challenges, with a brief list including breaking changes
 and a massive packaging task accross different Operating Systems. One approach
 that addresses a subset of these problems is MILR @milr_llvm, another IR to
 abstract away from the original. Implementing these systems for _general_
 programs is not the intent of this thesis, and instead, is to _bridge_
 information accross languages. Therefore, we are interested in _unifying
-representations_ of these languages. // TODO: clean this up! Do we need to say we intrepret programming languages where all programs compute as a proof assistant? Do we ONLY focus on proof assistants/verifieres?
+representations_ of these languages.
 
-To illustrate the challenge in translations between two proof assistants,
-consider quotient types in Lean4 vs Rocq. [TODO: complete + cite relevant
-literature!]
+To demonstrate the difficulty of a unified representation, we provide an example
+with Python and C.
+
+
+#figure(
+  grid(
+    columns: (1fr, 1fr),
+    gutter: 20pt,
+    [
+      ```c
+      int main() {
+
+      }
+      ```
+    ],
+    [
+      ```python
+      def main():
+        pass
+
+      if __init__ == "__main__":
+        pass
+
+      ```
+    ],
+  ),
+  caption: "Example programs in C and Python.",
+)
+
+// To illustrate the challenge in translations between two proof assistants,
+// consider quotient types in Lean4 vs Rocq. [TODO: complete + cite relevant
+// literature!]
 
 Creating bridges beetween formal representations does require a historical
 change in perspective: _embracing reflection rather than focusing on a single
