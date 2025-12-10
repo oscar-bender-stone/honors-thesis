@@ -21,7 +21,7 @@
     to Peano Arithmetic).],
   bibliography: bibliography((
     "references/intro.bib",
-    "references/references.bib",
+    "references/misc.bib",
   )),
 )
 
