@@ -17,11 +17,12 @@ was limited. This quickly changed in college. I participated in several research
 groups and found how rich and fulfilling each was. Sometimes, I heard about
 research groups during lecture, and this too opened my perception of research as
 a whole. I recognize now that diversity _drives_ research, including in the
-sciences, liberal arts, and many more subjects I have hardly explored. Because
-of how diverse research is, these communities are extremely independent and have
-separate results. For example, I wrote a poster for a cryptography class,
-concerning an MIT researcher who created programs of common crytographic schemes
-and mathematically proved their correctness. I met this researcher at a
+sciences, liberal arts, and many more subjects I have hardly explored.
+
+Because of how diverse research is, these communities are extremely independent
+and have separate results. For example, I wrote a poster for a cryptography
+class, concerning an MIT researcher who created programs of common crytographic
+schemes and mathematically proved their correctness. I met this researcher at a
 conference and discovered that _neither_ knew about the other! They provided
 their own contributions, but I initially assumed that _everyone_ contributing to
 cryptography work on common projects. As another example, at my time in the
@@ -33,16 +34,20 @@ find them.
 
 // TODO: cite main claims about journals/research communities/etc as needed
 // TODO: finish main problems. THEN get into ontologies as one proposals, and then explore other options possibly? Maybe just ontologies
-The separation of these communities raises a key question: _can_ research
-results be bridged together? Many _publications_ are digitally availble, but
-fostering interdisciplinary research requires more. This extends beyond
-publications themselves; many of these are digitally available, at least with an
-abstract for search. The key issue is actually _using_ these articles in
-interdisciplinary research, even within two distinct subfields of some subject.
-Most journals are highly specialized, and beginning to learn the _basics_ needed
-to understand these articles is an obstacle. Additionally, . Fundamentally, this
-issue rests on communicating the _semantic knowledge_ of these topics. The
-natural approach to this are ontology frameworks.
+The separation of these communities raises a key question: _can_ knowledge
+across disciplines be bridged together? Publications have become more widely
+available thanks to the internet, even behind a paywall or subscriptions, but
+there are more challenges to storing the knowledge therein. Firstly, journals
+are usually highly specialized, require an immense understanding of the broader
+concepts involved and nomenclautre used. This is clear in the sciences, as
+explored in @hierarchy_science, @specialized_science. Additionally, representing
+knowledge can be difficult. In mathematics, for example, several attempts have
+been made to catalog major theories and results. [DESCRIBE ATTEMPTS &
+LIMITATIONS]. Finally, . All of these challenges demonstrate the difficulty in
+creating a knowledge base with both broad applicability and faithful
+representations to the original research.
+
+== Bridging Formal Representations
 
 Specifically, we can consider _formalized representations_, so sets of strings
 that are computable, i.e., accepted by a computer. By taking computable to mean
