@@ -67,32 +67,29 @@ claims 'X is true about Y'". Via some annotation, like "This claim is
 expressible", the _syntactic expression_ of the claim can be separated from its
 _semantic truth value_. I will make this more rigorous in later sections, but
 this enables a truth checking to be a _flexible extension_ to an information
-system. This is the best we can do as a faithful representation, like huamn
+system. This is the best we can do as a faithful representation, like human
 dependent feelings and emotions.
-
-Our focus can now shift onto formal representations, which are sets of strings
-that are computable, i.e., accepted by a computer.
 
 // TODO: I like mentioning information earlier. But then we really need to get to information theory pretty quickly! Do we *need* these two paragraphs? Might be worth noting in conclusion
 // TODO: make sure to talk about FAIR from one of the papers listed! Very important!]
-// TODO: revise as necessary
+// TODO: revise as necessary. WHY are we now talking about OS's? This is a bit of a sudden shift and should be explained why, e.g., machine architectures are relevant.
 Our inquiry can now shift onto formal representations, which are sets of strings
 that are computable, i.e., accepted by a computer. The standard notion of
-computability is being computed by a Turing machine, and by taking this, our
-inquiry is now exactly about the proliferation of programming languages. These,
-too, are extremely distinct and built for different purposes. Translations
-between these, also known as _transpilation_, is incredibly difficult, as this
-is generally equivalent to the Halting Problem. A major project towards this
-goal is LLVM @llvm_main, a compiler library for other programming languages.
-Languages can implement in an intermediate form, LLVM IR, that the LLVM
-framework can then compile into a range of machine architectures. While being an
-industry and research standard, LLVM has faced numerous challenges, with a brief
-list including breaking changes and a massive packaging challenge accross
-different Operating Systems. One approach that addresses a subset of these
-problems is MILR @milr_llvm, another IR to abstract away from the original.
-Implementing these systems for _general_ programs is beyond the scope of this
-thesis. We will instead focus on computable programs, which we can interpret as
-verifiers to proof assistants. Even here, translations are difficult. // TODO: clean this up! Do we need to say we intrepret programming languages where all programs compute as a proof assistant? Do we ONLY focus on proof assistants/verifieres?
+computability is being computed by a Turing machine, and by taking this, we are
+now _exactly_ discussing the problem of interoperability of programming
+languages. These, too, are extremely distinct and built for different purposes.
+Translations between these, also known as _transpilations_, is incredibly
+difficult, as this is generally equivalent to the Halting Problem.An alternative
+approach is to create an Intermediate Representation (IR) that can be shared by
+multiple languages, and then compiled onto multiple machine architectures. The
+driving standard in industry and research for this purpose is the LLVM compiler
+project. @llvm_main However, this project faces ongoing challenges, with a brief
+list including breaking changes and a massive packaging task accross different
+Operating Systems. One approach that addresses a subset of these problems is
+MILR @milr_llvm, another IR to abstract away from the original. Implementing
+these systems for _general_ programs is beyond the scope of this thesis. We will
+instead focus on computable programs, which we can interpret as verifiers to
+proof assistants. Even here, translations are difficult. // TODO: clean this up! Do we need to say we intrepret programming languages where all programs compute as a proof assistant? Do we ONLY focus on proof assistants/verifieres?
 
 To illustrate the challenge in translations between two proof assistants,
 consider quotient types in Lean4 vs Rocq. [TODO: complete + cite relevant
@@ -235,7 +232,9 @@ standardize _all_ formal representations. I call this language *Welkin*, an old
 German word meaning cloud @dictionary:welkin. This aim will be made more precise
 in the later sections, where we will formally define a verifier for a
 programming language.
-- *Goal 1:* universality. This language applies to ANY checker.
+- *Goal 1:* universality. This language applies to ANY checker. Needs to be
+  extremely flexible towards this goal, so we can ONLY assume, at most, we are
+  getting a TM as an input, or it's somehow programmed.
 
 - *Goal 2:* standardized. Needs to be rigorously and formally specified.
 
