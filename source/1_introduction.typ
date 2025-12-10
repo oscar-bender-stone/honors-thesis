@@ -57,11 +57,21 @@ There is one existing approach to these problems: ontologies. [Explain use of AI
 AND how it doesn't work well with, e.g., logical formulas or such, IF this is
 true. Or maybe this IS still limited?]
 
-== Bridging Formal Representations
+Addressing truth management is a whole topic in of itself and would not be done
+justice here. What can be done is addressing _information_, the storage of the
+_asserted_ facts themselves, regardless of truth. As one example, suppose a
+scientist claims, "X is true about Y". One could debate the veracity of that
+claim, but what we can say is, "This scientist claims, 'X is true about Y'"".
+Including an annotation that takes a _fact_ and turns it instead into a _claim_
+separates truth from the underlying _structure_ of the information. I will make
+this more rigorous in later sections, but this enables us to move onto _formal
+representations_ of information instead.
 
-Specifically, we can consider _formalized representations_, so sets of strings
-that are computable, i.e., accepted by a computer. By taking computable to mean
-the standard notion, Turing computable, our inquiry is now exactly about the
+// TODO: I like mentioning information earlier. But then we really need to get to information theory pretty quickly! Do we *need* these two paragraphs? Might be worth noting in conclusion
+[MAKE sure to talk about FAIR from one of the papers listed! Very important!] We
+can consider these as formalized representations, so so sets of strings that are
+computable, i.e., accepted by a computer. By taking computable to mean the
+standard notion, Turing computable, our inquiry is now exactly about the
 proliferation of programming languages. These, too, are extremely distinct and
 built for different purposes. Translations between these, also known as
 _transpilation_, is incredibly difficult, as this is generally equivalent to the
