@@ -8,7 +8,7 @@
 Undergraduates are taught many things in lecture, books, and papers, but there
 is one unspoken truth: researchers have extremely _diverse_ communities. Each
 community has their own approaches, their own conferences, and their own
-formatting. They even have a distinct preference to chalk, dry-erase marker, or
+formatting. They even have a distinct preference to chalk, dry erase marker, or
 neither. I didn't notice their prominence in my early mathematical journey, in
 which I explored papers from set theory, logic, and more. At the time, I was in
 secondary education and had few physical resources. I was fortunate to have vast
@@ -33,19 +33,29 @@ communities isn't so clear, and it seems to take years to begin to _remotely_
 find them.
 
 // TODO: cite main claims about journals/research communities/etc as needed
-// TODO: finish main problems. THEN get into ontologies as one proposals, and then explore other options possibly? Maybe just ontologies
 The separation of these communities raises a key question: _can_ knowledge
 across disciplines be bridged together? Publications have become more widely
-available thanks to the internet, even behind a paywall or subscriptions, but
-there are more challenges to storing the knowledge therein. Firstly, journals
+available thanks to the internet, even behind a paywall or subscriptions.
+However, there are more challenges to storing the knowledge therein, as
+recognized by several papers, including @FAIR_guiding_science. Firstly, journals
 are usually highly specialized, require an immense understanding of the broader
 concepts involved and nomenclautre used. This is clear in the sciences, as
 explored in @hierarchy_science, @specialized_science. Additionally, representing
 knowledge can be difficult. In mathematics, for example, several attempts have
 been made to catalog major theories and results. [DESCRIBE ATTEMPTS &
-LIMITATIONS]. Finally, . All of these challenges demonstrate the difficulty in
+LIMITATIONS]. In other subjects, like the social sciences, there are _no_
+standard terms, and the majority of cited references are books, which are not
+indexed by many databases @social_sciences_databases. These are [challenging
+synonym] for existing tools @hierarchy_science. As another challenge, many
+formats are fragile to incorrect syntax [EXPLAIN AND ELABORATE]. Each of these
+challenges, a small fraction of existing barriers, demonstrate the difficulty in
 creating a knowledge base with both broad applicability and faithful
 representations to the original research.
+
+// TODO: finish main problems. THEN get into ontologies as one proposals, and then explore other options possibly? Maybe just ontologies
+There is one existing approach to these problems: ontologies. [Explain use of AI
+AND how it doesn't work well with, e.g., logical formulas or such, IF this is
+true. Or maybe this IS still limited?]
 
 == Bridging Formal Representations
 
