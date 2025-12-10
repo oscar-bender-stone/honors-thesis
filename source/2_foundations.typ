@@ -21,11 +21,16 @@ need a different approach.
 
 The key problem to reliability is, while we can easily verify if a given input
 is accepted by a verifier, how do we tell when there is _no_ such input? We use
-a novel criterion developed by Artemov's Logic of Proofs @artemov_lp.
+a novel criterion developed by Artemov's Logic of Proofs @artemov_lp. [TODO:
+bridge this with selector proofs. Also, make sure to explain WHY the arithmetic
+hierarchy is enough. We JUST want to explore properties of naturals. We can't do
+beyond. But we should prove this!]
 
 This is where our metatheory come in. [TODO: explore arithmetic hierarchy
 briefly? How do we know _which_ results on computability are trustworthy? This
 is ESSENTIAL for the TCB!]
+
+== Logic of Proofs
 
 == Computability
 

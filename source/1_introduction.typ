@@ -40,14 +40,15 @@ built for different purposes. Translations between these, also known as
 _transpilation_, is incredibly difficult, as this is generally equivalent to the
 Halting Problem. A major project towards this goal is LLVM @llvm_main, a
 compiler library for other programming languages. Languages can implement in an
-intermediate form called LLVM IR. While being an industry and research standard
+intermediate form, LLVM IR, that the LLVM framework can then compile into a
+range of machine architectures. While being an industry and research standard,
 LLVM has faced numerous challenges, with a brief list including breaking changes
-and maintence difficulties accross systems, with one approach to a subset of
-these problems being MILR @milr_llvm as another IR to abstract away from the
-original. Implementing these systems for _general_ programs is beyond the scope
-of this thesis. We will instead focus on computable programs, which we can
-interpret as verifiers to proof assistants. Even here, translations are
-difficult. // TODO: clean this up! Do we need to say we intrepret programming languages where all programs compute as a proof assistant? Do we ONLY focus on proof assistants/verifieres?
+and a massive packaging challenge accross different Operating Systems. One
+approach that addresses a subset of these problems is MILR @milr_llvm, another
+IR to abstract away from the original. Implementing these systems for _general_
+programs is beyond the scope of this thesis. We will instead focus on computable
+programs, which we can interpret as verifiers to proof assistants. Even here,
+translations are difficult. // TODO: clean this up! Do we need to say we intrepret programming languages where all programs compute as a proof assistant? Do we ONLY focus on proof assistants/verifieres?
 
 To illustrate the challenge in translations between two proof assistants,
 consider quotient types in Lean4 vs Rocq. [TODO: complete + cite relevant
