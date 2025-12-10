@@ -19,7 +19,10 @@
     From there, we introduce the bootstrap, making Welkin completely
     self-contained under the meta-theory of Goedel's System T (equi-consistent
     to Peano Arithmetic).],
-  bibliography: bibliography("references.bib"),
+  bibliography: bibliography((
+    "references/intro.bib",
+    "references/references.bib",
+  )),
 )
 
 #outline()
