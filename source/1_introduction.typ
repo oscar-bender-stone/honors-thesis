@@ -61,31 +61,38 @@ Addressing truth management is a whole topic in of itself and would not be done
 justice here. What can be done is addressing _information_, the storage of the
 _asserted_ facts themselves, regardless of truth. As one example, suppose a
 scientist claims, "X is true about Y". One could debate the veracity of that
-claim, but what we can say is, "This scientist claims, 'X is true about Y'"".
-Including an annotation that takes a _fact_ and turns it instead into a _claim_
-separates truth from the underlying _structure_ of the information. I will make
-this more rigorous in later sections, but this enables us to move onto _formal
-representations_ of information instead.
+claim, but what we can say is, "This scientist claims, 'X is true about Y'".
+Even if we doubt that, we could do: "We can formulate a claim: This scientist
+claims 'X is true about Y'". Via some annotation, like "This claim is
+expressible", the _syntactic expression_ of the claim can be separated from its
+_semantic truth value_. I will make this more rigorous in later sections, but
+this enables a truth checking to be a _flexible extension_ to an information
+system. This is the best we can do as a faithful representation, like huamn
+dependent feelings and emotions.
+
+Our focus can now shift onto formal representations, which are sets of strings
+that are computable, i.e., accepted by a computer.
 
 // TODO: I like mentioning information earlier. But then we really need to get to information theory pretty quickly! Do we *need* these two paragraphs? Might be worth noting in conclusion
-[MAKE sure to talk about FAIR from one of the papers listed! Very important!] We
-can consider these as formalized representations, so so sets of strings that are
-computable, i.e., accepted by a computer. By taking computable to mean the
-standard notion, Turing computable, our inquiry is now exactly about the
-proliferation of programming languages. These, too, are extremely distinct and
-built for different purposes. Translations between these, also known as
-_transpilation_, is incredibly difficult, as this is generally equivalent to the
-Halting Problem. A major project towards this goal is LLVM @llvm_main, a
-compiler library for other programming languages. Languages can implement in an
-intermediate form, LLVM IR, that the LLVM framework can then compile into a
-range of machine architectures. While being an industry and research standard,
-LLVM has faced numerous challenges, with a brief list including breaking changes
-and a massive packaging challenge accross different Operating Systems. One
-approach that addresses a subset of these problems is MILR @milr_llvm, another
-IR to abstract away from the original. Implementing these systems for _general_
-programs is beyond the scope of this thesis. We will instead focus on computable
-programs, which we can interpret as verifiers to proof assistants. Even here,
-translations are difficult. // TODO: clean this up! Do we need to say we intrepret programming languages where all programs compute as a proof assistant? Do we ONLY focus on proof assistants/verifieres?
+// TODO: make sure to talk about FAIR from one of the papers listed! Very important!]
+// TODO: revise as necessary
+Our inquiry can now shift onto formal representations, which are sets of strings
+that are computable, i.e., accepted by a computer. The standard notion of
+computability is being computed by a Turing machine, and by taking this, our
+inquiry is now exactly about the proliferation of programming languages. These,
+too, are extremely distinct and built for different purposes. Translations
+between these, also known as _transpilation_, is incredibly difficult, as this
+is generally equivalent to the Halting Problem. A major project towards this
+goal is LLVM @llvm_main, a compiler library for other programming languages.
+Languages can implement in an intermediate form, LLVM IR, that the LLVM
+framework can then compile into a range of machine architectures. While being an
+industry and research standard, LLVM has faced numerous challenges, with a brief
+list including breaking changes and a massive packaging challenge accross
+different Operating Systems. One approach that addresses a subset of these
+problems is MILR @milr_llvm, another IR to abstract away from the original.
+Implementing these systems for _general_ programs is beyond the scope of this
+thesis. We will instead focus on computable programs, which we can interpret as
+verifiers to proof assistants. Even here, translations are difficult. // TODO: clean this up! Do we need to say we intrepret programming languages where all programs compute as a proof assistant? Do we ONLY focus on proof assistants/verifieres?
 
 To illustrate the challenge in translations between two proof assistants,
 consider quotient types in Lean4 vs Rocq. [TODO: complete + cite relevant
