@@ -87,16 +87,19 @@ extension_ to an information system.
 // This is EXACTLY what we want to systematically implement!
 // TODO: find good sources for Kolmogorov complexity
 Information systems have been extensively studied via _measurements_ in
-Algorithmic Information Theory (AIT). The founding idea of AIT is Minimum
+Algorithmic Information Theory (AIT). The founding idea of AIT is the Minimum
 Description Length (MDL) principle, that the best definition for an object is
-the smallest thing that describes it. This is formalized as Kolmogorv complexity
-of a binary string, the length of the smallest program that computes that
-string. Being described by a smaller program indicates a string that is easier
-to describe and thus has less information. But being described by a larger
-program indicates more _randomness_ string and thus more information. A modern
+the smallest description that describes it. This is formalized as Kolmogorv
+complexity of a binary string, the length of the smallest program that computes
+that string (see @intro_kolmogorov_complexity). This program is defined via a
+Turing-computable programming language [REWORD], and there is a different
+constant factor depending on the language, but AIT focuses on the asymptotic
+complexity. Being described by a smaller program indicates a string that is
+easier to describe and thus has less information. But being described by a
+larger program indicates more _randomness_ and thus more information. A modern
 figure in this field, Chaitin, describes this relationship as compression. He
 states this as follows: "A useful theory is a compression of the data;
-comprehension is compression" @limits_on_reason. I do not defned the claim that
+comprehension is compression" @limits_on_reason. I do not defend the claim that
 comprehension _is_ compression, as that creates similar problems with managing
 truth. Instead, this is a statement on _representations_, the best we can do
 with Turing machines as an established notion of computability. [LIST
@@ -106,34 +109,26 @@ CONTRIBUTIONS OF AIT. WHAT IS GOOD]. [GOOD TRANSITION TO NEXT PARAGRAPH]
 // THAT is what we want in an Trusted Computing Base; GOOD information transfer! Also tie in with still maintaining _reliability_ despite not tackling all of truth management.
 // TODO: emphasize that we define represetations by how they are verified!
 
-Although AIT has major accomplishments with measuring information, this field
-does not indicate _how_ to measure information. [DISCUSS CONNECTION TO
-ORGANIZATOIN. MAKE THIS A KEY WORD FOR THE WHOLE THESIS!]. The main theorem on
-this is that any programming language can ressbe used to prove these claims.
-These translations have not been specifically addressed in the literature, and
-remain a prolific part in software for actual machines. [DESCRIBE PROBLEMS HERE
-CONSCISELY. ]
+Although AIT has established many asymptotic measurements on information, these
+asymptotics do not indicate _how_ to measure information. Besides Kolmogorov
+complexity being uncomputable, the choice of fixed programming language is not
+elaborated. Chaitin created a LISP variant, designed specifically for the ease
+of implementation, but this does not address the faithful representations of
+other languages. This emerges as an ongoing challenge in physical machines
+through the proliferation of programming languages.[TODO: describe this
+concisely!]
 
-
-Our inquiry can now shift onto a formal representation of information. Formal
-representations, in general, are sets of strings that are computable, i.e.,
-accepted by a computer. The standard notion of computability is being computed
-by a Turing machine, and by taking this, we are now _exactly_ discussing the
-problem of interoperability of programming languages. These, too, are extremely
-distinct and built for different purposes. Semantic preserving and reflecting
-translations between these, also known as _transpilations_, are incredibly
-difficult, as they are generally equivalent to the Halting Problem. An
-alternative approach is to create an Intermediate Representation (IR) that other
-languages can compile into (_frontends_), and then compiled onto multiple
-machine architectures (_backends_). The driving standard in industry and
-research for this purpose is the LLVM compiler project @llvm_main. However, this
-project faces ongoing challenges, with a brief list including breaking changes
-and a massive packaging task accross different Operating Systems. One approach
-that addresses a subset of these problems is MILR @milr_llvm, another IR to
-abstract away from the original. Implementing these systems for _general_
-programs is not the intent of this thesis, and instead, is to _bridge_
-information _about_ programs. Therefore, we are interested in _unifying
-representations_ of these languages.
+// An alternative approach is to create an Intermediate Representation (IR) that
+// other languages can compile into (_frontends_), and then compiled onto multiple
+// machine architectures (_backends_). The driving standard in industry and
+// research for this purpose is the LLVM compiler project @llvm_main. However, this
+// project faces ongoing challenges, with a brief list including breaking changes
+// and a massive packaging task accross different Operating Systems. One approach
+// that addresses a subset of these problems is MILR @milr_llvm, another IR to
+// abstract away from the original. Implementing these systems for _general_
+// programs is not the intent of this thesis, and instead, is to _bridge_
+// information _about_ programs. Therefore, we are interested in _unifying
+// representations_ of these languages.
 
 // TODO: determine languages
 // for the example.
