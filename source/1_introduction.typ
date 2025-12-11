@@ -93,9 +93,15 @@ extension_ to an information system.
 Information systems have been extensively studied via _measurements_ in
 Algorithmic Information Theory (AIT). The founding idea of AIT is the Minimum
 Description Length (MDL) principle, that the best definition for an object is
-the smallest description that describes it. This is formalized as Kolmogorv
-complexity of a binary string, the length of the smallest program that computes
-that string (see @intro_kolmogorov_complexity). This program is defined via a
+the smallest description that describes it. This informal definition needs to be
+refined due to the Richard-Berry paradox, which asks if the following number
+exists: "'the least natural number that cannot be described in less than twenty
+words.'" @intro_kolmogorov_complexity. If such a number exists, this short
+description contradicts itself, but if no such number exists, then all numbers
+can be described with less than twenty words. To address this paradox,
+Kolmogorov defined a description as a _program_, and the Kolmogorov complexity
+of a string as the length of the _smallest program_ that computes that string
+(see @intro_kolmogorov_complexity). This program is defined via a
 Turing-computable programming language [REWORD], and there is a different
 constant factor depending on the language, but AIT focuses on the asymptotic
 complexity. Using this notion of information, AIT provides the underlying cause
@@ -133,15 +139,15 @@ reason for the diversityof research?]
 // community, and have their own broad defnition of a logic, which is distinct from
 // those in Categorical Logic, Type Theory, and others.
 
-
 Although AIT has established many asymptotic measurements on information, these
 asymptotics do not indicate _how_ to measure information. Besides Kolmogorov
 complexity being uncomputable, the choice of fixed programming language is not
 elaborated. Chaitin created a LISP variant, designed specifically for the ease
 of implementation and analysis @chaitin_lisp, but this does not address the
 faithful representations of other languages. This emerges as an ongoing
-challenge in physical machines through the proliferation of programming
-languages.[TODO: describe this concisely!]
+challenge in physical machines through the proliferation of both practical and
+academic programming languages.
+#todo[Describe the problems with programming languages concisely!]
 
 // An alternative approach is to create an Intermediate Representation (IR) that
 // other languages can compile into (_frontends_), and then compiled onto multiple
@@ -154,18 +160,6 @@ languages.[TODO: describe this concisely!]
 // programs is not the intent of this thesis, and instead, is to _bridge_
 // information _about_ programs. Therefore, we are interested in _unifying
 // representations_ of these languages.
-
-// TODO: determine languages
-// for the example.
-// Do we *want* proof assistants here?
-// We should get straight to the point and quickly wrap up this part of the intro
-// TODO: configure syntax highlighting to be accessible
-To demonstrate the difficulty of a unified representation, we provide an example
-with Python and C @transpilation_example. [PROVIDE DETAILS ON EXAMPLE] Using
-LLVM IR would not remove this issue. The fundamental differences in memory
-management would persist, and while this is possible to some extent, it's not
-completely seamless. Manual work is generally required. [TODO: what manual work?
-Why?]
 
 #figure(
   grid(
