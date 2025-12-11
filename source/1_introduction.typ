@@ -102,34 +102,9 @@ truth. Instead, this is a statement on _representations_, the best we can do
 with Turing machines as an established notion of computability. [LIST
 CONTRIBUTIONS OF AIT. WHAT IS GOOD]. [GOOD TRANSITION TO NEXT PARAGRAPH]
 
-- Summarize information theory here. Let's get the intro done in one place
-  (besides goals and organization)! May be easier to focus on AIT (Algorithmic
-  Information Theory) for our purposes.
-
-  - Main problem: _how_ do we manage information? This thesis is ALL about the
-    organization of information! That is, reuse! This is exactly in line with
-    compression, but the _how_!
-
-    - Connects back to Turing machines - we can _use_ Turing machines as our
-    "generalized theories". Main philosophy: represent things by how they are
-    _checked_. So this is done by a total Turing machine!
-
-    - We also need _computable_ ways to encode, which is what Chaitin's theory
-      describes. But it doesn't show us _how_ to organize things!
-
-    - Also helps to explain overhead in representing things. Might be different
-      depending on base representation used. Chaitin says this doesn't matter in
-      the limit (CITE.) *The goal of this thesis is to RESOLVE this problem, on
-      the query end!*
-
-  - Why is Chaitin's work so useful here? Because it explains WHAT EXACTLY we
-    need in the metatheory! *Enough information to encode itself to talk about
-    all other theories!*
-
-    - Address Trusted Computing Base here or in next paragraph!
-
-  - Main point from Chaitin: need an _open_ model for theories, NOT a closed
-    one.
+// TODO: emphasize that we switch from truth to INFORMATION TRANSER!
+// THAT is what we want in an Trusted Computing Base; GOOD information transfer! Also tie in with still maintaining _reliability_ despite not tackling all of truth management.
+// TODO: emphasize that we define represetations by how they are verified!
 
 Although AIT has major accomplishments with measuring information, this field
 does not indicate _how_ to measure information. [DISCUSS CONNECTION TO
