@@ -15,6 +15,8 @@ This will be replaced with an official message once the thesis is completed.
 
 **Honors Representative:** [Nathaniel Thiem](nathaniel.thiem@colorado.edu)
 
+**Outside Reader:** [Gowtham Kaki][gowtham.kaki@colorado.edu]
+
 Licensed under the [CC-BY-SA-4.0 license](./LICENSES/CC-BY-SA-4.0.txt).
 
 ## Available Scripts
