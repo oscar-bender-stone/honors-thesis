@@ -128,38 +128,27 @@ but does not provide a guide on the fixed representation to use.Chaitin created
 a LISP variant, designed specifically for the ease of implementation and
 analysis @chaitin_lisp, but this does not address the faithful representations
 of other languages. Additionally, Universal Logic provides a single definition
-of a logic, one which can be tedious in extoic logics. Each of these issues
-emerges as an ongoing challenge in physical machines through the proliferation
-of both practical and academic programming languages.
+of a logic, one which can be tedious in exotic logics. Each of these issues
+underly the importance of _organization_ itself.
 
-// TODO: emphasize that we switch from truth to INFORMATION TRANSER!
-// THAT is what we want in an Trusted Computing Base; GOOD information transfer! Also tie in with still maintaining _reliability_ despite not tackling all of truth management.
-// TODO: emphasize that we define represetations by how they are verified!
 
-// Creating bridges beetween formal representations does require a historical
-// change in perspective: _embracing reflection rather than focusing on a single
-// theory_. This train of thought comes from Universal Logic, initiated by Béziau
-// @universal_logic. Previously, during the rapid expansion of foundations in the
-// 20th century, logicians sought the "one true logic", a system to be the basis
-// for all mathematics. Such a system was quickly shown to be impossible by Gödel's
-// incompleteness theorems, with certain results requiring an infinite chain of
-// increasingly more powerful theories. But this was a symptom of a larger problem:
-// translating into the _exact_ language of a base logic can be unnatural, just as
-// it is unnatural to represent quotient types in Rocq without an additional theory
-// ontop. To work back in the original logic, a key requirement is _faithfulness_,
+
+#todo[emphasize that we switch from truth to INFORMATION TRANSER! THAT is what
+  we want in an Trusted Computing Base; GOOD information transfer! Also tie in
+  with still maintaining _reliability_ despite not tackling all of truth
+  management.]
+
+
+In addition to the theoretical problems surrounding organization, the issues of
+organization emerge in general-purpose programming languages as well.
+
+
+// To work back in the original logic, a key requirement is _faithfulness_,
 // that isomorphisms in a theory must be reflected, a notion called
 // "$epsilon$-representation distance" by Meseguer @twenty_years_rewriting_logic.
 // However, the researchers surrounding Universal Logic are, too, their own
 // community, and have their own broad defnition of a logic, which is distinct from
 // those in Categorical Logic, Type Theory, and others.
-
-complexity being uncomputable, the choice of fixed programming language is not
-elaborated. Chaitin created a LISP variant, designed specifically for the ease
-of implementation and analysis @chaitin_lisp, but this does not address the
-faithful representations of other languages. This emerges as an ongoing
-challenge in physical machines through the proliferation of both practical and
-academic programming languages.
-#todo[Describe the problems with programming languages concisely!]
 
 // An alternative approach is to create an Intermediate Representation (IR) that
 // other languages can compile into (_frontends_), and then compiled onto multiple
