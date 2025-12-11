@@ -177,9 +177,17 @@ is comprehension".
     organization of information! That is, reuse! This is exactly in line with
     compression, but the _how_!
 
-  - Connects back to Turing machines - we can _use_ Turing machines as our
+    - Connects back to Turing machines - we can _use_ Turing machines as our
     "generalized theories". Main philosophy: represent things by how they are
     _checked_. So this is done by a total Turing machine!
+
+    - We also need _computable_ ways to encode, which is what Chaitin's theory
+      describes. But it doesn't show us _how_ to organize things!
+
+    - Also helps to explain overhead in representing things. Might be different
+      depending on base representation used. Chaitin says this doesn't matter in
+      the limit (CITE.) *The goal of this thesis is to RESOLVE this problem, on
+      the query end!*
 
   - Why is Chaitin's work so useful here? Because it explains WHAT EXACTLY we
     need in the metatheory! *Enough information to encode itself to talk about
