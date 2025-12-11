@@ -20,20 +20,24 @@
 
 #let todo(body, color: orange) = {
   if draft {
-    box(
-      width: 100%,
-      fill: color.lighten(90%),
-      stroke: 1pt + color,
-      inset: 8pt,
-      radius: 4pt,
-      outset: (y: 2pt),
-      {
-        set par(first-line-indent: 0pt, hanging-indent: 0pt, justify: false)
-        set align(left)
+    place(
+      left,
+      dx: 100% + 0.5cm,
+      block(
+        width: 3.5cm,
+        fill: color.lighten(90%),
+        stroke: 1pt + color,
+        inset: 8pt,
+        radius: 4pt,
+        outset: (y: 2pt),
+        {
+          set par(first-line-indent: 0pt, hanging-indent: 0pt, justify: false)
+          set align(left)
 
-        text(weight: "bold", fill: color)[TODO:]
-        [ ] + body
-      },
+          text(weight: "bold", fill: color)[TODO:]
+          [ ] + body
+        },
+      ),
     )
   }
 }
