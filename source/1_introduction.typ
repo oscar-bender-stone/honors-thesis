@@ -36,49 +36,84 @@ boundaries between these communities isn't so clear, and it seems to take years
 to begin to _remotely_ find them.
 
 // TODO: cite main claims about journals/research communities/etc as needed
+// TODO: make second sentence stronger. WHY is it important that they're all online/more widely available?
 The separation of these communities raises a key question: _can_ knowledge
 across disciplines be bridged together? Publications have become more widely
 available thanks to the internet. However, there are more challenges to storing
 the knowledge therein, as recognized by several papers, including
-@FAIR_guiding_science. Firstly, journals are often highly specialized, requring
-an immense understanding of the broader concepts involved and nomenclature used.
-This is evident in the sciences, as explored in @hierarchy_science,
-@specialized_science. Additionally, representing knowledge can be difficult. In
-mathematics, for example, several attempts have been made to catalog major
-theories and results. [DESCRIBE ATTEMPTS & LIMITATIONS]. In other subjects, like
-the social sciences, there are _no_ standard terms, and the majority of cited
-references are books, which are not indexed by many databases
-@social_sciences_databases. As another challenge, many formats are fragile to
-incorrect syntax [EXPLAIN AND ELABORATE]. Each of these issues, a small fraction
-of existing barriers, demonstrate the difficulty in creating a knowledge base
-with both broad applicability and faithful representations to the original
-research.
+@FAIR_guiding_science. One class of these problems is . Firstly, journals are
+often highly specialized, requring an immense understanding of the broader
+concepts involved and nomenclature used. This is evident in the sciences, as
+explored in @hierarchy_science, @specialized_science. Additionally, representing
+knowledge can be difficult. In mathematics, for example, several attempts have
+been made to catalog major theories and results. [DESCRIBE ATTEMPTS &
+LIMITATIONS]. In other subjects, like the social sciences, there are _no_
+standard terms, and the majority of cited references are books, which are not
+indexed by many databases @social_sciences_databases. As another challenge, many
+formats are fragile to incorrect syntax [EXPLAIN AND ELABORATE]. Each of these
+issues, a small fraction of existing barriers, demonstrate the difficulty in
+creating a knowledge base with both broad applicability and faithful
+representations to the original research.
 
-// TODO: finish main problems. THEN get into ontologies as one proposals, and then explore other options possibly? Maybe just ontologies
-There is one existing approach to these problems: ontologies. [Explain use of AI
-AND how it doesn't work well with, e.g., logical formulas or such, IF this is
-true. Or maybe this IS still limited?]
 
-To create a suitable knowledge base, truth needs to be managed as well. This is
-a whole topic in of itself and would not be done justice here. What can be done
-is addressing _information_, the storage of the _asserted_ facts themselves,
-regardless of truth. As one example, suppose a scientist claims, "X is true
-about Y". One could debate the veracity of that claim, but what we can say is,
-"This scientist claims, 'X is true about Y'". Even if we doubt that, we could
-do: "This claim can be formulated: 'This scientist claims 'X is true about Y''".
-By using these justifications, stating that a claim is expressible, the
-_syntactic expression_ of the claim can be separated from its _semantic truth
-value_.#footnote[One might be worried about a paradox, such as "This claim is
-  expressible: this claim is not expressible." We will avoid this using a clear
-  separation of the overarching metatheory and object theory, with the former
-  being syntactical in nature. To express this separation, we write quotes
-  around the claim itself.] I will make this more rigorous in later sections,
-but this enables a truth checking to be a _flexible extension_ to an information
-system.
+// TODO: cleanup transition + last part of previous paragraph
+// TODO: make this more concise. I think it's important to have the scientist part here to address that counter-argument. Still, multiple quotes can make things confusing.
+// Ah! Combine with a discussion on challenges with *truth*. THEN summarize approach to knowledge bases using information instead (and contexts). Transition into AIT.
+// TODO: connect back to ontologies + AI (eventually). Probably could do so here.
+In addition to this [FIRST CLASS OF PROBLEMS NAME], another major hurdle is
+truth management. [DISCUSS Problems with truth + corrections from papers don't
+propagate!] What can be done is addressing _information_, the storage of the
+_asserted_ facts themselves, regardless of truth. As one example, suppose a
+scientist claims, "X is true about Y". One could debate the veracity of that
+claim, but what we can say is, "This scientist claims, 'X is true about Y'".
+Even if we doubt that, we could do: "This claim can be formulated: 'This
+scientist claims 'X is true about Y''". By using these justifications, stating
+that a claim is expressible, the _syntactic expression_ of the claim can be
+separated from its _semantic truth value_.#footnote[One might be worried about a
+  paradox, such as "This claim is expressible: this claim is not expressible."
+  We will avoid this using a clear separation of the overarching metatheory and
+  object theory, with the former being syntactical in nature. To express this
+  separation, we write quotes around the claim itself.] I will make this more
+rigorous in later sections, but this enables a truth checking to be a _flexible
+extension_ to an information system.
 
-// TODO: I like mentioning information earlier. But then we really need to get to information theory pretty quickly! Do we *need* these two paragraphs? Might be worth noting in conclusion
 // TODO: make sure to talk about FAIR from one of the papers listed! Very important!]
-// TODO: revise as necessary. WHY are we now talking about OS's? This is a bit of a sudden shift and should be explained why, e.g., machine architectures are relevant.Maybe we should talk about program language semantics? Seems like we should still talk about proof assistants *somewhere*, and probably on solvers
+// TODO: merge these two paragraphs!
+
+// TODO: put this somewhere
+// This is EXACTLY what we want to systematically implement!
+According to Chaitin, "A useful theory is a compression of the data;
+comprehension is compression".
+
+- Summarize information theory here. Let's get the intro done in one place
+  (besides goals and organization)! May be easier to focus on AIT (Algorithmic
+  Information Theory) for our purposes.
+
+  - Main problem: _how_ do we manage information? This thesis is ALL about the
+    organization of information! That is, reuse! This is exactly in line with
+    compression, but the _how_!
+
+    - Connects back to Turing machines - we can _use_ Turing machines as our
+    "generalized theories". Main philosophy: represent things by how they are
+    _checked_. So this is done by a total Turing machine!
+
+    - We also need _computable_ ways to encode, which is what Chaitin's theory
+      describes. But it doesn't show us _how_ to organize things!
+
+    - Also helps to explain overhead in representing things. Might be different
+      depending on base representation used. Chaitin says this doesn't matter in
+      the limit (CITE.) *The goal of this thesis is to RESOLVE this problem, on
+      the query end!*
+
+  - Why is Chaitin's work so useful here? Because it explains WHAT EXACTLY we
+    need in the metatheory! *Enough information to encode itself to talk about
+    all other theories!*
+
+    - Address Trusted Computing Base here or in next paragraph!
+
+  - Main point from Chaitin: need an _open_ model for theories, NOT a closed
+    one.
+
 Our inquiry can now shift onto a formal representation of information. Formal
 representations, in general, are sets of strings that are computable, i.e.,
 accepted by a computer. The standard notion of computability is being computed
@@ -165,37 +200,6 @@ purpose, to express information about _any formal representation_. This includes
 improving the representation itself!
 // TODO: conclude this paragraph!
 
-
-// TODO: put this somewhere
-// This is EXACTLY what we want to systematically implement!
-According to Chaitin, "A useful theory is a compression of the data; compression
-is comprehension".
-
-- Summarize information theory here. Let's get the intro done in one place
-  (besides goals and organization)! May be easier to focus on AIT (Algorithmic
-  Information Theory) for our purposes.
-
-  - Main problem: _how_ do we manage information? This thesis is ALL about the
-    organization of information! That is, reuse! This is exactly in line with
-    compression, but the _how_!
-
-    - Connects back to Turing machines - we can _use_ Turing machines as our
-    "generalized theories". Main philosophy: represent things by how they are
-    _checked_. So this is done by a total Turing machine!
-
-    - We also need _computable_ ways to encode, which is what Chaitin's theory
-      describes. But it doesn't show us _how_ to organize things!
-
-    - Also helps to explain overhead in representing things. Might be different
-      depending on base representation used. Chaitin says this doesn't matter in
-      the limit (CITE.) *The goal of this thesis is to RESOLVE this problem, on
-      the query end!*
-
-  - Why is Chaitin's work so useful here? Because it explains WHAT EXACTLY we
-    need in the metatheory! *Enough information to encode itself to talk about
-    all other theories!*
-
-    - Address Trusted Computing Base here or in next paragraph!
 
 Our overarching architecture is based on a key idea: separate _cheap queries_
 from _expensive search_. We develop the entire theory of queries and enable
