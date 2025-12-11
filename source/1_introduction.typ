@@ -163,50 +163,18 @@ purpose, to express information about _any formal representation_. This includes
 improving the representation itself!
 // TODO: conclude this paragraph!
 
-== Background on Information Theory
 
-Given the desire to _use_ information, how do we define it? Information Theory
-has established several different major trains of thoughts:
+// TODO: put this somewhere
+// This is EXACTLY what we want to systematically implement!
+According to Chaitin, "A useful theory is a compression of the data; compression
+is comprehension".
 
-- Shannon + entropy:
+- Summarize information theory here. Let's get the intro done in one place
+  (besides goals and organization)! May be easier to focus on AIT (Algorithmic
+  Information Theory) for our purposes.
 
-  - Main founder of information theory
+  -
 
-  - Information = "reduced uncertainty"
-
-  - Primarily probabilistic and based on _communication of bits_. Not enough for
-    _semantics_!
-
-  - Takeaway: information is _used_ in communication
-
-- Kolomogorov + complexity:
-
-  - Minimum Description Length (MDL): we should describe objects with the
-    smallest description possible.
-
-  - Kolmogorov complexity = length of _smallest_ program accepting a string
-
-  - Practical problem: not computable!
-
-  - Bigger problem: _measures_ information, but does not _define it_
-
-  - Takeaway: provides a _computational_ lens for information
-
-- Scott domains:
-
-  - Introduced information systems, but in the context of programming language
-    semantics.
-
-  - Problem: provides the axioms and key models, but not clearly tied to the
-    other theories. Also divergence from information in other senses, like
-    ontology (OWL, etc.)
-
-- Ontologies:
-
-  - Frameworks: OWL, Conceptual Graphs, etc.
-
-  - Problem: pretty restricted! Most theories are only first-order, so difficult
-    for certain type theories, e.g., dependently typed.
 
 - Synthesis of information theory + past paragraph
 
