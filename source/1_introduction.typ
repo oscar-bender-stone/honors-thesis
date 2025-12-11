@@ -9,15 +9,17 @@ Undergraduates are taught many things in lecture, books, and papers, but there
 is one unspoken truth: researchers have extremely _diverse_ communities. Each
 community has their own approaches, their own conferences, and their own
 formatting. They even have a distinct preference to chalk, dry erase marker, or
-neither. I didn't notice their prominence in my early mathematical journey, in
-which I explored papers from set theory, logic, and more. At the time, I was in
-secondary education and had few physical resources. I was fortunate to have vast
-archives available on the internet, but my ability to _collaborate_ in research
-was limited. This quickly changed in college. I participated in several research
-groups and found how rich and fulfilling each was. Sometimes, I heard about
-research groups during lecture, and this too opened my perception of research as
-a whole. I recognize now that diversity _drives_ research, including in the
-sciences, liberal arts, and many more subjects I have hardly explored.
+neither. For a long time, I didn't notice this aspect about research. I started
+my mathematics journey in secondary education, independently reading papers from
+set theory, logic, and more. I was fortunate to have vast archives available on
+the internet, but my ability to _collaborate_ in research was limited. This
+quickly changed in college[TODO: maybe make this a stronger sentence?].
+Everywhere I went, I saw the multitude of research groups, from those mentioned
+in lecture to the experiences I worked in to the faculty panels in the COSMOS
+math club. I worked in several research groups and found how rich and fulfilling
+each was. This _changed_ my perception of research as a whole. I recognize now
+that diversity _drives_ research, including in the sciences, liberal arts, and
+many more subjects I have hardly explored.
 
 Because of how diverse research is, these communities are extremely independent
 and have separate results. For example, I wrote a poster for a cryptography
