@@ -173,52 +173,19 @@ is comprehension".
   (besides goals and organization)! May be easier to focus on AIT (Algorithmic
   Information Theory) for our purposes.
 
-  -
+  - Main problem: _how_ do we manage information? This thesis is ALL about the
+    organization of information! That is, reuse! This is exactly in line with
+    compression, but the _how_!
 
+  - Connects back to Turing machines - we can _use_ Turing machines as our
+    "generalized theories". Main philosophy: represent things by how they are
+    _checked_. So this is done by a total Turing machine!
 
-- Synthesis of information theory + past paragraph
+  - Why is Chaitin's work so useful here? Because it explains WHAT EXACTLY we
+    need in the metatheory! *Enough information to encode itself to talk about
+    all other theories!*
 
-  - We want to explore _information_ as a universal framework.
-
-    - Major goal: address information _on_ information.
-
-      - Motivation: transfer between different things!
-
-        - Logics: proofs!
-
-        - Models: properties!
-
-        - Solvers: techniques and checkpoints! Reduces computation!
-
-        - And more!
-
-  - But what _is_ information?
-
-    - So many examples: hard to know where we should go!
-
-      - Algorithmic ideas.
-
-      - Specific formulations in logics.
-
-      - High level properties.
-
-      - Probabilistic information.
-
-
-    // TODO: refine this! This is almost the PREMISE of what we're doing
-    - _Can_ start at an indirect approach to ensure we don't
-    miss anything: indirectly define things by how they are _checked_. This
-    checker/verifier MUST be a Turing machine (using a standard notion!).
-
-    - Emphasize: finding a certificate is _not_ guaranteed, e.g., finding a
-      proof of a theorem in first order logic.
-
-
-    - To simplify this: we have _verifiers_/_checkers_ that take in binary
-      strings called _certificates_. Correct certificates are accepted by the
-      checker, and rejected otherwise.
-
-    - _Use this definition to justify universality!_
+    - Address Trusted Computing Base here or in next paragraph!
 
 Our overarching architecture is based on a key idea: separate _cheap queries_
 from _expensive search_. We develop the entire theory of queries and enable
@@ -227,7 +194,6 @@ generalizes DPLL(T) @dpll_t for SMT-LIB solvers. In DPLL(T), the goal is to find
 a proof of a first-order statement into two parts: solve propositional
 statements in a SAT solver, and solve theory-specific problems with theory
 solvers. // TODO: clean this up and make this more detailed but concise!
-Additionally, this enables future exploration for implementing general programs.
 
 In addition to this architecture, we establish a small Trusted Computing Base
 (TCB). In our base logic, uses a a novel technique: Artemov's Logic of Proofs
