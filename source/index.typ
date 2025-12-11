@@ -26,6 +26,13 @@
   )),
 )
 
+// FIXME: remove with final release
+#set page(
+  background: rotate(24deg, text(80pt, fill: gray.lighten(50%))[
+    *DRAFT*
+  ]),
+)
+
 #outline()
 #set text(font: "STIX Two Text")
 
