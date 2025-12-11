@@ -1,10 +1,13 @@
 // SPDX-FileCopyrightText: Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
+#import "template/ams-article.typ": todo
+
 = Introduction
 
-// TODO: create a stronger connection the fact that the papers I read WERE online.
-// This is crucial!
+#todo[Create a stronger connection to the fact that the papers I read were
+  ONLINE. This is crucial!]
+
 Undergraduates are taught many things in lecture, books, and papers, but there
 is one unspoken truth: researchers have extremely _diverse_ communities. Each
 community has their own approaches, their own conferences, and their own
@@ -21,7 +24,7 @@ each was. This fundamentally changed my perception of research as a whole. I
 learned that diversity _drives_ research, including in the sciences, liberal
 arts, and many more subjects I have hardly explored.
 
-// TODO: clean up transitions with examples
+#todo[clean up transitions with examples]
 Because of how diverse research is, these communities are extremely independent
 and build separate repositories of knowledge. For example, I wrote a poster for
 a cryptography class, concerning an MIT researcher who created programs of
@@ -35,8 +38,7 @@ According to my advisor, that approach had _never_ been considered before in his
 group. The boundaries between these communities isn't so clear, and it seems to
 take years to begin to _remotely_ find them.
 
-// TODO: cite main claims about journals/research communities/etc as needed
-// TODO: make second sentence stronger. WHY is it important that they're all online/more widely available?
+#todo[cite main claims about journals/research communities/etc as needed]
 The separation of these communities raises a key question: _can_ knowledge
 across disciplines be bridged together?
 
@@ -95,16 +97,17 @@ that string (see @intro_kolmogorov_complexity). This program is defined via a
 Turing-computable programming language [REWORD], and there is a different
 constant factor depending on the language, but AIT focuses on the asymptotic
 complexity. Using this notion of information, AIT provides the underlying cause
-of Gödel's incompleteness theorems, the halting problem, Tarski's undefinability
-of truth, and more: _not all information can be compressed into a finite
-description_. This view was articulated by Chaitin, who proved that there is a
-number that can be defined in any programming language but never _fully_
+of Gödel's incompleteness theorems, Turing's halting problem, Tarski's
+undefinability of truth, and more: _not all information can be compressed into a
+finite description_. This view was articulated by Chaitin, who proved that there
+is a number that can be defined in any programming language but never _fully_
 described. This number, $Omega$, is the probability that a random Turing machine
 will halt. Specifically, he proved that, by fixing a single program
 representation, finding the first $N$ bits of $Omega$ is equivalent to
 determining the halting status of _each_ $N$-bit Turing machine. Thus, because
 there are infinitely many Turing machines, $Omega$ cannot be computably
-compressed. [GOOD TRANSITION]
+compressed. [GOOD TRANSITION. Maybe explain that this explains the theoretical
+reason for the diversityof research?]
 
 
 // TODO: emphasize that we switch from truth to INFORMATION TRANSER!

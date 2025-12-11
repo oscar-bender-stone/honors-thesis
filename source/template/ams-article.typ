@@ -13,6 +13,24 @@
 #let large-size = 11.74988pt
 #let text-font = "STIX Two Text"
 
+#let draft = true
+
+#let todo(body, color: orange) = {
+  if draft {
+    block(
+      fill: color.lighten(90%),
+      stroke: 1pt + color,
+      inset: 8pt,
+      radius: 4pt,
+      width: 100%,
+      below: 1em,
+      [
+        #text(weight: "bold", fill: color)[TODO:]
+        #body
+      ],
+    )
+  }
+}
 
 // This function gets your whole document as its `body` and formats
 // it as an article in the style of the American Mathematical Society.
@@ -41,6 +59,14 @@
   // Keywords
   keywords: none,
 ) = {
+  let watermark = if draft {
+    rotate(24deg, text(80pt, fill: gray.lighten(70%))[
+      *DRAFT*
+    ])
+  } else {
+    none
+  }
+
   // Create a single, shared counter for theorem-like environments
   let theorem-counter = counter("theorem-shared")
 
@@ -67,6 +93,7 @@
 
   // Configure the page.
   set page(
+    background: watermark,
     paper: paper-size,
     // The margins depend on the paper size.
     margin: if paper-size != "a4" {
@@ -144,6 +171,7 @@
       }
     },
   )
+
 
   // Configure headings.
   set heading(numbering: "1.")
@@ -327,7 +355,10 @@
     for author in authors {
       let keys = ("department", "organization", "location")
 
-      let dept-str = keys.filter(key => key in author).map(key => author.at(key)).join(", ")
+      let dept-str = keys
+        .filter(key => key in author)
+        .map(key => author.at(key))
+        .join(", ")
 
       smallcaps(dept-str)
       linebreak()
