@@ -15,23 +15,28 @@
 
 #let draft = true
 
+
+#let show-todos = true
+
 #let todo(body, color: orange) = {
   if draft {
-    block(
+    box(
+      width: 100%,
       fill: color.lighten(90%),
       stroke: 1pt + color,
       inset: 8pt,
       radius: 4pt,
-      width: 100%,
-      below: 1em,
-      [
-        #text(weight: "bold", fill: color)[TODO:]
-        #body
-      ],
+      outset: (y: 2pt),
+      {
+        set par(first-line-indent: 0pt, hanging-indent: 0pt, justify: false)
+        set align(left)
+
+        text(weight: "bold", fill: color)[TODO:]
+        [ ] + body
+      },
     )
   }
 }
-
 // This function gets your whole document as its `body` and formats
 // it as an article in the style of the American Mathematical Society.
 #let ams_article(
@@ -287,24 +292,18 @@
     it.body
   })
 
-  // === FIX IS HERE ===
-  // Rule for Remarks (normal body, italic supplement name, upright number)
   show figure.where(kind: "remark"): set align(start)
   show figure.where(kind: "remark"): it => block(spacing: 11.5pt, {
     theorem-counter.step()
-    // Italicize ONLY the supplement word, not the number.
     emph(it.supplement)
     if it.numbering != none {
       [ ] // Add a space
-      // Number is upright (not bold)
       theorem-counter.display(it.numbering)
     }
-    [.] // Add the period
-    [ ] // Add a space after the supplement
+    [.]
+    [ ]
     it.body
   })
-  // === END OF FIX ===
-
 
   // Display the title and authors.
   v(35pt, weak: true)

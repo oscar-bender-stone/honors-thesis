@@ -25,6 +25,7 @@ learned that diversity _drives_ research, including in the sciences, liberal
 arts, and many more subjects I have hardly explored.
 
 #todo[clean up transitions with examples]
+
 Because of how diverse research is, these communities are extremely independent
 and build separate repositories of knowledge. For example, I wrote a poster for
 a cryptography class, concerning an MIT researcher who created programs of
@@ -39,6 +40,7 @@ group. The boundaries between these communities isn't so clear, and it seems to
 take years to begin to _remotely_ find them.
 
 #todo[cite main claims about journals/research communities/etc as needed]
+
 The separation of these communities raises a key question: _can_ knowledge
 across disciplines be bridged together?
 
