@@ -81,42 +81,56 @@ separated from its _semantic truth value_.#footnote[One might be worried about a
   We will avoid this using a clear separation of the overarching metatheory and
   object theory, with the former being syntactical in nature. To express this
   separation, we write quotes around the claim itself.] I will make this more
-rigorous in later sections, but this enables a truth checking to be a _flexible
-extension_ to an information system.
+rigorous in later sections, but this means we can build knowledge bases ontop of
+information systems using flexible extensions.
 
-// TODO: make sure to talk about FAIR from one of the papers listed! Very important!]
-// TODO: merge these two paragraphs!
+#todo[REWORD as needed + merge with discussions on FAIR.]
+Information has been extensively studied through _measurements_ in Algorithmic
+Information Theory (AIT). The founding idea of AIT is the Minimum Description
+Length (MDL) principle, that the best definition for an object is the smallest
+description that describes it. To formalize this idea, Kolmogorov defined a
+description as a _program_, and the Kolmogorov complexity of a string as the
+length of the _smallest program_ that computes that string (see
+@intro_kolmogorov_complexity). This program is defined via a Turing-computable
+programming language, and there is a different constant factor depending on the
+language, but AIT focuses on the asymptotic complexity. A cornerstone of this
+framework is providing the reason underlying cause of Gödel's incompleteness
+theorems, Turing's halting problem, Tarski's undefinability of truth, and more:
+_not all information can be compressed into a finite description_. This view was
+articulated by Chaitin on information compression. He defined $Omega$ as the
+probability that a random Turing machine will halt and proved that it cannot be
+compressed computably. This result is a major theme in AIT, to address the
+limits of computation.
 
-// TODO: put this somewhere
-// This is EXACTLY what we want to systematically implement!
-// TODO: find good sources for Kolmogorov complexity
-Information systems have been extensively studied via _measurements_ in
-Algorithmic Information Theory (AIT). The founding idea of AIT is the Minimum
-Description Length (MDL) principle, that the best definition for an object is
-the smallest description that describes it. This informal definition needs to be
-refined due to the Richard-Berry paradox, which asks if the following number
-exists: "'the least natural number that cannot be described in less than twenty
-words.'" @intro_kolmogorov_complexity. If such a number exists, this short
-description contradicts itself, but if no such number exists, then all numbers
-can be described with less than twenty words. To address this paradox,
-Kolmogorov defined a description as a _program_, and the Kolmogorov complexity
-of a string as the length of the _smallest program_ that computes that string
-(see @intro_kolmogorov_complexity). This program is defined via a
-Turing-computable programming language [REWORD], and there is a different
-constant factor depending on the language, but AIT focuses on the asymptotic
-complexity. Using this notion of information, AIT provides the underlying cause
-of Gödel's incompleteness theorems, Turing's halting problem, Tarski's
-undefinability of truth, and more: _not all information can be compressed into a
-finite description_. This view was articulated by Chaitin, who proved that there
-is a number that can be defined in any programming language but never _fully_
-described. This number, $Omega$, is the probability that a random Turing machine
-will halt. Specifically, he proved that, by fixing a single program
-representation, finding the first $N$ bits of $Omega$ is equivalent to
-determining the halting status of _each_ $N$-bit Turing machine. Thus, because
-there are infinitely many Turing machines, $Omega$ cannot be computably
-compressed. [GOOD TRANSITION. Maybe explain that this explains the theoretical
-reason for the diversityof research?]
 
+In addition to addressing these limits, Chaitin's results have profound
+consequences for the nature of mathematics. He explains:
+
+#set quote(block: true)
+#quote[_Mathematics...has infinite complexity, whereas any individual theory
+  would have only finite complexity and could not capture all the richness of
+  the full world of mathematical truth_. @limits_on_reason]
+
+Chaitin's claim extends beyond mathematics; the extent of research areas are so
+vast that the idea of a _single_ theory would fail to faithfully reproduce these
+disciplines. The study of the areas _themselves_ is needed to faithfully
+represent them. This has been explored in Béziau's field of Universal Logic
+@universal_logic, where the aim is to study _logics_ and not a _single_ logic.
+In short, Chaitin's result, and the works in Universal Logic and others,
+demonstrate that research must be represented _flexibly_ as well as faithfully.
+
+#todo[Explain all claims concretely but concisely, as well as cite other
+  possibilities (e.g., HoTT for logics)! And add anything else besides AIT and
+  Universal Logic. MAYBE ontologies?]
+The problem with a flexible representation system is precisely _how_ to
+accomplish this. AIT provides asymptotic results on information _measurement_,
+but does not provide a guide on the fixed representation to use.Chaitin created
+a LISP variant, designed specifically for the ease of implementation and
+analysis @chaitin_lisp, but this does not address the faithful representations
+of other languages. Additionally, Universal Logic provides a single definition
+of a logic, one which can be tedious in extoic logics. Each of these issues
+emerges as an ongoing challenge in physical machines through the proliferation
+of both practical and academic programming languages.
 
 // TODO: emphasize that we switch from truth to INFORMATION TRANSER!
 // THAT is what we want in an Trusted Computing Base; GOOD information transfer! Also tie in with still maintaining _reliability_ despite not tackling all of truth management.
@@ -139,8 +153,6 @@ reason for the diversityof research?]
 // community, and have their own broad defnition of a logic, which is distinct from
 // those in Categorical Logic, Type Theory, and others.
 
-Although AIT has established many asymptotic measurements on information, these
-asymptotics do not indicate _how_ to measure information. Besides Kolmogorov
 complexity being uncomputable, the choice of fixed programming language is not
 elaborated. Chaitin created a LISP variant, designed specifically for the ease
 of implementation and analysis @chaitin_lisp, but this does not address the
