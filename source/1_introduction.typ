@@ -17,42 +17,42 @@ quickly changed in college[TODO: maybe make this a stronger sentence?].
 Everywhere I went, I saw the multitude of research groups, from those mentioned
 in lecture to the experiences I worked in to the faculty panels in the COSMOS
 math club. I worked in several research groups and found how rich and fulfilling
-each was. This _changed_ my perception of research as a whole. I recognize now
-that diversity _drives_ research, including in the sciences, liberal arts, and
-many more subjects I have hardly explored.
+each was. This fundamentally changed my perception of research as a whole. I
+learned that diversity _drives_ research, including in the sciences, liberal
+arts, and many more subjects I have hardly explored.
 
+// TODO: clean up transitions with examples
 Because of how diverse research is, these communities are extremely independent
-and have separate results. For example, I wrote a poster for a cryptography
-class, concerning an MIT researcher who created programs of common crytographic
-schemes and mathematically proved their correctness. I met this researcher at a
-conference and discovered that _neither_ knew about the other! They provided
-their own contributions, but I initially assumed that _everyone_ contributing to
-cryptography work on common projects. As another example, at my time in the
-Budapest Semesters in Mathematics, I explored a key tool in program verification
-to find proofs for a combinatorial problem. According to my advisor, that
-approach had _never_ been considered before. The boundaries between these
-communities isn't so clear, and it seems to take years to begin to _remotely_
-find them.
+and build separate repositories of knowledge. For example, I wrote a poster for
+a cryptography class, concerning an MIT researcher who created programs of
+common crytographic schemes and mathematically proved their correctness. I met
+this researcher at a conference and discovered that _neither_ knew about the
+other! They provided their own contributions, but I initially assumed that
+_everyone_ contributing to cryptography work on common projects. As another
+example, at my time in the Budapest Semesters in Mathematics, I explored a key
+tool in program verification to find proofs for a combinatorial problem.
+According to my advisor, that approach had _never_ been considered before. The
+boundaries between these communities isn't so clear, and it seems to take years
+to begin to _remotely_ find them.
 
 // TODO: cite main claims about journals/research communities/etc as needed
 The separation of these communities raises a key question: _can_ knowledge
 across disciplines be bridged together? Publications have become more widely
-available thanks to the internet, even behind a paywall or subscriptions.
-However, there are more challenges to storing the knowledge therein, as
-recognized by several papers, including @FAIR_guiding_science. Firstly, journals
-are usually highly specialized, require an immense understanding of the broader
-concepts involved and nomenclature used. This is clear in the sciences, as
-explored in @hierarchy_science, @specialized_science. Additionally, representing
-knowledge can be difficult. In mathematics, for example, several attempts have
-been made to catalog major theories and results. [DESCRIBE ATTEMPTS &
-LIMITATIONS]. In other subjects, like the social sciences, there are _no_
-standard terms, and the majority of cited references are books, which are not
-indexed by many databases @social_sciences_databases. These are [challenging
-synonym] for existing tools @hierarchy_science. As another challenge, many
-formats are fragile to incorrect syntax [EXPLAIN AND ELABORATE]. Each of these
-challenges, a small fraction of existing barriers, demonstrate the difficulty in
-creating a knowledge base with both broad applicability and faithful
-representations to the original research.
+available thanks to the internet. However, there are more challenges to storing
+the knowledge therein, as recognized by several papers, including
+@FAIR_guiding_science. Firstly, journals are often highly specialized, requring
+an immense understanding of the broader concepts involved and nomenclature used.
+This is evident in the sciences, as explored in @hierarchy_science,
+@specialized_science. Additionally, representing knowledge can be difficult. In
+mathematics, for example, several attempts have been made to catalog major
+theories and results. [DESCRIBE ATTEMPTS & LIMITATIONS]. In other subjects, like
+the social sciences, there are _no_ standard terms, and the majority of cited
+references are books, which are not indexed by many databases
+@social_sciences_databases. As another challenge, many formats are fragile to
+incorrect syntax [EXPLAIN AND ELABORATE]. Each of these issues, a small fraction
+of existing barriers, demonstrate the difficulty in creating a knowledge base
+with both broad applicability and faithful representations to the original
+research.
 
 // TODO: finish main problems. THEN get into ontologies as one proposals, and then explore other options possibly? Maybe just ontologies
 There is one existing approach to these problems: ontologies. [Explain use of AI
