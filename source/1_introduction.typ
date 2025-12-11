@@ -65,8 +65,8 @@ across disciplines be bridged together?
 // TODO: cleanup transition + last part of previous paragraph
 // TODO: make this more concise. I think it's important to have the scientist part here to address that counter-argument. Still, multiple quotes can make things confusing.
 // Ah! Combine with a discussion on challenges with *truth*. THEN summarize approach to knowledge bases using information instead (and contexts). Transition into AIT.
+// Connect with TCBs as well! Important to highlight!
 // TODO: connect back to ontologies + AI (eventually). Probably could do so here.
-// TODO: connect ot universal logic here + summarize it
 In addition to this [FIRST CLASS OF PROBLEMS NAME], another major hurdle is
 truth management. [DISCUSS Problems with truth + corrections from papers don't
 propagate!] What can be done is addressing _information_, the storage of the
@@ -124,43 +124,18 @@ demonstrate that research must be represented _flexibly_ as well as faithfully.
   Universal Logic. MAYBE ontologies?]
 The problem with a flexible representation system is precisely _how_ to
 accomplish this. AIT provides asymptotic results on information _measurement_,
-but does not provide a guide on the fixed representation to use.Chaitin created
+but does not provide a guide on the fixed representation to use. Chaitin created
 a LISP variant, designed specifically for the ease of implementation and
 analysis @chaitin_lisp, but this does not address the faithful representations
 of other languages. Additionally, Universal Logic provides a single definition
 of a logic, one which can be tedious in exotic logics. Each of these issues
-underly the importance of _organization_ itself.
+underly the importance of _organization_ itself, which emerge in the
+proliferation of general-purpose programming languages.
 
-
-
-#todo[emphasize that we switch from truth to INFORMATION TRANSER! THAT is what
-  we want in an Trusted Computing Base; GOOD information transfer! Also tie in
-  with still maintaining _reliability_ despite not tackling all of truth
-  management.]
-
-
-In addition to the theoretical problems surrounding organization, the issues of
-organization emerge in general-purpose programming languages as well.
-
-
-// To work back in the original logic, a key requirement is _faithfulness_,
-// that isomorphisms in a theory must be reflected, a notion called
-// "$epsilon$-representation distance" by Meseguer @twenty_years_rewriting_logic.
-// However, the researchers surrounding Universal Logic are, too, their own
-// community, and have their own broad defnition of a logic, which is distinct from
-// those in Categorical Logic, Type Theory, and others.
-
-// An alternative approach is to create an Intermediate Representation (IR) that
-// other languages can compile into (_frontends_), and then compiled onto multiple
-// machine architectures (_backends_). The driving standard in industry and
-// research for this purpose is the LLVM compiler project @llvm_main. However, this
-// project faces ongoing challenges, with a brief list including breaking changes
-// and a massive packaging task accross different Operating Systems. One approach
-// that addresses a subset of these problems is MILR @milr_llvm, another IR to
-// abstract away from the original. Implementing these systems for _general_
-// programs is not the intent of this thesis, and instead, is to _bridge_
-// information _about_ programs. Therefore, we are interested in _unifying
-// representations_ of these languages.
+#todo[Finish transpilation example! Just show we care about _storing_ the
+  underlying semantics.]
+As a concrete example of organizational challenges, consider a Python program in
+@transpilation_example.
 
 #figure(
   grid(
@@ -188,31 +163,32 @@ organization emerge in general-purpose programming languages as well.
 )<transpilation_example>
 
 
-// TODO: explain WHY we need a change in perspective. This is key!
-// Maybe we can *bridge* this with the example to say that translations are unnatural. For instance, in python, you have to use the whole C specific translations in order to get into memory issues! But this itself is fragile...
 
-Beyond Universal Logic, a further leap is needed, from the idea a _universal
-theory_ to _universal building blocks_. To support the wide diversity of
-languages, a spectrum of these building blocks, which we consider to be
-_information_. This thesis creates a universal information language for this
-purpose, to express information about _any formal representation_. This includes
-improving the representation itself!
-// TODO: conclude this paragraph!
+// To work back in the original logic, a key requirement is _faithfulness_,
+// that isomorphisms in a theory must be reflected, a notion called
+// "$epsilon$-representation distance" by Meseguer @twenty_years_rewriting_logic.
+// However, the researchers surrounding Universal Logic are, too, their own
+// community, and have their own broad defnition of a logic, which is distinct from
+// those in Categorical Logic, Type Theory, and others.
+
+// An alternative approach is to create an Intermediate Representation (IR) that
+// other languages can compile into (_frontends_), and then compiled onto multiple
+// machine architectures (_backends_). The driving standard in industry and
+// research for this purpose is the LLVM compiler project @llvm_main. However, this
+// project faces ongoing challenges, with a brief list including breaking changes
+// and a massive packaging task accross different Operating Systems. One approach
+// that addresses a subset of these problems is MILR @milr_llvm, another IR to
+// abstract away from the original. Implementing these systems for _general_
+// programs is not the intent of this thesis, and instead, is to _bridge_
+// information _about_ programs. Therefore, we are interested in _unifying
+// representations_ of these languages.
 
 
-Our overarching architecture is based on a key idea: separate _cheap queries_
-from _expensive search_. We develop the entire theory of queries and enable
-arbitrary extensions to the search prcoedures. This is inspired by and
-generalizes DPLL(T) @dpll_t for SMT-LIB solvers. In DPLL(T), the goal is to find
-a proof of a first-order statement into two parts: solve propositional
-statements in a SAT solver, and solve theory-specific problems with theory
-solvers. // TODO: clean this up and make this more detailed but concise!
-
-In addition to this architecture, we establish a small Trusted Computing Base
-(TCB). In our base logic, uses a a novel technique: Artemov's Logic of Proofs
-@artemov_lp. This establishes our metatheory, which is equi-consistent to [TODO:
-find this!] (@foundations). [TODO: talk about prototype! Key!]
-
+In light of the persistence of organizational issues, another step is required
+beyond Chaitin's reasoning: we must consider _universal building blocks_
+themselves. Sticking to Turing machines is sufficient in AIT and studying
+asymptotics, but the _actual_ storage must take place. This is the motivation
+and driving force of this thesis.
 
 == Goals
 
