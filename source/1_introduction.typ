@@ -38,28 +38,31 @@ to begin to _remotely_ find them.
 // TODO: cite main claims about journals/research communities/etc as needed
 // TODO: make second sentence stronger. WHY is it important that they're all online/more widely available?
 The separation of these communities raises a key question: _can_ knowledge
-across disciplines be bridged together? Publications have become more widely
-available thanks to the internet. However, there are more challenges to storing
-the knowledge therein, as recognized by several papers, including
-@FAIR_guiding_science. One class of these problems is . Firstly, journals are
-often highly specialized, requring an immense understanding of the broader
-concepts involved and nomenclature used. This is evident in the sciences, as
-explored in @hierarchy_science, @specialized_science. Additionally, representing
-knowledge can be difficult. In mathematics, for example, several attempts have
-been made to catalog major theories and results. [DESCRIBE ATTEMPTS &
-LIMITATIONS]. In other subjects, like the social sciences, there are _no_
-standard terms, and the majority of cited references are books, which are not
-indexed by many databases @social_sciences_databases. As another challenge, many
-formats are fragile to incorrect syntax [EXPLAIN AND ELABORATE]. Each of these
-issues, a small fraction of existing barriers, demonstrate the difficulty in
-creating a knowledge base with both broad applicability and faithful
-representations to the original research.
+across disciplines be bridged together?
+
+// Publications have become more widely
+// available thanks to the internet. However, there are more challenges to storing
+// the knowledge therein, as recognized by several papers, including
+// @FAIR_guiding_science. One class of these problems is . Firstly, journals are
+// often highly specialized, requring an immense understanding of the broader
+// concepts involved and nomenclature used. This is evident in the sciences, as
+// explored in @hierarchy_science, @specialized_science. Additionally, representing
+// knowledge can be difficult. In mathematics, for example, several attempts have
+// been made to catalog major theories and results. [DESCRIBE ATTEMPTS &
+// LIMITATIONS]. In other subjects, like the social sciences, there are _no_
+// standard terms, and the majority of cited references are books, which are not
+// indexed by many databases @social_sciences_databases. As another challenge, many
+// formats are fragile to incorrect syntax [EXPLAIN AND ELABORATE]. Each of these
+// issues, a small fraction of existing barriers, demonstrate the difficulty in
+// creating a knowledge base with both broad applicability and faithful
+// representations to the original research.
 
 
 // TODO: cleanup transition + last part of previous paragraph
 // TODO: make this more concise. I think it's important to have the scientist part here to address that counter-argument. Still, multiple quotes can make things confusing.
 // Ah! Combine with a discussion on challenges with *truth*. THEN summarize approach to knowledge bases using information instead (and contexts). Transition into AIT.
 // TODO: connect back to ontologies + AI (eventually). Probably could do so here.
+// TODO: connect ot universal logic here + summarize it
 In addition to this [FIRST CLASS OF PROBLEMS NAME], another major hurdle is
 truth management. [DISCUSS Problems with truth + corrections from papers don't
 propagate!] What can be done is addressing _information_, the storage of the
@@ -82,8 +85,22 @@ extension_ to an information system.
 
 // TODO: put this somewhere
 // This is EXACTLY what we want to systematically implement!
-According to Chaitin, "A useful theory is a compression of the data;
-comprehension is compression".
+// TODO: find good sources for Kolmogorov complexity
+Information systems have been extensively studied via _measurements_ in
+Algorithmic Information Theory (AIT). The founding idea of AIT is Minimum
+Description Length (MDL) principle, that the best definition for an object is
+the smallest thing that describes it. This is formalized as Kolmogorv complexity
+of a binary string, the length of the smallest program that computes that
+string. Being described by a smaller program indicates a string that is easier
+to describe and thus has less information. But being described by a larger
+program indicates more _randomness_ string and thus more information. A modern
+figure in this field, Chaitin, describes this relationship as compression. He
+states this as follows: "A useful theory is a compression of the data;
+comprehension is compression" @limits_on_reason. I do not defned the claim that
+comprehension _is_ compression, as that creates similar problems with managing
+truth. Instead, this is a statement on _representations_, the best we can do
+with Turing machines as an established notion of computability. [LIST
+CONTRIBUTIONS OF AIT. WHAT IS GOOD]. [GOOD TRANSITION TO NEXT PARAGRAPH]
 
 - Summarize information theory here. Let's get the intro done in one place
   (besides goals and organization)! May be easier to focus on AIT (Algorithmic
@@ -113,6 +130,15 @@ comprehension is compression".
 
   - Main point from Chaitin: need an _open_ model for theories, NOT a closed
     one.
+
+Although AIT has major accomplishments with measuring information, this field
+does not indicate _how_ to measure information. [DISCUSS CONNECTION TO
+ORGANIZATOIN. MAKE THIS A KEY WORD FOR THE WHOLE THESIS!]. The main theorem on
+this is that any programming language can ressbe used to prove these claims.
+These translations have not been specifically addressed in the literature, and
+remain a prolific part in software for actual machines. [DESCRIBE PROBLEMS HERE
+CONSCISELY. ]
+
 
 Our inquiry can now shift onto a formal representation of information. Formal
 representations, in general, are sets of strings that are computable, i.e.,
