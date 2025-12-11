@@ -29,11 +29,11 @@ common crytographic schemes and mathematically proved their correctness. I met
 this researcher at a conference and discovered that _neither_ knew about the
 other! They provided their own contributions, but I initially assumed that
 _everyone_ contributing to cryptography work on common projects. As another
-example, at my time in the Budapest Semesters in Mathematics, I explored a key
+example, at my time in the Budapest Semesters in Mathematics, I adopted a key
 tool in program verification to find proofs for a combinatorial problem.
-According to my advisor, that approach had _never_ been considered before. The
-boundaries between these communities isn't so clear, and it seems to take years
-to begin to _remotely_ find them.
+According to my advisor, that approach had _never_ been considered before in his
+group. The boundaries between these communities isn't so clear, and it seems to
+take years to begin to _remotely_ find them.
 
 // TODO: cite main claims about journals/research communities/etc as needed
 // TODO: make second sentence stronger. WHY is it important that they're all online/more widely available?
@@ -94,29 +94,49 @@ complexity of a binary string, the length of the smallest program that computes
 that string (see @intro_kolmogorov_complexity). This program is defined via a
 Turing-computable programming language [REWORD], and there is a different
 constant factor depending on the language, but AIT focuses on the asymptotic
-complexity. Being described by a smaller program indicates a string that is
-easier to describe and thus has less information. But being described by a
-larger program indicates more _randomness_ and thus more information. A modern
-figure in this field, Chaitin, describes this relationship as compression. He
-states this as follows: "A useful theory is a compression of the data;
-comprehension is compression" @limits_on_reason. I do not defend the claim that
-comprehension _is_ compression, as that creates similar problems with managing
-truth. Instead, this is a statement on _representations_, the best we can do
-with Turing machines as an established notion of computability. [LIST
-CONTRIBUTIONS OF AIT. WHAT IS GOOD]. [GOOD TRANSITION TO NEXT PARAGRAPH]
+complexity. Using this notion of information, AIT provides the underlying cause
+of Gödel's incompleteness theorems, the halting problem, Tarski's undefinability
+of truth, and more: _not all information can be compressed into a finite
+description_. This view was articulated by Chaitin, who proved that there is a
+number that can be defined in any programming language but never _fully_
+described. This number, $Omega$, is the probability that a random Turing machine
+will halt. Specifically, he proved that, by fixing a single program
+representation, finding the first $N$ bits of $Omega$ is equivalent to
+determining the halting status of _each_ $N$-bit Turing machine. Thus, because
+there are infinitely many Turing machines, $Omega$ cannot be computably
+compressed. [GOOD TRANSITION]
+
 
 // TODO: emphasize that we switch from truth to INFORMATION TRANSER!
 // THAT is what we want in an Trusted Computing Base; GOOD information transfer! Also tie in with still maintaining _reliability_ despite not tackling all of truth management.
 // TODO: emphasize that we define represetations by how they are verified!
 
+// Creating bridges beetween formal representations does require a historical
+// change in perspective: _embracing reflection rather than focusing on a single
+// theory_. This train of thought comes from Universal Logic, initiated by Béziau
+// @universal_logic. Previously, during the rapid expansion of foundations in the
+// 20th century, logicians sought the "one true logic", a system to be the basis
+// for all mathematics. Such a system was quickly shown to be impossible by Gödel's
+// incompleteness theorems, with certain results requiring an infinite chain of
+// increasingly more powerful theories. But this was a symptom of a larger problem:
+// translating into the _exact_ language of a base logic can be unnatural, just as
+// it is unnatural to represent quotient types in Rocq without an additional theory
+// ontop. To work back in the original logic, a key requirement is _faithfulness_,
+// that isomorphisms in a theory must be reflected, a notion called
+// "$epsilon$-representation distance" by Meseguer @twenty_years_rewriting_logic.
+// However, the researchers surrounding Universal Logic are, too, their own
+// community, and have their own broad defnition of a logic, which is distinct from
+// those in Categorical Logic, Type Theory, and others.
+
+
 Although AIT has established many asymptotic measurements on information, these
 asymptotics do not indicate _how_ to measure information. Besides Kolmogorov
 complexity being uncomputable, the choice of fixed programming language is not
 elaborated. Chaitin created a LISP variant, designed specifically for the ease
-of implementation, but this does not address the faithful representations of
-other languages. This emerges as an ongoing challenge in physical machines
-through the proliferation of programming languages.[TODO: describe this
-concisely!]
+of implementation and analysis @chaitin_lisp, but this does not address the
+faithful representations of other languages. This emerges as an ongoing
+challenge in physical machines through the proliferation of programming
+languages.[TODO: describe this concisely!]
 
 // An alternative approach is to create an Intermediate Representation (IR) that
 // other languages can compile into (_frontends_), and then compiled onto multiple
@@ -170,23 +190,6 @@ Why?]
 
 // TODO: explain WHY we need a change in perspective. This is key!
 // Maybe we can *bridge* this with the example to say that translations are unnatural. For instance, in python, you have to use the whole C specific translations in order to get into memory issues! But this itself is fragile...
-Creating bridges beetween formal representations does require a historical
-change in perspective: _embracing reflection rather than focusing on a single
-theory_. This train of thought comes from Universal Logic, initiated by Béziau
-@universal_logic. Previously, during the rapid expansion of foundations in the
-20th century, logicians sought the "one true logic", a system to be the basis
-for all mathematics. Such a system was quickly shown to be impossible by Gödel's
-incompleteness theorems, with certain results requiring an infinite chain of
-increasingly more powerful theories. But this was a symptom of a larger problem:
-translating into the _exact_ language of a base logic can be unnatural, just as
-it is unnatural to represent quotient types in Rocq without an additional theory
-ontop. To work back in the original logic, a key requirement is _faithfulness_,
-that isomorphisms in a theory must be reflected, a notion called
-"$epsilon$-representation distance" by Meseguer @twenty_years_rewriting_logic.
-However, the researchers surrounding Universal Logic are, too, their own
-community, and have their own broad defnition of a logic, which is distinct from
-those in Categorical Logic, Type Theory, and others.
-
 
 Beyond Universal Logic, a further leap is needed, from the idea a _universal
 theory_ to _universal building blocks_. To support the wide diversity of
