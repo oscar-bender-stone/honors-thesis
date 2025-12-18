@@ -111,6 +111,10 @@ consequences for the nature of mathematics. He explains:
   would have only finite complexity and could not capture all the richness of
   the full world of mathematical truth_. @limits_on_reason]
 
+#todo(
+  [Explain why we need universal building blocks. A key example is, e.g., non-deterministic Turing machines. Not effectively described by deterministic ones! How do we talk about the building blocks of new things? That is key!],
+)
+
 Chaitin's claim extends beyond mathematics; the extent of research areas are so
 vast that the idea of a _single_ theory would fail to faithfully reproduce these
 disciplines. The study of the areas _themselves_ is needed to faithfully
