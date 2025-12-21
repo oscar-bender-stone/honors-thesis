@@ -3,41 +3,30 @@
 
 #import "template/ams-article.typ": todo
 
-= Introduction
+#todo[Provide concrete example of how logic connects fields together.]
+In my journey to become a researcher, I have learned a profound lesson: research
+is culminated through diverse communities. Each community has their own
+approaches, their own conferences, and their own formatting. They even have a
+distinct preference to chalk, dry erase marker, or neither. These distinctions
+are strengths and foster progress. I didn't understand these communities in my
+early mathematical journey, which I initiated in secondary school. I read from a
+variety of mathematical fields, including geometry, logic, and set theory. I was
+inspired by how logicians bridge seemingly distant fields in unexpected ways. My
+research journey has sought to expand these bridges, encouraging
+interdisciplinary work.
 
-#todo[Create a stronger connection to the fact that the papers I read were
-  ONLINE. This is crucial!]
-
-Undergraduates are taught many things in lecture, books, and papers, but there
-is one unspoken truth: researchers have extremely _diverse_ communities. Each
-community has their own approaches, their own conferences, and their own
-formatting. They even have a distinct preference to chalk, dry erase marker, or
-neither. For a long time, I didn't notice this aspect about research. I started
-my mathematics journey in secondary education, independently reading papers from
-set theory, logic, and more. I was fortunate to have vast archives available on
-the internet, but my ability to _collaborate_ in research was limited. This
-quickly changed in college[TODO: maybe make this a stronger sentence?].
-Everywhere I went, I saw the multitude of research groups, from those mentioned
-in lecture to the experiences I worked in to the faculty panels in the COSMOS
-math club. I worked in several research groups and found how rich and fulfilling
-each was. This fundamentally changed my perception of research as a whole. I
-learned that diversity _drives_ research, including in the sciences, liberal
-arts, and many more subjects I have hardly explored.
-
-#todo[clean up transitions with examples]
-
-Because of how diverse research is, these communities are extremely independent
-and build separate repositories of knowledge. For example, I wrote a poster for
-a cryptography class, concerning an MIT researcher who created programs of
-common crytographic schemes and mathematically proved their correctness. I met
-this researcher at a conference and discovered that _neither_ knew about the
-other! They provided their own contributions, but I initially assumed that
-_everyone_ contributing to cryptography work on common projects. As another
-example, during my time in the Budapest Semesters in Mathematics, I adopted a key
-tool in program verification to find proofs for a combinatorial problem.
-According to my advisor, that approach had _never_ been considered before in his
-group. The boundaries between these communities isn't so clear, and it seems to
-take years to begin to _remotely_ find them.
+Bridging research between these communities, however, was harder than I
+expected. For example, I wrote a poster for a cryptography class, concerning an
+MIT researcher who created programs of common crytographic schemes and
+mathematically proved their correctness. I met this researcher at a conference
+and discovered that _neither_ knew about the other! They provided their own
+contributions, but I initialy assumed that _everyone_ contributing to
+cryptography work on common projects. As another example, during my time in the
+Budapest Semesters in Mathematics, I adopted a key tool in program verification
+to find proofs for a combinatorial problem. According to my advisor, that
+approach had _never_ been considered before in his group. The boundaries between
+these communities isn't so clear, and it seems to take years to begin to
+_remotely_ find them.
 
 #todo[cite main claims about journals/research communities/etc as needed]
 
@@ -112,7 +101,10 @@ consequences for the nature of mathematics. He explains:
   the full world of mathematical truth_. @limits_on_reason]
 
 #todo(
-  [Explain why we need universal building blocks. A key example is, e.g., non-deterministic Turing machines. Not effectively described by deterministic ones! How do we talk about the building blocks of new things? That is key!],
+  [Explain why we need universal building blocks. A key example is, e.g.,
+    non-deterministic Turing machines. Not effectively described by
+    deterministic ones! How do we talk about the building blocks of new things?
+    That is key!],
 )
 
 Chaitin's claim extends beyond mathematics; the extent of research areas are so
@@ -197,9 +189,10 @@ and driving force of this thesis.
 == Goals
 
 The aim of this thesis is to create a universal information language to
-standardize _all_ formal representations. I call this language *Welkin*, based on the old German word _welkin_ meaning cloud @dictionary:welkin. This aim will be made more precise
-in the later sections, where we will formally define a verifier for a
-programming language.
+standardize _all_ formal representations. I call this language *Welkin*, based
+on the old German word _welkin_ meaning cloud @dictionary:welkin. This aim will
+be made more precise in the later sections, where we will formally define a
+verifier for a programming language.
 - *Goal 1:* universality. This language applies to ANY checker. Needs to be
   extremely flexible towards this goal, so we can ONLY assume, at most, we are
   getting a TM as an input, or it's somehow programmed.
@@ -223,7 +216,10 @@ programming language.
 - Section 3. Information Systems: explore information in the context of
   verifiers. Then synthesize a definition to satisfy Goal 1.
 
-  - Want to cover _why_ we want to use our system. For minmality, want to start with the least necessary in RE sets. This is exactly outlined in Peirce's Reduction Thesis, with previous artitifical formalisms proving this resolved in @koshkin-peirce-reduction-thesis.
+  - Want to cover _why_ we want to use our system. For minmality, want to start
+    with the least necessary in RE sets. This is exactly outlined in Peirce's
+    Reduction Thesis, with previous artitifical formalisms proving this resolved
+    in @koshkin-peirce-reduction-thesis.
 
 - Section 4. Information Reuse. Develops the optimal informal system (w.r.t to a
   metric defined in this system) to satisfy Goal 3.
