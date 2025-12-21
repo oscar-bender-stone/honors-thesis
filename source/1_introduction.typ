@@ -33,7 +33,7 @@ common crytographic schemes and mathematically proved their correctness. I met
 this researcher at a conference and discovered that _neither_ knew about the
 other! They provided their own contributions, but I initially assumed that
 _everyone_ contributing to cryptography work on common projects. As another
-example, at my time in the Budapest Semesters in Mathematics, I adopted a key
+example, during my time in the Budapest Semesters in Mathematics, I adopted a key
 tool in program verification to find proofs for a combinatorial problem.
 According to my advisor, that approach had _never_ been considered before in his
 group. The boundaries between these communities isn't so clear, and it seems to
@@ -197,8 +197,7 @@ and driving force of this thesis.
 == Goals
 
 The aim of this thesis is to create a universal information language to
-standardize _all_ formal representations. I call this language *Welkin*, an old
-German word meaning cloud @dictionary:welkin. This aim will be made more precise
+standardize _all_ formal representations. I call this language *Welkin*, based on the old German word _welkin_ meaning cloud @dictionary:welkin. This aim will be made more precise
 in the later sections, where we will formally define a verifier for a
 programming language.
 - *Goal 1:* universality. This language applies to ANY checker. Needs to be
@@ -216,13 +215,15 @@ programming language.
 
 == Organization
 
-// TODO: Maybe provide as another table _with_ descriptions?
+#todo[Maybe provide as another table _with_ descriptions?]
 
 - Section 2. Foundations: define the meta-theory used + verifiers. Also outline
   the Trusted Computing Base. // TODO: maybe introduce this term beforehand?
 
 - Section 3. Information Systems: explore information in the context of
   verifiers. Then synthesize a definition to satisfy Goal 1.
+
+  - Want to cover _why_ we want to use our system. For minmality, want to start with the least necessary in RE sets. This is exactly outlined in Peirce's Reduction Thesis, with previous artitifical formalisms proving this resolved in @koshkin-peirce-reduction-thesis.
 
 - Section 4. Information Reuse. Develops the optimal informal system (w.r.t to a
   metric defined in this system) to satisfy Goal 3.
