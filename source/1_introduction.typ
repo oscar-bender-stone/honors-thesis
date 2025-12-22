@@ -15,13 +15,13 @@ inspired by how logicians bridge seemingly distant fields in unexpected ways. My
 research journey has sought to expand these bridges, encouraging
 interdisciplinary work.
 
-Bridging research between these communities, however, was harder than I
-expected. For example, I wrote a poster for a cryptography class, concerning an
-MIT researcher who created programs of common crytographic schemes and
-mathematically proved their correctness. I met this researcher at a conference
-and discovered that _neither_ knew about the other! They provided their own
-contributions, but I initialy assumed that _everyone_ contributing to
-cryptography work on common projects. As another example, during my time in the
+#todo[Clean up this paragraph further.]
+Bridging research between these communities, however, was less common than I
+expected. For example, I wrote a poster for a cryptography class, discussing a
+mathematically certified program that implemented widely used crytographic
+schemes. I initially assumed my professor knew about the researchers on this
+project, but after meeting one of these authors at a conference, I learned that
+_neither_ knew about the other! As another example, during my time in the
 Budapest Semesters in Mathematics, I adopted a key tool in program verification
 to find proofs for a combinatorial problem. According to my advisor, that
 approach had _never_ been considered before in his group. The boundaries between
