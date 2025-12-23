@@ -25,27 +25,10 @@ subdisciplines.
 Among issues in interdisciplinary research, a key problem is the common storage
 of knowledge.
 
-#todo[REWORD as needed + merge with discussions on FAIR.]
-Information has been extensively studied through _measurements_ in Algorithmic
-Information Theory (AIT). The founding idea of AIT is the Minimum Description
-Length (MDL) principle, that the best definition for an object is the smallest
-description that describes it. To formalize this idea, Kolmogorov defined a
-description as a _program_, and the Kolmogorov complexity of a string as the
-length of the _smallest program_ that computes that string (see
-@intro_kolmogorov_complexity). This program is defined via a Turing-computable
-programming language, and there is a different constant factor depending on the
-language, but AIT focuses on the asymptotic complexity. A cornerstone of this
-framework is providing the reason underlying cause of Gödel's incompleteness
-theorems, Turing's halting problem, Tarski's undefinability of truth, and more:
-_not all information can be compressed into a finite description_. This view was
-articulated by Chaitin on information compression. He defined $Omega$ as the
-probability that a random Turing machine will halt and proved that it cannot be
-compressed computably. This result is a major theme in AIT, to address the
-limits of computation.
-
-
-In addition to addressing these limits, Chaitin's results have profound
-consequences for the nature of mathematics. He explains:
+#todo[Rephrase Chaitin's contributions + connection to AIT. Maybe simplify this
+  more?]
+To examine the complexity of this knowledge, we can theoretically analyze
+information through Chaitin's ideas of compression. He explains:
 
 #set quote(block: true)
 #quote[_Mathematics...has infinite complexity, whereas any individual theory
