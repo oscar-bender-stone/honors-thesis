@@ -3,36 +3,42 @@
 
 #import "template/ams-article.typ": todo
 
-#todo[Provide concrete example of how logic connects fields together.]
-In my journey to become a researcher, I have learned a profound lesson: research
-is culminated through diverse communities. Each community has their own
-approaches, their own conferences, and their own formatting. They even have a
-distinct preference to chalk, dry erase marker, or neither. These distinctions
-are strengths and foster progress. I didn't understand these communities in my
-early mathematical journey, which I initiated in secondary school. I read from a
-variety of mathematical fields, including geometry, logic, and set theory. I was
-inspired by how logicians bridge seemingly distant fields in unexpected ways. My
-research journey has sought to expand these bridges, encouraging
-interdisciplinary work.
 
-#todo[Clean up this paragraph further.]
-Bridging research between these communities, however, was less common than I
-expected. For example, I wrote a poster for a cryptography class, discussing a
-mathematically certified program that implemented widely used crytographic
-schemes. I initially assumed my professor knew about the researchers on this
-project, but after meeting one of these authors at a conference, I learned that
-_neither_ knew about the other! As another example, during my time in the
-Budapest Semesters in Mathematics, I adopted a key tool in program verification
-to find proofs for a combinatorial problem. According to my advisor, that
-approach had _never_ been considered before in his group. The boundaries between
-these communities isn't so clear, and it seems to take years to begin to
-_remotely_ find them.
+Research is culiminated through _diverse_ communities. At a glance, each
+community has their own groups, conferences, and communication styles. They een
+have a distinct preference to chlak, dry erase marker, or neither. But they
+differ in their problems, approaches, and methods. These facets are less visible
+are an integral part of my own journey as a researcher.
 
-#todo[cite main claims as needed. Also, should we go from knowledge to
-  information?]
 
-As I learned about this paragraph, I wanted to ask: _can_ knowledge across
-disciplines be bridged together?
+// In my journey to become a researcher, I have learned a profound lesson: research
+// is culminated through diverse communities. At a glance, each community has their
+// own conferences. They even have a distinct preference to chalk, dry erase
+// marker, or neither. I didn't understand these communities in my early
+// mathematical journey, which I initiated in secondary school. I read from a
+// variety of mathematical fields, including geometry, logic, and set theory. I was
+// inspired by how logicians bridge seemingly distant fields in unexpected ways. My
+// research journey has sought to expand these bridges, encouraging
+// interdisciplinary work.
+
+// #todo[Clean up this paragraph further.]
+// Bridging research between these communities, however, was less common than I
+// expected. For example, I wrote a poster for a cryptography class, discussing a
+// mathematically certified program that implemented widely used crytographic
+// schemes. I initially assumed my professor knew about the researchers on this
+// project, but after meeting one of these authors at a conference, I learned that
+// _neither_ knew about the other! As another example, during my time in the
+// Budapest Semesters in Mathematics, I adopted a key tool in program verification
+// to find proofs for a combinatorial problem. According to my advisor, that
+// approach had _never_ been considered before in his group. The boundaries between
+// these communities isn't so clear, and it seems to take years to begin to
+// _remotely_ find them.
+
+// #todo[cite main claims as needed. Also, should we go from knowledge to
+//   information?]
+
+// As I learned about this paragraph, I wanted to ask: _can_ knowledge across
+// disciplines be bridged together?
 
 // Publications have become more widely
 // available thanks to the internet. However, there are more challenges to storing
