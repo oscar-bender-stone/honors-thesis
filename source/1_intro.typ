@@ -7,12 +7,13 @@
 
 Research is culiminated through _diverse_ communities. At a glance, each
 community has their own groups, conferences, and communication styles. They even
-have a distinct preference to chalk, dry erase marker, or neither. Less visibly,
-they differ in their problems, approaches, and methods. In many cases,
-communities are specialized to particular topics, with specific terminology and
-theory. Specialization has promoted progress in multiple fields, including
-biology, engineering, and the social sciences. Understanding these communities,
-therefore, is pivotal to understanding the research they produce, as well as
+have a distinct preference to chalk, dry erase marker, or neither. But beyond
+these apparent differences, there are more subtle dimensions, including distinct
+problems, approaches, and methods. In many cases, communities are specialized to
+particular topics, with specific terminology and theory. Specialization has
+promoted progress in multiple fields, including biology, engineering, and the
+social sciences. In any case, specialized or not, understanding these
+communities is pivotal to understanding the research they produce, as well as
 future research directions.
 
 #todo[Discuss specific examples.]
@@ -20,7 +21,7 @@ As a result of this diversity, research is fragmented, even between
 subdisciplines.
 
 #todo[Discuss QED here + why faithful representations are difficult to do. Also
-  discuss information prior!]
+  discuss information prior to work on Chaitin!]
 Among issues in interdisciplinary research, a key problem is the common storage
 of knowledge.
 
