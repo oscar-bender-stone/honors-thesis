@@ -15,71 +15,14 @@ biology, engineering, and the social sciences. Understanding these communities,
 therefore, is pivotal to understanding the research they produce, as well as
 future research directions.
 
-// marker, or neither. I didn't understand these communities in my early
-// mathematical journey, which I initiated in secondary school. I read from a
-// variety of mathematical fields, including geometry, logic, and set theory. I was
-// inspired by how logicians bridge seemingly distant fields in unexpected ways. My
-// research journey has sought to expand these bridges, encouraging
-// interdisciplinary work.
+#todo[Discuss specific examples.]
+As a result of this diversity, research is fragmented, even between
+subdisciplines.
 
-// #todo[Clean up this paragraph further.]
-// Bridging research between these communities, however, was less common than I
-// expected. For example, I wrote a poster for a cryptography class, discussing a
-// mathematically certified program that implemented widely used crytographic
-// schemes. I initially assumed my professor knew about the researchers on this
-// project, but after meeting one of these authors at a conference, I learned that
-// _neither_ knew about the other! As another example, during my time in the
-// Budapest Semesters in Mathematics, I adopted a key tool in program verification
-// to find proofs for a combinatorial problem. According to my advisor, that
-// approach had _never_ been considered before in his group. The boundaries between
-// these communities isn't so clear, and it seems to take years to begin to
-// _remotely_ find them.
-
-// #todo[cite main claims as needed. Also, should we go from knowledge to
-//   information?]
-
-// As I learned about this paragraph, I wanted to ask: _can_ knowledge across
-// disciplines be bridged together?
-
-// Publications have become more widely
-// available thanks to the internet. However, there are more challenges to storing
-// the knowledge therein, as recognized by several papers, including
-// @FAIR_guiding_science. One class of these problems is . Firstly, journals are
-// often highly specialized, requring an immense understanding of the broader
-// concepts involved and nomenclature used. This is evident in the sciences, as
-// explored in @hierarchy_science, @specialized_science. Additionally, representing
-// knowledge can be difficult. In mathematics, for example, several attempts have
-// been made to catalog major theories and results. [DESCRIBE ATTEMPTS &
-// LIMITATIONS]. In other subjects, like the social sciences, there are _no_
-// standard terms, and the majority of cited references are books, which are not
-// indexed by many databases @social_sciences_databases. As another challenge, many
-// formats are fragile to incorrect syntax [EXPLAIN AND ELABORATE]. Each of these
-// issues, a small fraction of existing barriers, demonstrate the difficulty in
-// creating a knowledge base with both broad applicability and faithful
-// representations to the original research.
-
-
-// TODO: cleanup transition + last part of previous paragraph
-// TODO: make this more concise. I think it's important to have the scientist part here to address that counter-argument. Still, multiple quotes can make things confusing.
-// Ah! Combine with a discussion on challenges with *truth*. THEN summarize approach to knowledge bases using information instead (and contexts). Transition into AIT.
-// Connect with TCBs as well! Important to highlight!
-// TODO: connect back to ontologies + AI (eventually). Probably could do so here.
-// In addition to this [FIRST CLASS OF PROBLEMS NAME], another major hurdle is
-// truth management. [DISCUSS Problems with truth + corrections from papers don't
-// propagate!] What can be done is addressing _information_, the storage of the
-// _asserted_ facts themselves, regardless of truth. As one example, suppose a
-// scientist claims, "X is true about Y". One could debate the veracity of that
-// claim, but what we can say is, "This scientist claims, 'X is true about Y'".
-// Even if we doubt that, we could do: "This claim can be formulated: 'This
-// scientist claims 'X is true about Y''". By using these justifications, stating
-// that a claim is expressible, the _syntactic expression_ of the claim can be
-// separated from its _semantic truth value_.#footnote[One might be worried about a
-//   paradox, such as "This claim is expressible: this claim is not expressible."
-//   We will avoid this using a clear separation of the overarching metatheory and
-//   object theory, with the former being syntactical in nature. To express this
-//   separation, we write quotes around the claim itself.] I will make this more
-// rigorous in later sections, but this means we can build knowledge bases ontop of
-// information systems using flexible extensions.
+#todo[Discuss QED here + why faithful representations are difficult to do. Also
+  discuss information prior!]
+Among issues in interdisciplinary research, a key problem is the common storage
+of knowledge.
 
 #todo[REWORD as needed + merge with discussions on FAIR.]
 Information has been extensively studied through _measurements_ in Algorithmic
