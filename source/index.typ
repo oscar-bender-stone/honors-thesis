@@ -28,7 +28,7 @@
 
 #outline()
 
-#include "1_introduction.typ"
+#include "1_intro.typ"
 
 #include "2_foundations.typ"
 
