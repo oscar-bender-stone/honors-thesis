@@ -3,17 +3,18 @@
 
 #import "template/ams-article.typ": todo
 
+= Introduction
 
 Research is culiminated through _diverse_ communities. At a glance, each
-community has their own groups, conferences, and communication styles. They een
-have a distinct preference to chlak, dry erase marker, or neither. But they
-differ in their problems, approaches, and methods. These facets are less visible
-are an integral part of my own journey as a researcher.
+community has their own groups, conferences, and communication styles. They even
+have a distinct preference to chalk, dry erase marker, or neither. Less visibly,
+they differ in their problems, approaches, and methods. In many cases,
+communities are specialized to particular topics, with specific terminology and
+theory. Specialization has promoted progress in multiple fields, including
+biology, engineering, and the social sciences. Understanding these communities,
+therefore, is pivotal to understanding the research they produce, as well as
+future research directions.
 
-
-// In my journey to become a researcher, I have learned a profound lesson: research
-// is culminated through diverse communities. At a glance, each community has their
-// own conferences. They even have a distinct preference to chalk, dry erase
 // marker, or neither. I didn't understand these communities in my early
 // mathematical journey, which I initiated in secondary school. I read from a
 // variety of mathematical fields, including geometry, logic, and set theory. I was
