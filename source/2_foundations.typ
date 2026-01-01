@@ -7,6 +7,17 @@
 
 = Foundations <foundations>
 
+- Establish meta-theory: combinator version of HA
+- Focus on *computable sets* and build from there.
+- Explain why Artemov's serial property is the weakest
+property desired, so show that any weaker property would produce undesirable
+behavior.
+- Explain that minimal proofs of serial Sigma^0_1 consistency are important
+here.
+- Define natural partial order for "reliable" FOL theories
+whose language is arithmetic. GOAL: generalize reliability to any formal
+concept.
+
 Our first step is to define the set of verifiers, a subset of the computable
 functions. Based on our architecture to separate _query_ from _search_, we focus
 this subset to primitive recursive functions.
