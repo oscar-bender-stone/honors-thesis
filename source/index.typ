@@ -29,15 +29,8 @@
 #outline()
 
 #include "1_introduction.typ"
-
 #include "2_foundations.typ"
-
-#include "3_information_systems.typ"
-
-#include "syntax.typ"
-
-#include "semantics.typ"
-
-#include "bootstrap.typ"
-
-#include "conclusion.typ"
+#include "3_information_organization.typ"
+#include "4_language.typ"
+#include "5_bootstrap.typ"
+#include "6_conclusion.typ"

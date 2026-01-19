@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: 2025 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
+// SPDX-FileCopyrightText: 2025-2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
 #import "template/ams-article.typ": definition, theorem
 
-= Information Compression <information_compression>
+= Information Organization <information_organization>
 
 A natural question arises with universal formal systems: _which_ one do we
 choose? While we have reflection, what is the criterion for the _base_ theory?
