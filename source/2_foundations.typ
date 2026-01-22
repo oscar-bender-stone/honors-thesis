@@ -7,54 +7,134 @@
 
 = Foundations <foundations>
 
-Our first step is to define the set of verifiers, a subset of the computable
-functions. Based on our architecture to separate _query_ from _search_, we focus
-this subset to primitive recursive functions.
+== Abstract Objects/Slates
 
-To explore verifiers, we need a reliable metatheory, establishing our logical
-TCB. How can we establish what _reliable_ means? [TODO: cite that ZFC, or ZFC +
-inaccessibles, is common in literature. ] However, each of these are _specific
-theories_, and while ZFC + inaccessibilies likely suffices for, e.g., formal
-verification, what about other subjects? We want to make this _as extensible_ as
-possible, akin to an infinite hierarchy of theories via reflection. So we will
-need a different approach.
+- Brief philosophical discussion
+  - Discuss Kit Fine's arbtirary objects.
+    - Address symbol groundin problem + circularity: Fine uses FOL to define a
+      notion *used* to construct FOL
+    -
+  - Emphasize *pragmatism*, echoing intro. It matters how we can *use it*
+  for this language, *not* epistemological statements or certainty (what "is" or
+  "isn't")
+- Establish notion of a slate
+  - Bring up notion of "tabula rasa"
+  - Want a "clean slate" that can be "assigned an interpretation" arbitrarily
+    - Make main defense as to why this is universal; need to allow *any*
+      extensions, so need to be arbitrarily imbued by interpreters/oracles.
+    - Note: no guarantees on what interpreters there "are" or limiations,
+    e.g., humans have finite lifespans.
+    - Main point: to ensure arbitrary interpretation,
+    need clean slates! Argue this is pragmatic (i.e., useful practically)
+  - This is completely informal and depends on the interpreter.
+  - Idea for formalization: treat *handles/ids* slates as the discrete objects
+    - Analogy: sorting through an inventory of dishes. Will connect back to
+      organization!
+    - THEN can use formal systems/computable functions around those IDs
+    to make formal claims
+    - Why formal systems? Because we want to assert claims! Important
+      pragmatically! Just like keeping track of inventory or specific points! Or
+      being a historian!
+    - Use to define information! Expand on how this improves notion of infons
+    - Powerful aspect: can shape AROUND new slates! Provide examples in Slate
+      Logic
 
-The key problem to reliability is, while we can easily verify if a given input
-is accepted by a verifier, how do we tell when there is _no_ such input? We use
-a novel criterion developed by Artemov's Logic of Proofs @artemov_lp. [TODO:
-bridge this with selector proofs. Also, make sure to explain WHY the arithmetic
-hierarchy is enough. We JUST want to explore properties of naturals. We can't do
-beyond. But we should prove this!]
+== Slate Logic
 
-This is where our metatheory come in. [TODO: explore arithmetic hierarchy
-briefly? How do we know _which_ results on computability are trustworthy? This
-is ESSENTIAL for the TCB!]
+- Definition
+  - Define binary strings. Assign these to slates.
+    - Have *slate variables*. This is our entry
+    point into arbitrary interpreters.
+    - Can change meaning based on interpretation/context!
+    Emphasize how there can be a many to one relationship, and we need to
+    increase formal systems available to distinguish between them!
+    - Emphasize need for a function that can enumerate these slate
+    variables. So NOT just one slate variable. Maybe provide lemma on
+    impossibility of doing more (within a formal system?)
+  - Combinators
+    - Want a *simple* presentation to define theory.
+    We do require substitution (variables are important here!), but want to
+    present theory with combinators.
+    - Emphasize that this is a bootstrap/easier way to start.
+    Just like starting somehwere on a map and then relocating (make this
+    clearer!)
+  - Justifications: what we can assert about *formal objects*
+    - Inspired by Artemov's logic of proofs. Will connect back in
+    next two sections with serial consistency!
+- Examples
+  - Sorting dishes (analogy from before)
+  - Map analogy, with places as IDs AND paths
+    - Emphasize that new objects can be given
+    IDs arbitrarily; that is why we need (countably) infinitely many IDs!
 
-== Logic of Proofs
+== Coherency
 
-== Computability
+- Definability
+  - Show that this generalizes Padoa definability
+    - Classic exapmle where this is used:
+    showing congruence is not definable in terms of betweeness
+    - On the reals, $x |-> 2x$ is monotonic but
+    does not preserve congruence.
+    - In HOL, only one direction shows. Determine
+    how to strengthen to claim to ensure equivalence
+  - Basic idea: notion A is definable via notion B
+  iff every map that preserves B also preserves B
+  - Want to use this basic idea to talk
+  about information preservation
+- Coherency of a System
+  - What systems are *useful* or can talk about other systems?
+    - Don't want: empty system or one with ALL The rules. These are
+    will have low usefulness
+    - Want: complex, intricate structures. Problem is,
+    lots of notions for this! Need to determine a general notion, using slates!
+  - Use coherency as basis for information organization
 
-== Verifiers
+== Translations Between First Order Logic
 
-Given a partial computable function $phi$, let $L(phi)$ be the language
-recognized by $phi$.
+- Want easy access to first order logic
+  - Review literature. Notable examples:
+    - SMT solvers in Rocq + Lean (via monomorphization of types)
+  - Problem: abstractions are hard to convey! Lots of "bloat"
+  - BUT SMT solvers are very well established, particularly with Gödel's
+    completeness theorem.
+  - How to get best of both worlds? Solution: slates!
+- First step: define extension to first order logic (let's call it, say,
+  FOL(Slate))
+  - Add slates as a special sort, but focuses on first order terms.
+    - Emphasize that there are FOL theories *weaker* than combinators.
+    So, with a coherency argument, argue that FOL can be powerful *precisely
+    because* RE is possible, WITH the combination of the completness theorem.
+    (Not possible in all logics!).
+- Second step: show that FOL(Slate) is equivalent to FOL by treating slates
+as an additional sort.
+- Straightforward, but emphasize rule on slates on making meanginful/useful
+abstractions!
+- IF time allows, provide experiments, but mostly argue why, based
+on the argument for slates, this would work.
+- Argue that you could AT LEAST embed the necessary abstractions via slates.
+And organization will help show this is feasible with a theoretical argument
+(but it's not exponential time. It is (hopefully) ACTUALLY feasible.)
 
-// TODO: maybe define verifiers with a specific form?
-// That way, we don't have cases of functions where we don't even know it's linear time. We need to PROVE this class has all linear time, or something desirable.
-#definition[
-  An *effective verifier* is a Turing machine that runs in linear time and it
-  accepts an input _must_ have read the entire input.
-]
+- Final step: show that there is an equivalent embedding that *preserves*
+  slates.
+  - Important part: preservation up to iso!
+  - Maybe bring up Jose Mesegeru's "epsilon-representation distance" notion
 
-In a refined form of Kleene representability, we show that every RE set
-corresponds to an effective verifier in an important way.
+= Universal Systems
 
-#lemma[
-  For every RE set $S$ with recognizer $phi$, there is an effective verifier
-  $V_phi$ such that $x in S$ iff there is some trace $t$ that starts with $x$
-  and $t in L(V_phi)$.
-]
+- Provide previous section (translation to FOL) as a major example
+- Generalize from the case of a formal system from an earlier draft
+  - Earlier definition: (D, R), with D a grammar and R a set of RE rules
+  - Universal system: U = (D_U, R_U) is universal if, for each formal system S,
+  there is a term t in D_U such that derivations in S are reflected and
+  preserved via t in D_U. So they are faithfully encoded
+  - Earlier proof: a system is universal iff it induces a comptuable, RE
+  full sub-category of the category of formal systems.
+  - Refine these ideas to use slates + coherency from before.
+  Can involve more ambitious encodings!
+  - Also develop reflection!
+- Hint at topic of next section, or smooth out transition. Next
+section is discussing *which* universal system to use or how to effectively
+translate between them
 
-For the rest of this thesis, all verifiers mentioned will be effective. Note
-that we will return to practical verifiers, those with realistic constants.
 
