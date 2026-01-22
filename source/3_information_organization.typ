@@ -6,22 +6,34 @@
 
 = Information Organization <information_organization>
 
-A natural question arises with universal formal systems: _which_ one do we
-choose? While we have reflection, what is the criterion for the _base_ theory?
-Can this be done? One loose, but natural, mteric is this: _a universal system
-which stores as many "interesting" proofs as possible_. The motivation behind
-this metric is to enable effective querying of "good" proofs.
+- Main question: *which* universal system to choose? Is this practical?
 
-We will show that, under a restricted notion of transformation, there is an
-optimal universal system. This will form the encoding under @semantics and
-provide a justification for Welkin as this base theory.
+  - What is a suitable criterion for a base theory?
 
+  - Recall aim: want to mechanically store systems for a database
 
-== Universal Systems
+    - What if possible performance degredation? Will we get stuck
+    if we start with one architecture? Will we have to adjust later?
 
-- Generalize previous idea to use a formal system as a syntax
-and a set of rules.
-- Instead have rules ON slates.
+    - Aim is to ensure architecture is completely flexible and
+    can automatically adapt
+
+    - One key metric: ability to store as many systems coherently as possible,
+    i.e., store as much information as psosible
+  - Main problem: Blum's speedup theorem
+
+    - Briefly generalize this for slate logic
+
+    - Show that no single way to completely organize systems based on a
+      computable metric.
+    This is part of the need for new search techniques!
+
+    - Want to separate search from storage though, but we want to improve
+    stored results *with* new results. This forms the idea behind the database
+    architecture: have a simple way to store results that automatically gets
+    better with new techniques/results.
+    - Need explicit proofs for this! Not sure how to store certificates...
+
 
 == Impossible Classes
 
