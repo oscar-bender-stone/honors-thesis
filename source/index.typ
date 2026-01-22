@@ -17,8 +17,8 @@
   abstract: [Welkin is a formalized programming language to store information.
     We introduce its use cases and rigorously define its syntax and semantics.
     From there, we introduce the bootstrap, making Welkin completely
-    self-contained under the meta-theory of Goedel's System T (equi-consistent
-    to Peano Arithmetic).],
+    self-contained under a meta-theory based on combinators, equivalent to a
+    provably minimal fragment of arithmetic.],
   bibliography: bibliography((
     "references/intro.bib",
     "references/misc.bib",
