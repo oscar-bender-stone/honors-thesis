@@ -120,3 +120,21 @@ And organization will help show this is feasible with a theoretical argument
   - Important part: preservation up to iso!
   - Maybe bring up Jose Mesegeru's "epsilon-representation distance" notion
 
+= Universal Systems
+
+- Provide previous section (translation to FOL) as a major example
+- Generalize from the case of a formal system from an earlier draft
+  - Earlier definition: (D, R), with D a grammar and R a set of RE rules
+  - Universal system: U = (D_U, R_U) is universal if, for each formal system S,
+  there is a term t in D_U such that derivations in S are reflected and
+  preserved via t in D_U. So they are faithfully encoded
+  - Earlier proof: a system is universal iff it induces a comptuable, RE
+  full sub-category of the category of formal systems.
+  - Refine these ideas to use slates + coherency from before.
+  Can involve more ambitious encodings!
+  - Also develop reflection!
+- Hint at topic of next section, or smooth out transition. Next
+section is discussing *which* universal system to use or how to effectively
+translate between them
+
+
