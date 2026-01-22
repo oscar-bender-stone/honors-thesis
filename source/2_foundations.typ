@@ -90,3 +90,33 @@
   - Use coherency as basis for information organization
 
 == Translations Between First Order Logic
+
+- Want easy access to first order logic
+  - Review literature. Notable examples:
+    - SMT solvers in Rocq + Lean (via monomorphization of types)
+  - Problem: abstractions are hard to convey! Lots of "bloat"
+  - BUT SMT solvers are very well established, particularly with Gödel's
+    completeness theorem.
+  - How to get best of both worlds? Solution: slates!
+- First step: define extension to first order logic (let's call it, say,
+  FOL(Slate))
+  - Add slates as a special sort, but focuses on first order terms.
+    - Emphasize that there are FOL theories *weaker* than combinators.
+    So, with a coherency argument, argue that FOL can be powerful *precisely
+    because* RE is possible, WITH the combination of the completness theorem.
+    (Not possible in all logics!).
+- Second step: show that FOL(Slate) is equivalent to FOL by treating slates
+as an additional sort.
+- Straightforward, but emphasize rule on slates on making meanginful/useful
+abstractions!
+- IF time allows, provide experiments, but mostly argue why, based
+on the argument for slates, this would work.
+- Argue that you could AT LEAST embed the necessary abstractions via slates.
+And organization will help show this is feasible with a theoretical argument
+(but it's not exponential time. It is (hopefully) ACTUALLY feasible.)
+
+- Final step: show that there is an equivalent embedding that *preserves*
+  slates.
+  - Important part: preservation up to iso!
+  - Maybe bring up Jose Mesegeru's "epsilon-representation distance" notion
+
