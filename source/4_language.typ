@@ -25,3 +25,4 @@ be clear that is ultimately symbolic.
   user's expectations, they need to refine it! OR, maybe it *does* match
   similarly with something else! (e.g., hidden connections between math and
   music)
+- Emphasize pragmatics as well, via slates
