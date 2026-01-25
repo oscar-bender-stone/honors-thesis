@@ -36,7 +36,26 @@ Our first step is to define the set of verifiers, a subset of the computable
 functions. Based on our architecture to separate _query_ from _search_, we focus
 this subset to primitive recursive functions.
 
-== Abstract Objects/Slates
+== Minimal Trusted Computing Base
+
+We first need to establish the logical machinery underlying the theory.
+
+== Philosophy Behind Slates
+Slates are inspired by several mechanisms. The most prominent arises in Burgin's
+theory of information. In his definition of information systems, he includes an
+unspecified parameter, meant as a way to tailor the system to domain specific
+terminology. However, Burgin does not develop rules to work with these
+parameters, and the rest of his results exacerbate a divide between these and
+the formal semantics.
+
+Seeking to augment Burgin's approach, we examine Kit Fine's notion of arbtirary
+objects @fine-arbitrary-objects. In his seminal work, he formalizes Cantor's
+definition of numbers via "Cantorian abstraction". Instead of defining a number
+through a Fregean set of all things with that quantity, or an artifical
+construct like Von Neumann ordinals, Cantor defined a number as a set of
+abstract entities. Fine proceeds to formalize this within a first-order logic.
+Several papers have expanded on this idea as well, including
+@shapiro-arbtirary-objects.
 
 - Brief philosophical discussion
   - Discuss Kit Fine's arbtirary objects.

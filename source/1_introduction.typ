@@ -5,20 +5,21 @@
 
 = Introduction
 
-Knowledge management is an active problem due to the exponential expansion of
-new fields. As one major problem, journals are often highly specialized,
-requring an immense understanding of the broader concepts involved and
-nomenclature used. This is evident in the sciences, as explored in
-@hierarchy_science, @specialized_science. Additionally, representing knowledge
-can be difficult. In mathematics, for example, several attempts have been made
-to catalog major theories and results. [DESCRIBE ATTEMPTS & LIMITATIONS]. In
-other subjects, like the social sciences, there are _no_ standard terms, and the
+Knowledge management is an active problem due to the depth and breadth of
+fields. Journals are often specialized, requring an immense understanding of the
+broader concepts involved and nomenclature used. This is evident in the
+sciences, as explored in @hierarchy_science and @specialized_science.
+Additionally, creating common representations shared accross subdisciplines can
+be difficult. In mathematics, for example, several attempts have been made to
+catalog major theories and results. #todo[DESCRIBE ATTEMPTS & LIMITATIONS]. In
+other subjects, like the social sciences, there are no standard terms, and the
 majority of cited references are books, which are not indexed by many databases
-@social_sciences_databases. As another challenge, many formats are fragile to
-incorrect syntax [EXPLAIN AND ELABORATE]. Each of these issues, a small fraction
-of existing barriers, demonstrate the difficulty in creating a knowledge base
-with both broad applicability and faithful representations to the original
-research.
+@social_sciences_databases. The problems posed by broadly and faithfully
+capturing subjects demonstrate the herculean task of scalable knowlege
+management.
+
+In attempt to address these challenges, several solutions have been proposed,
+but none completely fix these issues.
 
 // In addition to this [FIRST CLASS OF PROBLEMS NAME], another major hurdle is
 // truth management. [DISCUSS Problems with truth + corrections from papers don't
@@ -100,7 +101,6 @@ research.
 // programs is not the intent of this thesis, and instead, is to _bridge_
 // information _about_ programs. Therefore, we are interested in _unifying
 // representations_ of these languages.
-
 
 The aim of this thesis is to create a universal information language to
 standardize _any_ knowledge representation. I call this language *Welkin*, based

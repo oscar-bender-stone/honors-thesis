@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025-2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
+# SPDX-License-Identifier: CC0-1.0
+
 [language-server.tinymist.config]
 
 typstExtraArgs = ["source/index.typ"]

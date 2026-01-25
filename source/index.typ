@@ -22,6 +22,7 @@
   bibliography: bibliography((
     "references/intro.bib",
     "references/misc.bib",
+    "references/2_foundations.bib",
     "references/general.bib",
   )),
 )
