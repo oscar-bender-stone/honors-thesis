@@ -4,6 +4,7 @@
 #import "template/ams-article.typ": definition, example, remark
 #import "template/ams-article.typ": lang-def-vertical
 #import "template/ams-article.typ": equation_block, lemma, proof, theorem
+#import "template/ams-article.typ": todo
 
 = Foundations <foundations>
 
@@ -41,6 +42,7 @@ this subset to primitive recursive functions.
 We first need to establish the logical machinery underlying the theory.
 
 == Philosophy Behind Slates
+
 Slates are inspired by several mechanisms. The most prominent arises in Burgin's
 theory of information. In his definition of information systems, he includes an
 unspecified parameter, meant as a way to tailor the system to domain specific
@@ -48,6 +50,7 @@ terminology. However, Burgin does not develop rules to work with these
 parameters, and the rest of his results exacerbate a divide between these and
 the formal semantics.
 
+#todo[Finish writing up this paragraph + ensure accuracy!]
 Seeking to augment Burgin's approach, we examine Kit Fine's notion of arbtirary
 objects @fine-arbitrary-objects. In his seminal work, he formalizes Cantor's
 definition of numbers via "Cantorian abstraction". Instead of defining a number
@@ -55,37 +58,11 @@ through a Fregean set of all things with that quantity, or an artifical
 construct like Von Neumann ordinals, Cantor defined a number as a set of
 abstract entities. Fine proceeds to formalize this within a first-order logic.
 Several papers have expanded on this idea as well, including
-@shapiro-arbtirary-objects.
-
-- Brief philosophical discussion
-  - Discuss Kit Fine's arbtirary objects.
-    - Address symbol groundin problem + circularity: Fine uses FOL to define a
-      notion *used* to construct FOL
-    -
-  - Emphasize *pragmatism*, echoing intro. It matters how we can *use it*
-  for this language, *not* epistemological statements or certainty (what "is" or
-  "isn't")
-- Establish notion of a slate
-  - Bring up notion of "tabula rasa"
-  - Want a "clean slate" that can be "assigned an interpretation" arbitrarily
-    - Make main defense as to why this is universal; need to allow *any*
-      extensions, so need to be arbitrarily imbued by interpreters/oracles.
-    - Note: no guarantees on what interpreters there "are" or limiations,
-    e.g., humans have finite lifespans.
-    - Main point: to ensure arbitrary interpretation,
-    need clean slates! Argue this is pragmatic (i.e., useful practically)
-  - This is completely informal and depends on the interpreter.
-  - Idea for formalization: treat *handles/ids* slates as the discrete objects
-    - Analogy: sorting through an inventory of dishes. Will connect back to
-      organization!
-    - THEN can use formal systems/computable functions around those IDs
-    to make formal claims
-    - Why formal systems? Because we want to assert claims! Important
-      pragmatically! Just like keeping track of inventory or specific points! Or
-      being a historian!
-    - Use to define information! Expand on how this improves notion of infons
-    - Powerful aspect: can shape AROUND new slates! Provide examples in Slate
-      Logic
+@shapiro-arbtirary-objects. However, Valaris
+@valaris-induction-arbitrary-objects provides a key objection to using
+induction... We address this with a powerful symbolic rule for slates that make
+slates themselves rules, in a specific sense.#todo[Write up details in next
+  section! Make sure this is accurate!]
 
 == Slate Logic
 
