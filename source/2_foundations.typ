@@ -12,13 +12,16 @@ components of symbolic systems. The meta-theory consists of two interconnected
 parts:
 - The computational part, which can express
 any partial computable function via combinators.
-- The logical part, which enables checking on properties of symbols
-and normal forms to validate the behavior of combinators.
+- The logical part, which enables checking on properties of symbols and
+  certificates on normal forms.
 
-While this theory looks like Feferman's Explicit mathematics at a glance, we
-incorporate slates to enable unspecified parameters. This enables richer
-semantics beyond a strict formalist perspective, which would treat information
-merely as symbols manipulated by a fixed set of rules.
+In first-order logic, one approach to combine combinators with logical
+assertions was pioneered by Feferman's Explicit Mathematics framework
+@feferman_arithmetic_metamath. However, Feferman's approach does not include
+unspecified parameters and therefore relies on implicit connections to external
+notions or intuitions. We build upon this framework by incorporating slates, as
+well as having a robust model of trust through work done by Artemov
+@artemov_serial_consistency.
 
 - Explain why Artemov's serial property is the weakest
 property desired, so show that any weaker property would produce undesirable
