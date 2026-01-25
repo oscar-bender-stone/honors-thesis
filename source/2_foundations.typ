@@ -7,8 +7,19 @@
 
 = Foundations <foundations>
 
-- Establish meta-theory: combinator version of HA
-- Focus on *computable sets* and build from there.
+This section establishes the meta-theory for Welkin, capturing the major
+components of symbolic systems. The meta-theory consists of two interconnected
+parts:
+- The computational part, which can express
+any partial computable function via combinators.
+- The logical part, which enables checking on properties of symbols
+and normal forms to validate the behavior of combinators.
+
+While this theory looks like Feferman's Explicit mathematics at a glance, we
+incorporate slates to enable unspecified parameters. This enables richer
+semantics beyond a strict formalist perspective, which would treat information
+merely as symbols manipulated by a fixed set of rules.
+
 - Explain why Artemov's serial property is the weakest
 property desired, so show that any weaker property would produce undesirable
 behavior.

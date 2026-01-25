@@ -102,24 +102,23 @@ research.
 // representations_ of these languages.
 
 
-== Goals
-
 The aim of this thesis is to create a universal information language to
 standardize _any_ knowledge representation. I call this language *Welkin*, based
 on an old German word meaning cloud @dictionary:welkin. This language has the
 following goals.
 
-- *Goal 1:* universality. This language applies to ANY checker. Needs to be
-  extremely flexible towards this goal, so we can ONLY assume, at most, we are
-  getting a TM as an input, or it's somehow programmed.
+== Goals
 
-- *Goal 2:* standardized. Needs to be rigorously and formally specified.
+- *Goal 1: Universality.* The language must include unspecified, user created
+  parameters to accomodate for arbitrary concepts and ideas.
 
-- *Goal 3:* optimal reuse. With respect to some critierion, enable _as much_
-  reuse on information as possible.
+- *Goal 2: Standardization.* The language needs a rigorous and formal
+  specification. Moreover, the bootstrap must be formalized, as well as an
+  abstract machine model. The grammar and bootstrap must be fixed to ensure
+  complete forwards and backwards compatbility.
 
-- *Goal 4:* efficiency. Checking if we have enough information _given_ a
-  database much be efficient!
+- *Goal 3: Efficiency.* Local queries in the database, determining if there is
+  enough "explicit" information, must be efficient.
 
 
 == Organization
