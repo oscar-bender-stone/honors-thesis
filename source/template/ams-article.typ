@@ -13,7 +13,34 @@
 #let large-size = 11.74988pt
 #let text-font = "STIX Two Text"
 
+#let draft = true
 
+
+#let show-todos = true
+
+#let todo(body, color: orange) = {
+  if draft {
+    place(
+      left,
+      dx: 100% + 0.5cm,
+      block(
+        width: 3.5cm,
+        fill: color.lighten(90%),
+        stroke: 1pt + color,
+        inset: 8pt,
+        radius: 4pt,
+        outset: (y: 2pt),
+        {
+          set par(first-line-indent: 0pt, hanging-indent: 0pt, justify: false)
+          set align(left)
+
+          text(weight: "bold", fill: color)[TODO:]
+          [ ] + body
+        },
+      ),
+    )
+  }
+}
 // This function gets your whole document as its `body` and formats
 // it as an article in the style of the American Mathematical Society.
 #let ams_article(
@@ -41,6 +68,14 @@
   // Keywords
   keywords: none,
 ) = {
+  let watermark = if draft {
+    rotate(24deg, text(80pt, fill: gray.lighten(70%))[
+      *DRAFT*
+    ])
+  } else {
+    none
+  }
+
   // Create a single, shared counter for theorem-like environments
   let theorem-counter = counter("theorem-shared")
 
@@ -67,6 +102,7 @@
 
   // Configure the page.
   set page(
+    background: watermark,
     paper: paper-size,
     // The margins depend on the paper size.
     margin: if paper-size != "a4" {
@@ -144,6 +180,7 @@
       }
     },
   )
+
 
   // Configure headings.
   set heading(numbering: "1.")
@@ -259,24 +296,18 @@
     it.body
   })
 
-  // === FIX IS HERE ===
-  // Rule for Remarks (normal body, italic supplement name, upright number)
   show figure.where(kind: "remark"): set align(start)
   show figure.where(kind: "remark"): it => block(spacing: 11.5pt, {
     theorem-counter.step()
-    // Italicize ONLY the supplement word, not the number.
     emph(it.supplement)
     if it.numbering != none {
       [ ] // Add a space
-      // Number is upright (not bold)
       theorem-counter.display(it.numbering)
     }
-    [.] // Add the period
-    [ ] // Add a space after the supplement
+    [.]
+    [ ]
     it.body
   })
-  // === END OF FIX ===
-
 
   // Display the title and authors.
   v(35pt, weak: true)
@@ -327,7 +358,10 @@
     for author in authors {
       let keys = ("department", "organization", "location")
 
-      let dept-str = keys.filter(key => key in author).map(key => author.at(key)).join(", ")
+      let dept-str = keys
+        .filter(key => key in author)
+        .map(key => author.at(key))
+        .join(", ")
 
       smallcaps(dept-str)
       linebreak()
