@@ -29,11 +29,20 @@ We first need to establish the logical machinery underlying the theory.
 
 Slates are inspired by several theories. The most prominent arises in Burgin's
 theory of information @burgin-foundations-information, @burgin-information-book.
-Given an informatoin system $*R*$, he specifies an infological system
-$"IF"(*R*)$ unspecified parameter, meant as a way to tailor the system to domain
-specific terminology. However, Burgin does not develop rules to work with these
-parameters, and the rest of his results exacerbate a divide between these and
-the formal semantics.
+Given an information system $*R*$, he specifies an infological system
+$"IF"(*R*)$ as a free or unspecified parameter to $*R*$, meant as a way to
+tailor the system to domain specific terminology. For example, if $*R*$
+represents an AI agent, then $"IF"(*R*)$ could be the knowledge associated to
+$*R*$. From this notion, he defines information as follows:
+
+#set quote(block: true)
+"information for a system R is the capacity of objects to produce changes into
+an infological system $"IF"(*R*)$ of $*R*$".
+
+However, Burgin does not develop rules to work with these parameters, and the
+rest of his results exacerbate a divide between these and his formal semantics.
+We want a broader notion of information that can bridge these divides and spread
+accross infological systems.
 
 #todo[Finish writing up this paragraph + ensure accuracy!]
 Seeking to augment Burgin's approach, we examine Kit Fine's notion of arbtirary
