@@ -5,18 +5,18 @@
 
 = Introduction
 
+#todo[Describe attempts and limitations!]
 Knowledge management is an active problem due to the depth and breadth of
 fields. Journals are often specialized, requring an immense understanding of the
 broader concepts involved and nomenclature used. This is evident in the
 sciences, as explored in @hierarchy_science and @specialized_science.
 Additionally, creating common representations shared accross subdisciplines can
 be difficult. In mathematics, for example, several attempts have been made to
-catalog major theories and results. #todo[DESCRIBE ATTEMPTS & LIMITATIONS]. In
-other subjects, like the social sciences, there are no standard terms, and the
-majority of cited references are books, which are not indexed by many databases
-@social_sciences_databases. The problems posed by broadly and faithfully
-capturing subjects demonstrate the herculean task of scalable knowlege
-management.
+catalog major theories and results.In other subjects, like the social sciences,
+there are no standard terms, and the majority of cited references are books,
+which are not indexed by many databases @social_sciences_databases. The problems
+posed by broadly and faithfully capturing subjects demonstrate the herculean
+task of scalable knowlege management.
 
 In attempt to address these challenges, several solutions have been proposed,
 but none completely fix these issues.
@@ -104,8 +104,7 @@ but none completely fix these issues.
 
 The aim of this thesis is to create a universal information language to
 standardize _any_ knowledge representation. I call this language *Welkin*, based
-on an old German word meaning cloud @dictionary:welkin. This language has the
-following goals.
+on an old German word meaning cloud @dictionary:welkin.
 
 == Goals
 
@@ -125,11 +124,11 @@ following goals.
 
 // TODO: Maybe provide as another table _with_ descriptions?
 
-- Section 2. Foundations: defines the meta-theory use and its
-connections to first-order logic and fragments of arithmetic.
+- Section 2. Foundations: defines the meta-theory use and its connections to
+  first-order logic and fragments of arithmetic.
 
 - Section 3. Information Organization. Develops the optimal informal system
-  (w.r.t to a metric defined in this system) to satisfy Goal 3.
+  (w.r.t. to a metric defined in this system) to satisfy Goal 3.
 
 - Section 4. Defines the syntax and semantics.
 

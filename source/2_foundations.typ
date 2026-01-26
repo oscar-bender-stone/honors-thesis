@@ -11,8 +11,8 @@
 This section establishes the meta-theory for Welkin, capturing the major
 components of symbolic systems. The meta-theory consists of two interconnected
 parts:
-- The computational part, which can express
-any partial computable function via combinators.
+- The computational part, which can express any partial computable function via
+  combinators.
 - The logical part, which enables checking on properties of symbols and
   certificates on normal forms.
 
@@ -20,10 +20,6 @@ This approach generalizes Fefermans' Explicit Mathematics framework
 @feferman_arithmetic_metamath, which intentionally separates computation from
 logic. We build upon this framework by incorporating slates, as well as having a
 robust model of trust through work done by Artemov @artemov_serial_consistency.
-
-== Minimal Trusted Computing Base
-
-We first need to establish the logical machinery underlying the theory.
 
 == Philosophy Behind Slates
 
