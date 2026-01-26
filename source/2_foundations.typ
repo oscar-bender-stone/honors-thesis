@@ -16,26 +16,10 @@ any partial computable function via combinators.
 - The logical part, which enables checking on properties of symbols and
   certificates on normal forms.
 
-In first-order logic, one approach to combine combinators with logical
-assertions was pioneered by Feferman's Explicit Mathematics framework
-@feferman_arithmetic_metamath. However, Feferman's approach does not include
-unspecified parameters and therefore relies on implicit connections to external
-notions or intuitions. We build upon this framework by incorporating slates, as
-well as having a robust model of trust through work done by Artemov
-@artemov_serial_consistency.
-
-- Explain why Artemov's serial property is the weakest
-property desired, so show that any weaker property would produce undesirable
-behavior.
-- Explain that minimal proofs of serial Sigma^0_1 consistency are important
-here.
-- Define natural partial order for "reliable" FOL theories
-whose language is arithmetic. GOAL: generalize reliability to any formal
-concept.
-
-Our first step is to define the set of verifiers, a subset of the computable
-functions. Based on our architecture to separate _query_ from _search_, we focus
-this subset to primitive recursive functions.
+This approach generalizes Fefermans' Explicit Mathematics framework
+@feferman_arithmetic_metamath, which intentionally separates computation from
+logic. We build upon this framework by incorporating slates, as well as having a
+robust model of trust through work done by Artemov @artemov_serial_consistency.
 
 == Minimal Trusted Computing Base
 
@@ -43,10 +27,11 @@ We first need to establish the logical machinery underlying the theory.
 
 == Philosophy Behind Slates
 
-Slates are inspired by several mechanisms. The most prominent arises in Burgin's
-theory of information. In his definition of information systems, he includes an
-unspecified parameter, meant as a way to tailor the system to domain specific
-terminology. However, Burgin does not develop rules to work with these
+Slates are inspired by several theories. The most prominent arises in Burgin's
+theory of information @burgin-foundations-information, @burgin-information-book.
+Given an informatoin system $*R*$, he specifies an infological system
+$"IF"(*R*)$ unspecified parameter, meant as a way to tailor the system to domain
+specific terminology. However, Burgin does not develop rules to work with these
 parameters, and the rest of his results exacerbate a divide between these and
 the formal semantics.
 
@@ -57,7 +42,7 @@ definition of numbers via "Cantorian abstraction". Instead of defining a number
 through a Fregean set of all things with that quantity, or an artifical
 construct like Von Neumann ordinals, Cantor defined a number as a set of
 abstract entities. Fine proceeds to formalize this within a first-order logic.
-Several papers have expanded on this idea as well, including
+Several papers have explored this in different ways, including
 @shapiro-arbtirary-objects. However, Valaris
 @valaris-induction-arbitrary-objects provides a key objection to using
 induction... We address this with a powerful symbolic rule for slates that make
