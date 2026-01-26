@@ -41,21 +41,24 @@ an infological system $"IF"(*R*)$ of $*R*$".
 
 However, Burgin does not develop rules to work with these parameters, and the
 rest of his results exacerbate a divide between these and his formal semantics.
-We want a broader notion of information that can bridge these divides and spread
-accross infological systems.
+In particular, in his development of "named set theory", which makes urelements
+first class citizens, the ways in which infological systems can interact is
+never addressed #todo[CITE!]. We want a broader notion of information that can
+bridge these divides and spread accross infological systems.
 
 #todo[Finish writing up this paragraph + ensure accuracy!]
 Seeking to augment Burgin's approach, we examine Kit Fine's notion of arbtirary
-objects @fine-arbitrary-objects. In his seminal work, he formalizes Cantor's
-definition of numbers via "Cantorian abstraction". Instead of defining a number
-through a Fregean set of all things with that quantity, or an artifical
-construct like Von Neumann ordinals, Cantor defined a number as a set of
-abstract entities. Fine proceeds to formalize this within a first-order logic.
-Several papers have explored this in different ways, including
-@shapiro-arbtirary-objects. However, Valaris
-@valaris-induction-arbitrary-objects provides a key objection to using
-induction... We address this with a powerful symbolic rule for slates that make
-slates themselves rules, in a specific sense.#todo[Write up details in next
+objects @fine-arbitrary-objects. He uses this to explain how univesral
+generalization works in mathematics, or how properties accross a class can be
+proven. He considers an arbitrary object to be an abstract representative from a
+class, and he formalizes this in first-order logic #todo[CITE!]. A different
+take on arbitrary objects is explored in Shaprio @shapiro-arbtirary-objects,
+which forms a logic precisely for knowledge representation. Shapiro's system
+deals with unnatural cases in knowledge management and allows more expressivity.
+However, both of these formalizations face a serious problem, formulated by
+Valaris @valaris-induction-arbitrary-objects: induction fails to work on
+arbitrary objects.We address this with a powerful symbolic rule for slates that
+make slates themselves rules, in a specific sense.#todo[Write up details in next
   section! Make sure this is accurate!]
 
 == Slate Logic
