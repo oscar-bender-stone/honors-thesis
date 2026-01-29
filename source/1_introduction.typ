@@ -5,21 +5,44 @@
 
 = Introduction
 
-#todo[Describe attempts and limitations!]
-Knowledge management is an active problem due to the depth and breadth of
-fields. Journals are often specialized, requring an immense understanding of the
-broader concepts involved and nomenclature used. This is evident in the
-sciences, as explored in @hierarchy_science and @specialized_science.
-Additionally, creating common representations shared accross subdisciplines can
-be difficult. In mathematics, for example, several attempts have been made to
-catalog major theories and results.In other subjects, like the social sciences,
+// NOTE: fill in the blanks!
+Information management is a long standing problem as a result of the depth and
+breadth of disciplines. Many areas are often specialized, requring an immense
+understanding of the broader concepts involved and nomenclature used. This is
+evident in the sciences, as explored in @hierarchy_science and
+@specialized_science. Additionally, creating common representations shared
+accross subdisciplines can be difficult. In mathematics, for example, several
+researchers note the wide diversity of mathematical practice, and the poor
+coverage of certain disciplines [CITE]. Moreover, creating a standardized form
+accross communities is challenging. In other subjects, like the social sciences,
 there are no standard terms, and the majority of cited references are books,
-which are not indexed by many databases @social_sciences_databases. The problems
-posed by broadly and faithfully capturing subjects demonstrate the herculean
-task of scalable knowlege management.
+which are not indexed by many databases @social_sciences_databases. These
+problems posed by broadly and faithfully capturing subjects demonstrate the
+herculean task of effective knowledge management.
 
+#todo[Dicuss truth here and Burgin!]
 In attempt to address these challenges, several solutions have been proposed,
-but none completely fix these issues.
+but none completely fix these issues. In the sciences, several researchers
+proposed the Free Accessible Interoperable Research (FAIR) guidelines
+@FAIR_guiding_science. However, . Another proposal is . Unfortunately, this
+project has focused primarly on logic . Finally, Burgin's work on a theory
+information @burgin-information-book, @burgin-information-book a comprhensive.
+He does include a free parameter in the theory but does not .
+
+.This paper introduces a language to resolve these issues. I call this language
+*Welkin*, based on an old German word meaning cloud @dictionary:welkin. This
+thesis proves that Welkin is a) universal, b) scalable, and c) standardized. The
+idea is to generalize Mark Burgin's idea of a parameter with an infological
+system. Moreover, to address queries on the validity of truth, we use a relative
+notion that includes a context managed by a formal system. Truth can then be
+determined on an individual basis, providing flexibility to any discipline. The
+focus then shifts to the usefulness of representaitons, described by how
+"coherent" they are, inspired by the epistemological theory of coherentism. We
+incorporate ideas from coherentism to identify which representations identify
+their corresponding objects, and we define information as an invariant under
+these coherent representations. We include definitions on a _working_ basis as
+what is most practical, not an epistemological stance that can be further
+clarified in truth systems.
 
 // In addition to this [FIRST CLASS OF PROBLEMS NAME], another major hurdle is
 // truth management. [DISCUSS Problems with truth + corrections from papers don't
@@ -102,9 +125,6 @@ but none completely fix these issues.
 // information _about_ programs. Therefore, we are interested in _unifying
 // representations_ of these languages.
 
-The aim of this thesis is to create a universal information language to
-standardize _any_ knowledge representation. I call this language *Welkin*, based
-on an old German word meaning cloud @dictionary:welkin.
 
 == Goals
 
