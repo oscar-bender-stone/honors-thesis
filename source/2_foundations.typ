@@ -38,12 +38,20 @@ be a primary component of larger clouds but can be broken down further.
 == Motivating Example: Maps
 
 We start with a motivating example that equally serves as a useful metaphor:
-geographic maps.
+geographic maps. Consider a traveler adventuring into unfamiliar woods. To
+support their journey, they take a piece of paper and draw a box to represent
+the landscape. As they progress, they record landmarks and paths. Both of these
+we consider to be units. But a more interesting notion of a unit is a strange
+geographic feature spotted only that particular traveler.
+
+In this specific context, the geographically distinguished landmarks may be more
+appropriate for travel than the random marks of the latter. However, suppose
+these marks distinguished an artistically relevant feature, or possibly a hidden
+treasure. How would the latter communicate this to the former?
+
+To communicate between these maps, we need an appropriate notion of coherency.
 
 == Definitions
-
-
-== Slate Logic
 - Definition
   - Define binary strings. Assign these to slates.
     - Have *slate variables*. This is our entry
