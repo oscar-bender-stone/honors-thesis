@@ -20,6 +20,17 @@ which are not indexed by many databases @social_sciences_databases. These
 problems posed by broadly and faithfully capturing subjects demonstrate the
 herculean task of effective information management.
 
+
+
+// However, Burgin does not develop rules to work with these parameters, and the
+// rest of his results exacerbate a divide between these and his formal semantics.
+// In particular, in his development of "named set theory", which makes urelements
+// first class citizens, the ways in which infological systems can interact is
+// never addressed #todo[CITE!]. We want a broader notion of information that can
+// bridge these divides and spread accross infological systems.
+
+
+
 #todo[Dicuss truth here and Burgin!]
 In attempt to address these challenges, several solutions have been proposed,
 but none completely fix these issues. In the sciences, several researchers
@@ -34,17 +45,21 @@ theory, where he explores the smallest size .
 .This paper introduces a language to resolve these issues. I call this language
 *Welkin*, based on an old German word meaning cloud @dictionary:welkin. This
 thesis proves that Welkin is a) universal, b) scalable, and c) standardized. The
-idea is to generalize Mark Burgin's idea of a parameter with an infological
-system. Moreover, to address queries on the validity of truth, we use a relative
-notion that includes a context managed by a formal system. Truth can then be
-determined on an individual basis, providing flexibility to any discipline. The
-focus then shifts to the usefulness of representaitons based on a topological
-notion of "collapse" or "coherency". This is inspired by coherentism, a
-philosophical position that states truth is determined in comparison to other
-truths. @bradley-principles-of-logic. We incorporate ideas from coherentism to
-identify which representations identify their corresponding objects, and we
-define information as an invariant under these coherent representations. We
-include definitions on a _working_ basis as what is most practical, not an
+core idea is to generalize Burgin's free parameter and enable arbtitrary
+representations in the theory, controlled by a computable system. The notion of
+representaiton builds on Peirce's semiotics, or the study of the relationship
+between a symbol, the object it represents, and the intepreter or interpretation
+that provides it that meaning @sep-peirce-semiotics. Moreover, to address
+queries on the validity of truth, we use a relative notion that includes a
+context managed by a formal system. Truth can then be determined on an
+individual basis, providing flexibility to any discipline. The focus then shifts
+to the usefulness of representaitons based on a topological notion of "collapse"
+or "coherency". This is inspired by coherentism, a philosophical position that
+states truth is determined in comparison to other truths.
+@bradley-principles-of-logic. We incorporate ideas from coherentism to identify
+which representations identify their corresponding objects, and we define
+information as an invariant under these coherent representations. We include
+definitions on a _working_ basis as what is most practical, not an
 epistemological stance that can be further clarified in truth systems.
 
 == Goals

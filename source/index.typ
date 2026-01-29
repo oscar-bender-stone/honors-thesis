@@ -20,10 +20,10 @@
     self-contained under a meta-theory based on combinators, equivalent to a
     provably minimal fragment of arithmetic.],
   bibliography: bibliography((
-    "../references/misc.bib",
-    "../references/1_introduction.bib",
-    "../references/2_foundations.bib",
-    "../references/general.bib",
+    "references/misc.bib",
+    "references/1_introduction.bib",
+    "references/2_foundations.bib",
+    "references/general.bib",
   )),
 )
 
