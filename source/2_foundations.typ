@@ -6,6 +6,26 @@
 #import "template/ams-article.typ": equation_block, lemma, proof, theorem
 #import "template/ams-article.typ": todo
 
+// Old draft of paragraph on truth contexts:
+//
+// In addition to this [FIRST CLASS OF PROBLEMS NAME], another major hurdle is
+// truth management. [DISCUSS Problems with truth + corrections from papers don't
+// propagate!] What can be done is addressing _information_, the storage of the
+// _asserted_ facts themselves, regardless of truth. As one example, suppose a
+// scientist claims, "X is true about Y". One could debate the veracity of that
+// claim, but what we can say is, "This scientist claims, 'X is true about Y'".
+// Even if we doubt that, we could do: "This claim can be formulated: 'This
+// scientist claims 'X is true about Y''". By using these justifications, stating
+// that a claim is expressible, the _syntactic expression_ of the claim can be
+// separated from its _semantic truth value_.#footnote[One might be worried about a
+//   paradox, such as "This claim is expressible: this claim is not expressible."
+//   We will avoid this using a clear separation of the overarching metatheory and
+//   object theory, with the former being syntactical in nature. To express this
+//   separation, we write quotes around the claim itself.] I will make this more
+// rigorous in later sections, but this means we can build knowledge bases ontop of
+// information systems using flexible extensions.
+
+
 = Foundations <foundations>
 
 This section establishes the meta-theory for Welkin, capturing the major
