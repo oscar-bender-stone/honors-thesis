@@ -31,10 +31,15 @@
 This section establishes the theory underlying Welkin, capturing
 representations, consisting of an entity, a symbol, and an intepreter. We
 develop representations using _units_, or arbitrary entities that are denoted
-through a symbol. These can be further broken down, relative to a specific
-context. Note that units are more general than irreducible entities. The word
-unit is chosen in reference to the idea of a cloud: a cloud itself can be a
-primary component of larger clouds but can be broken down further.
+through a symbol.#footnote[The word unit is inspired by a cloud. A cloud can be
+  broken down further or be part of a larger group of clouds. Additionally,
+  clouds can be transformed, which is reflected in units through operations on
+  their symbols.
+] Units have two important properties. First, they can be be broken down further
+or form larger units. Second, their respective symbol can be manipulated by a
+partial computable function. We impose no implementations on these properties,
+but instead analyze their usefulness through the coherency of a unit, or how
+much structure it distinguishes.
 
 == Motivating Example: Maps
 
