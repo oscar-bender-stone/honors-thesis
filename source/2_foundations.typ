@@ -89,6 +89,10 @@ enabling a complete mechanization of our theory.
   symbols $u_b$, where $b$ is a binary string.
 ]
 
+#example[Consider a house with a dog and a cat. We can represent the dog as unit
+  $D$ and the cat by unit $C$.
+]
+
 #theorem[
   A unit is coherent relative to a context iff the unit and that context are
   coherent.
@@ -105,27 +109,9 @@ enabling a complete mechanization of our theory.
   A representation is preserves information modulo $equiv$ iff the
   representation modulo $equiv$ is coherent.
 ]
-
-== Coherency
-- Definability
-  - Show that this generalizes Padoa definability
-    - Classic exapmle where this is used:
-    showing congruence is not definable in terms of betweeness
-    - On the reals, $x |-> 2x$ is monotonic but
-    does not preserve congruence.
-    - In HOL, only one direction shows. Determine
-    how to strengthen to claim to ensure equivalence
-  - Basic idea: notion A is definable via notion B
-  iff every map that preserves B also preserves B
-  - Want to use this basic idea to talk
-  about information preservation
-- Coherency of a System
-  - What systems are *useful* or can talk about other systems?
-    - Don't want: empty system or one with ALL The rules. These are
-    will have low usefulness
-    - Want: complex, intricate structures. Problem is,
-    lots of notions for this! Need to determine a general notion, using slates!
-  - Use coherency as basis for information organization
+#remark[This theorem enables truth management via specific contexts, specified
+  as units. The task of finding core truths is then free, left open to
+  flexibility accomodate for any truth management.]
 
 == Translations Between First Order Logic
 
