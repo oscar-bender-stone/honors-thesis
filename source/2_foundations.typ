@@ -31,10 +31,10 @@
 This section establishes the theory underlying Welkin, capturing
 representations, consisting of an entity, a symbol, and an intepreter. We
 develop representations using _units_, or arbitrary entities that are denoted
-through a symbol.#footnote[The word unit is inspired by a cloud. A cloud can be
-  broken down further or be part of a larger group of clouds. Additionally,
-  clouds can be transformed, which is reflected in units through operations on
-  their symbols.
+through its ID, a symbol.#footnote[The word unit is inspired by a cloud. A cloud
+  can be broken down further or be part of a larger group of clouds.
+  Additionally, clouds can be transformed, which is reflected in units through
+  operations on their symbols.
 ] Units have two important properties. First, they can be be broken down further
 or form larger units. Second, their respective symbol can be manipulated by a
 partial computable function. We impose no implementations on these properties,
@@ -43,21 +43,27 @@ much structure it distinguishes.
 
 == Motivating Example: Maps
 
+#todo[Draw several figures here! Will be easier to keep track.]
 We start with a motivating example that equally serves as a useful metaphor:
-geographic maps. Consider a travele $A$ adventuring into an unfamiliar area. To
-track their journey, they take a piece of paper and draw a box to represent the
-landscape. This box is a unit. As they travel, they record landmarks and paths
-as their own _distinct_ symbols. Each of these are units, but they are useful
-precisely because they are labeled differently. Without distinct symbols, they
-would become loss or confuse one landscape with another. This is a foundational
-kind of coherency, namely non-triviality. The map is neither empty nor
-represents all entities with a single symbol.
+geographic maps. Consider a traveler $A$ exploring a new area. To track their
+journey, they take a piece of paper and draw a box to represent the landscape.
+This box is a unit. As they travel, they record landmarks and paths as their own
+symbols. Each of these are units, with an important property: they are denoted
+through _distinct_ symbols. Without distinct symbols, $A$ could confuse one
+landmark with another and become lost. This is a foundational kind of coherency,
+namely non-triviality. The map is neither empty nor represents all entities with
+a single symbol.
 
-Suppose, now, that there is another traveler $B$, drawing a different
-non-trivial map.
+Suppose, now, that $A$ meets another traveler $B$, drawing a different
+non-trivial map. They compare maps and find they wrote down different landmarks,
+but agree on their overlapping paths. With this, $A$ and $B$ could settle on
+some notation and combine their maps. For instance, to identify their specific
+landmarks, they could apply a special prefix, say $A$ and $B$, respectively. The
+_combination_ of these maps are then coherent, because it faithfully encode the
+map, now with more information than before.
 
-Both of these we consider to be units. But a more interesting notion of a unit
-is a strange geographic feature spotted only that particular traveler.
+The scenario with $A$ and $B$ is a straightforward case. But we want to
+investigate more difficult ones.
 
 In this specific context, the geographically distinguished landmarks may be more
 appropriate for travel than the random marks of the latter. However, suppose
@@ -67,6 +73,9 @@ treasure. How would the latter communicate this to the former?
 To communicate between these maps, we need an appropriate notion of coherency.
 
 == Definitions
+
+Now we develop the formal framework to discuss information in terms of units,
+enabling a complete mechanization of our theory.
 
 #definition[
   The *alphabet of binary strings* is $cal(A)_"bit" ::= 0 | 1 | . | w$. A
@@ -79,31 +88,14 @@ To communicate between these maps, we need an appropriate notion of coherency.
   symbols $u_b$, where $b$ is a binary string.
 ]
 
-- Definition
-  - Can change meaning based on interpretation/context!
-  Emphasize how there can be a many to one relationship, and we need to increase
-  formal systems available to distinguish between them!
-  - Emphasize need for a function that can enumerate these slate
-  variables. So NOT just one slate variable. Maybe provide lemma on
-  impossibility of doing more (within a formal system?)
-  - Combinators
-    - Want a *simple* presentation to define theory.
-    We do require substitution (variables are important here!), but want to
-    present theory with combinators.
-    - Emphasize that this is a bootstrap/easier way to start.
-    Just like starting somehwere on a map and then relocating (make this
-    clearer!)
-  - Justifications: what we can assert about *formal objects*
-    - Inspired by Artemov's logic of proofs. Will connect back in
-    next two sections with serial consistency!
-- Examples
-  - Sorting dishes (analogy from before)
-  - Map analogy, with places as IDs AND paths
-    - Emphasize that new objects can be given
-    IDs arbitrarily; that is why we need (countably) infinitely many IDs!
+#theorem[
+  A unit is coherent relative to a context iff the unit and that context are
+  coherent.
+]
+#remark[This theorem is a natural generalization of consistency in first-order
+  logic. We will frequently rely on this result throughout the thesis.]
 
 == Coherency
-
 - Definability
   - Show that this generalizes Padoa definability
     - Classic exapmle where this is used:
