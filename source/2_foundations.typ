@@ -29,20 +29,29 @@
 = Foundations <foundations>
 
 This section establishes the theory underlying Welkin, capturing
-representations. We develop representations using _units_, or arbitrary entities
-that are denoted through a symbol. These can be further broken down, relative to
-a specific context. Note that units are more general than irreducible entities.
-The word unit is chosen in reference to the idea of a cloud; a cloud itself can
-be a primary component of larger clouds but can be broken down further.
+representations, consisting of an entity, a symbol, and an intepreter. We
+develop representations using _units_, or arbitrary entities that are denoted
+through a symbol. These can be further broken down, relative to a specific
+context. Note that units are more general than irreducible entities. The word
+unit is chosen in reference to the idea of a cloud: a cloud itself can be a
+primary component of larger clouds but can be broken down further.
 
 == Motivating Example: Maps
 
 We start with a motivating example that equally serves as a useful metaphor:
-geographic maps. Consider a traveler adventuring into unfamiliar woods. To
-support their journey, they take a piece of paper and draw a box to represent
-the landscape. As they progress, they record landmarks and paths. Both of these
-we consider to be units. But a more interesting notion of a unit is a strange
-geographic feature spotted only that particular traveler.
+geographic maps. Consider a travele $A$ adventuring into an unfamiliar area. To
+track their journey, they take a piece of paper and draw a box to represent the
+landscape. This box is a unit $L$, representing the landscape. As they travel,
+they record landmarks and paths as their own _distinct_ symbols. Without
+distinct symbols, they would become loss or confuse one landscape with another.
+This is a foundational kind of coherency, namely being non-trivial. The map that
+$A$ is neither empty nor maps all entities to a single symbol.
+
+Suppose, now, that there is another traveler $B$, drawing an independent,
+non-trivial map.
+
+Both of these we consider to be units. But a more interesting notion of a unit
+is a strange geographic feature spotted only that particular traveler.
 
 In this specific context, the geographically distinguished landmarks may be more
 appropriate for travel than the random marks of the latter. However, suppose
