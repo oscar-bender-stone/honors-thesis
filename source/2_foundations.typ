@@ -63,7 +63,8 @@ _combination_ of these maps are then coherent, because it faithfully encode the
 map, now with more information than before.
 
 The scenario with $A$ and $B$ is a straightforward case. But we want to
-investigate more difficult ones.
+investigate more difficult ones. Consider a third traveler, $C$, with a
+completely divergent map.
 
 In this specific context, the geographically distinguished landmarks may be more
 appropriate for travel than the random marks of the latter. However, suppose
@@ -94,6 +95,16 @@ enabling a complete mechanization of our theory.
 ]
 #remark[This theorem is a natural generalization of consistency in first-order
   logic. We will frequently rely on this result throughout the thesis.]
+
+#definition[Information over a unit $u$ is a unit $u'$ such that $u equiv u'$
+  iff $v_u = v_u'$. In other words, information is an invariant for a unit
+  modulo $equiv$.
+]
+
+#theorem[
+  A representation is preserves information modulo $equiv$ iff the
+  representation modulo $equiv$ is coherent.
+]
 
 == Coherency
 - Definability
