@@ -46,13 +46,14 @@ much structure it distinguishes.
 We start with a motivating example that equally serves as a useful metaphor:
 geographic maps. Consider a travele $A$ adventuring into an unfamiliar area. To
 track their journey, they take a piece of paper and draw a box to represent the
-landscape. This box is a unit $L$, representing the landscape. As they travel,
-they record landmarks and paths as their own _distinct_ symbols. Without
-distinct symbols, they would become loss or confuse one landscape with another.
-This is a foundational kind of coherency, namely being non-trivial. The map that
-$A$ is neither empty nor maps all entities to a single symbol.
+landscape. This box is a unit. As they travel, they record landmarks and paths
+as their own _distinct_ symbols. Each of these are units, but they are useful
+precisely because they are labeled differently. Without distinct symbols, they
+would become loss or confuse one landscape with another. This is a foundational
+kind of coherency, namely non-triviality. The map is neither empty nor
+represents all entities with a single symbol.
 
-Suppose, now, that there is another traveler $B$, drawing an independent,
+Suppose, now, that there is another traveler $B$, drawing a different
 non-trivial map.
 
 Both of these we consider to be units. But a more interesting notion of a unit
@@ -66,16 +67,25 @@ treasure. How would the latter communicate this to the former?
 To communicate between these maps, we need an appropriate notion of coherency.
 
 == Definitions
+
+#definition[
+  The *alphabet of binary strings* is $cal(A)_"bit" ::= 0 | 1 | . | w$. A
+  *binary string* is either the symbol $0$ or $1$, or if $w$ is a string, then
+  $w.0$ and $w.1$ is a string. We abbreviate $w.w'$ to $w w'$.
+]
+
+#definition[
+  The *alphabet of units* is $cal(A)_"unit" = u$. A *unit ID* is combination of
+  symbols $u_b$, where $b$ is a binary string.
+]
+
 - Definition
-  - Define binary strings. Assign these to slates.
-    - Have *slate variables*. This is our entry
-    point into arbitrary interpreters.
-    - Can change meaning based on interpretation/context!
-    Emphasize how there can be a many to one relationship, and we need to
-    increase formal systems available to distinguish between them!
-    - Emphasize need for a function that can enumerate these slate
-    variables. So NOT just one slate variable. Maybe provide lemma on
-    impossibility of doing more (within a formal system?)
+  - Can change meaning based on interpretation/context!
+  Emphasize how there can be a many to one relationship, and we need to increase
+  formal systems available to distinguish between them!
+  - Emphasize need for a function that can enumerate these slate
+  variables. So NOT just one slate variable. Maybe provide lemma on
+  impossibility of doing more (within a formal system?)
   - Combinators
     - Want a *simple* presentation to define theory.
     We do require substitution (variables are important here!), but want to
