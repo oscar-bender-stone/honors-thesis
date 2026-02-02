@@ -22,7 +22,7 @@
 //   We will avoid this using a clear separation of the overarching metatheory and
 //   object theory, with the former being syntactical in nature. To express this
 //   separation, we write quotes around the claim itself.] I will make this more
-// rigorous in later sections, but this means we can build knowledge bases ontop of
+// rigorous in later sections, but this means we can build knowledge bases on-top of
 // information systems using flexible extensions.
 
 
@@ -30,7 +30,7 @@
 
 This section establishes the theory underlying Welkin, capturing
 representations, mapping an interpretation from a symbol to a denotation. We
-represent each of these compnents as units, or arbitrary entities that are
+represent each of these component s units, or arbitrary entities that are
 denoted through a numeric ID. #footnote[The word unit is inspired by a cloud. A
   cloud can be broken down further or be part of a larger group of clouds.
   Additionally, clouds can be transformed, which is reflected in units through
@@ -49,35 +49,29 @@ computable function can be expressed as a representation, see
 
 == Motivating Example: Maps
 
-#todo[Draw several figures here! Will be easier to keep track.]
+#todo[Draw several figures here.]
 We start with a motivating example that equally serves as a useful metaphor:
-geographic maps. Consider a traveler $A$ exploring a new area. To track their
-journey, they take a piece of paper and draw a box to represent the landscape.
-This box is a unit. As they travel, they record landmarks and paths as their own
-symbols. Each of these are units, with an important property: they are denoted
-through _distinct_ symbols. Without distinct symbols, $A$ could confuse one
-landmark with another and become lost. This is a foundational kind of coherency,
-namely non-triviality. The map is neither empty nor represents all entities with
-a single symbol.
+geographic maps.
 
-Suppose, now, that $A$ meets another traveler $B$, drawing a different
-non-trivial map. They compare maps and find they wrote down different landmarks,
-but agree on their overlapping paths. With this, $A$ and $B$ could settle on
-some notation and combine their maps. For instance, to identify their specific
-landmarks, they could apply a special prefix, say $A$ and $B$, respectively. The
-_combination_ of these maps are then coherent, because it faithfully encode the
-map, now with more information than before.
+Consider a traveler $A$ exploring a new area. To track their journey, they take
+a piece of paper and draw a box to represent the landscape. This box is a unit.
+As they travel, they record landmarks and paths as their own symbols. Each of
+these are units, with an important property: they are denoted through _distinct_
+symbols. Without distinct symbols, $A$ could confuse one landmark with another
+and become lost. This is a foundational kind of coherency, namely
+non-triviality. The map is neither empty nor represents all entities with a
+single symbol.
 
-The scenario with $A$ and $B$ is a straightforward case. But we want to
-investigate more difficult ones. Consider a third traveler, $C$, with a
-completely divergent map.
-
-In this specific context, the geographically distinguished landmarks may be more
-appropriate for travel than the random marks of the latter. However, suppose
-these marks distinguished an artistically relevant feature, or possibly a hidden
-treasure. How would the latter communicate this to the former?
-
-To communicate between these maps, we need an appropriate notion of coherency.
+Now, suppose $A$ mistook some shadows for a ravine, and adds a blockade on the
+map.#footnote[Credit to Professor Kearnes for inspiring this example.] The map
+still accurately represents _some_ of the landmarks, but not the open path where
+the symbolic ravine is added. How can this mistake be identified? A direct
+approach would be to add _both_ assertions together, that the map is blocked and
+not. This makes the combination of a new item incoherent, as the new
+representation fails to be faithful. There are multiple ways to then _fix_ the
+issue. In one way, the original map, without any checks, can be recorded as a
+revision, and then another revision can be made that removes the ravine. This is
+addressed more in @information_organization.
 
 == Definitions
 
@@ -130,39 +124,39 @@ New units can be made as follows:
 ]
 #remark[This theorem enables truth management via specific contexts, specified
   as units. The task of finding core truths is then free, left open to
-  flexibility accomodate for any truth management.]
+  flexibility accommodate for any truth management.]
 
-== Translations Between First Order Logic
+// == Translations Between First Order Logic
 
-- Want easy access to first order logic
-  - Review literature. Notable examples:
-    - SMT solvers in Rocq + Lean (via monomorphization of types)
-  - Problem: abstractions are hard to convey! Lots of "bloat"
-  - BUT SMT solvers are very well established, particularly with Gödel's
-    completeness theorem.
-  - How to get best of both worlds? Solution: slates!
-- First step: define extension to first order logic (let's call it, say,
-  FOL(Slate))
-  - Add slates as a special sort, but focuses on first order terms.
-    - Emphasize that there are FOL theories *weaker* than combinators.
-    So, with a coherency argument, argue that FOL can be powerful *precisely
-    because* RE is possible, WITH the combination of the completness theorem.
-    (Not possible in all logics!).
-- Second step: show that FOL(Slate) is equivalent to FOL by treating slates
-as an additional sort.
-- Straightforward, but emphasize rule on slates on making meanginful/useful
-abstractions!
-- IF time allows, provide experiments, but mostly argue why, based
-on the argument for slates, this would work.
-- Argue that you could AT LEAST embed the necessary abstractions via slates.
-And organization will help show this is feasible with a theoretical argument
-(but it's not exponential time. It is (hopefully) ACTUALLY feasible.)
+// - Want easy access to first order logic
+//   - Review literature. Notable examples:
+//     - SMT solvers in Rocq + Lean (via monomorphization of types)
+//   - Problem: abstractions are hard to convey! Lots of "bloat"
+//   - BUT SMT solvers are very well established, particularly with Gödel's
+//     completeness theorem.
+//   - How to get best of both worlds? Solution: slates!
+// - First step: define extension to first order logic (let's call it, say,
+//   FOL(Slate))
+//   - Add slates as a special sort, but focuses on first order terms.
+//     - Emphasize that there are FOL theories *weaker* than combinators.
+//     So, with a coherency argument, argue that FOL can be powerful *precisely
+//     because* RE is possible, WITH the combination of the completness theorem.
+//     (Not possible in all logics!).
+// - Second step: show that FOL(Slate) is equivalent to FOL by treating slates
+// as an additional sort.
+// - Straightforward, but emphasize rule on slates on making meaningful/useful
+// abstractions!
+// - IF time allows, provide experiments, but mostly argue why, based
+// on the argument for slates, this would work.
+// - Argue that you could AT LEAST embed the necessary abstractions via slates.
+// And organization will help show this is feasible with a theoretical argument
+// (but it's not exponential time. It is (hopefully) ACTUALLY feasible.)
 
-- Final step: show that there is an equivalent embedding that *preserves*
-  slates.
-  - Important part: preservation up to iso!
+// - Final step: show that there is an equivalent embedding that *preserves*
+//   slates.
+//   - Important part: preservation up to iso!
 
-= Universal Systems
+== Universal Systems
 
 
 // TODO: make this more precise!!
@@ -171,19 +165,19 @@ And organization will help show this is feasible with a theoretical argument
 ]<universality-theorem>
 
 // TODO: clean up this outline
-- Provide previous section (translation to FOL) as a major example
-- Generalize from the case of a formal system from an earlier draft
-  - Earlier definition: (D, R), with D a grammar and R a set of RE rules
-  - Universal system: U = (D_U, R_U) is universal if, for each formal system S,
-  there is a term t in D_U such that derivations in S are reflected and
-  preserved via t in D_U. So they are faithfully encoded
-  - Earlier proof: a system is universal iff it induces a comptuable, RE
-  full sub-category of the category of formal systems.
-  - Refine these ideas to use slates + coherency from before.
-  Can involve more ambitious encodings!
-  - Also develop reflection!
-- Hint at topic of next section, or smooth out transition. Next
-section is discussing *which* universal system to use or how to effectively
-translate between them
+// - Provide previous section (translation to FOL) as a major example
+// - Generalize from the case of a formal system from an earlier draft
+//   - Earlier definition: (D, R), with D a grammar and R a set of RE rules
+//   - Universal system: U = (D_U, R_U) is universal if, for each formal system S,
+//   there is a term t in D_U such that derivations in S are reflected and
+//   preserved via t in D_U. So they are faithfully encoded
+//   - Earlier proof: a system is universal iff it induces a comptuable, RE
+//   full sub-category of the category of formal systems.
+//   - Refine these ideas to use slates + coherency from before.
+//   Can involve more ambitious encodings!
+//   - Also develop reflection!
+// - Hint at topic of next section, or smooth out transition. Next
+// section is discussing *which* universal system to use or how to effectively
+// translate between them
 
 
