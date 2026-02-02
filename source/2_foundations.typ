@@ -31,7 +31,7 @@
 This section establishes the theory underlying Welkin, capturing
 representations, consisting of an entity, a symbol, and an intepreter. We
 develop representations using _units_, or arbitrary entities that are denoted
-through its ID, a symbol.#footnote[The word unit is inspired by a cloud. A cloud
+through a numeric ID. #footnote[The word unit is inspired by a cloud. A cloud
   can be broken down further or be part of a larger group of clouds.
   Additionally, clouds can be transformed, which is reflected in units through
   operations on their symbols.
@@ -76,12 +76,13 @@ To communicate between these maps, we need an appropriate notion of coherency.
 == Definitions
 
 Now we develop the formal framework to discuss information in terms of units,
-enabling a complete mechanization of our theory.
+enabling a complete mechanization of Welkin's meta-theory.
 
 #definition[
   The *alphabet of binary strings* is $cal(A)_"bit" ::= 0 | 1 | . | w$. A
-  *binary string* is either the symbol $0$ or $1$, or if $w$ is a string, then
-  $w.0$ and $w.1$ is a string. We abbreviate $w.w'$ to $w w'$.
+  *binary string* is defined recursively: the symbols $0$ or $1$ are strings, or
+  if $w$ is a string, then $w.0$ and $w.1$ are strings. We abbreviate $w.w'$ to
+  $w w'$.
 ]
 
 #definition[
@@ -89,9 +90,14 @@ enabling a complete mechanization of our theory.
   symbols $u_b$, where $b$ is a binary string.
 ]
 
-#example[Consider a house with a dog and a cat. We can represent the dog as unit
-  $D$ and the cat by unit $C$.
+#example[Consider a house with a dog and a cat. We can represent the house as
+  unit $H$, the dog as unit $D$, the cat by unit $C$. We can impose that $H$
+  contains both $C$ and $D$.
 ]
+
+// TODO: discuss anonymous units
+New units can be made as follows:
+- Given units $A$ and $B$, ${B, A}$ is a unit.
 
 #theorem[
   A unit is coherent relative to a context iff the unit and that context are
@@ -142,7 +148,6 @@ And organization will help show this is feasible with a theoretical argument
 - Final step: show that there is an equivalent embedding that *preserves*
   slates.
   - Important part: preservation up to iso!
-  - Maybe bring up Jose Mesegeru's "epsilon-representation distance" notion
 
 = Universal Systems
 

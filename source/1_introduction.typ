@@ -7,29 +7,20 @@
 
 // NOTE: fill in the blanks!
 Information management is a long standing problem as a result of the depth and
-breadth of disciplines. Many areas are often specialized, requring an immense
-understanding of the broader concepts involved and nomenclature used. This is
-evident in the sciences, as explored in @hierarchy_science and
-@specialized_science. Additionally, creating common representations shared
-accross subdisciplines can be difficult. In mathematics, for example, several
-researchers note the wide diversity of mathematical practice, and the poor
-coverage of certain disciplines [CITE]. Moreover, creating a standardized form
-accross communities is challenging. In other subjects, like the social sciences,
-there are no standard terms, and the majority of cited references are books,
-which are not indexed by many databases @social_sciences_databases. These
-problems posed by broadly and faithfully capturing subjects demonstrate the
-herculean task of effective information management.
-
-
-
-// However, Burgin does not develop rules to work with these parameters, and the
-// rest of his results exacerbate a divide between these and his formal semantics.
-// In particular, in his development of "named set theory", which makes urelements
-// first class citizens, the ways in which infological systems can interact is
-// never addressed #todo[CITE!]. We want a broader notion of information that can
-// bridge these divides and spread accross infological systems.
-
-
+breadth of disciplines. In terms of depth, many areas are often specialized,
+requring an immense understanding of the broader concepts involved and
+nomenclature used. This is evident in the sciences, as explored in
+@hierarchy_science and @specialized_science. Additionally, in terms of breadth,
+creating common representations shared accross subdisciplines can be difficult.
+In mathematics, for example, several researchers note the wide diversity of
+mathematical practice, and the poor coverage of certain disciplines [CITE].
+Moreover, creating a standardized form accross communities is challenging. In
+other subjects, like the social sciences, there are no standard terms, and the
+majority of cited references are books, which are not indexed by many databases
+@social_sciences_databases. Beyond this, information management _itself_ is
+divided by different approaches [CITE]. These problems posed by broadly and
+faithfully capturing subjects demonstrate the enormous task of effective
+information management.
 
 #todo[Dicuss truth here and Burgin!]
 In attempt to address these challenges, several solutions have been proposed,
