@@ -5,6 +5,8 @@
 
 = Introduction
 
+// TODO: add more explicit references to broader fields,
+// so like liberal arts and such. Ensure good coverage!
 Information Management (IM) is an open area of research as a result of the depth
 and breadth of disciplines. In terms of depth, many areas are often specialized,
 requring an immense understanding of the broader concepts involved and
@@ -30,21 +32,23 @@ implementation, FAIR provides suggesttions to encourage better storage of
 scientific information. However, multiple papers have outlined problems with
 these overarching principles, including missing checks on data quality
 @FAIR-data-quality, missing expressiveness for ethics frameworks @FAIR-and-CARE,
-and severe ambiguites that affect implementations @FAIR-implementation. Another
-proposal is . Unfortunately, this project has focused primarly on logic . These
-proposals, even focused on specific fields, fail to accomodate for all of the
-mentioned challenges.
+and severe ambiguites that affect implementations @FAIR-implementation. Along
+with the sciences, there are sevreal proposals in mathematics, including QED
+project and the OpenLogic Project. ... While they have advanced storage for
+mathematical information, OpenLogic these project has focused primarly on logic
+. These proposals, even focused on specific fields, fail to accomodate for all
+of the mentioned challenges.
 
 In addition to these proposals, Burgin's work on a theory of information
 @burgin-information-book, @burgin-information-book comprehensively includes many
-separate areas. He provides flexible definitions through a free parameter, an
-"infological system" that encompasses domain specific terminology and concepts.
-He then proceeds to mention many areas in the natural sciences, and connects his
-theory back to related mathematical studies, including Algorithmic Information
-Theory. Despite the large coverage of fields, Burgin does not closely tie the
-free parameter with his formal analysis, making it unclear how to use this in a
-practical implementation. Each of these proposals has severe shortcomings and
-highlights major obstacles for IM.
+separate areas for IM as a whole. He provides flexible definitions through a
+free parameter, an "infological system" that encompasses domain specific
+terminology and concepts. He then proceeds to mention many areas in the natural
+sciences, and connects his theory back to related mathematical studies,
+including Algorithmic Information Theory. Despite the large coverage of fields,
+Burgin does not closely tie the free parameter with his formal analysis, making
+it unclear how to use this in a practical implementation. Each of these
+proposals has severe shortcomings and highlights major obstacles for IM.
 
 This thesis introduces a language to resolve these issues. I call this language
 *Welkin*, based on an old German word meaning cloud @dictionary:welkin. The core
