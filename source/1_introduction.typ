@@ -11,14 +11,16 @@ requring an immense understanding of the broader concepts involved and
 nomenclature used. This is evident in the sciences, as explored in
 @hierarchy_science and @specialized_science. Additionally, in terms of breadth,
 creating common representations shared accross subdisciplines can be difficult.
-In mathematics, for example, ... [FINISH]. Moreover, creating a standardized
-form accross communities is challenging. In other subjects, like the social
-sciences, there are no standard terms, and the majority of cited references are
-books, which are not indexed by many databases @social_sciences_databases. More
-broadly, IM _itself_ is divided from distinct approaches [CITE]. Some authors
-equate IM to Knowledge Management (KM) and assert that information must be true.
-These problems posed by broadly and faithfully capturing subjects demonstrate
-the enormous task of effective information management.
+In mathematics, for example, has extremely diverse disciplines, and connecting
+these is an open problem in scalability @big-math-problems. Moreover, creating a
+standardized form accross communities is challenging. In other subjects, like
+the social sciences, there are no standard terms, and the majority of cited
+references are books, which are not indexed by many databases
+@social_sciences_databases. More broadly, IM _itself_ is divided from distinct
+approaches [CITE]. Some authors equate IM to Knowledge Management (KM) and
+assert that information must be true. These problems posed by broadly and
+faithfully capturing subjects demonstrate the enormous task of effective
+information management.
 
 #todo[Dicuss truth here and Burgin!]
 In attempt to address these challenges, several solutions have been proposed,
