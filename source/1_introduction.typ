@@ -9,15 +9,15 @@
 // so like liberal arts and such. Ensure good coverage!
 Information Management (IM) is an open area of research as a result of the depth
 and breadth of disciplines. In terms of depth, many areas are often specialized,
-requring an immense understanding of the broader concepts involved and
+requiring an immense understanding of the broader concepts involved and
 nomenclature used. This is evident in the sciences, as explored in
 @hierarchy_science, @specialized_science. Additionally, in terms of breadth,
-creating common representations shared accross subdisciplines can be difficult.
+creating common representations shared across sub-disciplines can be difficult.
 In mathematics, for example, has extremely diverse disciplines, and connecting
-these is an open problem in scalability @big-math-problems. Moreover, creating a
-standardized form accross communities is challenging. In other subjects, like
-the social sciences, there are no standard terms, and the majority of cited
-references are books, which are not indexed by many databases
+these areas is an open problem in scalability @big-math-problems. Moreover,
+creating a standardized form across communities is challenging. In other
+subjects, like the social sciences, there are no standard terms, and the
+majority of cited references are books, which are not indexed by many databases
 @social_sciences_databases. More broadly, IM _itself_ is divided from distinct
 approaches that lack interoperability @information-management-frameworks. Some
 authors equate IM to Knowledge Management (KM) and assert that information must
@@ -28,16 +28,16 @@ In attempt to address these challenges, several solutions have been proposed,
 but none completely fix these issues. In the sciences, a group of researchers
 created the Findable Accessible Interoperable Resuable (FAIR) guidelines
 @FAIR_guiding_science. Instead of providing a concrete specification or
-implementation, FAIR provides suggesttions to encourage better storage of
+implementation, FAIR provides suggestions to encourage better storage of
 scientific information. However, multiple papers have outlined problems with
 these overarching principles, including missing checks on data quality
 @FAIR-data-quality, missing expressiveness for ethics frameworks @FAIR-and-CARE,
-and severe ambiguites that affect implementations @FAIR-implementation. Along
-with the sciences, there are sevreal proposals in mathematics, including QED
+and severe ambiguities that affect implementations @FAIR-implementation. Along
+with the sciences, there are several proposals in mathematics, including QED
 project and the OpenLogic Project. ... While they have advanced storage for
-mathematical information, OpenLogic these project has focused primarly on logic
-. These proposals, even focused on specific fields, fail to accomodate for all
-of the mentioned challenges.
+mathematical information, OpenLogic these project has focused primarily on logic
+... These proposals, even focused on specific fields, fail to accommodate for
+all of the mentioned challenges.
 
 In addition to these proposals, Burgin's work on a theory of information
 @burgin-information-book, @burgin-information-book comprehensively includes many
@@ -54,10 +54,10 @@ This thesis introduces a language to resolve these issues. I call this language
 *Welkin*, based on an old German word meaning cloud @dictionary:welkin. The core
 result of this thesis is proving that Welkin is a) *universal*, b) *scalable*,
 and c) *standardized*. The core idea is to generalize Burgin's free parameter
-and enable arbtitrary representations in the theory, controlled by a computable
-system. The notion of representaiton builds on Peirce's semiotics, or the study
+and enable arbitrary representations in the theory, controlled by a computable
+system. The notion of representation builds on Peirce's semiotics, or the study
 of the relationship between a symbol, the object it represents, and the
-intepreter or interpretation that provides it that meaning
+interpreter or interpretation that provides it that meaning
 @sep-peirce-semiotics. Moreover, to address queries on the validity of truth, we
 use a relative notion that includes a context managed by a formal system. Truth
 can then be determined on an individual basis, providing flexibility to any
