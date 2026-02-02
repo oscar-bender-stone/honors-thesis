@@ -29,10 +29,10 @@
 = Foundations <foundations>
 
 This section establishes the theory underlying Welkin, capturing
-representations, consisting of an entity, a symbol, and an intepreter. We
-develop representations using _units_, or arbitrary entities that are denoted
-through a numeric ID. #footnote[The word unit is inspired by a cloud. A cloud
-  can be broken down further or be part of a larger group of clouds.
+representations, mapping an interpretation from a symbol to a denotation. We
+represent each of these compnents as units, or arbitrary entities that are
+denoted through a numeric ID. #footnote[The word unit is inspired by a cloud. A
+  cloud can be broken down further or be part of a larger group of clouds.
   Additionally, clouds can be transformed, which is reflected in units through
   operations on their symbols.
 ] Units have two important properties. First, they can be be broken down further
@@ -40,6 +40,13 @@ or form larger units. Second, their respective symbol can be manipulated by a
 partial computable function. We impose no implementations on these properties,
 but instead analyze their usefulness through the coherency of a unit, or how
 much structure it distinguishes.
+
+// TODO: clarify further!
+Our argument that units are universal imposes the _least restrictions_ that can
+be manipulated by a formal system. This, in some sense, captures a notion of
+"anything" using a notion of "nothing" or no restrictions. We come back to the
+formal claim that the underlying formal systems are infact universal in a
+precise sense.
 
 == Motivating Example: Maps
 
@@ -90,6 +97,13 @@ enabling a complete mechanization of Welkin's meta-theory.
   symbols $u_b$, where $b$ is a binary string.
 ]
 
+Parts of units are denoted as $u.w$.
+
+#definition[
+  The *alphabet of representations* is
+  $cal(A)_"R" = "source" | "target" | "interpretation"$.
+]
+
 #example[Consider a house with a dog and a cat. We can represent the house as
   unit $H$, the dog as unit $D$, the cat by unit $C$. We can impose that $H$
   contains both $C$ and $D$.
@@ -107,7 +121,7 @@ New units can be made as follows:
   logic. We will frequently rely on this result throughout the thesis.]
 
 #definition[Information over a unit $u$ is a unit $u'$ such that $u equiv u'$
-  iff $v_u = v_u'$. In other words, information is an invariant for a unit
+  iff $I_u = I_u'$. In other words, information is an invariant for a unit
   modulo $equiv$.
 ]
 
