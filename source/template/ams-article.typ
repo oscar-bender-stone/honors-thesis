@@ -181,7 +181,6 @@
     },
   )
 
-
   // Configure headings.
   set heading(numbering: "1.")
 
@@ -236,7 +235,10 @@
   show math.equation: set block(below: 8pt, above: 9pt)
 
   // Configure citation and bibliography styles.
-  set std.bibliography(style: "springer-mathphys", title: [References])
+  set std.bibliography(
+    style: "american-mathematical-society-numeric.csl",
+    title: [References],
+  )
 
   set figure(gap: 17pt)
   show figure: set block(above: 12.5pt, below: 15pt)
