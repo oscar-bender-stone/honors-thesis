@@ -17,9 +17,10 @@ standardized form accross communities is challenging. In other subjects, like
 the social sciences, there are no standard terms, and the majority of cited
 references are books, which are not indexed by many databases
 @social_sciences_databases. More broadly, IM _itself_ is divided from distinct
-approaches [CITE]. Some authors equate IM to Knowledge Management (KM) and
-assert that information must be true. These problems posed by broadly and
-faithfully capturing subjects demonstrate the enormous task of effective IM.
+approaches that lack interoperability @information-management-frameworks. Some
+authors equate IM to Knowledge Management (KM) and assert that information must
+be true. These problems posed by broadly and faithfully capturing subjects
+demonstrate the enormous task of effective IM.
 
 In attempt to address these challenges, several solutions have been proposed,
 but none completely fix these issues. In the sciences, a group of researchers
