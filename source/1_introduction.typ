@@ -9,7 +9,7 @@ Information Management (IM) is an open area of research as a result of the depth
 and breadth of disciplines. In terms of depth, many areas are often specialized,
 requring an immense understanding of the broader concepts involved and
 nomenclature used. This is evident in the sciences, as explored in
-@hierarchy_science and @specialized_science. Additionally, in terms of breadth,
+@hierarchy_science, @specialized_science. Additionally, in terms of breadth,
 creating common representations shared accross subdisciplines can be difficult.
 In mathematics, for example, has extremely diverse disciplines, and connecting
 these is an open problem in scalability @big-math-problems. Moreover, creating a
@@ -25,9 +25,15 @@ and faithfully capturing subjects demonstrate the enormous task of effective IM.
 In attempt to address these challenges, several solutions have been proposed,
 but none completely fix these issues. In the sciences, a group of researchers
 created the Findable Accessible Interoperable Resuable (FAIR) guidelines
-@FAIR_guiding_science. . However, . Another proposal is . Unfortunately, this
-project has focused primarly on logic . These proposals, even focused on
-specific fields, fail to accomodate for all of the mentioned challenges.
+@FAIR_guiding_science. Instead of providing a concrete specification or
+implementation, FAIR provides suggesttions to encourage better storage of
+scientific information. However, multiple papers have outlined problems with
+these overarching principles, including missing checks on data quality
+@FAIR-data-quality, missing expressiveness for ethics frameworks @FAIR-and-CARE,
+and severe ambiguites that affect implementations @FAIR-implementation. Another
+proposal is . Unfortunately, this project has focused primarly on logic . These
+proposals, even focused on specific fields, fail to accomodate for all of the
+mentioned challenges.
 
 In addition to these proposals, Burgin's work on a theory of information
 @burgin-information-book, @burgin-information-book comprehensively includes many
