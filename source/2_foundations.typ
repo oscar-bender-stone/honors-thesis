@@ -94,17 +94,33 @@ Parts of units are denoted as $u.w$.
 
 #definition[
   The *alphabet of representations* is
-  $cal(A)_"R" = "source" | "target" | "interpretation"$.
+  $cal(A)_"R" = "denotation" | "symbol" | "interpretation"$.
 ]
 
 #example[Consider a house with a dog and a cat. We can represent the house as
   unit $H$, the dog as unit $D$, the cat by unit $C$. We can impose that $H$
-  contains both $C$ and $D$.
+  contains both $C$ and $D$. We can consider an abstract entity $A$ as well, and
+  could say that $A$ represents $C$ and $D$.
 ]
 
 // TODO: discuss anonymous units
 New units can be made as follows:
 - Given units $A$ and $B$, ${B, A}$ is a unit.
+
+// TODO: clean up this example.
+#example[
+  Consider the recursive definition of a binary tree: either it is a leaf node,
+  or it contains two distinct nodes, left and right. We can model this as
+  follows. We consider a unit $T$ (tree), as well as symbols for $L$ (left), $R$
+  (right), and $E$ (end/leaf node). We could also add a symbol for $C$, child.
+  $T$ then contains a recursive definition: $E$ represents $T$, and for nodes
+  $A, B$, if $A$ represents $T$ and $B$ represents $T$, then so does their
+  combination.
+
+  An important idea in this example is that the abstraction could be defined
+  _first_, or a concrete model could. For this reason, the choice of how
+  entities are represented is flexible.
+]
 
 #theorem[
   A unit is coherent relative to a context iff the unit and that context are
