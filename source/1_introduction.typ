@@ -5,53 +5,52 @@
 
 = Introduction
 
-// NOTE: fill in the blanks!
-Information management is a long standing problem as a result of the depth and
-breadth of disciplines. In terms of depth, many areas are often specialized,
+Information Management (IM) is an open area of research as a result of the depth
+and breadth of disciplines. In terms of depth, many areas are often specialized,
 requring an immense understanding of the broader concepts involved and
 nomenclature used. This is evident in the sciences, as explored in
 @hierarchy_science and @specialized_science. Additionally, in terms of breadth,
 creating common representations shared accross subdisciplines can be difficult.
-In mathematics, for example, several researchers note the wide diversity of
-mathematical practice, and the poor coverage of certain disciplines [CITE].
-Moreover, creating a standardized form accross communities is challenging. In
-other subjects, like the social sciences, there are no standard terms, and the
-majority of cited references are books, which are not indexed by many databases
-@social_sciences_databases. Beyond this, information management _itself_ is
-divided by different approaches [CITE]. These problems posed by broadly and
-faithfully capturing subjects demonstrate the enormous task of effective
-information management.
+In mathematics, for example, ... [FINISH]. Moreover, creating a standardized
+form accross communities is challenging. In other subjects, like the social
+sciences, there are no standard terms, and the majority of cited references are
+books, which are not indexed by many databases @social_sciences_databases. More
+broadly, IM _itself_ is divided from distinct approaches [CITE]. Some authors
+equate IM to Knowledge Management (KM) and assert that information must be true.
+These problems posed by broadly and faithfully capturing subjects demonstrate
+the enormous task of effective information management.
 
 #todo[Dicuss truth here and Burgin!]
 In attempt to address these challenges, several solutions have been proposed,
-but none completely fix these issues. In the sciences, several researchers
-proposed the Free Accessible Interoperable Research (FAIR) guidelines
-@FAIR_guiding_science. However, . Another proposal is . Unfortunately, this
+but none completely fix these issues. In the sciences, a group of researchers
+created the Findable Accessible Interoperable Resuable (FAIR) guidelines
+@FAIR_guiding_science. . However, . Another proposal is . Unfortunately, this
 project has focused primarly on logic . In addition to ..., Burgin's work on a
 theory information @burgin-information-book, @burgin-information-book a
 comprhensive. He does include a free parameter in the theory but does not
 demonstrate how it can interact in a formal system. His chapters on complexity
 theory, where he explores the smallest size .
 
-.This paper introduces a language to resolve these issues. I call this language
-*Welkin*, based on an old German word meaning cloud @dictionary:welkin. This
-thesis proves that Welkin is a) universal, b) scalable, and c) standardized. The
-core idea is to generalize Burgin's free parameter and enable arbtitrary
-representations in the theory, controlled by a computable system. The notion of
-representaiton builds on Peirce's semiotics, or the study of the relationship
-between a symbol, the object it represents, and the intepreter or interpretation
-that provides it that meaning @sep-peirce-semiotics. Moreover, to address
-queries on the validity of truth, we use a relative notion that includes a
-context managed by a formal system. Truth can then be determined on an
-individual basis, providing flexibility to any discipline. The focus then shifts
-to the usefulness of representaitons based on a topological notion of "collapse"
-or "coherency". This is inspired by coherentism, a philosophical position that
-states truth is determined in comparison to other truths.
-@bradley-principles-of-logic. We incorporate ideas from coherentism to identify
-which representations identify their corresponding objects, and we define
-information as an invariant under these coherent representations. We include
-definitions on a _working_ basis as what is most practical, not an
-epistemological stance that can be further clarified in truth systems.
+This thesis introduces a language to resolve these issues. I call this language
+*Welkin*, based on an old German word meaning cloud @dictionary:welkin. The core
+result of this thesis is proving that Welkin is a) universal, b) scalable, and
+c) standardized. The core idea is to generalize Burgin's free parameter and
+enable arbtitrary representations in the theory, controlled by a computable
+system. The notion of representaiton builds on Peirce's semiotics, or the study
+of the relationship between a symbol, the object it represents, and the
+intepreter or interpretation that provides it that meaning
+@sep-peirce-semiotics. Moreover, to address queries on the validity of truth, we
+use a relative notion that includes a context managed by a formal system. Truth
+can then be determined on an individual basis, providing flexibility to any
+discipline. The focus then shifts to the usefulness of representaitons based on
+a topological notion of "collapse" or "coherency". This approach is inspired by
+coherentism, a philosophical position that states truth is determined in
+comparison to other truths. @bradley-principles-of-logic. We incorporate ideas
+from coherentism to identify which representations identify their corresponding
+objects, and we define information as an invariant under these coherent
+representations. We include definitions on a _working_ basis as what is most
+practical, not an epistemological stance that can be further clarified in truth
+systems.
 
 == Goals
 
