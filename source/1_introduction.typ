@@ -25,16 +25,19 @@ In attempt to address these challenges, several solutions have been proposed,
 but none completely fix these issues. In the sciences, a group of researchers
 created the Findable Accessible Interoperable Resuable (FAIR) guidelines
 @FAIR_guiding_science. . However, . Another proposal is . Unfortunately, this
-project has focused primarly on logic . In addition to ..., Burgin's work on a
-theory of information @burgin-information-book, @burgin-information-book
-comprehensively includes many separate areas. He provides flexible definitions
-through a free parameter, an "infological system" that encompasses domain
-specific terminology and concepts. He then proceeds to mention many areas in the
-natural sciences, and connects his theory back to related mathematical studies,
-including Algorithmic Information Theory. Despite the large coverage of fields,
-Burgin does not closely tie the free parameter with his formal analysis, making
-it unclear how to use this in a practical implementation. Each of these
-proposals has severe shortcomings and highlights major obstacles for IM.
+project has focused primarly on logic . These proposals, even focused on
+specific fields, fail to accomodate for all of the mentioned challenges.
+
+In addition to these proposals, Burgin's work on a theory of information
+@burgin-information-book, @burgin-information-book comprehensively includes many
+separate areas. He provides flexible definitions through a free parameter, an
+"infological system" that encompasses domain specific terminology and concepts.
+He then proceeds to mention many areas in the natural sciences, and connects his
+theory back to related mathematical studies, including Algorithmic Information
+Theory. Despite the large coverage of fields, Burgin does not closely tie the
+free parameter with his formal analysis, making it unclear how to use this in a
+practical implementation. Each of these proposals has severe shortcomings and
+highlights major obstacles for IM.
 
 This thesis introduces a language to resolve these issues. I call this language
 *Welkin*, based on an old German word meaning cloud @dictionary:welkin. The core
