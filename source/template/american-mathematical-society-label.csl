@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" default-locale="en-US">
   <info>
-    <title>Amercian Mathematical Society (numeric)</title>
+    <title>Amercian Mathematical Society (label)</title>
     <title-short>AMS</title-short>
-    <id>http://www.zotero.org/styles/american-mathematical-society-numeric</id>
-    <link href="http://www.zotero.org/styles/american-mathematical-society-numeric" rel="self"/>
+    <id>http://www.zotero.org/styles/american-mathematical-society-label</id>
+    <link href="http://www.zotero.org/styles/american-mathematical-society-label" rel="self"/>
     <link href="http://www.zotero.org/styles/elsevier-with-titles" rel="template"/>
     <link href="https://www.ams.org/arc/styleguide" rel="documentation"/>
     <link href="https://mirrors.ctan.org/biblio/bibtex/contrib/misc/amsplain.bst" rel="documentation"/>
@@ -18,9 +18,9 @@
       <uri>https://lucianchauvin.com</uri>
       <email>me@lucianchauvin.com</email>
     </contributor>
-    <category citation-format="numeric"/>
+    <category citation-format="label"/>
     <category field="math"/>
-    <updated>2025-12-16T17:28:05+00:00</updated>
+    <updated>2025-12-20T16:15:12+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="author">
@@ -98,12 +98,12 @@
       <key variable="citation-number"/>
     </sort>
     <layout prefix="[" suffix="]" delimiter=", ">
-      <text variable="citation-number"/>
+      <text variable="citation-label"/>
     </layout>
   </citation>
   <bibliography entry-spacing="0" second-field-align="flush">
     <layout suffix=".">
-      <text variable="citation-number" prefix="[" suffix="] "/>
+      <text variable="citation-label" prefix="[" suffix="] "/>
       <group delimiter=", ">
         <text macro="author"/>
         <text macro="title"/>
