@@ -35,18 +35,17 @@ denoted through a numeric ID. #footnote[The word unit is inspired by a cloud. A
   cloud can be broken down further or be part of a larger group of clouds.
   Additionally, clouds can be transformed, which is reflected in units through
   operations on their symbols.
-] Units have two important properties. First, they can be be broken down further
-or form larger units. Second, their respective symbol can be manipulated by a
+] Units have two important properties. First, they can be broken down further or
+form larger units. Second, their respective symbol can be manipulated by a
 partial computable function. We impose no implementations on these properties,
 but instead analyze their usefulness through the coherency of a unit, or how
 much structure it distinguishes.
 
-// TODO: clarify further!
-Our argument that units are universal imposes the _least restrictions_ that can
-be manipulated by a formal system. This, in some sense, captures a notion of
-"anything" using a notion of "nothing" or no restrictions. We come back to the
-formal claim that the underlying formal systems are infact universal in a
-precise sense.
+Units prove universality by enabling any free parameter by only imposing its
+representation is accepted by a computable function. The meaning of "any" in
+this context is left, itself, as a free notion, but we formally prove that any
+computable function can be expressed as a representation, see
+@universality-theorem.
 
 == Motivating Example: Maps
 
@@ -165,6 +164,13 @@ And organization will help show this is feasible with a theoretical argument
 
 = Universal Systems
 
+
+// TODO: make this more precise!!
+#theorem[
+  Any computable function can be processed as a representation.
+]<universality-theorem>
+
+// TODO: clean up this outline
 - Provide previous section (translation to FOL) as a major example
 - Generalize from the case of a formal system from an earlier draft
   - Earlier definition: (D, R), with D a grammar and R a set of RE rules
