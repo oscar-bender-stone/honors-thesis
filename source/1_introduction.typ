@@ -19,19 +19,22 @@ references are books, which are not indexed by many databases
 @social_sciences_databases. More broadly, IM _itself_ is divided from distinct
 approaches [CITE]. Some authors equate IM to Knowledge Management (KM) and
 assert that information must be true. These problems posed by broadly and
-faithfully capturing subjects demonstrate the enormous task of effective
-information management.
+faithfully capturing subjects demonstrate the enormous task of effective IM.
 
-#todo[Dicuss truth here and Burgin!]
 In attempt to address these challenges, several solutions have been proposed,
 but none completely fix these issues. In the sciences, a group of researchers
 created the Findable Accessible Interoperable Resuable (FAIR) guidelines
 @FAIR_guiding_science. . However, . Another proposal is . Unfortunately, this
 project has focused primarly on logic . In addition to ..., Burgin's work on a
-theory information @burgin-information-book, @burgin-information-book a
-comprhensive. He does include a free parameter in the theory but does not
-demonstrate how it can interact in a formal system. His chapters on complexity
-theory, where he explores the smallest size .
+theory of information @burgin-information-book, @burgin-information-book
+comprehensively includes many separate areas. He provides flexible definitions
+through a free parameter, an "infological system" that encompasses domain
+specific terminology and concepts. He then proceeds to mention many areas in the
+natural sciences, and connects his theory back to related mathematical studies,
+including Algorithmic Information Theory. Despite the large coverage of fields,
+Burgin does not closely tie the free parameter with his formal analysis, making
+it unclear how to use this in a practical implementation. Each of these
+proposals has severe shortcomings and highlights major obstacles for IM.
 
 This thesis introduces a language to resolve these issues. I call this language
 *Welkin*, based on an old German word meaning cloud @dictionary:welkin. The core
