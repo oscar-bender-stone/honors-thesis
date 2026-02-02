@@ -19,8 +19,8 @@ references are books, which are not indexed by many databases
 @social_sciences_databases. More broadly, IM _itself_ is divided from distinct
 approaches that lack interoperability @information-management-frameworks. Some
 authors equate IM to Knowledge Management (KM) and assert that information must
-be true. These problems posed by broadly and faithfully capturing subjects
-demonstrate the enormous task of effective IM.
+be true @information-and-knowledge-management. These problems posed by broadly
+and faithfully capturing subjects demonstrate the enormous task of effective IM.
 
 In attempt to address these challenges, several solutions have been proposed,
 but none completely fix these issues. In the sciences, a group of researchers
@@ -42,9 +42,9 @@ highlights major obstacles for IM.
 
 This thesis introduces a language to resolve these issues. I call this language
 *Welkin*, based on an old German word meaning cloud @dictionary:welkin. The core
-result of this thesis is proving that Welkin is a) universal, b) scalable, and
-c) standardized. The core idea is to generalize Burgin's free parameter and
-enable arbtitrary representations in the theory, controlled by a computable
+result of this thesis is proving that Welkin is a) *universal*, b) *scalable*,
+and c) *standardized*. The core idea is to generalize Burgin's free parameter
+and enable arbtitrary representations in the theory, controlled by a computable
 system. The notion of representaiton builds on Peirce's semiotics, or the study
 of the relationship between a symbol, the object it represents, and the
 intepreter or interpretation that provides it that meaning
@@ -61,6 +61,7 @@ representations. We include definitions on a _working_ basis as what is most
 practical, not an epistemological stance that can be further clarified in truth
 systems.
 
+#todo[Determine if this is now unnecessary.]
 == Goals
 
 - *Goal 1: Universality.* The language must include unspecified, user created
