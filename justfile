@@ -6,3 +6,6 @@ compile:
 
 watch:
     typst watch source/index.typ document/thesis.pdf --root .
+
+reuse-lint:
+    reuse lint
