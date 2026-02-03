@@ -235,7 +235,7 @@
   show math.equation: set block(below: 8pt, above: 9pt)
 
   // Configure citation and bibliography styles.
-  // Credit: CSL styles,
+  // Adapted from CSL styles,
   // licensed under the
   // Creative Commons Attribution-ShareAlike 3.0 Unported license:
   // https://citationstyles.org/
