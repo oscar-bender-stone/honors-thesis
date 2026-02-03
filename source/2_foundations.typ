@@ -174,26 +174,30 @@ New units can be made as follows:
 
 == Universal Systems
 
-
 // TODO: make this more precise!!
 #theorem[
   Any computable function can be processed as a representation.
 ]<universality-theorem>
 
-// TODO: clean up this outline
-// - Provide previous section (translation to FOL) as a major example
-// - Generalize from the case of a formal system from an earlier draft
-//   - Earlier definition: (D, R), with D a grammar and R a set of RE rules
-//   - Universal system: U = (D_U, R_U) is universal if, for each formal system S,
-//   there is a term t in D_U such that derivations in S are reflected and
-//   preserved via t in D_U. So they are faithfully encoded
-//   - Earlier proof: a system is universal iff it induces a comptuable, RE
-//   full sub-category of the category of formal systems.
-//   - Refine these ideas to use slates + coherency from before.
-//   Can involve more ambitious encodings!
-//   - Also develop reflection!
-// - Hint at topic of next section, or smooth out transition. Next
-// section is discussing *which* universal system to use or how to effectively
-// translate between them
+Note that there are multiple ways to prove @universality-theorem, infinitely in
+fact. This motivates the following definition.
 
+// TODO: develop!
+#definition[
+  A universal representation system is a unit that can represent any
+  representation.
+]
 
+#theorem[
+  A unit is a universal representation system if and only if it can represent
+  any partial computable function. Moreover, any universal representation system
+  can represent any universal representation system. In particular, representing
+  itself is called *reflection*.
+]
+
+The term _universal_ is specifically for expressing _representations_
+symbolically. The free parameter still needs to be included and is an additional
+feature on top of partial comptuable functions. However, the _management_ of
+these symbols is done entirely with partial computable functions.
+
+The next section discusses the issue of _managing_ these infinite choices.
