@@ -28,12 +28,15 @@
 
 = Foundations <foundations>
 
+// TODO: make the connection to the free parameter clearer,
+// instead of using the term loosely! Or otherwise clarify!
 This section establishes the theory underlying Welkin, centered around
-representations as mappings from a sign to a referrant via a concept. We
-formally define representations through the notion of a _unit_.#footnote[The
-  word unit is inspired by a cloud. A cloud can be broken down further or be
-  part of a larger group of clouds. Additionally, clouds can be transformed,
-  which is reflected in units through operations on their symbols.
+representations. Loosely, a *representation* is a mapping from a *sign* to a
+*referrant* via a *concept*. Each of these components are defined as _units_,
+which are entities referred to by a numeric ID.#footnote[The word unit is
+  inspired by a cloud. A cloud can be broken down further or be part of a larger
+  group of clouds. Additionally, clouds can be transformed, which is reflected
+  in units through operations on their symbols.
 ] Units have two important properties. First, they can be broken down and
 combined. Second, units have a sign that can be manipulated by any partial
 computable function. Both of these properties are used to prove universality, in
