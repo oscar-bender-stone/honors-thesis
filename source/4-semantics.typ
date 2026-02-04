@@ -1,0 +1,167 @@
+// SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
+// SPDX-License-Identifier: MIT
+
+#import "template/ams-article.typ": definition, example, remark
+#import "template/ams-article.typ": lang-def-vertical
+#import "template/ams-article.typ": equation_block, lemma, proof, theorem
+#import "template/ams-article.typ": todo
+
+= Semantics
+
+== AST
+
+Now we develop the formal framework to discuss information in terms of units,
+enabling a complete mechanization of Welkin's meta-theory. To keep this section
+self-contained, we explicitly provide all recursive definitions.
+
+#definition[
+  The *alphabet of binary words* is $cal(A)_"word" ::= "bit" | . | w$, where
+  $"bit" ::= 0 | 1$. A *binary word* is defined recursively: the symbols $0$ or
+  $1$ are strings, or if $w$ is a string, then so are $w.0$ and $w.1$. We
+  abbreviate $w.w'$ to $w w'$ and write $w in "word"$ to mean that $w$ is a
+  binary word.
+]
+
+For simplicity, we extend the alphabet to include decimal and hexadecimal.
+
+#definition[
+  The *alphabet of units* is $cal(A)_"unit" = u | cal(A)_"word"$. A *unit ID* is
+  combination of symbols $u_w$, where $w in "word"$.
+]<unit-ids>
+
+#definition[A *free parameter* is a parameter given an associated ID. No further
+  restrictions are imposed.]<free-parameters.>
+
+We now define representations recursively, using unit IDs as a base notion.
+
+// TODO: incorporate references.
+// Can we instead define representations *via* references (with free parameters)?
+#definition[
+  Units are recursively defined:
+  - *Base case:* binary words and free parameters are units.
+  - *Recursive step:*
+    - *Parts:*: if $u_1, .., u_n$ are finitely many units, then so is their
+      combination ${u_1, ..., u_n}$. A combination defined without a provided ID
+      is called an *anonymous unit*.
+    - *Representations:* If $u, w, v$ are units, so is $v --> u$. We say $v$
+      *represents* $u$. or conversely, $u$ is *represented by* $v$.
+]
+
+Key equalities:
+- $u.{} = u$. Acts as a sort of \* operator from other languages.
+  - To use one level up: $.u$
+- $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(u)$ is $x.u$ if $u in x$
+  or $u$ otherwise.
+
+#example[Consider a house with a dog and a cat. We can represent the house as
+  unit $H$, the dog as unit $D$, the cat by unit $C$. We can impose that $H$
+  contains both $C$ and $D$. We can consider an abstract entity $A$ for animals
+  as well, and could say that $A$ represents $C$ and $D$.
+]
+
+Parts of units are denoted as $u.w$. Scoping is included to provide namespaces.
+Moreover, parts enable *interpretations*. We write $v - w -> u$ in case
+$u, v, (u --> v) in w$.
+
+Inspired by @twenty_years_rewriting_logic, we prove that scoping is strictly
+more expressive than without.
+
+#lemma[Representations with interpretations are undefinable in terms of free
+  representations.]
+
+// TODO: clean up this example.
+#example[
+  Consider the recursive definition of a binary tree: either it is a leaf node,
+  or it contains two distinct nodes, left and right. We can model this as
+  follows. We consider a unit $T$ (tree), as well as symbols for $L$ (left), $R$
+  (right), and $E$ (end/leaf node). We could also add a symbol for $C$, child.
+  $T$ then contains a recursive definition: $E$ represents $T$, and for nodes
+  $A, B$, if $A$ represents $T$ and $B$ represents $T$, then so does their
+  combination.
+
+  An important idea in this example is that the abstraction could be defined
+  _first_, or a concrete model could. For this reason, the choice of how
+  entities are represented is flexible.
+]
+
+#theorem[
+  A unit is coherent relative to a context iff the unit and that context are
+  coherent.
+]
+#remark[This theorem is a natural generalization of consistency in first-order
+  logic. We will frequently rely on this result throughout the thesis.]
+
+#definition[Information over a unit $u$ is a unit $u'$ such that $u equiv u'$
+  iff $I_u = I_u'$. In other words, information is an invariant for a unit
+  modulo $equiv$.
+]
+
+#theorem[
+  A representation is preserves information modulo $equiv$ iff the
+  representation modulo $equiv$ is coherent.
+]
+#remark[This theorem enables truth management via specific contexts, specified
+  as units. The task of finding core truths is then free, left open to
+  flexibility accommodate for any truth management.]
+
+#example[First Order Logic]
+
+// == Translations Between First Order Logic
+
+// - Want easy access to first order logic
+//   - Review literature. Notable examples:
+//     - SMT solvers in Rocq + Lean (via monomorphization of types)
+//   - Problem: abstractions are hard to convey! Lots of "bloat"
+//   - BUT SMT solvers are very well established, particularly with Gödel's
+//     completeness theorem.
+//   - How to get best of both worlds? Solution: slates!
+// - First step: define extension to first order logic (let's call it, say,
+//   FOL(Slate))
+//   - Add slates as a special sort, but focuses on first order terms.
+//     - Emphasize that there are FOL theories *weaker* than combinators.
+//     So, with a coherency argument, argue that FOL can be powerful *precisely
+//     because* RE is possible, WITH the combination of the completness theorem.
+//     (Not possible in all logics!).
+// - Second step: show that FOL(Slate) is equivalent to FOL by treating slates
+// as an additional sort.
+// - Straightforward, but emphasize rule on slates on making meaningful/useful
+// abstractions!
+// - IF time allows, provide experiments, but mostly argue why, based
+// on the argument for slates, this would work.
+// - Argue that you could AT LEAST embed the necessary abstractions via slates.
+// And organization will help show this is feasible with a theoretical argument
+// (but it's not exponential time. It is (hopefully) ACTUALLY feasible.)
+
+// - Final step: show that there is an equivalent embedding that *preserves*
+//   slates.
+//   - Important part: preservation up to iso!
+
+== Universal Systems
+
+// TODO: make this more precise!!
+#theorem[
+  Any computable function can be processed as a representation.
+]<universality-theorem>
+
+Note that there are multiple ways to prove @universality-theorem, infinitely in
+fact. This motivates the following definition.
+
+// TODO: develop!
+#definition[
+  A universal representation system is a unit that can represent any
+  representation.
+]
+
+#theorem[
+  A unit is a universal representation system if and only if it can represent
+  any partial computable function. Moreover, any universal representation system
+  can represent any universal representation system. In particular, representing
+  itself is called *reflection*.
+]
+
+The term _universal_ is specifically for expressing _representations_
+symbolically. The free parameter still needs to be included and is an additional
+feature on top of partial comptuable functions. However, the _management_ of
+these symbols is done entirely with partial computable functions.
+
+The next section discusses the issue of _managing_ these infinite choices.

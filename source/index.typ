@@ -30,8 +30,9 @@
 #outline()
 
 #include "1_introduction.typ"
-#include "2_foundations.typ"
-#include "3_information_organization.typ"
-#include "4_language.typ"
-#include "5_bootstrap.typ"
-#include "6_conclusion.typ"
+#include "2-motivating-example.typ"
+#include "3-syntax.typ"
+#include "4-semantics.typ"
+#include "5-information-organization.typ"
+#include "6-bootstrap.typ"
+#include "7-conclusion.typ"
