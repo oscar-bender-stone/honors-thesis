@@ -97,12 +97,13 @@ We now define representations using unit IDs as a base notion.
   - *Recursive step:*
     - *Parts:*: if $u_1, .., u_n$ are finitely many units, then so is their
       combination.
-    - *Representations:* If $u, w, v$ are units, so is $u <- w - v$. We say $v$
-    *refers to* $u$ *via* $w$,
-  or conversely, $u$ is *referred to* by $v$ *via* $w$.
+    - *Representations:* If $u, w, v$ are units, so is $v -> u$. We say $v$
+    *refers to* $u$. or conversely, $u$ is *referred to* by $v$.
 ]
 
-Parts of units are denoted as $u.w$. Scoping is included to provide namespces.
+Parts of units are denoted as $u.w$. Scoping is included to provide namespaces.
+Moreover, parts enable *interpretations*. We write $v - w -> u$ in case
+$u, v in w$ and within $w$, $v -> u$.
 
 #example[Consider a house with a dog and a cat. We can represent the house as
   unit $H$, the dog as unit $D$, the cat by unit $C$. We can impose that $H$
