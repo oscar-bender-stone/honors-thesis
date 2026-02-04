@@ -71,7 +71,6 @@ representations. We include definitions on a _working_ basis as what is most
 practical, not an epistemological stance that can be further clarified in truth
 systems.
 
-#todo[Determine if this is now unnecessary.]
 == Goals <goals>
 
 - *Goal 1: Universal.* The language must include unspecified, user created

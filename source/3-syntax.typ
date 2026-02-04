@@ -24,6 +24,8 @@ We will revisit the notion "finite" more rigorously in @bootstrap.
 For simplicity, we extend the alphabet to include two common bases: decimal and
 hexadecimal.
 
+Now, the base encoding for Welkin is in US-ASCII, formally defined below.
+
 // TODO: clean this up!
 #definition[
   The *alphabet of words*
@@ -38,7 +40,16 @@ hexadecimal.
 Using binary words simplifies the bootstrap, so while these digits are included,
 they are _defined_ in terms of binary words, see @bootstrap.
 
-We formalize an unambiguous form of EBNF for our use case.
+Now, the base encoding for Welkin is in US-ASCII, formally defined below.
+
+#definition[
+  US-ASCII consists of 256 symbols, listed in Table ?.
+]
+
+We reserve the term *string* when a word is explicitly enclosed in deilmiters,
+namely single or double quotes.
+
+Now, we formalize an unambiguous form of EBNF for our use case.
 
 #definition[
   *BNF* consists of productions. Writing $r := a_1 | ... | a_n$ is shorthand for
@@ -47,4 +58,15 @@ We formalize an unambiguous form of EBNF for our use case.
   *EBNF* additionally contains the following abbreviations:
   - $r := a_1 | ... | a_n$ is shorthand for including the rules
     $r := a_1, ..., r := a_n$.
+]
+
+Welkin's grammar is displayed in ...
+
+
+#definition[
+  A grammar is LL(1) if ...
+]
+
+#theorem[
+  Welkin's grammar is _LL(1)_. Hence, this grammar is unambiguous.
 ]
