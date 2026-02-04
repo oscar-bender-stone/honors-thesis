@@ -105,6 +105,12 @@ Parts of units are denoted as $u.w$. Scoping is included to provide namespaces.
 Moreover, parts enable *interpretations*. We write $v - w -> u$ in case
 $u, v in w$ and within $w$, $v -> u$.
 
+Inspired by @twenty_years_rewriting_logic, we prove that scoping is strictly
+more expressive than without.
+
+#lemma[Representations with interpretations are undefinable with free
+  representations.]
+
 #example[Consider a house with a dog and a cat. We can represent the house as
   unit $H$, the dog as unit $D$, the cat by unit $C$. We can impose that $H$
   contains both $C$ and $D$. We can consider an abstract entity $A$ as well, and
