@@ -29,7 +29,7 @@
 
 #outline()
 
-#include "1_introduction.typ"
+#include "1-introduction.typ"
 #include "2-motivating-example.typ"
 #include "3-syntax.typ"
 #include "4-semantics.typ"
