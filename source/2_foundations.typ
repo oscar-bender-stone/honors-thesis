@@ -28,24 +28,17 @@
 
 = Foundations <foundations>
 
-This section establishes the theory underlying Welkin, capturing
-representations, mapping an interpretation from a symbol to a denotation. We
-represent each of these component s units, or arbitrary entities that are
-denoted through a numeric ID. #footnote[The word unit is inspired by a cloud. A
-  cloud can be broken down further or be part of a larger group of clouds.
-  Additionally, clouds can be transformed, which is reflected in units through
-  operations on their symbols.
-] Units have two important properties. First, they can be broken down further or
-form larger units. Second, their respective symbol can be manipulated by a
-partial computable function. We impose no implementations on these properties,
-but instead analyze their usefulness through the coherency of a unit, or how
-much structure it distinguishes.
-
-Units prove universality by enabling any free parameter by only imposing its
-representation is accepted by a computable function. The meaning of "any" in
-this context is left, itself, as a free notion, but we formally prove that any
-computable function can be expressed as a representation, see
-@universality-theorem.
+This section establishes the theory underlying Welkin, centered around
+representations as mappings from a sign to a referrant via a concept. We
+formally define representations through the notion of a _unit_.#footnote[The
+  word unit is inspired by a cloud. A cloud can be broken down further or be
+  part of a larger group of clouds. Additionally, clouds can be transformed,
+  which is reflected in units through operations on their symbols.
+] Units have two important properties. First, they can be broken down and
+combined. Second, units have a sign that can be manipulated by any partial
+computable function. Both of these properties are used to prove universality, in
+that any free parameter describlae by a partial computble function can be
+described as a unit, see @universality-theorem.
 
 == Motivating Example: Maps
 
@@ -141,6 +134,8 @@ New units can be made as follows:
 #remark[This theorem enables truth management via specific contexts, specified
   as units. The task of finding core truths is then free, left open to
   flexibility accommodate for any truth management.]
+
+#example[First Order Logic]
 
 // == Translations Between First Order Logic
 
