@@ -26,13 +26,18 @@
 // information systems using flexible extensions.
 
 
+// TODO: decide whether to break this up
+// into separate sections. Probably makes more sense!
 = Foundations <foundations>
 
 // TODO: make the connection to the free parameter clearer,
 // instead of using the term loosely! Or otherwise clarify!
 This section establishes the theory underlying Welkin, centered around
 representations. Loosely, a *representation* is a mapping from a *sign* to a
-*referrant* via an *interpreter*. Each of these components are defined as
+*referrant* via an *interpreter*. In contrast to related definitions, like
+Peirce's semiotics @sep-peirce-semiotics, the intepreter is given an elevated
+role and itself is used to represent the _result_ of the interpretation.
+Moreover, each of the three components in a representation are defined as
 _units_, which are entities referred to by a numeric ID.#footnote[The word unit
   is inspired by a cloud. A cloud can be broken down further or be part of a
   larger group of clouds. Additionally, clouds can be transformed, which is
@@ -43,13 +48,11 @@ computable function. Both of these properties are used to prove universality, in
 that any free parameter describlae by a partial computble function can be
 described as a unit, see @universality-theorem.
 
-== Motivating Example: Maps
+== Motivating Example: Geographic Maps
 
 #todo[Draw several figures here.]
 We start with a motivating example that equally serves as a useful metaphor:
-geographic maps.
-
-Consider a traveler $A$ exploring a new area. To track their journey, they take
+consider a traveler $A$ exploring a new area. To track their journey, they take
 a piece of paper and draw a box to represent the landscape. This box is a unit.
 As they travel, they record landmarks and paths as their own symbols. Each of
 these are units, with an important property: they are denoted through _distinct_
@@ -76,52 +79,59 @@ enabling a complete mechanization of Welkin's meta-theory. To keep this section
 self-contained, we explicitly provide all recursive definitions.
 
 #definition[
-  The *alphabet of binary strings* is $cal(A)_"bit" ::= 0 | 1 | . | w$, where
-  $"bit" ::= 0 | 1$. A *binary string* is defined recursively: the symbols $0$
-  or $1$ are strings, or if $w$ is a string, then so are $w.0$ and $w.1$. We
-  abbreviate $w.w'$ to $w w'$.
+  The *alphabet of binary words* is $cal(A)_"word" ::= "bit" | . | w$, where
+  $"bit" ::= 0 | 1$. A *binary word* is defined recursively: the symbols $0$ or
+  $1$ are strings, or if $w$ is a string, then so are $w.0$ and $w.1$. We
+  abbreviate $w.w'$ to $w w'$ and write $w in "word"$ to mean that $w$ is a
+  binary word.
 ]
 
 For simplicity, we extend the alphabet to include decimal and hexadecimal.
 
 #definition[
-  The *alphabet of units* is $cal(A)_"unit" = u | cal(A)_"bit"$. A *unit ID* is
-  combination of symbols $u_b$, where $b$ is a binary string.
+  The *alphabet of units* is $cal(A)_"unit" = u | cal(A)_"word"$. A *unit ID* is
+  combination of symbols $u_w$, where $w in "word"$.
 ]<unit-ids>
 
-We now define representations using unit IDs as a base notion.
+#definition[A *free parameter* is a parameter given an associated ID. No further
+  restrictions are imposed.]<free-parameters.>
+
+We now define representations recursively, using unit IDs as a base notion.
 
 // TODO: incorporate references.
 // Can we instead define representations *via* references (with free parameters)?
 #definition[
   Units are recursively defined:
-  - *Base case:* binary strings are units.
+  - *Base case:* binary words and free parameters are units.
   - *Recursive step:*
     - *Parts:*: if $u_1, .., u_n$ are finitely many units, then so is their
-      combination.
-    - *Representations:* If $u, w, v$ are units, so is $v -> u$. We say $v$
-    *represents* $u$. or conversely, $u$ is *represented by* by $v$.
+      combination ${u_1, ..., u_n}$. A combination defined without a provided ID
+      is called an *anonymous unit*.
+    - *Representations:* If $u, w, v$ are units, so is $v --> u$. We say $v$
+      *represents* $u$. or conversely, $u$ is *represented by* $v$.
+]
+
+Key equalities:
+- $u.{} = u$. Acts as a sort of \* operator from other languages.
+  - To use one level up: $.u$
+- $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(u)$ is $x.u$ if $u in x$
+  or $u$ otherwise.
+
+#example[Consider a house with a dog and a cat. We can represent the house as
+  unit $H$, the dog as unit $D$, the cat by unit $C$. We can impose that $H$
+  contains both $C$ and $D$. We can consider an abstract entity $A$ for animals
+  as well, and could say that $A$ represents $C$ and $D$.
 ]
 
 Parts of units are denoted as $u.w$. Scoping is included to provide namespaces.
 Moreover, parts enable *interpretations*. We write $v - w -> u$ in case
-$u, v in w$ and within $w$, $v -> u$.
+$u, v, (u --> v) in w$.
 
 Inspired by @twenty_years_rewriting_logic, we prove that scoping is strictly
 more expressive than without.
 
-#lemma[Representations with interpretations are undefinable with free
+#lemma[Representations with interpretations are undefinable in terms of free
   representations.]
-
-#example[Consider a house with a dog and a cat. We can represent the house as
-  unit $H$, the dog as unit $D$, the cat by unit $C$. We can impose that $H$
-  contains both $C$ and $D$. We can consider an abstract entity $A$ as well, and
-  could say that $A$ represents $C$ and $D$.
-]
-
-// TODO: discuss anonymous units
-New units can be made as follows:
-- Given units $A$ and $B$, ${B, A}$ is a unit.
 
 // TODO: clean up this example.
 #example[
