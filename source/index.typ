@@ -21,8 +21,8 @@
     provably minimal fragment of arithmetic.],
   bibliography: bibliography((
     "references/misc.bib",
-    "references/1_introduction.bib",
-    "references/2_foundations.bib",
+    "references/1-introduction.bib",
+    "references/2-foundations.bib",
     "references/general.bib",
   )),
 )
