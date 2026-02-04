@@ -72,18 +72,21 @@ addressed more in @information_organization.
 == Definitions
 
 Now we develop the formal framework to discuss information in terms of units,
-enabling a complete mechanization of Welkin's meta-theory.
+enabling a complete mechanization of Welkin's meta-theory. To keep this section
+self-contained, we explicitly provide all recursive definitions.
 
 #definition[
-  The *alphabet of binary strings* is $cal(A)_"bit" ::= 0 | 1 | . | w$. A
-  *binary string* is defined recursively: the symbols $0$ or $1$ are strings, or
-  if $w$ is a string, then $w.0$ and $w.1$ are strings. We abbreviate $w.w'$ to
-  $w w'$.
+  The *alphabet of binary strings* is $cal(A)_"bit" ::= 0 | 1 | . | w$, where
+  $"bit" ::= 0 | 1$. A *binary string* is defined recursively: the symbols $0$
+  or $1$ are strings, or if $w$ is a string, then so are $w.0$ and $w.1$. We
+  abbreviate $w.w'$ to $w w'$.
 ]
 
+For simplicity, we extend the alphabet to include decimal and hexadecimal.
+
 #definition[
-  The *alphabet of units* is $cal(A)_"unit" = u$. A *unit ID* is combination of
-  symbols $u_b$, where $b$ is a binary string.
+  The *alphabet of units* is $cal(A)_"unit" = u | cal(A)_"bit"$. A *unit ID* is
+  combination of symbols $u_b$, where $b$ is a binary string.
 ]
 
 Parts of units are denoted as $u.w$.
