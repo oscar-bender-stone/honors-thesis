@@ -26,8 +26,6 @@
 // information systems using flexible extensions.
 
 
-// TODO: decide whether to break this up
-// into separate sections. Probably makes more sense!
 = Foundations <foundations>
 
 // TODO: make the connection to the free parameter clearer,

@@ -15,16 +15,6 @@ enabling a complete mechanization of Welkin's meta-theory. To keep this section
 self-contained, we explicitly provide all recursive definitions.
 
 #definition[
-  The *alphabet of binary words* is $cal(A)_"word" ::= "bit" | . | w$, where
-  $"bit" ::= 0 | 1$. A *binary word* is defined recursively: the symbols $0$ or
-  $1$ are strings, or if $w$ is a string, then so are $w.0$ and $w.1$. We
-  abbreviate $w.w'$ to $w w'$ and write $w in "word"$ to mean that $w$ is a
-  binary word.
-]
-
-For simplicity, we extend the alphabet to include decimal and hexadecimal.
-
-#definition[
   The *alphabet of units* is $cal(A)_"unit" = u | cal(A)_"word"$. A *unit ID* is
   combination of symbols $u_w$, where $w in "word"$.
 ]<unit-ids>
