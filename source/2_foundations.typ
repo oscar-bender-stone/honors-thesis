@@ -91,6 +91,8 @@ For simplicity, we extend the alphabet to include decimal and hexadecimal.
 
 We now define representations using unit IDs as a base notion.
 
+// TODO: incorporate references.
+// Can we instead define representations *via* references (with free parameters)?
 #definition[
   Units are recursively defined:
   - *Base case:* binary strings are units.
@@ -98,7 +100,7 @@ We now define representations using unit IDs as a base notion.
     - *Parts:*: if $u_1, .., u_n$ are finitely many units, then so is their
       combination.
     - *Representations:* If $u, w, v$ are units, so is $v -> u$. We say $v$
-    *refers to* $u$. or conversely, $u$ is *referred to* by $v$.
+    *represents* $u$. or conversely, $u$ is *represented by* by $v$.
 ]
 
 Parts of units are denoted as $u.w$. Scoping is included to provide namespaces.
