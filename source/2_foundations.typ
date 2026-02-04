@@ -32,11 +32,11 @@
 // instead of using the term loosely! Or otherwise clarify!
 This section establishes the theory underlying Welkin, centered around
 representations. Loosely, a *representation* is a mapping from a *sign* to a
-*referrant* via a *concept*. Each of these components are defined as _units_,
-which are entities referred to by a numeric ID.#footnote[The word unit is
-  inspired by a cloud. A cloud can be broken down further or be part of a larger
-  group of clouds. Additionally, clouds can be transformed, which is reflected
-  in units through operations on their symbols.
+*referrant* via an *interpreter*. Each of these components are defined as
+_units_, which are entities referred to by a numeric ID.#footnote[The word unit
+  is inspired by a cloud. A cloud can be broken down further or be part of a
+  larger group of clouds. Additionally, clouds can be transformed, which is
+  reflected in units through operations on their symbols.
 ] Units have two important properties. First, they can be broken down and
 combined. Second, units have a sign that can be manipulated by any partial
 computable function. Both of these properties are used to prove universality, in
@@ -87,14 +87,22 @@ For simplicity, we extend the alphabet to include decimal and hexadecimal.
 #definition[
   The *alphabet of units* is $cal(A)_"unit" = u | cal(A)_"bit"$. A *unit ID* is
   combination of symbols $u_b$, where $b$ is a binary string.
-]
+]<unit-ids>
 
-Parts of units are denoted as $u.w$.
+We now define representations using unit IDs as a base notion.
 
 #definition[
-  The *alphabet of representations* is
-  $cal(A)_"R" = "denotation" | "symbol" | "interpretation"$.
+  Units are recursively defined:
+  - *Base case:* binary strings are units.
+  - *Recursive step:*
+    - *Parts:*: if $u_1, .., u_n$ are finitely many units, then so is their
+      combination.
+    - *Representations:* If $u, w, v$ are units, so is $u <- w - v$. We say $v$
+    *refers to* $u$ *via* $w$,
+  or conversely, $u$ is *referred to* by $v$ *via* $w$.
 ]
+
+Parts of units are denoted as $u.w$. Scoping is included to provide namespces.
 
 #example[Consider a house with a dog and a cat. We can represent the house as
   unit $H$, the dog as unit $D$, the cat by unit $C$. We can impose that $H$
