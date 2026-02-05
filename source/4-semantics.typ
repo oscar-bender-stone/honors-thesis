@@ -128,8 +128,6 @@ multiple contexts.
   as units. The task of finding core truths is then free, left open to
   flexibility accommodate for any truth management.]
 
-#example[First Order Logic]
-
 // == Translations Between First Order Logic
 
 // - Want easy access to first order logic
@@ -165,13 +163,20 @@ multiple contexts.
 Inspired by @twenty_years_rewriting_logic, we prove that scoping is strictly
 more expressive than without.
 
-#lemma[Representations with interpretations are undefinable in terms of free
-  representations.]
-
+#todo[TODO: define the generalization to Padoa's Method clearer.]
+#lemma[Representations with interpretations are undefinable in terms of
+  unlabeled representations.]
+#proof[
+  It suffices to note that representing partial computable functions requires
+  combinations. But every transformation under unlabeled representations does
+  not preserve these conditions, hence, representations with interpretations are
+  not definable.
+]
 
 // TODO: make this more precise!!
 #theorem[
-  Any computable function and its trace can be represented by units.
+  Any computable function and its trace under a given string can be represented
+  by units. (TODO: make more precise.)
 ]<universality-theorem>
 #proof[
   We prove there is a natural embedding from the lambda calculus into our
@@ -188,10 +193,11 @@ fact. This motivates the following definition.
 
 // TODO: develop!
 #definition[
-  A universal representation system is a unit that can represent any
+  A universal representation system (URS) is a unit that can represent any
   representation.
 ]
 
+#todo[Make this more precise and complete proof.]
 #theorem[
   A unit is a universal representation system if and only if it can represent
   any partial computable function. Moreover, any universal representation system
@@ -204,4 +210,5 @@ symbolically. The free parameter still needs to be included and is an additional
 feature on top of partial comptuable functions. However, the _management_ of
 these symbols is done entirely with partial computable functions.
 
-The next section discusses the issue of _managing_ these infinite choices.
+The next section discusses the issue of _managing_ the infinitely many choices
+for URSs.
