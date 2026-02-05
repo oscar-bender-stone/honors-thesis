@@ -111,17 +111,14 @@ multiple contexts.
   entities are represented is flexible.
 ]
 
-#theorem[
-  A unit is coherent relative to a context iff the unit and that context are
-  coherent.
+#definition[
+  A unit $u$ is *non-trivial* if it is non-empty and does not contain all
+  relations. A unit $u$ is *coherent relative to a context* $u'$ if $u + u'$,
+  the union of these units, is non-trivial.
 ]
-#remark[This theorem is a natural generalization of consistency in first-order
-  logic. We will frequently rely on this result throughout the thesis.]
-
-#definition[Information over a unit $u$ is a unit $u'$ such that $u equiv u'$
-  iff $I_u = I_u'$. In other words, information is an invariant for a unit
-  modulo $equiv$.
-]
+#remark[This definition is a natural generalization of consistency in
+  first-order logic. We will frequently rely on this result throughout the
+  thesis.]
 
 #theorem[
   A representation is preserves information modulo $equiv$ iff the
@@ -174,8 +171,17 @@ more expressive than without.
 
 // TODO: make this more precise!!
 #theorem[
-  Any computable function can be processed as a representation.
+  Any computable function and its trace can be represented by units.
 ]<universality-theorem>
+#proof[
+  We prove there is a natural embedding from the lambda calculus into our
+  meta-theory, using two parts:
+  - $lambda x. f$ is represented as ${x -> f}$.
+  - $f.g$ is represented as the combination of units, or ${f, g}$.
+
+  Thus, any $lambda$-term can be represented in te meta-theory, completing the
+  proof.
+]
 
 Note that there are multiple ways to prove @universality-theorem, infinitely in
 fact. This motivates the following definition.
