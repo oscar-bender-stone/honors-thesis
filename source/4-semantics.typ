@@ -29,8 +29,8 @@
 
 = Semantics
 
-== AST
-- Semantics on AST
+== ASTs
+- Semantics on ASTs
   - Terms: graphs
   - For ease of use, include a null node
   that is the root of the tree. This represents the module itself.
@@ -43,9 +43,12 @@
   music)
 - Emphasize pragmatics as well, via units
 
+== Representations
+
 Now we develop the formal framework to discuss information in terms of units,
 enabling a complete mechanization of Welkin's meta-theory. To keep this section
 self-contained, we explicitly provide all recursive definitions.
+
 
 #definition[
   The *alphabet of units* is $cal(A)_"unit" = u | cal(A)_"word"$. A *unit ID* is
@@ -55,13 +58,14 @@ self-contained, we explicitly provide all recursive definitions.
 #definition[A *free parameter* is a parameter given an associated ID. No further
   restrictions are imposed.]<free-parameters.>
 
-We now define representations recursively, using unit IDs as a base notion.
+We now define representations recursively, using unit IDs and free parameters as
+the base case.
 
 // TODO: incorporate references.
 // Can we instead define representations *via* references (with free parameters)?
 #definition[
   Units are recursively defined:
-  - *Base case:* binary words and free parameters are units.
+  - *Base case:* IDs and free parameters are units.
   - *Recursive step:*
     - *Parts:*: if $u_1, .., u_n$ are finitely many units, then so is their
       combination ${u_1, ..., u_n}$. A combination defined without a provided ID
@@ -76,31 +80,31 @@ Key equalities:
 - $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(u)$ is $x.u$ if $u in x$
   or $u$ otherwise.
 
-#example[Consider a house with a dog and a cat. We can represent the house as
-  unit $H$, the dog as unit $D$, the cat by unit $C$. We can impose that $H$
-  contains both $C$ and $D$. We can consider an abstract entity $A$ for animals
-  as well, and could say that $A$ represents $C$ and $D$.
+#example[Consider a house with a dog, a cat, and a person. We can represent the
+  house as unit `house`, the dog as unit `dog`, the cat by unit `cat`, and the
+  person by unit `person`. In our Welkin file, we add,
+  `house { dog, cat, person}`. The `person` has an internal concept of `pet` and
+  uses it to represent both the `dog` and `cat`, which we write as
+  `person { animal --> dog, animal --> cat}`, under the scope of `house`.
 ]
 
-Parts of units are denoted as $u.w$. Scoping is included to provide namespaces.
-Moreover, parts enable *interpretations*. We write $v - w -> u$ in case
-$u, v, (u --> v) in w$.
-
-Inspired by @twenty_years_rewriting_logic, we prove that scoping is strictly
-more expressive than without.
-
-#lemma[Representations with interpretations are undefinable in terms of free
-  representations.]
+Parts of units are denoted as $u.u'$. Scoping is included to provide namespaces.
+Moreover, parts enable *interpretations*. We write $u -->^v u'$ in case
+$u, v, (u --> v) in u'$, so $u$ represents $v$ *via* $u'$. In this case, we say
+$u'$ is a *context* to $u --> v$. Note that unlabeled representations can have
+multiple contexts.
 
 // TODO: clean up this example.
 #example[
-  Consider the recursive definition of a binary tree: either it is a leaf node,
-  or it contains two distinct nodes, left and right. We can model this as
-  follows. We consider a unit $T$ (tree), as well as symbols for $L$ (left), $R$
-  (right), and $E$ (end/leaf node). We could also add a symbol for $C$, child.
-  $T$ then contains a recursive definition: $E$ represents $T$, and for nodes
-  $A, B$, if $A$ represents $T$ and $B$ represents $T$, then so does their
-  combination.
+  Consider the recursive definition of a binary tree: either it is a null (leaf)
+  node, or it contains two nodes, left and right. We can model this as follows:
+  - First, create units for each of the notions: `tree {null, left, right}`.
+  - Next, we write,
+    `tree { null --> .tree, .tree --> left, .tree --> right, {.left, .right} --> .tree}`.
+    Notice that we refer to the _namespace_, thereby enabling recursion. By our
+    scoping rules, writing `tree` would be a _new_ unit.
+  - To impose that the left subtree is _distinct_ from the right one, we can use
+    symbols.
 
   An important idea in this example is that the abstraction could be defined
   _first_, or a concrete model could. For this reason, the choice of how
@@ -160,6 +164,13 @@ more expressive than without.
 //   - Important part: preservation up to iso!
 
 == Universal Systems
+
+Inspired by @twenty_years_rewriting_logic, we prove that scoping is strictly
+more expressive than without.
+
+#lemma[Representations with interpretations are undefinable in terms of free
+  representations.]
+
 
 // TODO: make this more precise!!
 #theorem[
