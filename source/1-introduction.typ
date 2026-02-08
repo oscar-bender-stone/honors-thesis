@@ -33,12 +33,13 @@ implementation, FAIR provides best practices for storing scientific information.
 However, multiple papers have outlined problems with these overarching
 principles, including missing checks on data quality @FAIR-data-quality, missing
 expressiveness for ethics frameworks @FAIR-and-CARE, and severe ambiguities that
-affect implementations @FAIR-implementation. Along with the sciences, there are
-several proposals in mathematics, including QED Manifesto @qed-manifesto-2 the
-OpenLogic Project. ... While they have advanced storage for mathematical
-information, OpenLogic has focused primarily on logic and does not scale well...
-Each of these proposals, even within speciic fields, fail to accommodate for all
-of the mentioned challenges.
+affect implementations @FAIR-implementation. Along with the sciences, there ar
+several proposals in mathematics, including QED Manifesto @qed-manifesto-2 and
+the OpenLogic Project @open-logic-project. While they have advanced storage for
+mathematical information, OpenLogic has focused primarily on logic
+@smith-open-logic-review and is not well reviewed in the literature... Each of
+these proposals, even within speciic fields, fail to accommodate for all of the
+mentioned challenges.
 
 In addition to these proposals, Burgin's work on a theory of information
 @burgin-information-book, @burgin-information-book comprehensively includes many
@@ -54,24 +55,24 @@ major obstacles for IM.
 
 This thesis introduces a language to resolve these issues. I call this language
 *Welkin*, based on an old German word meaning cloud @dictionary:welkin. The core
-result of this thesis is proving that Welkin is a) *universal*, b) *scalable*,
-and c) *standardized*, see @goals. The core idea is to generalize Burgin's free
-parameter and enable arbitrary representations in the theory, controlled by a
-computable system. The notion of representation builds on Peirce's semiotics, or
-the study of the relationship between a symbol, the object it represents, and
-the interpreter or interpretation that provides it that meaning
-@sep-peirce-semiotics. Moreover, to address queries on the validity of truth, we
-use a relative notion that includes a context managed by a formal system. Truth
-can then be determined on an individual basis, providing flexibility to any
-discipline. The focus then shifts to the usefulness of representaitons based on
-a topological notion of "collapse" or "coherency". This approach is inspired by
-coherentism, a philosophical position that states truth is determined in
-comparison to other truths. @bradley-principles-of-logic. We incorporate ideas
-from coherentism to identify which representations identify their corresponding
-objects, and we define information as an invariant under these coherent
-representations. We include definitions on a _working_ basis as what is most
-practical, not an epistemological stance that can be further clarified in truth
-systems.
+result of this thesis is proving that Welkin satifies three goals: is
+*universal*, *scalable*, and c) *standardized*. For more information, see
+@goals. The core idea is to generalize Burgin's free parameter and enable
+arbitrary representations in the theory, controlled by a computable system. The
+notion of representation builds on Peirce's semiotics, or the study of the
+relationship between a symbol, the object it represents, and the interpreter or
+interpretation that provides it that meaning @sep-peirce-semiotics. Moreover, to
+address queries on the validity of truth, we use a relative notion that includes
+a context managed by a formal system. Truth can then be determined on an
+individual basis, providing flexibility to any discipline. The focus then shifts
+to the usefulness of representaitons based on a topological notion of "collapse"
+or "coherency". This approach is inspired by coherentism, a philosophical
+position that states truth is determined in comparison to other truths.
+@bradley-principles-of-logic. We incorporate ideas from coherentism to identify
+which representations identify their corresponding objects, and we define
+information as an invariant under these coherent representations. We include
+definitions on a _working_ basis as what is most practical, not an
+epistemological stance that can be further clarified in truth systems.
 
 == Goals <goals>
 
@@ -89,6 +90,8 @@ systems.
   complete forwards and backwards compatbility.
 
 == Organization
+
+This thesis is organized as follows.
 
 // TODO: Maybe provide as another table _with_ descriptions?
 
