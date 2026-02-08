@@ -88,8 +88,8 @@ standardization straight-forward.
   parameters to accomodate for arbitrary concepts and ideas.
 
 - *Goal 2: Scalablility.*
-  Local queries in the database, determining if there is enough "explicit"
-  information, must be efficient. Certificates must be available to prove cases
+  The database must appropriately scale to broad representations of information.
+  Local queries must be efficient. Certificates must be available to prove cases
   where optimal representations have been achieved.
 
 - *Goal 3: Standardization.* The language needs a rigorous and formal
@@ -103,22 +103,25 @@ This thesis is organized as follows.
 
 // TODO: Maybe provide as another table _with_ descriptions?
 
-- Section 2. Foundations: defines the meta-theory use and its connections to
-  first-order logic and fragments of arithmetic.
+- *Section 2: Motivating Example @motivating-example.* Introduces a high-level
+  example to explain the core concepts in Welkin.
 
-- Section 3. Information Organization. Develops the optimal information system
-  (w.r.t. to a metric defined in this system) to satisfy Goal 3.
+- *Section 3: Syntax @syntax.* Provides the syntax and proves the language is
+  unambiguous.
 
-- Section 4. Defines the syntax and semantics.
+- *Section 4: Semantics @semantics.* defines the interpretation on the AST and
+  representations. Also presents coherency as a central notion in the theory,
+  and provides a working definition of information.
 
-- Section 5. Bootstraps Welkin by proving that there is a Welkin node that
-  contains enough information about the standard. Fulfills Goal 2 with both the
-  Standard AND the complete bootstrap.
+- *Section 5: Information Organization. @information-organization* Develops the
+  optimal information system based on a (localized) Greedy algorithm.
+  Additionally, creates certificates to demonstrate when a given representation
+  is locally optimal.
 
-- Section ?. Prototype. Time permitting, develop a prototype to showcase the
-  language, implemented in python with a GUI frontend (Qt) and possibly a
-  hand-made LL(1) parser.
+- *Section 6: Bootstrap. @bootstrap* Bootstraps Welkin by proving that there is
+  a Welkin node that contains enough information about the standard. Fulfills
+  Goal 2 with both the Standard AND the complete bootstrap.
 
-- Section 8. Conclusion. Reviews the work done in the previous sections. Then
-  outlines several possible applications.
+- *Section 7: Conclusion* Reviews the work done in the previous sections and
+  explores several possible applications.
 

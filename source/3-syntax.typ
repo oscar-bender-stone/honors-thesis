@@ -6,7 +6,7 @@
 #import "template/ams-article.typ": equation_block, lemma, proof, theorem
 #import "template/ams-article.typ": todo
 
-= Syntax
+= Syntax <syntax>
 
 To keep this thesis self-contained, all recursive definitions are included. For
 simplicity, we will use the notation $a_0, ..., a_n$ for a finite list of items.
