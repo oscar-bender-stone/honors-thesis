@@ -103,25 +103,23 @@ This thesis is organized as follows.
 
 // TODO: Maybe provide as another table _with_ descriptions?
 
-- *Section 2: Motivating Example @motivating-example.* Introduces a high-level
-  example to explain the core concepts in Welkin.
+- *@motivating-example.* Introduces a high-level example to explain the core
+  concepts in Welkin.
 
-- *Section 3: Syntax @syntax.* Provides the syntax and proves the language is
-  unambiguous.
+- *@syntax.* Provides the syntax and proves the language is unambiguous.
 
-- *Section 4: Semantics @semantics.* defines the interpretation on the AST and
-  representations. Also presents coherency as a central notion in the theory,
-  and provides a working definition of information.
+- *@semantics.* defines the interpretation on the AST and representations. Also
+  presents coherency as a central notion in the theory, and provides a working
+  definition of information.
 
-- *Section 5: Information Organization. @information-organization* Develops the
-  optimal information system based on a (localized) Greedy algorithm.
-  Additionally, creates certificates to demonstrate when a given representation
-  is locally optimal.
+- *@information-organization* Develops the optimal information system based on a
+  (localized) Greedy algorithm. Additionally, creates certificates to
+  demonstrate when a given representation is locally optimal.
 
-- *Section 6: Bootstrap. @bootstrap* Bootstraps Welkin by proving that there is
-  a Welkin node that contains enough information about the standard. Fulfills
-  Goal 2 with both the Standard AND the complete bootstrap.
+- *@bootstrap* Bootstraps Welkin by proving that there is a Welkin node that
+  contains enough information about the standard. Fulfills Goal 2 with both the
+  Standard AND the complete bootstrap.
 
-- *Section 7: Conclusion* Reviews the work done in the previous sections and
-  explores several possible applications.
+- *@conclusion* Reviews the work done in the previous sections and explores
+  several possible applications.
 

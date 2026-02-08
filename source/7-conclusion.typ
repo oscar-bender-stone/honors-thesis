@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-= Conclusion
+= Conclusion <conclusion>
 
 - Review of thesis
   - Developed slate logic + bi-translation with FOL
