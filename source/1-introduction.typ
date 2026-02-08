@@ -44,16 +44,16 @@ linked databases in the PARNTHEOS project @digital-humanities-foresight. Each of
 these proposals, even within speciic fields, fail to accommodate for all of the
 mentioned challenges.
 
-In addition to domain specific proposals, there are approaches for general IM.
-One major example is Burgin's theory of information @burgin-information-book,
-@burgin-information-book comprehensively includes many separate areas for IM as
-a whole. He provides flexible definitions through a free parameter, an
-"infological system" that encompasses domain specific terminology and concepts.
-He then proceeds to mention many areas in the natural sciences, and connects his
-theory back to related mathematical studies, including Algorithmic Information
-Theory. Despite the large coverage of fields, Burgin does not closely tie the
-free parameter with his formal analysis, making it unclear how to use this in a
-practical implementation. Broad frameworks for IM, along with the specific
+In addition to domain specific proposals, there are approaches for general IM
+which still fail to resolve all issues. One major example is Burgin's theory of
+information @burgin-information-book, @burgin-information-book comprehensively
+includes many separate areas for IM, including the complexity-based Algorithmic
+Information Theory (AIT), through a free parameter called an "infological
+system", which encompasses domain specific terminology and concepts. Despite the
+large coverage of fields, Burgin does not closely tie the free parameter with
+his formal analysis, making it unclear how to use this in a practical
+implementation, and implementors note its difficulty of adoption due to its
+involved mathematical theory. Broad frameworks for IM, along with the specific
 proposals, have severe shortcomings, highlighting major obstacles for IM.
 
 This thesis introduces a language to resolve these issues. I call this language
@@ -68,14 +68,16 @@ interpretation that provides it that meaning @sep-peirce-semiotics. Moreover, to
 address queries on the validity of truth, we use a relative notion that includes
 a context managed by a formal system. Truth can then be determined on an
 individual basis, providing flexibility to any discipline. The focus then shifts
-to the usefulness of representaitons based on a topological notion of "collapse"
-or "coherency". This approach is inspired by coherentism, a philosophical
-position that states truth is determined in comparison to other truths.
-@bradley-principles-of-logic. We incorporate ideas from coherentism to identify
-which representations identify their corresponding objects, and we define
-information as an invariant under these coherent representations. We include
-definitions on a _working_ basis as what is most practical, not an
+to the usefulness of representaitons based on a topological notion of
+"collapse", which we call *coherency*. This approach is inspired by coherentism,
+a philosophical position that states truth is determined in comparison to other
+truths. @bradley-principles-of-logic. We incorporate ideas from coherentism to
+identify which representations identify their corresponding objects, and we
+define information as an invariant under these coherent representations. We
+include definitions on a _working_ basis as what is most practical, not an
 epistemological stance that can be further clarified in truth systems.
+Additionally, we keep the theory as simple as possible to make scalability and
+standardization straight-forward.
 
 == Goals <goals>
 
