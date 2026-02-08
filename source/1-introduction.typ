@@ -23,6 +23,8 @@ information must be true @information-and-knowledge-management. These problems,
 in both faithfully and broadly storing information, demonstrate the enormous
 task of effective IM.
 
+// TODO: determine whether to address several general IM approaches,
+// or just focus on Burgin's GTI
 In response to these challenges, several solutions have been proposed, but none
 have been fully successful. In the sciences, a group of researchers created the
 Findable Accessible Interoperable Resuable (FAIR) guidelines
@@ -45,16 +47,17 @@ these proposals, even within speciic fields, fail to accommodate for all of the
 mentioned challenges.
 
 In addition to domain specific proposals, there are approaches for general IM
-which still fail to resolve all issues. One major example is Burgin's theory of
-information @burgin-information-book, @burgin-information-book comprehensively
-includes many separate areas for IM, including the complexity-based Algorithmic
-Information Theory (AIT), through a free parameter called an "infological
-system", which encompasses domain specific terminology and concepts. Despite the
-large coverage of fields, Burgin does not closely tie the free parameter with
-his formal analysis, making it unclear how to use this in a practical
-implementation, and implementors note its difficulty of adoption due to its
-involved mathematical theory. Broad frameworks for IM, along with the specific
-proposals, have severe shortcomings, highlighting major obstacles for IM.
+which still fail to resolve all issues. One prominent example is Burgin's theory
+of information @burgin-information-book that comprehensively includes many
+separate areas for IM, including the complexity-based Algorithmic Information
+Theory (AIT), through a free parameter called an "infological system", which
+encompasses domain specific terminology and concepts. In contrast to other
+approaches, Burgin's generalized theory is flexible and enables greater coverage
+of different kinds of information @mark-burgin-legacy. Despite this coverage
+Burgin does not closely tie the free parameter with his formal analysis of AIT,
+making it unclear how to use this in a practical implementation. Broad
+frameworks for IM, along with the specific proposals, have severe shortcomings,
+highlighting major obstacles for IM.
 
 This thesis introduces a language to resolve these issues. I call this language
 *Welkin*, based on an old German word meaning cloud @dictionary:welkin. The core
