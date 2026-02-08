@@ -5,8 +5,6 @@
 
 = Introduction
 
-// TODO: add more explicit references to broader fields,
-// so like liberal arts and such. Ensure good coverage!
 Information Management (IM) is an open area of research as a result of the depth
 and breadth of disciplines. In terms of depth, many areas are often specialized,
 requiring an immense understanding of the broader concepts involved and
@@ -16,51 +14,56 @@ creating common representations shared across sub-disciplines can be difficult.
 For example, mathematics has extremely diverse disciplines, and connecting these
 areas is an open problem in scalability @big-math-problems. Moreover, creating a
 standardized form across communities is challenging. In other subjects, like the
-social sciences, there are no standard terms, and the majority of cited
-references are books, which are not indexed by many databases
-@social_sciences_databases. More broadly, IM _itself_ is divided from distinct
+social sciences, there are no standard terms @social_sciences_databases, and in
+the humanities, representing certain artifacts as data is involved
+@ALLEA-FAIR-humanities. More broadly, IM _itself_ is divided from distinct
 approaches that lack interoperability @information-management-frameworks.
-Certain frameworks equate equate IM to Knowledge Management (KM) and assert that
-information must be true @information-and-knowledge-management. These problems
-posed by broadly and faithfully capturing subjects demonstrate the enormous task
-of effective IM.
+Certain frameworks equate IM to Knowledge Management (KM) and assert that
+information must be true @information-and-knowledge-management. These problems,
+in both faithfully and broadly storing information, demonstrate the enormous
+task of effective IM.
 
-In attempt to address these challenges, several solutions have been proposed,
-but none have been fully successful. In the sciences, a group of researchers
-created the Findable Accessible Interoperable Resuable (FAIR) guidelines
+In response to these challenges, several solutions have been proposed, but none
+have been fully successful. In the sciences, a group of researchers created the
+Findable Accessible Interoperable Resuable (FAIR) guidelines
 @FAIR_guiding_science. Instead of providing a concrete specification or
 implementation, FAIR provides best practices for storing scientific information.
 However, multiple papers have outlined problems with these overarching
 principles, including missing checks on data quality @FAIR-data-quality, missing
 expressiveness for ethics frameworks @FAIR-and-CARE, and severe ambiguities that
-affect implementations @FAIR-implementation. Along with the sciences, there ar
-several proposals in mathematics, including QED Manifesto @qed-manifesto-2 and
-the OpenLogic Project @open-logic-project. While they have advanced storage for
-mathematical information, OpenLogic has focused primarily on logic
-@smith-open-logic-review and is not well reviewed in the literature... Each of
+affect implementations @FAIR-implementation. Along with the sciences, there are
+several projects for storing mathematical information (see
+@review-math-knowledge-management for more details). Older proposals, including
+the QED Manifesto @qed-reloaded and the Module system for Mathematical Theories
+(MMT), aimed to be more general and have seen limited success. More centralized
+systems, like mathlib in the Lean proof assistant @lean-mathlib, have seen
+adoption but do not give equal coverage nor are interoperable with other
+systems. Beyond more "hard" fields, IM in the humanities has few models,
+including aan adaption of FAIR @ALLEA-FAIR-humanities and discipline specific,
+linked databases in the PARNTHEOS project @digital-humanities-foresight. Each of
 these proposals, even within speciic fields, fail to accommodate for all of the
 mentioned challenges.
 
-In addition to these proposals, Burgin's work on a theory of information
-@burgin-information-book, @burgin-information-book comprehensively includes many
-separate areas for IM as a whole. He provides flexible definitions through a
-free parameter, an "infological system" that encompasses domain specific
-terminology and concepts. He then proceeds to mention many areas in the natural
-sciences, and connects his theory back to related mathematical studies,
-including Algorithmic Information Theory. Despite the large coverage of fields,
-Burgin does not closely tie the free parameter with his formal analysis, making
-it unclear how to use this in a practical implementation. Broad frameworks for
-IM, along with the specific proposals, have severe shortcomings, highlighting
-major obstacles for IM.
+In addition to domain specific proposals, there are approaches for general IM.
+One major example is Burgin's theory of information @burgin-information-book,
+@burgin-information-book comprehensively includes many separate areas for IM as
+a whole. He provides flexible definitions through a free parameter, an
+"infological system" that encompasses domain specific terminology and concepts.
+He then proceeds to mention many areas in the natural sciences, and connects his
+theory back to related mathematical studies, including Algorithmic Information
+Theory. Despite the large coverage of fields, Burgin does not closely tie the
+free parameter with his formal analysis, making it unclear how to use this in a
+practical implementation. Broad frameworks for IM, along with the specific
+proposals, have severe shortcomings, highlighting major obstacles for IM.
 
 This thesis introduces a language to resolve these issues. I call this language
 *Welkin*, based on an old German word meaning cloud @dictionary:welkin. The core
 result of this thesis is proving that Welkin satifies three goals: is
-*universal*, *scalable*, and c) *standardized*. For more information, see
-@goals. The core idea is to generalize Burgin's free parameter and enable
-arbitrary representations in the theory, controlled by a computable system. The
-notion of representation builds on Peirce's semiotics, or the study of the
-relationship between a symbol, the object it represents, and the interpreter or
+*universal*, *scalable*, and *standardized*. For details, see @goals. The core
+idea is to generalize Burgin's free parameter and enable arbitrary
+representations in the theory, controlled by a computable system. The notion of
+representation builds on Peirce's semiotics, or the study of the relationship
+between a symbol, the object it represents, and the interpreter or
 interpretation that provides it that meaning @sep-peirce-semiotics. Moreover, to
 address queries on the validity of truth, we use a relative notion that includes
 a context managed by a formal system. Truth can then be determined on an
@@ -76,15 +79,15 @@ epistemological stance that can be further clarified in truth systems.
 
 == Goals <goals>
 
-- *Goal 1: Universal.* The language must include unspecified, user created
+- *Goal 1: Universality.* The language must include unspecified, user created
   parameters to accomodate for arbitrary concepts and ideas.
 
-- *Goal 2: Scalable.*
+- *Goal 2: Scalablility.*
   Local queries in the database, determining if there is enough "explicit"
   information, must be efficient. Certificates must be available to prove cases
   where optimal representations have been achieved.
 
-- *Goal 3: Standardized.* The language needs a rigorous and formal
+- *Goal 3: Standardization.* The language needs a rigorous and formal
   specification. Moreover, the bootstrap must be formalized, as well as an
   abstract machine model. The grammar and bootstrap must be fixed to ensure
   complete forwards and backwards compatbility.
