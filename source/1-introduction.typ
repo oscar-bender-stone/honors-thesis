@@ -10,34 +10,35 @@
 Information Management (IM) is an open area of research as a result of the depth
 and breadth of disciplines. In terms of depth, many areas are often specialized,
 requiring an immense understanding of the broader concepts involved and
-nomenclature used. This is evident in the sciences, as explored in
-@hierarchy_science, @specialized_science. Additionally, in terms of breadth,
+nomenclature used. This specialization is evident in the sciences, as explored
+in @hierarchy_science, @specialized_science. Additionally, in terms of breadth,
 creating common representations shared across sub-disciplines can be difficult.
-In mathematics, for example, has extremely diverse disciplines, and connecting
-these areas is an open problem in scalability @big-math-problems. Moreover,
-creating a standardized form across communities is challenging. In other
-subjects, like the social sciences, there are no standard terms, and the
-majority of cited references are books, which are not indexed by many databases
+For example, mathematics has extremely diverse disciplines, and connecting these
+areas is an open problem in scalability @big-math-problems. Moreover, creating a
+standardized form across communities is challenging. In other subjects, like the
+social sciences, there are no standard terms, and the majority of cited
+references are books, which are not indexed by many databases
 @social_sciences_databases. More broadly, IM _itself_ is divided from distinct
-approaches that lack interoperability @information-management-frameworks. Some
-authors equate IM to Knowledge Management (KM) and assert that information must
-be true @information-and-knowledge-management. These problems posed by broadly
-and faithfully capturing subjects demonstrate the enormous task of effective IM.
+approaches that lack interoperability @information-management-frameworks.
+Certain frameworks equate equate IM to Knowledge Management (KM) and assert that
+information must be true @information-and-knowledge-management. These problems
+posed by broadly and faithfully capturing subjects demonstrate the enormous task
+of effective IM.
 
 In attempt to address these challenges, several solutions have been proposed,
-but none completely fix these issues. In the sciences, a group of researchers
+but none have been fully successful. In the sciences, a group of researchers
 created the Findable Accessible Interoperable Resuable (FAIR) guidelines
 @FAIR_guiding_science. Instead of providing a concrete specification or
-implementation, FAIR provides suggestions to encourage better storage of
-scientific information. However, multiple papers have outlined problems with
-these overarching principles, including missing checks on data quality
-@FAIR-data-quality, missing expressiveness for ethics frameworks @FAIR-and-CARE,
-and severe ambiguities that affect implementations @FAIR-implementation. Along
-with the sciences, there are several proposals in mathematics, including QED
-project and the OpenLogic Project. ... While they have advanced storage for
-mathematical information, OpenLogic these project has focused primarily on logic
-... These proposals, even focused on specific fields, fail to accommodate for
-all of the mentioned challenges.
+implementation, FAIR provides best practices for storing scientific information.
+However, multiple papers have outlined problems with these overarching
+principles, including missing checks on data quality @FAIR-data-quality, missing
+expressiveness for ethics frameworks @FAIR-and-CARE, and severe ambiguities that
+affect implementations @FAIR-implementation. Along with the sciences, there are
+several proposals in mathematics, including QED Manifesto @qed-manifesto-2 the
+OpenLogic Project. ... While they have advanced storage for mathematical
+information, OpenLogic has focused primarily on logic and does not scale well...
+Each of these proposals, even within speciic fields, fail to accommodate for all
+of the mentioned challenges.
 
 In addition to these proposals, Burgin's work on a theory of information
 @burgin-information-book, @burgin-information-book comprehensively includes many
@@ -47,8 +48,9 @@ terminology and concepts. He then proceeds to mention many areas in the natural
 sciences, and connects his theory back to related mathematical studies,
 including Algorithmic Information Theory. Despite the large coverage of fields,
 Burgin does not closely tie the free parameter with his formal analysis, making
-it unclear how to use this in a practical implementation. Each of these
-proposals has severe shortcomings and highlights major obstacles for IM.
+it unclear how to use this in a practical implementation. Broad frameworks for
+IM, along with the specific proposals, have severe shortcomings, highlighting
+major obstacles for IM.
 
 This thesis introduces a language to resolve these issues. I call this language
 *Welkin*, based on an old German word meaning cloud @dictionary:welkin. The core
