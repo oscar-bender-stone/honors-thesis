@@ -71,16 +71,16 @@ interpretation that provides it that meaning @sep-peirce-semiotics. Moreover, to
 address queries on the validity of truth, we use a relative notion that includes
 a context managed by a formal system. Truth can then be determined on an
 individual basis, providing flexibility to any discipline. The focus then shifts
-to the usefulness of representaitons based on a topological notion of
-"collapse", which we call *coherency*. This approach is inspired by coherentism,
-a philosophical position that states truth is determined in comparison to other
-truths. @bradley-principles-of-logic. We incorporate ideas from coherentism to
-identify which representations identify their corresponding objects, and we
-define information as an invariant under these coherent representations. We
-include definitions on a _working_ basis as what is most practical, not an
-epistemological stance that can be further clarified in truth systems.
-Additionally, we keep the theory as simple as possible to make scalability and
-standardization straight-forward.
+to the usefulness of representaitons based on a topological notion of how
+"foldable" a structure is, which we call *coherency*. This approach is inspired
+by coherentism, a philosophical position that states truth is determined in
+comparison to other truths. @bradley-principles-of-logic. We incorporate ideas
+from coherentism to identify which representations identify their corresponding
+objects, and we define information as an invariant under these coherent
+representations. We include definitions on a _working_ basis as what is most
+practical, not an epistemological stance that can be further clarified in truth
+systems. Additionally, we keep the theory as simple as possible to make
+scalability and standardization straight-forward.
 
 == Goals <goals>
 
