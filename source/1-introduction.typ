@@ -82,44 +82,67 @@ practical, not an epistemological stance that can be further clarified in truth
 systems. Additionally, we keep the theory as simple as possible to make
 scalability and standardization straight-forward.
 
-== Goals <goals>
 
-- *Goal 1: Universality.* The language must include unspecified, user created
-  parameters to accomodate for arbitrary concepts and ideas.
+#figure(
+  table(
+    columns: (auto, auto, auto),
+    [*Goal 1*],
+    [*Universality*],
+    [The language must enable any user created parameters, whose symbolic
+      representation is accepted a computable function. Every computable
+      function must be definable in the language.],
 
-- *Goal 2: Scalablility.*
-  The database must appropriately scale to broad representations of information.
-  Local queries must be efficient. Certificates must be available to prove cases
-  where optimal representations have been achieved.
+    [*Goal 2*],
+    [*Scalability*],
+    [
+      The database must appropriately scale to broad representations of
+      information. Local queries must be efficient. Certificates must be
+      available to prove cases where optimal representations have been achieved.
+    ],
 
-- *Goal 3: Standardization.* The language needs a rigorous and formal
-  specification. Moreover, the bootstrap must be formalized, as well as an
-  abstract machine model. The grammar and bootstrap must be fixed to ensure
-  complete forwards and backwards compatbility.
+    [*Goal 3*],
+    [*Standardization*],
+    [The language needs a rigorous and formal specification. Moreover, the
+      bootstrap must be formalized, as well as an abstract machine model. The
+      grammar and bootstrap must be fixed to ensure complete forwards and
+      backwards compatbility.
+    ],
+  ),
+  caption: "Goals for the Welkin language.",
+)<goals>
 
-== Organization
+This thesis is organized according to @thesis-organization.
 
-This thesis is organized as follows.
+#figure(
+  table(
+    columns: (auto, auto, auto),
+    table.header([*Section Number*], [*Title*], [*Description*]),
+    [*@motivating-example*],
+    [*Motivating Example*],
+    [Introduces a high-level example, with geographic maps, to explain the core
+      concept in Welkin.],
 
-// TODO: Maybe provide as another table _with_ descriptions?
+    [*@foundations*], [*Foundations*], [Explains the meta-theory.],
+    [*@syntax*],
+    [*Syntax*],
+    [Provides the grammar and proof that it is unambiguous.],
 
-- *@motivating-example.* Introduces a high-level example to explain the core
-  concepts in Welkin.
+    [*@semantics*],
+    [*Semantics*],
+    [Explains how ASTs are validated and processed. Develops representations and
+      coherency, and connects these to a working definition of information.],
 
-- *@syntax.* Provides the syntax and proves the language is unambiguous.
+    [*@information-organization*],
+    [*Information Organization*],
+    [Develops a Greedy algorithm to locally optimize information. Creates a
+      certificate that demonstrates when a representation is optimal relative to
+      the current information database.],
 
-- *@semantics.* defines the interpretation on the AST and representations. Also
-  presents coherency as a central notion in the theory, and provides a working
-  definition of information.
-
-- *@information-organization* Develops the optimal information system based on a
-  (localized) Greedy algorithm. Additionally, creates certificates to
-  demonstrate when a given representation is locally optimal.
-
-- *@bootstrap* Bootstraps Welkin by proving that there is a Welkin node that
-  contains enough information about the standard. Fulfills Goal 2 with both the
-  Standard AND the complete bootstrap.
-
-- *@conclusion* Reviews the work done in the previous sections and explores
-  several possible applications.
-
+    [*@bootstrap*], [*Bootstrap*], [Bootstraps the language.],
+    [*@conclusion*],
+    [*Conclusion*],
+    [Concludes with possible applications, particularly in programming languages
+      and broader academic knowledge management.],
+  ),
+  caption: [Organization for the thesis.],
+)<thesis-organization>
