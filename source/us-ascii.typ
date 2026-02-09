@@ -98,8 +98,8 @@
     table.header(
       ..range(4)
         .map(_ => (
-          [*Dec*],
-          [*Hex*],
+          [*Dec.*],
+          [*Hex.*],
           [*Glyph*],
         ))
         .flatten(),

@@ -27,7 +27,8 @@ Now, the base encoding for Welkin is in US-ASCII, formally defined below.
 
 We reserve the term *string* when a word is explicitly enclosed in deilmiters,
 namely single or double quotes. The precise definition is involved, due to
-including quotes within a string, which are called "escaped quotes".
+including quotes within a string, which are called "escaped quotes". To detect
+escaped quotes, we use our fixed set of characters (see @US-ASCII-codes).
 
 #definition[
   A *single-quoted string* is defined recursively.
@@ -38,20 +39,14 @@ including quotes within a string, which are called "escaped quotes".
 == Grammar
 
 #definition[
-  *BNF* consists of productions. Writing $r := a_1 | ... | a_n$ is shorthand for
-  the rules $r := a_1, ..., r := a_n$. A *derivation* is a sequence of steps,
-  recursively defined by starting with the empty derivation, and if $d$ is a
-  derivation and $s$ is a step, then $d.s$ is a derivation.
-]
+  *Backus-Naur Form (BNF)* consists of productions. Writing
+  $r := a_1 | ... | a_n$ is shorthand for the rules $r := a_1, ..., r := a_n$. A
+  *derivation* is a sequence of steps, recursively defined by starting with the
+  empty derivation, and if $d$ is a derivation and $s$ is a step, then $d.s$ is
+  a derivation.
+]<BNF>
 
 Now, we formalize an unambiguous form of EBNF for our use case.
-
-#definition[
-  *EBNF* is a superset of BNF with the abbreviations:
-  - $r+$ denotes that a rule is repeated one or more times.
-  - $r*$ denotes that a rule is repeated zero or more times.
-  - $r?$ denotes that a rule is used zero or one times.
-]<EBNF>
 
 Welkin's grammar is displayed in @welkin-grammar, inspired by a minimal, C-style
 syntax. Note that the empty string is not accepted, but is instead represented
@@ -72,7 +67,7 @@ by the string `{}`.
     unit ::= int
     ```
   ],
-  caption: [The grammar for Welkin, shown in EBNF notation (see @EBNF). The
+  caption: [The grammar for Welkin, shown in BNF notation (see @BNF). The
     terminals `int` and `string` are defined in @word and @string,
     respectively],
 )<welkin-grammar>
