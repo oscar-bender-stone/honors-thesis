@@ -8,7 +8,7 @@
 
 = Foundations <foundations>
 
-== Words ==
+== Words
 
 To keep this thesis self-contained, all recursive definitions are included. For
 simplicity, we will use the notation $a_0, ..., a_n$ for a finite list of items.
@@ -40,5 +40,5 @@ hexadecimal.
 Using binary words simplifies the bootstrap, so while these digits are included,
 they are _defined_ in terms of binary words, see @bootstrap.
 
-== Arithmetic ==
+== Arithmetic
 

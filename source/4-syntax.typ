@@ -13,14 +13,14 @@ Now, the base encoding for Welkin is in US-ASCII, formally defined below.
 == Encoding
 
 #definition[
-  US-ASCII consists of 256 symbols, listed in Table ?.
+  US-ASCII consists of 256 symbols, listed in @US-ASCII-codes.
 ]
 
 // TODO: complete table
 #figure(
   [],
   caption: [US-ASCII codes and glyphs.],
-)
+)<US-ASCII-codes>
 
 We reserve the term *string* when a word is explicitly enclosed in deilmiters,
 namely single or double quotes. The precise definition is involved, due to
@@ -37,18 +37,19 @@ can if all the possibilities are listed.
   The definition of double-quoted string is analogous.
 ]<string>
 
-Now, we formalize an unambiguous form of EBNF for our use case.
-
-
 == Grammar
 
 #definition[
   *BNF* consists of productions. Writing $r := a_1 | ... | a_n$ is shorthand for
-  including the rules $r := a_1, ..., r := a_n$.
+  the rules $r := a_1, ..., r := a_n$. A *derivation* is a sequence of steps,
+  recursively defined by starting with the empty derivation, and if $d$ is a
+  derivation and $s$ is a step, then $d.s$ is a derivation.
+]
 
-  *EBNF* additionally contains the following abbreviations:
-  - $r := a_1 | ... | a_n$ is shorthand for including the rules
-    $r := a_1, ..., r := a_n$.
+Now, we formalize an unambiguous form of EBNF for our use case.
+
+#definition[
+  *EBNF* is a superset of BNF with the abbreviations:
 ]
 
 Welkin's grammar is displayed in ...

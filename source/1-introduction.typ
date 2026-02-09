@@ -38,7 +38,7 @@ several projects for storing mathematical information (see
 @review-math-knowledge-management for more details). Older proposals, including
 the QED Manifesto @qed-reloaded and the Module system for Mathematical Theories
 (MMT), aimed to be more general and have seen limited success. More centralized
-systems, like mathlib in the Lean proof assistant @lean-mathlib, have seen
+systems, like `mathlib` in the Lean proof assistant @lean-mathlib, have seen
 adoption but do not give equal coverage nor are interoperable with other
 systems. Beyond more "hard" fields, IM in the humanities has few models,
 including aan adaption of FAIR @ALLEA-FAIR-humanities and discipline specific,
@@ -86,6 +86,7 @@ scalability and standardization straight-forward.
 #figure(
   table(
     columns: (auto, auto, auto),
+    align: left,
     [*Goal 1*],
     [*Universality*],
     [The language must enable any user created parameters, whose symbolic
@@ -116,7 +117,8 @@ This thesis is organized according to @thesis-organization.
 #figure(
   table(
     columns: (auto, auto, auto),
-    table.header([*Section Number*], [*Title*], [*Description*]),
+    align: left,
+    // table.header([*Section Number*], [*Title*], [*Description*]),
     [*@motivating-example*],
     [*Motivating Example*],
     [Introduces a high-level example, with geographic maps, to explain the core
