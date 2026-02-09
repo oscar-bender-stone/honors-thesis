@@ -57,7 +57,7 @@ syntax. Note that the smallest string accepted by Welkin is ${}$ and not the
 empty string.
 
 // NOTE: determine if we should allow non-empty strings or not
-// NOTE: ensure this is actually LL(1)! Probably need to massage some things
+#todo[Ensure this is actually LL(1)! Probably need to massage some productions.]
 #figure(
   [
     ```
