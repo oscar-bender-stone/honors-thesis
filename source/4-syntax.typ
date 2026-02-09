@@ -22,14 +22,14 @@ Now, the base encoding for Welkin is in US-ASCII, formally defined below.
   caption: [US-ASCII codes and glyphs.],
 )<US-ASCII-codes>
 
+== Strings
+
 We reserve the term *string* when a word is explicitly enclosed in deilmiters,
 namely single or double quotes. The precise definition is involved, due to
 including quotes within a string, which are called "escaped quotes". This is one
 reason why the base encoding is fixed to US-ASCII encoding: the negation
-operation cannot be expressed as a natural regular expression in general, but
-can if all the possibilities are listed.
-
-== Strings
+operation cannot be expressed as a natural regular expression over _any_ set of
+terminals, but can if this set is fixed.
 
 #definition[
   A *single-quoted string* is defined recursively.
@@ -52,12 +52,23 @@ Now, we formalize an unambiguous form of EBNF for our use case.
   *EBNF* is a superset of BNF with the abbreviations:
 ]<EBNF>
 
-Welkin's grammar is displayed in @welkin-grammar.
+Welkin's grammar is displayed in @welkin-grammar, inspired by a minimal, C-style
+syntax. Note that the smallest string accepted by Welkin is ${}$ and not the
+empty string.
 
+// NOTE: determine if we should allow non-empty strings or not
+// NOTE: ensure this is actually LL(1)! Probably need to massage some things
 #figure(
   [
     ```
-    start --> term
+    start ::= (term ",")* term
+    term ::= arc | graph
+    arc ::= unit "-" unit "->" unit
+          | unit "<-" unit "-" unit
+          | unit "-" unit "-" unit
+    graph ::= unit? { term* }
+    base ::= unit | string
+    unit ::= int
     ```
   ],
   caption: [The grammar for Welkin, shown in EBNF notation (see @EBNF).],
