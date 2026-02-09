@@ -5,6 +5,7 @@
 #import "template/ams-article.typ": lang-def-vertical
 #import "template/ams-article.typ": equation_block, lemma, proof, theorem
 #import "template/ams-article.typ": todo
+#import "us-ascii.typ": ascii-table
 
 = Syntax <syntax>
 
@@ -18,7 +19,7 @@ Now, the base encoding for Welkin is in US-ASCII, formally defined below.
 
 // TODO: complete table
 #figure(
-  [],
+  ascii-table(),
   caption: [US-ASCII codes and glyphs.],
 )<US-ASCII-codes>
 
@@ -53,8 +54,8 @@ Now, we formalize an unambiguous form of EBNF for our use case.
 ]<EBNF>
 
 Welkin's grammar is displayed in @welkin-grammar, inspired by a minimal, C-style
-syntax. Note that the smallest string accepted by Welkin is ${}$ and not the
-empty string.
+syntax. Note that the empty string is not accepted, but is instead represented
+by the string `{}`.
 
 // NOTE: determine if we should allow non-empty strings or not
 #todo[Ensure this is actually LL(1)! Probably need to massage some productions.]
