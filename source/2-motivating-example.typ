@@ -3,19 +3,22 @@
 
 = Motivating Example <motivating-example>
 
-e illustrate Welkin with a motivating example: geographic maps.
+We illustrate Welkin with a motivating example: geographic maps.
 
-Consider two travellers, $A$ and $B$, in some landscape $L$. They create their
-own maps of $L$, $M_A$ and $M_B$, respectively. They write their own landmarks,
-their own paths, and their own regions.
+Fix some landscape $L$. A map provides a representation to guide travelers in
+$L$, usually through coordinates and directions. Some common elements include
+landmarks, paths, and regions.
 
-Suppose $A$ and $B$ compare their maps. How do they know they are pointing to
-the same landscapes or paths? On the map, they may use distinct or identical
-names, but that _itself_ does not determine if they represent the same entity.
-This property is called *faithfulness* or *preservation*.
+There are two major problems in creating "good" representations:
+- Between two representations, how can we tell they represent the same entity?
+- Between two entities, how can we tell a representation distinguishes one from
+  another?
 
-Now, suppose there is another landscape $L'$. How does $A$'s map distinguish $L$
-from $L'$? This property is called.
+In the context of maps, we can make these problems more concrete:
+- Consider two maps $M, M'$. How can we tell whether some landmark $O$ in $M$
+represents the same entity as $O'$ in $M'$?
+- Consider a map $M$, and suppose there are landscapes $L$, $L'$. With the goal
+to have $M$ represent $L$, how does $M$ distnguish between $L$ and $L'$?
 
 This overarching example demonstrates how two sources communicate about some
 entity, or how a source's representation can distinguish between two entities.
