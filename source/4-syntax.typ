@@ -72,10 +72,17 @@ by the string `{}`.
     respectively],
 )<welkin-grammar>
 
-== Unambiguity
+== Proof of LL(1) Membership
+
+We now prove that the Welkin language is unambiguous by showing it is LL(1), a
+rich class of grammars that can be efficiently parsed.
+
+#definition[*(@compilers-dragon-book)* Let $G$ be a grammar.]
 
 #definition[
-  A grammar is LL(1) if ...
+  *(@compilers-dragon-book)* A grammar is LL(1) if, given two distinct
+  productions $r_1, r_2$:
+  -
 ]
 
 #theorem[
@@ -83,5 +90,5 @@ by the string `{}`.
   string accepted by the language has exactly one derivation.
 ]
 #proof[
-  Consider the corresponding LL(1) table.
+  Consider the corresponding LL(1) table...
 ]
