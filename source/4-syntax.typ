@@ -43,7 +43,8 @@ escaped quotes, we use our fixed set of characters (see @US-ASCII-codes).
   $r := a_1 | ... | a_n$ is shorthand for the rules $r := a_1, ..., r := a_n$. A
   *derivation* is a sequence of steps, recursively defined by starting with the
   empty derivation, and if $d$ is a derivation and $s$ is a step, then $d.s$ is
-  a derivation.
+  a derivation. We write $alpha =>^* beta$ if there is a derivation from $alpha$
+  to $beta$.
 ]<BNF>
 
 Now, we formalize an unambiguous form of EBNF for our use case.
@@ -75,15 +76,18 @@ by the string `{}`.
 == Proof of LL(1) Membership
 
 We now prove that the Welkin language is unambiguous by showing it is LL(1), a
-rich class of grammars that can be efficiently parsed.
+rich class of grammars that can be efficiently parsed. For more details, please
+consult @compilers-dragon-book.
 
-#definition[*(@compilers-dragon-book)* Let $G$ be a grammar.]
+#definition[Let $G$ be a grammar.]<first-set>
 
 #definition[
-  *(@compilers-dragon-book)* A grammar is LL(1) if, given two distinct
-  productions $r_1, r_2$:
+  A grammar is LL(1) if, given two distinct productions $alpha, beta$:
   -
-]
+  -
+  - If $beta =>^* epsilon$...
+]<LL1>
+
 
 #theorem[
   Welkin's grammar is _LL(1)_. Hence, this grammar is unambiguous, i.e., every
