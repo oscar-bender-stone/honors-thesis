@@ -50,6 +50,9 @@ Now, we formalize an unambiguous form of EBNF for our use case.
 
 #definition[
   *EBNF* is a superset of BNF with the abbreviations:
+  - $r+$ denotes that a rule is repeated one or more times.
+  - $r*$ denotes that a rule is repeated zero or more times.
+  - $r?$ denotes that a rule is used zero or one times.
 ]<EBNF>
 
 Welkin's grammar is displayed in @welkin-grammar, inspired by a minimal, C-style
@@ -63,15 +66,16 @@ empty string.
     ```
     start ::= (term ",")* term
     term ::= arc | graph
-    arc ::= unit "-" unit "->" unit
-          | unit "<-" unit "-" unit
-          | unit "-" unit "-" unit
+    arc ::= (term "-" term "->)+ term
+          | (term "<-" term "-")+ term
+          | (term "-" term "-")+ term
     graph ::= unit? { term* }
     base ::= unit | string
     unit ::= int
     ```
   ],
-  caption: [The grammar for Welkin, shown in EBNF notation (see @EBNF).],
+  caption: [The grammar for Welkin, shown in EBNF notation (see @EBNF). The
+    terminals `int` and `string` are defined in ? and @string, respectively],
 )<welkin-grammar>
 
 == Unambiguity
