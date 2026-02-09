@@ -50,9 +50,18 @@ Now, we formalize an unambiguous form of EBNF for our use case.
 
 #definition[
   *EBNF* is a superset of BNF with the abbreviations:
-]
+]<EBNF>
 
-Welkin's grammar is displayed in ...
+Welkin's grammar is displayed in @welkin-grammar.
+
+#figure(
+  [
+    ```
+    start --> term
+    ```
+  ],
+  caption: [The grammar for Welkin, shown in EBNF notation (see @EBNF).],
+)<welkin-grammar>
 
 == Unambiguity
 
@@ -61,7 +70,8 @@ Welkin's grammar is displayed in ...
 ]
 
 #theorem[
-  Welkin's grammar is _LL(1)_. Hence, this grammar is unambiguous.
+  Welkin's grammar is _LL(1)_. Hence, this grammar is unambiguous, i.e., every
+  string accepted by the language has exactly one derivation.
 ]
 #proof[
   Consider the corresponding LL(1) table.
