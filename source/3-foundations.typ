@@ -21,7 +21,7 @@ We will revisit the notion "finite" more rigorously in @bootstrap.
   concatenation to be right-associative, i.e., $(w.w').w'' = w.(w'.w'')$, and
   safely abbreviate $w.w'$ as $w w'$. We write $w in "bword"$ to denote that $w$
   is a binary word.
-]
+]<binary-word>
 
 For simplicity, we extend the alphabet to include two common bases: decimal and
 hexadecimal.
@@ -35,10 +35,12 @@ hexadecimal.
   A *word* is a concatenation of either only binary digits, only decimal digits,
   or hexadecimal digits. Each of these are denoted with different prefixes:
   decimal has none, binary uses $0b$, and hexadecimal uses $0x$.
-]
+]<word>
 
 Using binary words simplifies the bootstrap, so while these digits are included,
-they are _defined_ in terms of binary words, see @bootstrap.
+they are _defined_ in terms of binary words, see @bootstrap. Additionally, we
+will frequently use *bytes*, which are eight bits, or equivalently two
+hexadecimal digits.
 
 == Arithmetic
 
