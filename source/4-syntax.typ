@@ -10,14 +10,37 @@
 
 Now, the base encoding for Welkin is in US-ASCII, formally defined below.
 
+== Encoding
+
 #definition[
   US-ASCII consists of 256 symbols, listed in Table ?.
 ]
 
+// TODO: complete table
+#figure(
+  [],
+  caption: [US-ASCII codes and glyphs.],
+)
+
 We reserve the term *string* when a word is explicitly enclosed in deilmiters,
-namely single or double quotes.
+namely single or double quotes. The precise definition is involved, due to
+including quotes within a string, which are called "escaped quotes". This is one
+reason why the base encoding is fixed to US-ASCII encoding: the negation
+operation cannot be expressed as a natural regular expression in general, but
+can if all the possibilities are listed.
+
+== Strings
+
+#definition[
+  A *single-quoted string* is defined recursively.
+
+  The definition of double-quoted string is analogous.
+]<string>
 
 Now, we formalize an unambiguous form of EBNF for our use case.
+
+
+== Grammar
 
 #definition[
   *BNF* consists of productions. Writing $r := a_1 | ... | a_n$ is shorthand for
@@ -30,6 +53,7 @@ Now, we formalize an unambiguous form of EBNF for our use case.
 
 Welkin's grammar is displayed in ...
 
+== Unambiguity
 
 #definition[
   A grammar is LL(1) if ...
