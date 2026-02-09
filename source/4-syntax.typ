@@ -26,10 +26,7 @@ Now, the base encoding for Welkin is in US-ASCII, formally defined below.
 
 We reserve the term *string* when a word is explicitly enclosed in deilmiters,
 namely single or double quotes. The precise definition is involved, due to
-including quotes within a string, which are called "escaped quotes". This is one
-reason why the base encoding is fixed to US-ASCII encoding: the negation
-operation cannot be expressed as a natural regular expression over _any_ set of
-terminals, but can if this set is fixed.
+including quotes within a string, which are called "escaped quotes".
 
 #definition[
   A *single-quoted string* is defined recursively.
@@ -65,7 +62,7 @@ empty string.
   [
     ```
     start ::= (term ",")* term
-    term ::= arc | graph
+    term ::= arc | graph | base
     arc ::= (term "-" term "->)+ term
           | (term "<-" term "-")+ term
           | (term "-" term "-")+ term
@@ -75,7 +72,8 @@ empty string.
     ```
   ],
   caption: [The grammar for Welkin, shown in EBNF notation (see @EBNF). The
-    terminals `int` and `string` are defined in ? and @string, respectively],
+    terminals `int` and `string` are defined in @word and @string,
+    respectively],
 )<welkin-grammar>
 
 == Unambiguity
