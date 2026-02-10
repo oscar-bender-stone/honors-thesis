@@ -8,11 +8,38 @@
 
 = Foundations <foundations>
 
-== Words
+To introduce our foundations, we need to ensure the language is _expressive_
+enough. As an information language, the core design is to mechanize the storage
+and retrieval of information, so we generally say that this must be processed as
+a computable function, based on general consensus. Thus, at the very least, we
+must express all computable function; this is shown in @universality-theorem.
 
-To keep this thesis self-contained, all recursive definitions are included. For
-simplicity, we will use the notation $a_0, ..., a_n$ for a finite list of items.
-We will revisit the notion "finite" more rigorously in @bootstrap.
+#todo[Prove the claim for partial computable functions and IO!]
+However, we need more than computable functions: we seek _clarity_ in concepts.
+We need to include meaning _with_ the symbols, so we at least need
+representations. This encompasses partial computable functions as well by
+modelling non-termination as a unit, as well as Input/Output mechanisms.
+
+Given these two components, managing information with computable functions and
+including representations, we argue that Welkin precisely captures anything
+_describable by a computable representation_. Practically, we impose defining
+things based on _restrictions_. As a justification, suppose we abstractly
+consider representing _anything_. The problem is, this is an open concept, and
+we may easily miss certain notions. We could also say there are _no_
+restrictions, but this, too, is similarly problematic. But the least _practical_
+restriction is precisely having representations accepted by a computable
+function. This provides a best of both worlds: the flexibility for any
+(reasonable concept), and guarantees mechanically feasible operations on
+representations.
+
+Now, a key component of this argument, as well as our truth management system,
+is proving _true_ things about computable functions. We develop the machinery
+through Welkin's meta-theory. We keep this section self-contained with explicit
+alphabets and explicit recursive definitions. For simplicity, we will use the
+notation $a_0, ..., a_n$ for a finite list of items. We will revisit the notion
+"finite" more rigorously in @bootstrap.
+
+== Words
 
 #definition[
   The *alphabet of binary words* is $cal(A)_"bword" ::= "bit" | . | w$, where
