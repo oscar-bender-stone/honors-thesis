@@ -3,7 +3,8 @@
 
 #import "template/ams-article.typ": definition, example, remark
 #import "template/ams-article.typ": lang-def-vertical
-#import "template/ams-article.typ": equation_block, lemma, proof, theorem
+#import "template/ams-article.typ": equation_block
+#import "template/ams-article.typ": corollary, lemma, proof, theorem
 #import "template/ams-article.typ": todo
 
 
@@ -29,19 +30,14 @@
 
 = Semantics <semantics>
 
+This section describes how ASTs are processed and validated. We postpone
+information organization to @information-organization.
+
 == ASTs
 - Semantics on ASTs
   - Terms: graphs
   - For ease of use, include a null node
   that is the root of the tree. This represents the module itself.
-- For information organization: integrate with previous section
-  - Emphasize how this is a useful tool and can ensure
-  *new* information content is being created (at least, that can be distnguished
-  from the current module). If already existing, but that doesn't match the
-  user's expectations, they need to refine it! OR, maybe it *does* match
-  similarly with something else! (e.g., hidden connections between math and
-  music)
-- Emphasize pragmatics as well, via units
 
 == Representations
 
@@ -128,35 +124,30 @@ multiple contexts.
   as units. The task of finding core truths is then free, left open to
   flexibility accommodate for any truth management.]
 
-// == Translations Between First Order Logic
 
-// - Want easy access to first order logic
-//   - Review literature. Notable examples:
-//     - SMT solvers in Rocq + Lean (via monomorphization of types)
-//   - Problem: abstractions are hard to convey! Lots of "bloat"
-//   - BUT SMT solvers are very well established, particularly with Gödel's
-//     completeness theorem.
-//   - How to get best of both worlds? Solution: slates!
-// - First step: define extension to first order logic (let's call it, say,
-//   FOL(Slate))
-//   - Add slates as a special sort, but focuses on first order terms.
-//     - Emphasize that there are FOL theories *weaker* than combinators.
-//     So, with a coherency argument, argue that FOL can be powerful *precisely
-//     because* RE is possible, WITH the combination of the completness theorem.
-//     (Not possible in all logics!).
-// - Second step: show that FOL(Slate) is equivalent to FOL by treating slates
-// as an additional sort.
-// - Straightforward, but emphasize rule on slates on making meaningful/useful
-// abstractions!
-// - IF time allows, provide experiments, but mostly argue why, based
-// on the argument for slates, this would work.
-// - Argue that you could AT LEAST embed the necessary abstractions via slates.
-// And organization will help show this is feasible with a theoretical argument
-// (but it's not exponential time. It is (hopefully) ACTUALLY feasible.)
 
-// - Final step: show that there is an equivalent embedding that *preserves*
-//   slates.
-//   - Important part: preservation up to iso!
+== Truth Management
+
+
+Welkin manages truth through a flexible interface, grounded in the true
+properties on computable functions. The term "properties on computable
+functions" needs to be carefully defined. Do we only restrict this to a well
+established theory of arithmetic, like Peano Arithmetic, or permit larger
+notions, like infinite ordinals like ZFC?
+
+
+...
+
+
+#todo[Come up with a term for "observations representable by computable
+  functions".]
+#corollary[
+  Any truth management system representable by computable functions can be
+  represented in Welkin.
+]
+
+
+
 
 == Universal Systems
 
