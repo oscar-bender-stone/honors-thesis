@@ -73,13 +73,10 @@ the graph of representations.
 
 Based on @rationale, a crucial question is to answer _how_ representations can
 be used in the language. A representation at least contains two components: a
-_sign_ that represents a _referant_.#footnote[Part of our terminology and
-  concepts originate from Peirce's philosophical theory of semiotics. Note that
-  this thesis focuses on representing representations, though it does make some
-  of Peirce's ideas more precise.
-] However, this is not sufficient to express any computable function, because we
-lack conditional checks. A key insight in this thesis is showing that having
-these conditions is equivalent to having a general namespace mechanism.
+_sign_ that represents a _referant_. However, this is not sufficient to express
+any computable function, because we lack conditional checks. A key insight in
+this thesis is showing that having these conditions is equivalent to having a
+_context_, which we incorporate into our mechanism for namespaces.
 
 Now, a key component of this argument, as well as our truth management system,
 is proving _true_ things about computable functions. We develop the machinery

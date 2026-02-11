@@ -12,7 +12,8 @@
 We keep this section self-contained with explicit alphabets and explicit
 recursive definitions. For simplicity, we will use the notation $a_0, ..., a_n$
 for a finite list of items. We will revisit the notion "finite" more rigorously
-in @bootstrap, and we will address the underlying meta-theory in @semantics.
+in @bootstrap. Moreover, we will postpone discussions on the rationale for the
+simple syntax and the underlying meta-theory in @semantics.
 
 == Words
 
