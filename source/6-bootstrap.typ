@@ -9,4 +9,8 @@ This section proves that there is a file, which we call `weklin.welkin`, that
 contains enough information to _represent_ Welkin. We do not bootstrap proofs in
 this thesis, but that could easily be a future extension.
 
-== The Welkin Standard
+
+== Self-Contained Standard
+
+This section is self-contained and defines _everything_ necessary about Welkin.
+The complete bootstrap is in appendix ?.
