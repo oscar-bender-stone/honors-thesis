@@ -69,7 +69,7 @@ the graph of representations.
 #definition[A *Welkin Information Graph* is defined recursively.
 ]<WIG>
 
-== Representations
+== Faithful Representations and Truth Management
 
 Based on @rationale, a crucial question is to answer _how_ representations can
 be used in the language. A representation at least contains two components: a
@@ -161,10 +161,6 @@ multiple contexts.
   flexibility accommodate for any truth management.]
 
 
-
-== Truth Management
-
-
 Welkin manages truth through a flexible interface, grounded in the true
 properties on computable functions. The term "properties on computable
 functions" needs to be carefully defined. Do we only restrict this to a well
@@ -181,8 +177,6 @@ notions, like infinite ordinals like ZFC?
   Any truth management system representable by computable functions can be
   represented in Welkin.
 ]
-
-
 
 
 == Universal Systems
