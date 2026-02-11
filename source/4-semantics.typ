@@ -33,44 +33,50 @@
 This section describes how ASTs are processed and validated. We postpone
 information organization to @information-organization.
 
+== Rationale <rationale>
+
+We justify why the language is focused on representations. First, to mechanize
+the information language, we allow only total computable functions, with
+computability being a well established notion. Second, to enable clarity in
+concepts, we need to resolve the Symbol Grounding Problem, so as to avoid
+treating all symbols as being "empty". We must therefore include a notion of
+representation, which, in particular, can represent partial computable
+functions. Finally, we claim that expressing _any computable representation_ is
+sufficient for a universally expressible information system. Attempting to
+provide a self-contained definition of the notion "any" is problematic, as shown
+from the introdution. We instead define "any" with the _least_ restrictions
+possible, which means, by the first point, ensuring that a given provided input
+is accepted by _some_ computable function. It is important that Welkin includes
+_every_ computable function in this definition, which we prove in
+@universality-theorem.
+
 == ASTs
-- Semantics on ASTs
-  - Terms: graphs
-  - For ease of use, include a null node
-  that is the root of the tree. This represents the module itself.
+
+Given the rationale, we explain how the Abstract Syntax Tree (AST) is processed
+fro the syntax. In short, the final result is a data structure with two
+components: a tree that stores the hierarchy of units, and a graph that stores
+the graph of representations.
+
+#definition[The AST is recursively defined from the parse tree as
+  follows...]<ast>
+
+#definition[An AST is *valid* if...
+]<validation>
+
+// TODO: ad that the null node
+// to be the root of the tree.
+// Will act as a "star" operator
+#definition[A *Welkin Information Graph* is defined recursively.
+]<WIG>
 
 == Representations
 
-To introduce our foundations, we need to ensure the language is _expressive_
-enough. As an information language, the core design is to mechanize the storage
-and retrieval of information, so we generally say that this must be processed as
-a computable function, which is a well estalished notion. Thus, at the very
-least, we must express all computable function; this is shown in
-@universality-theorem.
-
-#todo[Prove the claim for partial computable functions and IO!]
-However, we need more than computable functions: we seek _clarity_ in concepts.
-We need to include meaning into the symbols, so we at least need
-representations. This encompasses partial computable functions as well by
-modelling non-termination as a unit, as well as Input/Output mechanisms.
-
-Given these two components, managing information with computable functions and
-including representations, we argue that Welkin precisely captures anything
-_representable by a computable representation_. Practically, we impose defining
-things based on the _least_ restrictions. Having a _self-contained_ definition
-of "anything", or a definition with _no_ restrictions, is problematic, as shown
-in the introduction. But the least _practical_ restriction is precisely having
-representations accepted by a computable function. This provides a best of both
-worlds: the flexibility for any (reasonable) concept, and guarantees
-mechanically feasible operations on representations.
-
-Now, given that computable representations are sufficiently expressive for a
-mechanical information base, a cruical inquiry is to study _how to represent
-representations themselves_. At the very least, a _sign_ represents a
-_referant_. #footnote[Part of our terminology and concepts originate from
-  Peirce's philosophical theory of semiotics. Note that this thesis focuses on
-  representing representations, though it does make some of Peirce's ideas more
-  precise.
+Based on @rationale, a crucial question is to answer _how_ representations can
+be used in the language. A representation at least contains two components: a
+_sign_ that represents a _referant_.#footnote[Part of our terminology and
+  concepts originate from Peirce's philosophical theory of semiotics. Note that
+  this thesis focuses on representing representations, though it does make some
+  of Peirce's ideas more precise.
 ] However, this is not sufficient to express any computable function, because we
 lack conditional checks. A key insight in this thesis is showing that having
 these conditions is equivalent to having a general namespace mechanism.
