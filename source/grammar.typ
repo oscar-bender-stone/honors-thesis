@@ -1,7 +1,6 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-// TODO: ensure final grammar IS LL(1)!
 #let grammar = [
   ```
   start ::= (term ",")* term
@@ -9,8 +8,9 @@
   arc ::= (term "-" term "->)+ term
         | (term "<-" term "-")+ term
         | (term "-" term "-")+ term
-  graph ::= unit? { term* }
-  base ::= unit | string
-  unit ::= int
+  graph ::= (dots? path)? { term* }
+  path ::= (base ".")* base
+  dots ::= "." dots*
+  base ::= ID | STRING
   ```
 ]
