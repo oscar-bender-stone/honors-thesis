@@ -124,7 +124,6 @@ This thesis is organized according to @thesis-organization.
     [Introduces a high-level example, with geographic maps, to explain the core
       concept in Welkin.],
 
-    [*@foundations*], [*Foundations*], [Explains the meta-theory.],
     [*@syntax*],
     [*Syntax*],
     [Provides the grammar and proof that it is unambiguous.],
