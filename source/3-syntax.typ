@@ -6,6 +6,7 @@
 #import "template/ams-article.typ": equation_block, lemma, proof, theorem
 #import "template/ams-article.typ": todo
 #import "us-ascii.typ": ascii-table
+#import "grammar.typ": grammar
 
 = Syntax <syntax>
 
@@ -13,7 +14,7 @@ We keep this section self-contained with explicit alphabets and explicit
 recursive definitions. For simplicity, we will use the notation $a_0, ..., a_n$
 for a finite list of items. We will revisit the notion "finite" more rigorously
 in @bootstrap. Moreover, we will postpone discussions on the rationale for the
-simple syntax and the underlying meta-theory in @semantics.
+simple syntax and the underlying meta-theory in @bootstrap.
 
 == Words
 
@@ -47,12 +48,20 @@ hexadecimal digits.
 
 == Encoding
 
-Welkin uses US-ASCII as its base encoding, due to its pervthe base encoding for
-Welkin is in US-ASCII, formally defined below.
+Welkin uses US-ASCII as its base encoding, due to its widespread use. The term
+ASCII is slightly ambiguous, as there are slight dialects of ASCII. We formally
+define US-ASCII below.#footnote[Note that this table _itself_ is a
+  representation, which represents glyphs with binary words. The use of these
+  kinds of representations occur frequently in Welkin, see @bootstrap.
+]
 
 #definition[
   US-ASCII consists of 256 symbols, listed in @US-ASCII-codes.
 ]
+
+To represent general encodings, there is a binary format supported for strings,
+see @string.
+
 
 // TODO: complete table
 #figure(
@@ -91,23 +100,10 @@ syntax. Note that the empty string is not accepted, but is instead represented
 by the string `{}`.
 
 // NOTE: determine if we should allow non-empty strings or not
-#todo[Ensure this is actually LL(1)! Probably need to massage some productions.]
 #figure(
-  [
-    ```
-    start ::= (term ",")* term
-    term ::= arc | graph | base
-    arc ::= (term "-" term "->)+ term
-          | (term "<-" term "-")+ term
-          | (term "-" term "-")+ term
-    graph ::= unit? { term* }
-    base ::= unit | string
-    unit ::= int
-    ```
-  ],
+  grammar,
   caption: [The grammar for Welkin, shown in BNF notation (see @BNF). The
-    terminals `int` and `string` are defined in @word and @string,
-    respectively],
+    terminals `id` and `string` are defined in @word and @string, respectively],
 )<welkin-grammar>
 
 == Proof of LL(1) Membership
@@ -118,13 +114,14 @@ consult @compilers-dragon-book.
 
 #definition[Let $G$ be a grammar.]<first-set>
 
+#definition[Let $G$ be a grammar.]<follow-set>
+
 #definition[
   A grammar is LL(1) if, given two distinct productions $alpha, beta$:
   -
   -
   - If $beta =>^* epsilon$...
 ]<LL1>
-
 
 #theorem[
   Welkin's grammar is _LL(1)_. Hence, this grammar is unambiguous, i.e., every
