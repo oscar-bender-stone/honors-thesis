@@ -109,6 +109,14 @@ syntax.
     in @word and @string, respectively],
 )<welkin-grammar>
 
+#figure(
+  ```
+  node ::= leaf | node [node1, node2, ..., noden]
+  leaf ::= t in T | epsilon
+  ```,
+  caption: "Representation of a parse tree as a list.",
+)<parse-tree>
+
 == Proof of LL(1) Membership
 
 We now prove that the Welkin language is unambiguous by showing it is LL(1), a

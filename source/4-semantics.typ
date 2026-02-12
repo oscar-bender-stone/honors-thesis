@@ -57,17 +57,23 @@ fro the syntax. In short, the final result is a data structure with two
 components: a tree that stores the hierarchy of units, and a graph that stores
 the graph of representations.
 
-#definition[The AST is recursively defined from the parse tree as
-  follows...]<ast>
+#definition[The AST is recursively defined from the parse tree as follows:
+  - Term:
+    - Arc:
+    - Graph:
+    - Path:
+      - The number of dots is counted for the relative imports.
+      - Star imports are denoted by a special node STAR.
+]<ast>
 
-#definition[An AST is *valid* if...
+#definition[An AST is *valid* if the relative imports does not exceed the number
+  of available parents.
 ]<validation>
-
-// TODO: ad that the null node
-// to be the root of the tree.
-// Will act as a "star" operator
-#definition[A *Welkin Information Graph* is defined recursively.
-]<WIG>
+#remark[
+  An earlier revision of this thesis forbid repetitions of arcs and units.
+  However, this restriction was removed to provide greater flexibility. This
+  will be tracked, see ?.
+]<remark:validation-repetition>
 
 == Faithful Representations and Truth Management
 
@@ -82,43 +88,17 @@ Now, a key component of this argument, as well as our truth management system,
 is proving _true_ things about computable functions. We develop the machinery
 through Welkin's meta-theory.
 
-#definition[
-  The *alphabet of units* is $cal(A)_"unit" = u | cal(A)_"word"$. A *unit ID* is
-  combination of symbols $u_w$, where $w in "word"$.
-]<unit-ids>
 
-#definition[A *free parameter* is a parameter given an associated ID. No further
-  restrictions are imposed.]<free-parameters.>
+Units are enumerated through symbols $u_i$, where $i$ is a binary word. We say
+$i$ is the *ID* of $u_i$.
 
-We now define representations recursively, using unit IDs and free parameters as
-the base case.
+// TODO: define how the AST is converted
+// into a WIG.
+#definition[A *Welkin Information Graph* is defined recursively.
+]<WIG>
 
-// TODO: incorporate references.
-// Can we instead define representations *via* references (with free parameters)?
-#definition[
-  Units are recursively defined:
-  - *Base case:* IDs and free parameters are units.
-  - *Recursive step:*
-    - *Parts:*: if $u_1, .., u_n$ are finitely many units, then so is their
-      combination ${u_1, ..., u_n}$. A combination defined without a provided ID
-      is called an *anonymous unit*.
-    - *Representations:* If $u, w, v$ are units, so is $v --> u$. We say $v$
-      *represents* $u$. or conversely, $u$ is *represented by* $v$.
-]
-
-Key equalities:
-- $u.{} = u$. Acts as a sort of \* operator from other languages.
-  - To use one level up: $.u$
-- $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(u)$ is $x.u$ if $u in x$
-  or $u$ otherwise.
-
-#example[Consider a house with a dog, a cat, and a person. We can represent the
-  house as unit `house`, the dog as unit `dog`, the cat by unit `cat`, and the
-  person by unit `person`. In our Welkin file, we add,
-  `house { dog, cat, person}`. The `person` has an internal concept of `pet` and
-  uses it to represent both the `dog` and `cat`, which we write as
-  `person { animal --> dog, animal --> cat}`, under the scope of `house`.
-]
+We set $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(u)$ is $x.u$ if
+$u in x$ or $u$ otherwise.
 
 Parts of units are denoted as $u.u'$. Scoping is included to provide namespaces.
 Moreover, parts enable *interpretations*. We write $u -->^v u'$ in case
