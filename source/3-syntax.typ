@@ -47,13 +47,13 @@ We set the default base to be decimal and use prefixes.
 
 A *byte* is eight bits, or two nibbles.
 
-== Encoding
+== Terminals
 
-Welkin uses US-ASCII as its base encoding, due to its widespread use. The term
-ASCII is slightly ambiguous, as there are slight dialects of ASCII. We formally
-define US-ASCII below.#footnote[Note that this table _itself_ is a
-  representation, which represents glyphs with binary words. The use of these
-  kinds of representations occur frequently in Welkin, see @bootstrap.
+Welkin uses ASCII as its base encoding. The term ASCII is slightly ambiguous, as
+there are subtly distinct dialects, so we formally define US-ASCII as a standard
+dialect.#footnote[Note that this table _itself_ is a representation, which
+  represents glyphs with binary words. The use of these kinds of representations
+  occur frequently in Welkin, see @bootstrap.
 ]
 
 #definition[
@@ -70,41 +70,41 @@ see @string.
   caption: [US-ASCII codes and glyphs.],
 )<US-ASCII-codes>
 
-== Strings
+There are several important character classes.
 
-We reserve the term *string* when a word is explicitly enclosed in deilmiters,
-namely single or double quotes. The precise definition is involved, due to
-including quotes within a string, which are called "escaped quotes". To detect
-escaped quotes, we use our fixed set of characters (see @US-ASCII-codes).
+The full list of terminals is provided in @terminals.
 
-#definition[
-  A *single-quoted string* is defined recursively.
 
-  The definition of double-quoted string is analogous.
-]<string>
+#figure(
+  ```
+  ```,
+  caption: "Strings.",
+)<string>
+
+
+#figure(
+  ```
+  STRING ::= SQ_STRING | DQ_STRING
+      ID ::= [^\s]
+  ```,
+  caption: [Terminals, where `SQ_STRING` and `DQ_STRING` are defined in
+    @string],
+)<terminals>
 
 == Grammar
 
-#definition[
-  *Backus-Naur Form (BNF)* consists of productions. Writing
-  $r := a_1 | ... | a_n$ is shorthand for the rules $r := a_1, ..., r := a_n$. A
-  *derivation* is a sequence of steps, recursively defined by starting with the
-  empty derivation, and if $d$ is a derivation and $s$ is a step, then $d.s$ is
-  a derivation. We write $alpha =>^* beta$ if there is a derivation from $alpha$
-  to $beta$.
-]<BNF>
-
-Now, we formalize an unambiguous form of EBNF for our use case.
-
 Welkin's grammar is displayed in @welkin-grammar, inspired by a minimal, C-style
-syntax. Note that the empty string is not accepted, but is instead represented
-by the string `{}`.
+syntax.
+
+// TODO: decide if empty strings should be accepted or not
+// Note that the empty string is not accepted, but is instead represented
+// by the string `{}`.
 
 // NOTE: determine if we should allow non-empty strings or not
 #figure(
   grammar,
-  caption: [The grammar for Welkin, shown in BNF notation (see @BNF). The
-    terminals `id` and `string` are defined in @word and @string, respectively],
+  caption: [The grammar for Welkin. The terminals `id` and `string` are defined
+    in @word and @string, respectively],
 )<welkin-grammar>
 
 == Proof of LL(1) Membership
@@ -112,10 +112,6 @@ by the string `{}`.
 We now prove that the Welkin language is unambiguous by showing it is LL(1), a
 rich class of grammars that can be efficiently parsed. For more details, please
 consult @compilers-dragon-book.
-
-#definition[Let $G$ be a grammar.]<first-set>
-
-#definition[Let $G$ be a grammar.]<follow-set>
 
 #definition[
   A grammar is LL(1) if, given two distinct productions $alpha, beta$:
