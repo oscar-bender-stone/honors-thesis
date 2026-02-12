@@ -23,7 +23,7 @@
     "references/misc.bib",
     "references/1-introduction.bib",
     "references/2-foundations.bib",
-    "references/4-syntax.bib",
+    "references/3-syntax.bib",
     "references/general.bib",
   )),
 )
