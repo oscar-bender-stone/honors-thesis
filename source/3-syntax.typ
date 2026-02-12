@@ -30,10 +30,8 @@ on the rationale for the simple syntax and the underlying meta-theory in
 
 
 We set concatenation to be right-associative, i.e., $(w.w').w'' = w.(w'.w'')$,
-and safely abbreviate $w.w'$ as $w w'$.
-
-We extend the alphabet to include two common bases: decimal (via digits) and
-hexadecimal, shown in @digits.
+and safely abbreviate $w.w'$ as $w w'$. We extend the alphabet to include two
+common bases: decimal (via digits) and hexadecimal, shown in @digits.
 
 #figure(
   ```
@@ -72,24 +70,28 @@ see @string.
 
 There are several important character classes.
 
-The full list of terminals is provided in @terminals.
-
-
 #figure(
   ```
+  PRINTABLE  ::= [0x20-0x7E]
+  WHITESPACE ::= [0x09, 0x0A, 0x0D, 0x20]
+  DELIMITER ::= [0x7B, 0x7D, 0x2C, 0x2D, 0x2A, 0x3C, 0x3E, 0x22, 0x27, 0x5C]
   ```,
-  caption: "Strings.",
-)<string>
-
+  caption: "Important character classes.",
+)<character-classes>
 
 #figure(
   ```
   STRING ::= SQ_STRING | DQ_STRING
-      ID ::= [^\s]
   ```,
-  caption: [Terminals, where `SQ_STRING` and `DQ_STRING` are defined in
-    @string],
-)<terminals>
+  caption: "Strings.",
+)<string>
+
+#figure(
+  ```
+  ID_CHAR ::= PRINTABLE / DELIMITERS
+  ```,
+  caption: "IDs.",
+)<id>
 
 == Grammar
 
@@ -113,11 +115,20 @@ We now prove that the Welkin language is unambiguous by showing it is LL(1), a
 rich class of grammars that can be efficiently parsed. For more details, please
 consult @compilers-dragon-book.
 
-#definition[
-  A grammar is LL(1) if, given two distinct productions $alpha, beta$:
-  -
-  -
-  - If $beta =>^* epsilon$...
+Moreover, we define the top of a word in @top.
+
+#figure(
+  ```
+  top(word) ::= nil => nil | bit.word => bit
+  ```,
+)<top>
+
+#definition[(@rosenkrantz-ll1). A grammar is LL(1) iff the following holds: for
+  any terminals $w_1, w_2$ and nonterminal $A$, there is at most one rule $r$
+  such that for some $w_2, w_3$,
+  - $S => top(w_1)A w_3$
+  - $A => w_2 (p)$
+  - $top(w_2 w_3) = w$
 ]<LL1>
 
 #theorem[

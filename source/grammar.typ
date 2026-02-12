@@ -4,13 +4,15 @@
 #let grammar = [
   ```
   start ::= (term ",")* term
-  term ::= arc | graph | base
+  term ::= arc | graph | path
   arc ::= (term "-" term "->)+ term
         | (term "<-" term "-")+ term
         | (term "-" term "-")+ term
-  graph ::= (dots? path)? { term* }
-  path ::= (base ".")* base
+  graph ::= path? { term* }
+  path ::= base+
+  base ::= ID | STRING | "."."*" | "."+
   dots ::= "." dots*
-  base ::= ID | STRING
+  unit ::= ID | STRING
+  link ::= "-" | "->" | "<-"
   ```
 ]
