@@ -53,17 +53,28 @@ _every_ computable function in this definition, which we prove in
 == ASTs
 
 Given the rationale, we explain how the Abstract Syntax Tree (AST) is processed
-fro the syntax. In short, the final result is a data structure with two
-components: a tree that stores the hierarchy of units, and a graph that stores
-the graph of representations.
+for the syntax. The AST provides an intermediate step before the final data
+structure.
+
 
 #definition[The AST is recursively defined from the parse tree as follows:
   - Term:
     - Arc:
+      - Converts a chain into a list of tuples of the form (sign, context,
+        referant). Renders each edge as a left and right arrow.
     - Graph:
+      - The terms are collected into two parts: a list of parts
+      and a list of arcs.
     - Path:
-      - The number of dots is counted for the relative imports.
-      - Star imports are denoted by a special node STAR.
+      - The number of dots is counted for the relative paths.
+      - Star imports are denoted by a special node All.
+      - A path is converted into a list of its contents,
+      which are pairs containing the relative path number and either Unit or
+      All.
+  // TODO: determine if the name of a welkn file could be
+  // defined in the file itself. Might be useful?
+  The terms in the top-level are put into a Graph node containing a unique, user
+  given ID.
 ]<ast>
 
 #definition[An AST is *valid* if the relative imports does not exceed the number
@@ -88,7 +99,6 @@ Now, a key component of this argument, as well as our truth management system,
 is proving _true_ things about computable functions. We develop the machinery
 through Welkin's meta-theory.
 
-
 Units are enumerated through symbols $u_i$, where $i$ is a binary word. We say
 $i$ is the *ID* of $u_i$.
 
@@ -112,15 +122,16 @@ multiple contexts.
   node, or it contains two nodes, left and right. We can model this as follows:
   - First, create units for each of the notions: `tree {null, left, right}`.
   - Next, we write,
-    `tree { null --> .tree, .tree --> left, .tree --> right, {.left, .right} --> .tree}`.
-    Notice that we refer to the _namespace_, thereby enabling recursion. By our
-    scoping rules, writing `tree` would be a _new_ unit.
-  - To impose that the left subtree is _distinct_ from the right one, we can use
-    symbols.
+    `tree { nil --> .tree, .tree--> left, .tree --> right, {.left, .right} --> .tree}`.
+    Notice that we refer to the _namespace_ via a relative path, `.tree`,
+    thereby enabling recursion.
 
-  An important idea in this example is that the abstraction could be defined
-  _first_, or a concrete model could. For this reason, the choice of how
-  entities are represented is flexible.
+  // TODO: develop useful derivations + coherency!
+  Are are two important ideas in this example. First, an abstraction can be
+  defined prior to a concrete model. The other way is possible as well, showing
+  how developing representations are flexible in Welkin. Second, the derivations
+  of trees can now be formulated. So we can defie childs and ancestors, and test
+  against the coherency of the tree.
 ]
 
 #definition[

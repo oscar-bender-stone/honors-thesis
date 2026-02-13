@@ -9,10 +9,8 @@
         | (term "<-" term "-")+ term
         | (term "-" term "-")+ term
   graph ::= path? { term* }
-  path ::= base+
-  base ::= ID | STRING | "."."*" | "."+
+  path ::= unit | "."."*" | "."+
   dots ::= "." dots*
   unit ::= ID | STRING
-  link ::= "-" | "->" | "<-"
   ```
 ]

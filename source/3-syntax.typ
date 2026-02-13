@@ -31,7 +31,7 @@ on the rationale for the simple syntax and the underlying meta-theory in
 
 We set concatenation to be right-associative, i.e., $(w.w').w'' = w.(w'.w'')$,
 and safely abbreviate $w.w'$ as $w w'$. We extend the alphabet to include two
-common bases: decimal (via digits) and hexadecimal, shown in @digits.
+common bases: decimal and hexadecimal, shown in @digits.
 
 #figure(
   ```
@@ -129,14 +129,15 @@ Moreover, we define the top of a word in @top.
   ```
   top(word) ::= nil => nil | bit.word => bit
   ```,
+  caption: "Definition of the top of a word.",
 )<top>
 
 #definition[(@rosenkrantz-ll1). A grammar is LL(1) iff the following holds: for
   any terminals $w_1, w_2$ and nonterminal $A$, there is at most one rule $r$
   such that for some $w_2, w_3$,
-  - $S => top(w_1)A w_3$
+  - $S => "top"(w_1)A w_3$
   - $A => w_2 (p)$
-  - $top(w_2 w_3) = w$
+  - $"top"(w_2 w_3) = w$
 ]<LL1>
 
 #theorem[
