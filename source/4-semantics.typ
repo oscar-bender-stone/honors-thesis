@@ -58,19 +58,15 @@ structure.
 
 
 #definition[The AST is recursively defined from the parse tree as follows:
-  - Term:
-    - Arc:
-      - Converts a chain into a list of tuples of the form (sign, context,
-        referant). Renders each edge as a left and right arrow.
-    - Graph:
-      - The terms are collected into two parts: a list of parts
-      and a list of arcs.
-    - Path:
-      - The number of dots is counted for the relative paths.
-      - Star imports are denoted by a special node All.
-      - A path is converted into a list of its contents,
-      which are pairs containing the relative path number and either Unit or
-      All.
+  - Arc: Converts a chain into a list of tuples of the form (sign, context,
+    referant). Renders each edge as a left and right arrow.
+  - Graph: The terms are collected into two parts: a list of parts and a list of
+    arcs.
+  - Path:
+    - The number of dots is counted for the relative paths.
+    - Star imports are denoted by a special node All.
+    - A path is converted into a list of its contents,
+    which are pairs containing the relative path number and either Unit or All.
   // TODO: determine if the name of a welkn file could be
   // defined in the file itself. Might be useful?
   The terms in the top-level are put into a Graph node containing a unique, user
@@ -121,10 +117,17 @@ multiple contexts.
   Consider the recursive definition of a binary tree: either it is a null (leaf)
   node, or it contains two nodes, left and right. We can model this as follows:
   - First, create units for each of the notions: `tree {null, left, right}`.
+  // TODO: add a condition that the left and right trees are distinct,
+  // to show this is possible!
   - Next, we write,
-    `tree { nil --> .tree, .tree--> left, .tree --> right, {.left, .right} --> .tree}`.
+    `tree { nil --> .tree, left..tree, right..tree, {.left, .right} --> .tree}`.
     Notice that we refer to the _namespace_ via a relative path, `.tree`,
     thereby enabling recursion.
+  // TODO: fix this up! Show a counter-example
+  // and how this is not coherent with the definition
+  - We can test this out in Welkin with:
+    `my_tree {.tree.left --> {nil --> .tree}, .tree.right {nil --> .tree} }`.
+    This is then coherent with the previous definition.
 
   // TODO: develop useful derivations + coherency!
   Are are two important ideas in this example. First, an abstraction can be
