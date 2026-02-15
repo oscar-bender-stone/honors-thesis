@@ -11,6 +11,6 @@
   graph ::= path? { term* }
   path ::= unit | "."."*" | "."+
   dots ::= "." dots*
-  unit ::= ID | STRING
+  unit ::= IMPORT | ID | STRING
   ```
 ]

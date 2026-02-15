@@ -88,6 +88,8 @@ There are several important character classes.
 
 #figure(
   ```
+  IMPORT ::= "@" ID
+  ID :: ID_CHAR+
   ID_CHAR ::= PRINTABLE / DELIMITERS
   ```,
   caption: "IDs.",
