@@ -56,6 +56,58 @@ Given the rationale, we explain how the Abstract Syntax Tree (AST) is processed
 for the syntax. The AST provides an intermediate step before the final data
 structure.
 
+
+#figure(
+  table(
+    columns: (auto, auto, auto),
+    [*Hexadecimal*], [*Decimal*], [*Binary*],
+    [0], [0], [0],
+    [1], [1], [1],
+    [2], [2], [10],
+    [3], [3], [11],
+    [4], [4], [100],
+    [5], [5], [101],
+    [6], [6], [110],
+    [7], [7], [111],
+    [8], [8], [1000],
+    [9], [9], [1001],
+    [A], [10], [1010],
+    [B], [11], [1011],
+    [C], [12], [1100],
+    [D], [13], [1101],
+    [E], [14], [1110],
+    [F], [15], [1111],
+  ),
+  caption: "Conversions of digits between different bases.",
+)<digit-conversions>
+
+Note that for words, we add a conversion from decimal and hexadecimal into
+binary via @digit-conversions. We provide the explicit recursive definiton based
+on this table in @word-conversions, where `a <--> b` means that `a` is converted
+into `b` and vice versa. This is a restriction on the notion of representations
+that will be addressed in @bootstrap.
+
+// TODO: determine if "0x0".something should mean string concatenation.
+// Might be nice to have?
+// But then we have to distinguish with our notation,
+// so maybe use seomthing *besides* . for contaenation?
+// TODO: complete!
+#figure(
+  ```
+  ```,
+  caption: "Recursive definition for converting words between bases.",
+)<word-conversions>
+
+#figure(
+  ```
+  "0".word <--> word
+  "0b0".word <--> "0b".word
+  "0x0".word <--> "0x".word
+  ```,
+  caption: "Conversions with leading zeros.",
+)<leading-zeros>
+
+
 // TODO: define scoping rules with @.
 // Important to preserve *original* files when possible.
 // Will need @ by default to import things
