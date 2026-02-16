@@ -230,9 +230,8 @@ any claim about, e.g., Peano Arithmetic.
 ]
 
 A key technique in managing information and truth through contexts is through
-the following theorem.
-// FIXME: this is currently a stub! Need to create the *correct* condition.
-// Use this as a starting point:
+the following theorem. FIXME: this is currently a stub! Need to create the
+*correct* condition. Use this as a starting point:
 //
 /// #theorem[
 //   A representation is preserves information modulo $equiv$ iff the
