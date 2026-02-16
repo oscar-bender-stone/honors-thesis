@@ -163,14 +163,28 @@ that "information is a difference that makes a difference"
 // TODO: mention enumeration of all units. Crucial!
 // Will need to mention in the bootstrap.
 #definition[
-
+  The *combination* of units $u, u'$, denoted by $u + u'$ is defined to be the
+  pairwise union of components across. Note that is different from the *disjoint
+  union*, in which a new top level node is made with children $u$ and $u'$.
 ]<unit>
+
+
+#definition[
+  A unit $u$ is *non-trivial* if it is non-empty and has a non-complete
+  representation graph. A unit $u$ is *coherent relative to a context* $u'$ if
+  $u + u'$, the union of these units, is non-trivial.
+]
+#remark[This definition is a natural generalization of consistency in
+  first-order logic. We will frequently rely on this result throughout the
+  thesis.]
 
 
 // TODO: maybe connect back to import notation?
 // Woudl something like x.@s be reasonable?
 We set $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(s)$ is the local
-extension of $s$ in $x$.
+extension of $s$ in $x$. We interpret $u -->^c v$ as: the *sign* $u$ represents
+*referant* $v$ in *context* $c$.
+
 
 #definition[Let $u, v$ be units. Then $u$ *contains information* $v$ if for some
   $s in v$, $u[s] != s$.]<information>
@@ -215,6 +229,20 @@ any claim about, e.g., Peano Arithmetic.
   // ]
 ]
 
+A key technique in managing information and truth through contexts is through
+the following theorem.
+// FIXME: this is currently a stub! Need to create the *correct* condition.
+// Use this as a starting point:
+//
+/// #theorem[
+//   A representation is preserves information modulo $equiv$ iff the
+//   representation modulo $equiv$ is coherent.
+// ]
+#theorem[
+  A unit $u$ contains information about $v$ iff $u + v$ is coherent.
+]<information-and-coherency>
+
+
 #theorem[
   Representations with contexts cannot be expressed with those without.
 ]<definability-conditions>
@@ -225,6 +253,8 @@ any claim about, e.g., Peano Arithmetic.
 ]
 
 == Universal Systems
+
+
 
 #theorem[
 
@@ -238,74 +268,38 @@ As a consequence, we immediately obtain the following corollary.
   definable as a unit.
 ]
 
-// Parts of units are denoted as $u.u'$. Scoping is included to provide namespaces.
-// Moreover, parts enable *interpretations*. We write $u -->^v u'$ in case
-// $u, v, (u --> v) in u'$, so $u$ represents $v$ *via* $u'$. In this case, we say
-// $u'$ is a *context* to $u --> v$. Note that unlabeled representations can have
-// multiple contexts.
+
+Note that there are multiple ways to prove @universality-theorem, infinitely in
+fact. This motivates the following definition.
+
+// TODO: develop!
+#definition[
+  A universal representation system (URS) is a unit that can represent any
+  representation.
+]
 
 
-// #definition[
-//   A unit $u$ is *non-trivial* if it is non-empty and does not contain all
-//   relations. A unit $u$ is *coherent relative to a context* $u'$ if $u + u'$,
-//   the union of these units, is non-trivial.
-// ]
-// #remark[This definition is a natural generalization of consistency in
-//   first-order logic. We will frequently rely on this result throughout the
-//   thesis.]
+// TODO: Make this more precise and complete proof.
+#theorem[
+  A unit is a universal representation system if and only if it can represent
+  any partial computable function. Moreover, any universal representation system
+  can represent any universal representation system. In particular, representing
+  itself is called *reflection*.
+]
 
-// #theorem[
-//   A representation is preserves information modulo $equiv$ iff the
-//   representation modulo $equiv$ is coherent.
-// ]
-// #remark[This theorem enables truth management via specific contexts, specified
-//   as units. The task of finding core truths is then free, left open to
-//   flexibility accommodate for any truth management.]
+// TODO: dissue axiomatic systems!
+// Want to emphasize the relevant *process* (per context) is important!
+// That is, the journey to discover new things.
+// ONLY FI the specification is complete in some way (or "finalized"),
+// it is then that axiomatic systems *can* help.
+// Expand this discussion into a paragraph or two.
 
 
-// Welkin manages truth through a flexible interface, grounded in the true
-// properties on computable functions. The term "properties on computable
-// functions" needs to be carefully defined. Do we only restrict this to a well
-// established theory of arithmetic, like Peano Arithmetic, or permit larger
-// notions, like infinite ordinals like ZFC?
+The term _universal_ is specifically for expressing _representations_
+symbolically. The free parameter still needs to be included and is an additional
+feature on top of partial comptuable functions. However, the _management_ of
+these symbols is done entirely with partial computable functions.
 
-// == Universal Systems
-
-// Inspired by @twenty_years_rewriting_logic, we prove that scoping is strictly
-// more expressive than without.
-
-// #todo[TODO: define the generalization to Padoa's Method clearer.]
-// #lemma[Representations with interpretations are undefinable in terms of
-//   unlabeled representations.]
-// #proof[
-//   It suffices to note that representing partial computable functions requires
-//   combinations. But every transformation under unlabeled representations does
-//   not preserve these conditions, hence, representations with interpretations are
-//   not definable.
-// ]
-
-// Note that there are multiple ways to prove @universality-theorem, infinitely in
-// fact. This motivates the following definition.
-
-// // TODO: develop!
-// #definition[
-//   A universal representation system (URS) is a unit that can represent any
-//   representation.
-// ]
-
-// #todo[Make this more precise and complete proof.]
-// #theorem[
-//   A unit is a universal representation system if and only if it can represent
-//   any partial computable function. Moreover, any universal representation system
-//   can represent any universal representation system. In particular, representing
-//   itself is called *reflection*.
-// ]
-
-// The term _universal_ is specifically for expressing _representations_
-// symbolically. The free parameter still needs to be included and is an additional
-// feature on top of partial comptuable functions. However, the _management_ of
-// these symbols is done entirely with partial computable functions.
-
-// The next section discusses the issue of _managing_ the infinitely many choices
-// for URSs.
+The next section discusses the issue of _managing_ the infinitely many choices
+for URSs.
 
