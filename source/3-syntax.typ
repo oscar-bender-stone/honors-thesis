@@ -171,7 +171,7 @@ Moreover, we define the top of a word in @top.
   step by step, see @refactor_ll1. We can readily verify that there are no
   shared prefixes for a single production, see @ll_table.
 
-  [#ll1-grammar<grammar_ll1>] [#ll1-refactor<refactor_ll1>]
+  #ll1-grammar<grammar_ll1> #ll1-refactor<refactor_ll1>
 
   #figure(
     ll1-table,

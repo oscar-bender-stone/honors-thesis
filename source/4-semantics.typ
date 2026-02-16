@@ -141,147 +141,171 @@ that will be addressed in @bootstrap.
 Based on @rationale, a crucial question is to answer _how_ representations can
 be used in the language. A representation at least contains two components: a
 _sign_ that represents a _referant_. However, this is not sufficient to express
-any computable function, because we lack conditional checks. A key insight in
-this thesis is showing that having these conditions is equivalent to having a
-_context_, which we incorporate into our mechanism for namespaces. This proves
-an informal claim made in Meseguer @twenty_years_rewriting_logic, which claims
-that rewriting logics without conditional rules are "strictly less" expressive
-than those with conditions.
+any computable function, because we do not have _conditional_ representations. A
+key insight in this thesis is showing that expressing conditions is equivalent
+to having _contexts_, which we incorporate into our mechanism for namespaces and
+generalizes Burgin's notion of infological systems @burgin-information-book.
+This proves an informal claim made in Meseguer @twenty_years_rewriting_logic,
+which claims that rewriting logics without conditional rules are "strictly less"
+expressive than those with conditions, see @definability-conditions.
 
-// TODO: discuss connection of not being able to define all computable
-// functions and not having a heory that proves everything.
-// Can enumerate through all *partial* computable functions,
-// but undecidable to get all the computable ones.
-// This relates to the inability to show all functions
-// are computable in a single, RE theory
-Now, a key component of this argument, as well as our truth management system,
-is proving _true_ things about computable functions. We develop the machinery
-through Welkin's meta-theory.
+We define a _unit_ as an extendible component in a representation. Units can be
+(optionally) broken down and combined with other units to make new ones. Then,
+we practically formalize information being _contained_ in a unit, enabling
+change in a context through checking for some _non_-fixed point. This connects
+to Burgin's analogy of information as energy, as well as Bateson's famous quote
+that "information is a difference that makes a difference"
+@bateson-ecology-of-mind.
 
-// TODO: write out this outline
-- Key Points:
-  - In this thesis, infological systems from Burgin are represented as context
-  - A unit $u$ is *information* about $v$ if $I(s) != s$ for some $s in v$.
-    Highlight that this correpsonds to
+// TODO: take AST and provide merging mechanisms,
+// primarily for nodes of the form @b {@.a.*}.
+// This means to extend @b *with* the contents of a.
+// TODO: mention enumeration of all units. Crucial!
+// Will need to mention in the bootstrap.
+#definition[
 
-Units are enumerated through symbols $u_i$, where $i$ is a binary word. We say
-$i$ is the *ID* of $u_i$.
+]<unit>
 
-// TODO: define how the AST is converted
-// into a WIG.
-#definition[A *Welkin Information Graph* is defined recursively.
-]<WIG>
 
-We set $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(u)$ is $x.u$ if
-$u in x$ or $u$ otherwise.
+// TODO: maybe connect back to import notation?
+// Woudl something like x.@s be reasonable?
+We set $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(s)$ is the local
+extension of $s$ in $x$.
 
-Parts of units are denoted as $u.u'$. Scoping is included to provide namespaces.
-Moreover, parts enable *interpretations*. We write $u -->^v u'$ in case
-$u, v, (u --> v) in u'$, so $u$ represents $v$ *via* $u'$. In this case, we say
-$u'$ is a *context* to $u --> v$. Note that unlabeled representations can have
-multiple contexts.
+#definition[Let $u, v$ be units. Then $u$ *contains information* $v$ if for some
+  $s in v$, $u[s] != s$.]<information>
+
+// TODO: address _why_ information in this way
+// enables for more flexibility in choosing axioms.
+// What we want in, e.g., formal verification,
+// is to check the axioms hold in the first place!
+Our notion of information helps with one key issue: the general undefinability
+of non-trivial classes of partial computable functions in formal system. This
+connects with the absence of a universal _single_ formal system that can prove
+any claim about, e.g., Peano Arithmetic.
 
 // TODO: clean up this example.
+// Want to emphasize what is information here,
+// so, e.g., we may say left and right nodes don't
+// have information about each other, in general
 #example[
-  Consider the recursive definition of a binary tree: either it is a null (leaf)
-  node, or it contains two nodes, left and right. We can model this as follows:
-  - First, create units for each of the notions: `tree {null, left, right}`.
-  // TODO: add a condition that the left and right trees are distinct,
-  // to show this is possible!
-  - Next, we write,
-    `tree { nil --> .tree, left..tree, right..tree, {.left, .right} --> .tree}`.
-    Notice that we refer to the _namespace_ via a relative path, `.tree`,
-    thereby enabling recursion.
-  // TODO: fix this up! Show a counter-example
-  // and how this is not coherent with the definition
-  - We can test this out in Welkin with:
-    `my_tree {.tree.left --> {nil --> .tree}, .tree.right {nil --> .tree} }`.
-    This is then coherent with the previous definition.
+  Trees.
+  // #example[
+  //   Consider the recursive definition of a binary tree: either it is a null (leaf)
+  //   node, or it contains two nodes, left and right. We can model this as follows:
+  //   - First, create units for each of the notions: `tree {null, left, right}`.
+  //   // TODO: add a condition that the left and right trees are distinct,
+  //   // to show this is possible!
+  //   - Next, we write,
+  //     `tree { nil --> .tree, left..tree, right..tree, {.left, .right} --> .tree}`.
+  //     Notice that we refer to the _namespace_ via a relative path, `.tree`,
+  //     thereby enabling recursion.
+  //   // TODO: fix this up! Show a counter-example
+  //   // and how this is not coherent with the definition
+  //   - We can test this out in Welkin with:
+  //     `my_tree {.tree.left --> {nil --> .tree}, .tree.right {nil --> .tree} }`.
+  //     This is then coherent with the previous definition.
 
-  // TODO: develop useful derivations + coherency!
-  Are are two important ideas in this example. First, an abstraction can be
-  defined prior to a concrete model. The other way is possible as well, showing
-  how developing representations are flexible in Welkin. Second, the derivations
-  of trees can now be formulated. So we can defie childs and ancestors, and test
-  against the coherency of the tree.
+  //   // TODO: develop useful derivations + coherency!
+  //   Are are two important ideas in this example. First, an abstraction can be
+  //   defined prior to a concrete model. The other way is possible as well, showing
+  //   how developing representations are flexible in Welkin. Second, the derivations
+  //   of trees can now be formulated. So we can defie childs and ancestors, and test
+  //   against the coherency of the tree.
+  // ]
 ]
-
-#definition[
-  A unit $u$ is *non-trivial* if it is non-empty and does not contain all
-  relations. A unit $u$ is *coherent relative to a context* $u'$ if $u + u'$,
-  the union of these units, is non-trivial.
-]
-#remark[This definition is a natural generalization of consistency in
-  first-order logic. We will frequently rely on this result throughout the
-  thesis.]
 
 #theorem[
-  A representation is preserves information modulo $equiv$ iff the
-  representation modulo $equiv$ is coherent.
+  Representations with contexts cannot be expressed with those without.
+]<definability-conditions>
+#proof[
+  The largest class expressible with unconditional representations are
+  context-free grammars, because... Thus, not all partial computable functions
+  are included, completing the proof.
 ]
-#remark[This theorem enables truth management via specific contexts, specified
-  as units. The task of finding core truths is then free, left open to
-  flexibility accommodate for any truth management.]
-
-
-Welkin manages truth through a flexible interface, grounded in the true
-properties on computable functions. The term "properties on computable
-functions" needs to be carefully defined. Do we only restrict this to a well
-established theory of arithmetic, like Peano Arithmetic, or permit larger
-notions, like infinite ordinals like ZFC?
-
-
-...
-
-
-#todo[Come up with a term for "observations representable by computable
-  functions".]
-#corollary[
-  Any truth management system representable by computable functions can be
-  represented in Welkin.
-]
-
 
 == Universal Systems
-
-Inspired by @twenty_years_rewriting_logic, we prove that scoping is strictly
-more expressive than without.
-
-#todo[TODO: define the generalization to Padoa's Method clearer.]
-#lemma[Representations with interpretations are undefinable in terms of
-  unlabeled representations.]
-#proof[
-  It suffices to note that representing partial computable functions requires
-  combinations. But every transformation under unlabeled representations does
-  not preserve these conditions, hence, representations with interpretations are
-  not definable.
-]
-
-Note that there are multiple ways to prove @universality-theorem, infinitely in
-fact. This motivates the following definition.
-
-// TODO: develop!
-#definition[
-  A universal representation system (URS) is a unit that can represent any
-  representation.
-]
-
-#todo[Make this more precise and complete proof.]
-#theorem[
-  A unit is a universal representation system if and only if it can represent
-  any partial computable function. Moreover, any universal representation system
-  can represent any universal representation system. In particular, representing
-  itself is called *reflection*.
-]
-
-The term _universal_ is specifically for expressing _representations_
-symbolically. The free parameter still needs to be included and is an additional
-feature on top of partial comptuable functions. However, the _management_ of
-these symbols is done entirely with partial computable functions.
-
-The next section discusses the issue of _managing_ the infinitely many choices
-for URSs.
 
 #theorem[
 
 ]<universality-theorem>
+
+As a consequence, we immediately obtain the following corollary.
+
+// TODO: define truth management systems!
+#corollary[
+  Every truth management system, accepted by some computable function, is
+  definable as a unit.
+]
+
+// Parts of units are denoted as $u.u'$. Scoping is included to provide namespaces.
+// Moreover, parts enable *interpretations*. We write $u -->^v u'$ in case
+// $u, v, (u --> v) in u'$, so $u$ represents $v$ *via* $u'$. In this case, we say
+// $u'$ is a *context* to $u --> v$. Note that unlabeled representations can have
+// multiple contexts.
+
+
+// #definition[
+//   A unit $u$ is *non-trivial* if it is non-empty and does not contain all
+//   relations. A unit $u$ is *coherent relative to a context* $u'$ if $u + u'$,
+//   the union of these units, is non-trivial.
+// ]
+// #remark[This definition is a natural generalization of consistency in
+//   first-order logic. We will frequently rely on this result throughout the
+//   thesis.]
+
+// #theorem[
+//   A representation is preserves information modulo $equiv$ iff the
+//   representation modulo $equiv$ is coherent.
+// ]
+// #remark[This theorem enables truth management via specific contexts, specified
+//   as units. The task of finding core truths is then free, left open to
+//   flexibility accommodate for any truth management.]
+
+
+// Welkin manages truth through a flexible interface, grounded in the true
+// properties on computable functions. The term "properties on computable
+// functions" needs to be carefully defined. Do we only restrict this to a well
+// established theory of arithmetic, like Peano Arithmetic, or permit larger
+// notions, like infinite ordinals like ZFC?
+
+// == Universal Systems
+
+// Inspired by @twenty_years_rewriting_logic, we prove that scoping is strictly
+// more expressive than without.
+
+// #todo[TODO: define the generalization to Padoa's Method clearer.]
+// #lemma[Representations with interpretations are undefinable in terms of
+//   unlabeled representations.]
+// #proof[
+//   It suffices to note that representing partial computable functions requires
+//   combinations. But every transformation under unlabeled representations does
+//   not preserve these conditions, hence, representations with interpretations are
+//   not definable.
+// ]
+
+// Note that there are multiple ways to prove @universality-theorem, infinitely in
+// fact. This motivates the following definition.
+
+// // TODO: develop!
+// #definition[
+//   A universal representation system (URS) is a unit that can represent any
+//   representation.
+// ]
+
+// #todo[Make this more precise and complete proof.]
+// #theorem[
+//   A unit is a universal representation system if and only if it can represent
+//   any partial computable function. Moreover, any universal representation system
+//   can represent any universal representation system. In particular, representing
+//   itself is called *reflection*.
+// ]
+
+// The term _universal_ is specifically for expressing _representations_
+// symbolically. The free parameter still needs to be included and is an additional
+// feature on top of partial comptuable functions. However, the _management_ of
+// these symbols is done entirely with partial computable functions.
+
+// The next section discusses the issue of _managing_ the infinitely many choices
+// for URSs.
+
