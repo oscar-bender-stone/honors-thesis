@@ -7,6 +7,8 @@
 #import "template/ams-article.typ": todo
 #import "us-ascii.typ": ascii-table
 #import "grammar.typ": grammar
+#import "ll(1)_grammar.typ": ll1-grammar
+#import "ll(1)_table.typ": ll1-table
 
 = Syntax <syntax>
 
@@ -38,13 +40,8 @@ hexadecimal.
 // OR figure out how to bake into semantics
 A word is a sequence of digits, see @word. We leave concatenation `;` as an
 undefined notion. We set concatenation to be right-associative, i.e.,
-$(w.w')+w'' = w.(w'.w'')$, and abbreviate $w.w'$ as $w w'$. Moreover, we add a
-conversion from decimal and hexadecimal into binary via @digit-conversions. We
-provide the explicit recursive definiton based on this table in
-@word-conversions, where `a <--> b` means that `a` is converted into `b` and
-vice versa. This is a restriction on the notion of representations that will be
-addressed in @bootstrap.
-
+$(w.w')+w'' = w.(w'.w'')$, and abbreviate $w.w'$ as $w w'$. For conversions, see
+@ast.
 
 #figure(
   ```
@@ -55,50 +52,6 @@ addressed in @bootstrap.
   ```,
   caption: "Definition of words.",
 )<word>
-
-#figure(
-  table(
-    columns: (auto, auto, auto),
-    [*Hexadecimal*], [*Decimal*], [*Binary*],
-    [0], [0], [0],
-    [1], [1], [1],
-    [2], [2], [10],
-    [3], [3], [11],
-    [4], [4], [100],
-    [5], [5], [101],
-    [6], [6], [110],
-    [7], [7], [111],
-    [8], [8], [1000],
-    [9], [9], [1001],
-    [A], [10], [1010],
-    [B], [11], [1011],
-    [C], [12], [1100],
-    [D], [13], [1101],
-    [E], [14], [1110],
-    [F], [15], [1111],
-  ),
-  caption: "Conversions of digits between different bases.",
-)<digit-conversions>
-
-// TODO: determine if "0x0".something should mean string concatenation.
-// Might be nice to have?
-// But then we have to distinguish with our notation,
-// so maybe use seomthing *besides* . for contaenation?
-// TODO: complete!
-#figure(
-  ```
-  ```,
-  caption: "Recursive definition for converting words between bases.",
-)<word-conversions>
-
-#figure(
-  ```
-  "0".word <--> word
-  "0b0".word <--> "0b".word
-  "0x0".word <--> "0x".word
-  ```,
-  caption: "Conversions with leading zeros.",
-)<leading-zeros>
 
 
 == Terminals
@@ -138,6 +91,9 @@ There are several important character classes.
 #figure(
   ```
   STRING ::= SQ_STRING | DQ_STRING
+
+  SQ_CHAR ::= PRINTABLE \ {'}
+  DQ_CHAR ::= PRINTABLE \ {"}
   ```,
   caption: "Strings.",
 )<string>
@@ -146,13 +102,15 @@ There are several important character classes.
   ```
   IMPORT ::= "@" ID
   ID :: ID_CHAR+
-  ID_CHAR ::= PRINTABLE / DELIMITERS
+  ID_CHAR ::= PRINTABLE / (DELIMITERS + WHITESPACE)
   ```,
   caption: "IDs.",
 )<id>
 
 == Grammar
 
+// TODO: maybe define general grammars?
+// Might make the definition of Welkin's parse tree easier
 Welkin's grammar is displayed in @welkin-grammar, inspired by a minimal, C-style
 syntax.
 
@@ -166,6 +124,10 @@ syntax.
   caption: [The grammar for Welkin. The terminals `id` and `string` are defined
     in @word and @string, respectively],
 )<welkin-grammar>
+
+Note that we are interested in _transducers_, or having the parser generate a
+parse tree from a given string. We define parse trees recursively in
+@parse-tree.
 
 #figure(
   ```
@@ -199,9 +161,18 @@ Moreover, we define the top of a word in @top.
 ]<LL1>
 
 #theorem[
-  Welkin's grammar is _LL(1)_. Hence, this grammar is unambiguous, i.e., every
-  string accepted by the language has exactly one derivation.
+  Welkin's language is accepted by some _LL(1)_ grammar. Hence, Welkin's syntax
+  is unambiguous, i.e., every string accepted by the language has exactly one
+  derivation.
 ]
 #proof[
-  Consider the corresponding LL(1) table...
+  We left-factor common prefixes, resulting in @grammar_ll1.
+
+  [#ll1-grammar<grammar_ll1>]
+
+  #figure(
+    ll1-table,
+    caption: [LL(1) Table for @grammar_ll1],
+  )
 ]
+
