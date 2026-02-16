@@ -9,6 +9,7 @@
 #import "grammar.typ": grammar
 #import "ll(1)_grammar.typ": ll1-grammar
 #import "ll(1)_table.typ": ll1-table
+#import "LL(1)_refactor.typ": ll1-refactor
 
 = Syntax <syntax>
 
@@ -83,7 +84,7 @@ There are several important character classes.
   ```
   PRINTABLE  ::= [0x20-0x7E]
   WHITESPACE ::= [0x09, 0x0A, 0x0D, 0x20]
-  DELIMITER ::= [0x7B, 0x7D, 0x2C, 0x2D, 0x2A, 0x3C, 0x3E, 0x22, 0x27, 0x5C]
+  DELIMITER ::= [0x7B, 0x7D, 0x2C, 0x2D, 0x2A, 0x3C, 0x3E, 0x22, 0x27, 0x5C, 0x7D]
   ```,
   caption: "Important character classes.",
 )<character-classes>
@@ -166,13 +167,15 @@ Moreover, we define the top of a word in @top.
   derivation.
 ]
 #proof[
-  We left-factor common prefixes, resulting in @grammar_ll1.
+  We left-factor common prefixes, resulting in @grammar_ll1. For the refactor
+  step by step, see @refactor_ll1. We can readily verify that there are no
+  shared prefixes for a single production, see @ll_table.
 
-  [#ll1-grammar<grammar_ll1>]
+  [#ll1-grammar<grammar_ll1>] [#ll1-refactor<refactor_ll1>]
 
   #figure(
     ll1-table,
     caption: [LL(1) Table for @grammar_ll1],
-  )
+  )<ll_table>
 ]
 
