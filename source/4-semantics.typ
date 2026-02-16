@@ -39,16 +39,16 @@ We justify why the language is focused on representations. First, to mechanize
 the information language, we allow only total computable functions, with
 computability being a well established notion. Second, to enable clarity in
 concepts, we need to resolve the Symbol Grounding Problem, so as to avoid
-treating all symbols as being "empty". We must therefore include a notion of
-representation, which, in particular, can represent partial computable
-functions. Finally, we claim that expressing _any computable representation_ is
-sufficient for a universally expressible information system. Attempting to
-provide a self-contained definition of the notion "any" is problematic, as shown
-from the introdution. We instead define "any" with the _least_ restrictions
-possible, which means, by the first point, ensuring that a given provided input
-is accepted by _some_ computable function. It is important that Welkin includes
-_every_ computable function in this definition, which we prove in
-@universality-theorem.
+treating all symbols as being "empty", as discussed in @liu-grounding. We must
+therefore include a notion of representation, which, in particular, can
+represent partial computable functions. Finally, we claim that expressing _any
+computable representation_ is sufficient for a universally expressible
+information system. Attempting to provide a self-contained definition of the
+notion "any" is problematic, as shown from the introdution. We instead define
+"any" with the _least_ restrictions possible, which means, by the first point,
+ensuring that a given provided input is accepted by _some_ computable function.
+It is important that Welkin includes _every_ computable function in this
+definition, which we prove in @universality-theorem.
 
 == ASTs
 
@@ -56,13 +56,15 @@ Given the rationale, we explain how the Abstract Syntax Tree (AST) is processed
 for the syntax. The AST provides an intermediate step before the final data
 structure.
 
-
+// TODO: define scoping rules with @.
+// Important to preserve *original* files when possible.
+// Will need @ by default to import things
 #definition[The AST is recursively defined from the parse tree as follows:
-  - Arc: Converts a chain into a list of tuples of the form (sign, context,
+  - *Arc:* Converts a chain into a list of tuples of the form (sign, context,
     referant). Renders each edge as a left and right arrow.
-  - Graph: The terms are collected into two parts: a list of parts and a list of
-    arcs.
-  - Path:
+  - *Graph:* The terms are collected into two parts: a list of parts and a list
+    of arcs.
+  - *Path:*
     - The number of dots is counted for the relative paths.
     - Star imports are denoted by a special node All.
     - A path is converted into a list of its contents,
@@ -89,11 +91,26 @@ be used in the language. A representation at least contains two components: a
 _sign_ that represents a _referant_. However, this is not sufficient to express
 any computable function, because we lack conditional checks. A key insight in
 this thesis is showing that having these conditions is equivalent to having a
-_context_, which we incorporate into our mechanism for namespaces.
+_context_, which we incorporate into our mechanism for namespaces. This proves
+an informal claim made in Meseguer @twenty_years_rewriting_logic, which claims
+that rewriting logics without conditional rules are "strictly less" expressive
+than those with conditions.
 
+// TODO: discuss connection of not being able to define all computable
+// functions and not having a heory that proves everything.
+// Can enumerate through all *partial* computable functions,
+// but undecidable to get all the computable ones.
+// This relates to the inability to show all functions
+// are computable in a single, RE theory
 Now, a key component of this argument, as well as our truth management system,
 is proving _true_ things about computable functions. We develop the machinery
 through Welkin's meta-theory.
+
+// TODO: write out this outline
+- Key Points:
+  - In this thesis, infological systems from Burgin are represented as context
+  - A unit $u$ is *information* about $v$ if $I(s) != s$ for some $s in v$.
+    Highlight that this correpsonds to
 
 Units are enumerated through symbols $u_i$, where $i$ is a binary word. We say
 $i$ is the *ID* of $u_i$.

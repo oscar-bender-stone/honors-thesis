@@ -11,37 +11,52 @@
 = Syntax <syntax>
 
 We keep this section self-contained with explicit alphabets and explicit
-recursive definitions. For simplicity, we will use the notation $a_0, ..., a_n$
-for a finite list of items, and use $a ::= a_1 | ... | a_n$ to denote a
-definition of $a$ in terms of $a_1, ..., a_n$. We will revisit the notion
-"finite" more rigorously in @bootstrap. Moreover, we will postpone discussions
-on the rationale for the simple syntax and the underlying meta-theory in
-@bootstrap.
+recursive definitions. For general notation, we write $a_0, ..., a_n$ for a
+finite list of items, and use $a ::= a_1 | ... | a_n$ to denote a definition of
+$a$ in terms of $a_1, ..., a_n$. that for verification purposes, we will
+incorporate fixed bounds into @bootstrap. Moreover, we will postpone discussions
+on the rationale for the simple syntax until @semantics.
 
 == Words
 
-#figure(
-  ```
-  word ::= bit | word.0 | word.1
-  bit  ::= 0 | 1
-  ```,
-  caption: "Definition of bits and words.",
-)<word>
-
-
-We set concatenation to be right-associative, i.e., $(w.w').w'' = w.(w'.w'')$,
-and safely abbreviate $w.w'$ as $w w'$. We extend the alphabet to include two
-common bases: decimal and hexadecimal, shown in @digits.
+Welkin's main encoding uses binary words, but add notation for decimal and
+hexadecimal.
 
 #figure(
   ```
+  bit ::= 0 | 1
   digit ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
   nibble ::= A | B | C | D | E | F
   ```,
-  caption: "Decimal and hexadecimal digits.",
+  caption: "Binary, decimal, and hexadecimal digits.",
 )<digits>
 
-We set the default base to be decimal and use prefixes.
+A word is a sequence of digits, see @word. We leave concatenation `.` as an
+undefined notion. We set concatenation to be right-associative, i.e.,
+$(w.w').w'' = w.(w'.w'')$, and abbreviate $w.w'$ as $w w'$. Moreover, we add a
+conversion from decimal and hexadecimal into binary via @digit-conversions.
+
+
+#figure(
+  ```
+  word ::=  binary | decimal | hex
+  binary ::= bit | binary.bit
+  decimal ::= digit | decimal..digit
+  hex ::= nibble | hex.nibble
+  byte ::= bit bit bit bit bit bit bit
+  ```,
+  caption: "Definition of bytes and words.",
+)<word>
+
+#figure(
+  ```
+  number ::=
+  ```,
+  caption: "Word prefixes and conversions into binary words.",
+)<digit-conversions>
+
+We set the default base to be decimal and use prefixes `0b` and `0x` for binary
+and hexadecimal, respectively.
 
 A *byte* is eight bits, or two nibbles.
 
