@@ -10,12 +10,15 @@
 
 = Syntax <syntax>
 
-We keep this section self-contained with explicit alphabets and explicit
-recursive definitions. For general notation, we write $a_0, ..., a_n$ for a
-finite list of items, and use $a ::= a_1 | ... | a_n$ to denote a definition of
-$a$ in terms of $a_1, ..., a_n$. that for verification purposes, we will
-incorporate fixed bounds into @bootstrap. Moreover, we will postpone discussions
-on the rationale for the simple syntax until @semantics.
+// TODO: determine how rigorous the language is here
+// vs bootstrap!
+// Should the standard be put into an appendix?
+We keep this section self-contained with explicit alphabets and recursive
+definitions. For general notation, we write $a_0, ..., a_n$ for a finite list of
+items, and use $a ::= a_1 | ... | a_n$ to denote a definition of $a$ in terms of
+$a_1, ..., a_n$. that for verification purposes, we will incorporate fixed
+bounds into @bootstrap. Moreover, we will postpone discussions on the rationale
+for the simple syntax until @semantics.
 
 == Words
 
@@ -31,34 +34,72 @@ hexadecimal.
   caption: "Binary, decimal, and hexadecimal digits.",
 )<digits>
 
-A word is a sequence of digits, see @word. We leave concatenation `.` as an
+// TODO: determine a suitable symbol to replace . for contatenation
+// OR figure out how to bake into semantics
+A word is a sequence of digits, see @word. We leave concatenation `;` as an
 undefined notion. We set concatenation to be right-associative, i.e.,
-$(w.w').w'' = w.(w'.w'')$, and abbreviate $w.w'$ as $w w'$. Moreover, we add a
-conversion from decimal and hexadecimal into binary via @digit-conversions.
+$(w.w')+w'' = w.(w'.w'')$, and abbreviate $w.w'$ as $w w'$. Moreover, we add a
+conversion from decimal and hexadecimal into binary via @digit-conversions. We
+provide the explicit recursive definiton based on this table in
+@word-conversions, where `a <--> b` means that `a` is converted into `b` and
+vice versa. This is a restriction on the notion of representations that will be
+addressed in @bootstrap.
 
 
 #figure(
   ```
-  word ::=  binary | decimal | hex
-  binary ::= bit | binary.bit
-  decimal ::= digit | decimal..digit
-  hex ::= nibble | hex.nibble
-  byte ::= bit bit bit bit bit bit bit
+  word --> binary | decimal | hex
+  binary --> bit | binary.bit
+  decimal --> digit | decimal.digit
+  hex --> nibble | hex.nibble
   ```,
-  caption: "Definition of bytes and words.",
+  caption: "Definition of words.",
 )<word>
 
 #figure(
-  ```
-  number ::=
-  ```,
-  caption: "Word prefixes and conversions into binary words.",
+  table(
+    columns: (auto, auto, auto),
+    [*Hexadecimal*], [*Decimal*], [*Binary*],
+    [0], [0], [0],
+    [1], [1], [1],
+    [2], [2], [10],
+    [3], [3], [11],
+    [4], [4], [100],
+    [5], [5], [101],
+    [6], [6], [110],
+    [7], [7], [111],
+    [8], [8], [1000],
+    [9], [9], [1001],
+    [A], [10], [1010],
+    [B], [11], [1011],
+    [C], [12], [1100],
+    [D], [13], [1101],
+    [E], [14], [1110],
+    [F], [15], [1111],
+  ),
+  caption: "Conversions of digits between different bases.",
 )<digit-conversions>
 
-We set the default base to be decimal and use prefixes `0b` and `0x` for binary
-and hexadecimal, respectively.
+// TODO: determine if "0x0".something should mean string concatenation.
+// Might be nice to have?
+// But then we have to distinguish with our notation,
+// so maybe use seomthing *besides* . for contaenation?
+// TODO: complete!
+#figure(
+  ```
+  ```,
+  caption: "Recursive definition for converting words between bases.",
+)<word-conversions>
 
-A *byte* is eight bits, or two nibbles.
+#figure(
+  ```
+  "0".word <--> word
+  "0b0".word <--> "0b".word
+  "0x0".word <--> "0x".word
+  ```,
+  caption: "Conversions with leading zeros.",
+)<leading-zeros>
+
 
 == Terminals
 
