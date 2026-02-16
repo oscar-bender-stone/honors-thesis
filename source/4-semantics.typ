@@ -163,11 +163,17 @@ that "information is a difference that makes a difference"
 // TODO: mention enumeration of all units. Crucial!
 // Will need to mention in the bootstrap.
 #definition[
-  The *combination* of units $u, u'$, denoted by $u + u'$ is defined to be the
-  pairwise union of components across. Note that is different from the *disjoint
-  union*, in which a new top level node is made with children $u$ and $u'$.
+  A *unit* is defined from the AST as follows... The *combination* of units
+  $u, u'$, denoted by $u + u'$ is defined to be the pairwise union of components
+  across. Note that is different from the *disjoint union*, in which a new top
+  level node is made with children $u$ and $u'$.
 ]<unit>
 
+// TODO: maybe connect back to import notation?
+// Woudl something like x.@s be reasonable?
+We set $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(s)$ is the local
+extension of $s$ in $x$. We interpret $u -->^c v$ as: the *sign* $u$ represents
+*referant* $v$ in *context* $c$.
 
 #definition[
   A unit $u$ is *non-trivial* if it is non-empty and has a non-complete
@@ -178,12 +184,6 @@ that "information is a difference that makes a difference"
   first-order logic. We will frequently rely on this result throughout the
   thesis.]
 
-
-// TODO: maybe connect back to import notation?
-// Woudl something like x.@s be reasonable?
-We set $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(s)$ is the local
-extension of $s$ in $x$. We interpret $u -->^c v$ as: the *sign* $u$ represents
-*referant* $v$ in *context* $c$.
 
 
 #definition[Let $u, v$ be units. Then $u$ *contains information* $v$ if for some
