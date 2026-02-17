@@ -165,7 +165,15 @@ famous quote that "information is a difference that makes a difference"
 // TODO: mention enumeration of all units. Crucial!
 // Will need to mention in the bootstrap.
 #definition[
-  A *unit* is defined from the AST as follows...
+  Create new symbols $"ID"_w$ for each binary word $w$. A *unit* is defined from
+  the AST as follows:
+  - *Graph*: take each node defined in the graph, and transform it into a unit.
+  Take these units and add them to the list of names. Then, take the
+  representations and add them to the naes. Apply the import rule at this stage.
+  - *Representation*: apply internal transitivity in each context.
+
+  The following rules are applied:
+  - *Internal Transitivity*: $a -->^b c$ and $c -->^b$ imply $d => a -->^b d$.
   - Each $@u$ takes each sub-unit $v$ of $u$
   and adds the rule $v --> u.v$ in the current scope.
 
@@ -173,17 +181,12 @@ famous quote that "information is a difference that makes a difference"
   The *combination* of units $u, u'$, denoted by $u + u'$ is defined to be the
   pairwise union of components across. Note that is different from the *disjoint
   union*, in which a new top level node is made with children $u$ and $u'$.
-]<ast-unit>
+]<unit>
 
 Note that, in Welkin, $u + u'$ is definable as $@u {@u'}$.
 
 // TODO: define notion of "or" in this context!
 // We need it to be that we can *always* generate a certificate, computably!
-#definition[
-  Units satisfy the following rules.
-  - *Internal Transitivity*: $a -->^b c$ and $c -->^b$ imply $d => a -->^b d$.
-]<rules-units>
-
 #lemma[
   - $a -->^(c+d) b <=> a -->^c b or a -->^d b$.
 ]<rules-sum>
