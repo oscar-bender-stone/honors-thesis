@@ -175,7 +175,13 @@ famous quote that "information is a difference that makes a difference"
 // Woudl something like x.@s be reasonable?
 We set $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(s)$ is the local
 extension of $s$ in $x$. We interpret $u -->^c v$ as: the *sign* $u$ represents
-*referant* $v$ in *context* $c$.
+*referant* $v$ in *context* $c$. Through @universality-theorem, we will present
+the following computational interpretation:
+
+$u -->^v w "iff" phi_u(v) "evaluates to" w$,
+
+where $phi_u$ is the partial computable function given by the ID of $u$. Note
+that the former is strictly _more_ expressive, due to implicit bindings.
 
 #definition[
   A unit $u$ is *non-trivial* if it is non-empty and has a non-complete
