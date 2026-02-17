@@ -14,11 +14,10 @@
       email: "oscar-bender-stone@protonmail.com",
     ),
   ),
-  abstract: [Welkin is a formalized programming language to store information.
-    We introduce its use cases and rigorously define its syntax and semantics.
-    From there, we introduce the bootstrap, making Welkin completely
-    self-contained under a meta-theory based on combinators, equivalent to a
-    provably minimal fragment of arithmetic.],
+  abstract: [Welkin is a formalized information language. We introduce its use
+    cases and rigorously define its syntax and semantics. From there, we
+    introduce the bootstrap, making Welkin completely self-contained, and we
+    prove that Welkin is sound but incomplete.],
   bibliography: bibliography((
     "references/misc.bib",
     "references/1-introduction.bib",
