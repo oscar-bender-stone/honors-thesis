@@ -165,21 +165,28 @@ famous quote that "information is a difference that makes a difference"
 // TODO: mention enumeration of all units. Crucial!
 // Will need to mention in the bootstrap.
 #definition[
-  A *unit* is defined from the AST as follows... The *combination* of units
-  $u, u'$, denoted by $u + u'$ is defined to be the pairwise union of components
-  across. Note that is different from the *disjoint union*, in which a new top
-  level node is made with children $u$ and $u'$.
+  A *unit* is defined from the AST as follows...
+  - Each $@u$ takes each sub-unit $v$ of $u$
+  and adds the rule $v --> u.v$ in the current scope.
+
+
+  The *combination* of units $u, u'$, denoted by $u + u'$ is defined to be the
+  pairwise union of components across. Note that is different from the *disjoint
+  union*, in which a new top level node is made with children $u$ and $u'$.
 ]<ast-unit>
+
+Note that, in Welkin, $u + u'$ is definable as $@u {@u'}$.
 
 // TODO: define notion of "or" in this context!
 // We need it to be that we can *always* generate a certificate, computably!
 #definition[
   Units satisfy the following rules.
   - *Internal Transitivity*: $a -->^b c$ and $c -->^b$ imply $d => a -->^b d$.
-  - *Sum Introduction:* $a -->^c b$ or $a -->^d b$ implies $a -->^(c + d) b$.
-  - *Sum Elimination:* $a -->^(c + d) b$ implies at least $a -->^c b$ or.
-    $a -->^d b$.
 ]<rules-units>
+
+#lemma[
+  - $a -->^(c+d) b <=> a -->^c b or a -->^d b$.
+]<rules-sum>
 
 // TODO: maybe connect back to import notation?
 // Woudl something like x.@s be reasonable?
