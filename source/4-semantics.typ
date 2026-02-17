@@ -169,7 +169,17 @@ famous quote that "information is a difference that makes a difference"
   $u, u'$, denoted by $u + u'$ is defined to be the pairwise union of components
   across. Note that is different from the *disjoint union*, in which a new top
   level node is made with children $u$ and $u'$.
-]<unit>
+]<ast-unit>
+
+// TODO: define notion of "or" in this context!
+// We need it to be that we can *always* generate a certificate, computably!
+#definition[
+  Units satisfy the following rules.
+  - *Internal Transitivity*: $a -->^b c$ and $c -->^b$ imply $d => a -->^b d$.
+  - *Sum Introduction:* $a -->^c b$ or $a -->^d b$ implies $a -->^(c + d) b$.
+  - *Sum Elimination:* $a -->^(c + d) b$ implies at least $a -->^c b$ or.
+    $a -->^d b$.
+]<rules-units>
 
 // TODO: maybe connect back to import notation?
 // Woudl something like x.@s be reasonable?
@@ -178,10 +188,12 @@ extension of $s$ in $x$. We interpret $u -->^c v$ as: the *sign* $u$ represents
 *referant* $v$ in *context* $c$. Through @universality-theorem, we will present
 the following computational interpretation:
 
-$u -->^v w "iff" phi_u(v) "evaluates to" w$,
-
+#align(center, block[
+  $u -->^v w "iff" phi_u (v) "evaluates to" w$,
+])
 where $phi_u$ is the partial computable function given by the ID of $u$. Note
-that the former is strictly _more_ expressive, due to implicit bindings.
+that the "iff" above is strictly a logical correspondence; the former is
+strictly _more_ expressive, due to implicit bindings.
 
 #definition[
   A unit $u$ is *non-trivial* if it is non-empty and has a non-complete
