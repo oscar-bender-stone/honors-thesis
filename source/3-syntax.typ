@@ -6,10 +6,12 @@
 #import "template/ams-article.typ": equation_block, lemma, proof, theorem
 #import "template/ams-article.typ": todo
 #import "us-ascii.typ": ascii-table
+
 #import "grammar.typ": grammar
 #import "LL1/grammar.typ": ll1-grammar
-#import "LL1/table.typ": ll1-table
 #import "LL1/refactor.typ": ll1-refactor
+#import "LL1/table.typ": ll1-table
+#import "LL1/transforms.typ": ll1-transforms
 
 = Syntax <syntax>
 
@@ -175,7 +177,7 @@ Moreover, we define the top of a word in @top.
   step by step, see @refactor_ll1. We can readily verify that there are no
   shared prefixes for a single production, see @ll_table.
 
-  // #ll1-transformations<transforms-ll1>
+  #ll1-transforms<transforms-ll1>
 
   #ll1-grammar<grammar_ll1> #ll1-refactor<refactor_ll1>
 
