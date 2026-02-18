@@ -7,9 +7,9 @@
 #import "template/ams-article.typ": todo
 #import "us-ascii.typ": ascii-table
 #import "grammar.typ": grammar
-#import "ll(1)_grammar.typ": ll1-grammar
-#import "ll(1)_table.typ": ll1-table
-#import "LL(1)_refactor.typ": ll1-refactor
+#import "LL1/grammar.typ": ll1-grammar
+#import "LL1/table.typ": ll1-table
+#import "LL1/refactor.typ": ll1-refactor
 
 = Syntax <syntax>
 
