@@ -52,6 +52,8 @@
 
   // --- Main Table Block ---
   // Using a Serif font (like New Computer Modern) enhances the LaTeX look
+  // TODO: move back to default font. Probably will use 8pt font though.
+  // TODO: add some of table formatting into template!
   set text(font: "New Computer Modern", size: 8pt)
 
   table(
