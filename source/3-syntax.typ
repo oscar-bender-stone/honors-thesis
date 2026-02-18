@@ -119,7 +119,10 @@ There are several important character classes.
 // TODO: maybe define general grammars?
 // Might make the definition of Welkin's parse tree easier
 Welkin's grammar is displayed in @welkin-grammar, inspired by a minimal, C-style
-syntax.
+syntax. Note that when concatenating two terminals, denoted in uppercase, no
+whitespace between them is allowed, but in any other case, any amount of
+whitespace is allowed but ignored.
+
 
 // TODO: decide if empty strings should be accepted or not
 // Note that the empty string is not accepted, but is instead represented

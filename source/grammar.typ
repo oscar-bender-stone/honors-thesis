@@ -5,14 +5,16 @@
   ```
   start ::= (term ",")* term
   term ::= toplevel | arc | graph | path
-  toplevel ::= "#" (ID | String)
+  toplevel ::= "#" NAME
   arc ::= (term "-" term "->)+ term
         | (term "<-" term "-")+ term
+        | (term "<-" term "->")+ term
         | (term "-" term "-")+ term
   graph ::= path? { term* }
   path ::= unit | "."."*" | "."+
   dots ::= "." dots*
-  unit ::= IMPORT | ID | STRING
-  DOTS ::= "."."*" | "."+ | "."
+  unit ::= IMPORT | NAME
+  NAME ::= ID | STRING
+  DOTS ::= ".*" | "."+ | "."
   ```
 ]

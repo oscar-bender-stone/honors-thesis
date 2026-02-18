@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
+// TODO: maybe provide brief rationales for each transformation?
 #let ll1-refactor-table = table(
   columns: (auto, auto, auto),
   [*Original*], [*Transform*], [*LL(1)*],
@@ -20,6 +21,21 @@
   ```],
 
   [`toplevel ::= "#" NAME`], [N/A], [-],
+
+  [```
+  arc ::= (term "-" term "->)+ term
+          | (term "<-" term "-")+ term
+          | (term "<-" term "->")+ term
+          | (term "-" term "-")+ term
+  ```],
+  [@ll1-transform:1, @ll1-transform:2],
+  [```
+  suffix ::= link term suffix | graph | epsilon
+  chain  ::= arc unit chain | graph | epsilon
+  right_link ::= "->" | epsilon
+  edge_link ::=  "-" | epsilon
+
+  ```],
 )
 
 #let ll1-refactor = figure(
