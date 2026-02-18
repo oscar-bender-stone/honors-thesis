@@ -4,7 +4,8 @@
 #let grammar = [
   ```
   start ::= (term ",")* term
-  term ::= arc | graph | path
+  term ::= toplevel | arc | graph | path
+  toplevel ::= "#" (ID | String)
   arc ::= (term "-" term "->)+ term
         | (term "<-" term "-")+ term
         | (term "-" term "-")+ term

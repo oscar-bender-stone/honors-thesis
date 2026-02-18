@@ -92,9 +92,13 @@ There are several important character classes.
 #figure(
   ```
   STRING ::= SQ_STRING | DQ_STRING
+  SQ_STRING ::= "'" (SQ_CHAR | ESCAPE_SQ )* "'"
+  DQ_STRING ::= "'" (DQ_CHAR | ESCAPE_DQ )* "'"
 
   SQ_CHAR ::= PRINTABLE \ {'}
   DQ_CHAR ::= PRINTABLE \ {"}
+  ESCAPE_SQ ::= "\'" | "\\"
+  ESCAPE_DQ ::= "\"" | "\\"
   ```,
   caption: "Strings.",
 )<string>
@@ -103,7 +107,7 @@ There are several important character classes.
   ```
   IMPORT ::= "@" ID
   ID :: ID_CHAR+
-  ID_CHAR ::= PRINTABLE / (DELIMITERS + WHITESPACE)
+  ID_CHAR ::= PRINTABLE / (DELIMITERS + WHITESPACE + "#" + "@")
   ```,
   caption: "IDs.",
 )<id>
@@ -170,6 +174,8 @@ Moreover, we define the top of a word in @top.
   We left-factor common prefixes, resulting in @grammar_ll1. For the refactor
   step by step, see @refactor_ll1. We can readily verify that there are no
   shared prefixes for a single production, see @ll_table.
+
+  // #ll1-transformations<transforms-ll1>
 
   #ll1-grammar<grammar_ll1> #ll1-refactor<refactor_ll1>
 
