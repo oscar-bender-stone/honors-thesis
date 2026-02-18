@@ -13,17 +13,15 @@
   toplevel        ::= "#" NAME
   unit            ::= IMPORT | NAME
   adjunct         ::= graph | arc | ε
-  chain           ::= arc term chain
+  chain           ::= LINK unit chain
                     | graph
                     | epsilon
-  graph           ::= "{" terms "}"
-  terms           ::= term separator terms | ε
+
+  graph           ::= "{" contents "}"
+  contents        ::= term separator terms | ε
   separator       ::= "," | ε
 
-  link            ::= "<-" arrow_tail
-                    | "-" dash_tail
-  arrow_tail      ::= "->" | epsilon
-  edge_tail       ::= "-" | epsilon
+  LINK            ::= "<-" | "->" | "-"
 
   DOTS            ::= STAR | "." DOTS | ε
   STAR            ::= "." "*"

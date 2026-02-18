@@ -9,8 +9,8 @@
   [@ll1-transform:0, @ll1-transform:1],
   [```
     start ::= term terms
-    terms ::= "," terms | epsilon
-    terms_tail ::= term terms | epsilon
+    terms ::= "," terms | END
+    terms_tail ::= term terms | END
     ```
   ],
 
@@ -30,11 +30,24 @@
   ```],
   [@ll1-transform:1, @ll1-transform:2],
   [```
-  suffix ::= link term suffix | graph | epsilon
-  chain  ::= arc unit chain | graph | epsilon
-  right_link ::= "->" | epsilon
-  edge_link ::=  "-" | epsilon
+  chain ::= LINK unit chain
+          | graph
+          | END
+  LINK ::= "<-" | "->" | "-"
+  ```],
 
+  [`graph ::= path? { term* }`],
+  [@ll1-transform:1],
+  [```
+  graph     ::= "{" contents "}"
+  contents  ::= term separator term | END
+  SEPARATOR ::= "," | END
+  ```],
+
+  [`path ::= unit | ".*" | "."+`],
+  [@ll1-transform:1],
+  [```
+  PATH_ALT ".*" | "." DOTS
   ```],
 )
 
