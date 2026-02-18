@@ -4,6 +4,7 @@
 #let ll1-refactor-table = table(
   columns: (auto, auto, auto),
   [*Original*], [*Transform*], [*LL(1)*],
+  [Test], [@ll1-transform:0], [Test],
 )
 
 #let ll1-refactor = figure(
