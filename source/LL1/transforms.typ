@@ -8,7 +8,7 @@
 #show figure.where(kind: "ll1-transform"): it => it.body // remove block
 
 #let req-counter = counter("ll1-transform")
-#req-counter.update(1)
+// #req-counter.update(1)
 #let Transform(name, description) = {
   let no() = req-counter.display() + req-counter.step()
   let number() = req-counter.get().first()

@@ -160,8 +160,8 @@ Moreover, we define the top of a word in @top.
 )<top>
 
 #definition[(@rosenkrantz-ll1). A grammar is LL(1) iff the following holds: for
-  any terminals $w_1, w_2$ and nonterminal $A$, there is at most one rule $r$
-  such that for some $w_2, w_3$,
+  any terminal $w_1$ and nonterminal $A$, there is at most one rule $r$ such
+  that for some $w_2, w_3$ appearing at the top of $A$ such that,
   - $S => "top"(w_1)A w_3$
   - $A => w_2 (p)$
   - $"top"(w_2 w_3) = w$

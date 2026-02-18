@@ -13,5 +13,6 @@
   path ::= unit | "."."*" | "."+
   dots ::= "." dots*
   unit ::= IMPORT | ID | STRING
+  DOTS ::= "."."*" | "."+ | "."
   ```
 ]
