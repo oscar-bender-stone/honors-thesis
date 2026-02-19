@@ -13,7 +13,8 @@
   graph ::= path? { term* }
   path ::= unit | "."."*" | "."+
   dots ::= "." dots*
-  unit ::= IMPORT | NAME
+  unit ::= IMPORT | NAME | ROOT | "#."
+  ROOT ::= "#" NAME?
   NAME ::= ID | STRING
   DOTS ::= ".*" | "."+ | "."
   ```

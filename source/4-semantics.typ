@@ -57,46 +57,6 @@ for the syntax. The AST provides an intermediate step before the final data
 structure.
 
 
-#figure(
-  table(
-    columns: (auto, auto, auto),
-    [*Hexadecimal*], [*Decimal*], [*Binary*],
-    [0], [0], [0],
-    [1], [1], [1],
-    [2], [2], [10],
-    [3], [3], [11],
-    [4], [4], [100],
-    [5], [5], [101],
-    [6], [6], [110],
-    [7], [7], [111],
-    [8], [8], [1000],
-    [9], [9], [1001],
-    [A], [10], [1010],
-    [B], [11], [1011],
-    [C], [12], [1100],
-    [D], [13], [1101],
-    [E], [14], [1110],
-    [F], [15], [1111],
-  ),
-  caption: "Conversions of digits between different bases.",
-)<digit-conversions>
-
-Note that for words, we add a conversion from decimal and hexadecimal into
-binary via @digit-conversions. We provide the explicit recursive definiton based
-on this table in @word-conversions, where `a <--> b` means that `a` is converted
-into `b` and vice versa. This is a restriction on the notion of representations
-that will be addressed in @bootstrap.
-
-// TODO: determine if "0x0".something should mean string concatenation.
-// Might be nice to have?
-// But then we have to distinguish with our notation,
-// so maybe use seomthing *besides* . for contaenation?
-// TODO: complete!
-#figure(
-  ```
-  ```,
-  caption: "Recursive definition for converting words between bases.",
-)<word-conversions>
 
 #figure(
   ```
@@ -126,6 +86,73 @@ that will be addressed in @bootstrap.
   The terms in the top-level are put into a Graph node containing a unique, user
   given ID.
 ]<ast>
+
+// TODO: fill in!
+#definition[
+  AST Equality...
+]<ast-equality>
+
+
+#figure(
+  table(
+    columns: (auto,) * 17,
+    [*Hex*],
+    [0],
+    [1],
+    [2],
+    [3],
+    [4],
+    [5],
+    [6],
+    [7],
+    [8],
+    [9],
+    [A],
+    [B],
+    [C],
+    [D],
+    [E],
+    [F],
+
+    [*Dec*],
+    [0],
+    [1],
+    [2],
+    [3],
+    [4],
+    [5],
+    [6],
+    [7],
+    [8],
+    [9],
+    [10],
+    [11],
+    [12],
+    [13],
+    [14],
+    [15],
+
+    [*Bin*],
+    [0],
+    [1],
+    [10],
+    [11],
+    [100],
+    [101],
+    [110],
+    [111],
+    [1000],
+    [1001],
+    [1010],
+    [1011],
+    [1100],
+    [1101],
+    [1110],
+    [1111],
+  ),
+  caption: "Conversions of digits between different bases.",
+)<digit-conversions>
+
 
 #definition[An AST is *valid* if the relative imports does not exceed the number
   of available parents.
@@ -213,8 +240,6 @@ strictly _more_ expressive, due to implicit bindings.
 #remark[This definition is a natural generalization of consistency in
   first-order logic. We will frequently rely on this result throughout the
   thesis.]
-
-
 
 #definition[Let $u, v$ be units. Then $u$ *contains information* $v$ if for some
   $s in v$, $u[s] != s$.]<information>

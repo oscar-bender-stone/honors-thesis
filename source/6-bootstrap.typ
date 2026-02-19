@@ -14,3 +14,15 @@ this thesis, but that could easily be a future extension.
 
 This section is self-contained and defines _everything_ necessary about Welkin.
 The complete bootstrap is in appendix ?.
+
+
+// TODO: emphasize that Welkin is
+// homo-iconic, similar to lisp!
+// Very powerful!
+
+#let bootstrap-text = ```
+#welkin,
+
+
+
+```
