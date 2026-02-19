@@ -3,19 +3,18 @@
 
 #let ll1-grammar = figure(
   ```
-  start           ::= term sequence
+  start           ::= term terms
   terms           ::= "," terms_tail| EPS
   terms_tail      ::= term terms | EPS
   term            ::= toplevel
-                    | unit relation
+                    | unit chain
                     | "." DOTS
                     | "{" terms "}"
   toplevel        ::= "#" NAME
   unit            ::= IMPORT | NAME
-  relation        ::= graph | arc | EPS
   chain           ::= LINK unit chain
                     | graph
-                    | epsilon
+                    | EPS
 
   graph           ::= "{" contents "}"
   contents        ::= term separator terms | EPS
@@ -24,7 +23,7 @@
   LINK            ::= "<-" | "->" | "-"
 
   DOTS            ::= STAR | "." DOTS | EPS
-  STAR            ::= "." "*"
+  STAR            ::= ".*"
   NAME            ::= ID | STRING
 
   IMPORT ::= "@" ID

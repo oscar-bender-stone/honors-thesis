@@ -10,23 +10,23 @@
 
   ["start"],
   [#set text(size: 9pt); `"#"` , ID, STRING, IMPORT, `"."`, `"{"`],
-  ["term" "sequence"],
+  [`term terms`],
 
-  ["sequence"], [ `","` ], [ `","` "term" "sequence" ],
+  ["sequence"], [ `","` ], [ `"," terms terms` ],
   [], [ EOF ], [ EPS ],
 
   ["term"], [ `"#"` ], [ "toplevel" ],
-  [], [ ID, STRING, IMPORT ], [ "unit" "suffix" ],
+  [], [ ID, STRING, IMPORT ], [ `unit chain` ],
   [], [ `"."` ], [ `"."` "DOTS" ],
   [], [ `"{"` ], [ `"{"` "terms" `"}"` ],
 
   ["suffix"], [ `"{"` ], [ "graph" ],
-  [], [ `"-"`, `"<-"` ], [ "arc" ],
+  [], [ `"-"`, `"<-"`, `"->"` ], [ "arc" ],
   [], [ `","`, `"}"`, EOF ], [ EPS ],
 
   ["DOTS"], [ `".*"` ], [ STAR ],
   [], [ `"."` ], [ `"."` "DOTS" ],
-  [], [ `","`, `"}"`, EOF, `"-"`, `"<-"`, `"->"` ], [ EPS ],
+  [], [ `","`, `"}"`, EOF ], [ EPS ],
 )
 
 #let ll1-predict-figure = figure(
