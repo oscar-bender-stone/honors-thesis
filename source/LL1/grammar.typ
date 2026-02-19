@@ -17,8 +17,7 @@
                     | EPS
 
   graph           ::= "{" contents "}"
-  contents        ::= term separator terms | EPS
-  separator       ::= "," | EPS
+  contents        ::= term terms | EPS
 
   LINK            ::= "<-" | "->" | "-"
 

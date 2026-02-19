@@ -176,9 +176,12 @@ Moreover, we define the top of a word in @top.
   derivation.
 ]
 #proof[
-  We left-factor common prefixes, resulting in @grammar_ll1. For the refactor
-  step by step, see @refactor_ll1. We can readily verify that there are no
-  shared prefixes for a single production, see @predict-table-ll1.
+  // TODO: should we explain why LL(1) => unambiguous?
+  We use transformations in @transforms-ll1 that preserve the language of the
+  original grammar, resulting in @grammar_ll1. For the refactor step by step,
+  see @refactor_ll1. We can readily verify that there are no shared prefixes for
+  a single production, see @predict-table-ll1. Because there are no conflicts,
+  the transformed grammar is LL(1), and hence, the grammar is unambiguous.
 
   #ll1-transforms<transforms-ll1>
 

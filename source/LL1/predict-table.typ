@@ -2,31 +2,39 @@
 // SPDX-License-Identifier: MIT
 
 // TODO: maybe use | as the separator?
-#let ll1-predict-table = table(
-  columns: (auto, auto, 1fr),
-  inset: 6pt,
-  fill: (x, y) => if y == 0 { luma(200) },
-  [*Non-Terminal*], [*Lookahead (a)*], [*Production Chosen*],
+#let ll1-predict-table = figure(
+  table(
+    columns: (auto, auto, 1fr),
+    inset: 6pt,
+    fill: (x, y) => if y == 0 { luma(200) },
+    [*Non-Terminal*], [*Lookahead (a)*], [*Production Chosen*],
 
-  ["start"],
-  [#set text(size: 9pt); `"#"` , ID, STRING, IMPORT, `"."`, `"{"`],
-  [`term terms`],
+    // START
+    ["start"],
+    [#set text(size: 9pt); `"#"` , ID, STRING, IMPORT, `"."`, `"{"`],
+    [ `term terms` ],
 
-  ["sequence"], [ `","` ], [ `"," terms terms` ],
-  [], [ EOF ], [ EPS ],
+    // TERMS (Previously sequence)
+    ["terms"], [ `","` ], [ `"," terms_tail` ],
+    [], [ `EOF`, `"}"` ], [ `EPS` ],
 
-  ["term"], [ `"#"` ], [ "toplevel" ],
-  [], [ ID, STRING, IMPORT ], [ `unit chain` ],
-  [], [ `"."` ], [ `"."` "DOTS" ],
-  [], [ `"{"` ], [ `"{"` "terms" `"}"` ],
+    // TERM
+    ["term"], [ `"#"` ], [ "toplevel" ],
+    [], [ ID, STRING, IMPORT ], [ `unit chain` ],
+    [], [ `"."` ], [ `"."` "DOTS" ],
+    [], [ `"{"` ], [ `"{"` "terms" `"}"` ],
 
-  ["suffix"], [ `"{"` ], [ "graph" ],
-  [], [ `"-"`, `"<-"`, `"->"` ], [ "arc" ],
-  [], [ `","`, `"}"`, EOF ], [ EPS ],
+    // CHAIN (Previously suffix)
+    ["chain"], [ `"{"` ], [ "graph" ],
+    [], [ `"-"`, `"<-"`, `"->"` ], [ `LINK unit chain` ],
+    [], [ `","`, `"}"`, EOF ], [ `EPS` ],
 
-  ["DOTS"], [ `".*"` ], [ STAR ],
-  [], [ `"."` ], [ `"."` "DOTS" ],
-  [], [ `","`, `"}"`, EOF ], [ EPS ],
+    // DOTS
+    ["DOTS"], [ `".*"` ], [ STAR ],
+    [], [ `"."` ], [ `"."` "DOTS" ],
+    [], [ `","`, `"}"`, EOF ], [ `EPS` ],
+  ),
+  caption: [LL(1) Predict Table],
 )
 
 #let ll1-predict-figure = figure(

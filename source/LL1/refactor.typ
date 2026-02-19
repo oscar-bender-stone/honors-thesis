@@ -9,8 +9,8 @@
   [@ll1-transform:0, @ll1-transform:1],
   [```
     start ::= term terms
-    terms ::= "," terms | END
-    terms_tail ::= term terms | END
+    terms ::= "," terms | EPS
+    terms_tail ::= term terms | EPS
     ```
   ],
 
@@ -33,7 +33,7 @@
   [```
   chain ::= LINK unit chain
           | graph
-          | END
+          | EPS
   LINK ::= "<-" | "->" | "-"
   ```],
 
@@ -41,8 +41,8 @@
   [@ll1-transform:1],
   [```
   graph     ::= "{" contents "}"
-  contents  ::= term separator term | END
-  SEPARATOR ::= "," | END
+  contents  ::= term terms | EPS
+  SEPARATOR ::= "," | EPS
   ```],
 
   [`path ::= unit | ".*" | "."+`],
