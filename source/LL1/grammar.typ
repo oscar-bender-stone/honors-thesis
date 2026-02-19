@@ -3,7 +3,7 @@
 
 #let ll1-grammar = figure(
   ```
-  start           ::= term terms
+  start           ::= term terms EOF
   terms           ::= "," terms_tail| EPS
   terms_tail      ::= term terms | EPS
   term            ::= toplevel
