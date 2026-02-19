@@ -4,29 +4,42 @@
 #let ll1-grammar = figure(
   ```
   start           ::= term sequence
-  terms           ::= "," terms_tail| ε
-  terms_tail      ::= term terms | ε
+  terms           ::= "," terms_tail| EPS
+  terms_tail      ::= term terms | EPS
   term            ::= toplevel
-                    | unit adjunct
+                    | unit relation
                     | "." DOTS
                     | "{" terms "}"
   toplevel        ::= "#" NAME
   unit            ::= IMPORT | NAME
-  adjunct         ::= graph | arc | ε
+  relation        ::= graph | arc | EPS
   chain           ::= LINK unit chain
                     | graph
                     | epsilon
 
   graph           ::= "{" contents "}"
-  contents        ::= term separator terms | ε
-  separator       ::= "," | ε
+  contents        ::= term separator terms | EPS
+  separator       ::= "," | EPS
 
   LINK            ::= "<-" | "->" | "-"
 
-  DOTS            ::= STAR | "." DOTS | ε
+  DOTS            ::= STAR | "." DOTS | EPS
   STAR            ::= "." "*"
   NAME            ::= ID | STRING
 
+  IMPORT ::= "@" ID
+  ID :: ID_CHAR+
+  ID_CHAR ::= PRINTABLE / (DELIMITERS + WHITESPACE + "#" + "@" + "'" + "\"")
+  STRING ::= SQ_STRING | DQ_STRING
+  SQ_STRING ::= "'" (SQ_CHAR | ESCAPE_SQ )* "'"
+  DQ_STRING ::= "'" (DQ_CHAR | ESCAPE_DQ )* "'"
+
+  SQ_CHAR ::= PRINTABLE \ {'}
+  DQ_CHAR ::= PRINTABLE \ {"}
+  ESCAPE_SQ ::= "\'" | "\\"
+  ESCAPE_DQ ::= "\"" | "\\"
+
+  EPS ::= ""
   ```,
-  caption: "Transformed LL(1) grammar for Welkin.",
+  caption: "Transformed LL(1) grammar for Welkin, with all terminals defined.",
 )

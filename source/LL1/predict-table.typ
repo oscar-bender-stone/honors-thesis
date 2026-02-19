@@ -3,31 +3,30 @@
 
 // TODO: maybe use | as the separator?
 #let ll1-predict-table = table(
-  columns: (auto, auto, auto),
-  table.header([Non-terminal], [Lookahead ($a$)], [Production Chosen]),
-  [start], [`#` | `ID` | `STR` | `IMP` | `.` | `{`], [term sequence],
-  [sequence], [`,`], [`","` term sequence],
-  [], [`EOF`], [ε],
-  [term], [`#`], [toplevel],
-  [], [`ID` | `STR` | `IMP`], [unit suffix],
-  [unit suffix], [`.`], [`.` DOTS],
-  [], [`{`], [`{` terms `}`],
-  [suffix], [`{`], [graph],
-  [], [`-` | `<-`], [arc],
-  [], [`,` | `}` | `EOF`], [ε],
-  [arc], [`-`], [`-` term dash_link],
-  [], [`<-`], [`<-` term arrow_link],
-  [dash_link], [`->`], [`->` right_chain],
-  [], [`-`], [`-` plain_chain],
-  [arrow_link], [`-`], [`-` left_chain],
-  [], [`->`], [`->` symm_chain],
-  [right_chain], [`-`], [`-` term `->` right_chain],
-  [], [`,` | `}` | `EOF`], [ε],
-  [DOTS], [`.*`], [STAR],
-  [], [`.`], [`.` DOTS],
-  [], [FOLLOW\*], [ε],
-  [terms], [`#` | `ID` | `STR` | `IMP` | `.` | `{`], [term terms],
-  [], [`}`], [`}`],
+  columns: (auto, auto, 1fr),
+  inset: 6pt,
+  fill: (x, y) => if y == 0 { luma(200) },
+  [*Non-Terminal*], [*Lookahead (a)*], [*Production Chosen*],
+
+  ["start"],
+  [#set text(size: 9pt); `"#"` , ID, STRING, IMPORT, `"."`, `"{"`],
+  ["term" "sequence"],
+
+  ["sequence"], [ `","` ], [ `","` "term" "sequence" ],
+  [], [ EOF ], [ EPS ],
+
+  ["term"], [ `"#"` ], [ "toplevel" ],
+  [], [ ID, STRING, IMPORT ], [ "unit" "suffix" ],
+  [], [ `"."` ], [ `"."` "DOTS" ],
+  [], [ `"{"` ], [ `"{"` "terms" `"}"` ],
+
+  ["suffix"], [ `"{"` ], [ "graph" ],
+  [], [ `"-"`, `"<-"` ], [ "arc" ],
+  [], [ `","`, `"}"`, EOF ], [ EPS ],
+
+  ["DOTS"], [ `".*"` ], [ STAR ],
+  [], [ `"."` ], [ `"."` "DOTS" ],
+  [], [ `","`, `"}"`, EOF, `"-"`, `"<-"`, `"->"` ], [ EPS ],
 )
 
 #let ll1-predict-figure = figure(

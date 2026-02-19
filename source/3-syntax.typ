@@ -109,7 +109,7 @@ There are several important character classes.
   ```
   IMPORT ::= "@" ID
   ID :: ID_CHAR+
-  ID_CHAR ::= PRINTABLE / (DELIMITERS + WHITESPACE + "#" + "@")
+  ID_CHAR ::= PRINTABLE / (DELIMITERS + WHITESPACE + "#" + "@" + "'" + "\"")
   ```,
   caption: "IDs.",
 )<id>

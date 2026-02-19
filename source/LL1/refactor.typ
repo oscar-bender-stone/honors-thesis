@@ -17,7 +17,8 @@
   [`term ::= toplevel | arc | graph | unit`],
   [@ll1-transform:2],
   [```
-  term ::= toplevel | unit | adjunct | "." DOTS | "{" terms "}"
+    term ::= toplevel | unit relation | "." DOTS | "{" terms "}"
+    relation ::= graph | arc | EPS
   ```],
 
   [`toplevel ::= "#" NAME`], [N/A], [-],
