@@ -72,9 +72,12 @@ structure.
 // Important to preserve *original* files when possible.
 // Will need @ by default to import things
 #definition[The AST is recursively defined from the parse tree as follows:
+  - *Term:* either an Arc, Graph, Group, or Path.
   - *Arc:* Converts a chain into a list of tuples of the form (sign, context,
     referant). Renders each edge as a left and right arrow.
   - *Graph:* The terms are collected into two parts: a list of parts and a list
+    of arcs.
+  - *Group:* The terms are collected into two parts: a list of parts and a list
     of arcs.
   - *Path:*
     - The number of dots is counted for the relative paths.
