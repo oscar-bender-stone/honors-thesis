@@ -4,51 +4,65 @@
 // TODO: maybe provide brief rationales for each transformation?
 #let ll1-refactor-table = table(
   columns: (auto, auto, auto),
-  [*Original*], [*Transform*], [*LL(1)*],
-  [`start ::= (term ",")* term`],
-  [@ll1-transform:0, @ll1-transform:1],
-  [```
-    start ::= term terms
-    terms ::= "," terms | EPS
-    terms_tail ::= term terms | EPS
-    ```
-  ],
+  inset: 3pt,
+  align: (left, center, left),
+  fill: (x, y) => if y == 0 { luma(200) } else { none },
+  table.header([*Original (Modified)*], [*Transform*], [*LL(1)*]),
 
-  [`term ::= toplevel | arc | graph | unit`],
-  [@ll1-transform:2],
+  // 1. Start Rule (Comma Logic)
+  [`start ::= terms`, \ `terms ::= term ("," term)* ","? | EPS`],
+  [@ll1-transform:0],
   [```
-    term ::= toplevel | unit relation | "." DOTS | "{" terms "}"
-    relation ::= graph | arc | EPS
+  start      ::= terms
+  terms      ::= term terms_tail | EPS
+  terms_tail ::= "," terms | EPS
   ```],
 
-  [`toplevel ::= "#" NAME`], [N/A], [-],
-
+  // 2. Term & Arc (Left Recursion)
   [```
-  arc ::= (term "-" term "->)+ term
-          | (term "<-" term "-")+ term
-          | (term "<-" term "->")+ term
-          | (term "-" term "-")+ term
+  term ::= arc | graph |
+           group | path
+  arc  ::= (term ("-" | "<-")
+            term ("-" | "->"))+ term
   ```],
-  [@ll1-transform:1, @ll1-transform:2],
+  [@ll1-transform:3],
   [```
-  chain ::= LINK unit chain
-          | graph
-          | EPS
-  LINK ::= "<-" | "->" | "-"
-  ```],
+  /* Extracted 'node' to fix recursion.
+     Arcs are strict left/right link pairs */
+  term       ::= node chain
 
-  [`graph ::= path? { term* }`],
-  [@ll1-transform:1],
-  [```
-  graph     ::= "{" contents "}"
-  contents  ::= term terms | EPS
-  SEPARATOR ::= "," | EPS
+  chain      ::= left_link node right_link
+                 node chain | EPS
+
+  left_link  ::= "-" | "<-"
+  right_link ::= "-" | "->"
   ```],
 
-  [`path ::= unit | ".*" | "."+`],
-  [@ll1-transform:1],
+  // 3. Ambiguity Resolution
   [```
-  PATH_ALT ".*" | "." DOTS
+  graph ::= path? "{" terms "}"
+  group ::= path?
+            ("(" terms ")" | "[" terms "]")
+  path  ::= modifier? path_segment* unit
+  ```],
+  [@ll1-transform:1, \ @ll1-transform:2],
+  [```
+  /* Left-factor path & blocks. */
+  node       ::= PATH opt_block | block
+  opt_block  ::= block | EPS
+  block      ::= "{" terms "}"
+               | "(" terms ")"
+               | "[" terms "]"
+
+  /* Expand path +, * contiguously */
+  PATH       ::= MODIFIER PATH_BODY
+               | PATH_BODY
+  PATH_BODY  ::= "." PATH_DOTS
+               | UNIT PATH_TAIL
+  PATH_DOTS  ::= "*" PATH_BODY
+               | "." PATH_DOTS
+               | UNIT PATH_TAIL
+  PATH_TAIL  ::= PATH_BODY | EPS
   ```],
 )
 
