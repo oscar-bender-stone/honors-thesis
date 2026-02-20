@@ -3,19 +3,19 @@
 
 #let grammar = [
   ```
-  start ::= (term ",")* term
-  term ::= toplevel | arc | graph | path
-  toplevel ::= "#" NAME
-  arc ::= (term "-" term "->)+ term
-        | (term "<-" term "-")+ term
-        | (term "<-" term "->")+ term
-        | (term "-" term "-")+ term
-  graph ::= path? { term* }
-  path ::= unit | "."."*" | "."+
-  dots ::= "." dots*
-  unit ::= IMPORT | NAME | ROOT | "#."
-  ROOT ::= "#" NAME?
-  NAME ::= ID | STRING
-  DOTS ::= ".*" | "."+ | "."
+  start     ::= (term ",")* term
+  term      ::= root | arc | graph | path | group
+  root      ::= "#" NAME
+  arc       ::= (term "-" term "->")+ term
+              | (term "<-" term "-")+ term
+              | (term "<-" term "->")+ term
+              | (term "-" term "-")+ term
+  graph     ::= path? "{" term* "}"
+  group     ::= "(" (term ",")* term ")"
+            | "[" (term ",")* term "]"
+  path      ::= modifier? unit | ".*" | "."+
+  modifier  ::= "@" | "~@" | "&"
+  unit      ::= IMPORT | NAME | "#."
   ```
 ]
+
