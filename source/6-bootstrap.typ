@@ -45,7 +45,12 @@ US-ASCII {
 }
 
 grammar {
+  start --> terms,
+  terms --> term
+
   @word,
 }
 
 ```
+
+#figure(bootstrap-text, caption: "The complete bootstrap.")
