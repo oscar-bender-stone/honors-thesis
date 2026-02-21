@@ -218,7 +218,7 @@ An important theorem to show Welkin is universally is @universality-theorem.
       x, y,
       x --> {
        .y --> {
-          .x
+          ..x
         }
       }
     }
@@ -232,8 +232,12 @@ An important theorem to show Welkin is universally is @universality-theorem.
 
 
   // TODO: link to the rules in @unit
-  Now, we must show `K.A.B --> A` and ``. Finally, concatenation can be handled
-  through the `.` operator, completing the proof.
+  We represent `K A B` in Welkin as `{A --> K.x, B --> K.y}`. We must show the
+  combinator laws hold:
+  - `{.A --> .K.x, .B --> .K.y} - K -> B`:
+  -
+  Finally, concatenation can be handled through nested scopes, completing the
+  proof.
 ]
 
 However, this is only one component: we also must prove we can represent _any_
