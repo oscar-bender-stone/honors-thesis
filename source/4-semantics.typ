@@ -175,10 +175,13 @@ This phase merges the units into the final data structure.
   the AST as follows:
   - *Graph*: take each node defined in the graph, and transform it into a unit.
   Take these units and add them to the list of names. Then, take the
-  representations and add them to the naes. Apply the import rule at this stage.
+  representations and add them to the names. Moreover, each import $@u$ adds the
+  rule $v --> u.v$ for each sub-unit $v$ of $u$.
+
   - *Representation*: apply internal transitivity in each context.
 
-  Units satisfy the following properties:
+  Units satisfy the following properties, inspired by rewriting logic
+  @twenty_years_rewriting_logic:
   - *R1. Internal Transitivity*: $a -->^b c$ and $c -->^b$ imply
     $d => a -->^b d$.
   - *R2. Context Congruence:* $a -->^b c$ and $p -->^c q$ implies
@@ -186,8 +189,6 @@ This phase merges the units into the final data structure.
   - *R3. Implicit Bindings:* users can provide their own "implicit" bindings
   to units. This is intentionally kept open and provide the free parameters in
   the language.
-  // - Each $@u$ takes each sub-unit $v$ of $u$ and adds the rule $v --> u.v$ in
-  // the current scope.
 
   The *combination* of units $u, u'$, denoted by $u + u'$ is defined to be the
   pairwise union of components across. Note that is different from the *disjoint
