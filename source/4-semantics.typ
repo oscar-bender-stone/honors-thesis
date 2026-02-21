@@ -68,7 +68,6 @@ for the syntax. The AST provides an intermediate step before the final data
 structure.
 
 
-
 #figure(
   ```
   "0".word <--> word
@@ -82,12 +81,20 @@ structure.
 // TODO: define scoping rules with @.
 // Important to preserve *original* files when possible.
 // Will need @ by default to import things
-#definition[The AST is recursively defined from the parse tree as follows:
-  - *Term:* either an Arc, Graph, Group, or Path.
-  - *Arc:* Converts a chain into a list of tuples of the form (sign, context,
-    referant). Renders each edge as a left and right arrow.
+// TODO: determine nice way to describe conversion from parse tree to AST.
+#definition[The AST is recursively defined from the parse tree of
+  @welkin-grammar as follows:
+  - *Terms:* Converted into a list, which is empty if `EPS` is matched.
+  - *Term:* either a Root, Arc, Graph, Group, or Path.
+  - *Root:* simply stores the corresponding unit.
+  - *Arc:* This is converted into a list. The first item is $(s_0, c_0 r_0)$,
+    the first triple that occurs in the chain. Then, the remaining triples are
+    added to the list.
+    - Left arrows are added as $(r_0, c_0, r_0)$. Edges and double arrows are
+      added as both a left and right arrow.
   - *Graph:* The terms are collected into two parts: a list of parts and a list
-    of arcs.
+    of arcs. Each graph has a name; when no name is provided, it is `""`.
+  // TODO: determine if lists are needed
   - *Group:* The terms are collected into two parts: a list of parts and a list
     of arcs.
   - *Path:*
@@ -95,8 +102,12 @@ structure.
     - Star imports are denoted by a special node All.
     - A path is converted into a list of its contents,
     which are pairs containing the relative path number and either Unit or All.
-  // TODO: determine if the name of a welkn file could be
-  // defined in the file itself. Might be useful?
+    - The `unit` is added at the end.
+  - *ID:* converted into strings.
+  - *String:* Wraps around the contents.
+  // TODO: clarify + make precise!
+  - *Number:* converts decimal and hexadecimal into binary, recursively over
+    words according to @digit-conversions.
   The terms in the top-level are put into a Graph node containing a unique, user
   given ID.
 ]<ast>
