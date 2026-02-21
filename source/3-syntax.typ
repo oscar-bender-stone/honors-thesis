@@ -19,7 +19,8 @@
 // vs bootstrap!
 // Should the standard be put into an appendix?
 We keep this section self-contained with explicit alphabets and recursive
-definitions. For general notation, we write $a_0, ..., a_n$ for a finite list of
+definitions. For consistency with Welkin, we write syntax using
+`type-writer font`. Notationally, we write $a_0, ..., a_n$ for a finite list of
 items, and use $a ::= a_1 | ... | a_n$ to denote a definition of $a$ in terms of
 $a_1, ..., a_n$. For verification purposes, we will incorporate fixed bounds
 into @bootstrap.
@@ -123,16 +124,16 @@ characters, see @syntax:id.
 We define our variant of EBNF below:
 #definition[
   An *EBNF* grammar consists of *productions*, which are pairs of the form
-  $r ::= a_1 ... a_n$. On the right-hand side, juxtaposition means
+  `r ::= a_1 ... a_n`. On the right-hand side, juxtaposition means
   concatenation.
   - Uppercase names require _no_ whitespace between them. Otherwise, whitespace
     is allowed.
-  - $a ::= a_1 | ... | a_n$ is short-hand for ${a ::= a_i | 1 <= i <= n}$.
+  - `a ::= a_1 | ... | a_n` is short-hand for `{a ::= a_i | 1 <= i <= n}`.
   // TODO: make this more rigorous! Probably
   // need to say at least _one_ way to transform this?
-  - $a ::= (a_1)*$ means zero or more instances of $a_1$.
-  - $a ::= (a_1)+$ means one or more instances of $a_1$.
-  - $a ::= (a_1)+$ means zero or one instance of $a_1$.
+  - `a ::= (a_1)*` means zero or more instances of $a_1$.
+  - `a ::= (a_1)+` means one or more instances of $a_1$.
+  - `a ::= (a_1)+` means zero or one instance of $a_1$.
 ]
 
 Note that we are interested in _transducers_, or having the parser generate a
