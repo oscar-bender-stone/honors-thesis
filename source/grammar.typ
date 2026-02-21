@@ -15,6 +15,8 @@
   modifier     ::= "#" | "@" | "~@" | "&"
   unit         ::= ID | STRING
 
+
+  MODIFIER ::= "#" | "@" | "~@" | "&"
   ID         ::= ID_CHAR+
   ID_CHAR    ::= PRINTABLE \ (DELIMITERS | WHITESPACE | "#" | "@" | "~" | "&" | "'" | '"')
   DELIMITERS ::= "," | "." | "-" | "<" | ">" | "*" | "(" | ")" | "[" | "]" | "{" | "}"

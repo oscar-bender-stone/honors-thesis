@@ -11,10 +11,10 @@
   group    ::= path? ("(" terms ") | "[" terms "]")
 
   path     ::= path_segment* unit
-  path_segment ::= modifier? (unit | ".*" | "."+)
-  modifier ::= "#" | "@" | "~@" | "&"
-  unit     ::= IMPORT | ID | STRING
+  path_segment ::= MODIFIER? (UNIT | ".*" | "."+)
 
+  UNIT     ::= IMPORT | ID | STRING
+  MODIFIER   ::= "#" | "@" | "~@" | "&"
   ID         ::= ID_CHAR+
   ID_CHAR    ::= PRINTABLE \ (DELIMITERS | WHITESPACE | "#" | "@" | "~" | "&" | "'" | '"')
   DELIMITERS ::= "," | "." | "-" | "<" | ">" | "*" | "(" | ")" | "[" | "]" | "{" | "}"

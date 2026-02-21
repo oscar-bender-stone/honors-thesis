@@ -41,7 +41,7 @@ hexadecimal.
 
 A word is a sequence of digits, see @word. We leave concatenation `.` as an
 undefined notion. We set concatenation to be right-associative, i.e.,
-$(w.w').w'' = w.(w'.w'')$, and abbreviate $w.w'$ as $w w'$. For conversions, see
+`(w.w').w'' = w.(w'.w'')`, and abbreviate `w.w'` as `w w'`. For conversions, see
 @ast.
 
 #figure(
@@ -54,12 +54,21 @@ $(w.w').w'' = w.(w'.w'')$, and abbreviate $w.w'$ as $w w'$. For conversions, see
   caption: "Definition of words.",
 )<word>
 
+Equality is defined recursively, shown in @word-equality.
+
+#figure(
+  ```
+  TODO: complete! Determine how to make this work well within Welkin.
+  ```,
+  caption: "Definition of equality on words.",
+)<word-equality>
+
 
 == Terminals
 
 Welkin uses ASCII as its base encoding. The term ASCII is slightly ambiguous, as
-there are subtly distinct dialects, so we formally define US-ASCII as a standard
-dialect.#footnote[Note that this table _itself_ is a representation, which
+there are subtly distinct variants, so we formally define US-ASCII as a standard
+version. #footnote[Note that this table _itself_ is a representation, which
   represents glyphs with binary words. The use of these kinds of representations
   occur frequently in Welkin, see @bootstrap.
 ]
@@ -82,6 +91,9 @@ We denote specific characters through quotes, escaping if necessary. There are
 several important character classes in @character-classes, denoted through
 double quotes.
 
+// TODO: convert into using glyphs.
+// Maybe use abbreviations for Printable
+// *or* list specific character classes?
 #figure(
   ```
   PRINTABLE  ::= [0x20-0x7E]
@@ -95,6 +107,8 @@ Strings allow escaped single or double quotes, see @string. IDs are special
 cases of strings that do not require quotes but forbid whitespace and certain
 characters, see @syntax:id.
 
+// TODO: provide binary string encoding in string!
+// Are lists of numbers enough?
 #figure(
   ```
   STRING ::= SQ_STRING | DQ_STRING
