@@ -48,7 +48,11 @@ structure.
 #definition[The AST is recursively defined from the parse tree of
   @welkin-grammar as follows:
   - *Terms:* Converted into a list, which is empty if `EPS` is matched.
-  - *Term:* either a Root, Arc, Graph, Group, or Path.
+  - *Term:* either a Root, Arc, Graph, Group, or Path, with an additional
+  field to store the position $("Line", "Column")$, where $"Line"$ is the first
+  number of newline ("\n") characters occuring before the term and $"Column"$ is
+  the position of this term on the line. Both of these quantities are recorded
+  in bytes.
   - *Root:* simply stores the corresponding unit.
   - *Arc:* This is converted into a list. The first item is $(s_0, c_0 r_0)$,
     the first triple that occurs in the chain. Then, the remaining triples are
@@ -74,12 +78,6 @@ structure.
   The terms in the top-level are put into a Graph node containing a unique, user
   given ID.
 ]<ast>
-
-// TODO: fill in!
-#definition[
-  AST Equality...
-]<ast-equality>
-
 
 #figure(
   table(
