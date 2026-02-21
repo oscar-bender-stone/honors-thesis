@@ -10,9 +10,8 @@
   graph        ::= path? "{" terms "}"
   group        ::= path? ("(" terms ")" | "[" terms "]")
 
-  path         ::= modifier? path_segment* unit
+  path         ::= MODIFIER? path_segment* unit
   path_segment ::= unit | ".*" | "."+
-  modifier     ::= "#" | "@" | "~@" | "&"
   unit         ::= ID | STRING
 
 

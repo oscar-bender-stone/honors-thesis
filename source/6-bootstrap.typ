@@ -20,7 +20,9 @@ The complete bootstrap is in appendix ?.
 // homo-iconic, similar to lisp!
 // Very powerful!
 // TODO: double check grammar!
-// Decide whether to use LL(1) grammar
+// Decide whether to use LL(1) grammar.
+// Also removes needed for EBNF (for simplicity)
+// FIXME: remove ANY traces of EBNF in this bootstrap
 #let bootstrap-text = ```
 #welkin,
 
@@ -50,16 +52,36 @@ ASCII {
 character_classes {
   PRINTABLE,
   DELIMITERS,
-  EPS --> ""
 }
 
 grammar {
+  @word,
   @character_classes,
 
   start --> terms,
-  terms --> term.
+  terms --> term ("," term)* ","? | EPS
+  term  --> arc | graph | group | path
+  arc   --> (term ("-" | "<-") term ("-" | "->"))+ term
+  graph --> path? "{" terms "}"
+  group --> path? ("(" terms ")" | "[" terms "]")
+  path --> MODIFIER? path_segment* unit
+  path_segment --> unit | ".*" | "."+,
+  unit --> ID | STRING,
 
-  @word,
+  MODIFIER --> "#" | "@" | "~@" | "&",
+  ID --> ID_CHAR | ID_CHAR ID,
+  ID_CHAR --> {.PRINTABLE, ~@{.DELIMITERS, .WHITESPACE}},
+  DELIMITERS --> "," | "." | "-" | "<" | ">" | "*" | "(" | ")" | "[" | "]" | "{" | "}"
+  STRING --> SQ_STRING | DQ_STRING,
+  SQ_STRING --> '"' SQ_CONTENTS '"',
+  DQ_STRING ::= "'" DQ_CONTENTS "'",
+  SQ_CONTENTS --> SQ_CHAR | SQ_CHAR.DQ_CONTENTS,
+  DQ_CONTENTS --> DQ_CHAR | DQ_CHAR.DQ_CONTENTS,
+  SQ_CHAR --> {.PRINTABLE, ~"'"},
+  DQ_CHAR --> {.PRINTABLE, ~'"'},
+  ESCAPE_SQ --> "\'" | "\\",
+  ESCAPE_DQ --> '\"' | '\\',
+  EPS --> ""
 }
 
 AST {
