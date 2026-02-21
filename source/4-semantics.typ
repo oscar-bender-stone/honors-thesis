@@ -57,7 +57,6 @@ structure.
       added as both a left and right arrow.
   - *Graph:* The terms are collected into two parts: a list of parts and a list
     of arcs. Each graph has a name; when no name is provided, it is `""`.
-    -
   - *Tuple:* The terms are organized recursively, with the base case starting
   at `item` and the recursive step at the label `next`. Note that tuples have
   *closed* definitions and will create copies when accessed or used in an arc.
@@ -304,47 +303,4 @@ the following theorem. FIXME: this is currently a stub! Need to create the
   context-free grammars, because... Thus, not all partial computable functions
   are included, completing the proof.
 ]
-
-== Universal Systems
-// TODO: also mention ZFC as an
-// example with its own reflection theorem,
-// or briefly mention it.
-
-
-
-As a consequence, we immediately obtain the following corollary.
-
-Note that there are multiple ways to prove @universality-theorem, infinitely in
-fact. This motivates the following definition.
-
-// TODO: develop!
-#definition[
-  A universal representation system (URS) is a unit that can represent any
-  representation.
-]
-
-
-// TODO: Make this more precise and complete proof.
-#theorem[
-  A unit is a universal representation system if and only if it can represent
-  any partial computable function. Moreover, any universal representation system
-  can represent any universal representation system. In particular, representing
-  itself is called *reflection*.
-]
-
-// TODO: dissue axiomatic systems!
-// Want to emphasize the relevant *process* (per context) is important!
-// That is, the journey to discover new things.
-// ONLY FI the specification is complete in some way (or "finalized"),
-// it is then that axiomatic systems *can* help.
-// Expand this discussion into a paragraph or two.
-
-
-The term _universal_ is specifically for expressing _representations_
-symbolically. The free parameter still needs to be included and is an additional
-feature on top of partial comptuable functions. However, the _management_ of
-these symbols is done entirely with partial computable functions.
-
-The next section discusses the issue of _managing_ the infinitely many choices
-for URSs.
 

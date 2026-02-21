@@ -31,14 +31,14 @@ possible. . This As established in @semantics, bounded queries can be answered
 in $O(?)$ time. The problem then becomes about optimizing the number of steps.
 While this is query dependent, and depends on the database, we prove that any of
 these criterion can be converted to one about _size_. Our proof generalizes
-Blum's axioms @blum_speedup and Kolomogorov complexity. While finding the
-absolute smallest size of a unit that will best optimize a query is impossible,
-we _can_ optimize the database with the available information. Our localized
-algorithm provides a nice architecture to solve problems: combining bounded
-queries in the database to confirm the presence of an answer, combined wth
-unbounded searches by some search procedure or heuristics. Note that the search
-procedure may or may not be computable; what is important is that bounded
-queries are always efficient.
+Blum's axioms @blum_speedup and Kolomogorov complexity
+@intro_kolmogorov_complexity. While finding the absolute smallest size of a unit
+that will best optimize a query is impossible, we _can_ optimize the database
+with the available information. Our localized algorithm provides a nice
+architecture to solve problems: combining bounded queries in the database to
+confirm the presence of an answer, combined wth unbounded searches by some
+search procedure or heuristics. Note that the search procedure may or may not be
+computable; what is important is that bounded queries are always efficient.
 
 Based on our interest to optimize _queries_, we focus on speed _and_ size of the
 database.
