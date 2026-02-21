@@ -178,11 +178,16 @@ This phase merges the units into the final data structure.
   representations and add them to the naes. Apply the import rule at this stage.
   - *Representation*: apply internal transitivity in each context.
 
-  The following rules are applied:
-  - *Internal Transitivity*: $a -->^b c$ and $c -->^b$ imply $d => a -->^b d$.
-  - *Context Congruence:* $a -->^b c$ and $p -->^c q$ implies $b { p -->^a q }$
-  - Each $@u$ takes each sub-unit $v$ of $u$ and adds the rule $v --> u.v$ in
-    the current scope.
+  Units satisfy the following properties:
+  - *R1. Internal Transitivity*: $a -->^b c$ and $c -->^b$ imply
+    $d => a -->^b d$.
+  - *R2. Context Congruence:* $a -->^b c$ and $p -->^c q$ implies
+    $b { p -->^a q }$
+  - *R3. Implicit Bindings:* users can provide their own "implicit" bindings
+  to units. This is intentionally kept open and provide the free parameters in
+  the language.
+  // - Each $@u$ takes each sub-unit $v$ of $u$ and adds the rule $v --> u.v$ in
+  // the current scope.
 
   The *combination* of units $u, u'$, denoted by $u + u'$ is defined to be the
   pairwise union of components across. Note that is different from the *disjoint
@@ -196,9 +201,40 @@ details to the ID phase.
 
 An important theorem to show Welkin is universally is @universality-theorem.
 
+// TODO: complete proof!
 #theorem[
-
+  Every partial computable function can be expressed in Welkin.
 ]<universality-theorem>
+#proof[
+  It suffices to show we can define the S and K combinators, as well as show
+  that application is representable. We present one representation of the
+  combinators in @combinators-in-welkin.
+
+  #figure[
+    ```welkin
+    #combinators,
+
+    K {
+      x, y,
+      x --> {
+       .y --> {
+          .x
+        }
+      }
+    }
+
+    S {
+
+    }
+
+    ```
+  ]<combinators-in-welkin>
+
+
+  // TODO: link to the rules in @unit
+  Now, we must show `K.A.B --> A` and ``. Finally, concatenation can be handled
+  through the `.` operator, completing the proof.
+]
 
 However, this is only one component: we also must prove we can represent _any_
 truth management system. This is made possible through contexts.
