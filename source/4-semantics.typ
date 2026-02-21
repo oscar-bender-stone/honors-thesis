@@ -180,8 +180,9 @@ This phase merges the units into the final data structure.
 
   The following rules are applied:
   - *Internal Transitivity*: $a -->^b c$ and $c -->^b$ imply $d => a -->^b d$.
-  - Each $@u$ takes each sub-unit $v$ of $u$
-  and adds the rule $v --> u.v$ in the current scope.
+  - *Context Congruence:* $a -->^b c$ and $p -->^c q$ implies $b { p -->^a q }$
+  - Each $@u$ takes each sub-unit $v$ of $u$ and adds the rule $v --> u.v$ in
+    the current scope.
 
   The *combination* of units $u, u'$, denoted by $u + u'$ is defined to be the
   pairwise union of components across. Note that is different from the *disjoint
