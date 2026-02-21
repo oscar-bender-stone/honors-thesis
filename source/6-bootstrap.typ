@@ -85,9 +85,12 @@ grammar {
 }
 
 AST {
+  "Abstract Syntax Tree" --> .,
 
 }
 
 ```
 
-#figure(bootstrap-text, caption: "The complete bootstrap.")
+// TODO: make this neater!
+// Probably set as an appendix?
+#block(bootstrap-text, breakable: true),
