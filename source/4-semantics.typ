@@ -30,8 +30,19 @@
 
 = Semantics <semantics>
 
-This section describes how ASTs are processed and validated. We postpone
-information organization to @information-organization.
+This section describes several phases to transform parse trees into more refined
+forms called *Internal Representations (IR)*. These phases are:
+
+- Abstract Syntax Trees (ASTs): simplifies the parse tree
+and removes punctuation.
+- Lexographic Ordering: Lexographically orders graphs by names and anonymous
+  graph
+content.
+- Unique IDs: Assigns IDs to all names and resolves absolute and relative paths.
+- Merging: merges units and defines the final scopes.
+
+How ASTs are processed and validated. We postpone information organization to
+@information-organization.
 
 == Rationale <rationale>
 
