@@ -252,15 +252,6 @@ truth management system. This is made possible through contexts.
 // TODO: discuss contexts
 // as essential to truth management
 == Queries and Information
-
-// TODO: define notion of "or" in this context!
-// We need it to be that we can *always* generate a certificate, computably!
-#lemma[
-  - $a -->^(c+d) b <=> a -->^c b or a -->^d b$.
-]<rules-sum>
-
-// TODO: maybe connect back to import notation?
-// Woudl something like x.@s be reasonable?
 We set $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(s)$ is the local
 extension of $s$ in $x$. We interpret $u -->^c v$ as: the *sign* $u$ represents
 *referant* $v$ in *context* $c$. Through @universality-theorem, we will present
