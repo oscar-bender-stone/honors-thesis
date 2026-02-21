@@ -8,26 +8,6 @@
 #import "template/ams-article.typ": todo
 
 
-// Old draft of paragraph on truth contexts:
-//
-// In addition to this [FIRST CLASS OF PROBLEMS NAME], another major hurdle is
-// truth management. [DISCUSS Problems with truth + corrections from papers don't
-// propagate!] What can be done is addressing _information_, the storage of the
-// _asserted_ facts themselves, regardless of truth. As one example, suppose a
-// scientist claims, "X is true about Y". One could debate the veracity of that
-// claim, but what we can say is, "This scientist claims, 'X is true about Y'".
-// Even if we doubt that, we could do: "This claim can be formulated: 'This
-// scientist claims 'X is true about Y''". By using these justifications, stating
-// that a claim is expressible, the _syntactic expression_ of the claim can be
-// separated from its _semantic truth value_.#footnote[One might be worried about a
-//   paradox, such as "This claim is expressible: this claim is not expressible."
-//   We will avoid this using a clear separation of the overarching metatheory and
-//   object theory, with the former being syntactical in nature. To express this
-//   separation, we write quotes around the claim itself.] I will make this more
-// rigorous in later sections, but this means we can build knowledge bases on-top of
-// information systems using flexible extensions.
-
-
 = Semantics <semantics>
 
 This section describes several phases to transform parse trees into more refined
@@ -43,23 +23,6 @@ content.
 
 How ASTs are processed and validated. We postpone information organization to
 @information-organization.
-
-== Rationale <rationale>
-
-We justify why the language is focused on representations. First, to mechanize
-the information language, we allow only total computable functions, with
-computability being a well established notion. Second, to enable clarity in
-concepts, we need to resolve the Symbol Grounding Problem, so as to avoid
-treating all symbols as being "empty", as discussed in @liu-grounding. We must
-therefore include a notion of representation, which, in particular, can
-represent partial computable functions. Finally, we claim that expressing _any
-computable representation_ is sufficient for a universally expressible
-information system. Attempting to provide a self-contained definition of the
-notion "any" is problematic, as shown from the introdution. We instead define
-"any" with the _least_ restrictions possible, which means, by the first point,
-ensuring that a given provided input is accepted by _some_ computable function.
-It is important that Welkin includes _every_ computable function in this
-definition, which we prove in @universality-theorem.
 
 == ASTs
 
@@ -179,8 +142,11 @@ structure.
 )<digit-conversions>
 
 
-#definition[An AST is *valid* if the relative imports does not exceed the number
-  of available parents.
+// TODO: complete! Need to address @, ~@, and ~
+#definition[An AST is *valid* if the following holds:
+  - A Root term must exist. Moreover, there must not be conflicting Root term
+    names.
+  - Relative imports does not exceed the number of available parents.
 ]<validation>
 #remark[
   An earlier revision of this thesis forbid repetitions of arcs and units.
@@ -188,6 +154,10 @@ structure.
   will be tracked, see ?.
 ]<remark:validation-repetition>
 
+== Unified IDs
+
+// TODO: discuss contexts
+// as essential to truth management
 == Faithful Representations and Truth Management
 
 Based on @rationale, a crucial question is to answer _how_ representations can
