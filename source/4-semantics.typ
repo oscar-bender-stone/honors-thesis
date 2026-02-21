@@ -57,9 +57,10 @@ structure.
       added as both a left and right arrow.
   - *Graph:* The terms are collected into two parts: a list of parts and a list
     of arcs. Each graph has a name; when no name is provided, it is `""`.
-  // TODO: determine if lists are needed
-  - *Group:* The terms are collected into two parts: a list of parts and a list
-    of arcs.
+    -
+  - *Tuple:* The terms are organized recursively, with the base case starting
+  at `item` and the recursive step at the label `next`. Note that tuples have
+  *closed* definitions and will create copies when accessed or used in an arc.
   - *Path:*
     - The number of dots is counted for the relative paths.
     - Star imports are denoted by a special node All.
@@ -146,9 +147,7 @@ structure.
 #definition[An AST is *valid* if the following holds:
   - A Root term must exist. Moreover, there must not be conflicting Root term
     names.
-  - Relative imports doesMany language standards (even ISO C and C++) have
-    suffered from ambiguities caused by PDF typesetting. not exceed the number
-    of available parents.
+  - Relative imports does not exceed the number of available parents.
 ]<validation>
 #remark[
   An earlier revision of this thesis forbid repetitions of arcs and units.
@@ -158,30 +157,16 @@ structure.
 
 == Unified IDs
 
-// TODO: discuss contexts
-// as essential to truth management
-== Faithful Representations and Truth Management
+This phase first lexographically orders the graph by its labels. Anonymous
+graphs are lexographically ordered by contents, with arcs treated as triples and
+lexographically ordered accordingly. Then, IDs are assigned. The lexographic
+ordering ensures the ID is _exactly_ the same for two strings that are
+positionally different. This shows that Welkin is positionally invariant.
 
-Based on @rationale, a crucial question is to answer _how_ representations can
-be used in the language. A representation at least contains two components: a
-_sign_ that represents a _referant_. However, this is not sufficient to express
-any computable function, because we do not have _conditional_ representations. A
-key insight in this thesis is showing that expressing conditions is equivalent
-to having _contexts_, which we incorporate into our mechanism for namespaces and
-generalizes Burgin's notion of infological systems @burgin-information-book.
-This proves an informal claim made in Meseguer @twenty_years_rewriting_logic,
-which claims that rewriting logics without conditional rules are "strictly less"
-expressive than those with conditions, see @definability-conditions.
+== Unification
 
-We define a _unit_ as an extendible component in a representation that can be
-broken down, build new units, or act on other units. Computationally, we can
-treat units as IDs to partial computable functions, but we permit _implicit
-bindings_ to non-symbolic things (a term made vague for flexibility). From
-there, we practically formalize information being _contained_ in a unit,
-enabling change in a context through checking for some _non_-fixed point. This
-connects to Burgin's analogy of information as energy, as well as Bateson's
-famous quote that "information is a difference that makes a difference"
-@bateson-ecology-of-mind.
+This phase merges the units into the final data structure.
+
 
 // TODO: take AST and provide merging mechanisms,
 // primarily for nodes of the form @b {@.a.*}.
@@ -201,13 +186,19 @@ famous quote that "information is a difference that makes a difference"
   - Each $@u$ takes each sub-unit $v$ of $u$
   and adds the rule $v --> u.v$ in the current scope.
 
-
   The *combination* of units $u, u'$, denoted by $u + u'$ is defined to be the
   pairwise union of components across. Note that is different from the *disjoint
   union*, in which a new top level node is made with children $u$ and $u'$.
 ]<unit>
 
-Note that, in Welkin, $u + u'$ is definable as $@u {@u'}$.
+Note that, in Welkin, $u + u'$ is definable as $@u {@u'}$. Notationally, we will
+use refer to variables in $"math notation"$ and treat them as globally unique
+IDs. In other words, we will ignore relative imports or scoping, leaving those
+details to the ID phase.
+
+// TODO: discuss contexts
+// as essential to truth management
+== Faithful Representations and Truth Management
 
 // TODO: define notion of "or" in this context!
 // We need it to be that we can *always* generate a certificate, computably!
@@ -226,8 +217,8 @@ the following computational interpretation:
   $u -->^v w "iff" phi_u (v) "evaluates to" w$,
 ])
 where $phi_u$ is the partial computable function given by the ID of $u$. Note
-that the "iff" above is strictly a logical correspondence; the former is
-strictly _more_ expressive, due to implicit bindings.
+that this is _only_ logical equivalence; the former is strictly _more_
+expressive, due to implicit bindings.
 
 #definition[
   A unit $u$ is *non-trivial* if it is non-empty and has a non-complete

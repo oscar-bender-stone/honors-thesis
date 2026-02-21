@@ -22,6 +22,31 @@ ensuring that a given provided input is accepted by _some_ computable function.
 It is important that Welkin includes _every_ computable function in this
 definition, which we prove in @universality-theorem.
 
+== Units
+
+A crucial question is to answer _how_ representations can be used in the
+language. A representation at least contains two components: a _sign_ that
+represents a _referant_. However, this is not sufficient to express any
+computable function, because we do not have _conditional_ representations. A key
+insight in this thesis is showing that expressing conditions is equivalent to
+having _contexts_, which we incorporate into our mechanism for namespaces and
+generalizes Burgin's notion of infological systems @burgin-information-book.
+This proves an informal claim made in Meseguer @twenty_years_rewriting_logic,
+which claims that rewriting logics without conditional rules are "strictly less"
+expressive than those with conditions, see @definability-conditions.
+
+
+We define a _unit_ as an extendible component in a representation that can be
+broken down, build new units, or act on other units. Computationally, we can
+treat units as IDs to partial computable functions, but we permit _implicit
+bindings_ to non-symbolic things (a term made vague for flexibility). From
+there, we practically formalize information being _contained_ in a unit,
+enabling change in a context through checking for some _non_-fixed point. This
+connects to Burgin's analogy of information as energy, as well as Bateson's
+famous quote that "information is a difference that makes a difference"
+@bateson-ecology-of-mind. For the full definition, see @unit.
+
+== Example
 
 We illustrate Welkin with a motivating example: geographic maps.
 
