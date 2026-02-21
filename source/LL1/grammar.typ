@@ -6,10 +6,10 @@
   ```
   start    ::= terms
   terms    ::= term ("," term)* ","? | EPS
-  term     ::= arc | graph | path | group
+  term     ::= arc | graph | tuple | path
   arc      ::= (term ("-" | "<-") term ("-" | "->"))+ term
   graph    ::= path? "{" terms "}"
-  group    ::= path? ("(" terms ") | "[" terms "]")
+  tuple    ::= path? "(" terms ")"
 
   path     ::= path_segment* unit
   path_segment ::= MODIFIER? (UNIT | ".*" | "."+)

@@ -5,20 +5,20 @@
   ```
   start        ::= terms
   terms        ::= term ("," term)* ","? | EPS
-  term         ::= arc | graph | group | path
+  term         ::= arc | graph | tuple | path
   arc          ::= (term ("-" | "<-") term ("-" | "->"))+ term
   graph        ::= path? "{" terms "}"
-  group        ::= path? ("(" terms ")" | "[" terms "]")
+  tuple        ::= path? "(" terms ")"
 
   path         ::= MODIFIER? path_segment* unit
   path_segment ::= unit | ".*" | "."+
   unit         ::= ID | STRING
 
 
-  MODIFIER ::= "#" | "@" | "~@" | "&"
+  MODIFIER ::= "#" |  "@" | "~@" | "~"
   ID         ::= ID_CHAR+
-  ID_CHAR    ::= PRINTABLE \ (DELIMITERS | WHITESPACE | "#" | "@" | "~" | "&" | "'" | '"')
-  DELIMITERS ::= "," | "." | "-" | "<" | ">" | "*" | "(" | ")" | "[" | "]" | "{" | "}"
+  ID_CHAR    ::= PRINTABLE \ (DELIMITERS | WHITESPACE | "#" | "@" | "~" | "'" | '"')
+  DELIMITERS ::= "," | "." | "-" | "<" | ">" | "*" | "(" | ")" | "{" | "}"
   STRING     ::= SQ_STRING | DQ_STRING
   SQ_STRING  ::= "'" (SQ_CHAR | ESCAPE_SQ )* "'"
   DQ_STRING  ::= '"' (DQ_CHAR | ESCAPE_DQ )* '"'
@@ -32,4 +32,3 @@
   EPS        ::= ""
   ```
 ]
-
