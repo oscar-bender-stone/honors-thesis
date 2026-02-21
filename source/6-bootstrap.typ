@@ -24,28 +24,20 @@ The complete bootstrap is in appendix ?.
 
 radix {
   bit --> 0 | 1,
-  digit --> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 ,
+  digit --> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
   nibble --> decimal | A | B | C | D | E | F,
 }
 
 word {
   @radix,
-    . --> binary | decimal | hex,
-    binary --> bit | binary.bit,
-    decimal --> digit | decimal.digit,
-    hex --> nibble | hex.nibble,
-    {
-      {w, w', w''} --> binary,
-      (w.w').w'' <--> w.(w'.w'')
-    },
-    {
-      {w, w', w''} --> decimal,
-      (w.w').w'' <--> w.(w'.w'')
-    },
-    {
-      {w, w', w''} --> hex,
-      (w.w').w'' <--> w.(w'.w'')
-    }
+  . --> binary | decimal | hex,
+  binary --> bit | binary.bit,
+  decimal --> digit | decimal.digit,
+  hex --> nibble | hex.nibble,
+  {
+    {w, w', w''} --> binary | decimal | hex,
+    (w.w').w'' <--> w.(w'.w'')
+  }
 }
 
 US-ASCII {
