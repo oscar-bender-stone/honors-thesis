@@ -3,6 +3,19 @@
 
 #import "template/ams-article.typ": definition, theorem
 
+// TODO: discuss queries.
+// We want to centralize organizing
+// information *around* queries,
+// and as many as possible.
+// Need to use general definition
+// (anything computably representable)
+// to do this!
+// Moreover, we need to determine how
+// we know a query is "well-posed",
+// so if we have enough representations.
+// At the very least, we want this
+// to be *itself* a component
+
 = Information Organization <information-organization>
 
 - Main question: *which* universal system to choose? Is this practical?

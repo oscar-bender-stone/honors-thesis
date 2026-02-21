@@ -146,7 +146,9 @@ structure.
 #definition[An AST is *valid* if the following holds:
   - A Root term must exist. Moreover, there must not be conflicting Root term
     names.
-  - Relative imports does not exceed the number of available parents.
+  - Relative imports doesMany language standards (even ISO C and C++) have
+    suffered from ambiguities caused by PDF typesetting. not exceed the number
+    of available parents.
 ]<validation>
 #remark[
   An earlier revision of this thesis forbid repetitions of arcs and units.
@@ -302,6 +304,9 @@ the following theorem. FIXME: this is currently a stub! Need to create the
 ]
 
 == Universal Systems
+// TODO: also mention ZFC as an
+// example with its own reflection theorem,
+// or briefly mention it.
 
 
 
