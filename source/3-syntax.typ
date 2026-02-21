@@ -21,9 +21,8 @@
 We keep this section self-contained with explicit alphabets and recursive
 definitions. For general notation, we write $a_0, ..., a_n$ for a finite list of
 items, and use $a ::= a_1 | ... | a_n$ to denote a definition of $a$ in terms of
-$a_1, ..., a_n$. that for verification purposes, we will incorporate fixed
-bounds into @bootstrap. Moreover, we will postpone discussions on the rationale
-for the simple syntax until @semantics.
+$a_1, ..., a_n$. For verification purposes, we will incorporate fixed bounds
+into @bootstrap.
 
 == Words
 
@@ -39,19 +38,17 @@ hexadecimal.
   caption: "Binary, decimal, and hexadecimal digits.",
 )<digits>
 
-// TODO: determine a suitable symbol to replace . for contatenation
-// OR figure out how to bake into semantics
-A word is a sequence of digits, see @word. We leave concatenation `;` as an
+A word is a sequence of digits, see @word. We leave concatenation `.` as an
 undefined notion. We set concatenation to be right-associative, i.e.,
-$(w.w')+w'' = w.(w'.w'')$, and abbreviate $w.w'$ as $w w'$. For conversions, see
+$(w.w').w'' = w.(w'.w'')$, and abbreviate $w.w'$ as $w w'$. For conversions, see
 @ast.
 
 #figure(
   ```
-  word --> binary | decimal | hex
-  binary --> bit | binary.bit
-  decimal --> digit | decimal.digit
-  hex --> nibble | hex.nibble
+  word ::= binary | decimal | hex
+  binary ::= bit | binary.bit
+  decimal ::= digit | decimal.digit
+  hex ::= nibble | hex.nibble
   ```,
   caption: "Definition of words.",
 )<word>
@@ -80,7 +77,9 @@ see @string.
   caption: [US-ASCII codes and glyphs.],
 )<US-ASCII-codes>
 
-There are several important character classes.
+We denote specific characters through quotes, escaping if necessary. There are
+several important character classes in @character-classes, denoted through
+double quotes.
 
 #figure(
   ```
@@ -90,6 +89,10 @@ There are several important character classes.
   ```,
   caption: "Important character classes.",
 )<character-classes>
+
+Strings allow escaped single or double quotes, see @string. IDs are special
+cases of strings that do not require quotes but forbid whitespace and certain
+characters, see @syntax:id.
 
 #figure(
   ```
@@ -112,9 +115,40 @@ There are several important character classes.
   ID_CHAR ::= PRINTABLE / (DELIMITERS + WHITESPACE + "#" + "@" + "'" + "\"")
   ```,
   caption: "IDs.",
-)<id>
+)<syntax:id>
 
-== Grammar
+== EBNF Notation and Parse Trees
+
+
+We define our variant of EBNF below:
+#definition[
+  An *EBNF* grammar consists of *productions*, which are pairs of the form
+  $r ::= a_1 ... a_n$. On the right-hand side, juxtaposition means
+  concatenation.
+  - Uppercase names require _no_ whitespace between them. Otherwise, whitespace
+    is allowed.
+  - $a ::= a_1 | ... | a_n$ is short-hand for ${a ::= a_i | 1 <= i <= n}$.
+  // TODO: make this more rigorous! Probably
+  // need to say at least _one_ way to transform this?
+  - $a ::= (a_1)*$ means zero or more instances of $a_1$.
+  - $a ::= (a_1)+$ means one or more instances of $a_1$.
+  - $a ::= (a_1)+$ means zero or one instance of $a_1$.
+]
+
+Note that we are interested in _transducers_, or having the parser generate a
+parse tree from a given string. We define parse trees recursively in
+@parse-tree.
+
+#figure(
+  ```
+  node ::= leaf | node [node1, node2, ..., noden]
+  leaf ::= t in T | epsilon
+  ```,
+  caption: "Representation of a parse tree as a list.",
+)<parse-tree>
+
+
+== The Welkin Grammar
 
 // TODO: maybe define general grammars?
 // Might make the definition of Welkin's parse tree easier
@@ -135,19 +169,7 @@ whitespace is allowed but ignored.
     in @word and @string, respectively],
 )<welkin-grammar>
 
-Note that we are interested in _transducers_, or having the parser generate a
-parse tree from a given string. We define parse trees recursively in
-@parse-tree.
-
-#figure(
-  ```
-  node ::= leaf | node [node1, node2, ..., noden]
-  leaf ::= t in T | epsilon
-  ```,
-  caption: "Representation of a parse tree as a list.",
-)<parse-tree>
-
-== Proof of LL(1) Membership
+== Proof of Unambiguity
 
 We now prove that the Welkin language is unambiguous by showing it is LL(1), a
 rich class of grammars that can be efficiently parsed. For more details, please
