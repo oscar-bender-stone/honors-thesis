@@ -19,6 +19,8 @@ The complete bootstrap is in appendix ?.
 // TODO: emphasize that Welkin is
 // homo-iconic, similar to lisp!
 // Very powerful!
+// TODO: double check grammar!
+// Decide whether to use LL(1) grammar
 #let bootstrap-text = ```
 #welkin,
 
@@ -30,7 +32,8 @@ radix {
 
 word {
   @radix,
-  . --> binary | decimal | hex,
+
+  . --> "0b".&binary) | decimal | "0x".&hex,
   binary --> bit | binary.bit,
   decimal --> digit | decimal.digit,
   hex --> nibble | hex.nibble,
@@ -40,15 +43,27 @@ word {
   }
 }
 
-US-ASCII {
+ASCII {
 
 }
 
+character_classes {
+  PRINTABLE,
+  DELIMITERS,
+  EPS --> ""
+}
+
 grammar {
+  @character_classes,
+
   start --> terms,
-  terms --> term
+  terms --> term.
 
   @word,
+}
+
+AST {
+
 }
 
 ```

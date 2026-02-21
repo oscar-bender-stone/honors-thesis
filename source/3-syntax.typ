@@ -132,6 +132,10 @@ characters, see @syntax:id.
   caption: "IDs.",
 )<syntax:id>
 
+//  TODO: want to directly *discuss*
+// AST within Welkin
+// or a language, instead
+// of defining the parse tree separately
 == EBNF Notation and Parse Trees
 
 
@@ -149,19 +153,6 @@ We define our variant of EBNF below:
   - `a ::= (a_1)+` means one or more instances of $a_1$.
   - `a ::= (a_1)?` means zero or one instance of $a_1$.
 ]
-
-Note that we are interested in _transducers_, or having the parser generate a
-parse tree from a given string. We define parse trees recursively in
-@parse-tree.
-
-#figure(
-  ```
-  node ::= leaf | node [node1, node2, ..., noden]
-  leaf ::= t in T | epsilon
-  ```,
-  caption: "Representation of a parse tree as a list.",
-)<parse-tree>
-
 
 == The Welkin Grammar
 
