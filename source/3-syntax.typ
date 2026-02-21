@@ -22,8 +22,8 @@ We keep this section self-contained with explicit alphabets and recursive
 definitions. For consistency with Welkin, we write syntax using
 `type-writer font`. Notationally, we write $a_0, ..., a_n$ for a finite list of
 items, and use $a ::= a_1 | ... | a_n$ to denote a definition of $a$ in terms of
-$a_1, ..., a_n$. For verification purposes, we will incorporate fixed bounds
-into @bootstrap.
+$a_1, ..., a_n$. For verification purposes, we will incorporate fixed bounds and
+completely unambiguous notation into @bootstrap.
 
 == Words
 
@@ -147,7 +147,7 @@ We define our variant of EBNF below:
   // need to say at least _one_ way to transform this?
   - `a ::= (a_1)*` means zero or more instances of $a_1$.
   - `a ::= (a_1)+` means one or more instances of $a_1$.
-  - `a ::= (a_1)+` means zero or one instance of $a_1$.
+  - `a ::= (a_1)?` means zero or one instance of $a_1$.
 ]
 
 Note that we are interested in _transducers_, or having the parser generate a
