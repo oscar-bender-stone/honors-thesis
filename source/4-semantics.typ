@@ -196,9 +196,23 @@ use refer to variables in $"math notation"$ and treat them as globally unique
 IDs. In other words, we will ignore relative imports or scoping, leaving those
 details to the ID phase.
 
+An important theorem to show Welkin is universally is @universality-theorem.
+
+#theorem[
+
+]<universality-theorem>
+
+However, this is only one component: we also must prove we can represent _any_
+truth management system. This is made possible through contexts.
+
+#theorem[
+  Any computable
+]<>
+
+
 // TODO: discuss contexts
 // as essential to truth management
-== Faithful Representations and Truth Management
+== Queries and Information
 
 // TODO: define notion of "or" in this context!
 // We need it to be that we can *always* generate a certificate, computably!
@@ -229,6 +243,7 @@ expressive, due to implicit bindings.
   first-order logic. We will frequently rely on this result throughout the
   thesis.]
 
+// TODO: complete!
 #definition[Let $u, v$ be units. Then $u$ *contains information* $v$ if for some
   $s in v$, $u[s] != s$.]<information>
 
@@ -275,11 +290,7 @@ any claim about, e.g., Peano Arithmetic.
 A key technique in managing information and truth through contexts is through
 the following theorem. FIXME: this is currently a stub! Need to create the
 *correct* condition. Use this as a starting point:
-//
-/// #theorem[
-//   A representation is preserves information modulo $equiv$ iff the
-//   representation modulo $equiv$ is coherent.
-// ]
+
 #theorem[
   A unit $u$ contains information about $v$ iff $u + v$ is coherent.
 ]<information-and-coherency>
@@ -301,18 +312,7 @@ the following theorem. FIXME: this is currently a stub! Need to create the
 
 
 
-#theorem[
-
-]<universality-theorem>
-
 As a consequence, we immediately obtain the following corollary.
-
-// TODO: define truth management systems!
-#corollary[
-  Every truth management system, accepted by some computable function, is
-  definable as a unit.
-]
-
 
 Note that there are multiple ways to prove @universality-theorem, infinitely in
 fact. This motivates the following definition.

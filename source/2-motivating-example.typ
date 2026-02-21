@@ -35,7 +35,6 @@ This proves an informal claim made in Meseguer @twenty_years_rewriting_logic,
 which claims that rewriting logics without conditional rules are "strictly less"
 expressive than those with conditions, see @definability-conditions.
 
-
 We define a _unit_ as an extendible component in a representation that can be
 broken down, build new units, or act on other units. Computationally, we can
 treat units as IDs to partial computable functions, but we permit _implicit

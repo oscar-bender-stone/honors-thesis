@@ -46,6 +46,45 @@
     better with new techniques/results.
     - Need explicit proofs for this! Not sure how to store certificates...
 
+== Universal Systems
+// TODO: also mention ZFC as an
+// example with its own reflection theorem,
+// or briefly mention it.
+
+Note that there are multiple ways to prove @universality-theorem, infinitely in
+fact. This motivates the following definition.
+
+// TODO: develop!
+#definition[
+  A universal representation system (URS) is a unit that can represent any
+  representation.
+]
+
+
+// TODO: Make this more precise and complete proof.
+#theorem[
+  A unit is a universal representation system if and only if it can represent
+  any partial computable function. Moreover, any universal representation system
+  can represent any universal representation system. In particular, representing
+  itself is called *reflection*.
+]
+
+// TODO: dissue axiomatic systems!
+// Want to emphasize the relevant *process* (per context) is important!
+// That is, the journey to discover new things.
+// ONLY FI the specification is complete in some way (or "finalized"),
+// it is then that axiomatic systems *can* help.
+// Expand this discussion into a paragraph or two.
+
+
+The term _universal_ is specifically for expressing _representations_
+symbolically. The free parameter still needs to be included and is an additional
+feature on top of partial comptuable functions. However, the _management_ of
+these symbols is done entirely with partial computable functions.
+
+The next section discusses the issue of _managing_ the infinitely many choices
+for URSs.
+
 
 == Impossible Classes
 
