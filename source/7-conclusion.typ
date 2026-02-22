@@ -38,7 +38,18 @@ implementation, FAIR provides best practices for storing scientific information.
 However, multiple papers have outlined problems with these overarching
 principles, including missing checks on data quality @FAIR-data-quality, missing
 expressiveness for ethics frameworks @FAIR-and-CARE, and severe ambiguities that
-affect implementations @FAIR-implementation.
+affect implementations @FAIR-implementation. Welkin addresses thesse by...
+
+Along with the sciences, there are several projects for storing mathematical
+information (see @review-math-knowledge-management for more details). Older
+proposals, including the QED Manifesto @qed-reloaded and the Module system for
+Mathematical Theories (MMT), aimed to be more general and have seen limited
+success. More centralized systems, like `mathlib` in the Lean proof assistant
+@lean-mathlib, have seen adoption but do not give equal coverage nor are
+interoperable with other systems. Welkin enables this interopreeable through
+gradual translations, and with @information-organization, one can always
+determine if there is enough _direct_ information to complete a translation.
+This will help facilitate reusability among major projects.
 
 == Humanities
 
