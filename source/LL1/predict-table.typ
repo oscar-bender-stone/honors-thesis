@@ -11,12 +11,12 @@
 
   // START
   [`start`],
-  [`"#" | "@" | "~@" | "&" | "." | ID | STRING | "{" | "(" | EOF`],
+  [`"#" | "@" | "~@" | "~" | "." | ID | STRING | "{" | "(" | EOF`],
   [`terms`],
 
   // TERMS & TAIL
   [`terms`],
-  [`"#" | "@" | "~@" | "&" | "." | ID | STRING | "{" | "("`],
+  [`"#" | "@" | "~@" | "~" | "." | ID | STRING | "{" | "("`],
   [`term terms_tail`],
 
   [], [`EOF | "}" | ")"`], [`EPS`],
@@ -25,10 +25,10 @@
 
   // TERM & NODE
   [`term`],
-  [`"#" | "@" | "~@" | "." | ID | STRING | "{" | "(" | "["`],
+  [`"#" | "@" | "~@" | "~" | "." | ID | STRING | "{" | "("`],
   [`node chain`],
 
-  [`node`], [`"#" | "@" | "~@" | "." | ID | STRING`], [`PATH opt_block`],
+  [`node`], [`"#" | "@" | "~@" | "~" | "." | ID | STRING`], [`PATH opt_block`],
   [], [`"{" | "("`], [`block`],
 
   // OPTIONAL BLOCK & BLOCK
@@ -40,7 +40,7 @@
 
   // CHAIN (Arc Enforcer)
   [`chain`], [`"-" | "<-"`], [`left_link node right_link node chain`],
-  [], [`EOF | "}" | ")" | | ","`], [`EPS`],
+  [], [`EOF | "}" | ")" | ","`], [`EPS`],
 
   [`left_link`], [`"-"`], [`"-"`],
   [], [`"<-"`], [`"<-"`],

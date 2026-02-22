@@ -7,7 +7,7 @@
   inset: 3pt,
   align: (left, center, left),
   fill: (x, y) => if y == 0 { luma(200) } else { none },
-  table.header([*Original (Modified)*], [*Transform*], [*LL(1)*]),
+  table.header([*Original*], [*Transform*], [*LL(1)*]),
 
   // 1. Start Rule (Comma Logic)
   [`start ::= terms`, \ `terms ::= term ("," term)* ","? | EPS`],
