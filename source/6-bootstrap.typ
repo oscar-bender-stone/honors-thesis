@@ -11,6 +11,16 @@ This section proves that there is a file, which we call `weklin.welkin`, that
 contains enough information to _represent_ Welkin. We do not bootstrap proofs in
 this thesis, but that could easily be a future extension.
 
+== Welkin64
+
+As mentioned in the start of @syntax, we address a major practical concern:
+determining the truth of a claim in Welkin, such as whether a string is accepted
+by the grammar or whether a database contains enough information to solve a
+query. The notion of "finite" is limited by implementations ability to check for
+correctness up to a certain bound. This phenomena is known as "Kripkenstein"
+@kripke_wittgenstein and poses a major problem with creating a reliable Trusted
+Computing Base.
+
 == Revisions
 
 [TODO: complete this stub! These are my short ideas, but I think this is enough.
