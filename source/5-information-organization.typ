@@ -38,37 +38,8 @@ with the available information. Our localized algorithm provides a nice
 architecture to solve problems: combining bounded queries in the database to
 confirm the presence of an answer, combined wth unbounded searches by some
 search procedure or heuristics. Note that the search procedure may or may not be
-computable; what is important is that bounded queries are always efficient.
-
-Based on our interest to optimize _queries_, we focus on speed _and_ size of the
-database.
-- Main question: *which* universal system to choose? Is this practical?
-
-  - What is a suitable criterion for a base theory?
-
-  - Recall aim: want to mechanically store systems for a database
-
-    - What if possible performance degredation? Will we get stuck
-    if we start with one architecture? Will we have to adjust later?
-
-    - Aim is to ensure architecture is completely flexible and
-    can automatically adapt
-
-    - One key metric: ability to store as many systems coherently as possible,
-    i.e., store as much information as psosible
-  - Main problem: Blum's speedup theorem
-
-    - Briefly generalize this for slate logic
-
-    - Show that no single way to completely organize systems based on a
-      computable metric.
-    This is part of the need for new search techniques!
-
-    - Want to separate search from storage though, but we want to improve
-    stored results *with* new results. This forms the idea behind the database
-    architecture: have a simple way to store results that automatically gets
-    better with new techniques/results.
-    - Need explicit proofs for this! Not sure how to store certificates...
+computable; what is important is that bounded queries are always efficient. We
+also provide proof certificates.
 
 == Universal Systems
 // TODO: also mention ZFC as an
