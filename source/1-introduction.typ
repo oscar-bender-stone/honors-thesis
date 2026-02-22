@@ -79,7 +79,10 @@ define information as an invariant under these coherent representations. We
 include definitions on a _working_ basis as what is most practical, not an
 epistemological stance that can be further clarified in truth systems.
 Additionally, we keep the theory as simple as possible to make scalability and
-standardization straight-forward.
+standardization straight-forward. Furthermore, we enhance standardization using
+a finite variant of the language, providing a self-contained, small area of
+trusted software and hardware needed, or Trusted Computing Base in the
+programming languages literature @rushby-trusted-computing-base.
 
 
 #figure(
@@ -105,7 +108,8 @@ standardization straight-forward.
     [The language needs a rigorous and formal specification. Moreover, the
       bootstrap must be formalized, as well as an abstract machine model. The
       grammar and bootstrap must be fixed to ensure complete forwards and
-      backwards compatibility.
+      backwards compatibility. Certificates must be reliably checked and rely on
+      a low level of trust, or a small Trusted Computing Base.
     ],
   ),
   caption: "Goals for the Welkin language.",
