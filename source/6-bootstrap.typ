@@ -23,7 +23,8 @@ The complete bootstrap is in appendix ?.
 // Decide whether to use LL(1) grammar.
 // Also removes needed for EBNF (for simplicity)
 // FIXME: remove ANY traces of EBNF in this bootstrap
-#let bootstrap-text = ```
+#let bootstrap-text = ```welkin
+"TODO: make sure this is complete! It is NOT currently",
 #welkin,
 
 radix {

@@ -149,9 +149,9 @@ We define our variant of EBNF below:
   - `a ::= a_1 | ... | a_n` is short-hand for `{a ::= a_i | 1 <= i <= n}`.
   // TODO: make this more rigorous! Probably
   // need to say at least _one_ way to transform this?
-  - `a ::= (a_1)*` means zero or more instances of $a_1$.
-  - `a ::= (a_1)+` means one or more instances of $a_1$.
-  - `a ::= (a_1)?` means zero or one instance of $a_1$.
+  - `(a_1)*` means zero or more instances of $a_1$.
+  - `(a_1)+` means one or more instances of $a_1$.
+  - `(a_1)?` means zero or one instance of $a_1$.
 ]
 
 == The Welkin Grammar
@@ -199,9 +199,9 @@ Moreover, we define the top of a word in @top.
 ]<LL1>
 
 #theorem[
-  Welkin's language is accepted by some _LL(1)_ grammar. Hence, Welkin's syntax
-  is unambiguous, i.e., every string accepted by the language has exactly one
-  derivation.
+  There exists some _LL(1)_ grammar that accepts the same strings as the Welkin
+  grammar @welkin-grammar. Hence, Welkin's syntax is unambiguous, i.e., every
+  string accepted by the language has exactly one derivation.
 ]
 #proof[
   // TODO: should we explain why LL(1) => unambiguous?

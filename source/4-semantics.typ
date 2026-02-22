@@ -228,7 +228,8 @@ An important theorem to show Welkin is universally is @universality-theorem.
 
     }
 
-    ```
+    ```A,
+    caption: "Combinators as represented in Welkin."
   ]<combinators-in-welkin>
 
 
