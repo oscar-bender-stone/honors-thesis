@@ -26,9 +26,19 @@ with computable representations (essentially, any human subject).
 
 == Programming Languages and Formal Verification <conclusion:programming>
 
+[TODO: add discussions on supporting interoperability with languages, providing
+more robust and unified implementations of core libraries, compilers, and
+operating systems.]
+
+Taking the enable custom hardware implementations for checking and reduce the
+surface area for attacks on verifying certifications for many applications,
+including cryptography.
+
 Moreover, the proposed architecture could use an LLM as an oracle.
 
 == Mathematical and Scientific Knowledge
+
+[TODO: discuss more applications of Welkin in depth.]
 
 There are several possible projects to purusue in mathematics and scientific
 research. For mathematics, there are several existing rojects for storing
@@ -61,6 +71,8 @@ be more effectively analyzed.
 
 
 == Humanities
+
+[TODO: significantly expand.]
 
 IM in the humanities has few models, including aan adaption of FAIR
 @ALLEA-FAIR-humanities and discipline specific, linked databases in the

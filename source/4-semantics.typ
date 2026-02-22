@@ -30,6 +30,7 @@ Given the rationale, we explain how the Abstract Syntax Tree (AST) is processed
 for the syntax. The AST provides an intermediate step before the final data
 structure.
 
+[TODO: maybe move word equality back into syntax?]
 
 #figure(
   ```
@@ -355,3 +356,13 @@ be to use that this notion of enough is efficient, so checking for this should
 be efficient, say $O(n)$ or $O(n^2)$. This will likely be based on rewrite
 rules, in combination with axiom *R3*.]
 
+[TODO: a core part of queries is *indirect* information, or information that may
+not be directly visible by immediately applying rewrite rules. This relates to
+my earlier attempts on a universal progress theorem. What I want is to know if
+query is "well-posed" or _can_ be solved by a computable representation. This
+well-posedness needs to be _defined_ in the truth system itself, and part of
+this may be undecidable. However, most of this should be converted to
+_finitistic properties of comptuable functions_. This will be my new version of
+"universal progress", and I may provide an example where introducing _bridging_
+representations may be effective, such as through mathematics and music (which
+is _not_ necesarially a homomorphism between proof systems.)]

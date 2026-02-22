@@ -11,7 +11,7 @@ This section proves that there is a file, which we call `weklin.welkin`, that
 contains enough information to _represent_ Welkin. We do not bootstrap proofs in
 this thesis, but that could easily be a future extension.
 
-== Welkin64
+== Welkin64 <welkin64>
 
 As mentioned in the start of @syntax, we address a major practical concern:
 determining the truth of a claim in Welkin, such as whether a string is accepted
@@ -20,6 +20,11 @@ query. The notion of "finite" is limited by implementations ability to check for
 correctness up to a certain bound. This phenomena is known as "Kripkenstein"
 @kripke_wittgenstein and poses a major problem with creating a reliable Trusted
 Computing Base.
+
+[TODO: create this boolean formula! Do we *include* parsing in this or *only*
+involve units and a specific, efficient implementation for a global ID system
+with arcs?] For our use case, we define 64 bit hashes. This can be defined by a
+predetermined boolean formula.
 
 == Revisions
 
