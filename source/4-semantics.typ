@@ -175,8 +175,14 @@ This phase merges the units into the final data structure.
   the AST as follows:
   - *Graph*: take each node defined in the graph, and transform it into a unit.
   Take these units and add them to the list of names. Then, take the
-  representations and add them to the names. Moreover, each import $@u$ adds the
-  rule $v --> u.v$ for each sub-unit $v$ of $u$.
+  representations and add them to the names. Apply the includes and excludes
+  rules below.
+  - *Includes:* each import
+  $@u$ adds the rule $v --> u.v$ for each sub-unit $v$ of $u$.
+  - *Excludes:* each exclusion $~@u$ means to remove _all_ references to . Note
+  that this takes priority over $@u$, so the unit ${@u, ~@u}$ is equivalent to
+  ${}$. The same behavior occurs with $~u$ except for the single unit $u$, and
+  ${u, ~u}$ is equivalent to ${}$.
 
   - *Representation*: apply internal transitivity in each context.
 
@@ -244,16 +250,31 @@ An important theorem to show Welkin is universally is @universality-theorem.
   proof.
 ]
 
-However, this is only one component: we also must prove we can represent _any_
-truth management system. This is made possible through contexts.
+[TODO: ensure this definition is general enough! We will need to tackle the
+third rule, having unspecified parameters, more in depth. Does this mean an
+implementation defined feature? Or does it generalize it?] However, this is only
+one component: we also must prove we can represent _any_ truth management
+system. This is made possible through contexts. We define a *truth management
+system* generally as a partial computable function augmented with parameters
+that denote the truth of base statements or *axioms*. These are intentionally
+left undefined, in the same vein as *R3*. In fact, by *R3* and
+@universality-theorem, we obtain the following.
+
+#corollary[
+  Any computable truth management system can be represented as a
+]<universality-truth-management>
+
+Note that it is essential to have contexts via *R2*, as shown by the following.
 
 #theorem[
-  Any computable
-]<>
+  Representations with contexts cannot be expressed with those without.
+]<definability-conditions>
+#proof[
+  The largest class expressible with unconditional representations are
+  context-free grammars, because... Thus, not all partial computable functions
+  are included, completing the proof.
+]
 
-
-// TODO: discuss contexts
-// as essential to truth management
 == Queries and Information
 We set $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(s)$ is the local
 extension of $s$ in $x$. We interpret $u -->^c v$ as: the *sign* $u$ represents
@@ -289,35 +310,31 @@ of non-trivial classes of partial computable functions in formal system. This
 connects with the absence of a universal _single_ formal system that can prove
 any claim about, e.g., Peano Arithmetic.
 
-// TODO: clean up this example.
-// Want to emphasize what is information here,
-// so, e.g., we may say left and right nodes don't
-// have information about each other, in general
+[TODO: clean up this example. Want to emphasize what is information here, so,
+e.g., we may say left and right nodes don't have information about each other,
+in general]
 #example[
-  Trees.
-  // #example[
-  //   Consider the recursive definition of a binary tree: either it is a null (leaf)
-  //   node, or it contains two nodes, left and right. We can model this as follows:
-  //   - First, create units for each of the notions: `tree {null, left, right}`.
-  //   // TODO: add a condition that the left and right trees are distinct,
-  //   // to show this is possible!
-  //   - Next, we write,
-  //     `tree { nil --> .tree, left..tree, right..tree, {.left, .right} --> .tree}`.
-  //     Notice that we refer to the _namespace_ via a relative path, `.tree`,
-  //     thereby enabling recursion.
-  //   // TODO: fix this up! Show a counter-example
-  //   // and how this is not coherent with the definition
-  //   - We can test this out in Welkin with:
-  //     `my_tree {.tree.left --> {nil --> .tree}, .tree.right {nil --> .tree} }`.
-  //     This is then coherent with the previous definition.
+  Consider the recursive definition of a binary tree: either it is a null (leaf)
+  node, or it contains two nodes, left and right. We can model this as follows:
+  - First, create units for each of the notions: `tree {null, left, right}`.
+  [TODO: add a condition that the left and right trees are distinct, to show
+  this is possible!]
+  - Next, we write,
+    `tree { nil --> .tree, left..tree, right..tree, {.left, .right} --> .tree}`.
+    Notice that we refer to the _namespace_ via a relative path, `.tree`,
+    thereby enabling recursion.
+  // TODO: fix this up! Show a counter-example
+  // and how this is not coherent with the definition
+  - We can test this out in Welkin with:
+    `my_tree {.tree.left --> {nil --> .tree}, .tree.right {nil --> .tree} }`.
+    This is then coherent with the previous definition.
 
-  //   // TODO: develop useful derivations + coherency!
-  //   Are are two important ideas in this example. First, an abstraction can be
-  //   defined prior to a concrete model. The other way is possible as well, showing
-  //   how developing representations are flexible in Welkin. Second, the derivations
-  //   of trees can now be formulated. So we can defie childs and ancestors, and test
-  //   against the coherency of the tree.
-  // ]
+  // TODO: develop useful derivations + coherency!
+  Are are two important ideas in this example. First, an abstraction can be
+  defined prior to a concrete model. The other way is possible as well, showing
+  how developing representations are flexible in Welkin. Second, the derivations
+  of trees can now be formulated. So we can define descendants and ancestors,
+  and test against the coherency of the tree.
 ]
 
 A key technique in managing information and truth through contexts is through
@@ -328,14 +345,10 @@ the following theorem. FIXME: this is currently a stub! Need to create the
   A unit $u$ contains information about $v$ iff $u + v$ is coherent.
 ]<information-and-coherency>
 
-
-#theorem[
-  Representations with contexts cannot be expressed with those without.
-]<definability-conditions>
-#proof[
-  The largest class expressible with unconditional representations are
-  context-free grammars, because... Thus, not all partial computable functions
-  are included, completing the proof.
-]
-
+[TODO: Develop the notion of a query and its relation to information.
+Ultimately, we want to define information based on how useful it is for querying
+the database. We want to define a query to be anything we can inquire _about_ a
+database that we we can (partially) computably represent. Information should
+then follow quickly from there as a _partial_ answer. Having enough information
+means being able to _fully_ solve the query.]
 
