@@ -41,26 +41,14 @@ and breadth of disciplines.
 
 // TODO: determine whether to address several general IM approaches,
 // or just focus on Burgin's GTI
-In response to these challenges, several solutions have been proposed, but none
-have been fully successful. In the sciences, a group of researchers created the
-Findable Accessible Interoperable Resuable (FAIR) guidelines
-@FAIR_guiding_science. Instead of providing a concrete specification or
-implementation, FAIR provides best practices for storing scientific information.
-However, multiple papers have outlined problems with these overarching
-principles, including missing checks on data quality @FAIR-data-quality, missing
-expressiveness for ethics frameworks @FAIR-and-CARE, and severe ambiguities that
-affect implementations @FAIR-implementation. Along with the sciences, there are
-several projects for storing mathematical information (see
-@review-math-knowledge-management for more details). Older proposals, including
-the QED Manifesto @qed-reloaded and the Module system for Mathematical Theories
-(MMT), aimed to be more general and have seen limited success. More centralized
-systems, like `mathlib` in the Lean proof assistant @lean-mathlib, have seen
-adoption but do not give equal coverage nor are interoperable with other
-systems. Beyond more "hard" fields, IM in the humanities has few models,
-including aan adaption of FAIR @ALLEA-FAIR-humanities and discipline specific,
-linked databases in the PARNTHEOS project @digital-humanities-foresight. Each of
-these proposals, even within speciic fields, fail to accommodate for all of the
-mentioned challenges.
+Along with the sciences, there are several projects for storing mathematical
+information (see @review-math-knowledge-management for more details). Older
+proposals, including the QED Manifesto @qed-reloaded and the Module system for
+Mathematical Theories (MMT), aimed to be more general and have seen limited
+success. More centralized systems, like `mathlib` in the Lean proof assistant
+@lean-mathlib, have seen adoption but do not give equal coverage nor are
+interoperable with other systems. Each of these proposals, even within specific
+fields, fail to accommodate for all of the mentioned challenges.
 
 In addition to domain specific proposals, there are approaches for general IM
 which still fail to resolve all issues. One prominent example is Burgin's theory
@@ -122,7 +110,7 @@ scalability and standardization straight-forward.
     [The language needs a rigorous and formal specification. Moreover, the
       bootstrap must be formalized, as well as an abstract machine model. The
       grammar and bootstrap must be fixed to ensure complete forwards and
-      backwards compatbility.
+      backwards compatibility.
     ],
   ),
   caption: "Goals for the Welkin language.",
