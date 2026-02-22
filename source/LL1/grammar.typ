@@ -33,7 +33,7 @@
   PATH_TAIL  ::= PATH_BODY | EPS
 
   UNIT     ::= IMPORT | ID | STRING
-  MODIFIER   ::= "#" | "@" | "~@" | "&"
+  MODIFIER   ::= "#" | "@" | "~@" | "~"
   ID         ::= ID_CHAR+
   ID_CHAR    ::= PRINTABLE \ (DELIMITERS | WHITESPACE | "#" | "@" | "~" | "'" | '"')
   DELIMITERS ::= "," | "." | "-" | "<" | ">" | "*" | "(" | ")" | "{" | "}"

@@ -16,8 +16,9 @@
   ),
   abstract: [Welkin is a formalized information language. We introduce its use
     cases and rigorously define its syntax and semantics. From there, we
-    introduce the bootstrap, making Welkin completely self-contained, and we
-    prove that Welkin is sound but incomplete.],
+    introduce the bootstrap, making Welkin completely self-contained. [TODO:
+    determine how to phrase soundness and incompleteness. Should we include
+    these?].],
   bibliography: bibliography((
     "references/misc.bib",
     "references/1-introduction.bib",
