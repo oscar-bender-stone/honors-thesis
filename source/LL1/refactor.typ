@@ -41,8 +41,7 @@
   // 3. Ambiguity Resolution
   [```
   graph ::= path? "{" terms "}"
-  group ::= path?
-            ("(" terms ")" | "[" terms "]")
+  tuple ::= path? "(" terms ")"
   path  ::= modifier? path_segment* unit
   ```],
   [@ll1-transform:1, \ @ll1-transform:2],
@@ -52,7 +51,6 @@
   opt_block  ::= block | EPS
   block      ::= "{" terms "}"
                | "(" terms ")"
-               | "[" terms "]"
 
   /* Expand path +, * contiguously */
   PATH       ::= MODIFIER PATH_BODY
