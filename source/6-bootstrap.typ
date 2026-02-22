@@ -1,14 +1,41 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
+#import "template/ams-article.typ": definition, example, remark
+
 = Bootstrap <bootstrap>
 
-// TODO: decide soon whether to include proofs IN the bootstrap!
-// Definitely need to finsih those soon, if so
+[TODO: decide soon whether to include proofs IN the bootstrap!]
+
 This section proves that there is a file, which we call `weklin.welkin`, that
 contains enough information to _represent_ Welkin. We do not bootstrap proofs in
 this thesis, but that could easily be a future extension.
 
+== Revisions
+
+[TODO: complete this stub! These are my short ideas, but I think this is enough.
+Metadata, like time, can be added separately. This is a perfect use case of
+representations!]
+
+Welkin enables revisions through a builtin unit called `revision`. Users can
+create a list. Alternatively, they may import revisions from separate files,
+which may be automated by an implementation (but with all files visible for
+direct access).
+
+[TODO: combine with validation of a unit _defined_ by a unit. This would be
+great to have in the language and likely may need its own subunit in `welkin`.]
+#definition[
+  The contents of a revision must not include recursion and no context-sensitive
+  rules. Only direct representations are allowed (aliases), but scopes may be
+  used, following Welkin's usual rules.]
+
+Interestingly, the revision unit allows for "meta-revisions", or revisions on
+revisions. This flexibility is enabled through Welkin, but is fundamentally
+starts with revision. Moreover, Welkin can optimize graphs that satisfy the
+rules of a revision and _internally_ store such as a revision, which can be user
+accessed.
+
+For more details, see the end of the bootstrap.
 
 == Self-Contained Standard
 
@@ -36,7 +63,7 @@ radix {
 word {
   @radix,
 
-  . --> "0b".&binary) | decimal | "0x".&hex,
+  . --> "0b".binary) | decimal | "0x".hex,
   binary --> bit | binary.bit,
   decimal --> digit | decimal.digit,
   hex --> nibble | hex.nibble,
@@ -96,6 +123,11 @@ evaluation {
 
 organization {
 
+
+}
+
+
+revision {
 
 }
 
