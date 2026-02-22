@@ -3,29 +3,33 @@
 
 = Conclusion <conclusion>
 
-- Review of thesis
-  - Developed slate logic + bi-translation with FOL
-  - Developed locally optimal organizational technique
-  that can improve based on annotations/certificates
-  - Introduced the language, with a straightforward
-  graph syntax and semantics
-  - Builds upon the last section
-  - Bootstrapped standard + used coherency condition
-- Significance
-  - Backwards AND forwards compatbile standard
-  that bootstraps itself. Easy for implementations!
-  - Applications to any human subject
-    - Sciences
-    - Liberal arts
-    - Economics
-    - Etc.
-- Future work
-  - Programming language semantics + synthesis
-    - Incorporate broader aspects + intent of users! ESSENTIAL for new
-      programming languages to be able to discuss pragmatics in some way!
-    - Also reproducible AND executable specifications,
-    though creating an engine to execute these is far beyond the scope of the
-    thesis
-  - Organizing large corpuses of human text
-  - Numerous applications to AI and improving results
-    - Emphasize role of symbol grounding problem in AI
+
+This thesis introduced Welkin, a universal, formalized information language. The
+syntax (@syntax) was defined rigorously with a small EBNF, shown to be accepted
+by an LL(1) grammar, showing that parsing is unambiguous. The semantics
+(@semantics) were provided with several passes to convert parse trees into
+units, which contain both a hierarchical and relational structure for scoping
+and direct representations, respectively. Units have key properties that enable
+them to express any partial computable function @universality-theorem, in
+conjungtion with expressing any truth management system, demonstrates
+*universality* of the system. This is practically demonstrated by showing that
+all the major paradigms in Information Management and Knowledge Management are
+expressible within Welkin. Morever, it was shown that there is a way to best
+organize the language given available information @information-organization,
+showing *scalability*. Finally, the bootstrap in @bootstrap self-hosts the
+language within a bounded 64 variant, whose complete Unambiguity (as well as the
+grammar's prior) establishes *standardization*. Revisions further enhance this
+by
+
+The remaining sections show several areas for future work. This list is not
+exhaustive and, by the previous arguments, and can be applied to _any_ subject
+with computable representations (essentially, any human subject).
+
+== Programming Languages and Formal Verification
+
+
+Moreover, the proposed architecture could use an LLM as an oracle.
+
+== Mathematical and Scientific Knowledge
+
+== Humanities
