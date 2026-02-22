@@ -22,23 +22,6 @@ Information Management (IM) is an open area of research as a result of the depth
 and breadth of disciplines.
 
 
-// In terms of depth, many areas are often specialized,
-// requiring an immense understanding of the broader concepts involved and
-// nomenclature used. This specialization is evident in the sciences, as explored
-// in @hierarchy_science, @specialized_science. Additionally, in terms of breadth,
-// creating common representations shared across sub-disciplines can be difficult.
-// For example, mathematics has extremely diverse disciplines, and connecting these
-// areas is an open problem in scalability @big-math-problems. Moreover, creating a
-// standardized form across communities is challenging. In other subjects, like the
-// social sciences, there are no standard terms @social_sciences_databases, and in
-// the humanities, representing certain artifacts as data is involved
-// @ALLEA-FAIR-humanities. More broadly, IM _itself_ is divided from distinct
-// approaches that lack interoperability @information-management-frameworks.
-// Certain frameworks equate IM to Knowledge Management (KM) and assert that
-// information must be true @information-and-knowledge-management. These problems,
-// in both faithfully and broadly storing information, demonstrate the enormous
-// task of effective IM.
-
 In addition to domain specific proposals, there are approaches for general IM
 which still fail to resolve all issues. One prominent example is Burgin's
 General Theory of Information (GTI)@burgin-information-book that comprehensively
