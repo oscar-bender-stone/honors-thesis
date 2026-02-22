@@ -215,6 +215,8 @@ An important theorem to show Welkin is universally is @universality-theorem.
     ```welkin
     #combinators,
 
+    "TODO: this is not yet complete. Not sure if K is presentable, or if I should try showing that a Turing-complete term rewriting system is definable instead. Unrestricted grammars may be more promising.",
+
     K {
       x, y,
       x --> {
