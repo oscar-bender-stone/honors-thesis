@@ -15,7 +15,7 @@ forms called *Internal Representations (IR)*. These phases are:
 
 - Abstract Syntax Trees (ASTs): simplifies the parse tree
 and removes punctuation.
-- Lexographic Ordering: Lexographically orders graphs by names and anonymous
+- Lexicographic Ordering: Lexicographically orders graphs by names and anonymous
   graph
 content.
 - Unique IDs: Assigns IDs to all names and resolves absolute and relative paths.
@@ -154,11 +154,11 @@ structure.
 
 == Unified IDs
 
-This phase first lexographically orders the graph by its labels. Anonymous
-graphs are lexographically ordered by contents, with arcs treated as triples and
-lexographically ordered accordingly. Then, IDs are assigned. The lexographic
-ordering ensures the ID is _exactly_ the same for two strings that are
-positionally different. This shows that Welkin is positionally invariant.
+This phase first lexicographically orders the graph by its labels. Anonymous
+graphs are lexicographically ordered by contents, with arcs treated as triples
+and lexicographically ordered accordingly. Then, IDs are assigned. The
+lexicographic ordering ensures the ID is _exactly_ the same for two strings that
+are positionally different. This shows that Welkin is positionally invariant.
 
 == Unification
 
