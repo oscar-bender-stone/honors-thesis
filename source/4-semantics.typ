@@ -349,6 +349,9 @@ the following theorem. FIXME: this is currently a stub! Need to create the
 Ultimately, we want to define information based on how useful it is for querying
 the database. We want to define a query to be anything we can inquire _about_ a
 database that we we can (partially) computably represent. Information should
-then follow quickly from there as a _partial_ answer. Having enough information
-means being able to _fully_ solve the query.]
+then follow quickly from there as a _partial_ answer. Having _enough direct_
+information means being able to _fully_ solve the query. Moreover, the goal will
+be to use that this notion of enough is efficient, so checking for this should
+be efficient, say $O(n)$ or $O(n^2)$. This will likely be based on rewrite
+rules, in combination with axiom *R3*.]
 
