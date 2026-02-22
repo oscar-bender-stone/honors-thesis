@@ -135,10 +135,9 @@ This thesis is organized according to @thesis-organization.
     columns: (auto, auto, auto),
     align: left,
     // table.header([*Section Number*], [*Title*], [*Description*]),
-    [*@motivating-example*],
+    [*@rationale*],
     [*Motivating Example*],
-    [Introduces a high-level example, with geographic maps, to explain the core
-      concept in Welkin.],
+    [Introduces Welkin at a high level, as well as guiding exmaples.],
 
     [*@syntax*],
     [*Syntax*],
