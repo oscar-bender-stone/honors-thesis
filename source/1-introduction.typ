@@ -5,18 +5,15 @@
 
 = Introduction
 
-// TODO: discuss IM and KM *as a whole*.
-// The discussions into specific fields
-// is too dense for this intro!
-// Also, emphasize what we do compared
-// to other solutions. Doing this
-// _instead_ of specific fields
-// will help!
-//
-// Current outline:
-// - RDF: lacks named graphs, so reification is difficult. Reification is *built into* Welkin
-//   String literals are also reified, and unit IDs and strings are the same,
-//   with the latter enabling any character ID more naturally.
+[TODO: complete general discussion on IM and KM in the first paragraph. The
+discussions into specific fields is too dense for this intro! Also, emphasize
+what we do compared to other solutions. Doing this _instead_ of specific fields
+will help!
+
+Current outline: - RDF: lacks named graphs, so reification is difficult.
+Reification is *built into* Welkin String literals are also reified, and unit
+IDs and strings are the same, with the latter enabling any character ID more
+naturally.]
 
 Information Management (IM) is an open area of research as a result of the depth
 and breadth of disciplines.
