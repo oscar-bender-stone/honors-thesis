@@ -1,11 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-= Motivating Example <motivating-example>
-
-// TODO: maybe make this section *about*
-// Ratinoale and provide a *concise* example?
-== Rationale <rationale>
+= Rationale <rationale>
 
 We justify why the language is focused on representations. First, to mechanize
 the information language, we allow only total computable functions, with

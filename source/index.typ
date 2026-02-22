@@ -31,7 +31,7 @@
 #outline()
 
 #include "1-introduction.typ"
-#include "2-motivating-example.typ"
+#include "2-rationale.typ"
 #include "3-syntax.typ"
 #include "4-semantics.typ"
 #include "5-information-organization.typ"
