@@ -64,12 +64,10 @@ fact. This motivates the following definition.
   itself is called *reflection*.
 ]
 
-// TODO: dissue axiomatic systems!
-// Want to emphasize the relevant *process* (per context) is important!
-// That is, the journey to discover new things.
-// ONLY FI the specification is complete in some way (or "finalized"),
-// it is then that axiomatic systems *can* help.
-// Expand this discussion into a paragraph or two.
+[TODO: dissue axiomatic systems! Want to emphasize the relevant *process* (per
+context) is important! That is, the journey to discover new things. ONLY FI the
+specification is complete in some way (or "finalized"), it is then that
+axiomatic systems *can* help. Expand this discussion into a paragraph or two.]
 
 
 The term _universal_ is specifically for expressing _representations_
@@ -79,20 +77,6 @@ these symbols is done entirely with partial computable functions.
 
 The next section discusses the issue of _managing_ the infinitely many choices
 for URSs.
-
-
-// == Impossible Classes
-
-// The reason to restrict our transformations is two-fold. First, we need to ensure
-// we can _verify_ them efficiently. Determining whether a morphism between two
-// formal systems exist can be reduced to the Halting problem, and is therefore not
-// practical for defining an optimal formal system. Second, if we include those
-// tranformations that we _can_ effectively check, no optimal formal system exists.
-
-// #theorem[
-//   With respect to the class of all computable transformations that can be
-//   computably verified, there is no optimal formal system.
-// ]<impossible_complete_compression>
 
 == Localized Size Compression <local-size-compression>
 
