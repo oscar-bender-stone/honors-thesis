@@ -52,8 +52,8 @@ structure.
   - *Term:* either a Root, Arc, Graph, Group, or Path, with two additional
     fields:
     - *Position:* a pair $("Line", "Column")$, where $"Line"$ is the first
-  number of newline ("\n") characters occuring before the term and $"Column"$ is
-  the position of this term on the line. Both of these are stored as bytes.
+  number of newline ("\n") characters occurring before the term and $"Column"$
+  is the position of this term on the line. Both of these are stored as bytes.
   - *Root:* simply stores the corresponding unit.
   - *Arc:* This is converted into a list. The first item is $(s_0, c_0 r_0)$,
     the first triple that occurs in the chain. Then, the remaining triples are
@@ -279,7 +279,7 @@ Note that it is essential to have contexts via *R2*, as shown by the following.
 == Queries and Information
 We set $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(s)$ is the local
 extension of $s$ in $x$. We interpret $u -->^c v$ as: the *sign* $u$ represents
-*referant* $v$ in *context* $c$. Through @universality-theorem, we will present
+*referent* $v$ in *context* $c$. Through @universality-theorem, we will present
 the following computational interpretation:
 
 #align(center, block[

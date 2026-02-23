@@ -104,7 +104,7 @@ This thesis is organized according to @thesis-organization.
     // table.header([*Section Number*], [*Title*], [*Description*]),
     [*@rationale*],
     [*Motivating Example*],
-    [Introduces Welkin at a high level, as well as guiding exmaples.],
+    [Introduces Welkin at a high level, as well as guiding examples.],
 
     [*@syntax*],
     [*Syntax*],

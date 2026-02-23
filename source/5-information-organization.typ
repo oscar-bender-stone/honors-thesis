@@ -20,7 +20,7 @@
 
 The presentation of Welkin's universal expressivity, stated as
 @universality-theorem, is fixed with one particular representation. Following
-the analogue of units to partical computable functions, we define *Universal
+the analogue of units to practical computable functions, we define *Universal
 Representation Systems (URS)* as the analogues of Universal Turing Machines, see
 @universal-representation-system.
 
@@ -36,7 +36,7 @@ Blum's axioms @blum_speedup and Kolomogorov complexity
 that will best optimize a query is impossible, we _can_ optimize the database
 with the available information. Our localized algorithm provides a nice
 architecture to solve problems: combining bounded queries in the database to
-confirm the presence of an answer, combined wth unbounded searches by some
+confirm the presence of an answer, combined with unbounded searches by some
 search procedure or heuristics. Note that the search procedure may or may not be
 computable; what is important is that bounded queries are always efficient. We
 also provide proof certificates.
