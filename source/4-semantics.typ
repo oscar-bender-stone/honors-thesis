@@ -24,7 +24,7 @@ content.
 How ASTs are processed and validated. We postpone information organization to
 @information-organization.
 
-== ASTs
+== Abstract Syntax Tree (ASTs)
 
 Given the rationale, we explain how the Abstract Syntax Tree (AST) is processed
 for the syntax. The AST provides an intermediate step before the final data
@@ -46,8 +46,8 @@ structure.
 // Important to preserve *original* files when possible.
 // Will need @ by default to import things
 // TODO: determine nice way to describe conversion from parse tree to AST.
-#definition[The AST is recursively defined from the parse tree of
-  @welkin-grammar as follows:
+#definition[The *Abstract Syntax Tree* is recursively defined from the parse
+  tree of @welkin-grammar as follows:
   - *Terms:* Converted into a list, which is empty if `EPS` is matched.
   - *Term:* either a Root, Arc, Graph, Group, or Path, with two additional
     fields:
@@ -142,7 +142,7 @@ structure.
 
 
 // TODO: complete! Need to address @, ~@, and ~
-#definition[An AST is *valid* if the following holds:
+#definition[An Abstract Syntax Tree is *valid* if the following holds:
   - A Root term must exist. Moreover, there must not be conflicting Root term
     names.
   - Relative imports does not exceed the number of available parents.
@@ -173,7 +173,7 @@ This phase merges the units into the final data structure.
 // Will need to mention in the bootstrap.
 #definition[
   Create new symbols $"ID"_w$ for each binary word $w$. A *unit* is defined from
-  the AST as follows:
+  the Abstract Syntax Tree as follows:
   - *Graph*: take each node defined in the graph, and transform it into a unit.
   Take these units and add them to the list of names. Then, take the
   representations and add them to the names. Apply the includes and excludes

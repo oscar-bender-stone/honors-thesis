@@ -40,7 +40,7 @@ Moreover, the proposed architecture could use an LLM as an oracle.
 
 [TODO: discuss more applications of Welkin in depth.]
 
-There are several possible projects to purusue in mathematics and scientific
+There are several possible projects to pursue in mathematics and scientific
 research. For mathematics, there are several existing rojects for storing
 mathematical information (see @review-math-knowledge-management for more
 details). Older proposals, including the QED Manifesto @qed-reloaded and the
@@ -74,8 +74,8 @@ be more effectively analyzed.
 
 [TODO: significantly expand.]
 
-IM in the humanities has few models, including aan adaption of FAIR
-@ALLEA-FAIR-humanities and discipline specific, linked databases in the
+Information Management in the humanities has few models, including an adaption
+of FAIR @ALLEA-FAIR-humanities and discipline specific, linked databases in the
 PARNTHEOS project @digital-humanities-foresight. Welkin could assist by
 providing a space to help standardize this and localize different publication
 styles and literary theories.
