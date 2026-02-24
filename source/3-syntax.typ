@@ -68,13 +68,16 @@ Welkin. ] #figure(
 )<word-equality>
 
 
+
 == Terminals
 
-Welkin uses ASCII as its base encoding. The term ASCII is slightly ambiguous, as
-there are subtly distinct variants, so we formally define US-ASCII as a standard
-version. #footnote[Note that this table _itself_ is a representation, which
-  represents glyphs with binary words. The use of these kinds of representations
-  occur frequently in Welkin, see @bootstrap.
+[TODO[SHORT]: determine whether to put these details in appendix. Maybe given
+the _overarching_ grammar, at a high level?] Welkin uses ASCII as its base
+encoding. The term ASCII is slightly ambiguous, as there are subtly distinct
+variants, so we formally define US-ASCII as a standard version. #footnote[Note
+  that this table _itself_ is a representation, which represents glyphs with
+  binary words. The use of these kinds of representations occur frequently in
+  Welkin, see @bootstrap.
 ]
 
 #definition[
@@ -136,12 +139,8 @@ characters, see @syntax:id.
   caption: "IDs.",
 )<syntax:id>
 
-//  TODO: want to directly *discuss*
-// AST within Welkin
-// or a language, instead
-// of defining the parse tree separately
+[TODO(MEDIUM): find good way to implement directly with Welkin or discuss.]
 == EBNF Notation and Parse Trees
-
 
 We define our variant of EBNF below:
 #definition[
@@ -179,6 +178,7 @@ whitespace is allowed but ignored.
     in @word and @string, respectively],
 )<welkin-grammar>
 
+[TODO(HIGH): determine if this is good as is or needs to be put into bootstrap!]
 == Proof of Unambiguity
 
 We now prove that the Welkin language is unambiguous by showing it is LL(1), a
