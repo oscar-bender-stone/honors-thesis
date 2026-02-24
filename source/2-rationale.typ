@@ -62,21 +62,28 @@ symbol grounding can be modeled directly through Kolmogorov complexity
 @liu-algorithmic-symbol-grounding, demonstrating the same impossibility of fully
 grounding a system of symbols through a fixed grounding set.
 
-To address these issues, instead of addressing philosophical queries on _how_ an
-entity can gain meaning or such, we provide the practical _tools_ to do so. We
-shift the target of study from objects to _handles_ via _representations_,
-emphasizing an implicit user created binding between a handle called a *sign*
-that represents a *referent*. The binding itself may not be reasonable to store,
-such as an animal, so instead we _represent representations_ themselves. Truth
-itself is represented by the _accuracy_ of representations, determined by
-consequences of axioms as handles (see @universality-truth-management). We
-formalize both notions using _units_. A unit is provided by a user-defined
-enumeration of handles, and units can be broken down, build new units, or act on
-other units via representations. In contrast to the requirement in the quote
-above, the enumeration need _not_ be surjective but only _locally_ so.
-Abstracting away from the implicit meaning, units act as partial computable
-functions, but the latter is strictly _less_ expressive by removing user
-provided meaning.
+To address these issues, we make an important distinction between philosophical
+inquiries and _practical_ requirements for an information base. On one hand,
+many authors have argued _how_ an entity can take a meaning, with firm responses
+on whether physical objects are required, the world must be a certain way, and
+so on. On the other hand, we want an information base to be used as a _tool_,
+mechanized so that it is precisely described and can be expressed as binary
+strings as unified data format. We shift the target of study from objects in Li
+and Vitányi to _handles_ via _representations_, emphasizing an implicit user
+created binding between a handle called a *sign* that represents a *referent*.
+The information base _itself_ is not in charge with considering how to store or
+retrieve certain entities, like an animal. For information bases to be useful,
+one must determine the _fidelity_ of representations, determined by consequences
+of axioms, both treated as handles (for more details, see
+@universality-truth-management). Our core building block to explain this system
+is through _units_. A unit is provided by a user-defined enumeration of handles,
+and units can be broken down, build new units, or act on other units via
+representations. Our approach is slightly more general than the enumerations
+defined by Li and Vitányi, see @unit. Then, instead of defining information _as_
+as a strict entity, we define when a unit _contains_ information on another (see
+@information). We do this through how well representations _distinguish_ betwe .
+Operationally, units can be used as partial computable functions, but the former
+are strictly more expressive, due to user-defined implicit bindings.
 
 #example[
   In a scientific experiment, a handle could be an observation or experimental

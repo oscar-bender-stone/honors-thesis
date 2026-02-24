@@ -191,6 +191,15 @@ This phase merges the units into the final data structure.
   union*, in which a new top level node is made with children $u$ and $u'$.
 ]<unit>
 
+[TODO[SHORT]: add link to quote!]
+#remark[
+  In contrast to the requirement to the beginning of Li and Vitány (see
+  @rationale), the enumeration need _not_ be surjective but only _locally_ so.
+  Abstracting away from the implicit meaning, units act as partial computable
+  functions, but the latter is strictly _less_ expressive by removing user
+  provided meaning.
+]
+
 Note that, in Welkin, $u + u'$ is definable as $@u {@u'}$. Notationally, we will
 use refer to variables in $"math notation"$ and treat them as globally unique
 IDs. In other words, we will ignore relative imports or scoping, leaving those
