@@ -7,7 +7,8 @@
 
 In this section, we justify the design of Welkin.
 
-== Units
+
+== Information Bases
 
 The main purpose of an information base is to store information and enable user
 queries based on the available information. To make this idea precise, we
@@ -55,19 +56,27 @@ symbol grounding can be modeled directly through Kolmogorov complexity
 @liu-algorithmic-symbol-grounding, demonstrating the same impossibility of
 completely grounding a system of symbols through a fixed grounding set.
 
+[TODO[SMALL]: maybe clarify how powerful deduction is? That's my point here,
+that we don't have to check if a property holds _if_ we use a theorem instead,
+or we use different set of conditions to get a certain property.]
+
 To address these issues, we emphasize that an information base is a _tool_,
 which is useful when fully mechanized for _communication_, not to resolve
 philosophical inquiries on the existence or absence of things or abilities.
 Information itself is used for _predictions_: a person that translates the
 sentence "It will rain today" to Chinese to convey a semantic property of the
-world, that there will be rain. Note that this is different form Shanon's
-seminal work on Information Theory, in which methods are found to convey the
-_exact_ bits of strings in noisy channels. Because communication _itself_ does
-not carry the physical entities, relationships are key to effectively conveying
-ideas. A recent work bridges this gap with Shannon's work to express meaning
-through finite models in first-order logic, so that two strings are considered
+world, that there will be rain. This scales to larger examples, with major
+theorems providing even more refined or general properties _given_ a set of
+assumptions. Note that this is different form Shanon's seminal work on
+Information Theory, in which methods are found to convey the _exact_ bits of
+strings in noisy channels. Because communication _itself_ does not carry the
+physical entities, relationships are key to effectively conveying ideas. A
+recent work bridges this gap with Shannon's work to express meaning through
+finite models in first-order logic, so that two strings are considered
 equivalent if they are that are provably equivalent as first order sentences are
 in fact equal, regardless of different bits @information-logical-semantics.
+
+== Units
 
 Taking inspiration from @information-logical-semantics, this thesis completely
 generalizes their approach using a notion of _handles_ via _representations_,
