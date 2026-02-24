@@ -39,13 +39,15 @@ the symbol grounding problem @liu-grounding. Beyond this, the term _object_ is
 generally associated to _complete_ entities and makes it unclear how to work
 with abstract ideas and dynamic processes. To resolve this, we shift the target
 of study to _handles_ via _representations_, emphasizing an implicit user
-created binding between a *sign* and a *referent*, what it represents. The
-binding itself may not be reasonable to store, such as an animal, so instead we
-_represent representations_ themselves. We formalize both notions using _units_.
-A unit is provided by a user-defined enumeration of handles, and units can be
-broken down, build new units, or act on other units. Abstracting away from the
-implicit meaning, units act as partial computable functions, but the latter is
-strictly _less_ expressive, as argued above.
+created binding between a handle called a *sign* that represents a *referent*.
+The binding itself may not be reasonable to store, such as an animal, so instead
+we _represent representations_ themselves. We formalize both notions using
+_units_. A unit is provided by a user-defined enumeration of handles, and units
+can be broken down, build new units, or act on other units. In contrast to the
+requirement in the quote above, the enumeration need _not_ be surjective but
+only _locally_ so. Abstracting away from the implicit meaning, units act as
+partial computable functions, but the latter is strictly _less_ expressive, as
+argued above.
 
 #example[
   In a scientific experiment, a handle could be an observation or experimental
@@ -55,7 +57,7 @@ strictly _less_ expressive, as argued above.
 ]
 
 #example[
-  A more looser example is a user written journel, containing information about
+  A more looser example is a user written journal, containing information about
   daily habits and emotions. While neither of these are stored in the
   information base, their handles are, via units $"habit"$ and $"emotions"$ in a
   context $"journal"$. Moreover, multiple revisions of the journal can be made
@@ -68,15 +70,19 @@ strictly _less_ expressive, as argued above.
 ]
 
 Now, our definition of representation is too restrictive, because we cannot
-naturally express _conditions_ through _conditional representations_. A key
-insight in this thesis is showing that expressing conditions is equivalent to
-having _contexts_, which we incorporate into our mechanism for namespaces and
-generalizes Burgin's notion of infological systems @burgin-information-book.
-This is related to an informal claim made in Meseguer
-@twenty_years_rewriting_logic, that rewriting logics without conditional rules
-are strictly less expressive than those with conditions, see
-@definability-conditions. Our crucial rule is related to @mccarthy-contexts but
-generalizes the context to be an operator itself.
+naturally express _conditions_ through _conditional representations_. Another
+issue is that managing two sets of IDs is difficult with _solely_ unconditional
+representations. Providing a form of _namespaces_, or a mechanism to distinguish
+two sets of names, is crucial for information bases. But we also require a way
+to provide subject specific knowledge, as Burgin does through infological
+systems @burgin-foundations-information. A key insight in this thesis is showing
+that expressing conditions is _equivalent_ to creating these namespaces: we
+express this idea as a *context*. This is related to an informal claim made in
+Meseguer @twenty_years_rewriting_logic, that rewriting logics without
+conditional rules are strictly less expressive than those with conditions, see
+@definability-conditions. Moreover, our formal rules are centered around
+contexts and are related to @mccarthy-contexts but generalizes the context to be
+an operator itself (see @semantics).
 
 == Information
 
