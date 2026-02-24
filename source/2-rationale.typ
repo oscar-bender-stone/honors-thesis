@@ -67,10 +67,14 @@ inquiries and _practical_ requirements for an information base. On one hand,
 many authors have argued _how_ an entity can take a meaning, with firm responses
 on whether physical objects are required, the world must be a certain way, and
 so on. On the other hand, we want an information base to be used as a
-_communication tool_, mechanized so that it communicates . In Shanon's
-Information Theory, the notion of information was _exactly_ matching the bits in
-a binary string in noisy channels . This has been extended to first order logic
-to cover _semantic meaning_, so that two strings that are provably equivalent as
+_communication tool_, mechanized so that carries relationships to users. As a
+tool, this is used for _predictions_: a person that translates the sentence "It
+will rain today" to Chinese to convey a semantic property of the world, that
+there will be rain. In Shanon's Information Theory, this cannot be expressed as
+easily, as the notion of information is restricted to string equality in noisy
+channels @shannon-theory-communication. A recent work extends Shannon's approach
+to express meaning through finite models in first-order logic, so that two
+strings are considered equivalent if they are that are provably equivalent as
 first order sentences are in fact equal, regardless of different bits. This is
 closer to how actual people communicate. This thesis completely generalizes this
 approach using a notion of _handles_ via _representations_, emphasizing an
@@ -198,4 +202,5 @@ programming languages, which are either predominantly English or are fine tuned
 for specific human languages. [TODO: cite source on this about most programming
 languages being in English, as well as programming languages written in
 _different_ human languages. Would be useful to have.]
+
 
