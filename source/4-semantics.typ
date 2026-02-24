@@ -30,17 +30,6 @@ Given the rationale, we explain how the Abstract Syntax Tree (AST) is processed
 for the syntax. The AST provides an intermediate step before the final data
 structure.
 
-[TODO: maybe move word equality back into syntax?]
-
-#figure(
-  ```
-  "0".word <--> word
-  "0b0".word <--> "0b".word
-  "0x0".word <--> "0x".word
-  ```,
-  caption: "Conversions with leading zeros.",
-)<leading-zeros>
-
 
 // TODO: define scoping rules with @.
 // Important to preserve *original* files when possible.
@@ -80,7 +69,7 @@ structure.
   given ID.
 ]<ast>
 
-#figure(
+[TODO[SHORT]: determine nice way to merge this with @word-equality!] #figure(
   table(
     columns: (auto,) * 17,
     [*Hex*],

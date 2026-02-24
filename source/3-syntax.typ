@@ -54,13 +54,17 @@ undefined notion. We set concatenation to be right-associative, i.e.,
   caption: "Definition of words.",
 )<word>
 
-Equality is defined recursively, shown in @word-equality.
+Equality is defined recursively, shown in @word-equality. Note that leading
+zeros are allowed.
 
-#figure(
+[TODO[MEDIUM]: determine how to make @word-equality work well in text *and*
+Welkin. ] #figure(
   ```
-  TODO: complete! Determine how to make this work well within Welkin.
+  0.word = word
+  0b0.word = word
+  0x0.word = word
   ```,
-  caption: "Definition of equality on words.",
+  caption: "Definition of word equality.",
 )<word-equality>
 
 
