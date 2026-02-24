@@ -33,14 +33,17 @@ the enumeration can be mechanized. Partial computatbility establishes a clear
 ceiling for information bases, and being able to define _any_ one is important
 for universality.
 
-However, Li and Vitányi's approach does not generally reflect the ways people
-disseminate and create new information. This is well known in the literature as
-the symbol grounding problem, first formulated by Harnad
-@harnad-symbol-grounding. . Many authors have proposed solutions, though one
-negative theoretical result shows that no _single_ formal system can contain
-every grounding set @liu-grounding. In addition to symbol grounding, the term
-_object_ is generally associated to _complete_ entities and makes it unclear how
-to work with abstract ideas and dynamic processes.
+[TODO[SMALL]: add note about _what_ we do to resolve symbol grounding. OR even
+say it's not perfect/limited, BUT for an information base, it's enough, based on
+requiring partial computable operations.] However, Li and Vitányi's approach
+does not generally reflect the ways people disseminate and create new
+information. This is well known in the literature as the symbol grounding
+problem, first formulated by Harnad @harnad-symbol-grounding. . Many authors
+have proposed solutions, though one negative theoretical result shows that no
+_single_ formal system can contain every grounding set @liu-grounding. In
+addition to symbol grounding, the term _object_ is generally associated to
+_complete_ entities and makes it unclear how to work with abstract ideas and
+dynamic processes.
 
 To resolve this, we shift the target of study to _handles_ via
 _representations_, emphasizing an implicit user created binding between a handle
@@ -125,14 +128,15 @@ to express any other universal information base. These include:
 
 - Paths via dots `.` that is inspired by the Python programming language.
   Relative paths are denoted with multiple dots `...`, and absolute imports are
-  prefixed with `#`.
+  prefixed with `#`. Subsets of units can be written via `u.{v, x}`, or even
+  `u.{v --> x}` to refer to a subset of representations.
 
 - Imports are done through `@u`, which takes all subunits of `u` and puts them
   into the current scope. In other words, the implementation _implicitly_ adds
   denotations `v <--> a.v` for each subunit `v` of `u`. This is motivated by the
   abundance of logic gates in computer science, as any finite circuit can be
   expresseed in terms of `and` and `not`. Selecting specific subunits can be
-  done via `u.{v, x}`.
+  done via `@u.{v, x}`.
 
 - Imports can be _negated_ via the notation `~@u`, and specific units can be
   negated through `~u`. This is an uncommon feature of most programming
@@ -152,7 +156,7 @@ to express any other universal information base. These include:
 In general, the minimal restricted keywords is crucial for providing support for
 other languages. An implementation of Welkin will contain a small section of
 ASCII encoding for easier standardization, but the rest of the prgoram can be
-done _entirely_ in the user's language. This is a novel feature in most
+done _entirely_ in the user's native language. This is a novel feature in most
 programming languages, which are either predominantly English or are fine tuned
 for specific human languages. [TODO: cite source on this about most programming
 languages being in English, as well as programming languages written in
