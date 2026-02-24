@@ -123,11 +123,31 @@ to express any other universal information base. These include:
 - Traditional braces `{ }` to denote closed definitions of contexts, inspired by
   the C programming language.
 
-- Import notation via dots `.` that is inspired by the Python programming
-  language. Relative imports are denoted with multiple dots `...`, and absolute
-  imports are prefixed with `#`.
+- Paths via dots `.` that is inspired by the Python programming language.
+  Relative paths are denoted with multiple dots `...`, and absolute imports are
+  prefixed with `#`.
 
-- Comments are strings can be treated as any unit.
+- Imports are done through `@u`, which takes all subunits of `u` and puts them
+  into the current scope. In other words, the implementation _implicitly_ adds
+  denotations `v <--> a.v` for each subunit `v` of `u`. This is motivated by the
+  abundance of logic gates in computer science, as any finite circuit can be
+  expresseed in terms of `and` and `not`. Selecting specific subunits can be
+  done via `u.{v, x}`.
+
+- Imports can be _negated_ via the notation `~@u`, and specific units can be
+  negated through `~u`. This is an uncommon feature of most programming
+  languages, appearing primarily in Haskell and CSS. While potentially opaque,
+  Welkin provides robust definitions to ensure that negated forms can be easily
+  translated into more explicit ones _and_ back again. [TODO[SMALL]: provide
+  link, probably to bootstrap or so?]
+
+- Comments _are_ strings can be treated as any unit. No comments need to be
+  removed in the files and can _enhance_ the study of new
+  subjects.#footnote[Contexts can mimic regular comments, but Welkin aims to be
+    inspectable by users. Encapsulation or private information can be enforced
+    through _rejecting_ specific contexts or only accepting certain ones.] These
+  units can _then_ be analyzed by others to promote translations to other human
+  languages, or be studied through the _overaching relationships_ in the units.
 
 In general, the minimal restricted keywords is crucial for providing support for
 other languages. An implementation of Welkin will contain a small section of
@@ -137,11 +157,4 @@ programming languages, which are either predominantly English or are fine tuned
 for specific human languages. [TODO: cite source on this about most programming
 languages being in English, as well as programming languages written in
 _different_ human languages. Would be useful to have.]
-
-== Example
-
-[TODO: determine a substantial but self-contained example that is related to
-Information Management literature, so maybe something to do with companies and a
-logistics chain.]
-
 
