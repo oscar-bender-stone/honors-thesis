@@ -32,24 +32,32 @@ _descriptions_,.
 Here, the specification method $D$ is a partial computable function to ensure
 the enumeration can be mechanized. Partial computatbility establishes a clear
 ceiling for information bases, and being able to define _any_ one is important
-for universality.
+for universality. Li and Vitányi proceed to define the inforthe information
+content of strings through Kolmogorov complexity, the size of the smallest
+description that accepts an object, or in other words, the smallest program that
+accepts a string.
+
 
 [TODO[SMALL]: add note about _what_ we do to resolve symbol grounding. OR even
 say it's not perfect/limited, BUT for an information base, it's enough, based on
-requiring partial computable operations.] However, Li and Vitányi's approach
-does not generally reflect the ways people disseminate and create new
-information. This is well known in the literature as the symbol grounding
-problem, formulated by Harnard @harnard-symbol-grounding. The problem is: How
-can the semantic interpretation of a symbol be intristinic to a system, rather
-than being externally driven or "parasitic on the meanings in our heads"
-(@harnard-symbol-grounding)? system be made intrinsic to the system, rather than
-just parasitic on the meanings in our heads?
+requiring partial computable operations.]
 
-. Many authors have proposed solutions, though one negative theoretical result
-shows that no _single_ formal system can contain every grounding set
-@liu-grounding. In addition to symbol grounding, the term _object_ is generally
-associated to _complete_ entities and makes it unclear how to work with abstract
-ideas and dynamic processes.
+However, Li and Vitányi's approach does not generally reflect the ways people
+disseminate and create new information. This is well known in the literature as
+the Symbol Grounding Problem, formulated by Harnard @harnard-symbol-grounding.
+As an example, Harnard considers a person expecting to learn Chinese as their
+first language with _only_ a Chinese dictionary. How does the person ground
+their symbols in concrete meanings? An information base cannot practically store
+the denotations of a word, such as storing animals. In some cases, it is
+nebulous what "store" means for certain concepts, though as abstract ideas. The
+problem even arises when modeled with _solely_ formal entities. For instance,
+Liu @liu-theory-based-symbol-grounding models symbol grounding as axioms in a
+general deductive system, and uses Gödelian-based diagonalization argument to
+show that the grounding predicate, indicating which symbols are grounded, is
+undefinable in a single system. In a related work, symbol grounding can be
+modeled directly through Kolmogorov complexity
+@liu-algorithmic-symbol-grounding, demonstrating the same impossibility of fully
+grounding a system of symbols through a fixed grounding set.
 
 To resolve this, we shift the target of study to _handles_ via
 _representations_, emphasizing an implicit user created binding between a handle
