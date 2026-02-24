@@ -97,10 +97,10 @@ representations, determined by consequences of axioms, both treated as handles
 to explain this system is through _units_. A unit is provided by a user-defined
 enumeration of handles, and units can be broken down, build new units, or act on
 other units via representations. Our approach is slightly more general than the
-enumerations defined by Li and Vitányi, see @unit, and they can define _any_
-formal system, see ?. Operationally, units can be used as partial computable
-functions, but the former are strictly more expressive, due to user-defined
-implicit bindings.
+enumerations defined by Li and Vitányi, see @unit, and they allow _arbitrary_
+ways to express formal systems, see @semantics. Operationally, units can be used
+as partial computable functions, but the former are strictly more expressive,
+due to user-defined implicit bindings.
 
 [TODO: make this clear? Can't a unit *be* itself information?]
 
@@ -114,7 +114,10 @@ Bateson's famous quote that "information is a difference that makes a
 difference" @bateson-ecology-of-mind and generalizes a propositional rendering
 of this statement [CITE]. Our practical distinction between information and
 knowledge is that we _use_ information, but users can assert their own notions
-of these terms by creating restricted contexts.
+of these terms by creating restricted contexts. We connect this through
+Algorithmic Information Theory by showing that the theoretical notion of
+information content _precisely_ coincides with the size of information, counted
+in bits (up to a constant) [TODO: link to this result. Important!].
 
 [TODO[MEDIUM]: probably provide an example of higher order logic or so? Would be
 nice! Shows that we don't need _exactly_ a thing. But do emphasize that getting
@@ -186,9 +189,9 @@ to express any other universal information base. These include:
 - Imports are done through `@u`, which takes all subunits of `u` and puts them
   into the current scope. In other words, the implementation _implicitly_ adds
   denotations `v <--> a.v` for each subunit `v` of `u`. This is motivated by the
-  abundance of logic gates in computer science, as any finite circuit can be
-  expresseed in terms of `and` and `not`. Selecting specific subunits can be
-  done via `@u.{v, x}`.
+  abundance of boolean logic in classical mathematics and computer science, as
+  any finite circuit can be expressed in terms of `and` and `not`. Selecting
+  specific subunits can be done via `@u.{v, x}`.
 
 - Imports can be _negated_ via the notation `~@u`, and specific units can be
   negated through `~u`. This is an uncommon feature of most programming
@@ -214,4 +217,15 @@ for specific human languages. [TODO: cite source on this about most programming
 languages being in English, as well as programming languages written in
 _different_ human languages. Would be useful to have.]
 
+== Bootstrapping
+
+There are two important questions for implementing Welkin:
+
+- How do we practically implement the operations?
+
+- How do we check that the rules are used _correctly_?
+
+[TODO[HIGH]: determine how to do this! Still WIP and not backed up yet.] Both of
+these are combined in an approach simpler than approaches like dependent type
+theory, with the slogan "proofs are programs".
 
