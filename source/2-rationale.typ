@@ -66,25 +66,37 @@ To address these issues, we make an important distinction between philosophical
 inquiries and _practical_ requirements for an information base. On one hand,
 many authors have argued _how_ an entity can take a meaning, with firm responses
 on whether physical objects are required, the world must be a certain way, and
-so on. On the other hand, we want an information base to be used as a _tool_,
-mechanized so that it is precisely described and can be expressed as binary
-strings as unified data format. We shift the target of study from objects in Li
-and Vitányi to _handles_ via _representations_, emphasizing an implicit user
-created binding between a handle called a *sign* that represents a *referent*.
-The information base _itself_ is not in charge with considering how to store or
-retrieve certain entities, like an animal. For information bases to be useful,
-one must determine the _fidelity_ of representations, determined by consequences
-of axioms, both treated as handles (for more details, see
+so on. On the other hand, we want an information base to be used as a
+_communication tool_, mechanized so that it communicates . In Shanon's
+Information Theory, the notion of information was _exactly_ matching the bits in
+a binary string in noisy channels . This has been extended to first order logic
+to cover _semantic meaning_, so that two strings that are provably equivalent as
+first order sentences are in fact equal, regardless of different bits. This is
+closer to how actual people communicate. This thesis completely generalizes this
+approach using a notion of _handles_ via _representations_, emphasizing an
+implicit user created binding between a handle called a *sign* that represents a
+*referent*. The information base _itself_ is not in charge with considering how
+to store or retrieve certain entities, like an animal. For information bases to
+be useful, one must determine the _fidelity_ of representations, determined by
+consequences of axioms, both treated as handles (for more details, see
 @universality-truth-management). Our core building block to explain this system
 is through _units_. A unit is provided by a user-defined enumeration of handles,
 and units can be broken down, build new units, or act on other units via
 representations. Our approach is slightly more general than the enumerations
-defined by Li and Vitányi, see @unit. Then, instead of defining information _as_
-as a strict entity, we define when a unit _contains_ information on another (see
-@information). We do this through how well representations _distinguish_ betwe .
-Operationally, units can be used as partial computable functions, but the former
-are strictly more expressive, due to user-defined implicit bindings.
+defined by Li and Vitányi, see @unit, and they can define _any_ formal system,
+see ?. Operationally, units can be used as partial computable functions, but the
+former are strictly more expressive, due to user-defined implicit bindings.
 
+From the notion of a unit, instead of defining information _as_ as a strict
+entity, we define when a unit _contains_ information on another (see
+@information). We do this through how well representations _distinguish_ between
+other units, made more @semantics. This notion is analogous to _prefix_
+Kolmogorov complexity, which is the Kolmogorov complexity of a string $x$
+_given_ the description of a string $y$.
+
+[TODO[MEDIUM]: probably provide an example of higher order logic or so? Would be
+nice! Shows that we don't need _exactly_ a thing. But do emphasize that getting
+_exact_ data formats can make information dissemination easier!]
 #example[
   In a scientific experiment, a handle could be an observation or experimental
   data. The unit is then written as a symbol, say $u$, and is _implicitly_ bound
@@ -100,18 +112,20 @@ are strictly more expressive, due to user-defined implicit bindings.
   journal can be made with dates or other unique IDs.
 ]
 
-Now, our definition of representation is too restrictive, because we cannot
-naturally express _conditions_ through _conditional representations_. Another
-issue is that managing two sets of IDs is difficult with _solely_ unconditional
-representations. Providing a form of _namespaces_, or a mechanism to distinguish
-two sets of names, is crucial for information bases. But we also require a way
-to provide subject specific knowledge, as Burgin does through infological
-systems @burgin-foundations-information. A key insight in this thesis is showing
-that expressing conditions is _equivalent_ to creating these namespaces: we
-express this idea as a *context*. This is related to an informal claim made in
-Meseguer @twenty_years_rewriting_logic, that rewriting logics without
-conditional rules are strictly less expressive than those with conditions, see
-@definability-conditions.
+There is an important extension required for representations. With only two
+components, representations our representation is too restrictive, because we
+cannot naturally express _conditions_ through _conditional representations_.
+Another issue is that managing two sets of handles is difficult with _solely_
+unconditional representations. Providing a form of _namespaces_, or a mechanism
+to distinguish two sets of names, which is crucial for determining and
+distinguishing available information as well. In addition to naming collisions,
+we also require a way to provide subject specific knowledge, as Burgin does
+through infological systems @burgin-foundations-information. A key insight in
+this thesis is showing that expressing conditions is _equivalent_ to creating
+these namespaces: we express this idea as a *context*. This is related to an
+informal claim made in Meseguer @twenty_years_rewriting_logic, that rewriting
+logics without conditional rules are strictly less expressive than those with
+conditions, see @definability-conditions.
 
 [TODO[SMALL]: use better names for entities/businesses/etc]
 #example[
