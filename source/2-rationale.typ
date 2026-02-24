@@ -3,6 +3,7 @@
 
 = Rationale <rationale>
 
+#import "template/ams-article.typ": example
 
 In this section, we justify the design of Welkin.
 
@@ -12,46 +13,7 @@ introduction.]
 
 == Units
 
-To prove universality, there are several key requirements. There are three core
-requirements needed for the information base.
-
-- First, to mechanize the information language, any operation must be a partial
-  computable function, with the notion of partial computability being a
-  well-established notion. For full expressivity, every partial comptuable
-  function must be definable in the language.
-
-- Second, the language must allow users to write general assertions and queries
-  that are accepted by some partial computable function.
-
-[TODO[SHORT]: make this requirement clearer! And maybe use the term surrogate?]
-- Third, to enable clarity in concepts, we need to resolve the Symbol Grounding
-  Problem and ensure symbols can carry meaning.
-
-[TODO(SHORT): add links to the requirements above.]
-
-[TODO(SHORT): Maybe discuss relevance of reuireqment 3 to RDF? Might be clear in
-intro.]
-
-[TODO[MEDIUM] Figure out the best way to phrase this!] Satisfying all three of
-these are sufficient for universality, because representations enable
-flexibility to the user to incorporate any subject they study, and to be
-mechanized, representations must be manipulated through partial computable
-functions.
-
-Requirement 1 is equivalent to providing a _finite_ specification of the
-language and defining any Turing-complete formalism. We prove this using the SK
-combinator calculus in @universality-theorem. Requirement 2 can be done with an
-initial universal verifier, which determines if a given trace matches the rules
-of a description of a partial computable function. Finally, Requirement 3 can be
-satisfied by enabling users to define enumerations, whose origin is
-_unspecified_. Extensionally, the development of these enumerations _may_ be
-modeled by a partial computable function, but the originally _intent_ can be
-kept user specific. This can be used for implementation specific behavior but is
-more general purpose, see @semantics for more details.
-
-== Units
-
-To fulfill Requirement 3, we analyze the existing approach in Algorithmic
+We start by reviewing the approach to analyze entities in in Algorithmic
 Information Theory, as explained by Li and Vitányi @intro_kolmogorov_complexity.
 This work introduces the idea of _enumerating objects_ through _numerical IDs_.
 
@@ -63,31 +25,58 @@ This work introduces the idea of _enumerating objects_ through _numerical IDs_.
   description $y$. This means that $D$ is a function from the set of
   descriptions, say $Y$, into the set of objects, say $X$. It seems also
   reasonable to require that for each object $x$ in $X$, there be a description
-  $y$ in $Y$ such that $D(y) = x$. (Each object has a description.) To make
-  descriptions useful we like them to be finite._
+  $y$ in $Y$ such that $D(y) = x$. (Each object has a description.)_
 ]
 
 Here, the specification method $D$ is a partial computable function to ensure
-the enumeration can be mechanized. However, this does not generally reflect the
-ways people disseminate and create new information.
+the enumeration can be mechanized. Partial computatbility establishes a clear
+ceiling for information bases, and being able to define _any_ one is important
+for universality.
 
-A crucial question is to answer _how_ representations can be used in the
-language. A representation at least contains two components: a *sign* that
-represents a *referent*. However, this is not sufficient to express any
-computable function, because we do not have _conditional_ representations. A key
+However, Li and Vitányi's approach does not generally reflect the ways people
+disseminate and create new information. This is well known in the literature as
+the symbol grounding problem @liu-grounding. Beyond this, the term _object_ is
+generally associated to _complete_ entities and makes it unclear how to work
+with abstract ideas and dynamic processes. To resolve this, we shift the target
+of study to _handles_ via _representations_, emphasizing an implicit user
+created binding between a *sign* and a *referent*, what it represents. The
+binding itself may not be reasonable to store, such as an animal, so instead we
+_represent representations_ themselves. We formalize both notions using _units_.
+A unit is provided by a user-defined enumeration of handles, and units can be
+broken down, build new units, or act on other units. Abstracting away from the
+implicit meaning, units act as partial computable functions, but the latter is
+strictly _less_ expressive, as argued above.
+
+#example[
+  In a scientific experiment, a handle could be an observation or experimental
+  data. The unit is then written as a symbol, say $u$, and is _implicitly_ bound
+  to this meaning. To distinguish from other symbols, say $v$, the computational
+  content is analyzed.[TODO[MEDIUM]: expand out this example!]
+]
+
+#example[
+  A more looser example is a user written journel, containing information about
+  daily habits and emotions. While neither of these are stored in the
+  information base, their handles are, via units $"habit"$ and $"emotions"$ in a
+  context $"journal"$. Moreover, multiple revisions of the journal can be made
+  with dates or other unique IDs.
+]
+
+#example[
+  A business could represent their operations using a unit $"business"$ that
+  contains units for their workers and ledgers.
+]
+
+Now, our definition of representation is too restrictive, because we cannot
+naturally express _conditions_ through _conditional representations_. A key
 insight in this thesis is showing that expressing conditions is equivalent to
 having _contexts_, which we incorporate into our mechanism for namespaces and
 generalizes Burgin's notion of infological systems @burgin-information-book.
 This is related to an informal claim made in Meseguer
 @twenty_years_rewriting_logic, that rewriting logics without conditional rules
 are strictly less expressive than those with conditions, see
-@definability-conditions.
-
-To express these enumerations, we define a _unit_ as a component in a
-representation that can be broken down, build new units, or act on other units.
-Computationally, we can treat units as IDs to partial computable functions, but
-we permit _implicit bindings_ to non-symbolic things (a term made vague for
-flexibility).
+@definability-conditions. Our crucial rule is related to @mccarthy-contexts but
+generalizes the context to be an operator itself.
 
 == Information
 
