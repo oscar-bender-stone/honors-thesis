@@ -167,6 +167,17 @@ Moreover, our formal rules are centered around contexts and are related to
 @mccarthy-contexts but generalizes the context to be an operator itself (see
 @semantics).
 
+Briefly, we can characterize units as containing a set of _subunits_ (encoded by
+unique IDs) and a binary relation for _representations_. They objey two rules,
+which we informally describe now (and postpone nested contexts until
+@semantics):
+
+- *Internal Transitivity:* if $u$ represents $v$ in context $c$ and $v$
+  represents $x$ in context $c$, then $u$ represents $x$ in context $c$.
+
+- *Lifting:* if $u$ represents $v$ in context $c$ and $p$ represents $q$ in
+  context $v$, then within context $c$, $p$ represents $q$ in context $u$.
+
 == Base Operations
 
 Now, units and information themselves could be expressed in infinitely many
@@ -227,5 +238,5 @@ There are two important questions for implementing Welkin:
 
 [TODO[HIGH]: determine how to do this! Still WIP and not backed up yet.] Both of
 these are combined in an approach simpler than approaches like dependent type
-theory, with the slogan "proofs are programs".
+theory with the slogan "proofs as programs".
 
