@@ -35,19 +35,26 @@ for universality.
 
 However, Li and Vitányi's approach does not generally reflect the ways people
 disseminate and create new information. This is well known in the literature as
-the symbol grounding problem @liu-grounding. Beyond this, the term _object_ is
-generally associated to _complete_ entities and makes it unclear how to work
-with abstract ideas and dynamic processes. To resolve this, we shift the target
-of study to _handles_ via _representations_, emphasizing an implicit user
-created binding between a handle called a *sign* that represents a *referent*.
-The binding itself may not be reasonable to store, such as an animal, so instead
-we _represent representations_ themselves. We formalize both notions using
-_units_. A unit is provided by a user-defined enumeration of handles, and units
-can be broken down, build new units, or act on other units. In contrast to the
-requirement in the quote above, the enumeration need _not_ be surjective but
+the symbol grounding problem, first formulated by Harnad
+@harnad-symbol-grounding. . Many authors have proposed solutions, though one
+negative theoretical result shows that no _single_ formal system can contain
+every grounding set @liu-grounding. In addition to symbol grounding, the term
+_object_ is generally associated to _complete_ entities and makes it unclear how
+to work with abstract ideas and dynamic processes.
+
+To resolve this, we shift the target of study to _handles_ via
+_representations_, emphasizing an implicit user created binding between a handle
+called a *sign* that represents a *referent*. The binding itself may not be
+reasonable to store, such as an animal, so instead we _represent
+representations_ themselves. Truth itself is represented by the _accuracy_ of
+representations, determined by consequences of axioms as handles (see
+@universality-truth-management). We formalize both notions using _units_. A unit
+is provided by a user-defined enumeration of handles, and units can be broken
+down, build new units, or act on other units via representations. In contrast to
+the requirement in the quote above, the enumeration need _not_ be surjective but
 only _locally_ so. Abstracting away from the implicit meaning, units act as
-partial computable functions, but the latter is strictly _less_ expressive, as
-argued above.
+partial computable functions, but the latter is strictly _less_ expressive by
+removing user provided meaning.
 
 #example[
   In a scientific experiment, a handle could be an observation or experimental
@@ -57,16 +64,11 @@ argued above.
 ]
 
 #example[
-  A more looser example is a user written journal, containing information about
-  daily habits and emotions. While neither of these are stored in the
-  information base, their handles are, via units $"habit"$ and $"emotions"$ in a
-  context $"journal"$. Moreover, multiple revisions of the journal can be made
-  with dates or other unique IDs.
-]
-
-#example[
-  A business could represent their operations using a unit $"business"$ that
-  contains units for their workers and ledgers.
+  A more looser example is a user written journal for therapy sessions,
+  containing information about daily habits and emotions. While neither of these
+  are stored in the information base, their handles are, via units $"habit"$ and
+  $"emotions"$ in a context $"journal"$. Moreover, multiple revisions of the
+  journal can be made with dates or other unique IDs.
 ]
 
 Now, our definition of representation is too restrictive, because we cannot
@@ -80,14 +82,23 @@ that expressing conditions is _equivalent_ to creating these namespaces: we
 express this idea as a *context*. This is related to an informal claim made in
 Meseguer @twenty_years_rewriting_logic, that rewriting logics without
 conditional rules are strictly less expressive than those with conditions, see
-@definability-conditions. Moreover, our formal rules are centered around
-contexts and are related to @mccarthy-contexts but generalizes the context to be
-an operator itself (see @semantics).
+@definability-conditions.
+
+[TODO[SMALL]: use better names for entities/businesses/etc]
+#example[
+  A business could represent their operations using a unit $"business"$ that
+  contains units for their workers and ledgers. This allows another unit, say
+  $"business2"$, to contain its _own_ label $"workers"$ that is separate from
+  the one in $"business"$. In addition to separate labels, these contexts can
+  have _distinct_ rules, such as those for how business operations are
+  performed.
+]
+
+Moreover, our formal rules are centered around contexts and are related to
+@mccarthy-contexts but generalizes the context to be an operator itself (see
+@semantics).
 
 == Information
-
-[TODO[SHORT]: emphasize that this is in line with AIT BUT authors in AIT don't
-state it this way!]
 
 Using the notion of units, we practically formalize information being
 _contained_ in a unit, enabling change in a context through checking for some
@@ -98,8 +109,34 @@ practical distinction between knowledge is that we _use_ information. However,
 users can easily assert their equivalence, or not,by creating restricted
 contexts.
 
+== Base Operations
+
+Now, units and information themselves could be expressed in infinitely many
+languages, with slightly different syntax or semantics. Welkin is carefully
+designed to be a _minimal_ expression of these concepts, with minimal friction
+to express any other universal information base. These include:
+
+- Intuitive arrow notation for representations, expressed in ASCII as
+  `a - b -> c`. These can be interpreted _as_ rewrite rules, depending on the
+  context.
+
+- Traditional braces `{ }` to denote closed definitions of contexts, inspired by
+  the `C` programming language.
+
+- Import notation via dots `.`, inspired by the Python programming language.
+Relative imports are denoted with multiple dots `...`, and absolute imports are
+prefixed with `#`.
+
+- Comments are strings can be treated as any unit.
+
+In general, the minimal restricted keywords is crucial for providing support for
+other languages. The base will use an ASCII encoding, but the rest can be done
+_entirely_ in the user's language.
+
 == Example
 
 [TODO: determine a substantial but self-contained example that is related to
 Information Management literature, so maybe something to do with companies and a
 logistics chain.]
+
+
