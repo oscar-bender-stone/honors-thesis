@@ -7,16 +7,14 @@
 
 In this section, we justify the design of Welkin.
 
-[TODO[SHORT]: determine if this would be better integrated with the
-introduction.]
-
-
 == Units
 
-We start by reviewing the approach to analyze entities in Algorithmic
-Information Theory through Li and Vitányi @intro_kolmogorov_complexity. This
-book introduces the idea of _enumerating objects_ through strings called
-_descriptions_,.
+The main purpose of an information base is to store information and enable user
+queries based on the available information. To make this idea precise, we
+dissect the approach taken by Algorithmic Information Theory, specifically
+through a well known book by Li and Vitányi @intro_kolmogorov_complexity. Their
+book starts the idea of enumerating _objects_ to strings called _descriptions_.
+A valid enumeration is described as follows:
 
 [TODO[SMALL]: determining good format to give specific pages.]
 #set quote(block: true)
@@ -30,17 +28,12 @@ _descriptions_,.
 ]
 
 Here, the specification method $D$ is a partial computable function to ensure
-the enumeration can be mechanized. Partial computatbility establishes a clear
-ceiling for information bases, and being able to define _any_ one is important
-for universality. Li and Vitányi proceed to define the inforthe information
-content of strings through Kolmogorov complexity, the size of the smallest
+the enumeration can be mechanized. The authors proceed define the _information
+content_ of a string through Kolmogorov complexity, the size of the smallest
 description that accepts an object, or in other words, the smallest program that
-accepts a string.
-
-
-[TODO[SMALL]: add note about _what_ we do to resolve symbol grounding. OR even
-say it's not perfect/limited, BUT for an information base, it's enough, based on
-requiring partial computable operations.]
+accepts a string. From there, they prove multiple foundational results for
+Algorithmic Information Theory, including that Kolmogorov complexity is
+uncomputable, in general.
 
 However, Li and Vitányi's approach does not generally reflect the ways people
 disseminate and create new information. The term "object" is a vague term that
@@ -59,37 +52,38 @@ grounding as axioms in a general deductive system, and uses Gödelian-based
 diagonalization argument to show that the grounding predicate, indicating which
 symbols are grounded, is undefinable in a single system. In a related work,
 symbol grounding can be modeled directly through Kolmogorov complexity
-@liu-algorithmic-symbol-grounding, demonstrating the same impossibility of fully
-grounding a system of symbols through a fixed grounding set.
+@liu-algorithmic-symbol-grounding, demonstrating the same impossibility of
+completely grounding a system of symbols through a fixed grounding set.
 
-To address these issues, we make an important distinction between philosophical
-inquiries and _practical_ requirements for an information base. On one hand,
-many authors have argued _how_ an entity can take a meaning, with firm responses
-on whether physical objects are required, the world must be a certain way, and
-so on. On the other hand, we want an information base to be used as a
-_communication tool_, mechanized so that carries relationships to users. As a
-tool, this is used for _predictions_: a person that translates the sentence "It
-will rain today" to Chinese to convey a semantic property of the world, that
-there will be rain. In Shanon's Information Theory, this cannot be expressed as
-easily, as the notion of information is restricted to string equality in noisy
-channels @shannon-theory-communication. A recent work extends Shannon's approach
-to express meaning through finite models in first-order logic, so that two
-strings are considered equivalent if they are that are provably equivalent as
-first order sentences are in fact equal, regardless of different bits. This is
-closer to how actual people communicate. This thesis completely generalizes this
-approach using a notion of _handles_ via _representations_, emphasizing an
-implicit user created binding between a handle called a *sign* that represents a
-*referent*. The information base _itself_ is not in charge with considering how
-to store or retrieve certain entities, like an animal. For information bases to
-be useful, one must determine the _fidelity_ of representations, determined by
-consequences of axioms, both treated as handles (for more details, see
-@universality-truth-management). Our core building block to explain this system
-is through _units_. A unit is provided by a user-defined enumeration of handles,
-and units can be broken down, build new units, or act on other units via
-representations. Our approach is slightly more general than the enumerations
-defined by Li and Vitányi, see @unit, and they can define _any_ formal system,
-see ?. Operationally, units can be used as partial computable functions, but the
-former are strictly more expressive, due to user-defined implicit bindings.
+To address these issues, we emphasize that an information base is a _tool_,
+which is useful when fully mechanized for _communication_, not to resolve
+philosophical inquiries on the existence or absence of things or abilities.
+Information itself is used for _predictions_: a person that translates the
+sentence "It will rain today" to Chinese to convey a semantic property of the
+world, that there will be rain. Note that this is different form Shanon's
+seminal work on Information Theory, in which methods are found to convey the
+_exact_ bits of strings in noisy channels. Because communication _itself_ does
+not carry the physical entities, relationships are key to effectively conveying
+ideas. A recent work bridges this gap with Shannon's work to express meaning
+through finite models in first-order logic, so that two strings are considered
+equivalent if they are that are provably equivalent as first order sentences are
+in fact equal, regardless of different bits @information-logical-semantics.
+
+Taking inspiration from @information-logical-semantics, this thesis completely
+generalizes their approach using a notion of _handles_ via _representations_,
+emphasizing an implicit user created binding between a handle called a *sign*
+that represents a *referent*. The information base _itself_ is not in charge
+with considering how to store or retrieve certain entities, like an animal. For
+information bases to be useful, one must determine the _fidelity_ of
+representations, determined by consequences of axioms, both treated as handles
+(for more details, see @universality-truth-management). Our core building block
+to explain this system is through _units_. A unit is provided by a user-defined
+enumeration of handles, and units can be broken down, build new units, or act on
+other units via representations. Our approach is slightly more general than the
+enumerations defined by Li and Vitányi, see @unit, and they can define _any_
+formal system, see ?. Operationally, units can be used as partial computable
+functions, but the former are strictly more expressive, due to user-defined
+implicit bindings.
 
 [TODO: make this clear? Can't a unit *be* itself information?]
 
