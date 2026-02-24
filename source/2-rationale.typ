@@ -8,7 +8,7 @@
 In this section, we justify the design of Welkin.
 
 
-== Information Bases
+== Information Content
 
 The main purpose of an information base is to store information and enable user
 queries based on the available information. To make this idea precise, we
@@ -19,6 +19,8 @@ as follows:
 
 [TODO[SMALL] still resolve how pages should be mentioned!] [TODO[SMALL]
 determine if this quote is needed. Maybe it does help with readability]
+
+#set quote(block: true)
 #quote(attribution: [@intro_kolmogorov_complexity, pages 101-102])[
   _We require both an agreed-upon universal description method and an
   agreed-upon mechanism to produce the object from its alleged description. This
@@ -33,7 +35,8 @@ _information content_ of a string through Kolmogorov complexity, the size of the
 smallest description that accepts an object, or in other words, the smallest
 program that accepts a string. From there, they prove multiple foundational
 results for Algorithmic Information Theory, including that Kolmogorov complexity
-is uncomputable, in general.
+is uncomputable. This quantity can be approximated by several means, which is
+closely involved to compression algorithms.
 
 However, Li and Vitányi's approach does not generally reflect the ways people
 disseminate and create new information. The term "object" is a vague term that
@@ -55,15 +58,21 @@ symbol grounding can be modeled directly through Kolmogorov complexity
 @liu-algorithmic-symbol-grounding, demonstrating the same impossibility of
 completely grounding a system of symbols through a fixed grounding set.
 
+
+== Units
+
 [TODO[SMALL]: maybe clarify how powerful deduction is? That's my point here,
 that we don't have to check if a property holds _if_ we use a theorem instead,
 or we use different set of conditions to get a certain property.]
+
+[TODO[SMALL]: determine how to transition between these paragraphs. Not sure
+where to start a new section.]
 
 To address these issues, we emphasize that an information base is a _tool_,
 which is useful when fully mechanized for _communication_, not to resolve
 philosophical inquiries on the existence or absence of things or abilities.
 Information itself is used for _predictions_: a person that translates the
-sentence "It will rain today" to Chinese to convey a semantic property of the
+sentence "It will rain today" in Chinese to convey a semantic property of the
 world, that there will be rain. This scales to larger examples, with major
 theorems providing even more refined or general properties _given_ a set of
 assumptions. Note that this is different form Shanon's seminal work on
@@ -71,11 +80,11 @@ Information Theory, in which methods are found to convey the _exact_ bits of
 strings in noisy channels. Because communication _itself_ does not carry the
 physical entities, relationships are key to effectively conveying ideas. A
 recent work bridges this gap with Shannon's work to express meaning through
-finite models in first-order logic, so that two strings are considered
-equivalent if they are that are provably equivalent as first order sentences are
-in fact equal, regardless of different bits @information-logical-semantics.
+finite models in first-order logic @liu-theory-based-symbol-grounding, so that
+two strings are considered equivalent if they are that are provably equivalent
+as first order sentences are in fact equal, regardless if the strings have
+distinct bits.
 
-== Units
 
 Taking inspiration from @information-logical-semantics, this thesis completely
 generalizes their approach using a notion of _handles_ via _representations_,
