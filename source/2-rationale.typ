@@ -13,9 +13,10 @@ introduction.]
 
 == Units
 
-We start by reviewing the approach to analyze entities in in Algorithmic
-Information Theory, as explained by Li and Vitányi @intro_kolmogorov_complexity.
-This work introduces the idea of _enumerating objects_ through _numerical IDs_.
+We start by reviewing the approach to analyze entities in Algorithmic
+Information Theory through Li and Vitányi @intro_kolmogorov_complexity. This
+book introduces the idea of _enumerating objects_ through strings called
+_descriptions_,.
 
 [TODO[SMALL]: determining good format to give specific pages.]
 #set quote(block: true)
@@ -38,12 +39,17 @@ say it's not perfect/limited, BUT for an information base, it's enough, based on
 requiring partial computable operations.] However, Li and Vitányi's approach
 does not generally reflect the ways people disseminate and create new
 information. This is well known in the literature as the symbol grounding
-problem, first formulated by Harnad @harnad-symbol-grounding. . Many authors
-have proposed solutions, though one negative theoretical result shows that no
-_single_ formal system can contain every grounding set @liu-grounding. In
-addition to symbol grounding, the term _object_ is generally associated to
-_complete_ entities and makes it unclear how to work with abstract ideas and
-dynamic processes.
+problem, formulated by Harnard @harnard-symbol-grounding. The problem is: How
+can the semantic interpretation of a symbol be intristinic to a system, rather
+than being externally driven or "parasitic on the meanings in our heads"
+(@harnard-symbol-grounding)? system be made intrinsic to the system, rather than
+just parasitic on the meanings in our heads?
+
+. Many authors have proposed solutions, though one negative theoretical result
+shows that no _single_ formal system can contain every grounding set
+@liu-grounding. In addition to symbol grounding, the term _object_ is generally
+associated to _complete_ entities and makes it unclear how to work with abstract
+ideas and dynamic processes.
 
 To resolve this, we shift the target of study to _handles_ via
 _representations_, emphasizing an implicit user created binding between a handle
