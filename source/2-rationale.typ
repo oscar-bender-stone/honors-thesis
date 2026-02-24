@@ -43,35 +43,40 @@ say it's not perfect/limited, BUT for an information base, it's enough, based on
 requiring partial computable operations.]
 
 However, Li and Vitányi's approach does not generally reflect the ways people
-disseminate and create new information. This is well known in the literature as
-the Symbol Grounding Problem, formulated by Harnard @harnard-symbol-grounding.
-As an example, Harnard considers a person expecting to learn Chinese as their
-first language with _only_ a Chinese dictionary. How does the person ground
-their symbols in concrete meanings? An information base cannot practically store
-the denotations of a word, such as storing animals. In some cases, it is
-nebulous what "store" means for certain concepts, though as abstract ideas. The
-problem even arises when modeled with _solely_ formal entities. For instance,
-Liu @liu-theory-based-symbol-grounding models symbol grounding as axioms in a
-general deductive system, and uses Gödelian-based diagonalization argument to
-show that the grounding predicate, indicating which symbols are grounded, is
-undefinable in a single system. In a related work, symbol grounding can be
-modeled directly through Kolmogorov complexity
+disseminate and create new information. The term "object" is a vague term that
+is vastly different between disciplines and can be difficult to model for
+entities. For example, consider a dynamic biological systems. In an evolving
+system, what is the "boundary" of the object? Another issue is well known in the
+literature as the Symbol Grounding Problem, formulated by Harnard
+@harnard-symbol-grounding. As an example, Harnard considers a person expecting
+to learn Chinese as their first language with _only_ a Chinese dictionary. How
+does the person ground their symbols in concrete meanings? An information base
+cannot practically store the denotations of a word, such as storing animals. In
+some cases, it is nebulous what "store" means for certain concepts, though as
+abstract ideas. The problem even arises when modeled with _solely_ formal
+entities. For instance, Liu @liu-theory-based-symbol-grounding models symbol
+grounding as axioms in a general deductive system, and uses Gödelian-based
+diagonalization argument to show that the grounding predicate, indicating which
+symbols are grounded, is undefinable in a single system. In a related work,
+symbol grounding can be modeled directly through Kolmogorov complexity
 @liu-algorithmic-symbol-grounding, demonstrating the same impossibility of fully
 grounding a system of symbols through a fixed grounding set.
 
-To resolve this, we shift the target of study to _handles_ via
-_representations_, emphasizing an implicit user created binding between a handle
-called a *sign* that represents a *referent*. The binding itself may not be
-reasonable to store, such as an animal, so instead we _represent
-representations_ themselves. Truth itself is represented by the _accuracy_ of
-representations, determined by consequences of axioms as handles (see
-@universality-truth-management). We formalize both notions using _units_. A unit
-is provided by a user-defined enumeration of handles, and units can be broken
-down, build new units, or act on other units via representations. In contrast to
-the requirement in the quote above, the enumeration need _not_ be surjective but
-only _locally_ so. Abstracting away from the implicit meaning, units act as
-partial computable functions, but the latter is strictly _less_ expressive by
-removing user provided meaning.
+To address these issues, instead of addressing philosophical queries on _how_ an
+entity can gain meaning or such, we provide the practical _tools_ to do so. We
+shift the target of study from objects to _handles_ via _representations_,
+emphasizing an implicit user created binding between a handle called a *sign*
+that represents a *referent*. The binding itself may not be reasonable to store,
+such as an animal, so instead we _represent representations_ themselves. Truth
+itself is represented by the _accuracy_ of representations, determined by
+consequences of axioms as handles (see @universality-truth-management). We
+formalize both notions using _units_. A unit is provided by a user-defined
+enumeration of handles, and units can be broken down, build new units, or act on
+other units via representations. In contrast to the requirement in the quote
+above, the enumeration need _not_ be surjective but only _locally_ so.
+Abstracting away from the implicit meaning, units act as partial computable
+functions, but the latter is strictly _less_ expressive by removing user
+provided meaning.
 
 #example[
   In a scientific experiment, a handle could be an observation or experimental
