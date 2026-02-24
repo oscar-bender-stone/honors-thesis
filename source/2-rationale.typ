@@ -14,27 +14,26 @@ The main purpose of an information base is to store information and enable user
 queries based on the available information. To make this idea precise, we
 dissect the approach taken by Algorithmic Information Theory, specifically
 through a well known book by Li and Vitányi @intro_kolmogorov_complexity. Their
-book starts the idea of enumerating _objects_ to strings called _descriptions_.
-A valid enumeration is described as follows:
+book focuses on the _information content_ of a description, which they summarize
+as follows:
 
-[TODO[SMALL]: determining good format to give specific pages.]
-#set quote(block: true)
-#quote(attribution: [@intro_kolmogorov_complexity, page 1.])[
-  _Assume that each description describes at most one object. That is, there be
-  a specification method $D$ that associates at most one object $x$ with a
-  description $y$. This means that $D$ is a function from the set of
-  descriptions, say $Y$, into the set of objects, say $X$. It seems also
-  reasonable to require that for each object $x$ in $X$, there be a description
-  $y$ in $Y$ such that $D(y) = x$. (Each object has a description.)_
-]
+[TODO[SMALL] still resolve how pages should be mentioned!] [TODO[SMALL]
+determine if this quote is needed. Maybe it does help with readability]
+#quote(attribution: [@intro_kolmogorov_complexity, pages 101-102])[
+  _We require both an agreed-upon universal description method and an
+  agreed-upon mechanism to produce the object from its alleged description. This
+  would appear to make the information content of an object depend on whether it
+  is particularly favored by the description method we have selected. By ‘favor’
+  we mean to produce short descriptions in terms of bits._]
 
-Here, the specification method $D$ is a partial computable function to ensure
-the enumeration can be mechanized. The authors proceed define the _information
-content_ of a string through Kolmogorov complexity, the size of the smallest
-description that accepts an object, or in other words, the smallest program that
-accepts a string. From there, they prove multiple foundational results for
-Algorithmic Information Theory, including that Kolmogorov complexity is
-uncomputable, in general.
+They express this idea with an enumeration $D$ from _objects_ to strings called
+_descriptions_. To ensure that their measure is _minimal_ and can be mechanized,
+$D$ is a partial computable function. The authors proceed define the
+_information content_ of a string through Kolmogorov complexity, the size of the
+smallest description that accepts an object, or in other words, the smallest
+program that accepts a string. From there, they prove multiple foundational
+results for Algorithmic Information Theory, including that Kolmogorov complexity
+is uncomputable, in general.
 
 However, Li and Vitányi's approach does not generally reflect the ways people
 disseminate and create new information. The term "object" is a vague term that
