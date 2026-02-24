@@ -104,20 +104,20 @@ due to user-defined implicit bindings.
 
 [TODO: make this clear? Can't a unit *be* itself information?]
 
-From the notion of a unit, instead of defining information _as_ as a strict
-entity, we define when a unit _contains_ information on another (see
-@information). We do this through how well representations _distinguish_ between
-other units, made more @semantics. This notion is analogous to _prefix_
-Kolmogorov complexity, which is the Kolmogorov complexity of a string $x$
-_given_ the description of a string $y$. This notion also corresponds closely to
-Bateson's famous quote that "information is a difference that makes a
+From the notion of a unit, we practically define information on a unit $v$ as a
+unit $u$ which _correctly identifies $v$ from any other unit_. We formalize this
+as an invariant based on an equivalence relation on units, determined by the
+given set of representations (see @semantics). This notion corresponds to
+Burgin's idea of information as an _operator_ that transforms a system, and is
+closely to Bateson's famous quote that "information is a difference that makes a
 difference" @bateson-ecology-of-mind and generalizes a propositional rendering
 of this statement [CITE]. Our practical distinction between information and
 knowledge is that we _use_ information, but users can assert their own notions
-of these terms by creating restricted contexts. We connect this through
-Algorithmic Information Theory by showing that the theoretical notion of
+of these terms by creating restricted contexts. We cthis through Algorithmic
+Information Theory by showing that the theoretical notion of conditional
 information content _precisely_ coincides with the size of information, counted
-in bits (up to a constant) [TODO: link to this result. Important!].
+in bits (up to a constant) [TODO: link to this result. Important! And confirm
+this result! Currently unchecked.].
 
 [TODO[MEDIUM]: probably provide an example of higher order logic or so? Would be
 nice! Shows that we don't need _exactly_ a thing. But do emphasize that getting
