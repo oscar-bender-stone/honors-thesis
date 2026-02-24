@@ -87,12 +87,19 @@ defined by Li and Vitányi, see @unit, and they can define _any_ formal system,
 see ?. Operationally, units can be used as partial computable functions, but the
 former are strictly more expressive, due to user-defined implicit bindings.
 
+[TODO: make this clear? Can't a unit *be* itself information?]
+
 From the notion of a unit, instead of defining information _as_ as a strict
 entity, we define when a unit _contains_ information on another (see
 @information). We do this through how well representations _distinguish_ between
 other units, made more @semantics. This notion is analogous to _prefix_
 Kolmogorov complexity, which is the Kolmogorov complexity of a string $x$
-_given_ the description of a string $y$.
+_given_ the description of a string $y$. This notion also corresponds closely to
+Bateson's famous quote that "information is a difference that makes a
+difference" @bateson-ecology-of-mind and generalizes a propositional rendering
+of this statement [CITE]. Our practical distinction between information and
+knowledge is that we _use_ information, but users can assert their own notions
+of these terms by creating restricted contexts.
 
 [TODO[MEDIUM]: probably provide an example of higher order logic or so? Would be
 nice! Shows that we don't need _exactly_ a thing. But do emphasize that getting
@@ -112,20 +119,21 @@ _exact_ data formats can make information dissemination easier!]
   journal can be made with dates or other unique IDs.
 ]
 
-There is an important extension required for representations. With only two
-components, representations our representation is too restrictive, because we
-cannot naturally express _conditions_ through _conditional representations_.
-Another issue is that managing two sets of handles is difficult with _solely_
-unconditional representations. Providing a form of _namespaces_, or a mechanism
-to distinguish two sets of names, which is crucial for determining and
-distinguishing available information as well. In addition to naming collisions,
-we also require a way to provide subject specific knowledge, as Burgin does
-through infological systems @burgin-foundations-information. A key insight in
-this thesis is showing that expressing conditions is _equivalent_ to creating
-these namespaces: we express this idea as a *context*. This is related to an
-informal claim made in Meseguer @twenty_years_rewriting_logic, that rewriting
-logics without conditional rules are strictly less expressive than those with
-conditions, see @definability-conditions.
+There is an important extension required to express _any_ partial computable
+function. With only two components, representations our representation is too
+restrictive, because we cannot naturally express _conditions_ through
+_conditional representations_. Another issue is that managing two sets of
+handles is difficult with _solely_ unconditional representations. Providing a
+form of _namespaces_, or a mechanism to distinguish two sets of names, which is
+crucial for determining and distinguishing available information as well. In
+addition to naming collisions, we also require a way to provide subject specific
+knowledge, as Burgin does through infological systems
+@burgin-foundations-information. A key insight in this thesis is showing that
+expressing conditions is _equivalent_ to creating these namespaces: we express
+this idea as a *context*. This is related to an informal claim made in Meseguer
+@twenty_years_rewriting_logic, that rewriting logics without conditional rules
+are strictly less expressive than those with conditions, see
+@definability-conditions.
 
 [TODO[SMALL]: use better names for entities/businesses/etc]
 #example[
@@ -140,23 +148,6 @@ conditions, see @definability-conditions.
 Moreover, our formal rules are centered around contexts and are related to
 @mccarthy-contexts but generalizes the context to be an operator itself (see
 @semantics).
-
-== Information
-
-[TODO[HIGH]: COMPLETE. Needed before finishing semantics!] Given the notion of
-units, how can they can they be _used_? The usual operation in an information
-base, as with a database, is the ability to make _queries_... Beyond this, we
-want to combine notions of knowledge management to express any truth management
-system. This means the ability to make _assertions_. We can express both of
-these as units with a special interpretation. As normal units, these can be
-studied in their own right and _themselves_ be queried and/or provided
-assertions. Both of these concepts can be bridged with a practical notion of
-information. Our definition is... This connects to Burgin's analogy of
-information as energy, as well as Bateson's famous quote that "information is a
-difference that makes a difference" @bateson-ecology-of-mind. For the full
-definition, see @unit. Our practical distinction between knowledge is that we
-_use_ information. However, users can easily assert their equivalence, or not,by
-creating restricted contexts.
 
 == Base Operations
 
