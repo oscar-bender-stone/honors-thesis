@@ -103,14 +103,20 @@ Moreover, our formal rules are centered around contexts and are related to
 
 == Information
 
-Using the notion of units, we practically formalize information being
-_contained_ in a unit, enabling change in a context through checking for some
-_non_-fixed point. This connects to Burgin's analogy of information as energy,
-as well as Bateson's famous quote that "information is a difference that makes a
-difference" @bateson-ecology-of-mind. For the full definition, see @unit. Our
-practical distinction between knowledge is that we _use_ information. However,
-users can easily assert their equivalence, or not,by creating restricted
-contexts.
+[TODO[HIGH]: COMPLETE. Needed before finishing semantics!] Given the notion of
+units, how can they can they be _used_? The usual operation in an information
+base, as with a database, is the ability to make _queries_... Beyond this, we
+want to combine notions of knowledge management to express any truth management
+system. This means the ability to make _assertions_. We can express both of
+these as units with a special interpretation. As normal units, these can be
+studied in their own right and _themselves_ be queried and/or provided
+assertions. Both of these concepts can be bridged with a practical notion of
+information. Our definition is... This connects to Burgin's analogy of
+information as energy, as well as Bateson's famous quote that "information is a
+difference that makes a difference" @bateson-ecology-of-mind. For the full
+definition, see @unit. Our practical distinction between knowledge is that we
+_use_ information. However, users can easily assert their equivalence, or not,by
+creating restricted contexts.
 
 == Base Operations
 
