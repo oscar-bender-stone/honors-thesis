@@ -5,6 +5,10 @@
 
 = Introduction
 
+
+[TODO[MEDIUM]: explain emphasis on information in thesis. Knowledge is important
+to mention, but *why* information as the focus?]
+
 [TODO: complete general discussion on IM and KM in the first paragraph. The
 discussions into specific fields is too dense for this intro! Also, emphasize
 what we do compared to other solutions. Doing this _instead_ of specific fields
