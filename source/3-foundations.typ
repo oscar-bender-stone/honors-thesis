@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 #import "template/ams-article.typ": definition, example, remark
+#import "template/ams-article.typ": equation_block, lemma, proof, theorem
 
 = Foundations <foundations>
 
@@ -52,3 +53,16 @@ computational rules.
     - *R4. Commutativity:* ${a, b} = {b, a}$.
 ]<unit-rules>
 
+[TODO[MEDIUM]: double check all parts of proof!]
+#theorem[Any partial computable function is definable by a unit.
+]
+#proof[
+  It suffices to show that the $K$ and $S$ combinators are definable as units,
+  for if terms $M, N$ in the combinator calculus can be expressed as units,
+  $M N$ can be expressed simply as ${M N}$.
+
+  For the $K$ combinator, consider the following construction: $K equiv ?$ We
+  must show $K A B = A.$
+
+  Now, for the $S$ combinator, consider: $S equiv ?$.
+]
