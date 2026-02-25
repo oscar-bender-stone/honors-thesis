@@ -26,11 +26,11 @@ quickly!]
 
 #definition[
   A *binary word* is either symbol $0$ or $1$, and if $w$ is a binary word, so
-  are $w.0$ and $w.1$, where $.$ stands for *concatenation*.
+  are $w.0$ and $w.1$, where $.$ stands for *concatenation* (an undefined
+  notion).
 ]<binary-word>
 
-We leave concatenation `.` as an undefined notion. We set concatenation to be
-right-associative,
+We will postpone to associativity to maintain the flow of new concepts.
 
 #definition[
   A *unit* is defined recursively as either:
