@@ -107,8 +107,13 @@ This thesis is organized according to @thesis-organization.
     align: left,
     // table.header([*Section Number*], [*Title*], [*Description*]),
     [*@rationale*],
-    [*Motivating Example*],
-    [Introduces Welkin at a high level, as well as guiding examples.],
+    [*Rationale*],
+    [Introduces Welkin at a high level, with guiding examples.],
+
+    [*@foundations*],
+    [*Foundations*],
+    [Introduces the core theory behind Welkin, which is the starting point to
+      specify the user-facing language.],
 
     [*@syntax*],
     [*Syntax*],
@@ -125,7 +130,6 @@ This thesis is organized according to @thesis-organization.
       certificate that demonstrates when a representation is optimal relative to
       the current information database.],
 
-    [*@bootstrap*], [*Bootstrap*], [Bootstraps the language.],
     [*@conclusion*],
     [*Conclusion*],
     [Concludes with possible applications, particularly in programming languages

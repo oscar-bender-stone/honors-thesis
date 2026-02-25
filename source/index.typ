@@ -33,8 +33,8 @@
 
 #include "1-introduction.typ"
 #include "2-rationale.typ"
-#include "3-syntax.typ"
-#include "4-semantics.typ"
-#include "5-information-organization.typ"
-#include "6-bootstrap.typ"
+#include "3-foundations.typ"
+#include "4-syntax.typ"
+#include "5-semantics.typ"
+#include "6-information-organization.typ"
 #include "7-conclusion.typ"

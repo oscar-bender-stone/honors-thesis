@@ -23,7 +23,7 @@ definitions. For consistency with Welkin, we write syntax using
 `type-writer font`. Notationally, we write $a_0, ..., a_n$ for a finite list of
 items, and use $a ::= a_1 | ... | a_n$ to denote a definition of $a$ in terms of
 $a_1, ..., a_n$. For verification purposes, we will incorporate fixed bounds and
-completely unambiguous notation into @bootstrap.
+completely unambiguous notation into @foundations.
 
 == Words
 
@@ -77,7 +77,7 @@ encoding. The term ASCII is slightly ambiguous, as there are subtly distinct
 variants, so we formally define US-ASCII as a standard version. #footnote[Note
   that this table _itself_ is a representation, which represents glyphs with
   binary words. The use of these kinds of representations occur frequently in
-  Welkin, see @bootstrap.
+  Welkin, see @foundations.
 ]
 
 #definition[
