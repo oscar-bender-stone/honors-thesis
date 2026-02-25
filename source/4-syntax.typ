@@ -39,8 +39,8 @@ hexadecimal.
   caption: "Binary, decimal, and hexadecimal digits.",
 )<digits>
 
-A word is a sequence of digits, see @word. We leave concatenation `.` as an
-undefined notion. We set concatenation to be right-associative, i.e.,
+A word is a sequence of digits, see @syntax:word. We leave concatenation `.` as
+an undefined notion. We set concatenation to be right-associative, i.e.,
 `(w.w').w'' = w.(w'.w'')`, and abbreviate `w.w'` as `w w'`. For conversions, see
 @ast.
 
@@ -52,7 +52,7 @@ undefined notion. We set concatenation to be right-associative, i.e.,
   hex ::= nibble | hex.nibble
   ```,
   caption: "Definition of words.",
-)<word>
+)<syntax:word>
 
 Equality is defined recursively, shown in @word-equality. Note that leading
 zeros are allowed.
@@ -175,7 +175,7 @@ whitespace is allowed but ignored.
 #figure(
   grammar,
   caption: [The grammar for Welkin. The terminals `id` and `string` are defined
-    in @word and @string, respectively],
+    in @syntax:word and @string, respectively],
 )<welkin-grammar>
 
 [TODO(HIGH): determine if this is good as is or needs to be put into bootstrap!]

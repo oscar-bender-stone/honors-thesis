@@ -155,42 +155,6 @@ are positionally different. This shows that Welkin is positionally invariant.
 This phase merges the units into the final data structure.
 
 
-// TODO: take AST and provide merging mechanisms,
-// primarily for nodes of the form @b {@.a.*}.
-// This means to extend @b *with* the contents of a.
-// TODO: mention enumeration of all units. Crucial!
-// Will need to mention in the bootstrap.
-#definition[
-  Create new symbols $"ID"_w$ for each binary word $w$. A *unit* is defined from
-  the Abstract Syntax Tree as follows:
-  - *Graph*: take each node defined in the graph, and transform it into a unit.
-  Take these units and add them to the list of names. Then, take the
-  representations and add them to the names. Apply the includes and excludes
-  rules below.
-  - *Includes:* each import
-  $@u$ adds the rule $v --> u.v$ for each sub-unit $v$ of $u$.
-  - *Excludes:* each exclusion $~@u$ means to remove _all_ references to . Note
-  that this takes priority over $@u$, so the unit ${@u, ~@u}$ is equivalent to
-  ${}$. The same behavior occurs with $~u$ except for the single unit $u$, and
-  ${u, ~u}$ is equivalent to ${}$.
-
-  - *Representation*: apply internal transitivity in each context.
-
-  Units satisfy the following properties, inspired by rewriting logic
-  @twenty_years_rewriting_logic:
-  - *R1. Internal Transitivity*: $a -->^b c$ and $c -->^b$ imply
-    $d => a -->^b d$.
-  - *R2. Context Congruence:* $a -->^b c$ and $p -->^c q$ implies
-    $b { p -->^a q }$
-  - *R3. Implicit Bindings:* users can provide their own "implicit" bindings
-  to units. This is intentionally kept open and provide the free parameters in
-  the language.
-
-  The *combination* of units $u, u'$, denoted by $u + u'$ is defined to be the
-  pairwise union of components across. Note that is different from the *disjoint
-  union*, in which a new top level node is made with children $u$ and $u'$.
-]<unit>
-
 [TODO[SHORT]: add link to quote!]
 #remark[
   In contrast to the requirement to the beginning of Li and Vitány (see
