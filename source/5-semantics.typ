@@ -164,55 +164,6 @@ This phase merges the units into the final data structure.
   provided meaning.
 ]
 
-Note that, in Welkin, $u + u'$ is definable as $@u {@u'}$. Notationally, we will
-use refer to variables in $"math notation"$ and treat them as globally unique
-IDs. In other words, we will ignore relative imports or scoping, leaving those
-details to the ID phase.
-
-An important theorem to show Welkin is universally is @universality-theorem.
-
-// TODO: complete proof!
-#theorem[
-  Every partial computable function can be expressed in Welkin.
-]<universality-theorem>
-#proof[
-  It suffices to show we can define the S and K combinators, as well as show
-  that application is representable. We present one representation of the
-  combinators in @combinators-in-welkin.
-
-  #figure[
-    ```welkin
-    #combinators,
-
-    "TODO: this is not yet complete. Not sure if K is presentable, or if I should try showing that a Turing-complete term rewriting system is definable instead. Unrestricted grammars may be more promising.",
-
-    K {
-      x, y,
-      x --> {
-       .y --> {
-          ..x
-        }
-      }
-    }
-
-    S {
-
-    }
-
-    ```A,
-    caption: "Combinators as represented in Welkin."
-  ]<combinators-in-welkin>
-
-
-  // TODO: link to the rules in @unit
-  We represent `K A B` in Welkin as `{A --> K.x, B --> K.y}`. We must show the
-  combinator laws hold:
-  - `{.A --> .K.x, .B --> .K.y} - K -> B`:
-  -
-  Finally, concatenation can be handled through nested scopes, completing the
-  proof.
-]
-
 [TODO: ensure this definition is general enough! We will need to tackle the
 third rule, having unspecified parameters, more in depth. Does this mean an
 implementation defined feature? Or does it generalize it?] However, this is only

@@ -9,8 +9,10 @@
 == Rules
 
 [TODO[SMALL]: emphasize that the word slate is important here! Connects to
-arbitrary objects!] Units begin as _blank slates_ and may be provided implicit
-bindings. This is done _after_ the definition for ease of use.
+arbitrary objects!]
+
+Units begin as _blank slates_ and may be provided implicit bindings. This is
+done _after_ the definition for ease of use.
 
 [TODO[MEDIUM]: address Kripkenstein. Maybe just leave that as implementation
 dependent? The sole point is to avoid disagreements or keep things standard.
@@ -38,6 +40,14 @@ right-associative,
   - A graph, which is defined as either ${u}$
 ]<unit>
 
+#remark[
+  In contrast to the requirement to the beginning of Li and Vitány (see
+  @rationale), the enumeration need _not_ be surjective but only _locally_ so.
+  Abstracting away from the implicit meaning, units act as partial computable
+  functions, but the latter is strictly _less_ expressive by removing user
+  provided meaning.
+]
+
 Units satisfy the following rules, inspired by rewriting logic
 @twenty_years_rewriting_logic. These may be interpreted as inference rules _and_
 computational rules.
@@ -53,9 +63,21 @@ computational rules.
     - *R4. Commutativity:* ${a, b} = {b, a}$.
 ]<unit-rules>
 
-[TODO[MEDIUM]: double check all parts of proof!]
-#theorem[Any partial computable function is definable by a unit.
+#remark[
+  If one restricts @unit to include representations _without_ contexts, then
+  clearly not all partial computable functions are definable, because conditions
+  cannot be directly expressed. But representations _across_ contexts is
+  necessary as well. This corresponds computationally to _switching_ between
+  contexts, which is impossible with the removal of R2. Now, rules R3 and R4 are
+  meant to make information position independent per contexts: information can
+  be repeated as manny times or in different orders. Creating restrictions, as
+  _any_ condition in Welkin due to @universality-theorem, can be done through
+  multiple contexts.
 ]
+
+[TODO[MEDIUM]: double check all parts of proof!] #theorem[Any partial computable
+  function is definable by a unit.
+]<universality-theorem>
 #proof[
   It suffices to show that the $K$ and $S$ combinators are definable as units,
   for if terms $M, N$ in the combinator calculus can be expressed as units,
@@ -66,3 +88,13 @@ computational rules.
 
   Now, for the $S$ combinator, consider: $S equiv ?$.
 ]
+
+== Coherency and Information
+
+#definition[
+
+]<coherency>
+
+#definition[
+
+]<information>
