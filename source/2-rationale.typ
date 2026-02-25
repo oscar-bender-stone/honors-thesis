@@ -236,7 +236,38 @@ There are two important questions for implementing Welkin:
 
 - How do we check that the rules are used _correctly_?
 
-[TODO[HIGH]: determine how to do this! Still WIP and not backed up yet.] Both of
-these are combined in an approach simpler than approaches like dependent type
-theory with the slogan "proofs as programs".
+[TODO[HIGH]: determine how to do this! Still WIP and not backed up yet, and
+still working on this!.]
+
+For the first issue, the author previously went to manually describing the
+syntax and semantics, introducing notions from parsing theory and compilers.
+While this format is traditional for a programming language, this postponed the
+main rules and made the language specification harder to follow. Moreover, the
+author sought to explain the Trusted Computing Base, or the amount of axioms or
+meta-theory required. With the involved manual descriptions, this made the
+analysis difficult.
+
+To resolve these issues, they are combined into approach analogous to dependent
+type theory in the sense of "proofs as programs", but in a simpler way. We call
+this process "bootstrapping", analogous to bootstrapping a programming language
+from another through successive iterations, with each iteration building upon
+previous ones to define new language features. For Welkin, these steps are:
+
++ Formalize the base rules on units. This step is very similar to defining the
+  $S K$-combinator calculus and can be similarly be implemented in a general
+  purpose programming language.
+
++ Define the syntax through an _invertible syntax description_. This idea,
+  pioneered by Rendel and Ostermann @invertible-syntax-descriptions, provides a
+  combinator approach to define how concrete syntax, that is user written, is
+  converted into abstract syntax, an abstracted form, _and back_. Along with the
+  syntax, the encoding is given _itself_ through a representation, namely a
+  table provided in this thesis.
+
++ Define the rules for path resolution and global IDs. These use a similar
+  result to syntax descriptions and are significantly easier to read. [NOTE:
+  emphasis on WIP here! Not yet developed in thesis !]
+
+[TODO[HIGH]: determine if there are any missing steps! Important! Remove once
+this is finished.]
 
