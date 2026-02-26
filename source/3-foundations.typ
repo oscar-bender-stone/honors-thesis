@@ -19,29 +19,35 @@ dependent? The sole point is to avoid disagreements or keep things standard.
 Might depend ont the notion of arbtiary objects anyways and is determined by the
 active users involved?]
 
-[TODO[SMALL]: determine if alphabets should be made clear here.]
-
 [TODO[SMALL]: address equality of binary words. Want to do this elegantly and
 quickly!]
 
 #definition[
-  A *binary word* is either symbol $0$ or $1$, and if $w$ is a binary word, so
-  are $w.0$ and $w.1$, where $.$ stands for *concatenation* (an undefined
+  A *binary word* is either the symbol $0$ or $1$, and if $w$ is a binary word,
+  so are $w.0$ and $w.1$, where $.$ the symbol for *concatenation* (an undefined
   notion).
 ]<binary-word>
 
 We will postpone to associativity to maintain the flow of new concepts.
 
+[TODO[SMALL]: explain what user provided enumeration means! Emphasis on being
+"blank slates", in a certain sense, so _assignable_, but not necesarially so.
+Here we can put custom/implicit meaning, and let this be _opaque_. Can be broken
+down further, or stand on its own. This represents what one would need to
+_understand_ something!]
+
 #definition[
-  A *unit* is defined recursively as either:
-  - A binary word.
+  A *unit* is defined recursively as one of:
+  - A _literal_ binary word, denoted by $"0b"w$.
+  - A _handle_, based on a user-provided enumeration $E$.
   - A representation $a -->^c b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
-  - A graph, which is defined as either ${u}$
+  - A graph, which is defined as either ${}$ or, for a graph $g$ and unit $u$,
+    $g + {u}$.
 ]<unit>
 
 #remark[
-  In contrast to the requirement to the beginning of Li and Vitány (see
+  In contrast to the requirement to the beginning of Li and Vitányi (see
   @rationale), the enumeration need _not_ be surjective but only _locally_ so.
   Abstracting away from the implicit meaning, units act as partial computable
   functions, but the latter is strictly _less_ expressive by removing user
@@ -52,7 +58,8 @@ Units satisfy the following rules, inspired by rewriting logic
 @twenty_years_rewriting_logic. These may be interpreted as inference rules _and_
 computational rules.
 
-[TODO[SMALL]: provide labels/links.]
+[TODO[SMALL]: provide labels/links.] [TODO[MEDIUM]: explain role of handles in
+the theory. How do they affect rules?]
 
 #definition[
   - *Representation*: apply internal transitivity in each context.
@@ -88,6 +95,7 @@ computational rules.
 
   Now, for the $S$ combinator, consider: $S equiv ?$.
 ]
+
 
 == Coherency and Information
 
