@@ -30,6 +30,15 @@ quickly!]
 
 We will postpone to associativity to maintain the flow of new concepts.
 
+[TODO[MEDIUM]: define in a compact way what "enumeration over all binary words
+is." Not sure if this _itself_ should be done with symbolic units or is related
+to them?]
+
+#definition[
+  A _handle_ is given by a pair $(i, E)$, with $i$ being a binary word called a
+  *user ID* and $E$ is an enumeration of all binary words.
+]<foundations:handle>
+
 [TODO[SMALL]: explain what user provided enumeration means! Emphasis on being
 "blank slates", in a certain sense, so _assignable_, but not necesarially so.
 Here we can put custom/implicit meaning, and let this be _opaque_. Can be broken
@@ -39,7 +48,7 @@ _understand_ something!]
 #definition[
   A *unit* is defined recursively as one of:
   - A _literal_ binary word, denoted by $"0b"w$.
-  - A _handle_, based on a user-provided enumeration $E$.
+  - A _handle_, see @foundations:handle.
   - A representation $a -->^c b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
   - A graph, which is defined as either ${}$ or, for a graph $g$ and unit $u$,
