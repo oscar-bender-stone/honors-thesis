@@ -51,7 +51,7 @@ _understand_ something!]
   - A _handle_, see @foundations:handle.
   - A representation $a -->^c b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
-  - A graph, which is defined as either ${}$ or, for a graph $g$ and unit $u$,
+  - A block, which is defined as either ${}$ or, for a block $g$ and unit $u$,
     $g + {u}$.
 ]<unit>
 
@@ -75,8 +75,8 @@ the theory. How do they affect rules?]
     - *R1. Internal Transitivity*: $a -->^c b$ and $b -->^c d$ imply
       $a -->^c d$.
     - *R2. Lifting:* $a -->^c b$ and $p -->^b q$ implies $p -->^a q in c$.
-    - *R3. Idempotency:* ${a, a} = {a}$.
-    - *R4. Commutativity:* ${a, b} = {b, a}$.
+    - *R3. Idempotency:* $g + {a} + {a} <--> g + {a}$.
+    - *R4. Commutativity:* $g + {a} + {b} <--> g + {b} + {a}$.
 ]<unit-rules>
 
 #remark[
