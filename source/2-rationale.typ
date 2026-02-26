@@ -86,22 +86,34 @@ two strings are considered equivalent if they are that are provably equivalent
 as first order sentences are in fact equal, regardless if the strings have
 distinct bits.
 
+[TODO[MEDIUM]: go back and ensure this explanation makes sense!]
 
 Taking inspiration from @information-logical-semantics, this thesis completely
-generalizes their approach using a notion of _handles_ via _representations_,
-emphasizing an implicit user created binding between a handle called a *sign*
-that represents a *referent*. The information base _itself_ is not in charge
-with considering how to store or retrieve certain entities, like an animal. For
+generalizes their approach using a notion of _handles_. Handles provide a dual
+relationship between a user and information base through a _representation_, a
+*sign* that represents a *referent*. The user best determines how to express
+handles, and in turn, the information base then uses the available presentation
+to process them. They are defined by how they are _not_ restricted; this idea is
+directly inspired from Fine's idea of arbitrary objects @fine-arbitrary-objects,
+to explain such things as why theorems about triangles can be proven with a
+single _abstracted_ triangles. information base _itself_ is not in charge with
+considering how to store or retrieve certain entities, nor how to communicate
+effectively to other users. The threshold for "effective" communication is left
+to the user and tweaked according to their needs. Based on this requiremtn, for
 information bases to be useful, one must determine the _fidelity_ of
-representations, determined by consequences of axioms, both treated as handles
-(for more details, see @universality-truth-management). Our core building block
-to explain this system is through _units_. A unit is provided by a user-defined
-enumeration of handles, and units can be broken down, build new units, or act on
-other units via representations. Our approach is slightly more general than the
-enumerations defined by Li and Vitányi, see @unit, and they allow _arbitrary_
-ways to express formal systems, see @semantics. Operationally, units can be used
-as partial computable functions, but the former are strictly more expressive,
-due to user-defined implicit bindings.
+representations. Handles, by being defined by how they are restricted, are
+_exactly_ described by the consequences of their relationships. This can be
+interpreted as truth, but we only prove that the language is _expressive enough_
+to represent any truth management system with a base set of axioms and that can
+be accepted by some partial computable function.
+
+Our core building block to explain this system is through _units_. A unit is
+provided by a user-defined enumeration of handles, and units can be broken down,
+build new units, or act on other units via representations. Our approach is
+slightly more general than the enumerations defined by Li and Vitányi, see
+@unit, and they allow _arbitrary_ ways to express formal systems, see
+@semantics. Operationally, units can be used as partial computable functions,
+but the former are strictly more expressive, due to user-defined handles.
 
 [TODO: make this clear? Can't a unit *be* itself information?]
 
