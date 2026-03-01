@@ -42,6 +42,8 @@ shoud be worth justifying!]
   called a *user ID* and $"HID"$ is the *handle ID*.
 ]<foundations:handle>
 
+[TODO[SMALL]: define semantics of $,$ vs $|$ in a context.]
+
 [TODO[SMALL]: explain what user provided enumeration means! Emphasis on being
 "blank slates", in a certain sense, so _assignable_, but not necesarially so.
 Here we can put custom/implicit meaning, and let this be _opaque_. Can be broken
@@ -55,7 +57,7 @@ _understand_ something!]
   - A representation $a -->^c b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
   - A block, which is defined as either ${}$ or, for a block $g$ and unit $u$,
-    $g + {u}$.
+    $g + {u}$ _or_ $g | {u}$.
 ]<unit>
 
 #remark[
@@ -112,17 +114,19 @@ assigned, and whose interpretation is a free parameter in the theory. In other
 words, handles are _undefined notions_ or entirely user-defined.
 
 [TODO(SMALL): again, handle non-determinism here! Important!]
+
 #figure(
   [
-    $"bit" --> 0, "bit" --> 1$
-    $"word" equiv {"head" --> "bit", "next" --> "word"}$
+    $"bit" --> 0 | 1$
+    $"word" equiv {"head" --> {"bit" | "empty"}, "next" --> "word"}$
   ],
   caption: [Generator for IDs in Welkin.],
-)
+)<bootstrap-binary-word>
 
 Now we can prove the Turing definability of Welkin.
 
-[TODO[SMALL]: make sure indices on item and next make sense!]
+[TODO[SMALL]: make sure assignnments make sense! Do address possible ambiguity
+in direction of arrows. Can be confusing!]
 
 [TODO[MEDIUM]: double check all parts of proof!]
 
@@ -130,12 +134,12 @@ Now we can prove the Turing definability of Welkin.
 ]<universality-theorem>
 #proof[
   Define a new context $C$ for this proof, with a unit to denote a generator for
-  any pairs: $P equiv {"item" --> "word", "next" --> "nil", "next" --> P}$. We
-  claim that that any term of the $S K I$ calculus is definable as units in
-  Welkin. To this end, if we can construct terms $M$ and $N$, then we can
-  represent the composition $M N$ as ${{M --> "item", N --> "next"} - C -> N'}$.
-  then we can represent the term $M N$ via $M - N -> M'$ in a context $C$. Thus,
-  it suffices to show this claim $K$ and $S$ combinators are definable as units.
+  any pairs: $P equiv {"item" --> "word", "next" --> P | "nil"}$. We claim that
+  that any term of the $S K I$ calculus is definable as units in Welkin. To this
+  end, if we can construct terms $M$ and $N$, then we can represent the
+  composition $M N$ as ${{M --> "item", N --> "next"} - C -> N'}$ for some $N'$
+  in $C$. Thus, it suffices to show this claim $K$ and $S$ combinators are
+  definable as units.
 
   For the $K$ combinator, consider the following construction:
   $K equiv {x, y, }$ We must show $K A B = A.$ We represent this as $$
