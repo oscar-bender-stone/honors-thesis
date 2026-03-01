@@ -228,7 +228,7 @@ inherently incomplete with computable methods.
   - So we don't want to accept _any_ handle, because that then
   gets into axiomatic systems. We can definitely _analyze_ what those systems do
   and how they behave, yes, but how do we know _for sure_ about things about
-  Turing machines? What can we agree on?
+  Turing machines? What can we agree on, i.e., what is the ceiling?
 
   - We need a finite certificate to _represent_ an aribtrary
   object, namely being the steps. So we need a _finite way_ to determine that
