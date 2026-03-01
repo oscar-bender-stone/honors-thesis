@@ -123,6 +123,11 @@ words, handles are _undefined notions_ or entirely user-defined.
   caption: [Generator for IDs in Welkin.],
 )<bootstrap-binary-word>
 
+Moreover, for simplicity, we introduce tuples. A pair is:
+$"Pair" equiv {"first", "second"}$. A tuple is a nested pair that is
+left-associative w.r.t the labels $"first"$ and $"second"$:
+$"Tuple" equiv {"first" --> "Pair", "second" --> "Tuple"}$.
+
 Now we can prove the Turing definability of Welkin.
 
 [TODO[SMALL]: make sure assignnments make sense! Do address possible ambiguity
@@ -133,16 +138,17 @@ in direction of arrows. Can be confusing!]
 #theorem[Any partial computable function is definable by a unit.
 ]<universality-theorem>
 #proof[
-  Define a new context $C$ for this proof, with a unit to denote a generator for
-  any pairs: $P equiv {"item" --> "word", "next" --> P | "nil"}$. We claim that
-  that any term of the $S K I$ calculus is definable as units in Welkin. To this
-  end, if we can construct terms $M$ and $N$, then we can represent the
-  composition $M N$ as ${{M --> "item", N --> "next"} - C -> N'}$ for some $N'$
-  in $C$. Thus, it suffices to show this claim $K$ and $S$ combinators are
-  definable as units.
+  Define a new context $C$ for this proof, containing $"Pair"$ and $"Tpl"$, as
+  defined above. We claim that that any term of the $S K I$ calculus is
+  definable as units in Welkin. To this end, if we can construct terms $M$ and
+  $N$, then we can represent the composition $M N$ as a pair
+  ${{M --> "first", N --> "second"} -->^C N'$ for some $N'$ in $C$, and
+  subsequent compositions $M N Q$ as tuples. Thus, it suffices to show this
+  claim $K$ and $S$ combinators are definable as units.
 
   For the $K$ combinator, consider the following construction:
-  $K equiv {x, y, }$ We must show $K A B = A.$ We represent this as $$
+  $K equiv {x, y, }$ in $C$. We must show $K A B$ reduces to $A$, or, more
+  precisely,
 
   Now, for the $S$ combinator, consider: $S equiv ?$.
 ]
