@@ -17,8 +17,7 @@ through a well known book by Li and Vitányi @intro_kolmogorov_complexity. Their
 book focuses on the _information content_ of a description, which they summarize
 as follows:
 
-[TODO[SMALL] still resolve how pages should be mentioned!] [TODO[SMALL]
-determine if this quote is needed. Maybe it does help with readability]
+[TODO[SMALL] still resolve how pages should be mentioned!]
 
 #set quote(block: true)
 #quote(attribution: [@intro_kolmogorov_complexity, pages 101-102])[
@@ -28,11 +27,11 @@ determine if this quote is needed. Maybe it does help with readability]
   is particularly favored by the description method we have selected. By ‘favor’
   we mean to produce short descriptions in terms of bits._]
 
-They express this idea with an enumeration $D$ from _objects_ to strings called
-_descriptions_. To ensure that their measure is _minimal_ and can be mechanized,
-$D$ is a partial computable function. The authors proceed define the
-_information content_ of a string through Kolmogorov complexity, the size of the
-smallest description that accepts an object, or in other words, the smallest
+They express this idea with an enumeration $D$ from _objects_ to _descriptions_,
+written as strings of symbols. To ensure that their measure is _minimal_ and can
+be mechanized, $D$ is a partial computable function. The authors proceed define
+the _information content_ of a string through Kolmogorov complexity, the size of
+the smallest description that accepts an object, or in other words, the smallest
 program that accepts a string. From there, they prove multiple foundational
 results for Algorithmic Information Theory, including that Kolmogorov complexity
 is uncomputable. This quantity can be approximated by several means, which is
@@ -41,20 +40,20 @@ closely involved to compression algorithms.
 However, Li and Vitányi's approach does not generally reflect the ways people
 disseminate and create new information. The term "object" is a vague term that
 is vastly different between disciplines and can be difficult to model for
-entities. For example, consider a dynamic biological systems. In an evolving
-system, what is the "boundary" of the object? Another issue is well known in the
-literature as the Symbol Grounding Problem, formulated by Harnard
-@harnard-symbol-grounding. As an example, Harnard considers a person expecting
-to learn Chinese as their first language with _only_ a Chinese dictionary. How
-does the person ground their symbols in concrete meanings? An information base
-cannot practically store the denotations of a word, such as storing animals, so
-how _original meaning_ is obtained is unclear.
+entities. For example, consider a dynamic biological systems. If objects have
+well defined boundaries, what would the "boundary" be of an evolving system?
+Another issue is well known in the knowledge management literature as the Symbol
+Grounding Problem, formulated by Harnard @harnard-symbol-grounding. As an
+example, Harnard considers a person expecting to learn Chinese as their first
+language with _only_ a Chinese dictionary. How does the person ground their
+symbols in concrete meanings? An information base cannot practically store the
+denotations of a word, such as storing animals, so how _original meaning_ is
+obtained is unclear.
 
-Several solutions have been proposed to resolve the Symbol Grounding Problem. In
-some cases, it is nebulous what "store" means for certain concepts, though as
-abstract ideas. The problem even arises when modeled with _solely_ formal
+Several solutions have been proposed to resolve the Symbol Grounding Problem...
+Ultimately, however, he problem even arises when modeled with _solely_ formal
 entities. For instance, Liu @liu-theory-based-symbol-grounding models symbol
-grounding as axioms in a general deductive system, and uses Gödelian-based
+grounding as axioms in a general deductive system, and uses a Gödelian-based
 diagonalization argument to show that the grounding predicate, indicating which
 symbols are grounded, is undefinable in a single system. In a related work,
 symbol grounding can be modeled directly through Kolmogorov complexity
@@ -65,16 +64,12 @@ philosophical condrums and more oriented to _practical_ considerations.
 
 == Units
 
-[TODO[SMALL]: maybe clarify how powerful deduction is? That's my point here,
-that we don't have to check if a property holds _if_ we use a theorem instead,
-or we use different set of conditions to get a certain property.]
-
 Despite the presence of the Symbol Grounding Problem, we emphasize that an
-information base is a _tool_, which is useful when fully mechanized for
-_communication_, not to resolve philosophical inquiries on the existence or
-absence of things or abilities. Information itself is used for _predictions_: a
-person that translates the sentence "It will rain today" in Chinese to convey a
-semantic property of the world, that there will be rain. This scales to larger
+information base is a _tool_ that is useful when _mechanized_. As such,
+information bases are not for resolving philosophical inquiries on the existence
+or absence of things or abilities. Information itself is used for _predictions_:
+a person that translates the sentence "It will rain today" in Chinese to convey
+a semantic property of the world, that there will be rain. This scales to larger
 examples, with major theorems providing even more refined or general properties
 _given_ a set of assumptions. Note that this is different form Shanon's seminal
 work on Information Theory, in which methods are found to convey the _exact_
@@ -90,30 +85,62 @@ distinct bits.
 
 Taking inspiration from @information-logical-semantics, this thesis completely
 generalizes their approach using a notion of _handles_. Handles provide a dual
-relationship between a user and information base through a _representation_, a
-*sign* that represents a *referent*. The user best determines how to express
-handles, and in turn, the information base then uses the available presentation
-to process them. They are defined by how they are _not_ restricted; this idea is
-directly inspired from Fine's idea of arbitrary objects @fine-arbitrary-objects,
-to explain such things as why theorems about triangles can be proven with a
-single _abstracted_ triangle, formalized through induction. An information base
-_itself_ is not in charge with considering how to store or retrieve certain
-entities, nor how to communicate effectively to other users. The threshold for
-"effective" communication is left to the user and tweaked according to their
-needs. Based on this requiremtn, for information bases to be useful, one must
-determine the _fidelity_ of representations. Handles, by being defined by how
-they are restricted, are _exactly_ described by the consequences of their
-relationships. This can be interpreted as truth, but we only prove that the
-language is _expressive enough_ to represent any truth management system with a
-base set of axioms and that can be accepted by some partial computable function.
+relationship between a user and information base through a *representation*, in
+which a *sign* represents a *referent*. Handles are left as free parameters in
+the theory, analogous to how key notions are left undefined in Hilbert's
+formalism of geometry, and are characterized by their relationships to other
+handles. The user expresses these representations to seek _clarity_ on their
+entity of study, to make better predictions, and so forth. To do this, the user
+must determine if a set of representations are _faithful_ or actually represent
+the study of interest.Thus, declaring representations is equivalent to stating
+axioms about handles. Users can refine these through *revisions*, enabling
+belief revision.
+
+Given the flexibility of handles to the user, how are they processed in an
+information base? There are two key components:
+
+
+- First, they are handled through IDs, directly inspired by
+database theory. They are identified with triples $("UUID", "RID", "HID")$,
+whose contents are the *user ID*, *revision ID*, and *handle ID*, respectively.
+Revisions ensure that storing axioms is *immutable*, or that a particular handle
+does _not_ change over time. This is _not_ a restriction on dynamic entities,
+but rather an indictation in the base to determine a particular version of a
+handle.
+
+- Second, handles are characterized precisely by their relationships, which one
+can interpret how they are _not_ restricted. This idea is directly inspired from
+Fine's idea of arbitrary objects @fine-arbitrary-objects, and connects to the
+necessity of induction for formal systems. As a common example, consider how one
+can explain the Pythagorean theorem is true about all right triangles. Instead
+of drawing _every_ single such triangle, one represents all right triangles with
+an _abstracted_ right triangle, using only the properties necessary to show
+$a^2 + b^2 = c^2$. The only restriction here is that the triangle must contain a
+right angle, but besides this, _nothing_ else is assumed nor required.
+Symbolically, this is deeply tied to having _induction_, so that a finite proof
+of a base case and inductive invariant can show a claim for _all_ finite cases.
+The threshold for "effective" communication is left to the user and tweaked
+according to their needs.
+
+Within a fixed revision, handles, by being defined by how they are restricted,
+are _exactly_ described by the consequences of their relationships. This can be
+interpreted as truth, but we only prove that the language is _expressive enough_
+to represent any truth management system. Here, we define a truth management
+system to consist of a set of axioms along with inference rules, whose
+derivations are accepted by some partial computable function. This is closely
+connected to defining what "computbly provable" properties are, akin to defining
+an RE set as any set that can be acccepted by a Turing machine. For more
+details, see @rationale:bootstrap.
 
 Our core building block to explain this system is through _units_. A unit is
-provided by a user-defined enumeration of handles, and units can be broken down,
-build new units, or act on other units via representations. Our approach is
-slightly more general than the enumerations defined by Li and Vitányi, see
-@unit, and they allow _arbitrary_ ways to express formal systems, see
-@semantics. Operationally, units can be used as partial computable functions,
-but the former are strictly more expressive, due to user-defined handles.
+provided by a set of user-defined handles and representations. Units can be
+broken down, build new units, or act on other units via representations. Our
+approach is slightly more general than the enumerations defined by Li and
+Vitányi, see @unit, and they allow _arbitrary_ ways to express formal systems
+relative to partial computable functions, see @rationale:bootstrap.
+Operationally, units can be used as partial computable functions, but the former
+are strictly more expressive, due to user-defined handles and the presence of
+induction through handle IDs.
 
 [TODO: make this clear? Can't a unit *be* itself information?]
 
@@ -247,7 +274,7 @@ for specific human languages. [TODO: cite source on this about most programming
 languages being in English, as well as programming languages written in
 _different_ human languages. Would be useful to have.]
 
-== Bootstrapping
+== Bootstrapping <rationale:bootstrap>
 
 There are two important questions for implementing Welkin:
 
