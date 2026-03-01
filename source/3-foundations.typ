@@ -200,22 +200,39 @@ inherently incomplete with computable methods.
 
   - Does provide an idea: _any_ such instance of $x not T$ that has a finite
     witness _must_ come from some Turing machine (that's what we want). So we
-    want to solve another question: $exists T'. x in T' => x in T$. In the case
-    above, $T'$ is a well known formal system.
+    want to solve another question:
+    $exists T'. x in "Halt"(T') => x in "Halt"(T)$. In the case above, $T'$ is a
+    well known formal system.
 
-- Analyzing new problem: $exists T'. x in T' => x in T$.
+- Analyzing new problem: $exists T'. x in "Halt"("T'") => x not in "Halt"(T)$.
   - Ultimate problem: _not_ accepting means infinite number of steps.
   So how to connect to a finite thing?
   - Answer: I _think_ arbtitrary objects. What we observed above is something
   to do with axiomatic systems. If we _only_ allow finite axioms, no
   quantifiers, we get stuck. We could approximate bit by bit, _but at some
   point_, it won't be enough for _most_ Turing machines.
+
   - My question: I don't want to be restricted to FOL, as we will address in
     intro (e.g., quantum logic and needed an extension of FOL to handle!).
+
   - I think we _precisely_ need handles here, because we can _prove_
-  that using _only_ the places where Turing machines halt isn't enough.
-  *Turing machines alone aren't enough for proof systems, or for _validating_ if
-  specs are accurate!*
+  that using _only_ the places where Turing machines halt isn't enough. *Turing
+  machines alone aren't enough for proof systems, or for _validating_ if specs
+  are accurate!*. TODO: definitely need to make a lemma! Essential! (though will
+  need to connect back with arbitrary objects, because technically one _needs_
+  arbitrary objects to even state this!).
+
+- Arbitrary objects + addressing
+  $exists T'. x in "Halt"(T') => x not in "Halt"(T)$
+
+  - So we don't want to accept _any_ handle, because that then
+  gets into axiomatic systems. We can definitely _analyze_ what those systems do
+  and how they behave, yes, but how do we know _for sure_ about things about
+  Turing machines? What can we agree on?
+
+  - We need a finite certificate to _represent_ an aribtrary
+  object, namely being the steps. So we need a _finite way_ to determine that
+  $T$ doesnt halt on $x$
 
 == Coherency and Information
 
