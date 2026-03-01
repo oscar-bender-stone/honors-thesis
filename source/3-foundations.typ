@@ -34,9 +34,12 @@ We will postpone to associativity to maintain the flow of new concepts.
 is." Not sure if this _itself_ should be done with symbolic units or is related
 to them?]
 
+[TODO(SMALL): decide whether to add handles! Want the rest to be simple, so
+shoud be worth justifying!]
+
 #definition[
-  A _handle_ is given by a pair $(i, E)$, with $i$ being a binary word called a
-  *user ID* and $E$ is an enumeration of all binary words.
+  A _handle_ is given by a pair $("UID", "HID")$, where $"UID"$ is a binary word
+  called a *user ID* and $"HID"$ is the *handle ID*.
 ]<foundations:handle>
 
 [TODO[SMALL]: explain what user provided enumeration means! Emphasis on being
@@ -69,8 +72,6 @@ computational rules.
 
 [TODO[SMALL]: provide labels/links.]
 
-[TODO[MEDIUM]: explain role of handles in the theory. How do they affect rules?]
-
 [TODO[SMALL]: ensure that when evaluating transitivity, non-determinism is
 possible!]
 
@@ -102,18 +103,39 @@ possible!]
   organization, see @information-organization.
 ]
 
+
+For universality, we need an important base construction that is definable in
+the theory: the ability to recurse through all IDs.
+
+From there, we can recurse through all _potential_ handles. These are user
+assigned, and whose interpretation is a free parameter in the theory. In other
+words, handles are _undefined notions_ or entirely user-defined.
+
+[TODO(SMALL): again, handle non-determinism here! Important!]
+#figure(
+  [
+    $"bit" --> 0, "bit" --> 1$
+    $"word" equiv {"head" --> "bit", "next" --> "word"}$
+  ],
+  caption: [Generator for IDs in Welkin.],
+)
+
+Now we can prove the Turing definability of Welkin.
+
+[TODO[SMALL]: make sure indices on item and next make sense!]
+
 [TODO[MEDIUM]: double check all parts of proof!]
 
 #theorem[Any partial computable function is definable by a unit.
 ]<universality-theorem>
 #proof[
   Define a new context $C$ for this proof, with a unit to denote a generator for
-  any pairs: $P equiv {"item", "next" --> "nil", "next" --> P}$. We claim that
-  that any term of the $S K I$ calculus is definable as units in Welkin. To this
-  end, if we can construct terms $M$ and $N$, then we can represent the
-  composition $M N$ as ${{M --> "item", N --> "next"} - C -> N'}$. then we can
-  represent the term $M N$ via $M - N -> M'$ in a context $C$. Thus, it suffices
-  to show this claim $K$ and $S$ combinators are definable as units.
+  any pairs: $P equiv {"item" --> "word", "next" --> "nil", "next" --> P}$. We
+  claim that that any term of the $S K I$ calculus is definable as units in
+  Welkin. To this end, if we can construct terms $M$ and $N$, then we can
+  represent the composition $M N$ as ${{M --> "item", N --> "next"} - C -> N'}$.
+  then we can represent the term $M N$ via $M - N -> M'$ in a context $C$. Thus,
+  it suffices to show this claim $K$ and $S$ combinators are definable as units.
 
   For the $K$ combinator, consider the following construction:
   $K equiv {x, y, }$ We must show $K A B = A.$ We represent this as $$
