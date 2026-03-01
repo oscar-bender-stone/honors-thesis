@@ -84,9 +84,9 @@ possible!]
     - *R2. Lifting:* $a -->^c b$ and $p -->^b q$ implies $p -->^a q in c$.
     - *R3. Idempotency:* $g + {a} + {a} <--> g + {a}$.
     - *R4. Commutativity:* $g + {a} + {b} <--> g + {b} + {a}$.
-    - *R5. Associativity:* ${a} = a$.
-    - *R6. Trivial Wrapper:* ${a} = a$.#footnote[In a set-theoretic context, the
-        statement ${a} = a$ is similar to a "Quine atom" in Quine's New
+    - *R5. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
+    - *R6. Trivial Wrapper:* ${a} <--> a$.#footnote[In a set-theoretic context,
+        the statement ${a} = a$ is similar to a "Quine atom" in Quine's New
         Foundations that includes an anti-foundation axiom
         @quine:new-foundations. However, note that units are _not_ necesarially
         sets, so the connection may not be applicable in all contexts.
@@ -124,9 +124,9 @@ words, handles are _undefined notions_ or entirely user-defined.
 )<bootstrap-binary-word>
 
 Moreover, for simplicity, we introduce tuples. A pair is:
-$"Pair" equiv {"first", "second"}$. A tuple is a nested pair that is
-left-associative w.r.t the labels $"first"$ and $"second"$:
-$"Tuple" equiv {"first" --> "Pair", "second" --> "Tuple"}$.
+$"Pair" equiv {"first" --> "word", "second" --> "word"}$. A tuple is a nested
+pair that is left-associative w.r.t the labels $"first"$ and $"second"$:
+$"Tuple" equiv {"head" --> "Pair" | "word", "next" --> "Tuple" | "word"}$.
 
 Now we can prove the Turing definability of Welkin.
 
@@ -142,15 +142,24 @@ in direction of arrows. Can be confusing!]
   defined above. We claim that that any term of the $S K I$ calculus is
   definable as units in Welkin. To this end, if we can construct terms $M$ and
   $N$, then we can represent the composition $M N$ as a pair
-  ${{M --> "first", N --> "second"} -->^C N'$ for some $N'$ in $C$, and
-  subsequent compositions $M N Q$ as tuples. Thus, it suffices to show this
-  claim $K$ and $S$ combinators are definable as units.
+  ${{M --> "head", N --> "next"} -->^C N'$ for some $N'$ in $C$, and subsequent
+  compositions $M N Q$ as tuples. Thus, it suffices to show this claim $K$ and
+  $S$ combinators are definable as units.
 
   For the $K$ combinator, consider the following construction:
   $K equiv {x, y, }$ in $C$. We must show $K A B$ reduces to $A$, or, more
   precisely,
 
-  Now, for the $S$ combinator, consider: $S equiv ?$.
+  ${{{K --> "first", A --> "second"} --> "head", B --> "next"} -->^C N'$
+
+  [TODO(SHORT): clarify even more nested scopes from Lifting!]
+
+  ${A --> "first", B --> "second"} -->^K A$ in $C$.
+
+  ${A --> "first", B --> "second"} -->^? A$.
+
+  Now, for the $S$ combinator, consider $S equiv ?$. We must show $S A B C D$
+  reduces to $(x z)(y z)$, i.e.,:
 ]
 
 == Coherency and Information
