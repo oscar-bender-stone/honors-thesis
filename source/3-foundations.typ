@@ -162,6 +162,43 @@ in direction of arrows. Can be confusing!]
   reduces to $(x z)(y z)$, i.e.,:
 ]
 
+
+== Truth Management Systems
+
+The goal of this section is to completely define the following: _a proof of
+anything expressable as a RE set_. We will then generalize this to more through
+handles and mark soundness. Note that, because of Rice's Theorem, this method is
+inherently incomplete with computable methods.
+
+[TODO[MEDIUM]: finish outline! Write up!]
+
+- Goal: determine trust of Turing machine $T$ halts on $x$ in _finitely many
+  steps_ (so Halting problem)
+
+  - Easy case: $T$ _does_ halt on $x$ in finitely many steps. Trusted
+    ceritiface: trace of Turing Machine.
+
+  - Hard case: $T$ _does not_ on $x$. What can we _tell_ is a certifcate
+  that is itself expressible as the element of some RE set?
+
+- Analyzing hard case
+
+  - Normal approach by mathematicians: take a trusted theory, e.g.,
+    Zermelo-Frankel Set Theory, and see if $T$ not accepting $x$ is provable in
+    such a theory. One still needs to find a proof in this trusted theory, _but_
+    once then, apply modus ponens to get the result.
+
+  - Problem: ZFC can't prove _every_ case of halting because of Gödel's
+    incompleteness theorem. So more and more powerful theories. These, too, may
+    be trusted, but might end of in an infinite regress, or very unclear with
+    theories like, e.g., Rocq's type theory.
+
+  - Does provide an idea: _any_ such instance of $x not T$ that has a finite
+    witness
+  _must_ come from some Turing machine (that's what we want). So we want to
+  solve another question: $exists T'. x in T' => x in T$.
+
+
 == Coherency and Information
 
 #definition[
