@@ -96,16 +96,16 @@ handles, and in turn, the information base then uses the available presentation
 to process them. They are defined by how they are _not_ restricted; this idea is
 directly inspired from Fine's idea of arbitrary objects @fine-arbitrary-objects,
 to explain such things as why theorems about triangles can be proven with a
-single _abstracted_ triangles. information base _itself_ is not in charge with
-considering how to store or retrieve certain entities, nor how to communicate
-effectively to other users. The threshold for "effective" communication is left
-to the user and tweaked according to their needs. Based on this requiremtn, for
-information bases to be useful, one must determine the _fidelity_ of
-representations. Handles, by being defined by how they are restricted, are
-_exactly_ described by the consequences of their relationships. This can be
-interpreted as truth, but we only prove that the language is _expressive enough_
-to represent any truth management system with a base set of axioms and that can
-be accepted by some partial computable function.
+single _abstracted_ triangle, formalized through induction. An information base
+_itself_ is not in charge with considering how to store or retrieve certain
+entities, nor how to communicate effectively to other users. The threshold for
+"effective" communication is left to the user and tweaked according to their
+needs. Based on this requiremtn, for information bases to be useful, one must
+determine the _fidelity_ of representations. Handles, by being defined by how
+they are restricted, are _exactly_ described by the consequences of their
+relationships. This can be interpreted as truth, but we only prove that the
+language is _expressive enough_ to represent any truth management system with a
+base set of axioms and that can be accepted by some partial computable function.
 
 Our core building block to explain this system is through _units_. A unit is
 provided by a user-defined enumeration of handles, and units can be broken down,
@@ -265,29 +265,59 @@ connects to the second issue in a larger way, closely tied into formal methods.
 In the formal methods literature, a *Trusted Computing Base (TCB)* is the set of
 axioms and code used to implement a program. Axiomatically, most existing proof
 assistants have a fixed set of rules, with early proponents arguments towards
-having a fixed TCB (see ).
+having a fixed TCB (see )...
 
-To resolve these issues, they are combined into approach analogous to dependent
+To effectively create any formal system, having _some_ notion of IDs is
+necessary in a Trusted Computing Base. Checking the trace of a Turing machine
+can be done with a finite certificate, _but_ checking for non-halting in the
+general case requires a level of induction. The weakest we need is our basic
+intuitions about finite numbers: if we can show something holds at base case
+$0$, and that each step from $n$ to $n+1$ also holds, it must hold everywhere
+else. Without IDs, many more things cannot even be _expressed_, including Gödel
+encodings.
+
+To resolve both issues, they are combined into approach analogous to dependent
 type theory in the sense of "proofs as programs", but in a simpler way. We call
 this process "bootstrapping", analogous to bootstrapping a programming language
 from another through successive iterations, with each iteration building upon
-previous ones to define new language features. For Welkin, these steps are:
+previous ones to define new language features. We also define the notion of
+"computably checkable proof" through reflection, providing a partial translation
+from Feferman's work (partial in the sense of not requiring the _same_ semantics
+as first order logic) @feferman-reflection. While a _single_ formal system can
+enumerate through these proofs, our system provides the most flexibility and
+enables the _potential_ of expressing any recursive ordinal.
 
-+ Formalize the base rules on units. This step is very similar to defining the
-  $S K$-combinator calculus and can be similarly be implemented in a general
-  purpose programming language.
+Taken together, the steps for bootstrapping Welkin are:
 
-+ Define the syntax through an _invertible syntax description_. This idea,
-  pioneered by Rendel and Ostermann @invertible-syntax-descriptions, provides a
-  combinator approach to define how concrete syntax, that is user written, is
-  converted into abstract syntax, an abstracted form, _and back_. Along with the
-  syntax, the encoding is given _itself_ through a representation, namely a
-  table provided in this thesis.
++ Formalize the base rules on units. Using English as our meta-language, we
+  prove that our rules can define the $S$ and $K$ combinators as any combination
+  of terms, and thus is Turing complete. Having Turing completeness ensures the
+  language is expressive enough (as per Goal 1), but we will use more direct
+  notions in terms of the rules for ease of presentation. Another rule we add is
+  for a specific verifier for proofs, which we can prove in the system is
+  correct. We will later show this is _not_ a restriction and applies to any
+  computably checkable proof.
+
++ Provide the base meta-theory for the language _in_ Welkin. This will be PRA,
+  written in a combinator based form. We will show the main axioms of PRA hold.
+
++ Prove that Peano Arithmetic is provably sound in a weak sense using a method
+  developed by Artemov @artemov_serial_consistency. From there, we carry out
+  Feferman's Reflection theorem written with our notions.
+
++ Defin handles and information. We also justify information organization to
+  promote the _most_ optimal paths to prove things, _if_ proofs are provided.
+  This is deeply connected to Blum's speedup theorem and is essential for
+  proving Goal 2.
 
 + Define the rules for path resolution and global IDs. These use a similar
   result to syntax descriptions and are significantly easier to read. [NOTE:
   emphasis on WIP here! Not yet developed in thesis !]
 
-[TODO[HIGH]: determine if there are any missing steps! Important! Remove once
-this is finished.]
++ Finally, define the syntax through an _invertible syntax description_. This
+  idea, pioneered by Rendel and Ostermann @invertible-syntax-descriptions,
+  provides a combinator approach to define how concrete syntax, that is user
+  written, is converted into abstract syntax, an abstracted form, _and back_.
+  Along with the syntax, the encoding is given _itself_ through a
+  representation, namely a table provided in this thesis.
 

@@ -6,13 +6,7 @@
 
 = Foundations <foundations>
 
-== Rules
-
-[TODO[SMALL]: emphasize that the word slate is important here! Connects to
-arbitrary objects!]
-
-Units begin as _blank slates_ and may be provided implicit bindings. This is
-done _after_ the definition for ease of use.
+== Base Rules
 
 [TODO[MEDIUM]: address Kripkenstein. Maybe just leave that as implementation
 dependent? The sole point is to avoid disagreements or keep things standard.
@@ -159,8 +153,10 @@ in direction of arrows. Can be confusing!]
   reduces to $(x z)(y z)$, i.e.,:
 ]
 
+== Expressing PRA
 
-== Truth Management Systems
+== Expressing PA and Feferman Reflection
+
 
 The goal of this section is to completely define the following: _a proof of
 anything expressable as a RE set_. We will then generalize this to more through
