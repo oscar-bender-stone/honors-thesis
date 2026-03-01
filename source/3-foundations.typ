@@ -118,6 +118,7 @@ words, handles are _undefined notions_ or entirely user-defined.
 #figure(
   [
     $"bit" --> 0 | 1$
+
     $"word" equiv {"head" --> {"bit" | "empty"}, "next" --> "word"}$
   ],
   caption: [Generator for IDs in Welkin.],
@@ -176,7 +177,7 @@ inherently incomplete with computable methods.
   steps_ (so Halting problem)
 
   - Easy case: $T$ _does_ halt on $x$ in finitely many steps. Trusted
-    ceritiface: trace of Turing Machine.
+    certificate: trace of Turing Machine.
 
   - Hard case: $T$ _does not_ on $x$. What can we _tell_ is a certifcate
   that is itself expressible as the element of some RE set?
@@ -186,18 +187,35 @@ inherently incomplete with computable methods.
   - Normal approach by mathematicians: take a trusted theory, e.g.,
     Zermelo-Frankel Set Theory, and see if $T$ not accepting $x$ is provable in
     such a theory. One still needs to find a proof in this trusted theory, _but_
-    once then, apply modus ponens to get the result.
+    once then, apply modus ponens to get the result. If there happened to be a
+    contradiction, revise beliefs and seek another system. Hasn't happened with
+    ZF, but in the _traditional_ view, this is possible. (We'll get into Artemov
+    below!)
 
   - Problem: ZFC can't prove _every_ case of halting because of Gödel's
     incompleteness theorem. So more and more powerful theories. These, too, may
     be trusted, but might end of in an infinite regress, or very unclear with
-    theories like, e.g., Rocq's type theory.
+    theories like, e.g., Rocq's type theory. No concrete ceiling, _unclear
+    reasons for soundness_ (other than being widely assumed).
 
   - Does provide an idea: _any_ such instance of $x not T$ that has a finite
-    witness
-  _must_ come from some Turing machine (that's what we want). So we want to
-  solve another question: $exists T'. x in T' => x in T$.
+    witness _must_ come from some Turing machine (that's what we want). So we
+    want to solve another question: $exists T'. x in T' => x in T$. In the case
+    above, $T'$ is a well known formal system.
 
+- Analyzing new problem: $exists T'. x in T' => x in T$.
+  - Ultimate problem: _not_ accepting means infinite number of steps.
+  So how to connect to a finite thing?
+  - Answer: I _think_ arbtitrary objects. What we observed above is something
+  to do with axiomatic systems. If we _only_ allow finite axioms, no
+  quantifiers, we get stuck. We could approximate bit by bit, _but at some
+  point_, it won't be enough for _most_ Turing machines.
+  - My question: I don't want to be restricted to FOL, as we will address in
+    intro (e.g., quantum logic and needed an extension of FOL to handle!).
+  - I think we _precisely_ need handles here, because we can _prove_
+  that using _only_ the places where Turing machines halt isn't enough.
+  *Turing machines alone aren't enough for proof systems, or for _validating_ if
+  specs are accurate!*
 
 == Coherency and Information
 
