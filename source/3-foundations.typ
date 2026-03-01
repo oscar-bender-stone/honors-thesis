@@ -77,18 +77,20 @@ the theory. How do they affect rules?]
     - *R2. Lifting:* $a -->^c b$ and $p -->^b q$ implies $p -->^a q in c$.
     - *R3. Idempotency:* $g + {a} + {a} <--> g + {a}$.
     - *R4. Commutativity:* $g + {a} + {b} <--> g + {b} + {a}$.
+    - *R5. Associativity:* ${a} = a$
+    - *R6. Quine Axiom:* ${a} = a$
 ]<unit-rules>
 
 #remark[
-  If one restricts @unit to include representations _without_ contexts, then
-  clearly not all partial computable functions are definable, because conditions
-  cannot be directly expressed. But representations _across_ contexts is
-  necessary as well. This corresponds computationally to _switching_ between
-  contexts, which is impossible with the removal of R2. Now, rules R3 and R4 are
-  meant to make information position independent per contexts: information can
-  be repeated as manny times or in different orders. Creating restrictions, as
-  _any_ condition in Welkin due to @universality-theorem, can be done through
-  multiple contexts.
+  Each of these rules imposes no restrictions on what can be expressed, thanks
+  to the presence of contexts. In fact, contexts are _necessary_ for Turing
+  completness, as one must express conditional rules. In the absence of contexts
+  _or_ rule *R2*, @unit-rules reduces to simple graph traversal. Now, while
+  contexts can remove restrictions, these rules are carefully chosen to
+  represent information as that which can be repeated multiple times (per
+  context) and is positionally invariant. This allows us to enable _any_ partial
+  computable organization of information and, in particular optimize a given
+  organization, see @information-organization.
 ]
 
 [TODO[MEDIUM]: double check all parts of proof!] #theorem[Any partial computable
