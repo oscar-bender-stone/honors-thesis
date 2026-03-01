@@ -104,9 +104,10 @@ information base? There are two key components:
 database theory. They are identified with triples $("UUID", "RID", "HID")$,
 whose contents are the *user ID*, *revision ID*, and *handle ID*, respectively.
 Revisions ensure that storing axioms is *immutable*, or that a particular handle
-does _not_ change over time. This is _not_ a restriction on dynamic entities,
-but rather an indictation in the base to determine a particular version of a
-handle.
+does not change over time. This is _not_ a restriction on dynamic entities, but
+rather an indictation in the base to determine a particular version of a handle.
+Each of these IDs also support _namespaces_, so that two users can have the same
+name for a unit and be distinguished.
 
 - Second, handles are characterized precisely by their relationships, which one
 can interpret how they are _not_ restricted. This idea is directly inspired from
@@ -132,7 +133,7 @@ connected to defining what "computbly provable" properties are, akin to defining
 an RE set as any set that can be acccepted by a Turing machine. For more
 details, see @rationale:bootstrap.
 
-Our core building block to explain this system is through _units_. A unit is
+Our core building block to explain this system is through *units*. A unit is
 provided by a set of user-defined handles and representations. Units can be
 broken down, build new units, or act on other units via representations. Our
 approach is slightly more general than the enumerations defined by Li and
@@ -150,14 +151,14 @@ as an invariant based on an equivalence relation on units, determined by the
 given set of representations (see @semantics). This notion corresponds to
 Burgin's idea of information as an _operator_ that transforms a system, and is
 closely to Bateson's famous quote that "information is a difference that makes a
-difference" @bateson-ecology-of-mind and generalizes a propositional rendering
-of this statement [CITE]. Our practical distinction between information and
-knowledge is that we _use_ information, but users can assert their own notions
-of these terms by creating restricted contexts. We cthis through Algorithmic
-Information Theory by showing that the theoretical notion of conditional
-information content _precisely_ coincides with the size of information, counted
-in bits (up to a constant) [TODO: link to this result. Important! And confirm
-this result! Currently unchecked.].
+difference" @bateson-ecology-of-mind. Our practical distinction between
+information and knowledge is that we _use_ information, but users can assert
+their own notions of these terms by creating restricted contexts. We connect our
+notion of information back through Algorithmic Information Theory by showing
+that the theoretical notion of conditional information content _precisely_
+coincides with the size of information, counted in bits (up to a constant)
+[TODO: link to this result. Important! And confirm this result! Currently
+unchecked.].
 
 [TODO[MEDIUM]: probably provide an example of higher order logic or so? Would be
 nice! Shows that we don't need _exactly_ a thing. But do emphasize that getting
@@ -180,18 +181,18 @@ _exact_ data formats can make information dissemination easier!]
 There is an important extension required to express _any_ partial computable
 function. With only two components, representations our representation is too
 restrictive, because we cannot naturally express _conditions_ through
-_conditional representations_. Another issue is that managing two sets of
-handles is difficult with _solely_ unconditional representations. Providing a
-form of _namespaces_, or a mechanism to distinguish two sets of names, which is
-crucial for determining and distinguishing available information as well. In
-addition to naming collisions, we also require a way to provide subject specific
-knowledge, as Burgin does through infological systems
+_conditional representations_. Additionally, we require a way to provide subject
+specific knowledge, as Burgin does through infological systems
 @burgin-foundations-information. A key insight in this thesis is showing that
-expressing conditions is _equivalent_ to creating these namespaces: we express
-this idea as a *context*. This is related to an informal claim made in Meseguer
-@twenty_years_rewriting_logic, that rewriting logics without conditional rules
-are strictly less expressive than those with conditions, see
-@definability-conditions.
+expressing conditions is _equivalent_ to creating new units: we express this
+idea as a *context*. Each unit carries its own context of *subunits* and
+*internal representations*. This is related to an informal claim made in
+Meseguer @twenty_years_rewriting_logic, that rewriting logics without
+conditional rules are strictly less expressive than those with conditions, see
+@definability-conditions. We will also see this enables efficiency during
+querying, see @information-organization [TODO: solidify this claim! Essentially
+we want to say that if a user sticks to a context, the interprter can cache
+this! Very important!]
 
 [TODO[SMALL]: use better names for entities/businesses/etc]
 #example[
@@ -208,9 +209,9 @@ Moreover, our formal rules are centered around contexts and are related to
 @semantics).
 
 Briefly, we can characterize units as containing a set of _subunits_ (encoded by
-unique IDs) and a binary relation for _representations_. They objey two rules,
-which we informally describe now (and postpone nested contexts until
-@semantics):
+unique IDs) and a binary relation for _representations_. There are two primary
+inference rules, which we informally describe now (and postpone nested contexts
+until @semantics):
 
 - *Internal Transitivity:* if $u$ represents $v$ in context $c$ and $v$
   represents $x$ in context $c$, then $u$ represents $x$ in context $c$.
@@ -223,6 +224,9 @@ Transitivity is a common axiom in many systems, and its use this contexts is
 supported experimentally by existing projects... Lifting is a notion closely
 tied to Mccarthy's notion of lifting, using representations instead. We provide
 one of McCarthy's famous examples: ...
+
+The remaining rules are primarily for efficiency, enabling users to have
+positionally invariant information, see @unit.
 
 == Base Operations
 
@@ -297,10 +301,8 @@ having a fixed TCB (see )...
 To effectively create any formal system, having _some_ notion of IDs is
 necessary in a Trusted Computing Base. Checking the trace of a Turing machine
 can be done with a finite certificate, _but_ checking for non-halting in the
-general case requires a level of induction. The weakest we need is our basic
-intuitions about finite numbers: if we can show something holds at base case
-$0$, and that each step from $n$ to $n+1$ also holds, it must hold everywhere
-else. Without IDs, many more things cannot even be _expressed_, including Gödel
+general case requires a level of induction, expressed through IDs. Without IDs,
+we cannot even _state_ essential constructs or theorems, including the Gödel
 encodings.
 
 To resolve both issues, they are combined into approach analogous to dependent
@@ -310,9 +312,11 @@ from another through successive iterations, with each iteration building upon
 previous ones to define new language features. We also define the notion of
 "computably checkable proof" through reflection, providing a partial translation
 from Feferman's work (partial in the sense of not requiring the _same_ semantics
-as first order logic) @feferman-reflection. While a _single_ formal system can
-enumerate through these proofs, our system provides the most flexibility and
-enables the _potential_ of expressing any recursive ordinal.
+as first order logic) @feferman-reflection. While a _single_ formal system
+cannot enumerate through these proofs by Gödel incompletness theorem, our theory
+provides the most flexibility and enables the _potential_ of expressing any
+recursive ordinal, i.e., the set of axioms allowed is _not_ fixed but depends on
+context.
 
 Taken together, the steps for bootstrapping Welkin are:
 
