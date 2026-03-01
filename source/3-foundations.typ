@@ -67,8 +67,12 @@ Units satisfy the following rules, inspired by rewriting logic
 @twenty_years_rewriting_logic. These may be interpreted as inference rules _and_
 computational rules.
 
-[TODO[SMALL]: provide labels/links.] [TODO[MEDIUM]: explain role of handles in
-the theory. How do they affect rules?]
+[TODO[SMALL]: provide labels/links.]
+
+[TODO[MEDIUM]: explain role of handles in the theory. How do they affect rules?]
+
+[TODO[SMALL]: ensure that when evaluating transitivity, non-determinism is
+possible!]
 
 #definition[
   - *Representation*: apply internal transitivity in each context.
@@ -77,8 +81,13 @@ the theory. How do they affect rules?]
     - *R2. Lifting:* $a -->^c b$ and $p -->^b q$ implies $p -->^a q in c$.
     - *R3. Idempotency:* $g + {a} + {a} <--> g + {a}$.
     - *R4. Commutativity:* $g + {a} + {b} <--> g + {b} + {a}$.
-    - *R5. Associativity:* ${a} = a$
-    - *R6. Quine Axiom:* ${a} = a$
+    - *R5. Associativity:* ${a} = a$.
+    - *R6. Trivial Wrapper:* ${a} = a$.#footnote[In a set-theoretic context, the
+        statement ${a} = a$ is similar to a "Quine atom" in Quine's New
+        Foundations that includes an anti-foundation axiom
+        @quine:new-foundations. However, note that units are _not_ necesarially
+        sets, so the connection may not be applicable in all contexts.
+      ]
 ]<unit-rules>
 
 #remark[
@@ -93,20 +102,24 @@ the theory. How do they affect rules?]
   organization, see @information-organization.
 ]
 
-[TODO[MEDIUM]: double check all parts of proof!] #theorem[Any partial computable
-  function is definable by a unit.
+[TODO[MEDIUM]: double check all parts of proof!]
+
+#theorem[Any partial computable function is definable by a unit.
 ]<universality-theorem>
 #proof[
-  It suffices to show that the $K$ and $S$ combinators are definable as units,
-  for if terms $M, N$ in the combinator calculus can be expressed as units,
-  $M N$ can be expressed simply as ${M N}$.
+  Define a new context $C$ for this proof, with a unit to denote a generator for
+  any pairs: $P equiv {"item", "next" --> "nil", "next" --> P}$. We claim that
+  that any term of the $S K I$ calculus is definable as units in Welkin. To this
+  end, if we can construct terms $M$ and $N$, then we can represent the
+  composition $M N$ as ${{M --> "item", N --> "next"} - C -> N'}$. then we can
+  represent the term $M N$ via $M - N -> M'$ in a context $C$. Thus, it suffices
+  to show this claim $K$ and $S$ combinators are definable as units.
 
-  For the $K$ combinator, consider the following construction: $K equiv ?$ We
-  must show $K A B = A.$
+  For the $K$ combinator, consider the following construction:
+  $K equiv {x, y, }$ We must show $K A B = A.$ We represent this as $$
 
   Now, for the $S$ combinator, consider: $S equiv ?$.
 ]
-
 
 == Coherency and Information
 
