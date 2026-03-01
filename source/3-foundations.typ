@@ -30,11 +30,7 @@ quickly!]
 
 We will postpone to associativity to maintain the flow of new concepts.
 
-[TODO[MEDIUM]: define in a compact way what "enumeration over all binary words
-is." Not sure if this _itself_ should be done with symbolic units or is related
-to them?]
-
-[TODO(SMALL): decide whether to add handles! Want the rest to be simple, so
+[TODO(SMALL): decide whether to add revisions! Want the rest to be simple, so
 shoud be worth justifying!]
 
 #definition[

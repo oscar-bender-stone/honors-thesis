@@ -191,6 +191,12 @@ which we informally describe now (and postpone nested contexts until
 - *Lifting:* if $u$ represents $v$ in context $c$ and $p$ represents $q$ in
   context $v$, then within context $c$, $p$ represents $q$ in context $u$.
 
+
+Transitivity is a common axiom in many systems, and its use this contexts is
+supported experimentally by existing projects... Lifting is a notion closely
+tied to Mccarthy's notion of lifting, using representations instead. We provide
+one of McCarthy's famous examples: ...
+
 == Base Operations
 
 Now, units and information themselves could be expressed in infinitely many
@@ -247,18 +253,19 @@ There are two important questions for implementing Welkin:
 
 - How do we practically implement the operations?
 
-- How do we check that the rules are used _correctly_?
+- How do we enable any "computably checkable proof"?
 
-[TODO[HIGH]: determine how to do this! Still WIP and not backed up yet, and
-still working on this!.]
+On the first issue, the author previously went to manually describing the syntax
+and semantics, introducing notions from parsing theory and compilers. While this
+format is traditional for a programming language, this postponed the main rules
+and made the language specification harder to follow. Moreover, the author
+sought to explain the minimal set of axioms required for the system. This
+connects to the second issue in a larger way, closely tied into formal methods.
 
-For the first issue, the author previously went to manually describing the
-syntax and semantics, introducing notions from parsing theory and compilers.
-While this format is traditional for a programming language, this postponed the
-main rules and made the language specification harder to follow. Moreover, the
-author sought to explain the Trusted Computing Base, or the amount of axioms or
-meta-theory required. With the involved manual descriptions, this made the
-analysis difficult.
+In the formal methods literature, a *Trusted Computing Base (TCB)* is the set of
+axioms and code used to implement a program. Axiomatically, most existing proof
+assistants have a fixed set of rules, with early proponents arguments towards
+having a fixed TCB (see ).
 
 To resolve these issues, they are combined into approach analogous to dependent
 type theory in the sense of "proofs as programs", but in a simpler way. We call
