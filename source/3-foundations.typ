@@ -28,17 +28,13 @@ We will postpone to associativity to maintain the flow of new concepts.
 shoud be worth justifying!]
 
 #definition[
-  A _handle_ is given by a pair $("UID", "HID")$, where $"UID"$ is a binary word
-  called a *user ID* and $"HID"$ is the *handle ID*.
+  A _handle_ is given by a pair $("UID", "RID", "HID")$, where $"UID"$ is a
+  binary word called a *user ID*, $"RID"$ is a binary word called the *revision
+  ID*, and $"HID"$ is the *handle ID*.
 ]<foundations:handle>
 
-[TODO[SMALL]: define semantics of $,$ vs $|$ in a context.]
-
-[TODO[SMALL]: explain what user provided enumeration means! Emphasis on being
-"blank slates", in a certain sense, so _assignable_, but not necesarially so.
-Here we can put custom/implicit meaning, and let this be _opaque_. Can be broken
-down further, or stand on its own. This represents what one would need to
-_understand_ something!]
+[TODO[SMALL]: determine whether to add $|$ and if so, define semantics of $,$ vs
+$|$ in a context.]
 
 #definition[
   A *unit* is defined recursively as one of:
@@ -68,20 +64,21 @@ computational rules.
 possible!]
 
 #definition[
-  - *Representation*: apply internal transitivity in each context.
-    - *R1. Internal Transitivity*: $a -->^c b$ and $b -->^c d$ imply
-      $a -->^c d$.
-    - *R2. Lifting:* $a -->^c b$ and $p -->^b q$ implies $p -->^a q in c$.
-    - *R3. Idempotency:* $g + {a} + {a} <--> g + {a}$.
-    - *R4. Commutativity:* $g + {a} + {b} <--> g + {b} + {a}$.
-    - *R5. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
-    - *R6. Trivial Wrapper:* ${a} <--> a$.#footnote[In a set-theoretic context,
-        the statement ${a} = a$ is similar to a "Quine atom" in Quine's New
-        Foundations that includes an anti-foundation axiom
-        @quine:new-foundations. However, note that units are _not_ necesarially
-        sets, so the connection may not be applicable in all contexts.
-      ]
+  The following rules apply to units:
+
+  - *R1. Internal Transitivity*: $a -->^c b$ and $b -->^c d$ imply $a -->^c d$.
+  - *R2. Lifting:* $a -->^c b$ and $p -->^b q$ implies $p -->^a q in c$.
+  - *R3. Idempotency:* $g + {a} + {a} <--> g + {a}$.
+  - *R4. Commutativity:* $g + {a} + {b} <--> g + {b} + {a}$.
+  - *R5. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
+  - *R6. Trivial Wrapper:* ${a} <--> a$.#footnote[In a set-theoretic context,
+      the statement ${a} = a$ is similar to a "Quine atom" in Quine's New
+      Foundations that includes an anti-foundation axiom @quine:new-foundations.
+      However, note that units are _not_ necesarially sets, so the connection
+      may not be applicable in all contexts.
+    ]
 ]<unit-rules>
+
 
 #remark[
   Each of these rules imposes no restrictions on what can be expressed, thanks
@@ -93,15 +90,14 @@ possible!]
   context) and is positionally invariant. This allows us to enable _any_ partial
   computable organization of information and, in particular optimize a given
   organization, see @information-organization.
-]
+]<foundations:context-remark>
 
 
 For universality, we need an important base construction that is definable in
-the theory: the ability to recurse through all IDs.
-
-From there, we can recurse through all _potential_ handles. These are user
-assigned, and whose interpretation is a free parameter in the theory. In other
-words, handles are _undefined notions_ or entirely user-defined.
+the theory: the ability to recurse through all IDs. From there, we can easily
+enumerate through all _potential_ handles. These are user assigned, and whose
+interpretation is a free parameter in the theory. In other words, handles are
+_undefined notions_ or entirely user-defined.
 
 [TODO(SMALL): again, handle non-determinism here! Important!]
 

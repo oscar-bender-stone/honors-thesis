@@ -141,7 +141,11 @@ Vitányi, see @unit, and they allow _arbitrary_ ways to express formal systems
 relative to partial computable functions, see @rationale:bootstrap.
 Operationally, units can be used as partial computable functions, but the former
 are strictly more expressive, due to user-defined handles and the presence of
-induction through handle IDs.
+induction through handle IDs. Moreover, units contain their own *context*, or a
+set of *subunits* and *internal representations*. This is improtant for proving
+universality, as the lack of contexts means the theory is _not_ Turing complete.
+For more dtteails, see @foundations:context-remark, and that contexts enable an
+efficient caching mechanism [TODO: link to this result once it's done!].
 
 [TODO: make this clear? Can't a unit *be* itself information?]
 
@@ -178,22 +182,6 @@ _exact_ data formats can make information dissemination easier!]
   journal can be made with dates or other unique IDs.
 ]
 
-There is an important extension required to express _any_ partial computable
-function. With only two components, representations our representation is too
-restrictive, because we cannot naturally express _conditions_ through
-_conditional representations_. Additionally, we require a way to provide subject
-specific knowledge, as Burgin does through infological systems
-@burgin-foundations-information. A key insight in this thesis is showing that
-expressing conditions is _equivalent_ to creating new units: we express this
-idea as a *context*. Each unit carries its own context of *subunits* and
-*internal representations*. This is related to an informal claim made in
-Meseguer @twenty_years_rewriting_logic, that rewriting logics without
-conditional rules are strictly less expressive than those with conditions, see
-@definability-conditions. We will also see this enables efficiency during
-querying, see @information-organization [TODO: solidify this claim! Essentially
-we want to say that if a user sticks to a context, the interprter can cache
-this! Very important!]
-
 [TODO[SMALL]: use better names for entities/businesses/etc]
 #example[
   A business could represent their operations using a unit $"business"$ that
@@ -223,7 +211,11 @@ until @semantics):
 Transitivity is a common axiom in many systems, and its use this contexts is
 supported experimentally by existing projects... Lifting is a notion closely
 tied to Mccarthy's notion of lifting, using representations instead. We provide
-one of McCarthy's famous examples: ...
+one of McCarthy's famous examples, provided below.
+
+#example[*(TODO: MCCARTHY EXAMPLE)*
+
+]
 
 The remaining rules are primarily for efficiency, enabling users to have
 positionally invariant information, see @unit.
