@@ -68,6 +68,8 @@ _and_ computational rules.
 
 [TODO[SMALL]: Clarify role of global context!]
 
+[TODO[SMALL]: ensure that double contexts are idemptotent! Important!]
+
 #definition[
   Define a new context $C$ called the *global context*. In the global
   environment, the following rules apply to units, recursively stated over
@@ -176,7 +178,7 @@ The following theorems are two parts of the same *Recursion theorem* for Welkin.
 #proof[]
 
 #theorem[*(Uniqueness)* Let $K$ be any unit such that for any unit $u$,
-  $u -->^K K$. Then $K <--> R$.]<foundations:recursion-uniqueness>
+  $u -->^K K$. Then $K <- R -> R$.]<foundations:recursion-uniqueness>
 
 An important consequence of the recursion theorem is a basic form of
 *reflection*.
@@ -187,17 +189,13 @@ clearer!]
 #corollary[Let $T$ be any unit that extends the rules of Welkin. Then
   ${T --> R} -->^R R$]<foundations:base-reflection>
 #proof[
-  First we show that in the global context, $T --> R$.
-
+  We proceed by induction, fixing the base to be $R$.
   - *Base Case:* suppose $T$ is a unit exactly with the rules $u - T -> T$ for
     every unit $u$ and the rules in @unit-rules. Then by
     @foundations:recursion-uniqueness, $T <--> R$, completing the base case.
   - *Inductive step:* suppose $T = {T', e}$ for a units $T', e$ where
-    $T' --> R$. Then no information is lost with adding $e$, so it easily
-    follows through transitivity that $T --> R$.
-
-  Now, by @foundations:recursion-correctness, we obtain that
-  ${T --> R} - R -> R$, completing the proof.
+    $T' --> R$. Now, by monotonicitiy in $R$, $T --> T'$, hence by transitivity,
+    $T --> R$.
 ]
 
 
