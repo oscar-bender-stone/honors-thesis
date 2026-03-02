@@ -30,6 +30,8 @@ We will postpone to associativity to maintain the flow of new concepts.
   the *revision ID*, and $"HID"$ is a binary word called the *handle ID*.
 ]<foundations:handle>
 
+[TODO[MEDIUM]: clarify on semantics of @!]
+
 #definition[
   A *unit* is defined recursively as a finite combination of:
   - A handle, see @foundations:handle.
@@ -37,9 +39,9 @@ We will postpone to associativity to maintain the flow of new concepts.
     $c$ is the *context*, and $b$ is the *referent*.
   - A graph, which is defined as either ${}$ or, for a graph $g$ and unit $u$,
     ${@g, u}$.
-  - The *expansion* $@g$ of $g$ is defined recursively:
-    - $@{}$ is simply ${}$.
-    - For a graph ${@g, u}$
+  - The *expansion* $@g$ of $g$ is defined recursively: $@{}$ is simply ${}$,
+    and for a graph ${@g, u}$, if $h - g -> h$, then ${@g, h, u}$ reduces to
+    ${@g, u}$.
   Nothing else is a unit.#footnote[Practically, we can only guarantee this up to
     a finite bound. We will address this in ?.]
 ]<unit>
@@ -54,32 +56,33 @@ We will postpone to associativity to maintain the flow of new concepts.
 
 [TODO[SMALL]: maybe define alternation notation later or recursively?]
 
-For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$.
-Notice that many-to-many relationships are allowed. Additionally, units satisfy
-the following rules, inspired by rewriting logic @twenty_years_rewriting_logic.
-These may be interpreted as inference rules _and_ computational rules.
+For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$
+and $q in c$ to mean $q - c -> q$. Notice that many-to-many relationships are
+allowed. Additionally, units satisfy the following rules, inspired by rewriting
+logic @twenty_years_rewriting_logic. These may be interpreted as inference rules
+_and_ computational rules.
 
 [TODO[SMALL]: provide labels/links.]
 
 [TODO[SMALL]: Maybe reduce the number of meta-variables used for clarity?]
 
+[TODO[SMALL]: Clarify role of global context!]
+
 #definition[
-  Define a new context $("UID", "RID")$ called the *environment*. The following
-  rules apply to units, recursively stated over meta-variables
-  $a, b, c, d, g, p, q$:
+  Define a new context $C$ called the *global context*. In the global
+  environment, the following rules apply to units, recursively stated over
+  meta-variables $a, b, c, d, g, p, q$:
   - *R1. Internal Transitivity*: $a -->^c b$ and $b -->^c d$ imply $a -->^c d$.
-  - *R2. Lifting:* $a -->^c b$ and $p -->^b q$ imply $p -->^a q in c$.
+  - *R2. Contextual Lifting:* $a -->^c b$ and $p -->^b q$ imply
+  - *R3. Identity:* ${@g, a} <--> g$ if and only if $a - g -> a$.
+    ${p -->^a q} in c$. In particular, ${a} <--> {a --> a}$.
   - *R3. Empty:* ${@g, {}} <--> g$.
-  - *R4. Idempotency:* ${@g, a, a} <--> {@g, a}$.
-  - *R5. Commutativity:* $g + {a} + {b} <--> g + {b} + {a}$.
+  - *R4. Unit Idempotency:* ${@g, a, a} <--> {@g, a}$.
+  - *R5. Arrow Idempotency:* ${@g, a, b, c, a - b -> c} <--> {@g, a - b -> c}$.
   - *R6. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
-  - *R7. Absorption.* ${a - {} -> b} <--> {}$.
-  - *R8. Singleton:* ${a} <--> a$.#footnote[In a set-theoretic context, the
-      statement ${a} = a$ is similar to a "Quine atom" in Quine's New
-      Foundations that includes an anti-foundation axiom @quine:new-foundations.
-      However, note that units are _not_ necesarially sets, so the connection
-      may not be applicable in all contexts.
-    ]
+  - *R7. Commutativity:* ${@g, a, b} <--> {@g, b, a}$.
+  - *R8. Exclusion.* ${a - {} -> b} <--> {}$.
+  - *R9. Singleton:* ${a} <--> a$.
 ]<unit-rules>
 
 #remark[
@@ -87,12 +90,14 @@ These may be interpreted as inference rules _and_ computational rules.
   to the presence of contexts. In fact, contexts are _necessary_ for Turing
   completeness, as one must express conditional rules. In the absence of
   contexts _or_ rule *R2*, @unit-rules reduces to simple graph traversal. Rules
-  $"R3"-"R6"$ form a join-semilattice, as a useful way to allow information to
+  $"R3"-"R7"$ form a join-semilattice, as a useful way to allow information to
   be repeated multiple times and be positionally invariant within a context.
-  Between contexts, more restrictions can be added, but the join-semilattice
-  rules allow us to enable _any_ partial computable organization of information
-  and, in particular optimize a given organization, see
-  @information-organization.
+  These will be used as an optimization, see @information-organization. Rule
+  $"R8"$ is used to naturally say that the empty context cannot contain any
+  rules or units. Finally, $"R9"$ is similar to a "Quine atom" in Quine's New
+  Foundations, a variant of set theory that includes an ani-foundation axiom.
+  However, note that units are _not_ necesarially sets, so the connection may
+  not be applicable in all contexts.
 ]<foundations:context-remark>
 
 == PRA
