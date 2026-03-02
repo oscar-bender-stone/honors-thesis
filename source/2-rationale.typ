@@ -144,8 +144,10 @@ are strictly more expressive, due to user-defined handles and the presence of
 induction through handle IDs. Moreover, units contain their own *context*, or a
 set of *subunits* and *internal representations*. This is improtant for proving
 universality, as the lack of contexts means the theory is _not_ Turing complete.
-For more dtteails, see @foundations:context-remark, and that contexts enable an
-efficient caching mechanism [TODO: link to this result once it's done!].
+For more details, see @foundations:context-remark, and that contexts enable an
+efficient caching mechanism [TODO: link to this result once it's done!]. We will
+use the word context as synonymous for unit, particularly to emphasize the
+_contents_ of a unit.
 
 [TODO: make this clear? Can't a unit *be* itself information?]
 
@@ -192,29 +194,59 @@ _exact_ data formats can make information dissemination easier!]
   performed.
 ]
 
-Moreover, our formal rules are centered around contexts and are related to
-@mccarthy-contexts but generalizes the context to be an operator itself (see
-@semantics).
-
-Briefly, we can characterize units as containing a set of _subunits_ (encoded by
-unique IDs) and a binary relation for _representations_. There are two primary
-inference rules, which we informally describe now (and postpone nested contexts
-until @semantics):
+There are two primary inference rules, which we informally describe now (and
+postpone nested contexts until @semantics):
 
 - *Internal Transitivity:* if $u$ represents $v$ in context $c$ and $v$
   represents $x$ in context $c$, then $u$ represents $x$ in context $c$.
 
 - *Lifting:* if $u$ represents $v$ in context $c$ and $p$ represents $q$ in
-  context $v$, then within context $c$, $p$ represents $q$ in context $u$.
-
+  context $v$, then within context $c$, $p$ represents $q$ in _nested_ context
+  $u$.
 
 Transitivity is a common axiom in many systems, and its use this contexts is
 supported experimentally by existing projects... Lifting is a notion closely
-tied to Mccarthy's notion of lifting, using representations instead. We provide
-one of McCarthy's famous examples, provided below.
+tied to McCarthy's notion of lifting, but formulated with representations. The
+idea is, if $a$ represents $b$ in context $c$, then $a$ provides an
+_abstraction_ for $b$ relative to $c$. Wherever $b$ is involved in a
+relationship, $a$ can be used _instead_, acting as a proxy relative to $c$.
+Contexts provide an import mechanism as well, thereby provding Welkin a module
+based system. We provide a simplified version of one McCarthy's examples below.
+For more existing examples in the literature, refer to
+@declarative-formalization-knowledge-translation.
 
-#example[*(TODO: MCCARTHY EXAMPLE)*
+#example[*(McCarthy's Above Theory).* Consider a set of physical blocks. Denote
+  the unit `above` to represent the relation `block A is above block B`. We want
+  to say this could be `on` to mean `block A is on block B`, or `floating_above`
+  to mean `block A is floating above block B`. One way to state is as two
+  axioms: and we could state as an axiom: `A - on -> B` implies `A - above -> B`
+  and `A - floating_above -> B` implies `A - floating_above -> B`. Lifting
+  provides a more economical approach _without_ needing to provide explicit
+  terms, or provides a "point-free" rendering. We could that, within `above`,
+  `above` represents `on` and `above` represents `floating_above`. In other
+  words, `above` _precisely abstracts_ from the precise relationship between the
+  two blocks.]
 
+Another example concerns contexts in the prescence of unique objects.
+
+#example[Consider a biological survey of home pets, denoted by context `Survey`.
+  Suppose there are two units in `Mammal`, say a dog `Fido` and a cat `Lucy`. We
+  could state that `Fido` _represents_ `Mammal`, to say that `Fido` acts as a
+  stand-in for a mammal in the survey. The same could be said with `Lucy`
+  representing `Mammal`. Note that, depending on the context, the referent need
+  _not_ be more refined than the sign; this is an intenional design choice for
+  flexibility. With a another context `Taxonomy`, we may naturally state that
+  `Mammal - Taxonomy -> Animal`, and we could say
+  `Survey - instanceof -> Taxonomy`. Thus, the lifting rule implies in context
+  `instanceof`, `Mammal - Survey -> Animal`. Using transitivity, we obtain
+  `Fido - Survey -> Animal` and `Lucy - Survey -> Animal` in context
+  `instanceof`. We can interpert this example as saying that the _relationsihps_
+  of a general taxonomy are witnessed by a specific taxonomy, namely `Survey`,
+  and that they propagte through.#footnote[In programming languages,
+    particularly C++ @stroustrup-cpp-lang and Java, this property is known as
+    "upcasting", with a less refined base class being replaced with a more
+    refined subclass. The reverse is "downcasting". Both are supported by Welkin
+    for full expressivity.]
 ]
 
 The remaining rules are primarily for efficiency, enabling users to have
