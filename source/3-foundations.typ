@@ -37,6 +37,9 @@ We will postpone to associativity to maintain the flow of new concepts.
     $c$ is the *context*, and $b$ is the *referent*.
   - A graph, which is defined as either ${}$ or, for a graph $g$ and unit $u$,
     ${@g, u}$.
+  - The *expansion* $@g$ of $g$ is defined recursively:
+    - $@{}$ is simply ${}$.
+    - For a graph ${@g, u}$
   Nothing else is a unit.#footnote[Practically, we can only guarantee this up to
     a finite bound. We will address this in ?.]
 ]<unit>
@@ -58,18 +61,20 @@ These may be interpreted as inference rules _and_ computational rules.
 
 [TODO[SMALL]: provide labels/links.]
 
-#definition[
-  The following rules apply to units:
+[TODO[SMALL]: Maybe reduce the number of meta-variables used for clarity?]
 
+#definition[
+  Define a new context $("UID", "RID")$ called the *environment*. The following
+  rules apply to units, recursively stated over meta-variables
+  $a, b, c, d, g, p, q$:
   - *R1. Internal Transitivity*: $a -->^c b$ and $b -->^c d$ imply $a -->^c d$.
   - *R2. Lifting:* $a -->^c b$ and $p -->^b q$ imply $p -->^a q in c$.
   - *R3. Empty:* ${@g, {}} <--> g$.
   - *R4. Idempotency:* ${@g, a, a} <--> {@g, a}$.
   - *R5. Commutativity:* $g + {a} + {b} <--> g + {b} + {a}$.
   - *R6. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
-  - *R7. Explosion.* ${{} -->^c a} <--> {}$
-  - *R8. Absorption.* ${a - {} -> b} <--> {}$
-  - *R9. Singleton:* ${a} <--> a$.#footnote[In a set-theoretic context, the
+  - *R7. Absorption.* ${a - {} -> b} <--> {}$.
+  - *R8. Singleton:* ${a} <--> a$.#footnote[In a set-theoretic context, the
       statement ${a} = a$ is similar to a "Quine atom" in Quine's New
       Foundations that includes an anti-foundation axiom @quine:new-foundations.
       However, note that units are _not_ necesarially sets, so the connection
@@ -77,19 +82,18 @@ These may be interpreted as inference rules _and_ computational rules.
     ]
 ]<unit-rules>
 
-
 #remark[
   Each of these rules imposes no restrictions on what can be expressed, thanks
   to the presence of contexts. In fact, contexts are _necessary_ for Turing
   completeness, as one must express conditional rules. In the absence of
-  contexts _or_ rule *R2*, @unit-rules reduces to simple graph traversal. Now,
-  while contexts can remove restrictions, these rules are carefully chosen to
-  represent information as that which can be repeated multiple times (per
-  context) and is positionally invariant. This allows us to enable _any_ partial
-  computable organization of information and, in particular optimize a given
-  organization, see @information-organization.
+  contexts _or_ rule *R2*, @unit-rules reduces to simple graph traversal. Rules
+  $"R3"-"R6"$ form a join-semilattice, as a useful way to allow information to
+  be repeated multiple times and be positionally invariant within a context.
+  Between contexts, more restrictions can be added, but the join-semilattice
+  rules allow us to enable _any_ partial computable organization of information
+  and, in particular optimize a given organization, see
+  @information-organization.
 ]<foundations:context-remark>
-
 
 == PRA
 
