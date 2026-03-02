@@ -40,8 +40,8 @@ We will postpone to associativity to maintain the flow of new concepts.
   - A representation $a -->^c b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
   - A graph, which is defined as either ${}$ or, for a graph $g$ and unit $u$,
-    ${@g, u}$ and ${@g, ~u}$ are graphs, where $@g$ is a new graph called the
-    *expansion* of $g$.
+    ${g, u}$, ${@g, u}$, and ${@g, ~u}$ are graphs, where $@g$ is a new graph
+    called the *expansion* of $g$.
   Nothing else is a unit.#footnote[Practically, we can only guarantee this up to
     a finite bound. We will address this in ?.]
 ]<unit>
@@ -108,6 +108,9 @@ _and_ computational rules.
   contexts.
 ]<foundations:context-remark>
 
+[TODO[MEDIUM]: decide whether to use math font or code font for writing terms!
+Important!]
+
 == PRA
 
 For universality, we need an important base construction that is definable in
@@ -131,6 +134,7 @@ From there, we can define handle IDs through triples, see
   caption: [Generator for handle keys in Welkin.],
 )<foundations:bootstrap-handle-id>
 
+[TODO[MEDIUM]: show that R *correctly* distinguishes between all units!]
 #definition[
   The *unit recursor* $R$ is defined by $R <--> {R_"base", "Rules"}$, where
   $R_"base"$ is defined recursively, over meta-variables $h, a, b, c$:
@@ -140,9 +144,15 @@ From there, we can define handle IDs through triples, see
   - For each handle $h$, $h - R -> R$.
   - For each arrow $a - b -> c$, ${a - b -> c} - R -> R$.
   - *Monotonic:*
-    - For each ${@a, b}$, ${@a, b} - R -> a$.
-    - For each ${@a, ~b}$, $a - R -> {@a, ~b}$.
+    - For each ${@a, b}$, if $a - R -> R$ and $b - R -> R$, then
+      $a - R -> {a, b}$ and $a - R -> {@a, b}$.
+    - For each ${@a, ~b}$, ${@a, ~b} - R -> a$.
 ]<foundations:recursor>
+
+[TODO[SMALL]: note importance of using axioms to define essentially bound/free
+variables! Not as easy with just assuming sets as they are; easier to express
+the tree structure *first*.] #definition[The relation $u' < u$ is defined
+  recursively...]<subunit>
 
 Now we can prove the Turing definability of Welkin.
 
@@ -175,15 +185,23 @@ Now we can prove the Turing definability of Welkin.
   reduces to $(x z)(y z)$, i.e.,:
 ]
 
-
 [TODO[MEDIUM]: Provide tabular proofs for these! Want to be very precise! But
 need to recognize when we are doing substitutions for meta-variables.]
 
 The following theorems are two parts of the same *Recursion theorem* for Welkin.
 
-#theorem[*(Correctness)* For every unit $u$,
-  $u -->^R R$.]<foundations:recursion-correctness>
-#proof[]
+#theorem[*(Correctness)* For every unit $u$, $u -->^R R$, and if $u < u'$, then
+  $u --> u'$ and not $u' --> u$ in $R$.]<foundations:recursion-correctness>
+#proof[We proceed on induction by units $u$:
+  - *Base case:* this is immediate, as ${}$ and all handles are included.
+  - *Inductive step:* there are four main cases:
+    - ${a - b -> c} - R -> R$: this is immediate in context $R$.
+    - ${g, e} - R -> R$: suppose $g --> R$ and $e --> R$ in $R$. FINISH.
+    - ${@g, e} - R -> R$: suppose $g --> R$ and $e --> R$ in $R$. FINISH. use
+      lifting?
+    - ${@g, ~e} - R -> R$: assume $g - R -> R$. Then, because
+      ${@g, e} - R -> g$, transitivity implies ${@g, ~e} - R -> R$.
+]
 
 #theorem[*(Uniqueness)* Let $K$ be any unit such that for any unit $u$,
   $u -->^K K$. Then $K <- R -> R$.]<foundations:recursion-uniqueness>
