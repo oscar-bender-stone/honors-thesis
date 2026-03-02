@@ -24,13 +24,10 @@ quickly!]
 
 We will postpone to associativity to maintain the flow of new concepts.
 
-[TODO(SMALL): decide whether to add revisions! Want the rest to be simple, so
-shoud be worth justifying!]
-
 #definition[
-  A _handle_ is given by a pair $("UID", "RID", "HID")$, where $"UID"$ is a
-  binary word called a *user ID*, $"RID"$ is a binary word called the *revision
-  ID*, and $"HID"$ is the *handle ID*.
+  A _handle_ is given by a *key*, a triple $("UID", "RID", "HID")$, where
+  $"UID"$ is a binary word called a *user ID*, $"RID"$ is a binary word called
+  the *revision ID*, and $"HID"$ is a binary word called the *handle ID*.
 ]<foundations:handle>
 
 [TODO[SMALL]: determine whether to add $|$ and if so, define semantics of $,$ vs
@@ -38,12 +35,11 @@ $|$ in a context.]
 
 #definition[
   A *unit* is defined recursively as one of:
-  - A _literal_ binary word, denoted by $"0b"w$.
   - A _handle_, see @foundations:handle.
   - A representation $a -->^c b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
-  - A block, which is defined as either ${}$ or, for a block $g$ and unit $u$,
-    $g + {u}$ _or_ $g | {u}$.
+  - A graph, which is defined as either ${}$ or, for a graph $g$ and unit $u$,
+    ${@g, u}$.
 ]<unit>
 
 #remark[
@@ -54,20 +50,20 @@ $|$ in a context.]
   provided meaning.
 ]
 
-Units satisfy the following rules, inspired by rewriting logic
-@twenty_years_rewriting_logic. These may be interpreted as inference rules _and_
-computational rules.
+[TODO[SMALL]: maybe define alternation notation later or recursively?]
+
+For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$.
+Notice that many-to-many relationships are allowed. Additionally, units satisfy
+the following rules, inspired by rewriting logic @twenty_years_rewriting_logic.
+These may be interpreted as inference rules _and_ computational rules.
 
 [TODO[SMALL]: provide labels/links.]
-
-[TODO[SMALL]: ensure that when evaluating transitivity, non-determinism is
-possible!]
 
 #definition[
   The following rules apply to units:
 
   - *R1. Internal Transitivity*: $a -->^c b$ and $b -->^c d$ imply $a -->^c d$.
-  - *R2. Lifting:* $a -->^c b$ and $p -->^b q$ implies $p -->^a q in c$.
+  - *R2. Lifting:* $a -->^c b$ and $p -->^b q$ imply $p -->^a q in c$.
   - *R3. Idempotency:* $g + {a} + {a} <--> g + {a}$.
   - *R4. Commutativity:* $g + {a} + {b} <--> g + {b} + {a}$.
   - *R5. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
@@ -83,9 +79,9 @@ possible!]
 #remark[
   Each of these rules imposes no restrictions on what can be expressed, thanks
   to the presence of contexts. In fact, contexts are _necessary_ for Turing
-  completness, as one must express conditional rules. In the absence of contexts
-  _or_ rule *R2*, @unit-rules reduces to simple graph traversal. Now, while
-  contexts can remove restrictions, these rules are carefully chosen to
+  completeness, as one must express conditional rules. In the absence of
+  contexts _or_ rule *R2*, @unit-rules reduces to simple graph traversal. Now,
+  while contexts can remove restrictions, these rules are carefully chosen to
   represent information as that which can be repeated multiple times (per
   context) and is positionally invariant. This allows us to enable _any_ partial
   computable organization of information and, in particular optimize a given
@@ -95,20 +91,24 @@ possible!]
 
 For universality, we need an important base construction that is definable in
 the theory: the ability to recurse through all IDs. From there, we can easily
-enumerate through all _potential_ handles. These are user assigned, and whose
-interpretation is a free parameter in the theory. In other words, handles are
-_undefined notions_ or entirely user-defined.
-
-[TODO(SMALL): again, handle non-determinism here! Important!]
-
-#figure(
+enumerate through all _potential_ handles. #figure(
   [
     $"bit" --> 0 | 1$
 
-    $"word" equiv {"head" --> {"bit" | "empty"}, "next" --> "word"}$
+    $"word" <--> {"head" --> {"bit" | "empty"}, "next" --> "word"}$
   ],
   caption: [Generator for IDs in Welkin.],
-)<bootstrap-binary-word>
+)<foundations:bootstrap-binary-word>
+
+From there, we can define handle IDs through triples, see
+@foundations:bootstrap-handle-id.
+
+#figure(
+  [
+    $"handle" <--> {"user_ID" --> "word", "revision_ID" --> "word", "handle_ID" --> "handle"}$
+  ],
+  caption: [Generator for IDs in Welkin.],
+)<foundations:bootstrap-handle-id>
 
 Moreover, for simplicity, we introduce tuples. A pair is:
 $"Pair" equiv {"first" --> "word", "second" --> "word"}$. A tuple is a nested
