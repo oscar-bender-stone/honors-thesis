@@ -211,8 +211,15 @@ The following theorems are two parts of the same *Recursion theorem* for Welkin.
       ${@g, e} - R -> g$, transitivity implies ${@g, ~e} - R -> R$.
 ]
 
-#theorem[*(Uniqueness)* Let $K$ be any unit such that for any unit $u$,
-  $u -->^K K$. Then $K <- R -> R$.]<foundations:recursion-uniqueness>
+[TODO[MEDIUM]: complete! And is this in the global context? Is this extensional
+equality or so?] #theorem[*(Uniqueness)* Let $K$ that contains exactly
+  $u -->^K u$ for each unit $u$. Then
+  $K <- R -> R$.]<foundations:recursion-uniqueness>
+#proof[
+  Assume for all units $u$, $u -->^K K$. Then $R -->^R R$. Thus, for any
+  $p - K -> q$ in $K$, ${C − K -> K, p − K -> q} − K -> (p - C -> q in K)$
+
+]
 
 An important consequence of the recursion theorem is a basic form of
 *reflection*.
