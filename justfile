@@ -2,10 +2,10 @@
 # SPDX-License-Identifier: MIT
 
 compile:
-    typst compile source/index.typ document/thesis.pdf --root .
+    typst compile source/index.typ document/thesis.pdf --root . --font-path ./source/fonts
 
 watch:
-    typst watch source/index.typ document/thesis.pdf --root .
+    typst watch source/index.typ document/thesis.pdf --root . --font-path ./source/fonts
 
 reuse-lint:
     reuse lint

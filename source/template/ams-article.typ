@@ -92,7 +92,7 @@
   set document(title: title, author: names)
 
   // Set the body font.
-  set text(size: normal-size, font: text-font)
+  set text(size: normal-size, font: "STIX Two Text")
 
   // Set the code font.
   show raw: set text(font: "DejaVu Sans Mono")
