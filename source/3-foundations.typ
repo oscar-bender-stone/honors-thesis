@@ -148,7 +148,8 @@ From there, we can define handle IDs through triples, see
     @foundations:bootstrap-handle-id.
   - ${} - R -> R$.
   - For each handle $h$, $h - R -> R$.
-  - For each arrow $a - b -> c$, ${a - b -> c} - R -> R$.
+  - For each arrow $a - b -> c$, if $a, b, c in R$, then
+    ${a - b -> c} - R -> R$.
   - *Monotonic:* for each $a, b$ with $a - R -> R$ and $b - R -> R$, the
     following hold:
     - $a - R -> {a, b}$.
@@ -158,7 +159,8 @@ From there, we can define handle IDs through triples, see
 
 [TODO: make this discussion complete!] One interpretation of
 @foundations:recursor is defining @subunit _within_ a unit, so $R$ could be
-written as $<$ in the language.
+written as $<$ in the language. Moreover, $R$ acts as the _least super bound_ of
+all units.
 
 Now we can prove the Turing definability of Welkin.
 
@@ -215,8 +217,8 @@ The following theorems are two parts of the same *Recursion theorem* for Welkin.
 An important consequence of the recursion theorem is a basic form of
 *reflection*.
 
-[TODO: make this precise! Do we strictly *need* this? Need to make this
-clearer!]
+[TODO: make this precise! What does it mean for $T$ to "contain the rules of
+Welkin"?]
 
 #corollary[Let $T$ be any unit that extends the rules of Welkin. Then
   ${T --> R} -->^R R$]<foundations:base-reflection>
@@ -229,7 +231,6 @@ clearer!]
     $T' --> R$. Now, by monotonicitiy in $R$, $T --> T'$, hence by transitivity,
     $T --> R$.
 ]
-
 
 == Expressing PA and Feferman Reflection
 
