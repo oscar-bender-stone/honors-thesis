@@ -79,7 +79,8 @@ _and_ computational rules.
   - *R4. Identity:* ${@g, a} <--> g$ if and only if $a - g -> a$. In particular,
     ${a} <--> {a --> a}$.
   - *R5. Additive Expansion:* if $a - g -> a$, then ${@g, b} <-> {@g, a, b}$.
-  - *R6. Subtractive Expansion:* if $g <--> {@p, a}$, then ${@g, ~a} <--> p$
+  - *R6. Subtractive Expansion:* if $g <--> {@p, a}$, then
+    ${@g, ~a, b} <--> {@p, b}$.
   - *R7. Unit Idempotency:* ${@g, a, a} <--> {@g, a}$.
   - *R8. Arrow Idempotency:* ${@g, a, b, c, a - b -> c} <--> {@g, a - b -> c}$.
   - *R9. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
@@ -93,14 +94,17 @@ _and_ computational rules.
   to the presence of contexts. In fact, contexts are _necessary_ for Turing
   completeness, as one must express conditional rules. In the absence of
   contexts _or_ rule *R2*, @unit-rules reduces to simple graph traversal. Rules
-  $"R3"-"R7"$ form a join-semilattice, as a useful way to allow information to
-  be repeated multiple times and be positionally invariant within a context.
-  These will be used as an optimization, see @information-organization. Rule
-  $"R8"$ is used to naturally say that the empty context cannot contain any
-  rules or units. Finally, $"R9"$ is similar to a "Quine atom" in Quine's New
-  Foundations, a variant of set theory that includes an ani-foundation axiom.
-  However, note that units are _not_ necesarially sets, so the connection may
-  not be applicable in all contexts.
+  *R3-R6* define expansions. To avoid accidentally excluding information via an
+  exclusion $~x$, exclusions are required to be in a separate anonymous graph,
+  see ?. Together with rules *R7*-*R10*, this forms a join-semilattice, as a
+  useful way to allow information to be repeated multiple times and be
+  positionally invariant within a context. These will be used as an
+  optimization, see @information-organization. Rule $"R8"$ is used to naturally
+  say that the empty context cannot contain any rules or units. Finally, $"R9"$
+  is similar to a "Quine atom" in Quine's New Foundations, a variant of set
+  theory that includes an ani-foundation axiom. However, note that units are
+  _not_ necesarially sets, so the connection may not be applicable in all
+  contexts.
 ]<foundations:context-remark>
 
 == PRA
