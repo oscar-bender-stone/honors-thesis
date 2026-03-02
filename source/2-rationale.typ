@@ -247,7 +247,7 @@ Another example concerns contexts in the prescence of unique objects.
     "upcasting", with a less refined base class being replaced with a more
     refined subclass. The reverse is "downcasting". Both are supported by Welkin
     for full expressivity.]
-]
+]<rationale:more-to-less-refined>
 
 The remaining rules are primarily for efficiency, enabling users to have
 positionally invariant information, see @unit.
@@ -360,7 +360,7 @@ Taken together, the steps for bootstrapping Welkin are:
   developed by Artemov @artemov_serial_consistency. From there, we carry out
   Feferman's Reflection theorem written with our notions.
 
-+ Defin handles and information. We also justify information organization to
++ Define handles and information. We also justify information organization to
   promote the _most_ optimal paths to prove things, _if_ proofs are provided.
   This is deeply connected to Blum's speedup theorem and is essential for
   proving Goal 2.
