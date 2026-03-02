@@ -76,7 +76,7 @@ _and_ computational rules.
   meta-variables $a, b, c, d, g, p, q$:
   - *R1. Internal Transitivity*: $a -->^c b$ and $b -->^c d$ imply $a -->^c d$.
   - *R2. Contextual Lifting:* $a -->^c b$ and $p -->^b q$ imply $p -->^a q in c$
-  - *R3. Empty:* ${@g, {}} <--> g$.
+  - *R3. Empty:* ${@g, {}} <--> g$ and ${{}, ~x} <--> {}$.
   - *R4. Identity:* ${@g, a} <--> g$ if and only if $a - g -> a$. In particular,
     ${a} <--> {a --> a}$.
   - *R5. Additive Expansion:* if $a - g -> a$, then ${@g, b} <-> {@g, a, b}$.
@@ -132,8 +132,14 @@ From there, we can define handle IDs through triples, see
 )<foundations:bootstrap-handle-id>
 
 #definition[
-  The *unit recursor* $R$ is defined recursively as follows:
-  -
+  The *unit recursor* $R$ is defined by $R <--> {R_"base", "Rules"}$, where
+  $R_"base"$ is defined recursively, over meta-variables $h, a, b, c$:
+  - ${} - R -> R$.
+  - For each handle $h$, $h - R -> R$.
+  - For each arrow $a - b -> c$, ${a - b -> c} - R -> R$.
+  - *Monotonic:*
+    - For each ${@a, b}$, ${@a, b} - R -> a$.
+    - For each ${@a, ~b}$, $a - R -> {@a, ~b}$.
 ]<foundations:recursor>
 
 Now we can prove the Turing definability of Welkin.
