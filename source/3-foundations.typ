@@ -111,6 +111,12 @@ _and_ computational rules.
 [TODO[MEDIUM]: decide whether to use math font or code font for writing terms!
 Important!]
 
+
+[TODO[SMALL]: note importance of using axioms to define essentially bound/free
+variables! Not as easy with just assuming sets as they are; easier to express
+the tree structure *first*.] #definition[The relation $u' < u$ is defined
+  recursively...]<subunit>
+
 == PRA
 
 For universality, we need an important base construction that is definable in
@@ -143,16 +149,16 @@ From there, we can define handle IDs through triples, see
   - ${} - R -> R$.
   - For each handle $h$, $h - R -> R$.
   - For each arrow $a - b -> c$, ${a - b -> c} - R -> R$.
-  - *Monotonic:*
-    - For each ${@a, b}$, if $a - R -> R$ and $b - R -> R$, then
-      $a - R -> {a, b}$ and $a - R -> {@a, b}$.
-    - For each ${@a, ~b}$, ${@a, ~b} - R -> a$.
+  - *Monotonic:* for each $a, b$ with $a - R -> R$ and $b - R -> R$, the
+    following hold:
+    - $a - R -> {a, b}$.
+    - $a - R -> {@a, b}$.
+    - ${@a, ~b} - R -> a$.
 ]<foundations:recursor>
 
-[TODO[SMALL]: note importance of using axioms to define essentially bound/free
-variables! Not as easy with just assuming sets as they are; easier to express
-the tree structure *first*.] #definition[The relation $u' < u$ is defined
-  recursively...]<subunit>
+[TODO: make this discussion complete!] One interpretation of
+@foundations:recursor is defining @subunit _within_ a unit, so $R$ could be
+written as $<$ in the language.
 
 Now we can prove the Turing definability of Welkin.
 
