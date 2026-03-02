@@ -13,8 +13,8 @@ dependent? The sole point is to avoid disagreements or keep things standard.
 Might depend ont the notion of arbtiary objects anyways and is determined by the
 active users involved?]
 
-[TODO[SMALL]: address equality of binary words. Want to do this elegantly and
-quickly!]
+[TODO[SMALL]: address equality of binary words and keys to handles. Want to do
+this elegantly and quickly!]
 
 #definition[
   A *binary word* is either the symbol $0$ or $1$, and if $w$ is a binary word,
@@ -38,10 +38,10 @@ We will postpone to associativity to maintain the flow of new concepts.
   - A representation $a -->^c b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
   - A graph, which is defined as either ${}$ or, for a graph $g$ and unit $u$,
-    ${@g, u}$.
+    ${@g, u}$ and ${@g, ~u}$ are graphs.
   - The *expansion* $@g$ of $g$ is defined recursively: $@{}$ is simply ${}$,
     and for a graph ${@g, u}$, if $h - g -> h$, then ${@g, h, u}$ reduces to
-    ${@g, u}$.
+    ${@g, u}$ and ${@g, h, ~h}$ reduces to $g$.
   Nothing else is a unit.#footnote[Practically, we can only guarantee this up to
     a finite bound. We will address this in ?.]
 ]<unit>
