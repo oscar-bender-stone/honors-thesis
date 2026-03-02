@@ -38,7 +38,8 @@ We will postpone to associativity to maintain the flow of new concepts.
   - A representation $a -->^c b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
   - A graph, which is defined as either ${}$ or, for a graph $g$ and unit $u$,
-    ${@g, u}$ and ${@g, ~u}$ are graphs.
+    ${@g, u}$ and ${@g, ~u}$ are graphs, where $@g$ is a new graph called the
+    *expansion* of $g$.
   - The *expansion* $@g$ of $g$ is defined recursively: $@{}$ is simply ${}$,
     and for a graph ${@g, u}$, if $h - g -> h$, then ${@g, h, u}$ reduces to
     ${@g, u}$ and ${@g, h, ~h}$ reduces to $g$.
@@ -74,15 +75,17 @@ _and_ computational rules.
   meta-variables $a, b, c, d, g, p, q$:
   - *R1. Internal Transitivity*: $a -->^c b$ and $b -->^c d$ imply $a -->^c d$.
   - *R2. Contextual Lifting:* $a -->^c b$ and $p -->^b q$ imply
-  - *R3. Identity:* ${@g, a} <--> g$ if and only if $a - g -> a$.
-    ${p -->^a q} in c$. In particular, ${a} <--> {a --> a}$.
-  - *R3. Empty:* ${@g, {}} <--> g$.
-  - *R4. Unit Idempotency:* ${@g, a, a} <--> {@g, a}$.
-  - *R5. Arrow Idempotency:* ${@g, a, b, c, a - b -> c} <--> {@g, a - b -> c}$.
-  - *R6. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
-  - *R7. Commutativity:* ${@g, a, b} <--> {@g, b, a}$.
-  - *R8. Exclusion.* ${a - {} -> b} <--> {}$.
-  - *R9. Singleton:* ${a} <--> a$.
+  - *R3. Empty :* ${@g, {}} <--> g$.
+  - *R4. Identity:* ${@g, a} <--> g$ if and only if $a - g -> a$. In particular,
+    ${a} <--> {a --> a}$.
+  - *R5. Additive Expansion:* if $a - g -> a$, then ${@g, b} <-> {@g, a, b}$.
+  - *R6. Subtractive Expansion:* if $g <--> {@p, a}$, then ${@g, ~a} <--> p$
+  - *R7. Unit Idempotency:* ${@g, a, a} <--> {@g, a}$.
+  - *R8. Arrow Idempotency:* ${@g, a, b, c, a - b -> c} <--> {@g, a - b -> c}$.
+  - *R9. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
+  - *R10. Commutativity:* ${@g, a, b} <--> {@g, b, a}$.
+  - *R11. Exclusion.* ${a - {} -> b} <--> {}$.
+  - *R12. Singleton:* ${a} <--> a$.
 ]<unit-rules>
 
 #remark[
