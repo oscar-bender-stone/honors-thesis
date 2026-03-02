@@ -30,16 +30,15 @@ We will postpone to associativity to maintain the flow of new concepts.
   the *revision ID*, and $"HID"$ is a binary word called the *handle ID*.
 ]<foundations:handle>
 
-[TODO[SMALL]: determine whether to add $|$ and if so, define semantics of $,$ vs
-$|$ in a context.]
-
 #definition[
-  A *unit* is defined recursively as one of:
-  - A _handle_, see @foundations:handle.
+  A *unit* is defined recursively as a finite combination of:
+  - A handle, see @foundations:handle.
   - A representation $a -->^c b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
   - A graph, which is defined as either ${}$ or, for a graph $g$ and unit $u$,
     ${@g, u}$.
+  Nothing else is a unit.#footnote[Practically, we can only guarantee this up to
+    a finite bound. We will address this in ?.]
 ]<unit>
 
 #remark[
@@ -64,11 +63,14 @@ These may be interpreted as inference rules _and_ computational rules.
 
   - *R1. Internal Transitivity*: $a -->^c b$ and $b -->^c d$ imply $a -->^c d$.
   - *R2. Lifting:* $a -->^c b$ and $p -->^b q$ imply $p -->^a q in c$.
-  - *R3. Idempotency:* $g + {a} + {a} <--> g + {a}$.
-  - *R4. Commutativity:* $g + {a} + {b} <--> g + {b} + {a}$.
-  - *R5. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
-  - *R6. Trivial Wrapper:* ${a} <--> a$.#footnote[In a set-theoretic context,
-      the statement ${a} = a$ is similar to a "Quine atom" in Quine's New
+  - *R3. Empty:* ${@g, {}} <--> g$.
+  - *R4. Idempotency:* ${@g, a, a} <--> {@g, a}$.
+  - *R5. Commutativity:* $g + {a} + {b} <--> g + {b} + {a}$.
+  - *R6. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
+  - *R7. Explosion.* ${{} -->^c a} <--> {}$
+  - *R8. Absorption.* ${a - {} -> b} <--> {}$
+  - *R9. Singleton:* ${a} <--> a$.#footnote[In a set-theoretic context, the
+      statement ${a} = a$ is similar to a "Quine atom" in Quine's New
       Foundations that includes an anti-foundation axiom @quine:new-foundations.
       However, note that units are _not_ necesarially sets, so the connection
       may not be applicable in all contexts.
@@ -89,6 +91,8 @@ These may be interpreted as inference rules _and_ computational rules.
 ]<foundations:context-remark>
 
 
+== PRA
+
 For universality, we need an important base construction that is definable in
 the theory: the ability to recurse through all IDs. From there, we can easily
 enumerate through all _potential_ handles. #figure(
@@ -97,7 +101,7 @@ enumerate through all _potential_ handles. #figure(
 
     $"word" <--> {"head" --> {"bit" | "empty"}, "next" --> "word"}$
   ],
-  caption: [Generator for IDs in Welkin.],
+  caption: [Generator for words in Welkin.],
 )<foundations:bootstrap-binary-word>
 
 From there, we can define handle IDs through triples, see
@@ -105,20 +109,12 @@ From there, we can define handle IDs through triples, see
 
 #figure(
   [
-    $"handle" <--> {"user_ID" --> "word", "revision_ID" --> "word", "handle_ID" --> "handle"}$
+    $"handle" <--> {"UID" --> "word", "RID" --> "word", "HID" --> "word"}$
   ],
-  caption: [Generator for IDs in Welkin.],
+  caption: [Generator for handle keys in Welkin.],
 )<foundations:bootstrap-handle-id>
 
-Moreover, for simplicity, we introduce tuples. A pair is:
-$"Pair" equiv {"first" --> "word", "second" --> "word"}$. A tuple is a nested
-pair that is left-associative w.r.t the labels $"first"$ and $"second"$:
-$"Tuple" equiv {"head" --> "Pair" | "word", "next" --> "Tuple" | "word"}$.
-
 Now we can prove the Turing definability of Welkin.
-
-[TODO[SMALL]: make sure assignnments make sense! Do address possible ambiguity
-in direction of arrows. Can be confusing!]
 
 [TODO[MEDIUM]: double check all parts of proof!]
 
