@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: MIT
 
 #import "template/ams-article.typ": definition, example, remark
-#import "template/ams-article.typ": equation_block, lemma, proof, theorem
+#import "template/ams-article.typ": (
+  corollary, equation_block, lemma, proof, theorem,
+)
 
 = Foundations <foundations>
 
@@ -40,9 +42,6 @@ We will postpone to associativity to maintain the flow of new concepts.
   - A graph, which is defined as either ${}$ or, for a graph $g$ and unit $u$,
     ${@g, u}$ and ${@g, ~u}$ are graphs, where $@g$ is a new graph called the
     *expansion* of $g$.
-  - The *expansion* $@g$ of $g$ is defined recursively: $@{}$ is simply ${}$,
-    and for a graph ${@g, u}$, if $h - g -> h$, then ${@g, h, u}$ reduces to
-    ${@g, u}$ and ${@g, h, ~h}$ reduces to $g$.
   Nothing else is a unit.#footnote[Practically, we can only guarantee this up to
     a finite bound. We will address this in ?.]
 ]<unit>
@@ -130,6 +129,11 @@ From there, we can define handle IDs through triples, see
   caption: [Generator for handle keys in Welkin.],
 )<foundations:bootstrap-handle-id>
 
+#definition[
+  The *unit recursor* $R$ is defined recursively as follows:
+  -
+]<foundations:recursor>
+
 Now we can prove the Turing definability of Welkin.
 
 [TODO[MEDIUM]: double check all parts of proof!]
@@ -161,7 +165,41 @@ Now we can prove the Turing definability of Welkin.
   reduces to $(x z)(y z)$, i.e.,:
 ]
 
-== Expressing PRA
+
+[TODO[MEDIUM]: Provide tabular proofs for these! Want to be very precise! But
+need to recognize when we are doing substitutions for meta-variables.]
+
+The following theorems are two parts of the same *Recursion theorem* for Welkin.
+
+#theorem[*(Correctness)* For every unit $u$,
+  $u -->^R R$.]<foundations:recursion-correctness>
+#proof[]
+
+#theorem[*(Uniqueness)* Let $K$ be any unit such that for any unit $u$,
+  $u -->^K K$. Then $K <--> R$.]<foundations:recursion-uniqueness>
+
+An important consequence of the recursion theorem is a basic form of
+*reflection*.
+
+[TODO: make this precise! Do we strictly *need* this? Need to make this
+clearer!]
+
+#corollary[Let $T$ be any unit that extends the rules of Welkin. Then
+  ${T --> R} -->^R R$]<foundations:base-reflection>
+#proof[
+  First we show that in the global context, $T --> R$.
+
+  - *Base Case:* suppose $T$ is a unit exactly with the rules $u - T -> T$ for
+    every unit $u$ and the rules in @unit-rules. Then by
+    @foundations:recursion-uniqueness, $T <--> R$, completing the base case.
+  - *Inductive step:* suppose $T = {T', e}$ for a units $T', e$ where
+    $T' --> R$. Then no information is lost with adding $e$, so it easily
+    follows through transitivity that $T --> R$.
+
+  Now, by @foundations:recursion-correctness, we obtain that
+  ${T --> R} - R -> R$, completing the proof.
+]
+
 
 == Expressing PA and Feferman Reflection
 
