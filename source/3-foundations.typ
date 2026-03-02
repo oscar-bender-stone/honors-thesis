@@ -153,74 +153,12 @@ in direction of arrows. Can be confusing!]
 
 == Expressing PA and Feferman Reflection
 
-
 The goal of this section is to completely define the following: _a proof of
-anything expressable as a RE set_. We will then generalize this to more through
+anything expressible as a RE set_. We will then generalize this to more through
 handles and mark soundness. Note that, because of Rice's Theorem, this method is
-inherently incomplete with computable methods.
-
-[TODO[MEDIUM]: finish outline! Write up!]
-
-- Goal: determine trust of Turing machine $T$ halts on $x$ in _finitely many
-  steps_ (so Halting problem)
-
-  - Easy case: $T$ _does_ halt on $x$ in finitely many steps. Trusted
-    certificate: trace of Turing Machine.
-
-  - Hard case: $T$ _does not_ on $x$. What can we _tell_ is a certifcate
-  that is itself expressible as the element of some RE set?
-
-- Analyzing hard case
-
-  - Normal approach by mathematicians: take a trusted theory, e.g.,
-    Zermelo-Frankel Set Theory, and see if $T$ not accepting $x$ is provable in
-    such a theory. One still needs to find a proof in this trusted theory, _but_
-    once then, apply modus ponens to get the result. If there happened to be a
-    contradiction, revise beliefs and seek another system. Hasn't happened with
-    ZF, but in the _traditional_ view, this is possible. (We'll get into Artemov
-    below!)
-
-  - Problem: ZFC can't prove _every_ case of halting because of Gödel's
-    incompleteness theorem. So more and more powerful theories. These, too, may
-    be trusted, but might end of in an infinite regress, or very unclear with
-    theories like, e.g., Rocq's type theory. No concrete ceiling, _unclear
-    reasons for soundness_ (other than being widely assumed).
-
-  - Does provide an idea: _any_ such instance of $x not T$ that has a finite
-    witness _must_ come from some Turing machine (that's what we want). So we
-    want to solve another question:
-    $exists T'. x in "Halt"(T') => x in "Halt"(T)$. In the case above, $T'$ is a
-    well known formal system.
-
-- Analyzing new problem: $exists T'. x in "Halt"("T'") => x not in "Halt"(T)$.
-  - Ultimate problem: _not_ accepting means infinite number of steps.
-  So how to connect to a finite thing?
-  - Answer: I _think_ arbtitrary objects. What we observed above is something
-  to do with axiomatic systems. If we _only_ allow finite axioms, no
-  quantifiers, we get stuck. We could approximate bit by bit, _but at some
-  point_, it won't be enough for _most_ Turing machines.
-
-  - My question: I don't want to be restricted to FOL, as we will address in
-    intro (e.g., quantum logic and needed an extension of FOL to handle!).
-
-  - I think we _precisely_ need handles here, because we can _prove_
-  that using _only_ the places where Turing machines halt isn't enough. *Turing
-  machines alone aren't enough for proof systems, or for _validating_ if specs
-  are accurate!*. TODO: definitely need to make a lemma! Essential! (though will
-  need to connect back with arbitrary objects, because technically one _needs_
-  arbitrary objects to even state this!).
-
-- Arbitrary objects + addressing
-  $exists T'. x in "Halt"(T') => x not in "Halt"(T)$
-
-  - So we don't want to accept _any_ handle, because that then
-  gets into axiomatic systems. We can definitely _analyze_ what those systems do
-  and how they behave, yes, but how do we know _for sure_ about things about
-  Turing machines? What can we agree on, i.e., what is the ceiling?
-
-  - We need a finite certificate to _represent_ an aribtrary
-  object, namely being the steps. So we need a _finite way_ to determine that
-  $T$ doesnt halt on $x$
+inherently incomplete with computable methods. This theory does, however,
+establish a ceiling. As mentioned, we will postpone optimizations until
+@information-organization.
 
 == Coherency and Information
 

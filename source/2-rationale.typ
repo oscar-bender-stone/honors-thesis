@@ -242,7 +242,7 @@ Another example concerns contexts in the prescence of unique objects.
   `Fido - Survey -> Animal` and `Lucy - Survey -> Animal` in context
   `instanceof`. We can interpert this example as saying that the _relationsihps_
   of a general taxonomy are witnessed by a specific taxonomy, namely `Survey`,
-  and that they propagte through.#footnote[In programming languages,
+  and that they propagate through contexts.#footnote[In programming languages,
     particularly C++ @stroustrup-cpp-lang and Java, this property is known as
     "upcasting", with a less refined base class being replaced with a more
     refined subclass. The reverse is "downcasting". Both are supported by Welkin
