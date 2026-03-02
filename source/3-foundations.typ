@@ -134,6 +134,8 @@ From there, we can define handle IDs through triples, see
 #definition[
   The *unit recursor* $R$ is defined by $R <--> {R_"base", "Rules"}$, where
   $R_"base"$ is defined recursively, over meta-variables $h, a, b, c$:
+  - Includes @foundations:bootstrap-binary-word and
+    @foundations:bootstrap-handle-id.
   - ${} - R -> R$.
   - For each handle $h$, $h - R -> R$.
   - For each arrow $a - b -> c$, ${a - b -> c} - R -> R$.
