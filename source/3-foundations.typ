@@ -74,8 +74,8 @@ _and_ computational rules.
   environment, the following rules apply to units, recursively stated over
   meta-variables $a, b, c, d, g, p, q$:
   - *R1. Internal Transitivity*: $a -->^c b$ and $b -->^c d$ imply $a -->^c d$.
-  - *R2. Contextual Lifting:* $a -->^c b$ and $p -->^b q$ imply
-  - *R3. Empty :* ${@g, {}} <--> g$.
+  - *R2. Contextual Lifting:* $a -->^c b$ and $p -->^b q$ imply $p -->^a q in c$
+  - *R3. Empty:* ${@g, {}} <--> g$.
   - *R4. Identity:* ${@g, a} <--> g$ if and only if $a - g -> a$. In particular,
     ${a} <--> {a --> a}$.
   - *R5. Additive Expansion:* if $a - g -> a$, then ${@g, b} <-> {@g, a, b}$.
