@@ -24,6 +24,23 @@ The remaining sections show several areas for future work. This list is not
 exhaustive and, by the previous arguments, and can be applied to _any_ subject
 with computable representations (essentially, any human subject).
 
+== Comparisons to Existing Literature
+
+In addition to domain specific proposals, there are approaches for general IM
+which still fail to resolve all issues. One prominent example is Burgin's
+General Theory of Information @burgin-information-book that comprehensively
+includes many separate areas for IM, including the complexity-based Algorithmic
+Information Theory, through a free parameter called an "infological system",
+which encompasses domain specific terminology and concepts. In contrast to other
+approaches, Burgin's generalized theory is flexible and enables greater coverage
+of different kinds of information @mark-burgin-legacy. Despite this coverage
+Burgin does not closely tie the free parameter with his formal analysis of
+Algorithmic Information Theory, making it unclear how to use this in a practical
+implementation. Burgin's Theory of Information, along with broad proposals, have
+severe shortcomings, highlighting major obstacles for IM.
+
+
+
 == Programming Languages and Formal Verification <conclusion:programming>
 
 [TODO: add discussions on supporting interoperability with languages, providing

@@ -5,6 +5,8 @@
 
 = Introduction
 
+[TODO[MEDIUM]: resolve use of term information and relation to information
+management. More closer to the sense developed by Floridi.]
 
 Information Management provides systematic approaches to storing and organizing
 digital assets in a variety of domains. Early large scale systems worked as
@@ -13,46 +15,43 @@ bases, in which both data and relationships can be stored. Many businesses have
 benefited from storing information in more effective ways, increasingly more
 with deeper integrations to AI-driven systems.
 
-In many active projects, Information Management faces ongoing problems. One of
-these issues is the _depth_ of domains. For example, at major retailers like
-Amazon, inventory and recommendation systems use immense amounts of data to
-power personalized recommendations to users @amazon-large-data-report. Another
-issue is the immense breadth of different subjects. As a well known example,
-Wikipedia struggles to constantly update its vast and interconnected web of
-knowledge [?]. Along with the depth and breadth across disciplines,
-standardization is increasingly difficult, with limited options for
-interoperabiity or transferring information from one solution to another.
+Despite its successful use in active projects, Information Management faces
+ongoing problems. One of these issues is the _depth_ of domains. For example, at
+major retailers like Amazon, inventory and recommendation systems use immense
+amounts of data to power personalized recommendations to users
+@amazon-large-data-report. Another issue is the immense breadth of different
+subjects. As a well known example, Wikipedia struggles to constantly update its
+vast and interconnected web of knowledge [?]. Along with the depth and breadth
+of different disciplines, standardization is increasingly difficult, with
+limited options for interoperabiity or transferring information from one
+solution to another. These problems continue to be a challenge in Information
+and Knowledge Management.
 
-In the rise of these projects, many issues arise and make Information Magnement
-an open subject. One of these issues with the depth of different subjects. In
-finance, for instance, a business could record ... Another issue is the immense
-breadth of subjects. As one example, ... Along with depth and breadth,
-standardization is non-existent in most information bases. In addition to depth
-and breadth, as a result of the depth and breadth of disciplines. It
+In light of these issues, several solutions partially resolve some of them, but
+not completely.
 
-In addition to domain specific proposals, there are approaches for general IM
-which still fail to resolve all issues. One prominent example is Burgin's
-General Theory of Information @burgin-information-book that comprehensively
-includes many separate areas for IM, including the complexity-based Algorithmic
-Information Theory, through a free parameter called an "infological system",
-which encompasses domain specific terminology and concepts. In contrast to other
-approaches, Burgin's generalized theory is flexible and enables greater coverage
-of different kinds of information @mark-burgin-legacy. Despite this coverage
-Burgin does not closely tie the free parameter with his formal analysis of
-Algorithmic Information Theory, making it unclear how to use this in a practical
-implementation. Burgin's Theory of Information, along with broad proposals, have
-severe shortcomings, highlighting major obstacles for IM.
+- On the internet, a pervasive standard is the Ontology Web Language (OWL).
+  Topics are indexed by Resource Description Framework
+(RDF), another major internet standard. Users can provide relationships in the
+form `subject - verb -> object`. OWL provides a machine readable format to store
+information and enable user queries, with wide spread adoption across the web.
+However, OWL fails to effectively scale with real world datasets, especially
+those containing contradictions @hitzler-review-semantic-webs.
 
-This thesis introduces a language to resolve these issues for both IM and KM. I
-call this language *Welkin*, based on an old German word meaning cloud
-@dictionary:welkin. The core result of this thesis is proving that Welkin
-fulfills three goals: it is *universal*, *scalable*, and *standardized*. For
-details, see @goals. The core idea is to generalize Burgin's free parameter and
-enable arbitrary representations in the theory, controlled by a computable
-system. A representation is represented a triple: a *sign* represents a
-*referent* within a *context*. This generalizes RDF triples and relations by
-allowing the context to incorporate scope and be a general, partial computable
-operator.#footnote[There are similarities with this triple and Peirce's
+- Another existing program is the proprietary Cyc database. Despite being the
+largest knowledge base to date, .
+
+This thesis introduces a language to resolve these issues for Information _and_
+Knowledge Management. I call this language *Welkin*, based on an old German word
+meaning cloud @dictionary:welkin. This word represents the expansive nature of
+the language.
+
+The core result of this thesis is proving that Welkin fulfills three goals: it
+is *universal*, *scalable*, and *standardized*. For details, see @goals. The
+core idea is to generalize Burgin's free parameter and enable arbitrary
+representations in the theory, controlled by a computable system. A
+representation is represented a triple: a *sign* represents a *referent* within
+a *context*.#footnote[There are similarities with this triple and Peirce's
   semiotics, or the study of the relationship between a symbol, the object it
   represents, and the interpreter or interpretation that provides it that
   meaning @sep-peirce-semiotics. Our notion is different in that contexts
@@ -139,8 +138,9 @@ This thesis is organized according to @thesis-organization.
 
     [*@conclusion*],
     [*Conclusion*],
-    [Concludes with possible applications, particularly in programming languages
-      and broader academic knowledge management.],
+    [Concludes with comparisons to existing theories and possible applications,
+      particularly in programming languages and broader academic knowledge
+      management.],
   ),
   caption: [Organization for the thesis.],
 )<thesis-organization>
