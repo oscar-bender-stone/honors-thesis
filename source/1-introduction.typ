@@ -19,9 +19,18 @@ Reification is *built into* Welkin String literals are also reified, and unit
 IDs and strings are the same, with the latter enabling any character ID more
 naturally.]
 
-Information Management (IM) is an open area of research as a result of the depth
-and breadth of disciplines.
+Information Management is a rich area of research that has widely expanded into
+several applications. Many businesses have benefited from storing information in
+more better ways, increasingly moree with operatios being managed by AI. Instead
+of having only a database, companies can use an _information base_ to store
+information as well.
 
+In the rise of these projects, many issues arise and make Information Magnement
+an open subject. One of these issues with the depth of different subjects. In
+finance, for instance, ... Another issue is the immense breadth of subjects. As
+one example, ... Along with depth and breadth, standardization is non-existent
+in most information bases. In addition to depth and breadth, as a result of the
+depth and breadth of disciplines. It
 
 In addition to domain specific proposals, there are approaches for general IM
 which still fail to resolve all issues. One prominent example is Burgin's
