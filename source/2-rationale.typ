@@ -7,38 +7,24 @@
 
 In this section, we justify the design of Welkin.
 
+== General Requirements
 
-== Information Content
+The main purpose of an information base is to store information and answer user
+queries based on available information. We require two important properties:
 
-The main purpose of an information base is to store information and enable user
-queries based on the available information. To make this idea precise, we
-dissect the approach taken by Algorithmic Information Theory, specifically
-through a well known book by Li and Vitányi @intro_kolmogorov_complexity.
+- The information base must be mechanized, which means the only operations
+  allowed are partial computable functions. To make this universal, we need to
+  express _every_ partial computable function.
 
-However, Li and Vitányi's approach does not generally reflect the ways people
-disseminate and create new information. The term "object" is a vague term that
-is vastly different between disciplines and can be difficult to model for
-entities. For example, consider a dynamic biological systems. If objects have
-well defined boundaries, what would the "boundary" be of an evolving system?
-Another issue is well known in the knowledge management literature as the Symbol
-Grounding Problem, formulated by Harnard @harnard-symbol-grounding. As an
-example, Harnard considers a person expecting to learn Chinese as their first
-language with _only_ a Chinese dictionary. How does the person ground their
-symbols in concrete meanings? An information base cannot practically store the
-denotations of a word, such as storing animals, so how _original meaning_ is
-obtained is unclear.
+- The information base must provide a mechanism to _ground_ symbols defined by
+  users. This stems from the Symbol Grounding Problem, posed by Harnard
+  @harnard-symbol-grounding. To avoid storing physical objects or such, users
+  should have a way to provide _meaning_ to symbols, or a way to _represent_
+  their topic of interest.
 
-Several solutions have been proposed to resolve the Symbol Grounding Problem...
-Ultimately, however, he problem even arises when modeled with _solely_ formal
-entities. For instance, Liu @liu-theory-based-symbol-grounding models symbol
-grounding as axioms in a general deductive system, and uses a Gödelian-based
-diagonalization argument to show that the grounding predicate, indicating which
-symbols are grounded, is undefinable in a single system. In a related work,
-symbol grounding can be modeled directly through Kolmogorov complexity
-@liu-algorithmic-symbol-grounding, demonstrating the same impossibility of
-completely grounding a system of symbols through a fixed grounding set. These
-results demonstrate that we need a looser approach, less fixated on
-philosophical condrums and more oriented to _practical_ considerations.
+Combined together, we can now state universality as follows: _an information
+base is universal if it can represent anything representable by a partial
+computable function._
 
 == Units
 

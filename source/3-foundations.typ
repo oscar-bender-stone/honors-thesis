@@ -8,6 +8,14 @@
 
 = Foundations <foundations>
 
+This section discuss the foundations of Welkin, as follows:
+
++ We discuss the connection to Algorithmic Information theory. This section can
+  be entirely skipped but may provide context for theoretical computer
+  scientists.
++ We define units and their rules.
++ We define information.
+
 == Discussion: Extending Algorithmic Information Theory
 
 The main purpose of an information base is to store information and enable user
@@ -55,6 +63,23 @@ To make matters worse, the undecidabilty of grounding has been established by
 address symbol grounding, we systematically create handles and enable user
 expansions. We require rigorous proofs to ensure soundness, or that truth is
 preserved according to the context defined therein.
+
+Despite the presence of the Symbol Grounding Problem, we emphasize that an
+information base is a _tool_ that is useful when _mechanized_. As such,
+information bases are not for resolving philosophical inquiries on the existence
+or absence of things or abilities. Information itself is used for _predictions_:
+a person that translates the sentence "It will rain today" in Chinese to convey
+a semantic property of the world, that there will be rain. This scales to larger
+examples, with major theorems providing even more refined or general properties
+_given_ a set of assumptions. Note that this is different form Shanon's seminal
+work on Information Theory, in which methods are found to convey the _exact_
+bits of strings in noisy channels. Because communication _itself_ does not carry
+the physical entities, relationships are key to effectively conveying ideas. A
+recent work bridges this gap with Shannon's work to express meaning through
+finite models in first-order logic @liu-theory-based-symbol-grounding, so that
+two strings are considered equivalent if they are that are provably equivalent
+as first order sentences are in fact equal, regardless if the strings have
+distinct bits.
 
 == Base Rules
 
