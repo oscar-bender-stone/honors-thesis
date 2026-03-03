@@ -16,9 +16,12 @@ with deeper integrations to AI-driven systems.
 In many active projects, Information Management faces ongoing problems. One of
 these issues is the _depth_ of domains. For example, at major retailers like
 Amazon, inventory and recommendation systems use immense amounts of data to
-power personalized recommendations to users @amazon-large-data-report.
-
-
+power personalized recommendations to users @amazon-large-data-report. Another
+issue is the immense breadth of different subjects. As a well known example,
+Wikipedia struggles to constantly update its vast and interconnected web of
+knowledge [?]. Along with the depth and breadth across disciplines,
+standardization is increasingly difficult, with limited options for
+interoperabiity or transferring information from one solution to another.
 
 In the rise of these projects, many issues arise and make Information Magnement
 an open subject. One of these issues with the depth of different subjects. In
