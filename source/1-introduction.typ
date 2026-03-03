@@ -5,15 +5,20 @@
 
 = Introduction
 
-[TODO[MEDIUM]: resolve use of term information and relation to information
-management. More closer to the sense developed by Floridi.]
+Information Management is the study of systematically storing and organizing
+digital data. The conceptual foundation for this process often traces back to
+Ackoff @ackoff-wisdom. His data-to-wisdom hierarchy that information is the
+process of transforming raw data into structured content. In turn, this content
+can be used to answer user queries. However, the term "information" has not been
+standardized in the literature and has gained multiple meanings beyond Ackoff's
+hierarchy. For example, Buckland points out the ... Instead, his formalsim
+includes ... Another author, Floridi, reinforces this approach by defining
+information as true, meanginful data @floridi-information-2010. Framing
+information this way also aligns with the quantitative mathematical theory
+developed by Shannon @shannon-theory-communication. He developed a metric to
+quantify the reliablilty of information passed through a physical network
+@shannon-theory-communication.
 
-Information Management provides systematic approaches to storing and organizing
-digital assets in a variety of domains. Early large scale systems worked as
-databases, but many projects saw benefits in extending these to be information
-bases, in which both data and relationships can be stored. Many businesses have
-benefited from storing information in more effective ways, increasingly more
-with deeper integrations to AI-driven systems.
 
 Despite its successful use in active projects, Information Management faces
 ongoing problems. One of these issues is the _depth_ of domains. For example, at
@@ -38,7 +43,8 @@ information and enable user queries, with wide spread adoption across the web.
 However, OWL fails to effectively scale with real world datasets, especially
 those containing contradictions @hitzler-review-semantic-webs.
 
-- Another existing program is the proprietary Cyc database. Despite being the
+- Another existing program is the proprietary Cyc database, the largest
+  knowledge base known to date. . Despite being the
 largest knowledge base to date, .
 
 This thesis introduces a language to resolve these issues for Information _and_
@@ -48,32 +54,26 @@ the language.
 
 The core result of this thesis is proving that Welkin fulfills three goals: it
 is *universal*, *scalable*, and *standardized*. For details, see @goals. The
-core idea is to generalize Burgin's free parameter and enable arbitrary
-representations in the theory, controlled by a computable system. A
-representation is represented a triple: a *sign* represents a *referent* within
-a *context*.#footnote[There are similarities with this triple and Peirce's
+fundamental building block is based on *representations*, containing a
+relationships between a *sign* representing a *sign* in a
+*context*.#footnote[There are similarities with this triple and Peirce's
   semiotics, or the study of the relationship between a symbol, the object it
   represents, and the interpreter or interpretation that provides it that
   meaning @sep-peirce-semiotics. Our notion is different in that contexts
-  general interpretant.] Moreover, to address queries on the validity of truth,
-we use a relative notion that includes a context managed by a formal system,
-whose ideas are independently developed from @mccarthy-contexts are enhanced
-with representations. Truth can then be determined on an individual basis,
-providing flexibility to any discipline. The focus then shifts to the usefulness
-of representaitons based on a topological notion of how "foldable" a structure
-is, which we call *coherency*. This approach is inspired by coherentism, a
-philosophical position that states truth is determined in comparison to other
-truths. @bradley-principles-of-logic. We incorporate ideas from coherentism to
-identify which representations identify their corresponding objects, and we
-define information as an invariant under these coherent representations. We
-include definitions on a _working_ basis as what is most practical, not an
-epistemological stance that can be further clarified in truth systems.
-Additionally, we keep the theory as simple as possible to make scalability and
-standardization straight-forward. Furthermore, we enhance standardization using
-a finite variant of the language, providing a self-contained, small area of
-trusted software and hardware needed, or Trusted Computing Base in the
-programming languages literature @rushby-trusted-computing-base.
+  general interpretant.] Contexts provide flexibility to define domain
+terminology, and are provided rules inspired by McCarthy's work in AI systems
+@mccarthy-contexts. Moreover, truth is defined relative to contexts and enables
+the user to recognize _under which conditions_ a statement is true. In this way,
+the information base keeps conflicting claims contained, providing a clear
+separation from other contexts.
 
+Building on representations, information is defined as a property preserved
+under equivalences relative to a context. To make the information base scalable,
+the base operations are kept as simple as possible, and a procedure to
+adaptively organize information. The simplicity of the language aids in
+standardization as well. For the highest reassurance, we create a restricted
+subset of the language for use in practical implementations. This subset
+enhances both both ease of implementation and use.
 
 #figure(
   table(
