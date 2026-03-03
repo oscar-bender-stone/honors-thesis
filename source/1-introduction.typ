@@ -6,15 +6,16 @@
 = Introduction
 
 Information Management is the study of systematically storing and organizing
-data. With the extensive growth of data on the web and other sources,
-information provides a means for individuals, organizations, and companies to
-understand the world around them. The conceptual foundation for this process
-often traces back to Ackoff @ackoff-wisdom. His data-to-wisdom hierarchy posits
-that information is the process of transforming raw data into structured
-content. In turn, this content can be used to answer user queries. However, the
-term "information" has not been standardized in the literature and is used with
+data. With the massive growth of data, particularly on the web, simply storing
+data is not enough. Raw databases are increasingly structured into organized
+_information bases_ to provide the context needed for people to understand
+concepts and build upon. The conceptual foundation for this process often traces
+back to Ackoff @ackoff-wisdom. His data-to-wisdom hierarchy posits that
+information is the process of transforming raw data into structured content. In
+turn, this content can be used to answer user queries. However, the term
+"information" has not been standardized in the literature and is used with
 distinct meanings. For example, Buckland points out that information is used in
-three ways: _information-as-process_,_information-as-knowledge_, and
+three ways: _information-as-process_, _information-as-knowledge_, and
 _information-as-thing_. While each of these are important, Buckland emphasizes
 that to _use_ information, one must use _information-as-thing_—a tangible record
 like a document or digital file. Another author, Floridi, builds upon this
@@ -33,24 +34,34 @@ constantly update its vast and interconnected web of knowledge
 @mesgari-research-review-on-wikipedia. Along with the depth and breadth of
 different disciplines, standardization is increasingly difficult. Most systems
 have their own unique data formats, limiting the transfer of information from
-one format to another. As one example, transferring information between two
+one format to another. For instance, transferring information between two
 medical platforms is notoriously difficult, even if they store the _same_
 information about a patient @reisman-interoperable-data. These problems continue
-to be a challenge in Information and Knowledge Management.
+to be a challenge in Information Management.
 
 In light of these issues, several solutions partially resolve some of them, but
 not completely.
 
-- On the internet, a pervasive standard is the Ontology Web Language (OWL).
-  Topics are indexed by Resource Description Framework (RDF), another major
-  internet standard. Users can provide relationships in the form
-  `subject - verb -> object`. OWL provides a machine readable format to store
-  information and enable user queries, with wide spread adoption across the web.
-  However, OWL fails to effectively scale with real world datasets, especially
-  those containing conflicting claims @hitzler-review-semantic-webs.
+- *The Web Ontology Language (OWL):* OWL is a pervasive internet standard aimed
+  at creating an interoperable, machine readable information format. Topics are
+  indexed by Resource Description Framework (RDF), another major internet
+  standard. Users provide relationships in the form
+  `subject - predicate -> object`, such as `dog_owner - walks -> dog`. Although
+  it is widely adopted across the web, OWL fails to effectively scale with real
+  world datasets, especially those containing conflicting claims
+  @hitzler-review-the-semantic-web.
 
-- Another existing program is the proprietary Cyc database, the largest
-  knowledge base known to date. . Despite its extensive scope, .
+- *Cyc:* Designed to encompass broad subjects, Cyc is the largest proprietary
+  database of knowledge, or _knowledge base_, known to date @lenat-cyc-1995. It
+  achieves reliable queries by providing a logical engine, based on millions of
+  hard coded "common sense" rules. For example, given the rules _"All penguins
+  are birds"_ and _"All birds are animals"_, the engine can answer, _"Are all
+  penguins birds?"_. However, despite its impressive scope, it relies on human
+  experts to manually encode every rule. This causes a knowledge acquisition
+  bottleneck, limiting how well the database scales
+  @automated-scientific-semantic-knowledge-framework. Another issue the absence
+  of an active open standard, a result of the publicly available version,
+  OpenCyc, being discontinued in 2017.
 
 This thesis introduces a language to resolve these issues for Information
 Management. I call this language *Welkin*, based on an old German word meaning
