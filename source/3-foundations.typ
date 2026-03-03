@@ -8,7 +8,53 @@
 
 = Foundations <foundations>
 
-== Relation to Algorithmic Information Theory
+== Discussion: Extending Algorithmic Information Theory
+
+The main purpose of an information base is to store information and enable user
+queries based on the available information. To make this idea precise, we
+dissect the approach taken by Algorithmic Information Theory, specifically
+through a well known book by Li and Vitányi @intro_kolmogorov_complexity. Their
+book focuses on the _information content_ of a description, which they summarize
+as follows:
+
+[TODO[SMALL] still resolve how pages should be mentioned!]
+
+#set quote(block: true)
+#quote(attribution: [@intro_kolmogorov_complexity, pages 101-102])[
+  _We require both an agreed-upon universal description method and an
+  agreed-upon mechanism to produce the object from its alleged description. This
+  would appear to make the information content of an object depend on whether it
+  is particularly favored by the description method we have selected. By ‘favor’
+  we mean to produce short descriptions in terms of bits._]
+
+They express this idea with an enumeration $D$ from _objects_ to _descriptions_,
+written as strings of symbols. To ensure that their measure is _minimal_ and can
+be mechanized, $D$ is a partial computable function. The authors proceed define
+the _information content_ of a string through Kolmogorov complexity, the size of
+the smallest description that accepts an object, or in other words, the smallest
+program that accepts a string. From there, they prove multiple foundational
+results for Algorithmic Information Theory, including that Kolmogorov complexity
+is uncomputable. This quantity can be approximated by several means, which is
+closely involved to compression algorithms.
+
+However, Li and Vitányi's approach does not generally reflect the ways people
+disseminate and create new information. The term "object" is a vague term that
+is vastly different between disciplines and can be difficult to model for
+entities. For example, consider a dynamic biological systems. If objects have
+well defined boundaries, what would the "boundary" be of an evolving system?
+Another issue is well known in the knowledge management literature as the Symbol
+Grounding Problem, formulated by Harnard @harnard-symbol-grounding. As an
+example, Harnard considers a person expecting to learn Chinese as their first
+language with _only_ a Chinese dictionary. How does the person ground their
+symbols in concrete meanings? An information base cannot practically store the
+denotations of a word, such as storing animals, so how _original meaning_ is
+obtained is unclear.
+
+To make matters worse, the undecidabilty of grounding has been established by
+@liu-algorithmic-symbol-grounding, precisely using Kolmogorov complexity. To
+address symbol grounding, we systematically create handles and enable user
+expansions. We require rigorous proofs to ensure soundness, or that truth is
+preserved according to the context defined therein.
 
 == Base Rules
 
@@ -46,10 +92,8 @@ on two words or two handles. Maybe lift to the latter to make sense?]
   are equal, written $h_1 = h_2$, if and only if $"UID"_1 = "UID"_2$,
   $"RID"_1 = "RID"_2$, and $"HID"_1 = "HID"_2$. Analogously, $h_1$ is not equal
   to $h_2$, written $h_1 != h_2$, if and only if at least one of the following
-  hold: $"UID"_1 != "UID"_2$, $"RID"_1 != "RID"_2$, or $"HID"_1 = "HID"_2$
+  hold: $"UID"_1 != "UID"_2$, $"RID"_1 != "RID"_2$, or $"HID"_1 != "HID"_2$
 ]<foundations:handle>
-
-[TODO[MEDIUM]: clarify on semantics of @!]
 
 #definition[
   A *unit* is defined recursively as a finite combination of:

@@ -13,29 +13,7 @@ In this section, we justify the design of Welkin.
 The main purpose of an information base is to store information and enable user
 queries based on the available information. To make this idea precise, we
 dissect the approach taken by Algorithmic Information Theory, specifically
-through a well known book by Li and Vitányi @intro_kolmogorov_complexity. Their
-book focuses on the _information content_ of a description, which they summarize
-as follows:
-
-[TODO[SMALL] still resolve how pages should be mentioned!]
-
-#set quote(block: true)
-#quote(attribution: [@intro_kolmogorov_complexity, pages 101-102])[
-  _We require both an agreed-upon universal description method and an
-  agreed-upon mechanism to produce the object from its alleged description. This
-  would appear to make the information content of an object depend on whether it
-  is particularly favored by the description method we have selected. By ‘favor’
-  we mean to produce short descriptions in terms of bits._]
-
-They express this idea with an enumeration $D$ from _objects_ to _descriptions_,
-written as strings of symbols. To ensure that their measure is _minimal_ and can
-be mechanized, $D$ is a partial computable function. The authors proceed define
-the _information content_ of a string through Kolmogorov complexity, the size of
-the smallest description that accepts an object, or in other words, the smallest
-program that accepts a string. From there, they prove multiple foundational
-results for Algorithmic Information Theory, including that Kolmogorov complexity
-is uncomputable. This quantity can be approximated by several means, which is
-closely involved to compression algorithms.
+through a well known book by Li and Vitányi @intro_kolmogorov_complexity.
 
 However, Li and Vitányi's approach does not generally reflect the ways people
 disseminate and create new information. The term "object" is a vague term that
