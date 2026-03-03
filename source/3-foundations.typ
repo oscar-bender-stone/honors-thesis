@@ -8,28 +8,45 @@
 
 = Foundations <foundations>
 
+== Relation to Algorithmic Information Theory
+
 == Base Rules
 
-[TODO[MEDIUM]: address Kripkenstein. Maybe just leave that as implementation
-dependent? The sole point is to avoid disagreements or keep things standard.
-Might depend ont the notion of arbtiary objects anyways and is determined by the
-active users involved?]
-
-[TODO[SMALL]: address equality of binary words and keys to handles. Want to do
-this elegantly and quickly!]
+For notation, we will write $a equiv b$ to mean that $a$ is definitionally
+equivalent to $b$. Moreover, we will distinguish between _defining_ a term as
+finite and _practically enforcing_ it is finite. For a thorough discussion, see
+?.
 
 #definition[
-  A *binary word* is either the symbol $0$ or $1$, and if $w$ is a binary word,
-  so are $w.0$ and $w.1$, where $.$ the symbol for *concatenation* (an undefined
-  notion).
+  A *bit* is the symbols $0$ or $1$. A *binary word* is either the symbol
+  $epsilon$ (the *empty word*), and if $w$ is a finite binary word, so are $w.0$
+  and $w.1$, where $.$ the symbol for *concatenation*. Nothing else is a word.
 ]<binary-word>
 
-We will postpone to associativity to maintain the flow of new concepts.
+#definition[
+  Equality $=$ and inequality $!=$ on words $w_1, w_2$ is defined recursively:
+  - *Base case:* $epsilon = epsilon$
+  - *Recursive step:* suppose $w_1 = b_1.w_1'$ and $w_2 = b_2.w_2'$, where
+    $b_1, b_2$ as bits and $w_1', w_2'$
+  are words. Then $w_1 = w_2$ if and only if $b_1 = b_2$ and $w'_1 = w'2$.
+  Moreover, $w_1 != w_2$ if and only if $b_1 != b_2$ or $w'_1 != w'_2$.
+]<foundations:binary-word-equality>
+#remark[@foundations:binary-word-equality is given constructively to ensure that
+  if two finite words are unequal, then an explicit bit can act as a certificate
+  for this inequality.]
 
+[TODO[SMALL]: without getting into typing, enforce that equality has to be done
+on two words or two handles. Maybe lift to the latter to make sense?]
 #definition[
   A _handle_ is given by a *key*, a triple $("UID", "RID", "HID")$, where
   $"UID"$ is a binary word called a *user ID*, $"RID"$ is a binary word called
-  the *revision ID*, and $"HID"$ is a binary word called the *handle ID*.
+  the *revision ID*, and $"HID"$ is a binary word called the *handle ID*. Two
+  handles
+  $h_1 equiv ("UID"_1, "RID"_1, "HID"_1), h_2 equiv ("UID"_2, "RID"_2, "HID"_2)$
+  are equal, written $h_1 = h_2$, if and only if $"UID"_1 = "UID"_2$,
+  $"RID"_1 = "RID"_2$, and $"HID"_1 = "HID"_2$. Analogously, $h_1$ is not equal
+  to $h_2$, written $h_1 != h_2$, if and only if at least one of the following
+  hold: $"UID"_1 != "UID"_2$, $"RID"_1 != "RID"_2$, or $"HID"_1 = "HID"_2$
 ]<foundations:handle>
 
 [TODO[MEDIUM]: clarify on semantics of @!]
@@ -39,11 +56,12 @@ We will postpone to associativity to maintain the flow of new concepts.
   - A handle, see @foundations:handle.
   - A representation $a -->^c b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
-  - A graph, which is defined as either ${}$ or, for a graph $g$ and unit $u$,
-    ${g, u}$, ${@g, u}$, and ${@g, ~u}$ are graphs, where $@g$ is a new graph
-    called the *expansion* of $g$.
-  Nothing else is a unit.#footnote[Practically, we can only guarantee this up to
-    a finite bound. We will address this in ?.]
+  - A block, which is defined as one of the following:
+    - ${}$
+    - Given a block $g$ and unit $u$, ${g, u}$, ${@g, u}$, and ${@g, ~u}$ are
+      glocks, where $@g$ is a new blocks called the *expansion* of $g$ and $~u$
+      is called the *exclusion of u*.
+  Nothing else is a unit.
 ]<unit>
 
 #remark[
