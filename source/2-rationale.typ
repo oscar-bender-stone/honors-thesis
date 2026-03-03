@@ -33,7 +33,7 @@ base is universal if it can represent anything representable by a partial
 computable function._ We will clarify how we define "representable" in the next
 section.
 
-== Units
+== Units <rationale:unit>
 
 [TODO[MEDIUM]: go back and ensure this explanation makes sense!]
 
