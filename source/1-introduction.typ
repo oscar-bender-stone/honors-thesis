@@ -20,8 +20,8 @@ that to _use_ information, one must use _information-as-thing_—a tangible reco
 like a document or digital file. Another author, Floridi, builds upon this
 tangible idea by requiring data be truthful @floridi-information-2010.
 Information must not only be in concrete records, but also accurately represent
-a topic of interest. As shown through these small sample of authors, information
-is a rich term, with a seeking use to best manage it.
+a topic of interest. As shown in this small sample of authors, information is a
+rich term, with an active pursuits to best manage it.
 
 Despite these extensive ideas, applying Information Management in real world
 projects reveals ongoing problems. One of these issues is the _depth_ of
@@ -29,11 +29,14 @@ domains. For example, at major retailers like Amazon, inventory and
 recommendation systems use immense amounts of data to power personalized
 recommendations to users @amazon-large-data-report. Another issue is the immense
 breadth of different subjects. As a well known example, Wikipedia struggles to
-constantly update its vast and interconnected web of knowledge [?]. Along with
-the depth and breadth of different disciplines, standardization is increasingly
-difficult, with limited options for transferring information from one solution
-to another. These problems continue to be a challenge in Information and
-Knowledge Management.
+constantly update its vast and interconnected web of knowledge
+@mesgari-research-review-on-wikipedia. Along with the depth and breadth of
+different disciplines, standardization is increasingly difficult. Most systems
+have their own unique data formats, limiting the transfer of information from
+one format to another. As one example, transferring information between two
+medical platforms is notoriously difficult, even if they store the _same_
+information about a patient @reisman-interoperable-data. These problems continue
+to be a challenge in Information and Knowledge Management.
 
 In light of these issues, several solutions partially resolve some of them, but
 not completely.
