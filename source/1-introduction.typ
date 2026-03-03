@@ -6,31 +6,26 @@
 = Introduction
 
 
-[TODO[MEDIUM]: explain emphasis on information in thesis. Knowledge is important
-to mention, but *why* information as the focus?]
+Information Management provides systematic approaches to storing and organizing
+digital assets in a variety of domains. Early large scale systems worked as
+databases, but many projects saw benefits in extending these to be information
+bases, in which both data and relationships can be stored. Many businesses have
+benefited from storing information in more effective ways, increasingly more
+with deeper integrations to AI-driven systems.
 
-[TODO: complete general discussion on IM and KM in the first paragraph. The
-discussions into specific fields is too dense for this intro! Also, emphasize
-what we do compared to other solutions. Doing this _instead_ of specific fields
-will help!
+In many active projects, Information Management faces ongoing problems. One of
+these issues is the _depth_ of domains. For example, at major retailers like
+Amazon, inventory and recommendation systems use immense amounts of data to
+power personalized recommendations to users @amazon-large-data-report.
 
-Current outline: - RDF: lacks named graphs, so reification is difficult.
-Reification is *built into* Welkin String literals are also reified, and unit
-IDs and strings are the same, with the latter enabling any character ID more
-naturally.]
 
-Information Management is a rich area of research that has widely expanded into
-several applications. Many businesses have benefited from storing information in
-more better ways, increasingly moree with operatios being managed by AI. Instead
-of having only a database, companies can use an _information base_ to store
-information as well.
 
 In the rise of these projects, many issues arise and make Information Magnement
 an open subject. One of these issues with the depth of different subjects. In
-finance, for instance, ... Another issue is the immense breadth of subjects. As
-one example, ... Along with depth and breadth, standardization is non-existent
-in most information bases. In addition to depth and breadth, as a result of the
-depth and breadth of disciplines. It
+finance, for instance, a business could record ... Another issue is the immense
+breadth of subjects. As one example, ... Along with depth and breadth,
+standardization is non-existent in most information bases. In addition to depth
+and breadth, as a result of the depth and breadth of disciplines. It
 
 In addition to domain specific proposals, there are approaches for general IM
 which still fail to resolve all issues. One prominent example is Burgin's
