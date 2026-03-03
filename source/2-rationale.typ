@@ -40,24 +40,31 @@ section.
 The first core concept in Welkin is the notion of a *handle*. Handles are left
 as free parameters in the theory#footnote[For mathematicians, this is analogous
   to how key notions are left undefined in Hilbert's formalism of geometry, or
-  how a "set" is an undefined notion in set theory.] They are processed in two
-steps:
+  how a "set" is an undefined notion in set theory.]
 
-- First, handles are uniquely identified through their *key*, directly inspired
-  by database theory. Keys are with triples of IDs $("UUID", "RID", "HID")$,
-  whose contents are the *user ID*, *revision ID*, and *handle ID*,
-  respectively. Revisions ensure that storing axioms is *immutable*, or that a
-  particular handle does not change over time. This is _not_ a restriction on
-  dynamic entities, but rather an indictation in the base to determine a
-  particular version of a handle.
+In an information base, handles are uniquely identified through their *key*,
+directly inspired by database theory. Keys are with triples of IDs
+$("UUID", "RID", "HID")$, whose contents are the *user ID*, *revision ID*, and
+*handle ID*, respectively. Revisions ensure that storing axioms is *immutable*,
+or that a particular handle does not change over time. This is _not_ a
+restriction on dynamic entities, but rather an indictation in the base to
+determine a particular version of a handle.
 
-- Second, handles are characterized precisely by their relationships. These are
-  written as *representations* `a - b -> c`, which means that `a` represents `b`
-  in context `c`. Here, we call `a` the *sign*, `b` the *referent*, and `c` the
-  *context*. One can interpret this characterization as follows: handles are
-  defined by how they are and are _not_ restricted. This idea is directly
-  inspired from Fine's idea of arbitrary objects @fine-arbitrary-objects, and
-  allows refinements to a study of interest.
+#example[
+  In a scientific experiment, a handle could be an observation or experimental
+  data. The unit is then written as a symbol, say $u$, and is _implicitly_ bound
+  to this meaning. To distinguish from other symbols, say $v$, the computational
+  content is analyzed.[TODO[MEDIUM]: expand out this example!]
+]
+
+Indexing handles is only one important aspect of handles. Another is that
+handles are precisely by their relationships. These are written as
+*representations* `a - b -> c`, which means that `a` represents `b` in context
+`c`. Here, we call `a` the *sign*, `b` the *referent*, and `c` the *context*.
+One can interpret this characterization as follows: handles are defined by how
+they are and are _not_ restricted. This idea is directly inspired from Fine's
+idea of arbitrary objects @fine-arbitrary-objects, and allows refinements to a
+study of interest.
 
 // . As a common example, consider how one can explain the Pythagorean theorem is
 // true about all right triangles. Instead of drawing _every_ single such triangle,
@@ -69,11 +76,6 @@ steps:
 // invariant can show a claim for _all_ finite cases. The threshold for "effective"
 // communication is left to the user and tweaked according to their needs.
 
-We represent handles in Welkin using an extended notion called a *unit*. A unit
-is either a handle, a finite collection of units, or a representation.
-Collections of units can have a uniquely generated name by the information base
-called a *block*#footnote[In programming languages, this is analogous to an
-  anonymous function.].
 
 #example[
   A more looser example is a user written journal for therapy sessions,
@@ -82,6 +84,18 @@ called a *block*#footnote[In programming languages, this is analogous to an
   $"emotions"$ in a context $"journal"$. Moreover, multiple revisions of the
   journal can be made with dates or other unique IDs.
 ]
+
+
+We represent handles in Welkin using an extended notion called a *unit*. A unit
+is either a handle, a finite collection of units, or a representation.
+Collections of units can have a uniquely generated name by the information base
+called a *block*#footnote[In programming languages, this is analogous to an
+  anonymous function.].
+
+#example[
+
+]
+
 
 Units define their own *context*, which means the unit provides its own names
 and representations. Writing `a - c -> b`, therefore, only applies to the
@@ -130,15 +144,6 @@ system. Here, we define a truth management system to consist of a set of axioms
 along with inference rules, whose derivations are accepted by some Turing
 machine. Welkin proves that not only is _any_ truth management system.
 
-[TODO[MEDIUM]: probably provide an example of higher order logic or so? Would be
-nice! Shows that we don't need _exactly_ a thing. But do emphasize that getting
-_exact_ data formats can make information dissemination easier!]
-#example[
-  In a scientific experiment, a handle could be an observation or experimental
-  data. The unit is then written as a symbol, say $u$, and is _implicitly_ bound
-  to this meaning. To distinguish from other symbols, say $v$, the computational
-  content is analyzed.[TODO[MEDIUM]: expand out this example!]
-]
 
 
 There are two primary inference rules, which we informally describe now (and
