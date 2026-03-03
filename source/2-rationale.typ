@@ -10,13 +10,19 @@ In this section, we justify the design of Welkin.
 == General Requirements
 
 The main purpose of an information base is to store information and answer user
-queries based on available information. We require two important properties:
+queries based on available information. To provide an upper bound on our
+requirements, we require two important properties:
 
-- The information base must be mechanized, which means the only operations
-  allowed are partial computable functions. To make this universal, we need to
-  express _every_ partial computable function.
++ The information base must be mechanized, which means only "effective
+  operations" are allowed. We make "effective operations" precise with the
+  technical notion of _partial computable functions_. Partial computable
+  functions are computer programs that can process a finite input, and that
+  either stop on an input or continue forever. The bedrock for these functions
+  is the notion of a _Turing machine_, which models every current form of
+  computation. For more information, see @turing-computable-numbers. To obtain
+  universality, we need to express _every_ one of these machines.
 
-- The information base must provide a mechanism to _ground_ symbols defined by
++ The information base must provide a mechanism to _ground_ symbols defined by
   users. This stems from the Symbol Grounding Problem, posed by Harnard
   @harnard-symbol-grounding. To avoid storing physical objects or such, users
   should have a way to provide _meaning_ to symbols, or a way to _represent_
@@ -24,96 +30,82 @@ queries based on available information. We require two important properties:
 
 Combined together, we can now state universality as follows: _an information
 base is universal if it can represent anything representable by a partial
-computable function._
+computable function._ We will clarify how we define "representable" in the next
+section.
 
 == Units
 
-Despite the presence of the Symbol Grounding Problem, we emphasize that an
-information base is a _tool_ that is useful when _mechanized_. As such,
-information bases are not for resolving philosophical inquiries on the existence
-or absence of things or abilities. Information itself is used for _predictions_:
-a person that translates the sentence "It will rain today" in Chinese to convey
-a semantic property of the world, that there will be rain. This scales to larger
-examples, with major theorems providing even more refined or general properties
-_given_ a set of assumptions. Note that this is different form Shanon's seminal
-work on Information Theory, in which methods are found to convey the _exact_
-bits of strings in noisy channels. Because communication _itself_ does not carry
-the physical entities, relationships are key to effectively conveying ideas. A
-recent work bridges this gap with Shannon's work to express meaning through
-finite models in first-order logic @liu-theory-based-symbol-grounding, so that
-two strings are considered equivalent if they are that are provably equivalent
-as first order sentences are in fact equal, regardless if the strings have
-distinct bits.
-
 [TODO[MEDIUM]: go back and ensure this explanation makes sense!]
 
-Taking inspiration from @information-logical-semantics, this thesis completely
-generalizes their approach using a notion of _handles_. Handles provide a dual
-relationship between a user and information base through a *representation*, in
-which a *sign* represents a *referent*. Handles are left as free parameters in
-the theory, analogous to how key notions are left undefined in Hilbert's
-formalism of geometry, and are characterized by their relationships to other
-handles. The user expresses these representations to seek _clarity_ on their
-entity of study, to make better predictions, and so forth. To do this, the user
-must determine if a set of representations are _faithful_ or actually represent
-the study of interest.Thus, declaring representations is equivalent to stating
-axioms about handles. Users can refine these through *revisions*, enabling
-belief revision.
+The first core concept in Welkin is the notion of a *handle*. Handles are left
+as free parameters in the theory#footnote[For mathematicians, this is analogous
+  to how key notions are left undefined in Hilbert's formalism of geometry, or
+  how a "set" is an undefined notion in set theory.] They are processed in two
+steps:
 
-Given the flexibility of handles to the user, how are they processed in an
-information base? There are two key components:
+- First, handles are uniquely identified through their *key*, directly inspired
+  by database theory. Keys are with triples of IDs $("UUID", "RID", "HID")$,
+  whose contents are the *user ID*, *revision ID*, and *handle ID*,
+  respectively. Revisions ensure that storing axioms is *immutable*, or that a
+  particular handle does not change over time. This is _not_ a restriction on
+  dynamic entities, but rather an indictation in the base to determine a
+  particular version of a handle.
+
+- Second, handles are characterized precisely by their relationships. These are
+  written as *representations* `a - b -> c`, which means that `a` represents `b`
+  in context `c`. Here, we call `a` the *sign*, `b` the *referent*, and `c` the
+  *context*. One can interpret this characterization as follows: handles are
+  defined by how they are and are _not_ restricted. This idea is directly
+  inspired from Fine's idea of arbitrary objects @fine-arbitrary-objects, and
+  allows refinements to a study of interest.
+
+// . As a common example, consider how one can explain the Pythagorean theorem is
+// true about all right triangles. Instead of drawing _every_ single such triangle,
+// one represents all right triangles with an _abstracted_ right triangle, using
+// only the properties necessary to show $a^2 + b^2 = c^2$. The only restriction
+// here is that the triangle must contain a right angle, but besides this,
+// _nothing_ else is assumed nor required. Symbolically, this is deeply tied to
+// having _induction_, so that a finite proof of a base case and inductive
+// invariant can show a claim for _all_ finite cases. The threshold for "effective"
+// communication is left to the user and tweaked according to their needs.
+
+We represent handles in Welkin using an extended notion called a *unit*. A unit
+is either a handle, a finite collection of units, or a representation.
+Collections of units can have a uniquely generated name by the information base
+called a *block*#footnote[In programming languages, this is analogous to an
+  anonymous function.].
+
+#example[
+  A more looser example is a user written journal for therapy sessions,
+  containing information about daily habits and emotions. While neither of these
+  are stored in the information base, their handles are, via units $"habit"$ and
+  $"emotions"$ in a context $"journal"$. Moreover, multiple revisions of the
+  journal can be made with dates or other unique IDs.
+]
+
+Units define their own *context*, which means the unit provides its own names
+and representations. Writing `a - c -> b`, therefore, only applies to the
+_fixed_ context `c`.
 
 
-- First, they are handled through IDs, directly inspired by
-database theory. They are identified with triples $("UUID", "RID", "HID")$,
-whose contents are the *user ID*, *revision ID*, and *handle ID*, respectively.
-Revisions ensure that storing axioms is *immutable*, or that a particular handle
-does not change over time. This is _not_ a restriction on dynamic entities, but
-rather an indictation in the base to determine a particular version of a handle.
-Each of these IDs also support _namespaces_, so that two users can have the same
-name for a unit and be distinguished.
+[TODO[SMALL]: use better names for entities/businesses/etc]
+#example[
+  A business could represent their operations using a unit $"business"$ that
+  contains units for their workers and ledgers. This allows another unit, say
+  $"business2"$, to contain its _own_ label $"workers"$ that is separate from
+  the one in $"business"$. In addition to separate labels, these contexts can
+  have _distinct_ rules, such as those for how business operations are
+  performed.
+]
 
-- Second, handles are characterized precisely by their relationships, which one
-can interpret how they are _not_ restricted. This idea is directly inspired from
-Fine's idea of arbitrary objects @fine-arbitrary-objects, and connects to the
-necessity of induction for formal systems. As a common example, consider how one
-can explain the Pythagorean theorem is true about all right triangles. Instead
-of drawing _every_ single such triangle, one represents all right triangles with
-an _abstracted_ right triangle, using only the properties necessary to show
-$a^2 + b^2 = c^2$. The only restriction here is that the triangle must contain a
-right angle, but besides this, _nothing_ else is assumed nor required.
-Symbolically, this is deeply tied to having _induction_, so that a finite proof
-of a base case and inductive invariant can show a claim for _all_ finite cases.
-The threshold for "effective" communication is left to the user and tweaked
-according to their needs.
+// collectioWithin a fixed revision, handles, by being defined by how they are
+// restricted, are _exactly_ described by the consequences of their relationships.
+// We describe this as a syntactic rendering of truth through the notion of a truth
+// management system. Here, we define a truth management system to consist of a set
+// of axioms along with inference rules, whose derivations are accepted by some
+// Turing machine. Welkin proves that not only is _any_ truth management system.
 
-Within a fixed revision, handles, by being defined by how they are restricted,
-are _exactly_ described by the consequences of their relationships. This can be
-interpreted as truth, but we only prove that the language is _expressive enough_
-to represent any truth management system. Here, we define a truth management
-system to consist of a set of axioms along with inference rules, whose
-derivations are accepted by some partial computable function. This is closely
-connected to defining what "computbly provable" properties are, akin to defining
-an RE set as any set that can be acccepted by a Turing machine. For more
-details, see @rationale:bootstrap.
-
-Our core building block to explain this system is through *units*. A unit is
-provided by a set of user-defined handles and representations. Units can be
-broken down, build new units, or act on other units via representations. Our
-approach is slightly more general than the enumerations defined by Li and
-Vitányi, see @unit, and they allow _arbitrary_ ways to express formal systems
-relative to partial computable functions, see @rationale:bootstrap.
-Operationally, units can be used as partial computable functions, but the former
-are strictly more expressive, due to user-defined handles and the presence of
-induction through handle IDs. Moreover, units contain their own *context*, or a
-set of *subunits* and *internal representations*. This is improtant for proving
-universality, as the lack of contexts means the theory is _not_ Turing complete.
-For more details, see @foundations:context-remark, and that contexts enable an
-efficient caching mechanism [TODO: link to this result once it's done!]. We will
-use the word context as synonymous for unit, particularly to emphasize the
-_contents_ of a unit.
-
-[TODO: make this clear? Can't a unit *be* itself information?]
+== Mechanizing Information
 
 From the notion of a unit, we practically define information on a unit $v$ as a
 unit $u$ which _correctly identifies $v$ from any other unit_. We formalize this
@@ -130,6 +122,14 @@ coincides with the size of information, counted in bits (up to a constant)
 [TODO: link to this result. Important! And confirm this result! Currently
 unchecked.].
 
+
+Within a fixed revision, handles, by being defined by how they are restricted,
+are _exactly_ described by the consequences of their relationships. We describe
+this as a syntactic rendering of truth through the notion of a truth management
+system. Here, we define a truth management system to consist of a set of axioms
+along with inference rules, whose derivations are accepted by some Turing
+machine. Welkin proves that not only is _any_ truth management system.
+
 [TODO[MEDIUM]: probably provide an example of higher order logic or so? Would be
 nice! Shows that we don't need _exactly_ a thing. But do emphasize that getting
 _exact_ data formats can make information dissemination easier!]
@@ -140,23 +140,6 @@ _exact_ data formats can make information dissemination easier!]
   content is analyzed.[TODO[MEDIUM]: expand out this example!]
 ]
 
-#example[
-  A more looser example is a user written journal for therapy sessions,
-  containing information about daily habits and emotions. While neither of these
-  are stored in the information base, their handles are, via units $"habit"$ and
-  $"emotions"$ in a context $"journal"$. Moreover, multiple revisions of the
-  journal can be made with dates or other unique IDs.
-]
-
-[TODO[SMALL]: use better names for entities/businesses/etc]
-#example[
-  A business could represent their operations using a unit $"business"$ that
-  contains units for their workers and ledgers. This allows another unit, say
-  $"business2"$, to contain its _own_ label $"workers"$ that is separate from
-  the one in $"business"$. In addition to separate labels, these contexts can
-  have _distinct_ rules, such as those for how business operations are
-  performed.
-]
 
 There are two primary inference rules, which we informally describe now (and
 postpone nested contexts until @semantics):
