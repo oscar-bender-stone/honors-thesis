@@ -62,8 +62,8 @@ $c$. Here, we call $a$ the *sign*, $b$ the *referent*, and $c$ the *context*.
 One can interpret this characterization as follows: handles are defined by how
 they are and are _not_ restricted. This idea is directly inspired from Fine's
 idea of arbitrary objects @fine-arbitrary-objects, and allows refinements to a
-study of interest. Additionally, representations are more powerful extension of
-RDF triples, allowing the context to be an operator.
+study of interest.
+
 
 // . As a common example, consider how one can explain the Pythagorean theorem is
 // true about all right triangles. Instead of drawing _every_ single such triangle,

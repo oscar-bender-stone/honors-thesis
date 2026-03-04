@@ -40,7 +40,9 @@ store the _same_ information about a patient @reisman-interoperable-data. These
 problems continue to be a challenge in Information Management.
 
 In light of these issues, several solutions partially resolve some of them, but
-not completely.
+not completely. The following provides a small list of major existing solutions.
+Reading these is _entirely_ optional. We will not revisit these until the
+conclusion, see @conclusion:comparisons.
 
 - *Resource Description Framework (RDF) Triple Stores:* These systems serve as
   the primary implementations of an internet standard called the Web Ontology
@@ -55,7 +57,16 @@ not completely.
   sources of data as "unknown" rather than "false", it often fails to resolve
   conflicts between two sources @hitzler-review-the-semantic-web.
 
-- *Labeled Property Graphs (LPGs):*
+- *Labeled Property Graphs (LPGs):* Developed as an alternative to RDF, Labeled
+  Property Graphs prioritize the efficient traversal of complex,
+  multi-relational networks @angles-property-graph-database-model. As opposed to
+  static triples, LPGs allow attributes to be stored on both nodes and edges,
+  oferring greater flexibility and the ability to accommodate a wide range of
+  subjects. This architecture is a primary choice in large-scale commercial
+  applications, effectively managing highly dense datasets. However, LPGs are
+  siloed by the lack of standards, and interoperability is difficult. Moreover,
+  LPGs lack formal logical constraints, making it harder to respond to user
+  queries without external tooling.
 
 - *Cyc:* Designed to encompass broad subjects, Cyc is the largest proprietary
   database of knowledge, or _knowledge base_, known to date @lenat-cyc-1995. It
@@ -67,11 +78,13 @@ not completely.
   of an active open standard, a result of the publicly available version,
   OpenCyc, being discontinued in 2017 @kbpedia-opencyc.
 
-- *fcaR (Formal Concept Analysis in R):* the of Formal Concept Analysis. The
-  tool fcaR is a modern implementation widely used by researchers in this field.
-  Given only a database, fcaR can automtatically extract a _concept lattice_, a
-  data structure that maps the objects to attributes.
-
+- *fcaR (Formal Concept Analysis in R):* This tool is a modern implementation
+  for the field of Formal Concept Analysis (FCA) FCA studies relationships
+  through a concept, a pair of an object's extension and intension. The central
+  idea is the _concept lattice_, a data structure that maps objects to
+  attributes that describe them. Given only a database, fcaR can automtatically
+  extract the corresponding concept lattice, reducing the need for manual rules.
+  While successful with fuzzy data sources,...
 
 This thesis introduces a language to resolve these issues for Information
 Management. I call this language *Welkin*, based on an old German word meaning

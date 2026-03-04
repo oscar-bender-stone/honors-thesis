@@ -24,7 +24,7 @@ The remaining sections show several areas for future work. This list is not
 exhaustive and, by the previous arguments, and can be applied to _any_ subject
 with computable representations (essentially, any human subject).
 
-== Comparisons to Existing Literature
+== Comparisons to Existing Literature <conclusion:comparisons>
 
 In addition to domain specific proposals, there are approaches for general IM
 which still fail to resolve all issues. One prominent example is Burgin's
@@ -38,7 +38,6 @@ Burgin does not closely tie the free parameter with his formal analysis of
 Algorithmic Information Theory, making it unclear how to use this in a practical
 implementation. Burgin's Theory of Information, along with broad proposals, have
 severe shortcomings, highlighting major obstacles for IM.
-
 
 
 == Programming Languages and Formal Verification <conclusion:programming>
