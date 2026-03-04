@@ -161,9 +161,7 @@ on two words or two handles. Maybe lift to the latter to make sense?]
 
 For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$
 and $q in c$ to mean $q - c -> q$. Notice that many-to-many relationships are
-allowed. Moreover, we assume blocks are *left-associative*, which means
-${a, b, c}$ denotes ${{a, b}, c}$. We will explicitly add a rule to ensure this
-is identical to the right-associative form ${a, {b, c}}$.
+allowed.
 
 [TODO[SMALL]: provide labels/links.]
 
@@ -176,29 +174,42 @@ is identical to the right-associative form ${a, {b, c}}$.
   environment, the following rules apply to units, recursively stated over
   meta-variables $a, b, c, d, g, p, q$:
   - *R1. Internal Transitivity:* $a -->^c b$ and $b -->^c d$ imply $a -->^c d$.
-  - *R2. Contextual Lifting:* $a -->^c b$ and $p -->^b q$ imply $p -->^a q in c$
-  // - *R5. Singleton:* ${a} <--> a$.
-  - *R3. Identity:* ${@g, a} <--> g$ if and only if $a - g -> a$.
-  - *R4. Expansion:* if $a - g -> b$, then
-    ${@g, p} <-> {@g, a, b, a - g -> b, p}$.
-  - *R5. Exclusion:* if $g <--> {@p, a}$, then ${@g, ~a, b} <--> {@p, b}$.
-  - *R6. Idempotency:* ${@g, a, b, c, a - b -> c} <--> {@g, a - b -> c}$.
-  - *R7. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
-  - *R8. Commutativity:* ${@g, a, b} <--> {@g, b, a}$.
-  - *R9. Commutativity:* ${@g, a, b} <--> {@g, b, a}$.
-  - *R10. Negation:* ${a - {} -> b} <--> {}$.
+  - *R2. Contextual Lifting:* $a -->^c b$ and $p -->^b q$ imply
+    $p -->^a q in c$.
+  - *R3. Empty:* ${@g, {}} <--> g$.
+  - *R4. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
+  - *R5. Singleton:* ${a} <--> a$.
+  // NOTE: this does add arrows. For clarity,
+  // could make this redundant  and add a - g -> b here.
+  - *R6. Expansion:* if $a - g -> b$, then ${@g, p} <-> {{{@g, a}, b}, p}$.
+  - *R7. Exclusion:* if $g <--> {@p, a}$, then ${{@g, ~a}, b} <--> {@p, b}$.
+  - *R8. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
+  - *R9. Commutativity:* ${{@g, a}, b} <--> {{@g, b}, a}$.
+  - *R10. Null:* ${a - {} -> b} <--> {}$.
 ]<unit-rules>
 
 We review the utility of each rule. Note that rules _between_ contexts is
-entirely flexible and user defined. Moreover, we will later show that each of
-these rules, while not necessary, are optimal to organize information locally,
-see @information-organization.
+entirely flexible and user defined. Moreover, only *R1* and *R2* are strictly
+needed for Turing completeness. We will show, however, that the remaining axioms
+are optimal when organizing information, see @information-organization.
 
-- *R1* and *R2* are the only inference rules, which means they include
-  connectives in the meta-language.
-- *R3* and *R4* define the behavior of the empty unit ${}$, similar to the empty
-  set. *R4* enables users to exclude specific representations from a given
-  context.
+- *R1* is a standard transitvity, restricted to a _single_ context. This
+  property is also useful in practice @lenat-cyc-common-sense,
+  @goczyla-context-description-logic.
+- *R2* is a lifting axiom, stated in @mccarthy-contexts.
+- *R3* define the behavior of the empty unit ${}$, similar to the empty set.
+- *R4* provides a way to represent $a in g$ through the representation
+  $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, so it
+  is _not_ required in every unit.
+- *R5* reduces extraneous blocks. Note that this is _not_ the same thing as the
+  Quine atom, which states ${a} = a$ in a set theoretic context
+  @quine:new-foundations. We do _not_ mean $a in a$, but instead, ${a}$ is a
+  _wrapper_ around $a$. Notationally, we use extra blocks to identify _groups_
+  of representations, such as ${a - b -> c, b - c -> d}$.
+- *R6* and *R7* define how imports in the language work. An *import* is the
+  process of joining the contents of one unit into another. *R6* says how
+  imports work. *R7* provides a mechanism to _exclude_ specified contents in
+  $g$, which can themselves be arrows.
 - *R-R* ensure that information can be repeated and is positionally invariant.
 
 #remark[
