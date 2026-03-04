@@ -146,9 +146,48 @@ are optimal when organizing information, see @information-organization.
 variables! Not as easy with just assuming sets as they are; easier to express
 the tree structure *first*.]
 
-#definition[The relation $u' < u$ is defined recursively...]<subunit>
+[TODO[SMALL]: clarify meta-variables! Maybe make these fixed *at* the start of
+this section? And probably make language clear?]
+
+[TODO[MEDIUM]: double check all parts of proof!]
+
+#theorem[Any partial computable function is definable by a unit.
+]<universality-theorem>
+#proof[
+  Define a new context $C$ for this proof, containing $"Pair"$ and $"Tpl"$, as
+  defined above. We claim that that any term of the $S K I$ calculus is
+  definable as units in Welkin. To this end, if we can construct terms $M$ and
+  $N$, then we can represent the composition $M N$ as a pair
+  ${{M --> "head", N --> "next"} -->^C N'$ for some $N'$ in $C$, and subsequent
+  compositions $M N Q$ as tuples. Thus, it suffices to show this claim $K$ and
+  $S$ combinators are definable as units.
+
+  For the $K$ combinator, consider the following construction:
+  $K equiv {x, y, }$ in $C$. We must show $K A B$ reduces to $A$, or, more
+  precisely,
+
+  ${{{K --> "first", A --> "second"} --> "head", B --> "next"} -->^C N'$
+
+  [TODO(SHORT): clarify even more nested scopes from Lifting!]
+
+  ${A --> "first", B --> "second"} -->^K A$ in $C$.
+
+  ${A --> "first", B --> "second"} -->^? A$.
+
+  Now, for the $S$ combinator, consider $S equiv ?$. We must show $S A B C D$
+  reduces to $(x z)(y z)$, i.e.,:
+]
 
 == PRA
+
+#definition[The relation $u_1$ is *contained in* $u_2$, denoted $u_1 < u_2$, is
+  defined recursively:
+  - *Base case:* for each unit $u$, $u not < {}$.
+  - *Inductive step:* given units $u_1$ and $u_2 equiv {@g_1, a_2}$, $u_1 < u_2$
+    if and only if either $u_1 < @g_1$ or for some $b in g$,
+    $u_1 < {{@g_1, ~b}, a}$.
+]<unit-containment>
+
 
 For universality, we need an important base construction that is definable in
 the theory: the ability to recurse through all IDs. From there, we can easily
@@ -189,40 +228,12 @@ From there, we can define handle IDs through triples, see
 ]<foundations:recursor>
 
 [TODO: make this discussion complete!] One interpretation of
-@foundations:recursor is defining @subunit _within_ a unit, so $R$ could be
-written as $<$ in the language. Moreover, $R$ acts as the _least super bound_ of
-all units.
+@foundations:recursor is defining @unit-containment _within_ a unit, so $R$
+could be written as $<$ in the language. Moreover, $R$ acts as the _least super
+bound_ of all units.
 
 Now we can prove the Turing definability of Welkin.
 
-[TODO[MEDIUM]: double check all parts of proof!]
-
-#theorem[Any partial computable function is definable by a unit.
-]<universality-theorem>
-#proof[
-  Define a new context $C$ for this proof, containing $"Pair"$ and $"Tpl"$, as
-  defined above. We claim that that any term of the $S K I$ calculus is
-  definable as units in Welkin. To this end, if we can construct terms $M$ and
-  $N$, then we can represent the composition $M N$ as a pair
-  ${{M --> "head", N --> "next"} -->^C N'$ for some $N'$ in $C$, and subsequent
-  compositions $M N Q$ as tuples. Thus, it suffices to show this claim $K$ and
-  $S$ combinators are definable as units.
-
-  For the $K$ combinator, consider the following construction:
-  $K equiv {x, y, }$ in $C$. We must show $K A B$ reduces to $A$, or, more
-  precisely,
-
-  ${{{K --> "first", A --> "second"} --> "head", B --> "next"} -->^C N'$
-
-  [TODO(SHORT): clarify even more nested scopes from Lifting!]
-
-  ${A --> "first", B --> "second"} -->^K A$ in $C$.
-
-  ${A --> "first", B --> "second"} -->^? A$.
-
-  Now, for the $S$ combinator, consider $S equiv ?$. We must show $S A B C D$
-  reduces to $(x z)(y z)$, i.e.,:
-]
 
 [TODO[MEDIUM]: Provide tabular proofs for these! Want to be very precise! But
 need to recognize when we are doing substitutions for meta-variables.]
