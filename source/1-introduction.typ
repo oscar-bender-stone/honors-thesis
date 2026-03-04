@@ -16,15 +16,20 @@ $ a emdash c -> b $
 
 
 // Warning: matched ONLY for STIX 2 Math font!
+// Measured using MacOS Preview app
+// Note: total length of arrow = 8.77 pt
+// Length of Stem: 7.64 pt ÷ 10.00002 pt = 0.764 em#
+// Thickness: 0.49 pt ÷ 10.00002 pt = 0.049 em
 #let matcheddash = math.class(
   "relation",
   box(
     move(
       dy: -0.25em,
+      //
       line(
-        length: 1em,
+        length: 0.764em,
         stroke: (
-          thickness: 0.49em, // 0.49/8.77, based on measurements on MacOS Preview
+          thickness: 0.049em, // 0.49 points / 10.00002 pt font, measured in MacOS Preview
           cap: "round", // Match round corners in STIX 2 Font's arrow stem
         ),
       ),
