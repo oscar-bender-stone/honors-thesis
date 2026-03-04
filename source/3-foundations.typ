@@ -22,76 +22,8 @@
 
 This section discuss the foundations of Welkin, as follows:
 
-+ We discuss the connection to Algorithmic Information theory. This section can
-  be entirely skipped but may provide context for theoretical computer
-  scientists.
 + We define units and their rules.
 + We define information.
-
-== Discussion: Extending Algorithmic Information Theory
-
-The main purpose of an information base is to store information and enable user
-queries based on the available information. To make this idea precise, we
-dissect the approach taken by Algorithmic Information Theory, specifically
-through a well known book by Li and Vitányi @intro_kolmogorov_complexity. Their
-book focuses on the _information content_ of a description, which they summarize
-as follows:
-
-[TODO[SMALL] still resolve how pages should be mentioned!]
-
-#set quote(block: true)
-#quote(attribution: [@intro_kolmogorov_complexity, pages 101-102])[
-  _We require both an agreed-upon universal description method and an
-  agreed-upon mechanism to produce the object from its alleged description. This
-  would appear to make the information content of an object depend on whether it
-  is particularly favored by the description method we have selected. By ‘favor’
-  we mean to produce short descriptions in terms of bits._]
-
-They express this idea with an enumeration $D$ from _objects_ to _descriptions_,
-written as strings of symbols. To ensure that their measure is _minimal_ and can
-be mechanized, $D$ is a partial computable function. The authors proceed define
-the _information content_ of a string through Kolmogorov complexity, the size of
-the smallest description that accepts an object, or in other words, the smallest
-program that accepts a string. From there, they prove multiple foundational
-results for Algorithmic Information Theory, including that Kolmogorov complexity
-is uncomputable. This quantity can be approximated by several means, which is
-closely involved to compression algorithms.
-
-However, Li and Vitányi's approach does not generally reflect the ways people
-disseminate and create new information. The term "object" is a vague term that
-is vastly different between disciplines and can be difficult to model for
-entities. For example, consider a dynamic biological systems. If objects have
-well defined boundaries, what would the "boundary" be of an evolving system?
-Another issue is well known in the knowledge management literature as the Symbol
-Grounding Problem, formulated by Harnard @harnard-symbol-grounding. As an
-example, Harnard considers a person expecting to learn Chinese as their first
-language with _only_ a Chinese dictionary. How does the person ground their
-symbols in concrete meanings? An information base cannot practically store the
-denotations of a word, such as storing animals, so how _original meaning_ is
-obtained is unclear.
-
-To make matters worse, the undecidabilty of grounding has been established by
-@liu-algorithmic-symbol-grounding, precisely using Kolmogorov complexity. To
-address symbol grounding, we systematically create handles and enable user
-expansions. We require rigorous proofs to ensure soundness, or that truth is
-preserved according to the context defined therein.
-
-Despite the presence of the Symbol Grounding Problem, we emphasize that an
-information base is a _tool_ that is useful when _mechanized_. As such,
-information bases are not for resolving philosophical inquiries on the existence
-or absence of things or abilities. Information itself is used for _predictions_:
-a person that translates the sentence "It will rain today" in Chinese to convey
-a semantic property of the world, that there will be rain. This scales to larger
-examples, with major theorems providing even more refined or general properties
-_given_ a set of assumptions. Note that this is different form Shanon's seminal
-work on Information Theory, in which methods are found to convey the _exact_
-bits of strings in noisy channels. Because communication _itself_ does not carry
-the physical entities, relationships are key to effectively conveying ideas. A
-recent work bridges this gap with Shannon's work to express meaning through
-finite models in first-order logic @liu-theory-based-symbol-grounding, so that
-two strings are considered equivalent if they are that are provably equivalent
-as first order sentences are in fact equal, regardless if the strings have
-distinct bits.
 
 == Base Rules
 
@@ -210,34 +142,11 @@ are optimal when organizing information, see @information-organization.
   $g$, which can themselves be arrows.
 - *R-R* ensure that information can be repeated and is positionally invariant.
 
-#remark[
-  We review the utility
-
-  Each of these rules imposes no restrictions on what can be expressed, thanks
-  to the presence of contexts. In fact, contexts are _necessary_ for Turing
-  completeness, as one must express conditional rules. In the absence of
-  contexts _or_ rule *R2*, @unit-rules reduces to simple graph traversal. Rules
-  *R3-R6* define expansions. To avoid accidentally excluding information via an
-  exclusion $~x$, exclusions are required to be in a separate anonymous graph,
-  see ?. Together with rules *R7*-*R10*, this forms a join-semilattice, as a
-  useful way to allow information to be repeated multiple times and be
-  positionally invariant within a context. These will be used as an
-  optimization, see @information-organization. Rule $"R8"$ is used to naturally
-  say that the empty context cannot contain any rules or units. Finally, $"R9"$
-  is similar to a "Quine atom" in Quine's New Foundations, a variant of set
-  theory that includes an ani-foundation axiom. However, note that units are
-  _not_ necesarially sets, so the connection may not be applicable in all
-  contexts.
-]<foundations:context-remark>
-
-[TODO[MEDIUM]: decide whether to use math font or code font for writing terms!
-Important!]
-
-
 [TODO[SMALL]: note importance of using axioms to define essentially bound/free
 variables! Not as easy with just assuming sets as they are; easier to express
-the tree structure *first*.] #definition[The relation $u' < u$ is defined
-  recursively...]<subunit>
+the tree structure *first*.]
+
+#definition[The relation $u' < u$ is defined recursively...]<subunit>
 
 == PRA
 
