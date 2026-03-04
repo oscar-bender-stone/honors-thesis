@@ -128,7 +128,7 @@ enables ease of implementation.
   table(
     columns: (auto, auto, auto),
     align: left,
-    table.header([Goal], [Name], [Description]),
+    table.header([*Goal*], [*Name*], [*Description*]),
     [*Goal 1*],
     [*Universality*],
     [The language must enable any user created parameters, whose symbolic
@@ -159,7 +159,7 @@ This thesis is organized according to @thesis-organization.
 
 #figure(
   table(
-    columns: (auto, auto, auto),
+    columns: (20%, 25%, 55%),
     align: left,
     table.header([*Section Number*], [*Title*], [*Description*]),
     [*@rationale*],
@@ -181,7 +181,7 @@ This thesis is organized according to @thesis-organization.
       coherency, and connects these to a working definition of information.],
 
     [*@information-organization*],
-    [*Information Organization*],
+    [#set text(hyphenate: false); *Information Organization*],
     [Develops a Greedy algorithm to locally optimize information. Creates a
       certificate that demonstrates when a representation is optimal relative to
       the current information database.],
