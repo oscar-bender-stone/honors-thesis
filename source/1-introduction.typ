@@ -7,22 +7,22 @@
 
 Information Management is the study of systematically storing and organizing
 data. With the massive growth of data, particularly on the web, simply storing
-data is not enough. Raw databases are increasingly structured into organized
+data to _use_ it. Raw databases are increasingly structured into organized
 _information bases_ to prove context surrounding the source and nature of data.
 The conceptual foundation for this process often traces back to Ackoff
 @ackoff-wisdom. His data-to-wisdom hierarchy posits that information is the
 process of transforming raw data into structured content. In turn, this content
 can be used to answer user queries. However, the term "information" has not been
 standardized in the literature and is used with distinct meanings. For example,
-Buckland points out that information is used in three ways:
-_information-as-process_, _information-as-knowledge_, and
-_information-as-thing_. While each of these are important, Buckland emphasizes
-that to _use_ information, one must use _information-as-thing_—a tangible record
-like a document or digital file. Another author, Floridi, builds upon this
-tangible idea by requiring data be truthful @floridi-information-2010.
-Information must not only be in concrete records, but also accurately represent
-a topic of interest. As shown in this small sample of authors, information is a
-rich term, with an active pursuits to best manage it.
+Buckland @buckland-information-as-thing recognizes three different ways
+information is interpreted: as a _process_, as _knowledge_, and as _a thing_.
+While each of these are important, Buckland emphasizes that to _use_
+information, one must work with information as a thing—a tangible record like a
+document or digital file. Another author, Floridi, builds upon this tangible
+idea by requiring data be truthful @floridi-information-2010. Information must
+not only be in concrete records, but also accurately represent a topic of
+interest. As shown in this small sample of authors, information is a rich term,
+with an active pursuits to best manage it.
 
 Despite these extensive ideas, applying Information Management in real world
 projects reveals ongoing problems. One of these issues is the _depth_ of
@@ -66,9 +66,10 @@ not revisit these until the conclusion, see @conclusion:comparisons.
   single query pass. Due to their operational efficiency, LPGs are the primary
   choice in large scale commercial products, particularly real-time fraud
   detection tools and recommendation systems @robinson-graph-databases. However,
-  LPGs are siloed by the lack of standards, and interoperability is difficult.
-  Moreover, LPGs lack formal logical constraints, making it harder to respond to
-  user queries without external tooling.
+  LPGs are siloed by the lack of standards, making interoperability between
+  databases challenging. Furthermore, LPGs lack an extensive logical engine,
+  resulting in external tooling or complex query scripts
+  @robinson-graph-databases.
 
 - *Cyc:* Designed to encompass broad subjects, Cyc is the largest proprietary
   database of knowledge, or _knowledge base_, known to date @lenat-cyc-1995. It
@@ -82,14 +83,15 @@ not revisit these until the conclusion, see @conclusion:comparisons.
 
 - *fcaR (Formal Concept Analysis in R):* This tool is a modern implementation
   for the field of Formal Concept Analysis (FCA). FCA studies relationships
-  through _formal concepts_. The central idea is the _concept lattice_, a data
-  structure that maps objects to attributes in a fixed domain. Given only a
-  database, fcaR can automatically identify core concepts and derived concepts
-  in a database. While being highly effective in specialized domains, concept
-  lattices can become impractically large as the number of attributes increases
-  @formal-concept-analysis. This makes it difficult to interpret the output
-  between domains or from large scale databases.
-
+  through _formal concepts_. The central idea is the _concept lattice_, a
+  hierarchical data structure that maps objects to attributes in a fixed domain.
+  Given only a database, fcaR can automatically identify the underlying core
+  concepts and derived concepts @fcaR-package-2026
+. While being highly effective in specialized domains, concept lattices can
+become impractically large as the number of attributes increases
+@formal-concept-analysis-trends. This makes it difficult to interpret results
+when applied to large-scale databases or when bridging disparate domains
+@formal-concept-analysis-trends.
 
 This thesis introduces a language to resolve these issues for Information
 Management. I call this language *Welkin*, based on an old German word meaning
