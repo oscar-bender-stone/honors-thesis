@@ -9,28 +9,18 @@
 // Matched dash so that
 // representations can be written
 // $a - b -> c$
+// WARNING: only works with STIX 2 Math font!
+// Pixel measurements done with macOS Preview
+// Total width: 8.77 points
+// Stem width: 7.64 points
+// Thickness: 0.49 points
+// Base font size: 10.0002pt
+// TODO: improve width
 #let matched-dash = math.class(
   "relation",
-  context {
-    // 1. Measure the exact physical width of the long arrow
-    let arrow-width = measure($<--$).width
-
-    // 2. Create our rigid window (the exact length of your arrow stem)
-    // clip: true acts like a cookie cutter, chopping off the arrowheads
-    box(width: 0.764em, clip: true)[
-
-      // 3. Left Cap: Drop a long right arrow.
-      // We wrap it in a 0pt box so it doesn't push the cursor forward.
-      // Its left tail sits flawlessly at x=0.
-      #box(width: 0pt)[$-->$]
-
-      // 4. Right Cap: Pull the cursor backwards by the exact width of the arrow
-      // This guarantees the rightmost tip of the left arrow's tail hits
-      // the exact 0.764em right-side wall of our clipping box.
-      #h(0.764em - arrow-width)
-      $<--$
-    ]
-  },
+  // A standard minus is about 0.6em wide. Overlapping them by roughly
+  // -0.4em gives us a continuous line close to your 0.764em length.
+  box[$minus #h(-0.4em) minus$],
 )
 
 // Sizes used across the template.

@@ -100,32 +100,36 @@ finite and _practically enforcing_ it is finite. For a thorough discussion, see
 
 #definition[
   Equality $=$ and inequality $!=$ on words $w_1, w_2$ is defined recursively:
-  - *Base case:* $epsilon = epsilon$
+  - *Base case:* $epsilon = epsilon$.
   - *Recursive step:* suppose $w_1 = b_1.w_1'$ and $w_2 = b_2.w_2'$, where
-    $b_1, b_2$ as bits and $w_1', w_2'$
-  are words. Then $w_1 = w_2$ if and only if $b_1 = b_2$ and $w'_1 = w'2$.
-  Moreover, $w_1 != w_2$ if and only if $b_1 != b_2$ or $w'_1 != w'_2$.
+    $b_1, b_2$ as bits and $w_1', w_2'$ are words. Then $w_1 = w_2$ if and only
+    if $b_1 = b_2$ and $w'_1 = w'2$. Moreover, $w_1 != w_2$ if and only if
+    $b_1 != b_2$ or $w'_1 != w'_2$.
 ]<foundations:binary-word-equality>
 #remark[@foundations:binary-word-equality is given constructively to ensure that
   if two finite words are unequal, then an explicit bit can act as a certificate
   for this inequality.]
 
-[TODO[SMALL]: without getting into typing, enforce that equality has to be done
-on two words or two handles. Maybe lift to the latter to make sense?]
 #definition[
   A _handle_ is given by a *key*, a triple $("UID", "RID", "HID")$, where
   $"UID"$ is a binary word called a *user ID*, $"RID"$ is a binary word called
-  the *revision ID*, and $"HID"$ is a binary word called the *handle ID*. Two
-  handles
-  $h_1 equiv ("UID"_1, "RID"_1, "HID"_1), h_2 equiv ("UID"_2, "RID"_2, "HID"_2)$
-  are equal, written $h_1 = h_2$, if and only if $"UID"_1 = "UID"_2$,
-  $"RID"_1 = "RID"_2$, and $"HID"_1 = "HID"_2$. Analogously, $h_1$ is not equal
-  to $h_2$, written $h_1 != h_2$, if and only if at least one of the following
-  hold: $"UID"_1 != "UID"_2$, $"RID"_1 != "RID"_2$, or $"HID"_1 != "HID"_2$
+  the *revision ID*, and $"HID"$ is a binary word called the *handle ID*.
 ]<foundations:handle>
 
+[TODO[SMALL]: without getting into typing, enforce that equality has to be done
+on two words or two handles. Maybe lift to the latter to make sense?]
+#definition[Consider two handles
+  $h_1 equiv ("UID"_1, "RID"_1, "HID"_1), h_2 equiv ("UID"_2, "RID"_2, "HID"_2)$.
+  - $h_1$ and $h_2$ are equal, written $h_1 = h_2$, if and only if
+    $"UID"_1 = "UID"_2$, $"RID"_1 = "RID"_2$, and $"HID"_1 = "HID"_2$.
+  - $h_1$ is not equal to $h_2$, written $h_1 != h_2$, if and only if at least
+    one of the following hold: $"UID"_1 != "UID"_2$, $"RID"_1 != "RID"_2$, or
+    $"HID"_1 != "HID"_2$.
+]<foundations:handle-equality>
+
 #definition[
-  A *unit* is defined recursively as a finite combination of:
+  A *unit* is defined recursively as a finite combination of the following and
+  nothing else:
   - A handle, see @foundations:handle.
   - A representation $a -->^c b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
@@ -134,7 +138,6 @@ on two words or two handles. Maybe lift to the latter to make sense?]
     - Given a block $g$ and unit $u$, ${g, u}$, ${@g, u}$, and ${@g, ~u}$ are
       glocks, where $@g$ is a new blocks called the *expansion* of $g$ and $~u$
       is called the *exclusion of u*.
-  Nothing else is a unit.
 ]<unit>
 
 #remark[
