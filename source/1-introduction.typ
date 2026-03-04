@@ -14,22 +14,13 @@
 // TODO: maybe make slightly shorter and fix centering?
 #let matched-dash = math.class(
   "relation",
-  box(
-    move(
-      dy: -0.25em,
-      //
-      line(
-        length: 0.764em,
-        stroke: (
-          thickness: 0.049em, // 0.49 points / 10.00002 pt font, measured in MacOS Preview
-          cap: "round", // Match round corners in STIX 2 Font's arrow stem
-        ),
-      ),
-    ),
-  ),
+  // A standard minus is about 0.6em wide. Overlapping them by roughly
+  // -0.4em gives us a continuous line close to your 0.764em length.
+  box[$minus #h(-0.4em) minus$],
 )
 #show math.minus: matched-dash
 
+$a - b -> c$
 
 Information Management is the study of systematically storing and organizing
 data. With the massive growth of data, particularly on the web, simply storing
