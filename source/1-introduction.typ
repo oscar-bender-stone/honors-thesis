@@ -37,12 +37,13 @@ unique data formats, so making *interoperable* formats is hard, which is the
 ability to transfer one data format to another. For instance, transferring
 information between two medical platforms is notoriously difficult, even if they
 store the _same_ information about a patient @reisman-interoperable-data. These
-problems continue to be a challenge in Information Management.
+problems continue to be a challenge in effectively utilizing frameworks for
+information.
 
-In light of these issues, several solutions partially resolve some of them, but
-not completely. The following provides a small list of major existing solutions.
-Reading these is optional and not required to understand this thesis. We will
-not revisit these until the conclusion, see @conclusion:comparisons.
+In consideratino of these issues, several solutions partially resolve some of
+them, but not completely. The following provides a small list of major existing
+solutions. Reading these is optional and not required to understand this thesis.
+We will not revisit these until the conclusion, see @conclusion:comparisons.
 
 - *Resource Description Framework (RDF) Triple Stores:* These systems serve as
   the primary implementations of an internet standard called the Web Ontology
@@ -58,18 +59,18 @@ not revisit these until the conclusion, see @conclusion:comparisons.
   conflicts between two sources @hitzler-review-the-semantic-web.
 
 - *Labeled Property Graphs (LPGs):* This is an architecture defined by its
-  ability to store rich, internal metadata within its components. Within a
-  network, LPGs enable both nodes (entities) and edges (relationships) to
-  possess a set of key-value pairs known as _properties_
-  @angles-property-graph-database-model. The internal metadata allows systems to
-  efficiently traverse networks, as attributes can be filtered and weighed on a
-  single query pass. Due to their operational efficiency, LPGs are the primary
-  choice in large scale commercial products, particularly real-time fraud
-  detection tools and recommendation systems @robinson-graph-databases. However,
-  LPGs are siloed by the lack of standards, making interoperability between
-  databases challenging. Furthermore, LPGs lack an extensive logical engine,
-  resulting in external tooling or complex query scripts
-  @robinson-graph-databases.
+  ability to store rich, internal metadata within its components. Building on a
+  network, consisting of nodes and edges between them, LPGs enable both nodes
+  (entities) and edges (relationships) to possess a set of key-value pairs known
+  as _properties_ @angles-property-graph-database-model. The internal metadata
+  allows systems to efficiently traverse networks, as attributes can be filtered
+  and weighed on a single query pass. Due to their operational efficiency, LPGs
+  are the primary choice in large scale commercial products, particularly
+  real-time fraud detection tools and recommendation systems
+  @robinson-graph-databases. However, LPGs are siloed by the lack of standards,
+  making interoperability between databases challenging. Furthermore, LPGs lack
+  an extensive logical engine, resulting in external tooling or complex query
+  scripts @robinson-graph-databases.
 
 - *Cyc:* Designed to encompass broad subjects, Cyc is the largest proprietary
   database of knowledge, or _knowledge base_, known to date @lenat-cyc-1995. It
@@ -77,21 +78,20 @@ not revisit these until the conclusion, see @conclusion:comparisons.
   hard coded "common sense" rules. However, despite its impressive scope, it
   relies on human experts to manually encode every rule. This causes a knowledge
   acquisition bottleneck, limiting how well the database scales
-  @automated-scientific-semantic-knowledge-framework. Another issue the absence
-  of an active open standard, a result of the publicly available version,
-  OpenCyc, being discontinued in 2017 @kbpedia-opencyc.
+  @automated-scientific-semantic-knowledge-framework. Another issue is the
+  absence of an active open standard, a result of the publicly available
+  version, OpenCyc, being discontinued in 2017 @kbpedia-opencyc.
 
 - *fcaR (Formal Concept Analysis in R):* This tool is a modern implementation
   for the field of Formal Concept Analysis (FCA). FCA studies relationships
   through _formal concepts_. The central idea is the _concept lattice_, a
   hierarchical data structure that maps objects to attributes in a fixed domain.
   Given only a database, fcaR can automatically identify the underlying core
-  concepts and derived concepts @fcaR-package-2026
-. While being highly effective in specialized domains, concept lattices can
-become impractically large as the number of attributes increases
-@formal-concept-analysis-trends. This makes it difficult to interpret results
-when applied to large-scale databases or when bridging disparate domains
-@formal-concept-analysis-trends.
+  concepts and derived concepts @fcaR-package-2026. While being highly effective
+  in specialized domains, concept lattices can become impractically large as the
+  number of attributes increases @formal-concept-analysis-trends. This makes it
+  difficult to interpret results when applied to large-scale databases or when
+  bridging disparate domains @formal-concept-analysis-trends.
 
 This thesis introduces a language to resolve these issues for Information
 Management. I call this language *Welkin*, based on an old German word meaning
@@ -104,8 +104,8 @@ fundamental building block is based on *representations*, containing a
 relationships between a *sign* representing a *sign* in a
 *context*.#footnote[There are similarities with representations and Peirce's
   semiotics. This theory studies the relationship between a symbol, the object
-  it represents, and the interpreter or interpretation that provides that
-  meaning @sep-peirce-semiotics. Our notion is different in that contexts are a
+  it represents, and the interpretation that provides that meaning
+  @sep-peirce-semiotics. Our notion is different in that contexts are a
   generalized interpretant, see @rationale:unit.] Contexts provide flexibility
 to define domain terminology, and are provided rules inspired by McCarthy's work
 in AI systems @mccarthy-contexts. Moreover, truth is defined relative to
@@ -119,7 +119,7 @@ the base operations are kept as simple as possible, and a procedure to
 adaptively organize information. The simplicity of the language aids in
 standardization as well. For the highest reassurance, we create a restricted,
 finite subset of the language. This subset facilitates proofs in this thesis and
-enables easier implementations.
+enables ease of implementation.
 
 #figure(
   table(
