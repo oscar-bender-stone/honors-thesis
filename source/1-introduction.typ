@@ -41,8 +41,8 @@ problems continue to be a challenge in Information Management.
 
 In light of these issues, several solutions partially resolve some of them, but
 not completely. The following provides a small list of major existing solutions.
-Reading these is _entirely_ optional. We will not revisit these until the
-conclusion, see @conclusion:comparisons.
+Reading these is optional and not required to understand this thesis. We will
+not revisit these until the conclusion, see @conclusion:comparisons.
 
 - *Resource Description Framework (RDF) Triple Stores:* These systems serve as
   the primary implementations of an internet standard called the Web Ontology
@@ -60,15 +60,15 @@ conclusion, see @conclusion:comparisons.
 - *Labeled Property Graphs (LPGs):* This is an architecture defined by its
   ability to store rich, internal metadata within its components. Within a
   network, LPGs enable both nodes (entities) and edges (relationships) to
-  possess a set of "properties" or key-value pairs
+  possess a set of key-value pairs known as _properties_
   @angles-property-graph-database-model. The internal metadata allows systems to
-  efficiently traverse networks, allowing them to filter and weigh attributes on
-  a single pass. Because of their efficiency, LPGs are the primary choice in
-  large scale commercial products, including in fraud detection software and
-  recommendation systems @robinson-graph-databases. However, LPGs are siloed by
-  the lack of standards, and interoperability is difficult. Moreover, LPGs lack
-  formal logical constraints, making it harder to respond to user queries
-  without external tooling.
+  efficiently traverse networks, as attributes can be filtered and weighed on a
+  single query pass. Due to their operational efficiency, LPGs are the primary
+  choice in large scale commercial products, particularly real-time fraud
+  detection tools and recommendation systems @robinson-graph-databases. However,
+  LPGs are siloed by the lack of standards, and interoperability is difficult.
+  Moreover, LPGs lack formal logical constraints, making it harder to respond to
+  user queries without external tooling.
 
 - *Cyc:* Designed to encompass broad subjects, Cyc is the largest proprietary
   database of knowledge, or _knowledge base_, known to date @lenat-cyc-1995. It
@@ -81,12 +81,15 @@ conclusion, see @conclusion:comparisons.
   OpenCyc, being discontinued in 2017 @kbpedia-opencyc.
 
 - *fcaR (Formal Concept Analysis in R):* This tool is a modern implementation
-  for the field of Formal Concept Analysis (FCA) FCA studies relationships
-  through a concept, a pair of an object's extension and intension. The central
-  idea is the _concept lattice_, a data structure that maps objects to
-  attributes that describe them. Given only a database, fcaR can automtatically
-  extract the corresponding concept lattice, reducing the need for manual rules.
-  While successful with fuzzy data sources,...
+  for the field of Formal Concept Analysis (FCA). FCA studies relationships
+  through _formal concepts_. The central idea is the _concept lattice_, a data
+  structure that maps objects to attributes in a fixed domain. Given only a
+  database, fcaR can automatically identify core concepts and derived concepts
+  in a database. While being highly effective in specialized domains, concept
+  lattices can become impractically large as the number of attributes increases
+  @formal-concept-analysis. This makes it difficult to interpret the output
+  between domains or from large scale databases.
+
 
 This thesis introduces a language to resolve these issues for Information
 Management. I call this language *Welkin*, based on an old German word meaning
