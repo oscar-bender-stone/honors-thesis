@@ -1,6 +1,9 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
+#import "template/ams-article.typ": matched-dash
+#show math.minus: matched-dash
+
 = Rationale <rationale>
 
 #import "template/ams-article.typ": example

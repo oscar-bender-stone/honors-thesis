@@ -1,6 +1,10 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
+
+#import "template/ams-article.typ": matched-dash
+#show math.minus: matched-dash
+
 #import "template/ams-article.typ": definition, example, remark
 #import "template/ams-article.typ": (
   corollary, equation_block, lemma, proof, theorem,

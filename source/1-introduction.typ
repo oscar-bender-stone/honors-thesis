@@ -1,26 +1,11 @@
 // SPDX-FileCopyrightText: 2025-2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template/ams-article.typ": todo
+#import "template/ams-article.typ": matched-dash
 
 = Introduction
 
-
-// Warning: matched ONLY for STIX 2 Math font!
-// Measured using MacOS Preview app
-// Note: total length of arrow = 8.77 pt
-// Length of Stem: 7.64 pt ÷ 10.00002 pt = 0.764 em#
-// Thickness: 0.49 pt ÷ 10.00002 pt = 0.049 em
-// TODO: maybe make slightly shorter and fix centering?
-#let matched-dash = math.class(
-  "relation",
-  // A standard minus is about 0.6em wide. Overlapping them by roughly
-  // -0.4em gives us a continuous line close to your 0.764em length.
-  box[$minus #h(-0.4em) minus$],
-)
 #show math.minus: matched-dash
-
-$a - b -> c$
 
 Information Management is the study of systematically storing and organizing
 data. With the massive growth of data, particularly on the web, simply storing
