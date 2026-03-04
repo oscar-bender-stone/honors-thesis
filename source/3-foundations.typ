@@ -161,9 +161,9 @@ on two words or two handles. Maybe lift to the latter to make sense?]
 
 For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$
 and $q in c$ to mean $q - c -> q$. Notice that many-to-many relationships are
-allowed. Additionally, units satisfy the following rules, inspired by rewriting
-logic @twenty_years_rewriting_logic. These may be interpreted as inference rules
-_and_ computational rules.
+allowed. Moreover, we assume blocks are *left-associative*, which means
+${a, b, c}$ denotes ${{a, b}, c}$. We will explicitly add a rule to ensure this
+is identical to the right-associative form ${a, {b, c}}$.
 
 [TODO[SMALL]: provide labels/links.]
 
@@ -171,29 +171,39 @@ _and_ computational rules.
 
 [TODO[SMALL]: Clarify role of global context!]
 
-[TODO[SMALL]: ensure that double contexts are idemptotent! Important!]
-
 #definition[
   Define a new context $C$ called the *global context*. In the global
   environment, the following rules apply to units, recursively stated over
   meta-variables $a, b, c, d, g, p, q$:
-  - *R1. Internal Transitivity*: $a -->^c b$ and $b -->^c d$ imply $a -->^c d$.
+  - *R1. Internal Transitivity:* $a -->^c b$ and $b -->^c d$ imply $a -->^c d$.
   - *R2. Contextual Lifting:* $a -->^c b$ and $p -->^b q$ imply $p -->^a q in c$
-  - *R3. Empty:* ${@g, {}} <--> g$ and ${{}, ~x} <--> {}$.
-  - *R4. Identity:* ${@g, a} <--> g$ if and only if $a - g -> a$. In particular,
-    ${a} <--> {a --> a}$.
-  - *R5. Additive Expansion:* if $a - g -> a$, then ${@g, b} <-> {@g, a, b}$.
-  - *R6. Subtractive Expansion:* if $g <--> {@p, a}$, then
-    ${@g, ~a, b} <--> {@p, b}$.
-  - *R7. Unit Idempotency:* ${@g, a, a} <--> {@g, a}$.
-  - *R8. Arrow Idempotency:* ${@g, a, b, c, a - b -> c} <--> {@g, a - b -> c}$.
-  - *R9. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
-  - *R10. Commutativity:* ${@g, a, b} <--> {@g, b, a}$.
-  - *R11. Exclusion.* ${a - {} -> b} <--> {}$.
-  - *R12. Singleton:* ${a} <--> a$.
+  // - *R5. Singleton:* ${a} <--> a$.
+  - *R3. Identity:* ${@g, a} <--> g$ if and only if $a - g -> a$.
+  - *R4. Expansion:* if $a - g -> b$, then
+    ${@g, p} <-> {@g, a, b, a - g -> b, p}$.
+  - *R5. Exclusion:* if $g <--> {@p, a}$, then ${@g, ~a, b} <--> {@p, b}$.
+  - *R6. Idempotency:* ${@g, a, b, c, a - b -> c} <--> {@g, a - b -> c}$.
+  - *R7. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
+  - *R8. Commutativity:* ${@g, a, b} <--> {@g, b, a}$.
+  - *R9. Commutativity:* ${@g, a, b} <--> {@g, b, a}$.
+  - *R10. Negation:* ${a - {} -> b} <--> {}$.
 ]<unit-rules>
 
+We review the utility of each rule. Note that rules _between_ contexts is
+entirely flexible and user defined. Moreover, we will later show that each of
+these rules, while not necessary, are optimal to organize information locally,
+see @information-organization.
+
+- *R1* and *R2* are the only inference rules, which means they include
+  connectives in the meta-language.
+- *R3* and *R4* define the behavior of the empty unit ${}$, similar to the empty
+  set. *R4* enables users to exclude specific representations from a given
+  context.
+- *R-R* ensure that information can be repeated and is positionally invariant.
+
 #remark[
+  We review the utility
+
   Each of these rules imposes no restrictions on what can be expressed, thanks
   to the presence of contexts. In fact, contexts are _necessary_ for Turing
   completeness, as one must express conditional rules. In the absence of
