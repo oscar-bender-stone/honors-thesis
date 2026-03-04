@@ -1,8 +1,9 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template/ams-article.typ": matched-dash
+#import "template/ams-article.typ": matched-dash, tilde-prefix
 #show math.minus: matched-dash
+#show math.tilde: tilde-prefix
 
 = Rationale <rationale>
 

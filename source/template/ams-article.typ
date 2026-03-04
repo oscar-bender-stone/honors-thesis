@@ -23,6 +23,14 @@
   box[$minus #h(-0.4em) minus$],
 )
 
+
+// Only used for exclusion operator
+// in imports
+#let tilde-prefix = math.class(
+  "unary",
+  move(dy: 0.2pt, scale(80%, $tilde$)),
+)
+
 // Sizes used across the template.
 #let script-size = 7.97224pt
 #let footnote-size = 8.50012pt

@@ -2,13 +2,21 @@
 // SPDX-License-Identifier: MIT
 
 
-#import "template/ams-article.typ": matched-dash
+#import "template/ams-article.typ": matched-dash, tilde-prefix
 #show math.minus: matched-dash
+#show math.tilde: tilde-prefix
 
 #import "template/ams-article.typ": definition, example, remark
 #import "template/ams-article.typ": (
   corollary, equation_block, lemma, proof, theorem,
 )
+
+
+#let tilde-prefix = math.class(
+  "unary",
+  box(baseline: -20%, scale(75%, $tilde$)),
+)
+#show math.tilde: tilde-prefix
 
 = Foundations <foundations>
 
@@ -135,9 +143,9 @@ on two words or two handles. Maybe lift to the latter to make sense?]
     $c$ is the *context*, and $b$ is the *referent*.
   - A block, which is defined as one of the following:
     - ${}$
-    - Given a block $g$ and unit $u$, ${g, u}$, ${@g, u}$, and ${@g, ~u}$ are
-      glocks, where $@g$ is a new blocks called the *expansion* of $g$ and $~u$
-      is called the *exclusion of u*.
+    - Given a block $g$ and unit $u$, ${g, u}$, ${@g, u}$, and
+      ${@g, tilde.op u}$ are blocks, where $@g$ is a new blocks called the
+      *expansion* of $g$ and $~u$ is called the *exclusion* u.
 ]<unit>
 
 #remark[

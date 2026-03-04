@@ -2,10 +2,11 @@
 // SPDX-License-Identifier: MIT
 
 #import "template/ams-article.typ": matched-dash
+#show math.minus: matched-dash
+
 
 = Introduction
 
-#show math.minus: matched-dash
 
 Information Management is the study of systematically storing and organizing
 data. With the massive growth of data, particularly on the web, simply storing
