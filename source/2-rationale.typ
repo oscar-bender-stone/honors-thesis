@@ -35,7 +35,7 @@ section.
 
 == Units <rationale:unit>
 
-[TODO[MEDIUM]: go back and ensure this explanation makes sense!]
+[TODO[MEDIUM]: double check all examples!]
 
 The first core concept in Welkin is the notion of a *handle*. Handles are left
 as free parameters in the theory#footnote[For mathematicians, this is analogous
