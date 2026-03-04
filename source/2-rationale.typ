@@ -49,7 +49,8 @@ database theory. Keys are with triples of IDs $("UID", "RID", "HID")$, whose
 contents are the *user ID*, *revision ID*, and *handle ID*, respectively.
 Revisions ensure that storing axioms is *immutable*, or that a particular handle
 does not change over time. This is _not_ a restriction on dynamic entities, but
-rather an indictation in the base to determine a particular version of a handle.
+rather an indication to the information base to determine a particular version
+of a handle.
 
 #example[
   In a scientific experiment, a handle could be an observation or experimental
@@ -164,9 +165,9 @@ tied to McCarthy's notion of lifting, but formulated with representations. The
 idea is, if $a$ represents $b$ in context $c$, then $a$ provides an
 _abstraction_ for $b$ relative to $c$. Wherever $b$ is involved in a
 relationship, $a$ can be used _instead_, acting as a proxy relative to $c$.
-Contexts provide an import mechanism as well, thereby provding Welkin a module
-based system. We provide a simplified version of one McCarthy's examples below.
-For more existing examples in the literature, refer to
+Contexts provide an import mechanism as well, thereby providing Welkin with a
+module based system. We provide a simplified version of one McCarthy's examples
+below. For more existing examples in the literature, refer to
 @declarative-formalization-knowledge-translation.
 
 #example[*(McCarthy's Above Theory).* Consider a set of physical blocks. Denote
@@ -181,7 +182,7 @@ For more existing examples in the literature, refer to
   words, `above` _precisely abstracts_ from the precise relationship between the
   two blocks.]
 
-Another example concerns contexts in the prescence of unique objects.
+Another example concerns contexts in the presence of unique objects.
 
 #example[Consider a biological survey of home pets, denoted by context `Survey`.
   Suppose there are two units in `Mammal`, say a dog `Fido` and a cat `Lucy`. We
@@ -194,7 +195,7 @@ Another example concerns contexts in the prescence of unique objects.
   `Survey - instanceof -> Taxonomy`. Thus, the lifting rule implies in context
   `instanceof`, `Mammal - Survey -> Animal`. Using transitivity, we obtain
   `Fido - Survey -> Animal` and `Lucy - Survey -> Animal` in context
-  `instanceof`. We can interpert this example as saying that the _relationsihps_
+  `instanceof`. We can interpret this example as saying that the _relationships_
   of a general taxonomy are witnessed by a specific taxonomy, namely `Survey`,
   and that they propagate through contexts.#footnote[In programming languages,
     particularly C++ @stroustrup-cpp-lang and Java @java-reference, this
@@ -244,11 +245,11 @@ to express any other universal information base. These include:
     inspectable by users. Encapsulation or private information can be enforced
     through _rejecting_ specific contexts or only accepting certain ones.] These
   units can _then_ be analyzed by others to promote translations to other human
-  languages, or be studied through the _overaching relationships_ in the units.
+  languages, or be studied through the _overarching relationships_ in the units.
 
 In general, the minimal restricted keywords is crucial for providing support for
 other languages. An implementation of Welkin will contain a small section of
-ASCII encoding for easier standardization, but the rest of the prgoram can be
+ASCII encoding for easier standardization, but the rest of the program can be
 done _entirely_ in the user's native language. This is a novel feature in most
 programming languages, which are either predominantly English or are fine tuned
 for specific human languages. [TODO: cite source on this about most programming
@@ -290,10 +291,10 @@ previous ones to define new language features. We also define the notion of
 "computably checkable proof" through reflection, providing a partial translation
 from Feferman's work (partial in the sense of not requiring the _same_ semantics
 as first order logic) @feferman-reflection. While a _single_ formal system
-cannot enumerate through these proofs by Gödel incompletness theorem, our theory
-provides the most flexibility and enables the _potential_ of expressing any
-recursive ordinal, i.e., the set of axioms allowed is _not_ fixed but depends on
-context.
+cannot enumerate through these proofs by Gödel incompleteness theorem, our
+theory provides the most flexibility and enables the _potential_ of expressing
+any recursive ordinal, i.e., the set of axioms allowed is _not_ fixed but
+depends on context.
 
 Taken together, the steps for bootstrapping Welkin are:
 
