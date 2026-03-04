@@ -272,6 +272,34 @@
     title: [References],
   )
 
+  // Improvements to tables
+  // to look more LaTeX's "booktabs"
+
+  // 1. Globally override all table strokes FIRST.
+  // This forces zero vertical lines and handles the top/header rules.
+  show table: set table(
+    inset: (x: 0.75em, y: 0.5em),
+    align: horizon,
+    stroke: (x, y) => (
+      // Heavy 1.5pt rule at the very top
+      // Light 0.5pt rule under the header (row 1)
+      // No lines anywhere else (left, right, bottom)
+      top: if y == 0 { 1.5pt + black } else if y == 1 { 0.5pt + black } else {
+        none
+      },
+      bottom: none,
+      left: none,
+      right: none,
+    ),
+  )
+
+  // 2. Wrap the newly styled tables in a block to add the final heavy bottom rule.
+  show table: it => block(
+    stroke: (bottom: 1.5pt + black),
+    outset: 0pt,
+    it,
+  )
+  // Figures
   set figure(gap: 17pt)
   show figure: set block(above: 12.5pt, below: 15pt)
   show figure: it => {
@@ -287,7 +315,9 @@
     }
 
     // We want a bit of space around tables and images.
-    show selector.or(table, image): pad.with(x: 23pt)
+    // Do images here,
+    // as we already covered tables
+    show image: pad.with(x: 23pt)
 
     // Display the figure's body and caption.
     it

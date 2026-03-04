@@ -5,15 +5,6 @@
 #show math.minus: matched-dash
 
 
-// NOTE: when run with --root .,
-// won't detect the new font!
-// Might want to file a bug report
-// on a minimum working example.
-#show raw: set text(font: "Intel One Mono", weight: "regular", size: 10pt)
-
-// Your content here
-`test-dash-intel`
-
 = Introduction
 
 
@@ -137,6 +128,7 @@ enables ease of implementation.
   table(
     columns: (auto, auto, auto),
     align: left,
+    table.header([Goal], [Name], [Description]),
     [*Goal 1*],
     [*Universality*],
     [The language must enable any user created parameters, whose symbolic
@@ -169,7 +161,7 @@ This thesis is organized according to @thesis-organization.
   table(
     columns: (auto, auto, auto),
     align: left,
-    // table.header([*Section Number*], [*Title*], [*Description*]),
+    table.header([*Section Number*], [*Title*], [*Description*]),
     [*@rationale*],
     [*Rationale*],
     [Introduces Welkin at a high level, with guiding examples.],
