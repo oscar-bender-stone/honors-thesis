@@ -119,8 +119,11 @@
   // Set the body font.
   set text(size: normal-size, font: "STIX Two Text")
 
-  // Set the code font.
-  show raw: set text(font: "DejaVu Sans Mono")
+  // NOTE: when run with --root .,
+  // won't detect the new font!
+  // Might want to file a bug report
+  // on a minimum working example.
+  show raw: set text(font: "Intel One Mono", weight: "regular")
 
   // Set equation numbering to (section.equation)
   set math.equation(numbering: "(1.1)")

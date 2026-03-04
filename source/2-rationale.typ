@@ -1,9 +1,8 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template/ams-article.typ": matched-dash, tilde-prefix
+#import "template/ams-article.typ": matched-dash
 #show math.minus: matched-dash
-#show math.tilde: tilde-prefix
 
 = Rationale <rationale>
 
@@ -214,9 +213,8 @@ languages, with slightly different syntax or semantics. Welkin is carefully
 designed to be a _minimal_ expression of these concepts, with minimal friction
 to express any other universal information base. These include:
 
-- Intuitive arrow notation for representations, expressed in ASCII as
-  `a - b -> c`. These can be interpreted _as_ rewrite rules, depending on the
-  context.
+- In ASCII, #box[`a - b -> c`] for representations. These can be interpreted
+  _as_ rewrite rules, depending on the context.
 
 - Traditional braces `{ }` to denote closed definitions of contexts, inspired by
   the C programming language.

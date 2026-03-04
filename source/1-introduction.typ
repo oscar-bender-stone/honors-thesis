@@ -5,6 +5,15 @@
 #show math.minus: matched-dash
 
 
+// NOTE: when run with --root .,
+// won't detect the new font!
+// Might want to file a bug report
+// on a minimum working example.
+#show raw: set text(font: "Intel One Mono", weight: "regular", size: 10pt)
+
+// Your content here
+`test-dash-intel`
+
 = Introduction
 
 

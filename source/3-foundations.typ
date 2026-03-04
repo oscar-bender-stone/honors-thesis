@@ -103,7 +103,8 @@ finite and _practically enforcing_ it is finite. For a thorough discussion, see
 #definition[
   A *bit* is the symbols $0$ or $1$. A *binary word* is either the symbol
   $epsilon$ (the *empty word*), and if $w$ is a finite binary word, so are $w.0$
-  and $w.1$, where $.$ the symbol for *concatenation*. Nothing else is a word.
+  and $w.1$, where $.$ is the symbol for *concatenation*. Nothing else is a
+  word.
 ]<binary-word>
 
 #definition[
