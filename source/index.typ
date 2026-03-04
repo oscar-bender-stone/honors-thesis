@@ -14,6 +14,7 @@
       email: "oscar-bender-stone@protonmail.com",
     ),
   ),
+  date: [March 3, 2026],
   abstract: [Welkin is a formalized information language. We introduce its use
     cases and rigorously define its syntax and semantics. From there, we
     introduce the bootstrap, making Welkin completely self-contained. [TODO:

@@ -146,7 +146,7 @@
       let i = counter(page).get().first()
       if i == 1 {
         // Page 1 footer
-        v(1fr) // Push content to bottom of footer area
+        // v(1fr) // Push content to bottom of footer area
 
         // Metadata block
         if (date, msc, keywords, thanks).any(it => it != none) {
