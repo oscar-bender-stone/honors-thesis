@@ -6,21 +6,13 @@
 = Introduction
 
 
-#let dash = math.class("relation", "\u{23AF}")
-$ a dash c -> b $
-
-
-#let emdash = math.class("relation", "—")
-
-$ a emdash c -> b $
-
-
 // Warning: matched ONLY for STIX 2 Math font!
 // Measured using MacOS Preview app
 // Note: total length of arrow = 8.77 pt
 // Length of Stem: 7.64 pt ÷ 10.00002 pt = 0.764 em#
 // Thickness: 0.49 pt ÷ 10.00002 pt = 0.049 em
-#let matcheddash = math.class(
+// TODO: maybe make slightly shorter and fix centering?
+#let matched-dash = math.class(
   "relation",
   box(
     move(
@@ -36,9 +28,8 @@ $ a emdash c -> b $
     ),
   ),
 )
+#show math.minus: matched-dash
 
-
-$a matcheddash b -> c$
 
 Information Management is the study of systematically storing and organizing
 data. With the massive growth of data, particularly on the web, simply storing
