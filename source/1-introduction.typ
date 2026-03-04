@@ -57,16 +57,18 @@ conclusion, see @conclusion:comparisons.
   sources of data as "unknown" rather than "false", it often fails to resolve
   conflicts between two sources @hitzler-review-the-semantic-web.
 
-- *Labeled Property Graphs (LPGs):* Developed as an alternative to RDF, Labeled
-  Property Graphs prioritize the efficient traversal of complex,
-  multi-relational networks @angles-property-graph-database-model. As opposed to
-  static triples, LPGs allow attributes to be stored on both nodes and edges,
-  oferring greater flexibility and the ability to accommodate a wide range of
-  subjects. This architecture is a primary choice in large-scale commercial
-  applications, effectively managing highly dense datasets. However, LPGs are
-  siloed by the lack of standards, and interoperability is difficult. Moreover,
-  LPGs lack formal logical constraints, making it harder to respond to user
-  queries without external tooling.
+- *Labeled Property Graphs (LPGs):* This is an architecture defined by its
+  ability to store rich, internal metadata within its components. Within a
+  network, LPGs enable both nodes (entities) and edges (relationships) to
+  possess a set of "properties" or key-value pairs
+  @angles-property-graph-database-model. The internal metadata allows systems to
+  efficiently traverse networks, allowing them to filter and weigh attributes on
+  a single pass. Because of their efficiency, LPGs are the primary choice in
+  large scale commercial products, including in fraud detection software and
+  recommendation systems @robinson-graph-databases. However, LPGs are siloed by
+  the lack of standards, and interoperability is difficult. Moreover, LPGs lack
+  formal logical constraints, making it harder to respond to user queries
+  without external tooling.
 
 - *Cyc:* Designed to encompass broad subjects, Cyc is the largest proprietary
   database of knowledge, or _knowledge base_, known to date @lenat-cyc-1995. It
