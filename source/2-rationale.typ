@@ -40,15 +40,13 @@ section.
 The first core concept in Welkin is the notion of a *handle*. Handles are left
 as free parameters in the theory#footnote[For mathematicians, this is analogous
   to how key notions are left undefined in Hilbert's formalism of geometry, or
-  how a "set" is an undefined notion in set theory.]
-
-In an information base, handles are uniquely identified through their *key*,
-directly inspired by database theory. Keys are with triples of IDs
-$("UUID", "RID", "HID")$, whose contents are the *user ID*, *revision ID*, and
-*handle ID*, respectively. Revisions ensure that storing axioms is *immutable*,
-or that a particular handle does not change over time. This is _not_ a
-restriction on dynamic entities, but rather an indictation in the base to
-determine a particular version of a handle.
+  how a "set" is an undefined notion in set theory.] In an information base,
+handles are uniquely identified through their *key*, directly inspired by
+database theory. Keys are with triples of IDs $("UID", "RID", "HID")$, whose
+contents are the *user ID*, *revision ID*, and *handle ID*, respectively.
+Revisions ensure that storing axioms is *immutable*, or that a particular handle
+does not change over time. This is _not_ a restriction on dynamic entities, but
+rather an indictation in the base to determine a particular version of a handle.
 
 #example[
   In a scientific experiment, a handle could be an observation or experimental
@@ -59,12 +57,13 @@ determine a particular version of a handle.
 
 Indexing handles is only one important aspect of handles. Another is that
 handles are precisely by their relationships. These are written as
-*representations* `a - b -> c`, which means that `a` represents `b` in context
-`c`. Here, we call `a` the *sign*, `b` the *referent*, and `c` the *context*.
+*representations* $a - c -> b$, which means that $a$ represents $b$ in context
+$c$. Here, we call $a$ the *sign*, $b$ the *referent*, and $c$ the *context*.
 One can interpret this characterization as follows: handles are defined by how
 they are and are _not_ restricted. This idea is directly inspired from Fine's
 idea of arbitrary objects @fine-arbitrary-objects, and allows refinements to a
-study of interest.
+study of interest. Additionally, representations are more powerful extension of
+RDF triples, allowing the context to be an operator.
 
 // . As a common example, consider how one can explain the Pythagorean theorem is
 // true about all right triangles. Instead of drawing _every_ single such triangle,
@@ -98,8 +97,8 @@ called a *block*#footnote[In programming languages, this is analogous to an
 
 
 Units define their own *context*, which means the unit provides its own names
-and representations. Writing `a - c -> b`, therefore, only applies to the
-_fixed_ context `c`.
+and representations. Writing $a - c -> b$, therefore, only applies to the
+_fixed_ context $c$.
 
 
 [TODO[SMALL]: use better names for entities/businesses/etc]
@@ -195,10 +194,10 @@ Another example concerns contexts in the prescence of unique objects.
   `instanceof`. We can interpert this example as saying that the _relationsihps_
   of a general taxonomy are witnessed by a specific taxonomy, namely `Survey`,
   and that they propagate through contexts.#footnote[In programming languages,
-    particularly C++ @stroustrup-cpp-lang and Java, this property is known as
-    "upcasting", with a less refined base class being replaced with a more
-    refined subclass. The reverse is "downcasting". Both are supported by Welkin
-    for full expressivity.]
+    particularly C++ @stroustrup-cpp-lang and Java @java-reference, this
+    property is known as "upcasting", with a less refined base class being
+    replaced with a more refined subclass. The reverse is "downcasting". Both
+    are supported by Welkin for full expressivity.]
 ]<rationale:more-to-less-refined>
 
 The remaining rules are primarily for efficiency, enabling users to have

@@ -8,14 +8,14 @@
 Information Management is the study of systematically storing and organizing
 data. With the massive growth of data, particularly on the web, simply storing
 data is not enough. Raw databases are increasingly structured into organized
-_information bases_ to provide the context needed for people to understand
-concepts and build upon. The conceptual foundation for this process often traces
-back to Ackoff @ackoff-wisdom. His data-to-wisdom hierarchy posits that
-information is the process of transforming raw data into structured content. In
-turn, this content can be used to answer user queries. However, the term
-"information" has not been standardized in the literature and is used with
-distinct meanings. For example, Buckland points out that information is used in
-three ways: _information-as-process_, _information-as-knowledge_, and
+_information bases_ to prove context surrounding the source and nature of data.
+The conceptual foundation for this process often traces back to Ackoff
+@ackoff-wisdom. His data-to-wisdom hierarchy posits that information is the
+process of transforming raw data into structured content. In turn, this content
+can be used to answer user queries. However, the term "information" has not been
+standardized in the literature and is used with distinct meanings. For example,
+Buckland points out that information is used in three ways:
+_information-as-process_, _information-as-knowledge_, and
 _information-as-thing_. While each of these are important, Buckland emphasizes
 that to _use_ information, one must use _information-as-thing_—a tangible record
 like a document or digital file. Another author, Floridi, builds upon this
@@ -32,36 +32,46 @@ recommendations to users @amazon-large-data-report. Another issue is the immense
 breadth of different subjects. As a well known example, Wikipedia struggles to
 constantly update its vast and interconnected web of knowledge
 @mesgari-research-review-on-wikipedia. Along with the depth and breadth of
-different disciplines, standardization is increasingly difficult. Most systems
-have their own unique data formats, limiting the transfer of information from
-one format to another. For instance, transferring information between two
-medical platforms is notoriously difficult, even if they store the _same_
-information about a patient @reisman-interoperable-data. These problems continue
-to be a challenge in Information Management.
+different disciplines, standardization is complex. Most systems have their own
+unique data formats, so making *interoperable* formats is hard, which is the
+ability to transfer one data format to another. For instance, transferring
+information between two medical platforms is notoriously difficult, even if they
+store the _same_ information about a patient @reisman-interoperable-data. These
+problems continue to be a challenge in Information Management.
 
 In light of these issues, several solutions partially resolve some of them, but
 not completely.
 
-- *The Web Ontology Language (OWL):* OWL is a pervasive internet standard aimed
-  at creating an interoperable, machine readable information format. Topics are
-  indexed by Resource Description Framework (RDF), another major internet
-  standard. Users provide relationships in the form
-  `subject - predicate -> object`, such as `dog_owner - walks -> dog`. Although
-  it is widely adopted across the web, OWL fails to effectively scale with real
-  world datasets, especially those containing conflicting claims
-  @hitzler-review-the-semantic-web.
+- *Resource Description Framework (RDF) Triple Stores:* These systems serve as
+  the primary implementations of an internet standard called the Web Ontology
+  Language (OWL) @OWL2. By storing information as triples
+  $"subject"-"predicate"->"object"$. From there, the language can then enforce
+  rules and ensure new relationships derived are _only_ from previously given
+  relationships and valid rules. OWL has been highly successful in providing a
+  machine-readable format to websites across the internet
+  @hitzler-review-the-semantic-web. Despite their widespread adoption, RDF
+  stores struggle with extensive sources of data. Enforcing logical rules can be
+  expensive @owl-approximate-reasoning. Additionally, because OWL treats missing
+  sources of data as "unknown" rather than "false", it often fails to resolve
+  conflicts between two sources @hitzler-review-the-semantic-web.
+
+- *Labeled Property Graphs (LPGs):*
 
 - *Cyc:* Designed to encompass broad subjects, Cyc is the largest proprietary
   database of knowledge, or _knowledge base_, known to date @lenat-cyc-1995. It
   achieves reliable queries by providing a logical engine, based on millions of
-  hard coded "common sense" rules. For example, given the rules _"All penguins
-  are birds"_ and _"All birds are animals"_, the engine can answer, _"Are all
-  penguins birds?"_. However, despite its impressive scope, it relies on human
-  experts to manually encode every rule. This causes a knowledge acquisition
-  bottleneck, limiting how well the database scales
+  hard coded "common sense" rules. However, despite its impressive scope, it
+  relies on human experts to manually encode every rule. This causes a knowledge
+  acquisition bottleneck, limiting how well the database scales
   @automated-scientific-semantic-knowledge-framework. Another issue the absence
   of an active open standard, a result of the publicly available version,
-  OpenCyc, being discontinued in 2017.
+  OpenCyc, being discontinued in 2017 @kbpedia-opencyc.
+
+- *fcaR (Formal Concept Analysis in R):* the of Formal Concept Analysis. The
+  tool fcaR is a modern implementation widely used by researchers in this field.
+  Given only a database, fcaR can automtatically extract a _concept lattice_, a
+  data structure that maps the objects to attributes.
+
 
 This thesis introduces a language to resolve these issues for Information
 Management. I call this language *Welkin*, based on an old German word meaning
