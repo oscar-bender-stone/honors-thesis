@@ -140,7 +140,7 @@ on two words or two handles. Maybe lift to the latter to make sense?]
   A *unit* is defined recursively as a finite combination of the following and
   nothing else:
   - A handle, see @foundations:handle.
-  - A representation $a -->^c b$ of units $a, b, c$, where $a$ is the *sign*,
+  - A representation $a - c -> b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
   - A block, which is defined as one of the following:
     - ${}$
@@ -173,9 +173,10 @@ allowed.
   Define a new context $C$ called the *global context*. In the global
   environment, the following rules apply to units, recursively stated over
   meta-variables $a, b, c, d, g, p, q$:
-  - *R1. Internal Transitivity:* $a -->^c b$ and $b -->^c d$ imply $a -->^c d$.
-  - *R2. Contextual Lifting:* $a -->^c b$ and $p -->^b q$ imply
-    $p -->^a q in c$.
+  - *R1. Internal Transitivity:* $a - c -> b$ and $b - c -> d$ imply
+    $a - c -> d$.
+  - *R2. Contextual Lifting:* $a - c -> b$ and $p -->^b q$ imply
+    $p - a -> q in c$.
   - *R3. Empty:* ${@g, {}} <--> g$.
   - *R4. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
   - *R5. Singleton:* ${a} <--> a$.
@@ -193,10 +194,7 @@ entirely flexible and user defined. Moreover, only *R1* and *R2* are strictly
 needed for Turing completeness. We will show, however, that the remaining axioms
 are optimal when organizing information, see @information-organization.
 
-- *R1* is a standard transitvity, restricted to a _single_ context. This
-  property is also useful in practice @lenat-cyc-common-sense,
-  @goczyla-context-description-logic.
-- *R2* is a lifting axiom, stated in @mccarthy-contexts.
+- *R1* and *R2* were discussed in @rationale:unit.
 - *R3* define the behavior of the empty unit ${}$, similar to the empty set.
 - *R4* provides a way to represent $a in g$ through the representation
   $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, so it

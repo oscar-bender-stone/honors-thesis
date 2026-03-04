@@ -159,15 +159,16 @@ postpone nested contexts until @semantics):
   context $v$, then within context $c$, $p$ represents $q$ in _nested_ context
   $u$.
 
-Transitivity is a common axiom in many systems, and its use this contexts is
-supported experimentally by existing projects... Lifting is a notion closely
-tied to McCarthy's notion of lifting, but formulated with representations. The
-idea is, if $a$ represents $b$ in context $c$, then $a$ provides an
-_abstraction_ for $b$ relative to $c$. Wherever $b$ is involved in a
-relationship, $a$ can be used _instead_, acting as a proxy relative to $c$.
-Contexts provide an import mechanism as well, thereby providing Welkin with a
-module based system. We provide a simplified version of one McCarthy's examples
-below. For more existing examples in the literature, refer to
+Transitivity is a common axiom in many systems. It is particularly efficient
+when used in contexts, as shown by several projects @lenat-cyc-common-sense,
+@goczyla-context-description-logic. Lifting is a notion closely tied to
+McCarthy's notion of lifting, but formulated with representations. The idea is,
+if $a$ represents $b$ in context $c$, then $a$ provides an _abstraction_ for $b$
+relative to $c$. Wherever $b$ is involved in a relationship, $a$ can be used
+_instead_, acting as a proxy relative to $c$. Contexts provide an import
+mechanism as well, thereby providing Welkin with a module based system. We
+provide a simplified version of one McCarthy's examples below. For more existing
+examples in the literature, refer to
 @declarative-formalization-knowledge-translation.
 
 #example[*(McCarthy's Above Theory).* Consider a set of physical blocks. Denote
