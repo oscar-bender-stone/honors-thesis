@@ -15,7 +15,6 @@
 
 #let draft = true
 
-
 #let show-todos = true
 
 #let todo(body, color: orange) = {

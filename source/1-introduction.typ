@@ -5,6 +5,36 @@
 
 = Introduction
 
+
+#let dash = math.class("relation", "\u{23AF}")
+$ a dash c -> b $
+
+
+#let emdash = math.class("relation", "—")
+
+$ a emdash c -> b $
+
+
+// Warning: matched ONLY for STIX 2 Math font!
+#let matcheddash = math.class(
+  "relation",
+  box(
+    move(
+      dy: -0.25em,
+      line(
+        length: 1em,
+        stroke: (
+          thickness: 0.49em, // 0.49/8.77, based on measurements on MacOS Preview
+          cap: "round", // Match round corners in STIX 2 Font's arrow stem
+        ),
+      ),
+    ),
+  ),
+)
+
+
+$a matcheddash b -> c$
+
 Information Management is the study of systematically storing and organizing
 data. With the massive growth of data, particularly on the web, simply storing
 data to _use_ it. Raw databases are increasingly structured into organized
