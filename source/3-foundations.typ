@@ -81,23 +81,11 @@ on two words or two handles. Maybe lift to the latter to make sense?]
     $c$ is the *context*, and $b$ is the *referent*.
 ]<foundations:unit>
 
-#remark[
-  In contrast to the requirement to the beginning of Li and Vitányi (see
-  @rationale), the enumeration need _not_ be surjective but only _locally_ so.
-  Abstracting away from the implicit meaning, units act as partial computable
-  functions, but the latter is strictly _less_ expressive by removing user
-  provided meaning.
-]
-
-[TODO[SMALL]: maybe define alternation notation later or recursively?]
-
 For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$
 and $q in c$ to mean $q - c -> q$. Notice that many-to-many relationships are
 allowed.
 
 [TODO[SMALL]: provide labels/links.]
-
-[TODO[SMALL]: Maybe reduce the number of meta-variables used for clarity?]
 
 [TODO[SMALL]: Clarify role of global context!]
 
