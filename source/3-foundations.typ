@@ -27,10 +27,15 @@ This section discuss the foundations of Welkin, as follows:
 
 == Base Rules
 
-For notation, we will write $a equiv b$ to mean that $a$ is definitionally
-equivalent to $b$. Moreover, we will distinguish between _defining_ a term as
-finite and _practically enforcing_ it is finite. For a thorough discussion, see
-?.
+As high-level notation, we write:
+
+- $a equiv b$ to mean that $a$ is definitionally equivalent to $b$.
+
+- $not P$ means that assertion $P$ does not true.
+
+Note that this will not be defined in the syntax, see @rationale:bootstrap.
+Moreover, we will distinguish between _defining_ a term as finite and
+_practically enforcing_ it is finite. For a thorough discussion, see ?.
 
 #definition[
   A *bit* is the symbols $0$ or $1$. A *binary word* is either the symbol
@@ -84,29 +89,28 @@ on two words or two handles. Maybe lift to the latter to make sense?]
 [TODO[SMALL]: make sure to define this notation $|$ recursively!]
 
 For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$,
-and $a | b - c -> d$ to mean ${a - c -> d, b - c -> d$. This simplifies the
-presentation of the rules; we postpone introducing $|$ into the syntax until
-@syntax. Moreover, we write $q in c$ to mean $q - c -> q$. Notice that
-many-to-many relationships are allowed.
+and $a | b - c -> d$ to mean ${a - c -> d, b - c -> d}$. This simplifies the
+presentation of the rules; we postpone introducing the operator $|$ into the
+syntax until @syntax. Moreover, we write $q in c$ to mean $q - c -> q$. Notice
+that many-to-many relationships are allowed.
 
 [TODO[SMALL]: provide labels/links.]
 
 [TODO[SMALL]: Clarify role of global context!]
 
 #definition[
-  The following rules apply, stated over meta-variables $a, b, c, d, e$ for
-  units and $g$ for graphs:
+  The following rules apply, stated over meta-variables $a, b, c, d, g$:
   - *R1. Internal Transitivity:* $a - c -> b$ and $b - c -> d$ imply
     $a - c -> d$.
-  - *R2. Contextual Lifting:* $a - c -> b$ and $d - b -> e$ imply
-    $d - a -> e in c$.
+  - *R2. Contextual Lifting:* $a - c -> b$ and $d - b -> g$ imply
+    ${d - a -> g} in c$.
   - *R3. Empty:* ${@g, {}} <--> g$.
   - *R4. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
   - *R5. Identity:* ${a} <--> {a - a -> a} <--> a$.
   // NOTE: this does add arrows. For clarity,
   // could make this redundant and add a - g -> b here.
   - *R6. Expansion:* if $a - g -> b$, then ${@g, c} <-> {{{@g, a}, b}, c}$.
-  - *R7. Exclusion:* if $g <--> {@d, a}$, then ${{@g, ~a}, b} <--> {@d, b}$.
+  - *R7. Exclusion:* if $g <--> {@g, a}$, then ${{@g, ~a}, b} <--> {@d, b}$.
   - *R8. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
   - *R9. Commutativity:* ${{a, b}, c} <--> {{a, c}, b}$.
   - *R10. Null:* ${a - {} -> b} <--> {}$.
@@ -229,9 +233,9 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
 == Base Recursor
 
 The proof of @turing-expressible demonstrates how contexts enable powerful
-recursive definitions. However, the underlying construction is artificial and
-results in extreme verbose terms. We will refine the proof with the a recursor
-over units.
+recursive definitions. However, the underlying construction is tedious and
+results in extremely verbose terms. We will refine the proof with a *recursor*
+over units. This is a unit that indexes every unit.
 
 An important part of the $S K$-calculus is composition, the ability to gradually
 build up terms. We wish to replicate this by ensuring our recursion maintains an
@@ -242,7 +246,7 @@ increasing containment relation. Containment is defined below.
   - *Base case:* for all units $u, v$:
     - $not(u < {})$.
     - if $u != v$, then ${u} < {u, v}$.
-  - *Inductive step:* given units $u_1$ and $u_2 equiv {@g_1, a_2}$, $u_1 < u_2$
+  - *Recursive step:* given units $u_1$ and $u_2 equiv {@g_1, a_2}$, $u_1 < u_2$
     if and only if either $u_1 < @g_1$, or for some $b in g$,
     $u_1 < {{@g_1, ~b}, a}$.
 ]<foundations:unit-containment>
@@ -294,9 +298,11 @@ frequently when defining terms in @turing-expressible.
   - ${} | a | b | c | g --> "unit"$.
   - ${a - b -> c} --> "unit"$.
   - ${a, b} | {@a, b} | {@a, ~b} --> "unit"$.
-  - *Monotonicity:*:
+  - *Monotonicity:*
     - $a --> {@a, b}$.
+    - ${@a, b} - {} -> a$.
     - ${@a, ~b} --> a$.
+    - $a - {} -> {@a, ~b} --> a$.
 ]<foundations:recursor>
 
 [TODO: make this discussion complete!] One interpretation of
@@ -304,20 +310,32 @@ frequently when defining terms in @turing-expressible.
 so $R$ could be written as $<$ in the language. Moreover, $R$ acts as the _least
 super bound_ of all units.
 
-The following theorems are two parts of the same *Recursion theorem* for Welkin.
+The following statements are three parts of the same *Recursion theorem* for
+Welkin. The first two are straightforward; their proofs closely aligns with the
+definitions written in the meta-language (English).
 
-#theorem[*(Correctness)* For every unit $u$, $u -->^R R$, and if $u < u'$, then
-  $u --> u'$ and not $u' --> u$ in $R$.]<foundations:recursion-correctness>
-#proof[We proceed on induction by units $u$:
+#lemma[*(Correctness)* For every unit $u$, $u - "unit" -> "unit"$. if
+]<foundations:recursion-correctness>
+#proof[Fix the context to be $"unit"$. We proceed induction on units:
   - *Base case:* this is immediate, as ${}$ and all handles are included.
-  - *Inductive step:* there are four main cases:
-    - ${a - b -> c} - R -> R$: this is immediate in context $R$.
-    - ${g, e} - R -> R$: suppose $g --> R$ and $e --> R$ in $R$. FINISH.
-    - ${@g, e} - R -> R$: suppose $g --> R$ and $e --> R$ in $R$. FINISH. use
-      lifting?
-    - ${@g, ~e} - R -> R$: assume $g - R -> R$. Then, because
-      ${@g, e} - R -> g$, transitivity implies ${@g, ~e} - R -> R$.
+  - *Inductive step:* immediate; $"unit"$ includes representations and cases for
+    ${g, u}$, ${@g, u}$, and ${@g, ~u}$.
+]<foundations:recursor-correctness>
+
+
+#lemma[*(Monotonicity)* For every unit $u, u'$ such that $u < u'$
+  (@foundations:unit-containment), then $u - "unit" -> u'$ and
+  $not(u' - "unit" -> u)$.
 ]
+#proof[We proceed by induction on units:
+  - *Base case:* we need to demonstrate $not(u --> {})$. By axiom *R3 (Empty)*,
+    . Thus, .
+  - *Inductive step:* suppose $u_1$ and $u_2 equiv {@g, a}$ are units. There are
+    two cases:
+    - $u_1 < @g$:
+    -
+]
+
 
 [TODO[SMALL]: determine whether to add extensionality or not.]
 #theorem[*(Uniqueness)* Let $K$ that contains exactly $u -->^K u$ for each unit
