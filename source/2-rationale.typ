@@ -204,7 +204,7 @@ Another example concerns contexts in the presence of unique objects.
 ]<rationale:more-to-less-refined>
 
 The remaining rules are primarily for efficiency, enabling users to have
-positionally invariant information, see @unit.
+positionally invariant information, see @foundations:unit.
 
 == Base Operations
 

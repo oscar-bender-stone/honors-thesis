@@ -77,9 +77,9 @@ on two words or two handles. Maybe lift to the latter to make sense?]
   - A block, which is defined as one of the following:
     - ${}$
     - Given a block $g$ and unit $u$, ${g, u}$, ${@g, u}$, and
-      ${@g, tilde.op u}$ are blocks, where $@g$ is a new blocks called the
-      *expansion* of $g$ and $~u$ is called the *exclusion* u.
-]<unit>
+      ${@g, tilde.op u}$ are blocks, where $@g$ is a new block called the
+      *expansion* of $g$ and $~u$ is called the *exclusion* of $u$ in $@g$.
+]<foundations:unit>
 
 #remark[
   In contrast to the requirement to the beginning of Li and Vitányi (see
@@ -102,20 +102,21 @@ allowed.
 [TODO[SMALL]: Clarify role of global context!]
 
 #definition[
-  The following rules apply, stated over meta-variables $a, b, c, d, g, p, q$:
+  The following rules apply, stated over meta-variables $a, b, c, d, e$ for
+  units and $g$ for graphs:
   - *R1. Internal Transitivity:* $a - c -> b$ and $b - c -> d$ imply
     $a - c -> d$.
-  - *R2. Contextual Lifting:* $a - c -> b$ and $p - b -> q$ imply
-    $p - a -> q in c$.
+  - *R2. Contextual Lifting:* $a - c -> b$ and $d - b -> e$ imply
+    $d - a -> e in c$.
   - *R3. Empty:* ${@g, {}} <--> g$.
   - *R4. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
-  - *R5. Singleton:* ${a} <--> a$.
+  - *R5. Identity:* ${a} <--> {a - a -> a} <--> a$.
   // NOTE: this does add arrows. For clarity,
   // could make this redundant  and add a - g -> b here.
   - *R6. Expansion:* if $a - g -> b$, then ${@g, p} <-> {{{@g, a}, b}, p}$.
   - *R7. Exclusion:* if $g <--> {@p, a}$, then ${{@g, ~a}, b} <--> {@p, b}$.
   - *R8. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
-  - *R9. Commutativity:* ${{@g, a}, b} <--> {{@g, b}, a}$.
+  - *R9. Commutativity:* ${{a, b}, c} <--> {{a, c}, b}$.
   - *R10. Null:* ${a - {} -> b} <--> {}$.
 ]<unit-rules>
 
@@ -128,17 +129,22 @@ organizing information, see @information-organization.
 - *R3* define the behavior of the empty unit ${}$, similar to the empty set.
 - *R4* provides a way to represent $a in g$ through the representation
   $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, so it
-  is _not_ required in every unit.
+  is _not_ required in every unit. Identity is expressed instead by
+  ${a - a -> a}$, see the discussion below.
 - *R5* reduces extraneous blocks. Note that this is _not_ the same thing as the
   Quine atom, which states ${a} = a$ in a set theoretic context
   @quine:new-foundations. We do _not_ mean $a in a$, but instead, ${a}$ is a
-  _wrapper_ around $a$. Notationally, we use extra blocks to identify _groups_
-  of representations, such as ${a - b -> c, b - c -> d}$.
+  _wrapper_ around $a$. While not useful for handles, it is for specifying
+  blocks of representations, such as ${a - b -> c, b - c -> d}$.
 - *R6* and *R7* define how imports in the language work. An *import* is the
-  process of joining the contents of one unit into another. *R6* says how
-  imports work. *R7* provides a mechanism to _exclude_ specified contents in
-  $g$, which can themselves be arrows.
-- *R-R* ensure that information can be repeated and is positionally invariant.
+  process of joining the contents of one unit into another. *R6* says how an
+  import can add new units in a block. *R7* provides a mechanism to _exclude_
+  specified contents in $g$, which can themselves be representations. For
+  example, ${@{a - b -> c, d}, ~{a - b -> c}}$ reduces to ${d}$.
+- *R8-R9* ensure that information can be repeated and is positionally invariant.
+- *R10* provides a way to prevent representations in a block. We interpret this
+  rule as stating: ${}$ contains nothing, so it cannot contain any
+  representation, including $a - {} -> b$.
 
 // [TODO[SMALL]: note importance of using axioms to define essentially bound/free
 // variables! Not as easy with just assuming sets as they are; easier to express
