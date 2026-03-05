@@ -25,7 +25,8 @@
     "references/1-introduction.bib",
     "references/2-rationale.bib",
     "references/3-foundations.bib",
-    "references/4-syntax.bib",
+    "references/4-metatheory.bib",
+    "references/5-syntax.bib",
     "references/7-conclusion.bib",
     "references/general.bib",
   )),
@@ -36,7 +37,8 @@
 #include "1-introduction.typ"
 #include "2-rationale.typ"
 #include "3-foundations.typ"
-#include "4-syntax.typ"
+#include "4-metatheory.typ"
+#include "5-syntax.typ"
 #include "5-semantics.typ"
 #include "6-information-organization.typ"
 #include "7-conclusion.typ"

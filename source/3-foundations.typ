@@ -295,14 +295,14 @@ frequently when defining terms in @turing-expressible.
   The *unit recursor* $"unit"$ includes all rules in @unit-rules, as well as the
   following in context $"unit"$:
   - $"handle" --> "unit"$, see @foundations:bootstrap-handle-id.
-  - ${} | a | b | c | g --> "unit"$.
-  - ${a - b -> c} --> "unit"$.
-  - ${a, b} | {@a, b} | {@a, ~b} --> "unit"$.
+  - ${} | u | v | c --> "unit"$.
+  - ${u - c -> v} --> "unit"$.
+  - ${u, v} | {@u, v} | {@u, ~v} --> "unit"$.
   - *Monotonicity:*
-    - $a --> {@a, b}$.
-    - ${@a, b} - {} -> a$.
-    - ${@a, ~b} --> a$.
-    - $a - {} -> {@a, ~b}$.
+    - $u --> {@u, v}$.
+    - ${@u, v} - {} -> u$.
+    - ${@u, ~v} --> u$.
+    - $u - {} -> {@u, ~v}$.
 ]<foundations:recursor>
 
 [TODO: make this discussion complete!] One interpretation of
@@ -366,7 +366,7 @@ establishes that $"unit"$ is the _smallest_ set of foundations for Welkin.
     transitivity, $T --> "unit"$.
 ]
 
-== Expressing PA and Feferman Reflection
+== Meta-theory
 
 The goal of this section is to completely define the following: _a proof of
 anything expressible as a RE set_. We will then generalize this to more through
@@ -374,13 +374,3 @@ handles and mark soundness. Note that, because of Rice's Theorem, this method is
 inherently incomplete with computable methods. This theory does, however,
 establish a ceiling. As mentioned, we will postpone optimizations until
 @information-organization.
-
-== Coherency and Information
-
-#definition[
-
-]<coherency>
-
-#definition[
-
-]<information>

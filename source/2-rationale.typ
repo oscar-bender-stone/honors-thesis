@@ -263,6 +263,8 @@ There are two important questions for implementing Welkin:
 
 - How do we enable any "computably checkable proof"?
 
+[TODO[MEDIUM]: determine best + quick way to explain this paragraph!]
+
 On the first issue, the author previously went to manually describing the syntax
 and semantics, introducing notions from parsing theory and compilers. While this
 format is traditional for a programming language, this postponed the main rules
@@ -275,36 +277,26 @@ axioms and code used to implement a program. Axiomatically, most existing proof
 assistants have a fixed set of rules, with early proponents arguments towards
 having a fixed TCB (see )...
 
-To effectively create any formal system, having _some_ notion of IDs is
-necessary in a Trusted Computing Base. Checking the trace of a Turing machine
-can be done with a finite certificate, _but_ checking for non-halting in the
-general case requires a level of induction, expressed through IDs. Without IDs,
-we cannot even _state_ essential constructs or theorems, including the Gödel
-encodings.
+// To effectively create any formal system, having _some_ notion of IDs is
+// necessary in a Trusted Computing Base. Checking the trace of a Turing machine
+// can be done with a finite certificate, _but_ checking for non-halting in the
+// general case requires a level of induction, expressed through IDs. Without IDs,
+// we cannot even _state_ essential constructs or theorems, including the Gödel
+// encodings.
 
-To resolve both issues, they are combined into approach analogous to dependent
-type theory in the sense of "proofs as programs", but in a simpler way. We call
-this process "bootstrapping", analogous to bootstrapping a programming language
-from another through successive iterations, with each iteration building upon
-previous ones to define new language features. We also define the notion of
-"computably checkable proof" through reflection, providing a partial translation
-from Feferman's work (partial in the sense of not requiring the _same_ semantics
-as first order logic) @feferman-reflection. While a _single_ formal system
-cannot enumerate through these proofs by Gödel incompleteness theorem, our
-theory provides the most flexibility and enables the _potential_ of expressing
-any recursive ordinal, i.e., the set of axioms allowed is _not_ fixed but
-depends on context.
 
-Taken together, the steps for bootstrapping Welkin are:
+To resolve both issues, we "bootstrap" Welkin from the ground up. This will
+enable Welkin to define the syntax _as_ a term in the language. We proceed as
+follows:
 
-+ Formalize the base rules on units. Using English as our meta-language, we
-  prove that our rules can define the $S$ and $K$ combinators as any combination
-  of terms, and thus is Turing complete. Having Turing completeness ensures the
-  language is expressive enough (as per Goal 1), but we will use more direct
-  notions in terms of the rules for ease of presentation. Another rule we add is
-  for a specific verifier for proofs, which we can prove in the system is
-  correct. We will later show this is _not_ a restriction and applies to any
-  computably checkable proof.
++ @foundations:
+  - We establish the base rules on units.
+  - Using English as our
+  meta-language, we prove that our rules can define the $S$ and $K$ combinators
+  as any combination of terms, and thus is Turing complete.
+  - We show the language is even more expressive by defining
+  a term that can index _every_ term. This term will act as a verifier for
+  proofs, which we will show does _not_ limit which proofs we accept.
 
 + Provide the base meta-theory for the language _in_ Welkin. This will be PRA,
   written in a combinator based form. We will show the main axioms of PRA hold.
