@@ -72,13 +72,13 @@ on two words or two handles. Maybe lift to the latter to make sense?]
   A *unit* is defined recursively as a finite combination of the following and
   nothing else:
   - A handle, see @foundations:handle.
+  - A *block*, which is one of the following:
+    - The symbol *{}*, the *empty block*
+    - Given a units $g, u$, ${g, u}$, ${@g, u}$, and ${@g, tilde.op u}$ are
+      blocks, where $@g$ is a unit called the *expansion* of $g$ and $~u$ is
+      called the *exclusion* of $u$.
   - A representation $a - c -> b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*.
-  - A block, which is defined as one of the following:
-    - ${}$
-    - Given a block $g$ and unit $u$, ${g, u}$, ${@g, u}$, and
-      ${@g, tilde.op u}$ are blocks, where $@g$ is a new block called the
-      *expansion* of $g$ and $~u$ is called the *exclusion* of $u$ in $@g$.
 ]<foundations:unit>
 
 #remark[
@@ -112,9 +112,9 @@ allowed.
   - *R4. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
   - *R5. Identity:* ${a} <--> {a - a -> a} <--> a$.
   // NOTE: this does add arrows. For clarity,
-  // could make this redundant  and add a - g -> b here.
-  - *R6. Expansion:* if $a - g -> b$, then ${@g, p} <-> {{{@g, a}, b}, p}$.
-  - *R7. Exclusion:* if $g <--> {@p, a}$, then ${{@g, ~a}, b} <--> {@p, b}$.
+  // could make this redundant and add a - g -> b here.
+  - *R6. Expansion:* if $a - g -> b$, then ${@g, c} <-> {{{@g, a}, b}, c}$.
+  - *R7. Exclusion:* if $g <--> {@d, a}$, then ${{@g, ~a}, b} <--> {@d, b}$.
   - *R8. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
   - *R9. Commutativity:* ${{a, b}, c} <--> {{a, c}, b}$.
   - *R10. Null:* ${a - {} -> b} <--> {}$.
