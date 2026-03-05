@@ -91,7 +91,7 @@ on two words or two handles. Maybe lift to the latter to make sense?]
 For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$,
 and $a | b - c -> d$ to mean ${a - c -> d, b - c -> d}$. This simplifies the
 presentation of the rules; we postpone introducing the operator $|$ into the
-syntax until @syntax. Moreover, we write $q in c$ to mean $q - c -> q$. Notice
+syntax until @syntax. Moreover, we write $q in c$ to mean $q - c -> c$. Notice
 that many-to-many relationships are allowed.
 
 [TODO[SMALL]: provide labels/links.]
@@ -380,7 +380,20 @@ establishes that $"unit"$ is the _smallest_ set of foundations for Welkin.
 This section provides the definition of information in Welkin. We will write
 this as a high-level, but the bootstrap will define this as a unit, see ?.
 
+// TODO: embed information _as_ evaluation,
+// up to {} or something NOT {}.
+// This is EXACTLY making a difference/change
+// in a system! The difference is finding NOT {},
+// if it's true!
+
 #definition[
   Let $u, v$ be units. Then $u$ has *information about* $v$ if .
 ]
 
+Thus, we can interpret "making a difference" as _
+a representation producing a non-empty unit_.
+
+In context $"query"$:
+- $"context" in "query"$
+- $"sign" in "query"$
+- $Q <--> {a - c -> h}$
