@@ -323,54 +323,41 @@
     it
   }
 
-  // Rule for Theorems, Lemmas, Corollaries (italic body, bold supplement)
+  let format-header(it, is-emph: false) = {
+    let content = {
+      it.supplement
+      if it.numbering != none {
+        [ ] + theorem-counter.display(it.numbering)
+      }
+      if it.caption != none {
+        [ (] + it.caption + [)]
+      }
+      [.]
+    }
+
+    if is-emph { emph(content) } else { strong(content) }
+  }
+
+  // Override more general 'show figure' above
   show figure.where(kind: "theorem"): set align(start)
   show figure.where(kind: "theorem"): it => block(spacing: 11.5pt, {
     theorem-counter.step()
-    strong({
-      // Bold supplement
-      it.supplement
-      if it.numbering != none {
-        [ ]
-        theorem-counter.display(it.numbering)
-      }
-      [.]
-    })
-    [ ]
-    {
-      show strong: s => text(weight: 700, style: "normal", s.body)
-      emph(it.body)
-    }
+    format-header(it, is-emph: false)
+    [ ] + emph(it.body)
   })
 
-  // Rule for Definitions (normal body, bold supplement)
   show figure.where(kind: "definition"): set align(start)
   show figure.where(kind: "definition"): it => block(spacing: 11.5pt, {
     theorem-counter.step()
-    strong({
-      // Bold supplement
-      it.supplement
-      if it.numbering != none {
-        [ ]
-        theorem-counter.display(it.numbering)
-      }
-      [.]
-    })
-    [ ]
-    it.body
+    format-header(it, is-emph: false)
+    [ ] + it.body
   })
 
   show figure.where(kind: "remark"): set align(start)
   show figure.where(kind: "remark"): it => block(spacing: 11.5pt, {
     theorem-counter.step()
-    emph(it.supplement)
-    if it.numbering != none {
-      [ ] // Add a space
-      theorem-counter.display(it.numbering)
-    }
-    [.]
-    [ ]
-    it.body
+    format-header(it, is-emph: true)
+    [ ] + it.body
   })
 
   // Display the title and authors.
@@ -444,56 +431,33 @@
 }
 
 // This is the single numbering format all our environments will use
-#let thm-numbering-format = n => counter(heading).display() + [#n]
-
-#let theorem(body, numbered: true) = figure(
-  body,
-  kind: "theorem",
-  supplement: [Theorem],
-  numbering: if numbered { thm-numbering-format },
-)
-#let lemma(body, numbered: true) = figure(
-  body,
-  kind: "theorem",
-  supplement: [Lemma],
-  numbering: if numbered { thm-numbering-format },
-)
-#let corollary(body, numbered: true) = figure(
-  body,
-  kind: "theorem",
-  supplement: [Corollary],
-  numbering: if numbered { thm-numbering-format },
-)
-#let definition(body, numbered: true) = figure(
-  body,
-  kind: "definition",
-  supplement: [Definition],
-  numbering: if numbered { thm-numbering-format },
-)
-
-#let example(body, numbered: true) = figure(
-  body,
-  kind: "definition",
-  supplement: [Example],
-  numbering: if numbered { thm-numbering-format },
-)
+#let theorem-numbering-format = n => counter(heading).display() + [#n]
 
 
-#let experiment(body, numbered: true) = figure(
-  body,
-  kind: "definition",
-  supplement: [Experiment],
-  numbering: if numbered { thm-numbering-format },
-)
+#let create-theorem(kind, supplement) = (arg1, arg2: none, ..rest) => {
+  let (name, body) = if arg2 == none { (none, arg1) } else { (arg1, arg2) }
 
+  figure(
+    // We attach the name to the body using metadata
+    if name != none {
+      (metadata((name: name)), body).join()
+    } else {
+      body
+    },
+    kind: kind,
+    supplement: supplement,
+    numbering: theorem-numbering-format,
+  )
+}
 
-#let remark(body, numbered: true) = figure(
-  body,
-  kind: "remark",
-  supplement: [Remark],
-  numbering: if numbered { thm-numbering-format },
-)
-
+// Now generate your environment functions
+#let theorem = create-theorem("theorem", [Theorem])
+#let lemma = create-theorem("theorem", [Lemma])
+#let corollary = create-theorem("theorem", [Corollary])
+#let definition = create-theorem("definition", [Definition])
+#let example = create-theorem("definition", [Example])
+#let remark = create-theorem("remark", [Example])
+#let experiment = create-theorem("definition", [Experiment])
 // === NEW DEFINITIONS ADDED HERE ===
 
 #let recursion(base_case, recursive_step) = [
