@@ -81,9 +81,11 @@ on two words or two handles. Maybe lift to the latter to make sense?]
     $c$ is the *context*, and $b$ is the *referent*.
 ]<foundations:unit>
 
-For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$
-and $q in c$ to mean $q - c -> q$. Notice that many-to-many relationships are
-allowed.
+For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$,
+and $a | b - c -> d$ to mean ${a - c -> d, b - c -> d$. This simplifies the
+presentation of the rules; we postpone introducing $|$ into the syntax until
+@syntax. Moreover, we write $q in c$ to mean $q - c -> q$. Notice that
+many-to-many relationships are allowed.
 
 [TODO[SMALL]: provide labels/links.]
 
@@ -241,20 +243,30 @@ increasing containment relation. Containment is defined below.
   - *Inductive step:* given units $u_1$ and $u_2 equiv {@g_1, a_2}$, $u_1 < u_2$
     if and only if either $u_1 < @g_1$, or for some $b in g$,
     $u_1 < {{@g_1, ~b}, a}$.
-]<unit-containment>
+]<foundations:unit-containment>
+
+// #definition[Two units $u_1, u_2$ are *extensionally equal* if for all $p, q$,
+//   $p - u_1 -> q$ if and only if $p - u_2 -> q$.]<foundations:unit-equality>
 
 The recursor needs to index through all possible keys. We first need to define a
-unit to recurse over binary words. We present a natural definition in
+unit to recurse over binary words; we provide a natural definition in
 @foundations:bootstrap-binary-word.
 
 #figure(
   [
     $"bit" --> 0 | 1$
 
-    $"word" <--> {"head" --> {"bit" | "empty"}, "next" --> "word"}$
+    $"word" <--> "empty" | {"top" --> "bit", "next" --> "word"}$
   ],
   caption: [Generator for words in Welkin.],
 )<foundations:bootstrap-binary-word>
+
+This is similar to the Lisp definition of a list. In detail:
+
+- $"bit"$ represents $0$ or $1$.
+
+- $"word"$ is recursively defined, as either $"empty"$ or the pair
+  ${"top", "next"}$, where $"top"$ is a $"bit"$ and $"next"$ is a $"word"$.
 
 From there, we can define handle IDs through triples, see
 @foundations:bootstrap-handle-id.
@@ -265,6 +277,9 @@ From there, we can define handle IDs through triples, see
   ],
   caption: [Generator for handle keys in Welkin.],
 )<foundations:bootstrap-handle-id>
+
+Here, a $"handle"$ is simply a pair ${"UID", "RID", "HID"}$, where $"UID"$,
+$"RID"$, $"HID"$ are words.
 
 [TODO[MEDIUM]: show that R *correctly* distinguishes between all units!]
 [TODO[SMALL]: remove meta-variables.] #definition[
@@ -286,9 +301,9 @@ From there, we can define handle IDs through triples, see
 ]<foundations:recursor>
 
 [TODO: make this discussion complete!] One interpretation of
-@foundations:recursor is defining @unit-containment _within_ a unit, so $R$
-could be written as $<$ in the language. Moreover, $R$ acts as the _least super
-bound_ of all units.
+@foundations:recursor is defining @foundations:unit-containment _within_ a unit,
+so $R$ could be written as $<$ in the language. Moreover, $R$ acts as the _least
+super bound_ of all units.
 
 The following theorems are two parts of the same *Recursion theorem* for Welkin.
 
