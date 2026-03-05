@@ -81,6 +81,8 @@ on two words or two handles. Maybe lift to the latter to make sense?]
     $c$ is the *context*, and $b$ is the *referent*.
 ]<foundations:unit>
 
+[TODO[SMALL]: make sure to define this notation $|$ recursively!]
+
 For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$,
 and $a | b - c -> d$ to mean ${a - c -> d, b - c -> d$. This simplifies the
 presentation of the rules; we postpone introducing $|$ into the syntax until
@@ -281,23 +283,20 @@ From there, we can define handle IDs through triples, see
 Here, a $"handle"$ is simply a pair ${"UID", "RID", "HID"}$, where $"UID"$,
 $"RID"$, $"HID"$ are words.
 
-[TODO[MEDIUM]: show that R *correctly* distinguishes between all units!]
-[TODO[SMALL]: remove meta-variables.] #definition[
-  The *unit recursor* $R$ is defined by $R <--> {R_"base", "Rules"}$, where
-  $R_"base"$ is defined recursively:
-  - Includes @foundations:bootstrap-binary-word and
-    @foundations:bootstrap-handle-id.
-  - $h - R -> "handle"$,
-  - $a - R -> R$, $a - R -> R$
-  - ${} - R -> R$.
-  - For each handle $h$, $h - R -> R$.
-  - For each arrow $a - b -> c$, if $a, b, c in R$, then
-    ${a - b -> c} - R -> R$.
-  - *Monotonic:* for each $a, b$ with $a - R -> R$ and $b - R -> R$, the
-    following hold:
-    - $a - R -> {a, b}$.
-    - $a - R -> {@a, b}$.
-    - ${@a, ~b} - R -> a$.
+Now, in @unit-rules, we needed enough _separate_ meta-variables. To do this in
+Welkin, we use representations of the form $"u" --> "unit"$. This appeared
+frequently when defining terms in @turing-expressible.
+
+#definition[
+  The *unit recursor* $"unit"$ includes all rules in @unit-rules, as well as the
+  following in context $"unit"$:
+  - $"handle" --> "unit"$, see @foundations:bootstrap-handle-id.
+  - ${} | a | b | c | g --> "unit"$.
+  - ${a - b -> c} --> "unit"$.
+  - ${a, b} | {@a, b} | {@a, ~b} --> "unit"$.
+  - *Monotonicity:*:
+    - $a --> {@a, b}$.
+    - ${@a, ~b} --> a$.
 ]<foundations:recursor>
 
 [TODO: make this discussion complete!] One interpretation of
