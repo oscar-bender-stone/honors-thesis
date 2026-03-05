@@ -307,8 +307,8 @@ frequently when defining terms in @turing-expressible.
 
 [TODO: make this discussion complete!] One interpretation of
 @foundations:recursor is defining @foundations:unit-containment _within_ a unit,
-so $R$ could be written as $<$ in the language. Moreover, $R$ acts as the _least
-super bound_ of all units.
+so $R$ could be written as $<$ in the language. Moreover, $R$ acts as the
+_maximum_ of all units.
 
 The following statements are three parts of the same *Recursion theorem* for
 Welkin. The first two are straightforward; their proofs closely aligns with the
@@ -318,31 +318,30 @@ definitions written in the meta-language (English).
 ]<foundations:recursion-correctness>
 #proof[Fix the context to be $"unit"$. We proceed induction on units:
   - *Base case:* this is immediate, as ${}$ and all handles are included.
-  - *Inductive step:* immediate; $"unit"$ includes representations and cases for
-    ${g, u}$, ${@g, u}$, and ${@g, ~u}$.
+  - *Inductive step:* immediate; $"unit"$ includes representations $a - b -> c$,
+    as well as cases for ${g, u}$, ${@g, u}$, and ${@g, ~u}$.
 ]<foundations:recursor-correctness>
 
 
-#lemma[*_(Monotonicity)_.* For every unit $u, u'$ such that $u < u'$
-  (@foundations:unit-containment), then $u - "unit" -> u'$ and
-  $not(u' - "unit" -> u)$.
+#lemma[*_(Monotonicity)_.* For every unit $u, u'$, if $u < u'$, then
+  $u - "unit" -> u'$ and $not(u' - "unit" -> u)$.
 ]
 #proof[We proceed by induction on units:
   - *Base case:* we need to demonstrate $not(u --> {})$. In $"unit"$,
     $u - {} -> {@u, ~u}$. By *R7 (Exclusion))* and *R3 (Empty)*,
     ${@{u}, ~u} <--> {}$. Combining this with *R2 (Transitivity)* results in
-    $u - {} -> {}$. Hence, no instance of $u --> {}$ will be included in
-    $"unit"$.
+    $u - {} -> {}$. Hence, no instance of $u --> {}$ is included in $"unit"$.
   - *Inductive step:* suppose $u_1$ and $u_2 equiv {@g, a}$ are units. There are
     two cases:
     - $u_1 < @g$:
-    -
+    - [TODO[SMALL]: finish this case!]
 ]
 
 
 [TODO[SMALL]: determine whether to add extensionality or not.]
-#theorem[*(Uniqueness)* Let $K$ that contains exactly $u -->^K u$ for each unit
-  $u$. Then $K <- R -> R$.]<foundations:recursion-uniqueness>
+
+#lemma[Let $K$ that contains exactly $u -->^K u$ for each unit $u$. Then
+  $K <- R -> R$.]<foundations:recursion-uniqueness>
 #proof[
   Assume for all units $u$, $u -->^K K$. Then $R -->^R R$. Thus, for any
   $p - K -> q$ in $K$, ${C − K -> K, p − K -> q} − K -> (p - C -> q in K)$
@@ -352,11 +351,9 @@ definitions written in the meta-language (English).
 An important consequence of the recursion theorem is a basic form of
 *reflection*.
 
-[TODO: make this precise! What does it mean for $T$ to "contain the rules of
-Welkin"?]
-
-#corollary[Let $T$ be any unit that extends the rules of Welkin. Then
-  ${T --> R} -->^R R$]<foundations:base-reflection>
+#theorem[*_(Uniqueness)._* Let $T$ be any unit extends $"unit"$ and preserves
+  monotonicity. Then $T$ =
+  ${"unit" --> T} - "unit" -> "unit"$]<foundations:base-reflection>
 #proof[
   We proceed by induction, fixing the base to be $R$.
   - *Base Case:* suppose $T$ is a unit exactly with the rules $u - T -> T$ for
