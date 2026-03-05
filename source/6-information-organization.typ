@@ -19,8 +19,8 @@
 = Information Organization <information-organization>
 
 The presentation of Welkin's universal expressivity, stated as
-@universality-theorem, is fixed with one particular representation. Following
-the analogue of units to practical computable functions, we define *Universal
+@turing-expressible fixed with one particular representation. Following the
+analogue of units to practical computable functions, we define *Universal
 Representation Systems (URS)* as the analogues of Universal Turing Machines, see
 @universal-representation-system.
 
@@ -46,7 +46,7 @@ also provide proof certificates.
 // example with its own reflection theorem,
 // or briefly mention it.
 
-Note that there are multiple ways to prove @universality-theorem, infinitely in
+Note that there are multiple ways to prove @turing-expressible, infinitely in
 fact. This motivates the following definition.
 
 // TODO: develop!

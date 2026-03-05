@@ -102,9 +102,7 @@ allowed.
 [TODO[SMALL]: Clarify role of global context!]
 
 #definition[
-  Define a new context $C$ called the *global context*. In the global
-  environment, the following rules apply to units, recursively stated over
-  meta-variables $a, b, c, d, g, p, q$:
+  The following rules apply, stated over meta-variables $a, b, c, d, g, p, q$:
   - *R1. Internal Transitivity:* $a - c -> b$ and $b - c -> d$ imply
     $a - c -> d$.
   - *R2. Contextual Lifting:* $a - c -> b$ and $p -->^b q$ imply
@@ -122,9 +120,9 @@ allowed.
 ]<unit-rules>
 
 We review the utility of each rule. Note that rules _between_ contexts is
-entirely flexible and user defined. Moreover, only *R1* and *R2* are strictly
-needed for Turing completeness. We will show, however, that the remaining axioms
-are optimal when organizing information, see @information-organization.
+entirely flexible and user defined. Moreover, only ? are needed for Turing
+completeness. We will show, however, that the remaining axioms are optimal when
+organizing information, see @information-organization.
 
 - *R1* and *R2* were discussed in @rationale:unit.
 - *R3* define the behavior of the empty unit ${}$, similar to the empty set.
@@ -152,30 +150,10 @@ this section? And probably make language clear?]
 [TODO[MEDIUM]: double check all parts of proof!]
 
 #theorem[Any partial computable function is definable by a unit.
-]<universality-theorem>
+]<turing-expressible>
 #proof[
-  Define a new context $C$ for this proof, containing $"Pair"$ and $"Tpl"$, as
-  defined above. We claim that that any term of the $S K I$ calculus is
-  definable as units in Welkin. To this end, if we can construct terms $M$ and
-  $N$, then we can represent the composition $M N$ as a pair
-  ${{M --> "head", N --> "next"} -->^C N'$ for some $N'$ in $C$, and subsequent
-  compositions $M N Q$ as tuples. Thus, it suffices to show this claim $K$ and
-  $S$ combinators are definable as units.
-
-  For the $K$ combinator, consider the following construction:
-  $K equiv {x, y, }$ in $C$. We must show $K A B$ reduces to $A$, or, more
-  precisely,
-
-  ${{{K --> "first", A --> "second"} --> "head", B --> "next"} -->^C N'$
-
-  [TODO(SHORT): clarify even more nested scopes from Lifting!]
-
-  ${A --> "first", B --> "second"} -->^K A$ in $C$.
-
-  ${A --> "first", B --> "second"} -->^? A$.
-
-  Now, for the $S$ combinator, consider $S equiv ?$. We must show $S A B C D$
-  reduces to $(x z)(y z)$, i.e.,:
+  We prove that we can embed any term in the $"SK"$-combinator calculus. This is
+  a system that is well known to be Turing complete @curry-grundlagen.
 ]
 
 == PRA

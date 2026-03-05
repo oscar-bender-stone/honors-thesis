@@ -172,7 +172,7 @@ system. This is made possible through contexts. We define a *truth management
 system* generally as a partial computable function augmented with parameters
 that denote the truth of base statements or *axioms*. These are intentionally
 left undefined, in the same vein as *R3*. In fact, by *R3* and
-@universality-theorem, we obtain the following.
+@turing-expressible, we obtain the following.
 
 #corollary[
   Any computable truth management system can be represented as a
@@ -192,7 +192,7 @@ Note that it is essential to have contexts via *R2*, as shown by the following.
 == Queries and Information
 We set $(u -->^v w) in x <=> x(u) -->^(x(v)) x(w)$, where $x(s)$ is the local
 extension of $s$ in $x$. We interpret $u -->^c v$ as: the *sign* $u$ represents
-*referent* $v$ in *context* $c$. Through @universality-theorem, we will present
+*referent* $v$ in *context* $c$. Through @turing-expressible, we will present
 the following computational interpretation:
 
 #align(center, block[

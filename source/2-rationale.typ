@@ -147,8 +147,6 @@ system. Here, we define a truth management system to consist of a set of axioms
 along with inference rules, whose derivations are accepted by some Turing
 machine. Welkin proves that not only is _any_ truth management system.
 
-
-
 There are two primary inference rules, which we informally describe now (and
 postpone nested contexts until @semantics):
 
