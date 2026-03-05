@@ -144,15 +144,13 @@ organizing information, see @information-organization.
 // variables! Not as easy with just assuming sets as they are; easier to express
 // the tree structure *first*.]
 
-#theorem[Any partial computable function is definable by a unit.
-]<turing-expressible>
-#proof[
-  We prove that we can embed any term in the $"SK"$-combinator calculus. This is
-  an equational theory that is well known to be Turing complete
-  @curry-grundlagen. We provide on way to express this calculus in O-lang and
-  prove it is correct.
+Before we proceed to prove Turing completeness, we introduce the
+$"SK"$-combinator calculus. This is an equational theory that is well known to
+be Turing complete @curry-grundlagen. We provide a full definition as follows.
 
-  To keep this proof self-contained, we define the full calculus:
+#definition[
+  The $"SK"$-combinator calculus consists of the following:
+
   - A *term* is defined recursively as either $K$ or $S$, and if $M, N$ are
     terms, so is $(M)$ and their *application* $M N$.
   - Evaluation: two terms $M, N$ are *equal*, written $M = N$, if they can be
@@ -167,35 +165,76 @@ organizing information, see @information-organization.
       - $M = N$ if and only if $N = M$.
       - $M = N$ and $N = P$ imply $M = P$.
 
-  // A simple way to express this in Welkin is creating a designated context $C$.
-  // Within $C$, we replace ach $=$ above with $<-->$, and using blocks to
-  // represent composition. In detail:
-  // - Let $K$ and $S$ be distinct handles.
-  // - A term is either $K$ or $S$, or if $M$ and $N$ are terms, so is ${M, N}$.
-  // - We establish two base rules for evaluation over all terms $M, N, P$:
-  //   - $M <- C -> M$.
-  //   - ${{K, M}, N} <- C -> M$.
-  //   - ${{{S, M}, N}, P} <- C -> {{M, N}, {N, P}}$.
+]<foundations:sk-calculus>
 
-  // By the definition above and axiom *R1*, $<- C ->$ is an equivalence relation.
-  // Moreover, we claim it satisfies congruence. To show this, suppose
-  // $M_1 <- C -> M_2$ and $N_1 <- C -> N_2$. By *R2*, . implies that
-  // ${M_1, M_2} <- C -> {N_1, M_2}$. This completes the proof.
+#theorem[Any partial computable function can be expressed as some unit.
+]<turing-expressible>
+#proof[
+  We prove that we can embed any term in the $S K$-combinator calculus, defined
+  in @foundations:sk-calculus. We provide on way to express this calculus in
+  Welkin and prove it is correct.
+
+  We want our embedding of this calculus to be _solely_ written in Welkin,
+  without extra meta-variables. To do this, we utilize recursion in a single
+  unit, see @foundations:turing-expressible-L.#footnote[As a note for logicians:
+    the construction is highly similar to a Hilbert-style proof system, with $K$
+    and $S$ corresponding to the rules $(phi => (psi => phi))$ and
+    $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.]
+
+  [TODO[SMALL]: fix formatting!] #figure(
+    [
+      $L equiv lr(
+        \{
+        (
+          K - L -> K, S - L -> S,\
+          {M - L -> M} - L -> L,\
+          C <--> {N - M -> L},\
+          {M - L -> M} - L -> {{N - L -> N} - L -> {}},\
+          {Y - {X - K -> L} -> L} - L -> X,\
+          {P - {N - {M - S -> L} -> L} -> L} - L -> {{P - N -> L} - {P - M -> L} -> L}
+        )
+        \}
+      )$
+    ],
+    caption: [Definition of $L$.],
+  )<foundations:turing-expressible-L>
+
+  This definition means:
+
+  - $L$ includes $K$ and $S$ as base cases, as well as $M, N, P$ for variables.
+
+  - Any term $M$ in $L$ represents $L$.
+
+  - Composition $M N$ is represented as $N - M -> L$.
+
+  - The remaining representations are for the rule of $K$ and $S$, respectively.
+
+  Now, $L$ already includes the base rules for $K$ and $S$. It remains to be
+  shown that $L$ is closed under composition: $M in L$ and $N in L$ imply
+  $(X - Y -> L) in L$. Recall that $M in L$ means $M - L -> M$, and similarly,
+  $N in L$ means $N - L -> N$. In $L$, we set $C <-> (X - Y -> L)$. Because,
+  $(M - L -> M) - L -> L$ and $(N - L -> N) - L -> {C - L -> C}$, *R2* implies
+  that $C - L -> C$, completing the proof.
 ]
 
-provided in the next subsection.
+== Base Recursor
 
-== PRA
+The proof of @turing-expressible demonstrates how contexts enable powerful
+recursive definitions. However, the underlying construction is artificial and
+results in extreme verbose terms. We will refine the proof with the a recursor
+over units.
 
-The proof of @turing-expressible is meant to be as simple as possible. However,
-relying on _only_ this construction is tedious. We will create a more enhanced
-proof with the a recursor over units.
+An important part of the $S K$-calculus is composition, the ability to gradually
+build up terms. We wish to replicate this by ensuring our recursion maintains an
+increasing containment relation. Containment is defined below.
 
 #definition[The relation $u_1$ is *contained in* $u_2$, denoted $u_1 < u_2$, is
   defined recursively:
-  - *Base case:* for each unit $u$, $u not < {}$.
+  - *Base case:* for all units $u, v$:
+    - $not(u < {})$.
+    - if $u != v$, then ${u} < {u, v}$.
   - *Inductive step:* given units $u_1$ and $u_2 equiv {@g_1, a_2}$, $u_1 < u_2$
-    if and only if either $u_1 < @g_1$ or for some $b in g$,
+    if and only if either $u_1 < @g_1$, or for some $b in g$,
     $u_1 < {{@g_1, ~b}, a}$.
 ]<unit-containment>
 
