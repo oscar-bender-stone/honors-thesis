@@ -153,7 +153,29 @@ this section? And probably make language clear?]
 ]<turing-expressible>
 #proof[
   We prove that we can embed any term in the $"SK"$-combinator calculus. This is
-  a system that is well known to be Turing complete @curry-grundlagen.
+  an equational theory that is well known to be Turing complete
+  @curry-grundlagen. We provide on way to express this calculus in Welkin and
+  prove it is correct.
+
+  To keep this proof self-contained, we define the full calculus:
+  - A *term* is defined recursively as either $K$ or $S$, and if $M, N$ are
+    terms, so is $(M)$ their *application* $M N$.
+  - Two terms $M, N$ are *equal* if they are both $K$ and $S$, or can be
+    expressed as $M_1 M_2$ and $N_1 N_2$, where $M_1 = N_1$ and $M_2 = N_2$,
+    respectively.
+  - For all terms $M, N$, $K M N = M$.
+  - For all terms $M, N, P$, $S M N P = M P (N P)$.
+
+
+  Now we can map each part of this into Welkin:
+  -
+  -
+
+  We now need to show the axioms for $K$ and $S$ hold:
+
+  - $K M N --> M$:
+
+  - $S M N P --> M P (N P)$:
 ]
 
 == PRA
