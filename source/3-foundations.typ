@@ -171,25 +171,28 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
 ]<turing-expressible>
 #proof[
   We prove that we can embed any term in the $S K$-combinator calculus, defined
-  in @foundations:sk-calculus. We provide on way to express this calculus in
-  Welkin and prove it is correct.
+  in @foundations:sk-calculus. This proof includes an important technique to
+  represent _recursion_,
 
-  We want our embedding of this calculus to be _solely_ written in Welkin,
-  without extra meta-variables. To do this, we utilize recursion in a single
-  unit, see @foundations:turing-expressible-L.#footnote[As a note for logicians:
-    the construction is highly similar to a Hilbert-style proof system, with $K$
-    and $S$ corresponding to the rules $(phi => (psi => phi))$ and
-    $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.]
+  We express recursion via a unit $L$, see
+  @foundations:turing-expressible-L.#footnote[As a note for logicians: these
+    rules are extremely similar to a Hilbert-style proof system, with $K$ and
+    $S$ corresponding to the rules $(phi => (psi => phi))$ and
+    $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.
+    This was one of the important insights clarified by Curry, in connecting
+    logic to computation @curry-grundlagen.]
 
   [TODO[SMALL]: fix formatting!] #figure(
     [
       $L equiv lr(
         \{
         (
-          K - L -> K, S - L -> S,\
-          {M - L -> M} - L -> L,\
+          K - L -> L, S - L -> L,\
+          M - L -> {M - L -> L}, N - L -> {N - L -> L}, P - L -> {P - L -> L},
           C <--> {N - M -> L},\
-          {M - L -> M} - L -> {{N - L -> N} - L -> {}},\
+          L - L -> {{M - L -> L} - L -> {{N - L -> L} - L -> {C - L -> C}}},\
+          C - L -> {M - L -> M},
+          C - L -> {N - L -> N},
           {Y - {X - K -> L} -> L} - L -> X,\
           {P - {N - {M - S -> L} -> L} -> L} - L -> {{P - N -> L} - {P - M -> L} -> L}
         )
@@ -203,18 +206,51 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
 
   - $L$ includes $K$ and $S$ as base cases, as well as $M, N, P$ for variables.
 
-  - Any term $M$ in $L$ represents $L$.
-
-  - Composition $M N$ is represented as $N - M -> L$.
+  - Composition $M N$ is represented as $N - M -> L$. Moreover, compositions
+  $M N$ can be broken down into its constiuent parts $M, N$.
 
   - The remaining representations are for the rule of $K$ and $S$, respectively.
 
   Now, $L$ already includes the base rules for $K$ and $S$. It remains to be
   shown that $L$ is closed under composition: $M in L$ and $N in L$ imply
-  $(X - Y -> L) in L$. Recall that $M in L$ means $M - L -> M$, and similarly,
-  $N in L$ means $N - L -> N$. In $L$, we set $C <-> (X - Y -> L)$. Because,
+  $(X - Y -> L) in L$. We provide the full derivation in , completing the proof.
+
+  Recall that $M in L$ means $M - L -> M$, and similarly, $N in L$ means
+  $N - L -> N$. In $L$, we set $C <-> (X - Y -> L)$. Because,
   $(M - L -> M) - L -> L$ and $(N - L -> N) - L -> {C - L -> C}$, *R2* implies
   that $C - L -> C$, completing the proof.
+
+  // NOTE: P1 = Y - L -> L
+  #figure(
+    table(
+      columns: (5%, 65%, 30%),
+      inset: 6pt,
+      align: horizon,
+      table.header([*Step*], [*Representation*], [*Justification*]),
+      [1], [$L - L -> { Y - L -> { X - L -> (C - L -> L) } }$], [*L1*],
+
+      [2],
+      [$Y - L -> { Y - L -> { X - L -> (C - L -> L) } }$],
+      [R1: Step 3, Step 2],
+
+      [3], [$Y - L -> { Y - L -> L }$], [*L2*],
+      [4], [$Y - L -> { X - L -> (C - L -> L) }$], [R1: Step 3, Step 2],
+
+      [5], [$X - L -> { X - L -> L }$], [*L2*],
+      [6], [$X - L -> { X - L -> (C - L -> L) }$], [R1: on (P1, Step 4)],
+
+      [7],
+      [$X - L -> (C - L -> L)$],
+      [R1 on (Step 5, Step 6) \ $N={X- L -> L}$],
+
+      [8], [$C - L -> (X - L -> L)$], [Def 4 (Decomposition A)],
+      [9], [$X - C -> L in L$], [R2 on (Step 8, P1) \ $N=(X-L -> L)$],
+      [10], [$C - L -> (Y - L -> L)$], [Def 5 (Decomposition B)],
+      [11], [$C - L -> L$], [R1 on (Step 10, P2) \ $N=(Y-L -> L)$],
+    ),
+    caption: [Derivation of $C - L -> L$ from $M - L -> L$ and $N - L -> L$,
+      where $C equiv {N - M -> L}$.],
+  )<foundations:turing-expressible-composition>
 ]
 
 == Base Recursor
@@ -240,8 +276,7 @@ increasing containment relation. Containment is defined below.
 
 The recursor needs to index through all possible keys. We first need to define a
 unit to recurse over binary words. We present a natural definition in
-@foundations:bootstrap-binary-word. From there, expressing Handles is easy, see
-@foundations:bootstrap-handle-id.
+@foundations:bootstrap-binary-word.
 
 #figure(
   [
@@ -263,11 +298,13 @@ From there, we can define handle IDs through triples, see
 )<foundations:bootstrap-handle-id>
 
 [TODO[MEDIUM]: show that R *correctly* distinguishes between all units!]
-#definition[
+[TODO[SMALL]: remove meta-variables.] #definition[
   The *unit recursor* $R$ is defined by $R <--> {R_"base", "Rules"}$, where
-  $R_"base"$ is defined recursively, over meta-variables $h, a, b, c$:
+  $R_"base"$ is defined recursively:
   - Includes @foundations:bootstrap-binary-word and
     @foundations:bootstrap-handle-id.
+  - $h - R -> "handle"$,
+  - $a - R -> R$, $a - R -> R$
   - ${} - R -> R$.
   - For each handle $h$, $h - R -> R$.
   - For each arrow $a - b -> c$, if $a, b, c in R$, then
@@ -283,9 +320,6 @@ From there, we can define handle IDs through triples, see
 @foundations:recursor is defining @unit-containment _within_ a unit, so $R$
 could be written as $<$ in the language. Moreover, $R$ acts as the _least super
 bound_ of all units.
-
-[TODO[MEDIUM]: Provide tabular proofs for these! Want to be very precise! But
-need to recognize when we are doing substitutions for meta-variables.]
 
 The following theorems are two parts of the same *Recursion theorem* for Welkin.
 
