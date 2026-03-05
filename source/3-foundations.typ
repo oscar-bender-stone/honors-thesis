@@ -340,8 +340,8 @@ definitions written in the meta-language (English).
 
 [TODO[SMALL]: determine whether to add extensionality or not.]
 
-#lemma[Let $K$ that contains exactly $u -->^K u$ for each unit $u$. Then
-  $K <- R -> R$.]<foundations:recursion-uniqueness>
+#lemma[*_(Uniqueness)_* Let $K$ that contains exactly $u -->^K u$ for each unit
+  $u$. Then $K <- R -> R$.]<foundations:recursion-uniqueness>
 #proof[
   Assume for all units $u$, $u -->^K K$. Then $R -->^R R$. Thus, for any
   $p - K -> q$ in $K$, ${C − K -> K, p − K -> q} − K -> (p - C -> q in K)$
@@ -349,19 +349,21 @@ definitions written in the meta-language (English).
 ]
 
 An important consequence of the recursion theorem is a basic form of
-*reflection*.
+*reflection*. Most importantly, this theorem establishes that _any_ way to
+characterize Welkin can be reduced to including the recursor $"unit"$. This
+establishes that $"unit"$ is the _smallest_ set of foundations for Welkin.
 
-#theorem[*_(Uniqueness)._* Let $T$ be any unit extends $"unit"$ and preserves
-  monotonicity. Then $T$ =
-  ${"unit" --> T} - "unit" -> "unit"$]<foundations:base-reflection>
+#theorem[*_(Base Reflection)._* Let $T$ be any unit extends $"unit"$. Then
+  ${T --> "unit"} - "unit" -> "unit"$.]<foundations:base-reflection>
 #proof[
-  We proceed by induction, fixing the base to be $R$.
+  We proceed by induction, fixing the base to be $"unit"$.
   - *Base Case:* suppose $T$ is a unit exactly with the rules $u - T -> T$ for
     every unit $u$ and the rules in @unit-rules. Then by
-    @foundations:recursion-uniqueness, $T <--> R$, completing the base case.
+    @foundations:recursion-uniqueness, $T <--> "unit"$, completing the base
+    case.
   - *Inductive step:* suppose $T = {T', e}$ for a units $T', e$ where
-    $T' --> R$. Now, by monotonicitiy in $R$, $T --> T'$, hence by transitivity,
-    $T --> R$.
+    $T' --> "unit"$. Now, by monotonicitiy in $"unit"$, $T --> T'$, hence by
+    transitivity, $T --> "unit"$.
 ]
 
 == Expressing PA and Feferman Reflection
