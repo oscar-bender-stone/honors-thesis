@@ -178,8 +178,16 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
   in @foundations:sk-calculus. This proof includes an important technique to
   represent _recursion_,
 
-  We express recursion via a unit $L$, see @foundations:turing-expressible-L.
-  Note that each rule of the form $A --> B$ written in $L$ means $A - L -> B$.
+  We express recursion via a unit $L$. For keys, we set:
+  - $L equiv (1, 0, 0)$
+  - $K equiv (1, 0, 1)$
+  - $S equiv (1, 0, 2)$
+  - $M equiv (1, 0, 3)$
+  - $N equiv (1, 0, 4)$
+  - $M equiv (1, 0, 5)$
+
+  For the rules, see @foundations:turing-expressible-L. Note that each rule of
+  the form $A --> B$ written in $L$ means $A - L -> B$.
   #footnote[As a note for logicians: these rules are extremely similar to a
     Hilbert-style proof system, with $K$ and $S$ corresponding to the rules
     $(phi => (psi => phi))$ and
@@ -234,8 +242,9 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
 
 The proof of @turing-expressible demonstrates how contexts enable powerful
 recursive definitions. However, the underlying construction is tedious and
-results in extremely verbose terms. We will refine the proof with a *recursor*
-over units. This is a unit that indexes every unit.
+results in extremely verbose terms. Keys are assigned manually, which can easily
+be error prone. We will refine the proof with a *recursor* over units. This is a
+unit that indexes every unit, as well as every handle.
 
 An important part of the $S K$-calculus is composition, the ability to gradually
 build up terms. We wish to replicate this by ensuring our recursion maintains an
@@ -366,11 +375,12 @@ establishes that $"unit"$ is the _smallest_ set of foundations for Welkin.
     transitivity, $T --> "unit"$.
 ]
 
-== Meta-theory
+== Information
 
-The goal of this section is to completely define the following: _a proof of
-anything expressible as a RE set_. We will then generalize this to more through
-handles and mark soundness. Note that, because of Rice's Theorem, this method is
-inherently incomplete with computable methods. This theory does, however,
-establish a ceiling. As mentioned, we will postpone optimizations until
-@information-organization.
+This section provides the definition of information in Welkin. We will write
+this as a high-level, but the bootstrap will define this as a unit, see ?.
+
+#definition[
+  Let $u, v$ be units. Then $u$ has *information about* $v$ if .
+]
+
