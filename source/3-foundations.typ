@@ -302,7 +302,7 @@ frequently when defining terms in @turing-expressible.
     - $a --> {@a, b}$.
     - ${@a, b} - {} -> a$.
     - ${@a, ~b} --> a$.
-    - $a - {} -> {@a, ~b} --> a$.
+    - $a - {} -> {@a, ~b}$.
 ]<foundations:recursor>
 
 [TODO: make this discussion complete!] One interpretation of
@@ -314,7 +314,7 @@ The following statements are three parts of the same *Recursion theorem* for
 Welkin. The first two are straightforward; their proofs closely aligns with the
 definitions written in the meta-language (English).
 
-#lemma[*(Correctness)* For every unit $u$, $u - "unit" -> "unit"$. if
+#lemma[*_(Correctness)._* For every unit $u$, $u - "unit" -> "unit"$.
 ]<foundations:recursion-correctness>
 #proof[Fix the context to be $"unit"$. We proceed induction on units:
   - *Base case:* this is immediate, as ${}$ and all handles are included.
@@ -323,13 +323,16 @@ definitions written in the meta-language (English).
 ]<foundations:recursor-correctness>
 
 
-#lemma[*(Monotonicity)* For every unit $u, u'$ such that $u < u'$
+#lemma[*_(Monotonicity)_.* For every unit $u, u'$ such that $u < u'$
   (@foundations:unit-containment), then $u - "unit" -> u'$ and
   $not(u' - "unit" -> u)$.
 ]
 #proof[We proceed by induction on units:
-  - *Base case:* we need to demonstrate $not(u --> {})$. By axiom *R3 (Empty)*,
-    . Thus, .
+  - *Base case:* we need to demonstrate $not(u --> {})$. In $"unit"$,
+    $u - {} -> {@u, ~u}$. By *R7 (Exclusion))* and *R3 (Empty)*,
+    ${@{u}, ~u} <--> {}$. Combining this with *R2 (Transitivity)* results in
+    $u - {} -> {}$. Hence, no instance of $u --> {}$ will be included in
+    $"unit"$.
   - *Inductive step:* suppose $u_1$ and $u_2 equiv {@g, a}$ are units. There are
     two cases:
     - $u_1 < @g$:
