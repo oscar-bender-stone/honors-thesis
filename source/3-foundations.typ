@@ -167,6 +167,8 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
 
 ]<foundations:sk-calculus>
 
+[TODO[SMALLL]: create boxes for remarks and important notes?]
+
 #theorem[Any partial computable function can be expressed as some unit.
 ]<turing-expressible>
 #proof[
@@ -174,26 +176,32 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
   in @foundations:sk-calculus. This proof includes an important technique to
   represent _recursion_,
 
-  We express recursion via a unit $L$, see
-  @foundations:turing-expressible-L.#footnote[As a note for logicians: these
-    rules are extremely similar to a Hilbert-style proof system, with $K$ and
-    $S$ corresponding to the rules $(phi => (psi => phi))$ and
+  We express recursion via a unit $L$, see @foundations:turing-expressible-L.
+  Note that each rule of the form $A --> B$ written in $L$ means $A - L -> B$.
+  #footnote[As a note for logicians: these rules are extremely similar to a
+    Hilbert-style proof system, with $K$ and $S$ corresponding to the rules
+    $(phi => (psi => phi))$ and
     $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.
     This was one of the important insights clarified by Curry, in connecting
     logic to computation @curry-grundlagen.]
 
-  [TODO[SMALL]: fix formatting!] #figure(
+  [TODO[SMALL]: fix formatting!]
+
+  [TODO[SMALL]: clarify on global representations!]
+
+  #figure(
     [
       $L equiv lr(
         \{
         (
-          K - L -> L, S - L -> L,\
-          M - L -> {M - L -> L}, N - L -> {N - L -> L}, P - L -> {P - L -> L},
+          K --> L, S --> L,\
+          {M --> L} --> L,\
+          {N --> L} --> L,\
+          {P --> L} --> L,\
           C <--> {N - M -> L},\
-          L - L -> {{M - L -> L} - L -> {{N - L -> L} - L -> {C - L -> C}}},\
-          C - L -> {M - L -> M},
-          C - L -> {N - L -> N},
-          {Y - {X - K -> L} -> L} - L -> X,\
+          C --> {M --> L},\
+          C --> {N --> L},\
+          {Y - {X - K -> L} -> L} - L -> X, \
           {P - {N - {M - S -> L} -> L} -> L} - L -> {{P - N -> L} - {P - M -> L} -> L}
         )
         \}
@@ -204,53 +212,20 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
 
   This definition means:
 
-  - $L$ includes $K$ and $S$ as base cases, as well as $M, N, P$ for variables.
-
+  - $L$ includes $K$ and $S$ as base cases. We interpret $K - L -> L$ to mean
+    $K$ is a term of $L$.
+  - We include variables $M, N, P$ over terms. The statement
+    ${M - L -> L} - L -> L$ wraps around any term.
   - Composition $M N$ is represented as $N - M -> L$. Moreover, compositions
-  $M N$ can be broken down into its constiuent parts $M, N$.
+    $M N$ can be broken down into its constituent parts $M, N$.
 
   - The remaining representations are for the rule of $K$ and $S$, respectively.
 
   Now, $L$ already includes the base rules for $K$ and $S$. It remains to be
-  shown that $L$ is closed under composition: $M in L$ and $N in L$ imply
-  $(X - Y -> L) in L$. We provide the full derivation in , completing the proof.
-
-  Recall that $M in L$ means $M - L -> M$, and similarly, $N in L$ means
-  $N - L -> N$. In $L$, we set $C <-> (X - Y -> L)$. Because,
-  $(M - L -> M) - L -> L$ and $(N - L -> N) - L -> {C - L -> C}$, *R2* implies
-  that $C - L -> C$, completing the proof.
-
-  // NOTE: P1 = Y - L -> L
-  #figure(
-    table(
-      columns: (5%, 65%, 30%),
-      inset: 6pt,
-      align: horizon,
-      table.header([*Step*], [*Representation*], [*Justification*]),
-      [1], [$L - L -> { Y - L -> { X - L -> (C - L -> L) } }$], [*L1*],
-
-      [2],
-      [$Y - L -> { Y - L -> { X - L -> (C - L -> L) } }$],
-      [R1: Step 3, Step 2],
-
-      [3], [$Y - L -> { Y - L -> L }$], [*L2*],
-      [4], [$Y - L -> { X - L -> (C - L -> L) }$], [R1: Step 3, Step 2],
-
-      [5], [$X - L -> { X - L -> L }$], [*L2*],
-      [6], [$X - L -> { X - L -> (C - L -> L) }$], [R1: on (P1, Step 4)],
-
-      [7],
-      [$X - L -> (C - L -> L)$],
-      [R1 on (Step 5, Step 6) \ $N={X- L -> L}$],
-
-      [8], [$C - L -> (X - L -> L)$], [Def 4 (Decomposition A)],
-      [9], [$X - C -> L in L$], [R2 on (Step 8, P1) \ $N=(X-L -> L)$],
-      [10], [$C - L -> (Y - L -> L)$], [Def 5 (Decomposition B)],
-      [11], [$C - L -> L$], [R1 on (Step 10, P2) \ $N=(Y-L -> L)$],
-    ),
-    caption: [Derivation of $C - L -> L$ from $M - L -> L$ and $N - L -> L$,
-      where $C equiv {N - M -> L}$.],
-  )<foundations:turing-expressible-composition>
+  shown that $L$ is closed under composition: $M - L -> L$ and $N - L -> L$
+  imply $C - L -> L$, where $C <--> (X - Y -> L)$. By using *R1* on
+  $C - L -> (M - L -> L)$ and $(M - L -> L) - L -> L$, we obtain $C - L -> L$,
+  completing the proof.
 ]
 
 == Base Recursor
