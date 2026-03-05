@@ -7,6 +7,8 @@
 
 = Introduction
 
+[TODO[MEDIUM]: determine if the phrase: "see Section ?" should be used, or
+"refer to" instead, to fully include all readers.]
 
 Information Management is the study of systematically storing and organizing
 data. With the massive growth of data, particularly on the web, simply storing

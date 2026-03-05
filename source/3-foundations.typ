@@ -105,7 +105,7 @@ allowed.
   The following rules apply, stated over meta-variables $a, b, c, d, g, p, q$:
   - *R1. Internal Transitivity:* $a - c -> b$ and $b - c -> d$ imply
     $a - c -> d$.
-  - *R2. Contextual Lifting:* $a - c -> b$ and $p -->^b q$ imply
+  - *R2. Contextual Lifting:* $a - c -> b$ and $p - b -> q$ imply
     $p - a -> q in c$.
   - *R3. Empty:* ${@g, {}} <--> g$.
   - *R4. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
@@ -140,45 +140,56 @@ organizing information, see @information-organization.
   $g$, which can themselves be arrows.
 - *R-R* ensure that information can be repeated and is positionally invariant.
 
-[TODO[SMALL]: note importance of using axioms to define essentially bound/free
-variables! Not as easy with just assuming sets as they are; easier to express
-the tree structure *first*.]
-
-[TODO[SMALL]: clarify meta-variables! Maybe make these fixed *at* the start of
-this section? And probably make language clear?]
-
-[TODO[MEDIUM]: double check all parts of proof!]
+// [TODO[SMALL]: note importance of using axioms to define essentially bound/free
+// variables! Not as easy with just assuming sets as they are; easier to express
+// the tree structure *first*.]
 
 #theorem[Any partial computable function is definable by a unit.
 ]<turing-expressible>
 #proof[
   We prove that we can embed any term in the $"SK"$-combinator calculus. This is
   an equational theory that is well known to be Turing complete
-  @curry-grundlagen. We provide on way to express this calculus in Welkin and
+  @curry-grundlagen. We provide on way to express this calculus in O-lang and
   prove it is correct.
 
   To keep this proof self-contained, we define the full calculus:
   - A *term* is defined recursively as either $K$ or $S$, and if $M, N$ are
-    terms, so is $(M)$ their *application* $M N$.
-  - Two terms $M, N$ are *equal* if they are both $K$ and $S$, or can be
-    expressed as $M_1 M_2$ and $N_1 N_2$, where $M_1 = N_1$ and $M_2 = N_2$,
-    respectively.
-  - For all terms $M, N$, $K M N = M$.
-  - For all terms $M, N, P$, $S M N P = M P (N P)$.
+    terms, so is $(M)$ and their *application* $M N$.
+  - Evaluation: two terms $M, N$ are *equal*, written $M = N$, if they can be
+    deduced from the following axioms:
+    - *Base Rules:* for all terms $M, N, P$:
+      - $K M N = M$
+      - $S M N P = M P (N P)$.
+    - *Congruence:* if $M_1 = M_2$ and $M_2 = N = 2$, then $M_1 M_2 = N_1 N_2$.
+    - *Equivalence:* $=$ forms an equivalence relation, which means for all
+      $M, N, P$:
+      - $M = M$.
+      - $M = N$ if and only if $N = M$.
+      - $M = N$ and $N = P$ imply $M = P$.
 
+  // A simple way to express this in Welkin is creating a designated context $C$.
+  // Within $C$, we replace ach $=$ above with $<-->$, and using blocks to
+  // represent composition. In detail:
+  // - Let $K$ and $S$ be distinct handles.
+  // - A term is either $K$ or $S$, or if $M$ and $N$ are terms, so is ${M, N}$.
+  // - We establish two base rules for evaluation over all terms $M, N, P$:
+  //   - $M <- C -> M$.
+  //   - ${{K, M}, N} <- C -> M$.
+  //   - ${{{S, M}, N}, P} <- C -> {{M, N}, {N, P}}$.
 
-  Now we can map each part of this into Welkin:
-  -
-  -
-
-  We now need to show the axioms for $K$ and $S$ hold:
-
-  - $K M N --> M$:
-
-  - $S M N P --> M P (N P)$:
+  // By the definition above and axiom *R1*, $<- C ->$ is an equivalence relation.
+  // Moreover, we claim it satisfies congruence. To show this, suppose
+  // $M_1 <- C -> M_2$ and $N_1 <- C -> N_2$. By *R2*, . implies that
+  // ${M_1, M_2} <- C -> {N_1, M_2}$. This completes the proof.
 ]
 
+provided in the next subsection.
+
 == PRA
+
+The proof of @turing-expressible is meant to be as simple as possible. However,
+relying on _only_ this construction is tedious. We will create a more enhanced
+proof with the a recursor over units.
 
 #definition[The relation $u_1$ is *contained in* $u_2$, denoted $u_1 < u_2$, is
   defined recursively:
@@ -188,10 +199,12 @@ this section? And probably make language clear?]
     $u_1 < {{@g_1, ~b}, a}$.
 ]<unit-containment>
 
+The recursor needs to index through all possible keys. We first need to define a
+unit to recurse over binary words. We present a natural definition in
+@foundations:bootstrap-binary-word. From there, expressing Handles is easy, see
+@foundations:bootstrap-handle-id.
 
-For universality, we need an important base construction that is definable in
-the theory: the ability to recurse through all IDs. From there, we can easily
-enumerate through all _potential_ handles. #figure(
+#figure(
   [
     $"bit" --> 0 | 1$
 
@@ -232,9 +245,6 @@ From there, we can define handle IDs through triples, see
 could be written as $<$ in the language. Moreover, $R$ acts as the _least super
 bound_ of all units.
 
-Now we can prove the Turing definability of Welkin.
-
-
 [TODO[MEDIUM]: Provide tabular proofs for these! Want to be very precise! But
 need to recognize when we are doing substitutions for meta-variables.]
 
@@ -253,10 +263,9 @@ The following theorems are two parts of the same *Recursion theorem* for Welkin.
       ${@g, e} - R -> g$, transitivity implies ${@g, ~e} - R -> R$.
 ]
 
-[TODO[MEDIUM]: complete! And is this in the global context? Is this extensional
-equality or so?] #theorem[*(Uniqueness)* Let $K$ that contains exactly
-  $u -->^K u$ for each unit $u$. Then
-  $K <- R -> R$.]<foundations:recursion-uniqueness>
+[TODO[SMALL]: determine whether to add extensionality or not.]
+#theorem[*(Uniqueness)* Let $K$ that contains exactly $u -->^K u$ for each unit
+  $u$. Then $K <- R -> R$.]<foundations:recursion-uniqueness>
 #proof[
   Assume for all units $u$, $u -->^K K$. Then $R -->^R R$. Thus, for any
   $p - K -> q$ in $K$, ${C − K -> K, p − K -> q} − K -> (p - C -> q in K)$
