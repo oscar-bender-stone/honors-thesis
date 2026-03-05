@@ -18,11 +18,15 @@
 // TODO: improve width
 #let matched-dash = math.class(
   "relation",
-  // A standard minus is about 0.6em wide. Overlapping them by roughly
-  // -0.4em gives us a continuous line close to your 0.764em length.
-  box[$minus #h(-0.4em) minus$],
+  box(
+    width: 0.764em, // Your measured 7.64 stem width / 10
+    height: 0.5em, // Keeps baseline alignment consistent
+    align(
+      center + horizon,
+      line(length: 0.764em, stroke: 0.049em + black), // Your measured 0.49 thickness
+    ),
+  ),
 )
-
 
 // Only used for exclusion operator
 // in imports

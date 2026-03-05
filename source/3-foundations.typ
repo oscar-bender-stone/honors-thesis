@@ -391,7 +391,8 @@ this as a high-level, but the bootstrap will define this as a unit, see ?.
 ]
 
 Thus, we can interpret "making a difference" as _
-a representation producing a non-empty unit_.
+a representation producing a non-empty unit_. In other words, information is a
+unit that does not "collapse" on itself (producing ${}$).
 
 In context $"query"$:
 - $"context" in "query"$
