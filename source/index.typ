@@ -14,12 +14,14 @@
       email: "oscar-bender-stone@protonmail.com",
     ),
   ),
-  date: [March 3, 2026],
+  date: [March 5, 2026],
   abstract: [Welkin is a formalized information language. We introduce its use
     cases and rigorously define its syntax and semantics. From there, we
     introduce the bootstrap, making Welkin completely self-contained. [TODO:
     determine how to phrase soundness and incompleteness. Should we include
     these?].],
+  notes: [This project used Google Gemini to aid in research and refine Typst
+    code.],
   bibliography: bibliography((
     "references/misc.bib",
     "references/1-introduction.bib",

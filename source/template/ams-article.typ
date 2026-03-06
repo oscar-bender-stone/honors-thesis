@@ -88,6 +88,8 @@
   // The document's content.
   body,
   // Front Matter Parameters
+  // Notes
+  notes: none,
   // Author "thanks" (e.g., funding)
   thanks: none,
   // Date of submission
@@ -96,6 +98,7 @@
   msc: none,
   // Keywords
   keywords: none,
+  // Notes
 ) = {
   let watermark = if draft {
     rotate(24deg, text(80pt, fill: gray.lighten(70%))[
@@ -181,7 +184,7 @@
         // v(1fr) // Push content to bottom of footer area
 
         // Metadata block
-        if (date, msc, keywords, thanks).any(it => it != none) {
+        if (date, msc, keywords, thanks, notes).any(it => it != none) {
           set par(first-line-indent: 0pt)
           set text(script-size)
 
@@ -193,6 +196,16 @@
             show: par.with(first-line-indent: 0pt)
             thanks
             v(0.5em, weak: true)
+          }
+
+          if notes != none {
+            block(
+              inset: 0pt,
+              {
+                notes
+                v(0.5em, weak: true)
+              },
+            )
           }
 
           if date != none {
