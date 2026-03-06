@@ -328,7 +328,9 @@ Now, in @unit-rules, we needed enough _separate_ meta-variables. To do this in
 Welkin, we use representations of the form $"u" --> "unit"$. This appeared
 frequently when defining terms in @turing-expressible.
 
-#definition[
+
+[TODO[SMALL]: maybe separate with a different unit $"in"$ and $"contains"$? This
+might be clearer to define monotonicity.] #definition[
   The *unit recursor* $"unit"$ includes all rules in @unit-rules, as well as the
   following in context $"unit"$:
   - $"handle" --> "unit"$, see @foundations:bootstrap-handle-id.
@@ -434,23 +436,16 @@ optional.
 By @turing-expressible, every partial computable can be expressed as a unit.
 Additionally, in the construction used, reductions of terms are _also_
 represented. This provides a ceiling on what queries we can _express_
-computably. For more details, refer to @hopcroft-automata-theory[Ch. 1].
-Roughly, let $c$ be a context $c$.
+computably. For more details, refer to @hopcroft-automata-theory[Ch. 1]. This
+asks whether a representation is contained in a context.
 
 #definition[
-  Let $c$ be a context. Then a *query over $c$* is a question over a fixed unit
-  $q$:
+  Let $c$ be a context. Then a *query over $c$* is a question over fixed units
+  $p, q, d$:
   #quote[
-    Does $q - c -> q$ hold?
+    Does ${p - q -> d} - "unit" -> c$ hold?
   ]
 ]<foundations:query>
-
-To standardize this in Welkin, we will instead write:
-
-#set quote(block: true)
-#quote[
-  _Is ${@c, ~q} <- "unit" -> {}$?_
-]
 
 We can then apply $"unit"$ in an attempt to evaluate this. In some cases, this
 is easy and only uses _direct definitions_. Consider, for example, examining $p$
