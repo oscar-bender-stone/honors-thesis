@@ -52,10 +52,9 @@ Artemov does _not_ show that there is a _single_ proof that $"PA"$ is
 consistent, that works for _any_ proof. Instead, his method _takes_ a proof as a
 parameter. There have been extensive discussion on the validity of this
 technique, and its acceptance by other logicians.#footnote[The discussion is
-  available online at:
-  #link(
+  available online at: #link(
     "https://mathoverflow.net/questions/469247/situation-with-artemovs-paper",
-  )]
+  ).]
 
 Despite its initial controversy, Artemov's key techniques follow closely with
 several constructive schools, see @artemov_serial_consistency. This thesis
@@ -66,16 +65,51 @@ cannot define its own truth predicate _at the object language_
 @tarski-undefinability-truth. We circumvent this problem _precisely_ with a
 meta-theory.
 
+[TODO: explain the role of chains! It's different than reflection, so we should
+show _how_ these chains can build up.]
+
 #definition[
-  The *meta recursor* $"meta"$ over all units is defined recursively.
+  The *meta recursor* $"meta"$ over all units is defined recursively. We say
+  that $"meta"$ *meta-proves* $T$, denoted $T |-_"meta" a$ if there is a proof
+  through serial-soundness chains $"unit", T_1, ..., T_n$, where each unit $T_i$
+  proves its own serial-soundness.
 ]
 
-[TODO[HIGH]: replace proof sketches *with* full proofs, IN Welkin!]
+To show that this covers _every_ proof that can be computably recognized, we
+need to discuss ordinals. We provide an embedding via $"unit"$.
 
-#theorem[]
+#theorem[
+  The unit $"meta"$ meta-proves that serial soundness implies soundness.
+]
 
-== Completeness
+#definition[The unit $"recursive_ordinal"$ is defined recursively:
+  - *Base:*
+  - *Successor:*
+  - *Limit:*
+]
 
+#theorem[The unit $"meta"$ expresses any computably expressible proof. More
+  precisely, for any recursive ordinal $alpha$, there is a unit $T in "meta"$
+  with greater theoretic proof ordinal than $alpha$
+]
+#proof[
+
+]
+
+Note, however, that detecting if an ordinal is recursive is undecidable. The
+upper bound is the best one can hope for, in general.
+
+As an immediate corollary, this proves that $"unit"$, being a simple verifier,
+does _not_ impose further restrictions on proofs.
+
+#theorem[The unit $"meta"$ meta-proves its own serial soundness, and hence,
+  soundness.
+]
 
 == Defining Information
 This section provides the definition of information in Welkin.
+
+#definition[
+  *Information* about a query $q$ in context $c$ is a any partial meta-proof in
+  $"meta"$ of a derivation of ${@c, q}$.
+]
