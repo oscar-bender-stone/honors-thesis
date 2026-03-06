@@ -331,14 +331,13 @@ Now, in @unit-rules, we needed enough _separate_ meta-variables. To do this in
 Welkin, we use representations of the form $"u" --> "unit"$. This appeared
 frequently when defining terms in @turing-expressible.
 
-[TODO[SMALL]: maybe separate with a different unit $"in"$ and $"contains"$? This
-might be clearer to define monotonicity.] #definition[
+#definition[
   The *unit recursor* $"unit"$ includes all rules in @unit-rules, as well as the
   following in context $"unit"$:
   - $"handle" --> "unit"$, see @foundations:bootstrap-handle-id.
   - ${} | u | v | c --> "unit"$.
   - ${u - c -> v} --> "unit"$.
-  - ${u, v} | {@u, v} | {@u, ~v} --> "unit"$.
+  - ${u, v} | {u, ~v} | {@u, v} | {@u, ~v} --> "unit"$.
 ]<foundations:recursor>
 
 The following statements are two parts of the same *Recursion theorem* for
@@ -353,22 +352,28 @@ definitions written in the meta-language (English).
     as well as cases for ${g, u}$, ${@g, u}$, and ${@g, ~u}$.
 ]<foundations:recursor-correctness>
 
+[TODO: develop inductive argument over units! Maybe *need* $"in"$ to get this
+started?]
+
+== Verifier
 
 Now we will includle a notion for containment. This will be useful for
 optimizations see @information-organization.
 
 #definition[
-  The unit $"part"$ is defined recursively, over units $u, v --> "unit"$.
-  - $u - "part" -> {@u, v}$.
-  - ${@u, v} - ~"part" -> u$.
-  - ${@u, ~v} - "part" -> u$.
-  - $u - ~"part" -> {@u, ~v}$.
+  The unit $"in"$ is defined over units $u, v --> "unit"$:
+  - $u --> {@u, v}$.
+  - $~{{@u, v} --> u}$.
+  - $~{{@u, ~v} --> u}$.
+  - $u --> {@u, ~v}$.
 ]<foundations:bootstrap-in>
 
-#lemma[The unit $"part"$ correctly determines whether $u$ is a part of $u'$.]
+#lemma[$u - "in" -> u'$ if and only if $u - u' -> u$.]
 #proof[
-  TBD.
-]
+  We proceed by structural induction on units:
+  - *Base case:*
+  - *Inductive step:*
+]<foundations:in-correctness>
 
 Now, because Welkin is Turing expressible, $"unit"$ may not terminate in all
 cases, such as an infinite recursive loop. We want to have a mechanism to
