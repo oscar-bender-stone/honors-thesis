@@ -45,14 +45,14 @@ store the _same_ information about a patient @reisman-interoperable-data. These
 problems continue to be a challenge in effectively utilizing frameworks for
 information.
 
-In consideratino of these issues, several solutions partially resolve some of
+In consideration of these issues, several solutions partially resolve some of
 them, but not completely. The following provides a small list of major existing
 solutions. Reading these is optional and not required to understand this thesis.
 We will not revisit these until the conclusion, see @conclusion:comparisons.
 
 - *Resource Description Framework (RDF) Triple Stores:* These systems serve as
   the primary implementations of an internet standard called the Web Ontology
-  Language (OWL) @OWL2. By storing information as triples
+  Language (OWL) @OWL2. This system stores information as triples
   $"subject"-"predicate"->"object"$. From there, the language can then enforce
   rules and ensure new relationships derived are _only_ from previously given
   relationships and valid rules. OWL has been highly successful in providing a
@@ -60,7 +60,7 @@ We will not revisit these until the conclusion, see @conclusion:comparisons.
   @hitzler-review-the-semantic-web. Despite their widespread adoption, RDF
   stores struggle with extensive sources of data. Enforcing logical rules can be
   expensive @owl-approximate-reasoning. Additionally, because OWL treats missing
-  sources of data as "unknown" rather than "false", it often fails to resolve
+  sources of data as _unknown_ rather than _false_, it often fails to resolve
   conflicts between two sources @hitzler-review-the-semantic-web.
 
 - *Labeled Property Graphs (LPGs):* This is an architecture defined by its

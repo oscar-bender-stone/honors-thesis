@@ -88,6 +88,20 @@ on two words or two handles. Maybe lift to the latter to make sense?]
 
 [TODO[SMALL]: make sure to define this notation $|$ recursively!]
 
+Containment and equality is defined below.
+
+[TODO[SMALL]: make sure all cases are handled!]
+
+#definition[We define $u < u'$ (read: $u$ is *strictly contained* in $u'$) and
+  $u <= u'$ (read: $u$ is *contained* in $u'$) recursively as exactly the
+  following:
+  - *Base case:* for all units $u, v$:
+    - ${} <= u$.
+    - ${u} <= {u, v}$.
+  - *Recursive step:* given units $u$ and $v equiv {@g, a}$, $u < v$ if and only
+    if either $u < @g$, or for some $b in g$, $u < {{@g, ~b}, a}$.
+]<foundations:unit-containment>
+
 For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$,
 and $a | b - c -> d$ to mean ${a - c -> d, b - c -> d}$. This simplifies the
 presentation of the rules; we postpone introducing the operator $|$ into the
@@ -248,18 +262,7 @@ unit that indexes every unit, as well as every handle.
 
 An important part of the $S K$-calculus is composition, the ability to gradually
 build up terms. We wish to replicate this by ensuring our recursion maintains an
-increasing containment relation. Containment is defined below.
-
-#definition[The relation $u_1$ is *contained in* $u_2$, denoted $u_1 < u_2$, is
-  defined recursively:
-  - *Base case:* for all units $u, v$:
-    - $not(u < {})$.
-    - if $u != v$, then ${u} < {u, v}$.
-  - *Recursive step:* given units $u_1$ and $u_2 equiv {@g_1, a_2}$, $u_1 < u_2$
-    if and only if either $u_1 < @g_1$, or for some $b in g$,
-    $u_1 < {{@g_1, ~b}, a}$.
-]<foundations:unit-containment>
-
+increasing containment relation.
 // #definition[Two units $u_1, u_2$ are *extensionally equal* if for all $p, q$,
 //   $p - u_1 -> q$ if and only if $p - u_2 -> q$.]<foundations:unit-equality>
 
@@ -337,7 +340,7 @@ definitions written in the meta-language (English).
 ]
 #proof[We proceed by induction on units:
   - *Base case:* we need to demonstrate $not(u --> {})$. In $"unit"$,
-    $u - {} -> {@u, ~u}$. By *R7 (Exclusion))* and *R3 (Empty)*,
+    $u - {} -> {@u, ~u}$. By *R7 (Exclusion)* and *R3 (Empty)*,
     ${@{u}, ~u} <--> {}$. Combining this with *R2 (Transitivity)* results in
     $u - {} -> {}$. Hence, no instance of $u --> {}$ is included in $"unit"$.
   - *Inductive step:* suppose $u_1$ and $u_2 equiv {@g, a}$ are units. There are
@@ -348,6 +351,9 @@ definitions written in the meta-language (English).
 
 
 [TODO[SMALL]: determine whether to add extensionality or not.]
+
+The last part behind the Recursion theorem underlies why $"unit"$ is enough to
+embed the Welkin inside itself.
 
 #lemma[*_(Uniqueness)_* Let $K$ that contains exactly $u -->^K u$ for each unit
   $u$. Then $K <- R -> R$.]<foundations:recursion-uniqueness>
@@ -377,14 +383,17 @@ establishes that $"unit"$ is the _smallest_ set of foundations for Welkin.
 
 == Information
 
-This section provides the definition of information in Welkin. We will write
-this as a high-level, but the bootstrap will define this as a unit, see ?.
+This section provides the definition of information in Welkin.
 
 // TODO: embed information _as_ evaluation,
 // up to {} or something NOT {}.
 // This is EXACTLY making a difference/change
 // in a system! The difference is finding NOT {},
 // if it's true!
+
+#definition[
+  Let $u, v$ be units.
+]
 
 #definition[
   Let $u, v$ be units. Then $u$ has *information about* $v$ if .
