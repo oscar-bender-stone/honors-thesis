@@ -73,6 +73,9 @@ on two words or two handles. Maybe lift to the latter to make sense?]
     $"HID"_1 != "HID"_2$.
 ]<foundations:handle-equality>
 
+To simplify the use of handle equality, we will ensure all defined handles are
+unique.
+
 #definition[
   A *unit* is defined recursively as a finite combination of the following and
   nothing else:
@@ -83,8 +86,13 @@ on two words or two handles. Maybe lift to the latter to make sense?]
       blocks, where $@g$ is a unit called the *expansion* of $g$ and $~u$ is
       called the *exclusion* of $u$.
   - A representation $a - c -> b$ of units $a, b, c$, where $a$ is the *sign*,
-    $c$ is the *context*, and $b$ is the *referent*.
+    $c$ is the *context*, and $b$ is the *referent*. This is read as: $a$
+    *represents* $b$ *in context* $c$.
 ]<foundations:unit>
+
+
+We will intentionally _avoid_ defining equality on units and postpone this until
+@foundations:base-recursor.
 
 [TODO[SMALL]: make sure to define this notation $|$ recursively!]
 
@@ -235,7 +243,7 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
   completing the proof.
 ]
 
-== Base Recursor
+== Base Recursor <foundations:base-recursor>
 
 The proof of @turing-expressible demonstrates how contexts enable powerful
 recursive definitions. However, the underlying construction is tedious and
@@ -268,6 +276,28 @@ This is similar to the Lisp definition of a list. In detail:
 
 - $"word"$ is recursively defined, as either $"empty"$ or the pair
   ${"top", "next"}$, where $"top"$ is a $"bit"$ and $"next"$ is a $"word"$.
+
+We need to include equality as well, refer to @foundations:handle-equality:
+
+[TODO[SMALL]]
+
+#figure(
+  [$"equality" <--> {\
+    "0" <--> "0",\
+    "1" <--> "1",\
+    "0" <- {} -> "1",\
+    "w1" | "w2" --> "word",\
+    {"w1" <--> "w2"} <--> {"w1" <--> "empty" <--> "w2"} \
+    | {}, \
+    "h1" | "h2" --> "handle",\
+  }$],
+  caption: [Definitions of equality in Welkin.],
+)<foundations:bootstrap-equality>
+
+#lemma[
+  @foundations:bootstrap-equality correctly implements equality
+]
+#proof[TBD.]
 
 From there, we can define handle IDs through triples, see
 @foundations:bootstrap-handle-id.
