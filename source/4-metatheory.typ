@@ -54,29 +54,27 @@ cannot prove its own consistency. Artemov instead demonstrates that $"PA"$
 proves its own _serial-consistency_, as follows:
 - He uses a weak meta-theory, in this case, Primitive Recursive Arithmetic
   ($"PRA"$). This theory is bounded by a weak principle of induction.
-- Artemov encodes all proofs as natural numbers in $"PRA"$. The induction needed
-  therein.
--
-Artemov proves the following: _over_ the theory Primitive Recursive Arithmetic
-$"PRA"$, one can construct a selector $s$ such that, the axioms of $"PA"$
-_encoded into_ $"PRA"$ prove that $s$ is correct. The use of a meta-theory is
-critical here. Without this, $"PA"$ can only prove any _fixed_ approximation to
-the selector exists. To be clear: Artemov does _not_ show that there is a
-_single_ proof that $"PA"$ is consistent, that works for _any_ proof. Instead,
-his method _takes_ a proof as a parameter. There have been extensive discussion
-on the validity of this technique, and its acceptance by other
-logicians.#footnote[The discussion is available online at: #link(
+- Artemov encodes all proofs as natural numbers in $"PRA"$. $"PRA"$ is
+  sufficiently strong _just_ to encode all of these proofs.
+- Finally, he uses a proof by induction, over encoded proofs in $"PRA"$, to show
+  that $"PA"$ proves each _individual_ proof contains no contradictions. This is
+  possible through partial truth definitions.
+
+To be clear: Artemov does _not_ show that there is a _single_ proof that $"PA"$
+is consistent, that works for all proofs. Instead, his method _takes_ a proof as
+a parameter. There have been extensive discussion on the validity of this
+technique, and its acceptance by other logicians.#footnote[The discussion is
+  available online at: #link(
     "https://mathoverflow.net/questions/469247/situation-with-artemovs-paper",
   ).]
 
-Despite its initial controversy, Artemov's key techniques follow closely with
+Despite its initial controversy, Artemov's techniques follow closely with
 several constructive schools, see @artemov_serial_consistency. This thesis
 builds upon this result with a stronger property: *serial-soundness*. The exact
-same proof applies, as Artemov uses a partial truth definition, which defines
-truth up to a fixed finite bound. Tarski's theorem says that a formal system
-cannot define its own truth predicate _at the object language_
-@tarski-undefinability-truth. We circumvent this problem _precisely_ with a
-meta-theory.
+same proof applies, using the same partial truth definition. Tarski's theorem
+says that a formal system cannot define its own truth predicate _at the object
+language_ @tarski-undefinability-truth. We circumvent this problem _precisely_
+with a meta-theory.
 
 [TODO: explain the role of chains! It's different than reflection, so we should
 show _how_ these chains can build up.]
