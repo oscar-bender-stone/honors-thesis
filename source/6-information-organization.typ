@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template/ams-article.typ": definition, theorem
+#import "template/ams-article.typ": definition, remark, theorem
 
 // TODO: discuss queries.
 // We want to centralize organizing
@@ -18,71 +18,55 @@
 
 = Organizing Information <information-organization>
 
-The presentation of Welkin's universal expressivity, stated as
-@turing-expressible fixed with one particular representation. Following the
-analogue of units to practical computable functions, we define *Universal
-Representation Systems (URS)* as the analogues of Universal Turing Machines, see
-@universal-representation-system.
 
-A major problem for scalability is _choosing_ a URS. Possibly the use of
-multiple URSs for different use cases is more optimal, in some sense? The key
-operation in an information base is _querying_, so this must be as efficient as
-possible. . This As established in @foundations, bounded queries can be answered
-in $O(?)$ time. The problem then becomes about optimizing the number of steps.
-While this is query dependent, and depends on the database, we prove that any of
-these criterion can be converted to one about _size_. Our proof generalizes
-Blum's axioms @blum_speedup and Kolomogorov complexity
-@intro_kolmogorov_complexity. While finding the absolute smallest size of a unit
-that will best optimize a query is impossible, we _can_ optimize the database
-with the available information. Our localized algorithm provides a nice
-architecture to solve problems: combining bounded queries in the database to
-confirm the presence of an answer, combined with unbounded searches by some
-search procedure or heuristics. Note that the search procedure may or may not be
-computable; what is important is that bounded queries are always efficient. We
-also provide proof certificates.
+This section overview the most optimal organization of Welkin. We proceed in
+several parts:
 
-== Universal Systems
-// TODO: also mention ZFC as an
-// example with its own reflection theorem,
-// or briefly mention it.
++ We define metrics on units, and prove that _any_ metric can be converted into
+  one on size.
 
-Note that there are multiple ways to prove @turing-expressible, infinitely in
-fact. This motivates the following definition.
++
 
-// TODO: develop!
-#definition[
-  A universal representation system (URS) is a unit that can represent any
-  representation.
-]<universal-representation-system>
+== Computable Measures and Size
 
+[TODO[MEDIUM]: incorporate numbers from syntax to make this easier!]
 
-// TODO: Make this more precise and complete proof.
-#theorem[
-  A unit is a universal representation system if and only if it can represent
-  any partial computable function. Moreover, any universal representation system
-  can represent any universal representation system. In particular, representing
-  itself is called *reflection*.
+We adapt Blum's axioms @blum_speedup for measures on units.
+
+#definition[A *computable measure* is a provably computable function $Phi$ that
+  assigns units to natural numbers such that bounds on $Phi$ are computable on
+  _any_ input.
 ]
 
-[TODO: dissue axiomatic systems! Want to emphasize the relevant *process* (per
-context) is important! That is, the journey to discover new things. ONLY FI the
-specification is complete in some way (or "finalized"), it is then that
-axiomatic systems *can* help. Expand this discussion into a paragraph or two.]
+[TODO[SMALL]: define size for units based ona simple representation. We can
+ensure this is _small_ to have small overhead.]
 
+#definition[The *size* of a unit is defined recursively:
+]<compression:size>
 
-The term _universal_ is specifically for expressing _representations_
-symbolically. The free parameter still needs to be included and is an additional
-feature on top of partial comptuable functions. However, the _management_ of
-these symbols is done entirely with partial computable functions.
-
-The next section discusses the issue of _managing_ the infinitely many choices
-for URSs.
+#theorem[Any metric satisfying Blum's axioms can be converted into one about
+  size (the number of bytes in a unit).
+]
+#remark[
+  Of course, the conversion _may_ be extremely large, so this _too_ can be
+  queried to find a more optimal approach. In any case, finding a constant time
+  apparatus to work with these conversions is more praactical and can be
+  automated by Welkin.
+]
 
 == Localized Size Compression <local-size-compression>
 
-Instead of making proofs most efficient as is, we want to support finding
-optimal representations. But we want to do this from an efficiently queryable
-system, which _is_ the most optimal.
+Welkin focuses on optimizing size as that is the simplest metric to use. The
+algorithm to calculate size is straightforward, based on the _direct_
+representations of units. Thus, one can provide a certificate about whether
+information about a context is _more compressed_ than another.
 
+The foundational $"unit"$ recursor is meant to be a simple, direct verifier of
+proofs. However, it is _not_ efficient for every problem. Going back to
+@turing-expressible, there can easily be large expansions from the $S K$
+combinators. How do we tailor recursors _for_ a specific context?
 
+== Query Compression
 
+Combining the previous sections, we define how to query on compressed
+representations, generalizing ?.
