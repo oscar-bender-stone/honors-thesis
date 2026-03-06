@@ -473,7 +473,7 @@
 #let corollary = create-theorem("theorem", [Corollary])
 #let definition = create-theorem("definition", [Definition])
 #let example = create-theorem("definition", [Example])
-#let remark = create-theorem("remark", [Example])
+#let remark = create-theorem("remark", [Remark])
 #let experiment = create-theorem("definition", [Experiment])
 // === NEW DEFINITIONS ADDED HERE ===
 

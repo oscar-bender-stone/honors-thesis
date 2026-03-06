@@ -64,8 +64,9 @@ finite and _practically enforcing_ it is finite. For a thorough discussion, see
 
 #remark[
   Because handles act as free parameters, we work with them _through_ truth.
-  Based on this, the rest of the thesis will focus on representations _as_ sets
-  of axioms.
+  Based on this, the rest of the thesis will abstract away general units _as_
+  sets of axioms. Free parameters are used to _define_ Welkin itself, however,
+  see @syntax.
 ]
 
 [TODO[SMALL]: without getting into typing, enforce that equality has to be done
@@ -162,9 +163,9 @@ organizing information, see @information-organization.
   rule as stating: ${}$ contains nothing, so it cannot contain any
   representation, including $a - {} -> b$. We will use this rule to represent
   negation. Note that this is _distinct_ from exclusion, as the latter is
-  restricted to _only_ imports.
+  restricted to imports.
 - *R11* enables equality in handles to pass through into representations.
-  Besides this, note that equivalnes on units are _entirely_ user defined.
+  Besides this, note that equivalences on units are _entirely_ user defined.
 
 
 Before we proceed to prove Turing completeness, we introduce the
@@ -210,8 +211,8 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
     Hilbert-style proof system, with $K$ and $S$ corresponding to the rules
     $(phi => (psi => phi))$ and
     $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.
-    This was one of the important insights clarified by Curry, in connecting
-    logic to computation @curry-grundlagen.]
+    This was one of Curry's insights in connecting logic to computation
+    @curry-grundlagen.]
 
   #figure(
     [

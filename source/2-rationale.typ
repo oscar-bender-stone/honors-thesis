@@ -251,15 +251,13 @@ To resolve both issues, we "bootstrap" Welkin from the ground up. This will
 enable Welkin to define the syntax _as_ a term in the language. We proceed as
 follows:
 
-+ @foundations:
-  - We establish the base rules on units.
-  - Using English as our
-  meta-language, we prove that our rules can define the $S$ and $K$ combinators
-  as any combination of terms, and thus is Turing complete, see
-  @turing-expressible.
-  - We show the language has a natural unit that indexes every other index. This
-    term will act as a verifier for proofs,
-  which we will show does _not_ limit which proofs we accept.
+- We establish the base rules on units (@unit-rules).
+- Using English as our meta-language, we prove that our rules can define the $S$
+  and $K$ combinators as any combination of terms, and thus is Turing complete,
+  (@turing-expressible).
+- We show the language has a natural unit that indexes every other index. This
+  term will act as a verifier for proofs, which we will show does _not_ limit
+  which proofs we accept.
 
 + Provide the base meta-theory for the language _in_ Welkin. This will be PRA,
   written in a combinator based form. We will show the main axioms of PRA hold.
