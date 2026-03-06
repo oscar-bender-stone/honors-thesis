@@ -90,7 +90,7 @@ unique.
   - A handle, see @foundations:handle.
   - A *block*, which is one of the following:
     - The symbol ${}$, the *empty block*.
-    - Given a units $g, u$, ${g, u}$, ${@g, u}$, and ${@g, tilde.op u}$ are
+    - Given a units $g, u$, ${g, u}$, ${g, ~u}$, ${@g, u}$, and ${@g, ~u}$ are
       blocks, where $@g$ is a unit called the *expansion* of $g$ and $~u$ is
       called the *exclusion* of $u$.
   - A representation $a - c -> b$ of units $a, b, c$, where $a$ is the *sign*,
@@ -103,10 +103,12 @@ unique.
 We will intentionally _avoid_ defining equality on units and postpone this until
 @foundations:base-recursor.
 
-[TODO[SMALL]: make sure to define this notation $|$ recursively!] [TODO[SMALL]:
-provide labels/links.]
+[TODO[SMALL]: provide labels/links.]
 
 [TODO[SMALL]: Clarify role of global context!]
+
+[TODO[SMALL]: replace main negation mechniasm with exclusion! Makes more sense,
+and can always be limited!]
 
 #definition[
   The following rules apply, stated over meta-variables $a, b, c, d, g$ for
