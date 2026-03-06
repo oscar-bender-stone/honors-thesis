@@ -95,22 +95,21 @@ We embed "Convention T", or Tarski's criterion for truth
 // where [] is the Goedel number, and phi
 // is a sentence in Peano Arithmetic.
 
-#definition[
+[TODO[MEDIUM]: refer back to Artemov to develop a syntactic description of truth
+that corresponds closely to using handles!]
 
-]
-
-// #definition[
-//   The *meta recursor* $"meta"$ over all units is defined recursively. We say
-//   that $"meta"$ *meta-proves* $T$, denoted $T ⊢_"meta" a$ if there is a proof
-//   through serial-soundness chains $"unit", T_1, ..., T_n$, where each unit $T_i$
-//   proves its own serial-soundness.
-// ]
+#definition[Fix some context $c$. A unit $t in c$ is called a *truth predicate*
+  for $c$ if for every unit $u$, $u - c -> t$ if and only if $u - c -> u$.
+]<metatheory:truth>
 
 #definition[
-  *Truth* in a unit is defined recursively:
-  -
+  A context $c$ is *sound* if for every $u in c$, "$u$ is 'actually' true"
+  (TODO: fix!).
 ]
 
+#definition[
+  A unit $u$ is *serial-sound* if .
+]
 
 // We want to express serial soundness:
 // that there is a computable term, provable
@@ -127,8 +126,16 @@ We embed "Convention T", or Tarski's criterion for truth
 == The Meta Unit
 
 #definition[
-  A unit $t$ is *coherent* if $"unit" in t$ and.
+  A unit $v$ is *coherent* if $"unit" in v$ and in $"unit"$, there is a valid
+  derivation from $v$ to $t$.
 ]
+
+// #definition[
+//   The *meta recursor* $"meta"$ over all units is defined recursively. We say
+//   that $"meta"$ *meta-proves* $T$, denoted $T ⊢_"meta" a$ if there is a proof
+//   through serial-soundness chains $"unit", T_1, ..., T_n$, where each unit $T_i$
+//   proves its own serial-soundness.
+// ]
 
 #definition[
   The *meta recursor* $"meta"$ over all units is defined recursively:

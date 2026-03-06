@@ -88,22 +88,23 @@ that one of these, $|$, can be desugared in the bootstrap.
 
 #figure(
   [```
-
   s | t | u | v --> unit,
 
   description <--> {parse --> unit, print --> unit},
 
-  {{top --> s, next --> t}, s - parse -> u, t - parse -> v} - pair -> {top --> u, next --> v}
-  sequence <--> ?
+  {{top --> s, next --> t}, s - parse -> u, t - parse -> v}
+    - pair ->
+    {top --> u, next --> v},
 
-  atomic <--> ?
+  sequence <--> ?,
+
+  atomic <--> ?,
   lexeme <--> {@pair, {top --> s, next --> ""}}
   ```],
   caption: [Definitions for the main combinators used.],
 )
 
-==
-
+== Encoding
 
 // TODO: complete table
 #figure(
