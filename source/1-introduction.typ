@@ -177,6 +177,7 @@ This thesis is organized according to @thesis-organization.
     [*Syntax*],
     [Provides the grammar and proof that it is unambiguous.],
 
+    [*@information-organization*],
     [#set text(hyphenate: false); *Information Organization*],
     [Develops a Greedy algorithm to locally optimize information. Creates a
       certificate that demonstrates when a representation is optimal relative to
