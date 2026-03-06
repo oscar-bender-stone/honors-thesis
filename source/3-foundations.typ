@@ -123,7 +123,7 @@ operator $|$ to the syntax in @syntax.
   - *R1. Internal Transitivity:* $a - c -> b$ and $b - c -> d$ imply
     $a - c -> d$.
   - *R2. Contextual Lifting:* $a - c -> b$ and $d - b -> g$ imply
-    ${d - a -> g} in c$.
+    ${d - a -> g} - c -> {d - a -> g}$.
   - *R3. Empty:* ${@g, {}} <--> g$.
   - *R4. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
   - *R5. Identity:* ${a} <--> {a - a -> a} <--> a$.
@@ -136,7 +136,7 @@ operator $|$ to the syntax in @syntax.
   - *R10. Null:* ${a - {} -> b} --> {}$.
 
   - *R11. Handle Substitution:* if handle $h_1$ is equal to handle $h_2$, then
-    for any $a$, ${a, h_1} <--> {a, h_2}$.
+    $h_1 <--> h_2$.
 
 ]<unit-rules>
 

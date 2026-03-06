@@ -125,11 +125,6 @@ that corresponds closely to using handles!]
 
 == The Meta Unit
 
-#definition[
-  A unit $v$ is *coherent* if $"unit" in v$ and in $"unit"$, there is a valid
-  derivation from $v$ to $t$.
-]
-
 // #definition[
 //   The *meta recursor* $"meta"$ over all units is defined recursively. We say
 //   that $"meta"$ *meta-proves* $T$, denoted $T ⊢_"meta" a$ if there is a proof
@@ -173,12 +168,16 @@ _define_ ordinals in a restricted context through transfinite induction.
   - *Limit:*
 ]<metatheory:transfinite-induction>
 
+#[TODO: probably add a big idea marker here!]
+
+// TODO: build on this! Very very important!
+The primary idea is: derivations about a unit can be checked from other
+_external_ units, IF they can be proven to be reliable..
+
 Note that using a _specific_ mechanism here does not limit Welkin's
 expressivitiy. We will clarify this in the following theorem.
 
 #theorem[]
-
-
 
 #theorem[The unit $"meta"$ expresses any computably expressible proof. More
   precisely, for any recursive ordinal $alpha$, there is a unit $T in "meta"$

@@ -29,6 +29,8 @@ bootstrap?] For consistency with Welkin, we write syntax using
 [TODO[MEDIUM]: make imports precise! We *want* to get into using dot notation as
 soon as possible!]
 
+Note that *R2 (Context Lifting)* will be crucial to define the syntax.
+
 == Numbers
 
 [TODO[MEDIUM]: make this easier to use! Maybe *just* use binary or so? OR can
