@@ -88,25 +88,6 @@ on two words or two handles. Maybe lift to the latter to make sense?]
 
 [TODO[SMALL]: make sure to define this notation $|$ recursively!]
 
-Equality and containment is defined below.
-
-#definition[
-  The relations $u = v$ and $u != v$ is defined recursively:
-  - *Base case:* ${} = {}$, and if $u - {} -> {}$, then $u != {}$.
-  - *Inductive step:*
-]<foundations:unit-equality>
-
-#definition[We define $u < u'$ (read: $u$ is *strictly contained* in $u'$) and
-  $u <= u'$ (read: $u$ is *contained* in $u'$) recursively as exactly the
-  following:
-  - *Base case:* for all units $u, v$:
-    - ${} <= u$.
-    - ${u} <= {u, v}$.
-    - If $u != v$, then ${u} < {u, v}$.
-  - *Recursive step:* given units $u$ and $v equiv {@g, a}$, $u < v$ if and only
-    if either $u < @g$, or for some $b in g$, $u < {{@g, ~b}, a}$.
-]<foundations:unit-containment>
-
 For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$,
 and $a | b - c -> d$ to mean ${a - c -> d, b - c -> d}$. This simplifies the
 presentation of the rules; we postpone introducing the operator $|$ into the
@@ -198,12 +179,9 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
   represent _recursion_,
 
   We express recursion via a unit $L$. For keys, we set:
-  - $L equiv (1, 0, 0)$
-  - $K equiv (1, 0, 1)$
-  - $S equiv (1, 0, 2)$
-  - $M equiv (1, 0, 3)$
-  - $N equiv (1, 0, 4)$
-  - $M equiv (1, 0, 5)$
+  - $L equiv (1, 0, 0)$.
+  - $K equiv (1, 0, 1)$, $S equiv (1, 0, 2)$.
+  - $M equiv (1, 0, 3)$, $N equiv (1, 0, 4)$ $P equiv (1, 0, 5)$.
 
   For the rules, see @foundations:turing-expressible-L. Note that each rule of
   the form $A --> B$ written in $L$ means $A - L -> B$.
@@ -252,7 +230,7 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
 
   Now, $L$ already includes the base rules for $K$ and $S$. It remains to be
   shown that $L$ is closed under composition: $M - L -> L$ and $N - L -> L$
-  imply $C - L -> L$, where $C <--> (X - Y -> L)$. By using *R1* on
+  imply $C - L -> L$, where $C <--> (N - M -> L)$. By using *R1* on
   $C - L -> (M - L -> L)$ and $(M - L -> L) - L -> L$, we obtain $C - L -> L$,
   completing the proof.
 ]
@@ -322,12 +300,13 @@ frequently when defining terms in @turing-expressible.
     - $u - {} -> {@u, ~v}$.
 ]<foundations:recursor>
 
-[TODO: make this discussion complete!] One interpretation of
-@foundations:recursor is defining @foundations:unit-containment _within_ a unit,
-so $R$ could be written as $<$ in the language. Moreover, $R$ acts as the
-_maximum_ of all units.
+#remark[One interpretation of @foundations:recursor is defining the notion of
+  _containment_ between units, so $"unit"$ could be written as $<$ in the
+  language. Moreover, $"unit"$ acts as the _maximum_ of all units. Introducing
+  monotoncitiy will be effective for optimizations, see
+  @information-organization.]
 
-The following statements are three parts of the same *Recursion theorem* for
+The following statements are two parts of the same *Recursion theorem* for
 Welkin. The first two are straightforward; their proofs closely aligns with the
 definitions written in the meta-language (English).
 
@@ -340,22 +319,7 @@ definitions written in the meta-language (English).
 ]<foundations:recursor-correctness>
 
 
-#lemma[*_(Monotonicity)_.* For every unit $u, u'$, if $u < u'$, then
-  $u - "unit" -> u'$ and $not(u' - "unit" -> u)$.
-]
-#proof[We proceed by induction on units:
-  - *Base case:* we need to demonstrate $not(u --> {})$. In $"unit"$,
-    $u - {} -> {@u, ~u}$. By *R7 (Exclusion)* and *R3 (Empty)*,
-    ${@{u}, ~u} <--> {}$. Combining this with *R2 (Transitivity)* results in
-    $u - {} -> {}$. Hence, no instance of $u --> {}$ is included in $"unit"$.
-  - *Inductive step:* suppose $u_1$ and $u_2 equiv {@g, a}$ are units. There are
-    two cases:
-    - $u_1 < @g$:
-    - [TODO[SMALL]: finish this case!]
-]
-
-
-[TODO[SMALL]: determine whether to add extensionality or not.]
+[TODO[SMALL]: rethink statement here.]
 
 The last part behind the Recursion theorem underlies why $"unit"$ is enough to
 embed the Welkin inside itself.
