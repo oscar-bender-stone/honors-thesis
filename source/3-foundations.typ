@@ -386,7 +386,7 @@ that $"unit"$ acts as _both_ a recursive procedure _and_ verifier over units.
     transitivity, $T --> "unit"$.
 ]
 
-== Queries
+== Queries and Information
 
 By @turing-expressible, every partial computable can be expressed as a unit.
 Additionally, in the construction used, reductions of terms are _also_
@@ -421,3 +421,15 @@ ${p, q}$, there is a direct proof. But what about the general case? Some queries
 may reduce _forever_. While we cannot determine _which_ ones reduce to ${}$ or
 not, we _can_ find the ceiling of proofs expressible by computable functions.
 This process is more involved and is the subject of the next section.
+
+[TODO[MEDIUM]: make this definition self-contained! The goal is to show that
+this _is_ complete. That should be independent of the next section!]
+
+#definition[
+  *Information* about a query $q$ in context $c$ is a any partial meta-proof in
+  $"meta"$ of a derivation of ${@c, q}$.
+]<foundations:information>
+
+
+
+

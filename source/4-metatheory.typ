@@ -10,7 +10,9 @@
 
 = Information <metatheory:information>
 
-This section discusses the provably most general definition of information.
+This section discusses the provably most general definition of information. This
+section is optional. For the base definition of information, refer to
+@foundations:information.
 
 + We overview Artemov's work in serial consistency. @artemov_serial_consistency.
 
@@ -105,16 +107,20 @@ Remarkably, $"meta"$ _does_ meta-prove its own serial soundness.
 
 
 To show that this covers _every_ proof that can be computably recognized, we
-need to discuss ordinals. We provide an embedding via $"unit"$.
+need to discuss recursive ordinals. We provide an embedding via $"unit"$. For
+more background on ordinals, refer to @monk-set-theory[Ch. 2],
+@kleene-ordinal-notation. To keep the presentation self-contained, we will
+_define_ ordinals in a restricted context through transfinite induction.
 
-#definition[The unit $"recursive_ordinal"$ is defined recursively:
-  - *Base:*
+#definition[The unit $"recursive_ordinal"$ is defined recursively, containing
+  nothing else:
+  - *Base:* $0 in "recursive_ordinal"$.
   - *Successor:*
   - *Limit:*
-]
+]<metatheory:transfinite-induction>
 
 Note that using a _specific_ mechanism here does not limit Welkin's
-expressivitiy. We will clarify this in the followign theorem.
+expressivitiy. We will clarify this in the following theorem.
 
 #theorem[]
 
@@ -134,10 +140,3 @@ upper bound is the best one can hope for, in general.
 As an immediate corollary, this proves that $"unit"$, being a simple verifier,
 does _not_ impose further restrictions on proofs.
 
-== Defining Information
-This section provides the definition of information in Welkin.
-
-#definition[
-  *Information* about a query $q$ in context $c$ is a any partial meta-proof in
-  $"meta"$ of a derivation of ${@c, q}$.
-]
