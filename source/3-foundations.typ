@@ -414,6 +414,4 @@ _proof_, not a "yes/no" answer by itself. When the context is finite, like
 ${p, q}$, there is a direct proof. But what about the general case? Some queries
 may reduce _forever_. While we cannot determine _which_ ones reduce to ${}$ or
 not, we _can_ find the ceiling of proofs expressible by computable functions.
-Defining proofs is more involved, as we not only want proofs of _halting_, but
-also _non-halting_. The next section addresses these properties, where we will
-define the provably most general definition of information.
+This process is more involved and is the subject of the next section.
