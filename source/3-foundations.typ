@@ -101,19 +101,8 @@ unique.
 We will intentionally _avoid_ defining equality on units and postpone this until
 @foundations:base-recursor.
 
-[TODO[SMALL]: make sure to define this notation $|$ recursively!]
-
-As more notation, we write:
-
-- $a - c -> b_1 | b_2 | ... | b_n$ to mean
-  ${a - c -> b_1, a - c -> b_2, ..., a - c -> b_n}$.
-- $a_1 | ... | a_n - c -> d$ to mean ${a_1 - c -> d, ..., a_n - c -> d}$.
-- $q in c$ if $q - c -> q$.
-
-This simplifies the presentation of the rules. We postpone formally defining the
-operator $|$ to the syntax in @syntax.
-
-[TODO[SMALL]: provide labels/links.]
+[TODO[SMALL]: make sure to define this notation $|$ recursively!] [TODO[SMALL]:
+provide labels/links.]
 
 [TODO[SMALL]: Clarify role of global context!]
 
@@ -139,6 +128,16 @@ operator $|$ to the syntax in @syntax.
     $h_1 <--> h_2$.
 
 ]<unit-rules>
+
+As more notation, we write:
+
+- $a - c -> b_1 | b_2 | ... | b_n$ to mean
+  ${a - c -> b_1, a - c -> b_2, ..., a - c -> b_n}$.
+- $a_1 | ... | a_n - c -> d$ to mean ${a_1 - c -> d, ..., a_n - c -> d}$.
+- $q in c$ if $q - c -> q$.
+
+This simplifies the presentation of the rules. We postpone formally defining the
+operator $|$ to the syntax in @syntax.
 
 We review the utility of each rule. Note that rules _between_ contexts is
 entirely flexible and user defined. Moreover, only ? are needed for Turing
@@ -328,7 +327,6 @@ Now, in @unit-rules, we needed enough _separate_ meta-variables. To do this in
 Welkin, we use representations of the form $"u" --> "unit"$. This appeared
 frequently when defining terms in @turing-expressible.
 
-
 [TODO[SMALL]: maybe separate with a different unit $"in"$ and $"contains"$? This
 might be clearer to define monotonicity.] #definition[
   The *unit recursor* $"unit"$ includes all rules in @unit-rules, as well as the
@@ -344,12 +342,6 @@ might be clearer to define monotonicity.] #definition[
     - $u - {} -> {@u, ~v}$.
 ]<foundations:recursor>
 
-#remark[One interpretation of @foundations:recursor is defining the notion of
-  _containment_ between units, so $"unit"$ could be written as $<$ in the
-  language. Moreover, $"unit"$ acts as the _maximum_ of all units. Introducing
-  monotoncitiy will be effective for optimizations, see
-  @information-organization.]
-
 The following statements are two parts of the same *Recursion theorem* for
 Welkin. The first is straightforward; their proofs closely aligns with the
 definitions written in the meta-language (English).
@@ -362,36 +354,64 @@ definitions written in the meta-language (English).
     as well as cases for ${g, u}$, ${@g, u}$, and ${@g, ~u}$.
 ]<foundations:recursor-correctness>
 
-The last part behind the Recursion theorem underlies why $"unit"$ is enough to
-embed the Welkin inside itself.
 
-#lemma[*_(Uniqueness)_* Suppose unit $T$ contains exactly $u - T -> u$ for each
-  unit $u$. Then $T <- R -> R$.]<foundations:recursion-uniqueness>
+Now we will includle a notion for containment. This will be useful for
+optimizations see @information-organization.
+
+#definition[
+  The unit $"part"$ is defined recursively, over units $u, v --> "unit"$.
+  - $u - "part" -> {@u, v}$.
+  - ${{@u, v} - {} -> u} in "part"$.
+  - ${{@u, ~v} --> u} in "part"$.
+  - ${u - {} -> {@u, ~v}} in "part"$.
+]<foundations:bootstrap-in>
+
+#lemma[The unit $"part"$ correctly determines whether $u$ is a part of $u'$.]
 #proof[
-  Clearly $T - "unit" -> "unit"$, and $"unit" - "unit" -> T$ follows from
-  observing that ${"unit" - "unit" -> T} in T$.
+  TBD.
 ]
 
-[TODO[MEDIUM]: clarify how $"unit"$ is a verifier!]
+Now, because Welkin is Turing expressible, $"unit"$ may not terminate in all
+cases, such as an infinite recursive loop. We want to have a mechanism to
+_check_ claims. This is the role of the verifier, built upon $"part"$.
 
-An important consequence of the recursion theorem is a basic form of
-*reflection*. Most importantly, this theorem establishes that _any_ way to
-characterize Welkin can be reduced to including the recursor $"unit"$. This
-establishes that $"unit"$ is the _smallest_ set of foundations for Welkin. Note
-that $"unit"$ acts as _both_ a recursive procedure _and_ verifier over units.
+#definition[
+  The unit $"verifier"$ is defined recursively. *TODO*.
+]<foundations:verifier>
 
-#theorem[*_(Base Reflection)._* Let $T$ be any unit extends $"unit"$. Then
-  ${T --> "unit"} - "unit" -> "unit"$.]<foundations:base-reflection>
-#proof[
-  We proceed by induction, fixing the base to be $"unit"$.
-  - *Base Case:* suppose $T$ is a unit exactly with the rules $u - T -> T$ for
-    every unit $u$ and the rules in @unit-rules. Then by
-    @foundations:recursion-uniqueness, $T <--> "unit"$, completing the base
-    case.
-  - *Inductive step:* suppose $T = {T', e}$ for a units $T', e$ where
-    $T' --> "unit"$. Now, by monotonicitiy in $"unit"$, $T --> T'$, hence by
-    transitivity, $T --> "unit"$.
-]
+Note that this verifier, as simple as it is, will _not_ limit what proofs can be
+expressed. We prove this in @metatheory:transfinite-induction.
+
+// The last part behind the Recursion theorem underlies why $"unit"$ is enough to
+// embed the Welkin inside itself.
+
+// #lemma[*_(Uniqueness)_* Suppose unit $T$ contains exactly $u - T -> u$ for each
+//   unit $u$. Then $T <- R -> R$.]<foundations:recursion-uniqueness>
+// #proof[
+//   Clearly $T - "unit" -> "unit"$, and $"unit" - "unit" -> T$ follows from
+//   observing that ${"unit" - "unit" -> T} in T$.
+// ]
+
+// [TODO[MEDIUM]: clarify how $"unit"$ is a verifier!]
+
+// An important consequence of the recursion theorem is a basic form of
+// *reflection*. Most importantly, this theorem establishes that _any_ way to
+// characterize Welkin can be reduced to including the recursor $"unit"$. This
+// establishes that $"unit"$ is the _smallest_ set of foundations for Welkin. Note
+// that $"unit"$ acts as _both_ a recursive procedure _and_ verifier over units.
+
+// #theorem[*_(Base Reflection)._* Let $T$ be any unit extends $"unit"$. Then
+//   ${T --> "unit"} - "unit" -> "unit"$.]<foundations:base-reflection>
+// #proof[
+//   We proceed by induction, fixing the base to be $"unit"$.
+//   - *Base Case:* suppose $T$ is a unit exactly with the rules $u - T -> T$ for
+//     every unit $u$ and the rules in @unit-rules. Then by
+//     @foundations:recursion-uniqueness, $T <--> "unit"$, completing the base
+//     case.
+//   - *Inductive step:* suppose $T = {T', e}$ for a units $T', e$ where
+//     $T' --> "unit"$. Now, by monotonicitiy in $"unit"$, $T --> T'$, hence by
+//     transitivity, $T --> "unit"$.
+// ]
 
 == Equivalence to $I Delta_0$
 
