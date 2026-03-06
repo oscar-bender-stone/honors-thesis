@@ -41,6 +41,6 @@
 #include "3-foundations.typ"
 #include "4-metatheory.typ"
 #include "5-syntax.typ"
-#include "5-semantics.typ"
+// #include "5-semantics.typ"
 #include "6-information-organization.typ"
 #include "7-conclusion.typ"

@@ -107,7 +107,8 @@ that many-to-many relationships are allowed.
 [TODO[SMALL]: Clarify role of global context!]
 
 #definition[
-  The following rules apply, stated over meta-variables $a, b, c, d, g$:
+  The following rules apply, stated over meta-variables $a, b, c, d, g$ for
+  units and $h_1, h_2$ for handles:
   - *R1. Internal Transitivity:* $a - c -> b$ and $b - c -> d$ imply
     $a - c -> d$.
   - *R2. Contextual Lifting:* $a - c -> b$ and $d - b -> g$ imply
@@ -121,7 +122,11 @@ that many-to-many relationships are allowed.
   - *R7. Exclusion:* if $g <--> {@g, a}$, then ${{@g, ~a}, b} <--> {@d, b}$.
   - *R8. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
   - *R9. Commutativity:* ${{a, b}, c} <--> {{a, c}, b}$.
-  - *R10. Null:* ${a - {} -> b} <--> {}$.
+  - *R10. Null:* ${a - {} -> b} --> {}$.
+
+  - *R11. Handle Substitution:* if handle $h_1$ is equal to handle $h_2$, then
+    for any $a$, ${a, h_1} <--> {a, h_2}$.
+
 ]<unit-rules>
 
 We review the utility of each rule. Note that rules _between_ contexts is
@@ -152,10 +157,9 @@ organizing information, see @information-organization.
   representation, including $a - {} -> b$. We will use this rule to represent
   negation. Note that this is _distinct_ from exclusion, as the latter is
   restricted to _only_ imports.
+- *R11* enables equality in handles to pass through into representations.
+  Besides this, note that equivalnes on units are _entirely_ user defined.
 
-// [TODO[SMALL]: note importance of using axioms to define essentially bound/free
-// variables! Not as easy with just assuming sets as they are; easier to express
-// the tree structure *first*.]
 
 Before we proceed to prove Turing completeness, we introduce the
 $"SK"$-combinator calculus. This is an equational theory that is well known to
@@ -203,10 +207,6 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
     This was one of the important insights clarified by Curry, in connecting
     logic to computation @curry-grundlagen.]
 
-  [TODO[SMALL]: fix formatting!]
-
-  [TODO[SMALL]: clarify on global representations!]
-
   #figure(
     [
       $L equiv lr(
@@ -225,7 +225,7 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
         \}
       )$
     ],
-    caption: [Definition of $L$.],
+    caption: [Definition of $L$ [TODO: fix formatting!].],
   )<foundations:turing-expressible-L>
 
   This definition means:
@@ -253,12 +253,6 @@ recursive definitions. However, the underlying construction is tedious and
 results in extremely verbose terms. Keys are assigned manually, which can easily
 be error prone. We will refine the proof with a *recursor* over units. This is a
 unit that indexes every unit, as well as every handle.
-
-An important part of the $S K$-calculus is composition, the ability to gradually
-build up terms. We wish to replicate this by ensuring our recursion maintains an
-increasing containment relation.
-// #definition[Two units $u_1, u_2$ are *extensionally equal* if for all $p, q$,
-//   $p - u_1 -> q$ if and only if $p - u_2 -> q$.]<foundations:unit-equality>
 
 The recursor needs to index through all possible keys. We first need to define a
 unit to recurse over binary words; we provide a natural definition in
@@ -385,7 +379,7 @@ that $"unit"$ acts as _both_ a recursive procedure _and_ verifier over units.
     transitivity, $T --> "unit"$.
 ]
 
-== Information
+== Information <foundations:information>
 
 This section provides the definition of information in Welkin.
 // TODO: embed information _as_ evaluation,

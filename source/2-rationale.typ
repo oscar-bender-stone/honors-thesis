@@ -127,17 +127,17 @@ _fixed_ context $c$.
 From the notion of a unit, we practically define information on a unit $v$ as a
 unit $u$ which _correctly identifies $v$ from any other unit_. We formalize this
 as an invariant based on an equivalence relation on units, determined by the
-given set of representations (see @semantics). This notion corresponds to
-Burgin's idea of information as an _operator_ that transforms a system, and is
-closely to Bateson's famous quote that "information is a difference that makes a
-difference" @bateson-ecology-of-mind. Our practical distinction between
-information and knowledge is that we _use_ information, but users can assert
-their own notions of these terms by creating restricted contexts. We connect our
-notion of information back through Algorithmic Information Theory by showing
-that the theoretical notion of conditional information content _precisely_
-coincides with the size of information, counted in bits (up to a constant)
-[TODO: link to this result. Important! And confirm this result! Currently
-unchecked.].
+given set of representations (see @foundations:information). This notion
+corresponds to Burgin's idea of information as an _operator_ that transforms a
+system, and is closely to Bateson's famous quote that "information is a
+difference that makes a difference" @bateson-ecology-of-mind. Our practical
+distinction between information and knowledge is that we _use_ information, but
+users can assert their own notions of these terms by creating restricted
+contexts. We connect our notion of information back through Algorithmic
+Information Theory by showing that the theoretical notion of conditional
+information content _precisely_ coincides with the size of information, counted
+in bits (up to a constant) [TODO: link to this result. Important! And confirm
+this result! Currently unchecked.].
 
 
 Within a fixed revision, handles, by being defined by how they are restricted,
@@ -147,8 +147,7 @@ system. Here, we define a truth management system to consist of a set of axioms
 along with inference rules, whose derivations are accepted by some Turing
 machine. Welkin proves that not only is _any_ truth management system.
 
-There are two primary inference rules, which we informally describe now (and
-postpone nested contexts until @semantics):
+There are two primary inference rules, which we informally describe now:
 
 - *Internal Transitivity:* if $u$ represents $v$ in context $c$ and $v$
   represents $x$ in context $c$, then $u$ represents $x$ in context $c$.

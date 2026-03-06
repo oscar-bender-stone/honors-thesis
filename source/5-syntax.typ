@@ -41,8 +41,7 @@ hexadecimal.
 
 A word is a sequence of digits, see @syntax:word. We leave concatenation `.` as
 an undefined notion. We set concatenation to be right-associative, i.e.,
-`(w.w').w'' = w.(w'.w'')`, and abbreviate `w.w'` as `w w'`. For conversions, see
-@ast.
+`(w.w').w'' = w.(w'.w'')`, and abbreviate `w.w'` as `w w'`.
 
 #figure(
   ```

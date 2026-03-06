@@ -27,7 +27,7 @@ Representation Systems (URS)* as the analogues of Universal Turing Machines, see
 A major problem for scalability is _choosing_ a URS. Possibly the use of
 multiple URSs for different use cases is more optimal, in some sense? The key
 operation in an information base is _querying_, so this must be as efficient as
-possible. . This As established in @semantics, bounded queries can be answered
+possible. . This As established in @foundations, bounded queries can be answered
 in $O(?)$ time. The problem then becomes about optimizing the number of steps.
 While this is query dependent, and depends on the database, we prove that any of
 these criterion can be converted to one about _size_. Our proof generalizes
