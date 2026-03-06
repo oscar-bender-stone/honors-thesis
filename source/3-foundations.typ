@@ -299,8 +299,14 @@ We need to include equality as well, refer to @foundations:handle-equality:
     "0" <- {} -> "1",\
     "w1" | "w2" --> "word",\
     {"w1" <--> "w2"} <--> {"w1" <--> "empty" <--> "w2"} \
-    | {}, \
+    | {"w1.top" <--> "w2.top", "w1.next" <--> "w2.next"}, \
     "h1" | "h2" --> "handle",\
+    {"h1" <--> "h2"} <--> \
+    {\
+      "h1.UID" <--> "h2.UID",\
+      "h1.RID" <--> "h1.RID" \
+      "h1.HID" <--> "h1.HID" \
+    }
   }$],
   caption: [Definitions of equality in Welkin.],
 )<foundations:bootstrap-equality>
