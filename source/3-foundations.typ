@@ -96,6 +96,8 @@ unique.
   - A representation $a - c -> b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*. This is read as: $a$
     *represents* $b$ *in context* $c$.
+  - An *excluded representation* $a - ~c -> b$, to mean that $a$ does *not*
+    represent $b$ in context $c$.
 ]<foundations:unit>
 
 We will intentionally _avoid_ defining equality on units and postpone this until
@@ -356,9 +358,9 @@ optimizations see @information-organization.
 #definition[
   The unit $"part"$ is defined recursively, over units $u, v --> "unit"$.
   - $u - "part" -> {@u, v}$.
-  - ${{@u, v} - {} -> u} in "part"$.
-  - ${{@u, ~v} --> u} in "part"$.
-  - ${u - {} -> {@u, ~v}} in "part"$.
+  - ${@u, v} - ~"part" -> u$.
+  - ${@u, ~v} - "part" -> u$.
+  - $u - ~"part" -> {@u, ~v}$.
 ]<foundations:bootstrap-in>
 
 #lemma[The unit $"part"$ correctly determines whether $u$ is a part of $u'$.]
