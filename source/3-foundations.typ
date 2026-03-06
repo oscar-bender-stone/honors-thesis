@@ -335,11 +335,6 @@ might be clearer to define monotonicity.] #definition[
   - ${} | u | v | c --> "unit"$.
   - ${u - c -> v} --> "unit"$.
   - ${u, v} | {@u, v} | {@u, ~v} --> "unit"$.
-  - *Monotonicity:*
-    - $u --> {@u, v}$.
-    - ${@u, v} - {} -> u$.
-    - ${@u, ~v} --> u$.
-    - $u - {} -> {@u, ~v}$.
 ]<foundations:recursor>
 
 The following statements are two parts of the same *Recursion theorem* for
@@ -376,8 +371,8 @@ cases, such as an infinite recursive loop. We want to have a mechanism to
 _check_ claims. This is the role of the verifier, built upon $"part"$.
 
 #definition[
-  The unit $"verifier"$ is defined recursively. *TODO*.
-]<foundations:verifier>
+  The unit $"verify"$ is defined recursively. *TODO*.
+]<foundations:verify>
 
 Note that this verifier, as simple as it is, will _not_ limit what proofs can be
 expressed. We prove this in @metatheory:transfinite-induction.
