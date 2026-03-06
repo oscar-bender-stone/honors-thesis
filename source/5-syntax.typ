@@ -34,11 +34,8 @@ soon as possible!]
 [TODO[MEDIUM]: make this easier to use! Maybe *just* use binary or so? OR can
 formally define digits and nibbles later, if so we choose.]
 
-We add numbers and provide equivalnces between them.
-
-#definition[
-
-]
+We add numbers and provide equivalnces between them. Before this, we need an
+important construction: *general pairs*.
 
 Welkin's main encoding uses binary words, but add notation for decimal and
 hexadecimal.
@@ -86,9 +83,21 @@ see @syntax:string.
 
 == Invertible Syntax Descriptions
 
+To more easily describe the language, we provide basic building blocks. Note
+that one of these, $|$, can be desugared in the bootstrap.
+
 #figure(
   [```
 
+  s | t | u | v --> unit,
+
+  description <--> {parse --> unit, print --> unit},
+
+  {{top --> s, next --> t}, s - parse -> u, t - parse -> v} - pair -> {top --> u, next --> v}
+  sequence <--> ?
+
+  atomic <--> ?
+  lexeme <--> {@pair, {top --> s, next --> ""}}
   ```],
   caption: [Definitions for the main combinators used.],
 )
@@ -113,7 +122,7 @@ double quotes.
   ```
   eps <--> "",
   whitespace <--> "\t" | "\n" | "\r" | " ",
-  reserved <--> delimiter | "." | "*" | "\" | "@" | "#",
+  reserved <--> delimiter | "." | "*" | "\" | "@" | "#" | "|",
   delimiter <--> "{" | "}" | "\"" | "'"| ","
   ```,
   caption: "Important character classes.",
@@ -152,8 +161,6 @@ certain characters, see @syntax:id.
   caption: "Strings.",
 )<syntax:string>
 
-== Invertible Syntax Description
-
 == The Welkin Grammar
 
 Welkin's grammar is displayed in @welkin-grammar, inspired by a minimal, C-style
@@ -168,16 +175,10 @@ syntax.
 
 == Proof of Unambiguity
 
-We now prove that the Welkin language is unambiguous by showing it is LL(1), a
-rich class of grammars that can be efficiently parsed. For more details, please
-consult @compilers-dragon-book.
-
-// #figure(
-//   ```
-//   top(word) ::= nil => nil | bit.word => bit
-//   ```,
-//   caption: "Definition of the top of a word.",
-// )<top>
+We show that, by construction, the combinators we used form an $LL(1)$ grammar.
+This is a special kind of grammar that can be efficiently parsed. We will keep
+definitions self-contained; for more background, consult
+@compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
 
 // #definition[(@rosenkrantz-ll1). A grammar is LL(1) iff the following holds: for
 //   any terminal $w_1$ and nonterminal $A$, there is at most one rule $r$ such
@@ -208,3 +209,5 @@ consult @compilers-dragon-book.
 
 // ]
 
+
+== Import Resolution

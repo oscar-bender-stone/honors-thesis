@@ -269,7 +269,7 @@ The recursor needs to index through all possible keys. We first need to define a
 unit to recurse over binary words; we provide a natural definition in
 @foundations:bootstrap-binary-word.
 
-#figure(
+[TODO[SMALL]: enforce that scopes create new names!] #figure(
   [
     $"bit" --> 0 | 1$
 
@@ -303,7 +303,8 @@ We need to include equality as well, refer to @foundations:handle-equality:
 )<foundations:bootstrap-equality>
 
 #lemma[
-  @foundations:bootstrap-equality correctly implements equality
+  @foundations:bootstrap-equality correctly implements equality. In particular,
+  this definition expresses every word.
 ]
 #proof[TBD.]
 
@@ -409,7 +410,8 @@ optional.
   pairing function can be made that is defined inductively. [TODO: define this
   function!]
 
-  Second, we must show that all the axioms of Welkin are expressible.
+  Second, it can be easily shown that each rule in @unit-rules are definable by
+  induction, in at most 5 variables.
 ]
 
 #lemma[
