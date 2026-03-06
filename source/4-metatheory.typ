@@ -17,22 +17,26 @@ This section discusses the provably most general definition of information.
 + We establish the meta-theory, and show it can encompass any formal system.
 
 + We show the meta-theory "meta-proves" its own soundness, _without_
-  contradicting the known impossibility results.
+  contradicting known impossibility results.
 
 + We conclude with the definition of information.
 
 Optimizations will be postponed to @information-organization.
 
 == Serial Soundness
-A major goal in Welkin is expressing _any_ representable notion, but also _any_
-reprsentable proof. Proofs are a finite certificate that justify a sequence of
-steps, ensuring each assumption and step is correct. Moreover, we want to verify
-this sequence using a partial computable function. Because of this, there are
-several incompleteness theorems in the literature, one of which includes Gödel's
-infamous incompleteness theorems @goedel-original-incompletness-theorems.
+A major goal in Welkin is to express any representable notion, _including_ any
+representabale proof. Proofs are a finite certificate that consists of a valid
+sequence of steps. Importantly, proofs can be verified using a _total_
+computable function, one that can check _any_ given proof. Because of the
+requirement for computable checking, limitations in computable functions apply.
+These are illustrated by several impossibility theorems in the literature,
+including Gödel's infamous incompleteness theorems
+@goedel-original-incompletness-theorems.
 
-However, the existing literature relies on proving _strong_ properties. Artemov
-argues that weaker but _constructive_ properties can be used instead.
+However, previous impossibility results rely on proving strong properties of
+proofs. Artemov argues that weaker, constructive properties can be used instead.
+We provide a high-level definition of *serial-consistency* before proceeding
+onto the embedding in Welkin.
 
 #definition[
   Suppose $T$ is sufficiently strong to express its own proofs. Then $T$ is
@@ -40,19 +44,28 @@ argues that weaker but _constructive_ properties can be used instead.
   computable function $s$#footnote[Technically, this is a primitive recursive
     function, but we will quickly generalize this to _any_ computable function.]
   with two properties:
-  - Accepts any string encoded as a valid.
-  - Any proof accepted must not contain a contradiction.
+  - $s$ accepts any string that encodes a valid proof.
+  - if $s$ accepts a proof, then it cannot contain a contradiction.
 ]<metatheroy:artemov-serial-consistency>
 
-Artemov proves the following: _over_ the theory $"PRA"$, one can construct a
-selector $s$ such that, the axioms of $"PA"$ _encoded into_ $"PRA"$ prove that
-$s$ is correct. The use of a meta-theory is critical here. Without this, $"PA"$
-can only prove any _fixed_ approximation to the selector exists. To be clear:
-Artemov does _not_ show that there is a _single_ proof that $"PA"$ is
-consistent, that works for _any_ proof. Instead, his method _takes_ a proof as a
-parameter. There have been extensive discussion on the validity of this
-technique, and its acceptance by other logicians.#footnote[The discussion is
-  available online at: #link(
+Artemov overcomes Gödel's second incompleteness theorem. This theorem states
+that Peano Arithmetic $"PA"$, providing basic properties of the natural numbers,
+cannot prove its own consistency. Artemov instead demonstrates that $"PA"$
+proves its own _serial-consistency_, as follows:
+- He uses a weak meta-theory, in this case, Primitive Recursive Arithmetic
+  ($"PRA"$). This theory is bounded by a weak principle of induction.
+- Artemov encodes all proofs as natural numbers in $"PRA"$. The induction needed
+  therein.
+-
+Artemov proves the following: _over_ the theory Primitive Recursive Arithmetic
+$"PRA"$, one can construct a selector $s$ such that, the axioms of $"PA"$
+_encoded into_ $"PRA"$ prove that $s$ is correct. The use of a meta-theory is
+critical here. Without this, $"PA"$ can only prove any _fixed_ approximation to
+the selector exists. To be clear: Artemov does _not_ show that there is a
+_single_ proof that $"PA"$ is consistent, that works for _any_ proof. Instead,
+his method _takes_ a proof as a parameter. There have been extensive discussion
+on the validity of this technique, and its acceptance by other
+logicians.#footnote[The discussion is available online at: #link(
     "https://mathoverflow.net/questions/469247/situation-with-artemovs-paper",
   ).]
 

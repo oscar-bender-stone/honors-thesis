@@ -4,11 +4,16 @@
 #import "template/ams-article.typ": matched-dash
 #show math.minus: matched-dash
 
-= Rationale <rationale>
-
 #import "template/ams-article.typ": example
 
-In this section, we justify the design of Welkin.
+= Rationale <rationale>
+
+[TODO[MEDIUM]: make sure that the rationale blends nicely with some of these
+sections! For non-experts, say in logic, they should _not_ need to read _how_
+the meta-theory works or such. They should only need to follow the bootstrap and
+understand the syntax.]
+
+syntaaxIn this section, we justify the design of Welkin.
 
 == General Requirements
 
