@@ -255,33 +255,19 @@ for specific human languages.
 
 == Bootstrapping <rationale:bootstrap>
 
-There are two important questions for implementing Welkin:
+There are two important considerations in Welkin: how the base operations are
+implemented, and how proofs are expressed. In previous revisions, the author
+separated these aspects, particularly when describing the syntax and semantics
+of the language. However, this left many proofs in English, making it difficult
+to transfer.
 
-- How do we practically implement the operations?
-
-- How do we enable any "computably checkable proof"?
-
-[TODO[MEDIUM]: determine best + quick way to explain this paragraph!]
-
-On the first issue, the author previously went to manually describing the syntax
-and semantics, introducing notions from parsing theory and compilers. While this
-format is traditional for a programming language, this postponed the main rules
-and made the language specification harder to follow. Moreover, the author
-sought to explain the minimal set of axioms required for the system. This
-connects to the second issue in a larger way, closely tied into formal methods.
-
-In the formal methods literature, a *Trusted Computing Base (TCB)* is the set of
-axioms and code used to implement a program. Axiomatically, most existing proof
-assistants have a fixed set of rules, with early proponents arguments towards
-having a fixed TCB (see )...
-
-// To effectively create any formal system, having _some_ notion of IDs is
-// necessary in a Trusted Computing Base. Checking the trace of a Turing machine
-// can be done with a finite certificate, _but_ checking for non-halting in the
-// general case requires a level of induction, expressed through IDs. Without IDs,
-// we cannot even _state_ essential constructs or theorems, including the Gödel
-// encodings.
-
+[TODO: provide citaitons] The author's emphasis of proofs stems from formal
+methods, the study of providing mathematical proof to verify computer programs.
+A central notion in this field is the *Trusted Computing Base (TCB)* of a
+program, which is code used to implement it, as well as the axioms used to prove
+its correctness. Many authors advocate for a small, fixed TCB. However, this is
+inefficient in practice... Setting for a single system, like ZFC, does not
+resolve whether Welkin is universal _for proofs_.
 
 To resolve both issues, we "bootstrap" Welkin from the ground up. This will
 enable Welkin to define the syntax _as_ a term in the language. We proceed as
