@@ -18,65 +18,53 @@
 // TODO: determine how rigorous the language is here
 // vs bootstrap!
 // Should the standard be put into an appendix?
-We keep this section self-contained with explicit alphabets and recursive
-definitions. For consistency with Welkin, we write syntax using
-`type-writer font`. Notationally, we write $a_0, ..., a_n$ for a finite list of
-items, and use $a ::= a_1 | ... | a_n$ to denote a definition of $a$ in terms of
-$a_1, ..., a_n$. For verification purposes, we will incorporate fixed bounds and
-completely unambiguous notation into @foundations.
+[TODO[SMALL]: determine where to use type writer font. Maybe ONLY in the
+bootstrap?] For consistency with Welkin, we write syntax using
+`type-writer font`.#footnote[This font is Intel One Mono (#link(
+    "https://github.com/intel/intel-one-mono",
+  )), licensed under OFL 1.1 (#link(
+    "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",
+  )).]
 
-== Words
+== Numbers
+
+We add numbers and provide equivalnces between them.
+
+#definition[
+
+]
 
 Welkin's main encoding uses binary words, but add notation for decimal and
 hexadecimal.
 
 #figure(
   ```
-  bit ::= 0 | 1
-  digit ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-  nibble ::= A | B | C | D | E | F
+  bit <--> 0 | 1
+  digit <--> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+  nibble <--> A | B | C | D | E | F
   ```,
   caption: "Binary, decimal, and hexadecimal digits.",
 )<digits>
 
-A word is a sequence of digits, see @syntax:word. We leave concatenation `.` as
-an undefined notion. We set concatenation to be right-associative, i.e.,
-`(w.w').w'' = w.(w'.w'')`, and abbreviate `w.w'` as `w w'`.
+
 
 #figure(
   ```
-  word ::= binary | decimal | hex
-  binary ::= bit | binary.bit
-  decimal ::= digit | decimal.digit
-  hex ::= nibble | hex.nibble
+  number <--> binary | decimal | hex
+  binary <--> bit | binary.bit
+  decimal <--> digit | decimal.digit
+  hex <--> nibble | hex.nibble
   ```,
   caption: "Definition of words.",
 )<syntax:word>
 
-Equality is defined recursively, shown in @word-equality. Note that leading
-zeros are allowed.
-
-[TODO[MEDIUM]: determine how to make @word-equality work well in text *and*
-Welkin. ] #figure(
-  ```
-  0.word = word
-  0b0.word = word
-  0x0.word = word
-  ```,
-  caption: "Definition of word equality.",
-)<word-equality>
-
-
-
 == Terminals
 
-[TODO[SHORT]: determine whether to put these details in appendix. Maybe given
-the _overarching_ grammar, at a high level?] Welkin uses ASCII as its base
-encoding. The term ASCII is slightly ambiguous, as there are subtly distinct
-variants, so we formally define US-ASCII as a standard version. #footnote[Note
-  that this table _itself_ is a representation, which represents glyphs with
-  binary words. The use of these kinds of representations occur frequently in
-  Welkin, see @foundations.
+Welkin uses ASCII as its base encoding. The term ASCII is slightly ambiguous, as
+there are subtly distinct variants, so we formally define US-ASCII as a standard
+version. #footnote[Note that this table _itself_ is a representation, which
+  represents glyphs with binary words. The use of these kinds of representations
+  occur frequently in Welkin, see @foundations.
 ]
 
 #definition[
@@ -139,86 +127,58 @@ characters, see @syntax:id.
 )<syntax:id>
 
 [TODO(MEDIUM): find good way to implement directly with Welkin or discuss.]
-== EBNF Notation and Parse Trees
-
-We define our variant of EBNF below:
-#definition[
-  An *EBNF* grammar consists of *productions*, which are pairs of the form
-  `r ::= a_1 ... a_n`. On the right-hand side, juxtaposition means
-  concatenation.
-  - Uppercase names require _no_ whitespace between them. Otherwise, whitespace
-    is allowed.
-  - `a ::= a_1 | ... | a_n` is short-hand for `{a ::= a_i | 1 <= i <= n}`.
-  // TODO: make this more rigorous! Probably
-  // need to say at least _one_ way to transform this?
-  - `(a_1)*` means zero or more instances of $a_1$.
-  - `(a_1)+` means one or more instances of $a_1$.
-  - `(a_1)?` means zero or one instance of $a_1$.
-]
 
 == The Welkin Grammar
 
-// TODO: maybe define general grammars?
-// Might make the definition of Welkin's parse tree easier
 Welkin's grammar is displayed in @welkin-grammar, inspired by a minimal, C-style
-syntax. Note that when concatenating two terminals, denoted in uppercase, no
-whitespace between them is allowed, but in any other case, any amount of
-whitespace is allowed but ignored.
+syntax.
 
-
-// TODO: decide if empty strings should be accepted or not
-// Note that the empty string is not accepted, but is instead represented
-// by the string `{}`.
-
-// NOTE: determine if we should allow non-empty strings or not
 #figure(
   grammar,
-  caption: [The grammar for Welkin. The terminals `id` and `string` are defined
-    in @syntax:word and @string, respectively],
+  caption: [The grammar for Welkin. This includes the definitions of `id` and
+    `string`, which are also defined in @syntax:word and @string,
+    respectively.],
 )<welkin-grammar>
 
-[TODO(HIGH): determine if this is good as is or needs to be put into bootstrap!]
 == Proof of Unambiguity
 
 We now prove that the Welkin language is unambiguous by showing it is LL(1), a
 rich class of grammars that can be efficiently parsed. For more details, please
 consult @compilers-dragon-book.
 
-Moreover, we define the top of a word in @top.
+// #figure(
+//   ```
+//   top(word) ::= nil => nil | bit.word => bit
+//   ```,
+//   caption: "Definition of the top of a word.",
+// )<top>
 
-#figure(
-  ```
-  top(word) ::= nil => nil | bit.word => bit
-  ```,
-  caption: "Definition of the top of a word.",
-)<top>
+// #definition[(@rosenkrantz-ll1). A grammar is LL(1) iff the following holds: for
+//   any terminal $w_1$ and nonterminal $A$, there is at most one rule $r$ such
+//   that for some $w_2, w_3$ appearing at the top of $A$ such that,
+//   - $S => "top"(w_1)A w_3$
+//   - $A => w_2 (p)$
+//   - $"top"(w_2 w_3) = w$
+// ]<LL1>
 
-#definition[(@rosenkrantz-ll1). A grammar is LL(1) iff the following holds: for
-  any terminal $w_1$ and nonterminal $A$, there is at most one rule $r$ such
-  that for some $w_2, w_3$ appearing at the top of $A$ such that,
-  - $S => "top"(w_1)A w_3$
-  - $A => w_2 (p)$
-  - $"top"(w_2 w_3) = w$
-]<LL1>
+// #theorem[
+//   There exists some _LL(1)_ grammar that accepts the same strings as the Welkin
+//   grammar @welkin-grammar. Hence, Welkin's syntax is unambiguous, i.e., every
+//   string accepted by the language has exactly one derivation.
+// ]
+// #proof[
+//   // TODO: should we explain why LL(1) => unambiguous?
+//   We use transformations in @transforms-ll1 that preserve the language of the
+//   original grammar, resulting in @grammar_ll1. For the refactor step by step,
+//   see @refactor_ll1. We can readily verify that there are no shared prefixes for
+//   a single production, see @predict-table-ll1. Because there are no conflicts,
+//   the transformed grammar is LL(1), and hence, the grammar is unambiguous.
 
-#theorem[
-  There exists some _LL(1)_ grammar that accepts the same strings as the Welkin
-  grammar @welkin-grammar. Hence, Welkin's syntax is unambiguous, i.e., every
-  string accepted by the language has exactly one derivation.
-]
-#proof[
-  // TODO: should we explain why LL(1) => unambiguous?
-  We use transformations in @transforms-ll1 that preserve the language of the
-  original grammar, resulting in @grammar_ll1. For the refactor step by step,
-  see @refactor_ll1. We can readily verify that there are no shared prefixes for
-  a single production, see @predict-table-ll1. Because there are no conflicts,
-  the transformed grammar is LL(1), and hence, the grammar is unambiguous.
+//   #ll1-transforms<transforms-ll1>
 
-  #ll1-transforms<transforms-ll1>
+//   #ll1-grammar<grammar_ll1> #ll1-refactor<refactor_ll1>
 
-  #ll1-grammar<grammar_ll1> #ll1-refactor<refactor_ll1>
+//   #ll1-predict-figure<predict-table-ll1>
 
-  #ll1-predict-figure<predict-table-ll1>
-
-]
+// ]
 
