@@ -20,8 +20,8 @@
     introduce the bootstrap, making Welkin completely self-contained. [TODO:
     determine how to phrase soundness and incompleteness. Should we include
     these?].],
-  notes: [This project used Google Gemini to aid in research and refine Typst
-    code.],
+  notes: [This project used Google Gemini (#link("https://gemini.google.com/"))
+    to aid in research and refine Typst code.],
   bibliography: bibliography((
     "references/misc.bib",
     "references/1-introduction.bib",

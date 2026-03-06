@@ -23,7 +23,9 @@
 This section discuss the foundations of Welkin, as follows:
 
 + We define units and their rules.
-+ We define information.
++ We prove there is a unit that indexes every other unit
+  (@foundations:base-recursor).
++ We define queries.
 
 == Base Rules
 
@@ -379,45 +381,39 @@ that $"unit"$ acts as _both_ a recursive procedure _and_ verifier over units.
     transitivity, $T --> "unit"$.
 ]
 
-== Information <foundations:information>
+== Queries
 
-This section provides the definition of information in Welkin.
-// TODO: embed information _as_ evaluation,
-// up to {} or something NOT {}.
-// This is EXACTLY making a difference/change
-// in a system! The difference is finding NOT {},
-// if it's true!
-
-// What is a query?
-// Something we want to *answer*
-// So the thing we can answer in Welkin
-// *is the presence of representations*.
-// This is what we're working with!
-
-// TODO: probably need a recursor here
-// to cover any case!
-#definition[
-  Let $c$ be a context. Then a *query* is a question ${@c, q} <- ? -> {}$.]
-
-We invoke two ideas from @rationale:mechanizing-information:
-- Burgin: information is an operator; a carrier of change in a system
-  @burgin-foundations-information.
-- Bateson: "information is a difference that makes a difference"
-  @bateson-ecology-of-mind.
-
-In this case, we express the idea of "making a difference" through _impacting
-queries_.
+By @turing-expressible, every partial computable can be expressed as a unit.
+Additionally, in the construction used, reductions of terms are _also_
+represented. This provides a ceiling on what queries we can _express_
+computably. For more details, refer to @hopcroft-automata-theory[Ch. 1].
+Roughly, let $c$ be a context $c$.
 
 #definition[
-  Let $c$ be a context, $v$ a query and $u, v$ be units. Then $u$ has
-  *information about* $v$ if .
+  Let $c$ be a context. Then a *query over $c$* is a question over a fixed unit
+  $q$:
+  #quote[
+    Does $q - c -> q$ hold?
+  ]
+]<foundations:query>
+
+To standardize this in Welkin, we will instead write:
+
+#quote[
+  Is ${@c, ~q} <- "unit" -> {}$?
 ]
 
-Thus, we can interpret "making a difference" as _
-a representation producing a non-empty unit_. In other words, information is a
-unit that does not "collapse" on itself (producing ${}$).
+We can then apply $"unit"$ in an attempt to evaluate this. In some cases, this
+is easy. Consider, for example, examining $p$ in context ${p, q}$. In this case,
+we can detect this truth _definitionally_, or by a simple traversal in the
+context. However, @turing-expressible implies that finding general derivations
+are uncomputable.
 
-In context $"query"$:
-- $"context" in "query"$
-- $"sign" in "query"$
-- $Q <--> {a - c -> h}$
+We want information to _resolve_ a query. Formally, we want information to be
+_proof_, not a "yes/no" answer by itself. When the context is finite, like
+${p, q}$, there is a direct proof. But what about the general case? Some queries
+may reduce _forever_. While we cannot determine _which_ ones reduce to ${}$ or
+not, we _can_ find the ceiling of proofs expressible by computable functions.
+Defining proofs is more involved, as we not only want proofs of _halting_, but
+also _non-halting_. The next section addresses these properties, where we will
+define the provably most general definition of information.

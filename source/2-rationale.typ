@@ -68,18 +68,6 @@ they are and are _not_ restricted. This idea is directly inspired from Fine's
 idea of arbitrary objects @fine-arbitrary-objects, and allows refinements to a
 study of interest.
 
-
-// . As a common example, consider how one can explain the Pythagorean theorem is
-// true about all right triangles. Instead of drawing _every_ single such triangle,
-// one represents all right triangles with an _abstracted_ right triangle, using
-// only the properties necessary to show $a^2 + b^2 = c^2$. The only restriction
-// here is that the triangle must contain a right angle, but besides this,
-// _nothing_ else is assumed nor required. Symbolically, this is deeply tied to
-// having _induction_, so that a finite proof of a base case and inductive
-// invariant can show a claim for _all_ finite cases. The threshold for "effective"
-// communication is left to the user and tweaked according to their needs.
-
-
 #example[
   A more looser example is a user written journal for therapy sessions,
   containing information about daily habits and emotions. While neither of these
@@ -87,7 +75,6 @@ study of interest.
   $"emotions"$ in a context $"journal"$. Moreover, multiple revisions of the
   journal can be made with dates or other unique IDs.
 ]
-
 
 We represent handles in Welkin using an extended notion called a *unit*. A unit
 is either a handle, a finite collection of units, or a representation.
@@ -127,7 +114,7 @@ _fixed_ context $c$.
 From the notion of a unit, we practically define information on a unit $v$ as a
 unit $u$ which _correctly identifies $v$ from any other unit_. We formalize this
 as an invariant based on an equivalence relation on units, determined by the
-given set of representations (see @foundations:information). This notion
+given set of representations (see @metatheory:information). This notion
 corresponds to Burgin's idea of information as an _operator_ that transforms a
 system, and is closely to Bateson's famous quote that "information is a
 difference that makes a difference" @bateson-ecology-of-mind. Our practical
@@ -277,10 +264,11 @@ follows:
   - We establish the base rules on units.
   - Using English as our
   meta-language, we prove that our rules can define the $S$ and $K$ combinators
-  as any combination of terms, and thus is Turing complete.
-  - We show the language is even more expressive by defining
-  a term that can index _every_ term. This term will act as a verifier for
-  proofs, which we will show does _not_ limit which proofs we accept.
+  as any combination of terms, and thus is Turing complete, see
+  @turing-expressible.
+  - We show the language has a natural unit that indexes every other index. This
+    term will act as a verifier for proofs,
+  which we will show does _not_ limit which proofs we accept.
 
 + Provide the base meta-theory for the language _in_ Welkin. This will be PRA,
   written in a combinator based form. We will show the main axioms of PRA hold.

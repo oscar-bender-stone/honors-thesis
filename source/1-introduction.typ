@@ -53,15 +53,15 @@ We will not revisit these until the conclusion, see @conclusion:comparisons.
 - *Resource Description Framework (RDF) Triple Stores:* These systems serve as
   the primary implementations of an internet standard called the Web Ontology
   Language (OWL) @OWL2. This system stores information as triples
-  $"subject"-"predicate"->"object"$. From there, the language can then enforce
-  rules and ensure new relationships derived are _only_ from previously given
-  relationships and valid rules. OWL has been highly successful in providing a
-  machine-readable format to websites across the internet
-  @hitzler-review-the-semantic-web. Despite their widespread adoption, RDF
-  stores struggle with extensive sources of data. Enforcing logical rules can be
-  expensive @owl-approximate-reasoning. Additionally, because OWL treats missing
-  sources of data as _unknown_ rather than _false_, it often fails to resolve
-  conflicts between two sources @hitzler-review-the-semantic-web.
+  $"subject"-"predicate"->"object"$. From there, the language can enforce rules
+  and ensure new relationships are derived _only_ from from previous ones. OWL
+  has been highly successful in providing a machine-readable format to websites
+  across the internet @hitzler-review-the-semantic-web. However, despite their
+  widespread adoption, RDF stores struggle with extensive sources of data.
+  Enforcing logical rules can be expensive @owl-approximate-reasoning.
+  Additionally, because OWL treats missing sources of data as _unknown_ rather
+  than _false_, it often fails to resolve conflicts between two sources
+  @hitzler-review-the-semantic-web.
 
 - *Labeled Property Graphs (LPGs):* This is an architecture defined by its
   ability to store rich, internal metadata within its components. Building on a
@@ -72,20 +72,20 @@ We will not revisit these until the conclusion, see @conclusion:comparisons.
   and weighed on a single query pass. Due to their operational efficiency, LPGs
   are the primary choice in large scale commercial products, particularly
   real-time fraud detection tools and recommendation systems
-  @robinson-graph-databases. However, LPGs are siloed by the lack of standards,
-  making interoperability between databases challenging. Furthermore, LPGs lack
-  an extensive logical engine, resulting in external tooling or complex query
-  scripts @robinson-graph-databases.
+  @robinson-graph-databases. Although LPGs are widely used, they are siloed by
+  the lack of standards, making interoperability between databases challenging.
+  Furthermore, LPGs lack an extensive logical engine, resulting in external
+  tooling or complex query scripts @robinson-graph-databases.
 
 - *Cyc:* Designed to encompass broad subjects, Cyc is the largest proprietary
   database of knowledge, or _knowledge base_, known to date @lenat-cyc-1995. It
   achieves reliable queries by providing a logical engine, based on millions of
   hard coded "common sense" rules. However, despite its impressive scope, it
-  relies on human experts to manually encode every rule. This causes a knowledge
-  acquisition bottleneck, limiting how well the database scales
-  @automated-scientific-semantic-knowledge-framework. Another issue is the
-  absence of an active open standard, a result of the publicly available
-  version, OpenCyc, being discontinued in 2017 @kbpedia-opencyc.
+  relies on human experts to manually encode every rule. This limits how well
+  the database scales @automated-scientific-semantic-knowledge-framework.
+  Another issue is the absence of an active open standard, a result of the
+  publicly available version, OpenCyc, being discontinued in 2017
+  @kbpedia-opencyc.
 
 - *fcaR (Formal Concept Analysis in R):* This tool is a modern implementation
   for the field of Formal Concept Analysis (FCA). FCA studies relationships
