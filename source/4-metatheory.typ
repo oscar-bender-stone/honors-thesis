@@ -23,7 +23,12 @@ This section discusses the provably most general definition of information.
 
 Optimizations will be postponed to @information-organization.
 
+
+For notation, we will write $"PA"$ for Peano Arithmetic and $"PRA"$ for
+Primitive Recursive Arithmetic.
+
 == Serial Soundness
+
 A major goal in Welkin is to express any representable notion, _including_ any
 representabale proof. Proofs are a finite certificate that consists of a valid
 sequence of steps. Importantly, proofs can be verified using a _total_
@@ -76,28 +81,44 @@ says that a formal system cannot define its own truth predicate _at the object
 language_ @tarski-undefinability-truth. We circumvent this problem _precisely_
 with a meta-theory.
 
-[TODO: explain the role of chains! It's different than reflection, so we should
-show _how_ these chains can build up.]
-
 #definition[
   The *meta recursor* $"meta"$ over all units is defined recursively. We say
-  that $"meta"$ *meta-proves* $T$, denoted $T |-_"meta" a$ if there is a proof
+  that $"meta"$ *meta-proves* $T$, denoted $T ⊢_"meta" a$ if there is a proof
   through serial-soundness chains $"unit", T_1, ..., T_n$, where each unit $T_i$
   proves its own serial-soundness.
 ]
 
-To show that this covers _every_ proof that can be computably recognized, we
-need to discuss ordinals. We provide an embedding via $"unit"$.
+#remark[A different approach to create more powerful chains of theories is
+  _reflection_. One example is from Feferman @feferman-reflection: starting from
+  $"PA"$,
+]
 
 #theorem[
   The unit $"meta"$ meta-proves that serial soundness implies soundness.
 ]
+
+Remarkably, $"meta"$ _does_ meta-prove its own serial soundness.
+
+#corollary[The unit $"meta"$ meta-proves its own serial soundness, and hence,
+  soundness.
+]
+
+
+To show that this covers _every_ proof that can be computably recognized, we
+need to discuss ordinals. We provide an embedding via $"unit"$.
 
 #definition[The unit $"recursive_ordinal"$ is defined recursively:
   - *Base:*
   - *Successor:*
   - *Limit:*
 ]
+
+Note that using a _specific_ mechanism here does not limit Welkin's
+expressivitiy. We will clarify this in the followign theorem.
+
+#theorem[]
+
+
 
 #theorem[The unit $"meta"$ expresses any computably expressible proof. More
   precisely, for any recursive ordinal $alpha$, there is a unit $T in "meta"$
@@ -112,10 +133,6 @@ upper bound is the best one can hope for, in general.
 
 As an immediate corollary, this proves that $"unit"$, being a simple verifier,
 does _not_ impose further restrictions on proofs.
-
-#theorem[The unit $"meta"$ meta-proves its own serial soundness, and hence,
-  soundness.
-]
 
 == Defining Information
 This section provides the definition of information in Welkin.
