@@ -5,7 +5,7 @@
 #import "template/ams-article.typ": lang-def-vertical
 #import "template/ams-article.typ": equation_block, lemma, proof, theorem
 #import "template/ams-article.typ": todo
-#import "us-ascii.typ": ascii-table
+#import "us-ascii.typ": printable-ascii-table
 
 #import "grammar.typ": grammar
 #import "LL1/grammar.typ": ll1-grammar
@@ -46,8 +46,6 @@ hexadecimal.
   caption: "Binary, decimal, and hexadecimal digits.",
 )<digits>
 
-
-
 #figure(
   ```
   number <--> binary | decimal | hex
@@ -63,12 +61,19 @@ hexadecimal.
 Welkin uses ASCII as its base encoding. The term ASCII is slightly ambiguous, as
 there are subtly distinct variants, so we formally define US-ASCII as a standard
 version. #footnote[Note that this table _itself_ is a representation, which
-  represents glyphs with binary words. The use of these kinds of representations
-  occur frequently in Welkin, see @foundations.
-]
+  represents glyphs with binary words.]
 
 #definition[
-  US-ASCII consists of 256 symbols, listed in @US-ASCII-codes.
+  Welkin's encoding consists of *Printable US-ASCII*, listed in
+  @syntax:printable-ascii-codes, as well as character *EOF*, with code 58. In
+  Welkin (@syntax:welkin-encoding):
+
+  #figure(
+    [```
+    encoding <--> {"EOF" --> 58, @printable}
+    ```],
+    caption: [The full encoding for Welkin, written in Welkin.],
+  )<syntax:welkin-encoding>
 ]
 
 To represent general encodings, there is a binary format supported for strings,
@@ -77,9 +82,9 @@ see @string.
 
 // TODO: complete table
 #figure(
-  ascii-table(),
+  printable-ascii-table(),
   caption: [US-ASCII codes and glyphs.],
-)<US-ASCII-codes>
+)<syntax:printable-ascii-codes>
 
 We denote specific characters through quotes, escaping if necessary. There are
 several important character classes in @character-classes, denoted through
@@ -90,9 +95,9 @@ double quotes.
 // *or* list specific character classes?
 #figure(
   ```
-  PRINTABLE  ::= [0x20-0x7E]
-  WHITESPACE ::= [0x09, 0x0A, 0x0D, 0x20]
-  DELIMITER ::= [0x7B, 0x7D, 0x2C, 0x2D, 0x2A, 0x3C, 0x3E, 0x22, 0x27, 0x5C, 0x7D]
+  whitespace <--> "\t" | "\n" | "\r" | " ",
+  reserved <--> delimiter | "." | "*" | "\" | "@" | "#",
+  delimiter <--> "{", "}" | "\"" | "'"| ","
   ```,
   caption: "Important character classes.",
 )<character-classes>
@@ -101,32 +106,36 @@ Strings allow escaped single or double quotes, see @string. IDs are special
 cases of strings that do not require quotes but forbid whitespace and certain
 characters, see @syntax:id.
 
-// TODO: provide binary string encoding in string!
-// Are lists of numbers enough?
+[TODO[SMALL]: determine if terminals should be uppercase.]
+
 #figure(
   ```
-  STRING ::= SQ_STRING | DQ_STRING
-  SQ_STRING ::= "'" (SQ_CHAR | ESCAPE_SQ )* "'"
-  DQ_STRING ::= "'" (DQ_CHAR | ESCAPE_DQ )* "'"
+  string <--> sq_string | dq_string,
 
-  SQ_CHAR ::= PRINTABLE \ {'}
-  DQ_CHAR ::= PRINTABLE \ {"}
-  ESCAPE_SQ ::= "\'" | "\\"
-  ESCAPE_DQ ::= "\"" | "\\"
+  sq_string <--> {start --> "'", contents --> sq_contents, end --> "'"},
+  dq_strings <--> {start --> "\"", contents --> dq_contents, end --> "\""},
+
+  sq_contents <--> {top --> eps | {@printable, ~{"\""}}, next --> sq_contents},
+  dq_contents <--> {top --> eps | {@printable, ~{"\""}}, next --> qq_contents},
+  escape_sq <--> "\'" | "\\",
+  escape_dq <--> "\"" | "\\",
   ```,
   caption: "Strings.",
 )<string>
 
 #figure(
   ```
-  IMPORT ::= "@" ID
-  ID :: ID_CHAR+
-  ID_CHAR ::= PRINTABLE / (DELIMITERS + WHITESPACE + "#" + "@" + "'" + "\"")
+  toplevel <--> {marker --> "#", name --> id}
+  import <--> {marker --> "@", graph --> id},
+  id <--> {top --> id_char, next --> id},
+  id_char <--> {@printable, ~{@reserved, @whitespace}}
   ```,
   caption: "IDs.",
 )<syntax:id>
 
 [TODO(MEDIUM): find good way to implement directly with Welkin or discuss.]
+
+== Invertible Syntax Description
 
 == The Welkin Grammar
 
