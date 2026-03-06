@@ -122,7 +122,7 @@ _fixed_ context $c$.
 // of axioms along with inference rules, whose derivations are accepted by some
 // Turing machine. Welkin proves that not only is _any_ truth management system.
 
-== Mechanizing Information
+== Mechanizing Information <rationale:mechanizing-information>
 
 From the notion of a unit, we practically define information on a unit $v$ as a
 unit $u$ which _correctly identifies $v$ from any other unit_. We formalize this

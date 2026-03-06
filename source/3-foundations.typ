@@ -78,7 +78,7 @@ on two words or two handles. Maybe lift to the latter to make sense?]
   nothing else:
   - A handle, see @foundations:handle.
   - A *block*, which is one of the following:
-    - The symbol *{}*, the *empty block*
+    - The symbol ${}$, the *empty block*.
     - Given a units $g, u$, ${g, u}$, ${@g, u}$, and ${@g, tilde.op u}$ are
       blocks, where $@g$ is a unit called the *expansion* of $g$ and $~u$ is
       called the *exclusion* of $u$.
@@ -88,9 +88,13 @@ on two words or two handles. Maybe lift to the latter to make sense?]
 
 [TODO[SMALL]: make sure to define this notation $|$ recursively!]
 
-Containment and equality is defined below.
+Equality and containment is defined below.
 
-[TODO[SMALL]: make sure all cases are handled!]
+#definition[
+  The relations $u = v$ and $u != v$ is defined recursively:
+  - *Base case:* ${} = {}$, and if $u - {} -> {}$, then $u != {}$.
+  - *Inductive step:*
+]<foundations:unit-equality>
 
 #definition[We define $u < u'$ (read: $u$ is *strictly contained* in $u'$) and
   $u <= u'$ (read: $u$ is *contained* in $u'$) recursively as exactly the
@@ -98,6 +102,7 @@ Containment and equality is defined below.
   - *Base case:* for all units $u, v$:
     - ${} <= u$.
     - ${u} <= {u, v}$.
+    - If $u != v$, then ${u} < {u, v}$.
   - *Recursive step:* given units $u$ and $v equiv {@g, a}$, $u < v$ if and only
     if either $u < @g$, or for some $b in g$, $u < {{@g, ~b}, a}$.
 ]<foundations:unit-containment>
@@ -355,18 +360,20 @@ definitions written in the meta-language (English).
 The last part behind the Recursion theorem underlies why $"unit"$ is enough to
 embed the Welkin inside itself.
 
-#lemma[*_(Uniqueness)_* Let $K$ that contains exactly $u -->^K u$ for each unit
-  $u$. Then $K <- R -> R$.]<foundations:recursion-uniqueness>
+#lemma[*_(Uniqueness)_* Suppose unit $T$ contains exactly $u - T -> u$ for each
+  unit $u$. Then $T <- R -> R$.]<foundations:recursion-uniqueness>
 #proof[
-  Assume for all units $u$, $u -->^K K$. Then $R -->^R R$. Thus, for any
-  $p - K -> q$ in $K$, ${C − K -> K, p − K -> q} − K -> (p - C -> q in K)$
-
+  Clearly $T - "unit" -> "unit"$, and $"unit" - "unit" -> T$ follows from
+  observing that ${"unit" - "unit" -> T} in T$.
 ]
+
+[TODO[MEDIUM]: clarify how $"unit"$ is a verifier!]
 
 An important consequence of the recursion theorem is a basic form of
 *reflection*. Most importantly, this theorem establishes that _any_ way to
 characterize Welkin can be reduced to including the recursor $"unit"$. This
-establishes that $"unit"$ is the _smallest_ set of foundations for Welkin.
+establishes that $"unit"$ is the _smallest_ set of foundations for Welkin. Note
+that $"unit"$ acts as _both_ a recursive procedure _and_ verifier over units.
 
 #theorem[*_(Base Reflection)._* Let $T$ be any unit extends $"unit"$. Then
   ${T --> "unit"} - "unit" -> "unit"$.]<foundations:base-reflection>
@@ -384,19 +391,35 @@ establishes that $"unit"$ is the _smallest_ set of foundations for Welkin.
 == Information
 
 This section provides the definition of information in Welkin.
-
 // TODO: embed information _as_ evaluation,
 // up to {} or something NOT {}.
 // This is EXACTLY making a difference/change
 // in a system! The difference is finding NOT {},
 // if it's true!
 
+// What is a query?
+// Something we want to *answer*
+// So the thing we can answer in Welkin
+// *is the presence of representations*.
+// This is what we're working with!
+
+// TODO: probably need a recursor here
+// to cover any case!
 #definition[
-  Let $u, v$ be units.
-]
+  Let $c$ be a context. Then a *query* is a question ${@c, q} <- ? -> {}$.]
+
+We invoke two ideas from @rationale:mechanizing-information:
+- Burgin: information is an operator; a carrier of change in a system
+  @burgin-foundations-information.
+- Bateson: "information is a difference that makes a difference"
+  @bateson-ecology-of-mind.
+
+In this case, we express the idea of "making a difference" through _impacting
+queries_.
 
 #definition[
-  Let $u, v$ be units. Then $u$ has *information about* $v$ if .
+  Let $c$ be a context, $v$ a query and $u, v$ be units. Then $u$ has
+  *information about* $v$ if .
 ]
 
 Thus, we can interpret "making a difference" as _
