@@ -251,9 +251,8 @@ other languages. An implementation of Welkin will contain a small section of
 ASCII encoding for easier standardization, but the rest of the program can be
 done _entirely_ in the user's native language. This is a novel feature in most
 programming languages, which are either predominantly English or are fine tuned
-for specific human languages. [TODO: cite source on this about most programming
-languages being in English, as well as programming languages written in
-_different_ human languages. Would be useful to have.]
+for specific human languages.
+
 
 == Bootstrapping <rationale:bootstrap>
 

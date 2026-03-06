@@ -145,10 +145,13 @@ organizing information, see @information-organization.
   import can add new units in a block. *R7* provides a mechanism to _exclude_
   specified contents in $g$, which can themselves be representations. For
   example, ${@{a - b -> c, d}, ~{a - b -> c}}$ reduces to ${d}$.
-- *R8-R9* ensure that information can be repeated and is positionally invariant.
+- *R8* and *R9* ensure that information can be repeated and is positionally
+  invariant.
 - *R10* provides a way to prevent representations in a block. We interpret this
   rule as stating: ${}$ contains nothing, so it cannot contain any
-  representation, including $a - {} -> b$.
+  representation, including $a - {} -> b$. We will use this rule to represent
+  negation. Note that this is _distinct_ from exclusion, as the latter is
+  restricted to _only_ imports.
 
 // [TODO[SMALL]: note importance of using axioms to define essentially bound/free
 // variables! Not as easy with just assuming sets as they are; easier to express
