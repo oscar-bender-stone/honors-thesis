@@ -7,10 +7,9 @@
 #show math.tilde: tilde-prefix
 
 #import "template/ams-article.typ": definition, example, remark
-#import "template/ams-article.typ": (
-  corollary, equation_block, lemma, proof, theorem,
-)
+#import "template/ams-article.typ": corollary, equation_block, lemma, theorem
 
+#import "template/ams-article.typ": proof, proof-sketch
 
 #let tilde-prefix = math.class(
   "unary",
@@ -25,6 +24,8 @@ This section discuss the foundations of Welkin, as follows:
 + We define units and their rules.
 + We prove there is a unit that indexes every other unit
   (@foundations:base-recursor).
++ We show that Welkin's base theory is equivalent to a weak fragment of
+  arithmetic, $I Delta_0$. This section is optional.
 + We define queries.
 
 == Base Rules
@@ -347,7 +348,7 @@ frequently when defining terms in @turing-expressible.
   @information-organization.]
 
 The following statements are two parts of the same *Recursion theorem* for
-Welkin. The first two are straightforward; their proofs closely aligns with the
+Welkin. The first is straightforward; their proofs closely aligns with the
 definitions written in the meta-language (English).
 
 #lemma[*_(Correctness)._* For every unit $u$, $u - "unit" -> "unit"$.
@@ -357,9 +358,6 @@ definitions written in the meta-language (English).
   - *Inductive step:* immediate; $"unit"$ includes representations $a - b -> c$,
     as well as cases for ${g, u}$, ${@g, u}$, and ${@g, ~u}$.
 ]<foundations:recursor-correctness>
-
-
-[TODO[SMALL]: rethink statement here.]
 
 The last part behind the Recursion theorem underlies why $"unit"$ is enough to
 embed the Welkin inside itself.
@@ -390,6 +388,43 @@ that $"unit"$ acts as _both_ a recursive procedure _and_ verifier over units.
   - *Inductive step:* suppose $T = {T', e}$ for a units $T', e$ where
     $T' --> "unit"$. Now, by monotonicitiy in $"unit"$, $T --> T'$, hence by
     transitivity, $T --> "unit"$.
+]
+
+== Equivalence to $I Delta_0$
+
+To compare Welkin against other theories, we show Welkin can be translated to
+$I Delta_0$, a weak fragment of arithmetic, and vice versa. This subsection is
+optional.
+
+[TODO[MEDIUM]: make this more rigorous. ]
+#lemma[
+  The "unit" recursor is definable in $"I" Delta_0$.
+]
+#proof-sketch[
+  First, we argue that the inductive definitions can be written in $I Delta_0$.
+  Clearly every handle can be expressed, indexing each triple of functions with
+  Cantor's pairing function, sending triples $("UID", "RID", "HID")$ to natural
+  numbers. Similarly, representations can be indexed by a pairing argument. It
+  remains to show that blocks can be defined as well. We claim that an extended
+  pairing function can be made that is defined inductively. [TODO: define this
+  function!]
+
+  Second, we must show that all the axioms of Welkin are expressible.
+]
+
+#lemma[
+  Welkin can embed Robinson Arithmetic as a unit.
+]
+#proof[
+  [TODO[MEDIUM]]
+]
+
+#theorem[
+  Welkin proves that $"unit"$ and $I Delta_0$ are equivalent.
+]
+#proof[
+  [TODO[MEDIUM]: explain how combinators can be used here to simplify the use of
+  quantifiers.]
 ]
 
 == Queries and Information

@@ -541,6 +541,20 @@
   $square.stroked$
 })
 
+
+#let proof-sketch(body) = block(spacing: 11.5pt, {
+  emph[Proof Sketch.]
+  [ ]
+  body
+  h(1fr)
+
+  sym.wj
+  sym.space.nobreak
+
+  $square.stroked$
+})
+
+
 #let lang-def-vertical(
   notation,
   symbols-data,

@@ -29,7 +29,7 @@ Optimizations will be postponed to @information-organization.
 For notation, we will write $"PA"$ for Peano Arithmetic and $"PRA"$ for
 Primitive Recursive Arithmetic.
 
-== Serial Soundness
+== Artemov's Approach
 
 A major goal in Welkin is to express any representable notion, _including_ any
 representabale proof. Proofs are a finite certificate that consists of a valid
@@ -83,12 +83,58 @@ says that a formal system cannot define its own truth predicate _at the object
 language_ @tarski-undefinability-truth. We circumvent this problem _precisely_
 with a meta-theory.
 
+
+== Truth
+
+We embed "Convention T", or Tarski's criterion for truth
+@tarski-undefinability-truth, as unit.
+
+
+// So the original convention T is:
+// [phi] is true iff phi,
+// where [] is the Goedel number, and phi
+// is a sentence in Peano Arithmetic.
+
 #definition[
-  The *meta recursor* $"meta"$ over all units is defined recursively. We say
-  that $"meta"$ *meta-proves* $T$, denoted $T ⊢_"meta" a$ if there is a proof
-  through serial-soundness chains $"unit", T_1, ..., T_n$, where each unit $T_i$
-  proves its own serial-soundness.
+
 ]
+
+// #definition[
+//   The *meta recursor* $"meta"$ over all units is defined recursively. We say
+//   that $"meta"$ *meta-proves* $T$, denoted $T ⊢_"meta" a$ if there is a proof
+//   through serial-soundness chains $"unit", T_1, ..., T_n$, where each unit $T_i$
+//   proves its own serial-soundness.
+// ]
+
+#definition[
+  *Truth* in a unit is defined recursively:
+  -
+]
+
+
+// We want to express serial soundness:
+// that there is a computable term, provable
+//  in the language such that
+// if it derives something phi, then phi is *actually* true.
+//
+// But we can't refer to the "thing" itself.
+// That's where units come in! W can (instead* say
+// something about what it does for truth,
+// which is the important part!
+// So we *do* need to tak about truth here.)
+
+
+== The Meta Unit
+
+#definition[
+  A unit $t$ is *coherent* if $"unit" in t$ and.
+]
+
+#definition[
+  The *meta recursor* $"meta"$ over all units is defined recursively:
+  - *Base case:* $"unit" in "meta"$.
+]
+
 
 #remark[A different approach to create more powerful chains of theories is
   _reflection_. One example is from Feferman @feferman-reflection: starting from
@@ -105,6 +151,7 @@ Remarkably, $"meta"$ _does_ meta-prove its own serial soundness.
   soundness.
 ]
 
+== Proof of Complete Expressivity
 
 To show that this covers _every_ proof that can be computably recognized, we
 need to discuss recursive ordinals. We provide an embedding via $"unit"$. For
