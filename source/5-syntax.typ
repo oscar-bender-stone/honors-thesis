@@ -26,7 +26,13 @@ bootstrap?] For consistency with Welkin, we write syntax using
     "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",
   )).]
 
+[TODO[MEDIUM]: make imports precise! We *want* to get into using dot notation as
+soon as possible!]
+
 == Numbers
+
+[TODO[MEDIUM]: make this easier to use! Maybe *just* use binary or so? OR can
+formally define digits and nibbles later, if so we choose.]
 
 We add numbers and provide equivalnces between them.
 
@@ -39,8 +45,8 @@ hexadecimal.
 
 #figure(
   ```
-  bit <--> 0 | 1
-  digit <--> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+  bit <--> 0 | 1,
+  digit <--> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
   nibble <--> A | B | C | D | E | F
   ```,
   caption: "Binary, decimal, and hexadecimal digits.",
@@ -48,15 +54,14 @@ hexadecimal.
 
 #figure(
   ```
-  number <--> binary | decimal | hex
-  binary <--> bit | binary.bit
-  decimal <--> digit | decimal.digit
-  hex <--> nibble | hex.nibble
+  number <--> binary | decimal | hex,
+  decimal <--> {top --> bit, next --> decimal},
+  hex <--> {top --> nibble, next --> hex}
   ```,
   caption: "Definition of words.",
 )<syntax:word>
 
-== Terminals
+== Encoding
 
 Welkin uses ASCII as its base encoding. The term ASCII is slightly ambiguous, as
 there are subtly distinct variants, so we formally define US-ASCII as a standard
@@ -77,13 +82,24 @@ version. #footnote[Note that this table _itself_ is a representation, which
 ]
 
 To represent general encodings, there is a binary format supported for strings,
-see @string.
+see @syntax:string.
+
+== Invertible Syntax Descriptions
+
+#figure(
+  [```
+
+  ```],
+  caption: [Definitions for the main combinators used.],
+)
+
+==
 
 
 // TODO: complete table
 #figure(
   printable-ascii-table(),
-  caption: [US-ASCII codes and glyphs.],
+  caption: [Printable US-ASCII codes and glyphs.],
 )<syntax:printable-ascii-codes>
 
 We denote specific characters through quotes, escaping if necessary. There are
@@ -95,45 +111,46 @@ double quotes.
 // *or* list specific character classes?
 #figure(
   ```
+  eps <--> "",
   whitespace <--> "\t" | "\n" | "\r" | " ",
   reserved <--> delimiter | "." | "*" | "\" | "@" | "#",
-  delimiter <--> "{", "}" | "\"" | "'"| ","
+  delimiter <--> "{" | "}" | "\"" | "'"| ","
   ```,
   caption: "Important character classes.",
 )<character-classes>
 
-Strings allow escaped single or double quotes, see @string. IDs are special
-cases of strings that do not require quotes but forbid whitespace and certain
-characters, see @syntax:id.
+
+#figure(
+  ```
+  toplevel <--> {marker --> "#", name --> id}
+  import <--> {marker --> "@", graph --> id},
+  id <--> {top --> {@printable, ~{@reserved, @whitespace}}, next --> id}
+  ```,
+  caption: "IDs.",
+)<syntax:id>
+
+
+Strings allow escaped single or double quotes, see @syntax:string. IDs are
+special cases of strings that do not require quotes but forbid whitespace and
+certain characters, see @syntax:id.
 
 [TODO[SMALL]: determine if terminals should be uppercase.]
 
 #figure(
   ```
   string <--> sq_string | dq_string,
+  string_contents <--> sq_contents | dq_contents
 
   sq_string <--> {start --> "'", contents --> sq_contents, end --> "'"},
   dq_strings <--> {start --> "\"", contents --> dq_contents, end --> "\""},
 
   sq_contents <--> {top --> eps | {@printable, ~{"\""}}, next --> sq_contents},
-  dq_contents <--> {top --> eps | {@printable, ~{"\""}}, next --> qq_contents},
+  dq_contents <--> {top --> eps | {@printable, ~{"\""}}, next --> dq_contents},
   escape_sq <--> "\'" | "\\",
-  escape_dq <--> "\"" | "\\",
+  escape_dq <--> "\"" | "\\"
   ```,
   caption: "Strings.",
-)<string>
-
-#figure(
-  ```
-  toplevel <--> {marker --> "#", name --> id}
-  import <--> {marker --> "@", graph --> id},
-  id <--> {top --> id_char, next --> id},
-  id_char <--> {@printable, ~{@reserved, @whitespace}}
-  ```,
-  caption: "IDs.",
-)<syntax:id>
-
-[TODO(MEDIUM): find good way to implement directly with Welkin or discuss.]
+)<syntax:string>
 
 == Invertible Syntax Description
 
@@ -145,7 +162,7 @@ syntax.
 #figure(
   grammar,
   caption: [The grammar for Welkin. This includes the definitions of `id` and
-    `string`, which are also defined in @syntax:word and @string,
+    `string`, which are also defined in @syntax:id and @syntax:string,
     respectively.],
 )<welkin-grammar>
 
