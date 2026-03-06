@@ -29,15 +29,11 @@ This section discuss the foundations of Welkin, as follows:
 
 == Base Rules
 
-As high-level notation, we write:
-
-- $a equiv b$ to mean that $a$ is definitionally equivalent to $b$.
-
-- $not P$ means that assertion $P$ does not true.
-
-Note that this will not be defined in the syntax, see @rationale:bootstrap.
-Moreover, we will distinguish between _defining_ a term as finite and
-_practically enforcing_ it is finite. For a thorough discussion, see ?.
+As high-level notation, we write $a equiv b$ to mean that $a$ is definitionally
+equivalent to $b$. Note that this will not be defined in the syntax, see
+@rationale:bootstrap. Moreover, we will distinguish between _defining_ a term as
+finite and _practically enforcing_ it is finite. For a thorough discussion, see
+?.
 
 #definition[
   A *bit* is the symbols $0$ or $1$. A *binary word* is either the symbol
@@ -399,15 +395,16 @@ Roughly, let $c$ be a context $c$.
 
 To standardize this in Welkin, we will instead write:
 
+#set quote(block: true)
 #quote[
-  Is ${@c, ~q} <- "unit" -> {}$?
+  _Is ${@c, ~q} <- "unit" -> {}$?_
 ]
 
 We can then apply $"unit"$ in an attempt to evaluate this. In some cases, this
-is easy. Consider, for example, examining $p$ in context ${p, q}$. In this case,
-we can detect this truth _definitionally_, or by a simple traversal in the
-context. However, @turing-expressible implies that finding general derivations
-are uncomputable.
+is easy and only uses _direct definitions_. Consider, for example, examining $p$
+in context ${p, q}$. We can resolve this with a quick traversal, showing that
+$p$ is in fact in ${p, q}$. However, @turing-expressible implies that finding
+general derivations are uncomputable.
 
 We want information to _resolve_ a query. Formally, we want information to be
 _proof_, not a "yes/no" answer by itself. When the context is finite, like

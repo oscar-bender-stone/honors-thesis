@@ -11,7 +11,7 @@ This section discusses the provably most general definition of information.
 + We establish the meta-theory, and show it can encompass any formal system.
 
 + We show the meta-theory "meta-proves" its own soundness, _without_
-  contradicting previous theorems.
+  contradicting the known impossibility results.
 
 + We conclude with the definition of information.
 

@@ -112,27 +112,18 @@ _fixed_ context $c$.
 == Mechanizing Information <rationale:mechanizing-information>
 
 From the notion of a unit, we practically define information on a unit $v$ as a
-unit $u$ which _correctly identifies $v$ from any other unit_. We formalize this
-as an invariant based on an equivalence relation on units, determined by the
-given set of representations (see @metatheory:information). This notion
-corresponds to Burgin's idea of information as an _operator_ that transforms a
-system, and is closely to Bateson's famous quote that "information is a
-difference that makes a difference" @bateson-ecology-of-mind. Our practical
+_unit that tracks reductions in $v$_. Formally, we define information as a proof
+used in derivations, which include refinements of $v$ to other units. Key to
+this definition is making it _context-based_, thereby enabling separate
+truth-management systems (those systems defined by some Turing machine). This
+notion corresponds to Burgin's idea of information as an _operator_ that
+transforms a system, and is closely to Bateson's famous quote that "information
+is a difference that makes a difference" @bateson-ecology-of-mind. Our practical
 distinction between information and knowledge is that we _use_ information, but
 users can assert their own notions of these terms by creating restricted
-contexts. We connect our notion of information back through Algorithmic
-Information Theory by showing that the theoretical notion of conditional
-information content _precisely_ coincides with the size of information, counted
-in bits (up to a constant) [TODO: link to this result. Important! And confirm
-this result! Currently unchecked.].
-
-
-Within a fixed revision, handles, by being defined by how they are restricted,
-are _exactly_ described by the consequences of their relationships. We describe
-this as a syntactic rendering of truth through the notion of a truth management
-system. Here, we define a truth management system to consist of a set of axioms
-along with inference rules, whose derivations are accepted by some Turing
-machine. Welkin proves that not only is _any_ truth management system.
+contexts. There are technical constructions to show that our definition is _as
+general_ as possible (@metatheory:information), as well as optimally organized
+(@information-organization).
 
 There are two primary inference rules, which we informally describe now:
 
