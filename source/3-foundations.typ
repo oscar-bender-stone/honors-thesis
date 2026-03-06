@@ -57,8 +57,16 @@ finite and _practically enforcing_ it is finite. For a thorough discussion, see
 #definition[
   A _handle_ is given by a *key*, a triple $("UID", "RID", "HID")$, where
   $"UID"$ is a binary word called a *user ID*, $"RID"$ is a binary word called
-  the *revision ID*, and $"HID"$ is a binary word called the *handle ID*.
+  the *revision ID*, and $"HID"$ is a binary word called the *handle ID*. The
+  interpretation of these parameters are free parameters, and therefore are
+  outside the scope of this language.
 ]<foundations:handle>
+
+#remark[
+  Because handles act as free parameters, we work with them _through_ truth.
+  Based on this, the rest of the thesis will focus on representations _as_ sets
+  of axioms.
+]
 
 [TODO[SMALL]: without getting into typing, enforce that equality has to be done
 on two words or two handles. Maybe lift to the latter to make sense?]

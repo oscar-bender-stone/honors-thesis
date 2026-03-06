@@ -16,7 +16,7 @@
 // At the very least, we want this
 // to be *itself* a component
 
-= Information Organization <information-organization>
+= Organizing Information <information-organization>
 
 The presentation of Welkin's universal expressivity, stated as
 @turing-expressible fixed with one particular representation. Following the
