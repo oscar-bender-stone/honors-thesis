@@ -30,7 +30,7 @@ This section discuss the foundations of Welkin, as follows:
 == Base Rules
 
 As high-level notation, we write $a equiv b$ to mean that $a$ is definitionally
-equivalent to $b$. Note that this will not be defined in the syntax, see
+equivalent to $b$. Note that $equiv$ will not be introduced in the syntax, see
 @rationale:bootstrap. Moreover, we will distinguish between _defining_ a term as
 finite and _practically enforcing_ it is finite. For a thorough discussion, see
 ?.
@@ -58,15 +58,15 @@ finite and _practically enforcing_ it is finite. For a thorough discussion, see
   A _handle_ is given by a *key*, a triple $("UID", "RID", "HID")$, where
   $"UID"$ is a binary word called a *user ID*, $"RID"$ is a binary word called
   the *revision ID*, and $"HID"$ is a binary word called the *handle ID*. The
-  interpretation of these parameters are free parameters, and therefore are
-  outside the scope of this language.
+  interpretation of keys are left as free parameters, and therefore are outside
+  the scope of this language.
 ]<foundations:handle>
 
 #remark[
-  Because handles act as free parameters, we work with them _through_ truth.
-  Based on this, the rest of the thesis will abstract away general units _as_
-  sets of axioms. Free parameters are used to _define_ Welkin itself, however,
-  see @syntax.
+  Because handles act as free parameters, we work with them through truth. Based
+  on this, the rest of the thesis will abstract away general units _as_ sets of
+  axioms. Free parameters are used to define Welkin itself, however, see
+  @syntax.
 ]
 
 [TODO[SMALL]: without getting into typing, enforce that equality has to be done
@@ -97,17 +97,20 @@ unique.
     *represents* $b$ *in context* $c$.
 ]<foundations:unit>
 
-
 We will intentionally _avoid_ defining equality on units and postpone this until
 @foundations:base-recursor.
 
 [TODO[SMALL]: make sure to define this notation $|$ recursively!]
 
-For notation, we will set $a - c -> b | d$ to mean ${a - c -> b, a - c -> d}$,
-and $a | b - c -> d$ to mean ${a - c -> d, b - c -> d}$. This simplifies the
-presentation of the rules; we postpone introducing the operator $|$ into the
-syntax until @syntax. Moreover, we write $q in c$ to mean $q - c -> c$. Notice
-that many-to-many relationships are allowed.
+As more notation, we write:
+
+- $a - c -> b_1 | b_2 | ... | b_n$ to mean
+  ${a - c -> b_1, a - c -> b_2, ..., a - c -> b_n}$.
+- $a_1 | ... | a_n - c -> d$ to mean ${a_1 - c -> d, ..., a_n - c -> d}$.
+- $q in c$ if $q - c -> q$.
+
+This simplifies the presentation of the rules. We postpone formally defining the
+operator $|$ to the syntax in @syntax.
 
 [TODO[SMALL]: provide labels/links.]
 
@@ -314,7 +317,10 @@ From there, we can define handle IDs through triples, see
 )<foundations:bootstrap-handle-id>
 
 Here, a $"handle"$ is simply a pair ${"UID", "RID", "HID"}$, where $"UID"$,
-$"RID"$, $"HID"$ are words.
+$"RID"$, $"HID"$ are words. This handles indexing all handles, _except_ for the
+ones in the bootstrap. We will leave details about that in the bootstrap, see ?.
+For now, we will assume new names are created with unique handles, all on a
+fixed revision.
 
 Now, in @unit-rules, we needed enough _separate_ meta-variables. To do this in
 Welkin, we use representations of the form $"u" --> "unit"$. This appeared
