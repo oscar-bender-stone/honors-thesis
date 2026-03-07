@@ -8,7 +8,7 @@
   corollary, equation_block, lemma, proof, theorem,
 )
 
-= Information <metatheory:information>
+= Metatheory <metatheory:information>
 
 This section discusses the provably most general definition of information. This
 section is optional. For the base definition of information, refer to

@@ -132,7 +132,7 @@ As more notation, we write:
 - $a - c -> b_1 | b_2 | ... | b_n$ to mean
   ${a - c -> b_1, a - c -> b_2, ..., a - c -> b_n}$.
 - $a_1 | ... | a_n - c -> d$ to mean ${a_1 - c -> d, ..., a_n - c -> d}$.
-- $q in c$ if $q - c -> q$.
+// - $q in c$ if $q - c -> q$.
 
 This simplifies the presentation of the rules. We postpone formally defining the
 operator $|$ to the syntax in @syntax.
@@ -256,7 +256,7 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
   completing the proof.
 ]
 
-== Base Recursor <foundations:base-recursor>
+== The Unit Recursor <foundations:base-recursor>
 
 The proof of @turing-expressible demonstrates how contexts enable powerful
 recursive definitions. However, the underlying construction is tedious and
@@ -359,7 +359,7 @@ definitions written in the meta-language (English).
     as well as cases for ${@g, u}$, and ${@g, ~u}$.
 ]<foundations:recursor-correctness>
 
-== Verifier
+== Base Verifier
 
 Now we will includle a notion for containment. This will be useful for
 optimizations see @information-organization.
@@ -423,7 +423,7 @@ Fill in $\_$!]
   ${a - b -> d}$ in $c$.
 ]
 #proof[
-  TBD[FINIS full inductive proof!]
+  TBD[FINISH full inductive proof!]
 ]
 
 Note that this verifier, as simple as it is, will _not_ limit what proofs can be
@@ -479,7 +479,7 @@ use $I_Sigma_0$ to denote $I Delta_0$.
 
 [TODO[MEDIUM]: make this more rigorous. ] #lemma[
   The unit $"verifier"$ is definable in $I Delta_0$.
-]<foundations:conversion-to-I-Delta0>
+]<foundations:I-Delta0-to-welkin>
 #proof-sketch[
   The claim relies on defining $"unit"$. From there, one can easily express the
   conditions in $"verifier"$ by simple recursion.
@@ -499,13 +499,6 @@ use $I_Sigma_0$ to denote $I Delta_0$.
 An important consequence of this theorem is the following, proving that the
 meta-theory for Welkin is as minimal as possible.
 
-#theorem[_(Base Theory: $I Delta_0$)._ Suppose $T$ is another first order theory
-  that proves the existence of Welkin's $"verifier"$. Then $T => I Delta_0$.
-]<foundations:welkin-minimal>
-#proof[
-  As before, it suffices to examine $"unit"$. TODO: finish.
-]
-
 Now we proceed that Welkin's verifier is itself can process any $I Delta_0$
 proof.
 
@@ -516,15 +509,22 @@ proof.
   [TODO[MEDIUM]] TBD.
 ]
 
-In total, by @foundations:conversion-to-I-Delta0 and ?, we obtain the following.
-
 #theorem[
-  Welkin proves that $"unit"$ and $I Delta_0$ are equivalent.
+  Welkin's verifier verifies there is a context with all derivations of
+  $I Delta_0$.
+]<foundations:welkin-to-I-Delta0>
+
+Taken together, we can prove that Welkin has a minimal metatheory.
+
+#corollary[_(Base Theory: $I Delta_0$)._ Suppose $T$ is another first order
+  theory that proves the existence of Welkin's $"verifier"$. Then
+  $T => I Delta_0$.
+]<foundations:welkin-minimal>
+#proof[
+  Over $I Delta_0$, @foundations:I-Delta0 proves the existence of $"verifier"$
+  implies $I Delta_0$. Thus, if $T$ proves the existence of $"verifier"$, it
+  must satisfy $I Delta_0$ as well, completing the proof.
 ]
-
-
-An important result is we can prove the following.
-
 
 
 == Queries and Information
