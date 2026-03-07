@@ -84,21 +84,21 @@ unique.
 
 
 #definition[
-  A *unit* is defined recursively and as nothing else:
+  A *unit* is defined recursively as follows and nothing else:
   - *Base case:*
     - A handle, see @foundations:handle.
     - The symbol ${}$, the *empty block*.
-  - *Recursive step:* let $u, v, g$ be units and $h$ a handle. The any finite
+  - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
     combination of the following are also units:
-    - $\#h$ called the *toplevel marker*.
-    - $@u$ unit called the *expansion* of $u$.
-    - $~u$, called the *exclusion* of $u$.
-    - ${u, v}$, called the *pair* of $u, v$.
-    - $g.v$ is called the *access of $v$ on $g$*.
+    - $\#h$, the *toplevel marker*.
+    - $@u$, the *expansion* of $u$.
+    - ${u, v}$, the *pair* of $u, v$.
+    - ${@u, ~v}$, where $v$ is the *exclusion* of $u$.
+    - $g.v$, the *access of $v$ on $g$*.
     // TODO: make the current working context clear!
-    - A *representation* $a - c -> b$ is a unit, where $a$ is the *sign*, $c$ is
-      the *context*, and $b$ is the *referent*. This is read as: $a$
-      *represents* $b$ *in context* $c$.
+    - A *representation* $a - c -> b$, where $a$ is the *sign*, $c$ is the
+      *context*, and $b$ is the *referent*. This is read as: $a$ *represents*
+      $b$ *in context* $c$.
 ]<foundations:unit>
 
 We will intentionally _avoid_ defining equality on units and postpone this until
@@ -117,24 +117,23 @@ Important! This will avoid manual numbering _and_ ease referencing rules.]
   - *R2. Contextual Lifting:* $a - c -> b$ and $d - b -> g$ imply
     ${d - a -> g} - c -> {d - a -> g}$.
   - *R3. Empty:* ${@g, {}} <--> g$.
-  - *R4. Handle Substitution:* if handle $h_1$ is equal to handle $h_2$, then
+  - *R4. Null:* ${a - {} -> b} <--> {}$.
+  - *R5. Handle Substitution:* if handle $h_1$ is equal to handle $h_2$, then
     $h_1 <--> h_2$.
-  - *R5. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
+  - *R6. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
   // TODO: ensure this is clear! Need to distinguish from what
   // we write in the syntax!
-  - *R6. Field Access:* $g.a <--> a$ if and only if $a - g -> a$.
+  - *R7. Field Access:* $g.a <--> a$ if and only if $a - g -> a$.
   // TODO: make it clear what the current working context is!
-  - *R7. Toplevel:* $\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.
-  - *R7. Identity:* $a <--> {a - a -> a}$.
-  - *R8. Singleton :* $a <--> {a}$.
-  // TODO: decide if reverse is needed
-  - *R9. Null:* ${a - {} -> b} --> {}$.
+  - *R8. Toplevel:* $\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.
+  - *R9. Identity:* $a <--> {a - a -> a}$.
+  - *R10. Singleton :* $a <--> {a}$.
   // NOTE: this does add arrows. For clarity,
   // could make this redundant and add a - g -> b here.
-  - *R10. Expansion:* if $a - g -> b$, then ${@g, c} <-> {{{@g, a}, b}, c}$.
-  - *R11. Exclusion:* if $g <--> {@g, a}$, then ${{@g, ~a}, b} <--> {@d, b}$.
-  - *R12. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
-  - *R13. Commutativity:* ${a, b} <--> {b, a}$.
+  - *R11. Expansion:* if $a - g -> b$, then ${@g, c} <-> {{{@g, a}, b}, c}$.
+  - *R12. Exclusion:* if $g <--> {@g, a}$, then ${{@g, ~a}, b} <--> {@d, b}$.
+  - *R13. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
+  - *R14. Commutativity:* ${a, b} <--> {b, a}$.
 ]<unit-rules>
 
 As more notation, we write:
@@ -151,33 +150,41 @@ entirely flexible and user defined. Moreover, only ? are needed for Turing
 completeness. We will show, however, that the remaining axioms are optimal when
 organizing information, see @information-organization.
 
+[TODO: fix numbering!]
+
+[TODO: note that exclusions MUST be only done in the presence of an expansion!
+We do NOT want exclusions to be associative! Would mean there are certain units
+we can _never_ extend to larger contexts.]
+
 - *R1* and *R2* were discussed in @rationale:unit.[TODO: maybe review the
   discussion from earlier? Might be useful to reinforce main ideas to reader.]
-- *R3* define the behavior of the empty unit ${}$, similar to the empty set.
-- *R4* provides a way to represent $a in g$ through the representation
+- *R3* and *R4* define the behavior of the empty unit ${}$, similar to the empty
+  set. *R4* specifically states that ${}$ contains _no_ representations, so any
+  term $a - {} -> b$ may be written.
+- *R5* provides a way to represent $a in g$ through the representation
   $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, so it
   is _not_ required in every unit. Identity is expressed instead by
   ${a - a -> a}$, see the discussion below.
-- *R5* reduces extraneous blocks. Note that this is _not_ the same thing as the
+- *R6* reduces extraneous blocks. Note that this is _not_ the same thing as the
   Quine atom, which states ${a} = a$ in a set theoretic context
   @quine:new-foundations. We do _not_ mean $a in a$, but instead, ${a}$ is a
   _wrapper_ around $a$. While not useful for handles, it is for specifying
   blocks of representations, such as ${a - b -> c, b - c -> d}$.
-- *R6* and *R7* define how imports in the language work. An *import* is the
-  process of joining the contents of one unit into another. *R6* says how an
-  import can add new units in a block. *R7* provides a mechanism to _exclude_
+- *R7* and *R8* define how imports in the language work. An *import* is the
+  process of joining the contents of one unit into another. *R7* says how an
+  import can add new units in a block. *R8* provides a mechanism to _exclude_
   specified contents in $g$, which can themselves be representations. For
   example, ${@{a - b -> c, d}, ~{a - b -> c}}$ reduces to ${d}$. This also
   enables a way to disable _any_ rule in Welkin, based on user preference. This
   is intentionally restricted _per context_, so the rules are enacted by
   default.
-- *R8* and *R9* ensure that information can be repeated and is positionally
+- *R9* and *R10* ensure that information can be repeated and is positionally
   invariant.
-- *R10* provides a way to prevent representations in a block. We interpret this
+- *R11* provides a way to prevent representations in a block. We interpret this
   rule as stating: ${}$ contains nothing, so it cannot contain any
   representation, including $a - {} -> b$. We will use this rule to represent
   negation. Note that this is _distinct_ from exclusion.
-- *R11* enables equality in handles to pass through into representations.
+- *R12* enables equality in handles to pass through into representations.
   Besides this, note that equivalences on units are _entirely_ user defined.
 
 
