@@ -80,15 +80,17 @@ several constructive schools, see @artemov_serial_consistency. This thesis
 builds upon this result with a stronger property: *serial-soundness*. The exact
 same proof applies, using the same partial truth definition. Tarski's theorem
 says that a formal system cannot define its own truth predicate _at the object
-language_ @tarski-undefinability-truth. We circumvent this problem _precisely_
-with a meta-theory.
-
+language_ @tarski-undefinability-truth. In fact, this truth predicate is
+uncomputable, in general. We do not avoid Tarski's theorem, but we do
+approximate it _as_ closely as partial computable functions allow. Because some
+logics may not have a notion of inconsistency, we will not define consistency
+itself. However, given the results in @foundations, first order logic can be
+expressed in several ways.
 
 == Truth
 
 We embed "Convention T", or Tarski's criterion for truth
 @tarski-undefinability-truth, as unit.
-
 
 // So the original convention T is:
 // [phi] is true iff phi,
@@ -102,26 +104,31 @@ that corresponds closely to using handles!]
   for $c$ if for every unit $u$, $u - c -> t$ if and only if $u - c -> u$.
 ]<metatheory:truth>
 
+[TODO: clarify. The main definition here means that we can join the specific
+unit $u$ with the "actual" representation. They need to _match_. This is exactly
+what coherency means! So we are *merging* $c$ with the contents of the _actual_
+unit in question!]
 #definition[
-  A context $c$ is *sound* if for every $u in c$, "$u$ is 'actually' true"
-  (TODO: fix!).
+  A context $c$ is *sound* if for every $u - "in" -> c$, "$u$ is 'actually'
+  true".
 ]
+
+Recall that Gödel's incompleteness theorems asserts that the theory $"PA"$
+cannot prove its own soundness. And recall that each unit is _finitely
+generated_. This means a units face a similar incompleteness theorem, _in the
+object level_. We now define serial-soundness as an approximation, feasible by a
+_metatheory_.
 
 #definition[
   A unit $u$ is *serial-sound* if .
+]<metatheory:serial-sound>
+
+#lemma[
+  The unit $"verifier"$ is serial-sound.
 ]
-
-// We want to express serial soundness:
-// that there is a computable term, provable
-//  in the language such that
-// if it derives something phi, then phi is *actually* true.
-//
-// But we can't refer to the "thing" itself.
-// That's where units come in! W can (instead* say
-// something about what it does for truth,
-// which is the important part!
-// So we *do* need to tak about truth here.)
-
+#proof[
+  [TODO: likely uses $I Delta_0$ from a previous section.]
+]
 
 == The Meta Unit
 
@@ -132,16 +139,19 @@ that corresponds closely to using handles!]
 //   proves its own serial-soundness.
 // ]
 
+[TODO: complete!]
 #definition[
   The *meta recursor* $"meta"$ over all units is defined recursively:
   - *Base case:* $"unit" in "meta"$.
+  - *Recursive step:* for each proof in $"meta"$, adding a self-verifying unit
+    is a valid proof step.
 ]
-
 
 #remark[A different approach to create more powerful chains of theories is
   _reflection_. One example is from Feferman @feferman-reflection: starting from
-  $"PA"$,
-]
+  $"PA"$, one can add the encoded statement, roughly meaning: "$"PA"$ is sound".
+  One can then iterate this through transfinite induction. While this, too, is a
+  way to express all proofs, reflection is a _subset_ of our techniques.]
 
 #theorem[
   The unit $"meta"$ meta-proves that serial soundness implies soundness.
