@@ -127,7 +127,7 @@ is a difference that makes a difference" @bateson-ecology-of-mind. Our practical
 distinction between information and knowledge is that we _use_ information, but
 users can assert their own notions of these terms by creating restricted
 contexts. There are technical constructions to show that our definition is _as
-general_ as possible (@metatheory:information), as well as optimally organized
+general_ as possible (@foundations:information), as well as optimally organized
 (@information-organization).
 
 There are two primary inference rules, which we informally describe now:

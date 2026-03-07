@@ -24,8 +24,7 @@ This section discuss the foundations of Welkin, as follows:
 + We define units and their rules.
 + We prove there is a unit that indexes every other unit
   (@foundations:base-recursor).
-+ We show that Welkin's base theory is equivalent to a weak fragment of
-  arithmetic, $I Delta_0$. This section is optional.
+This section is optional.
 + We define queries.
 
 == Base Rules
@@ -421,110 +420,12 @@ Fill in $\_$!]
   For all contexts $c$, targets ${a - b -> d}$, and derivations $p$,
   $"verifier"$ is *sound*; it correctly identifies if $p$ is a derivation of
   ${a - b -> d}$ in $c$.
-]
+]<foundations:verifier-correctness>
 #proof[
   TBD[FINISH full inductive proof!]
 ]
-
 Note that this verifier, as simple as it is, will _not_ limit what proofs can be
 expressed. We prove this in @metatheory:transfinite-induction.
-
-== Equivalence to $I Delta_0$
-
-To compare Welkin against other theories, we show the unit $"verify"$ can be
-translated to $I Delta_0$, a weak fragment of arithmetic, and vice versa. This
-subsection is optional, and we will keep the proofs at a high-level for
-readability. For background in first-order logic, please refer to
-@mendelson_logic.
-
-Herein, let $a <=> b$ denote $a$ if and only if $b$. Robinson Arithmetic denotes
-the base set of axioms; refer to @hajek-pudlak-metamath-arithmetic[Ch. 1], which
-use $I_Sigma_0$ to denote $I Delta_0$.
-
-[TODO[SMALL]: fix equation labels!]
-
-#definition[
-  *_(Robinson Arithmetic)_.* Robinson Arithmetic $Q$ s the first-order theory
-  over the language of arithmetic with the following axioms, universally
-  quantified over $x, y, z$:
-
-  - *Q1:* $not (S(x) != 0)$.
-  - *Q2:* $S(x) = S(y) => x = y$.
-  - *Q3:* $x != 0 => exists y. x = S(y)$.
-  - *Q4:* $x + 0 = x$.
-  - *Q5:* $x * S(y) = S(x + y)$.
-  - *Q6:* $x * 0 = 0$.
-  - *Q7:* $x * S(y) = (x * y) + x$.
-  - *Q8:* $x <= y equiv exists z. z + x = y$
-]<foundations:robinson-arithmetic>
-
-#definition[The theory $I Delta_0$ @paris-wilkie-delta-0-sets consists of $Q$
-  plus the *bounded induction schema*:
-
-  #equation_block(
-    prefix: "I",
-    [$(phi(0) and forall x. (phi(x) => phi(x + 1))) => forall x. phi(x)$],
-  )
-
-  for each $phi$ with bounded quantifiers, which means quantifiers
-  $exists x < t. psi(x, t)$ and $forall x < t. psi(x, t)$ where $x$ is free in
-  term $t$ and $psi(x, t)$ is quantifier free.
-]<foundations:I-Delta0>
-
-#remark[
-  Note that the induction schema is stronger than having open formulas. This
-  allows statements about, e.g., odd and even numbers to be proved. We will need
-  this to express $"verifier"$.
-]
-
-[TODO[MEDIUM]: make this more rigorous. ] #lemma[
-  The unit $"verifier"$ is definable in $I Delta_0$.
-]<foundations:I-Delta0-to-welkin>
-#proof-sketch[
-  The claim relies on defining $"unit"$. From there, one can easily express the
-  conditions in $"verifier"$ by simple recursion.
-
-  To this end, we first argue that the inductive definitions can be written in
-  $I Delta_0$. Clearly, every handle can be expressed, indexing each triple of
-  functions with Cantor's pairing function, sending triples
-  $("UID", "RID", "HID")$ to natural numbers. Similarly, representations can be
-  indexed by a pairing argument. It remains to show that blocks can be defined
-  as well. We claim that an extended pairing function can be made that is
-  defined inductively. [TODO: define this function!]
-
-  Second, it can be easily shown that each rule in @unit-rules are definable by
-  induction, in at most 5 variables.
-]
-
-An important consequence of this theorem is the following, proving that the
-meta-theory for Welkin is as minimal as possible.
-
-Now we proceed that Welkin's verifier is itself can process any $I Delta_0$
-proof.
-
-#lemma[
-  Welkin can embed Robinson Arithmetic $Q$ as a unit.
-]
-#proof[
-  [TODO[MEDIUM]] TBD.
-]
-
-#theorem[
-  Welkin's verifier verifies there is a context with all derivations of
-  $I Delta_0$.
-]<foundations:welkin-to-I-Delta0>
-
-Taken together, we can prove that Welkin has a minimal metatheory.
-
-#corollary[_(Base Theory: $I Delta_0$)._ Suppose $T$ is another first order
-  theory that proves the existence of Welkin's $"verifier"$. Then
-  $T => I Delta_0$.
-]<foundations:welkin-minimal>
-#proof[
-  Over $I Delta_0$, @foundations:I-Delta0 proves the existence of $"verifier"$
-  implies $I Delta_0$. Thus, if $T$ proves the existence of $"verifier"$, it
-  must satisfy $I Delta_0$ as well, completing the proof.
-]
 
 
 == Queries and Information

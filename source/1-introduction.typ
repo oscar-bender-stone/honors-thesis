@@ -177,6 +177,10 @@ This thesis is organized according to @thesis-organization.
     [*Syntax*],
     [Provides the grammar and proof that it is unambiguous.],
 
+    [*@metatheory*],
+    [*Metatheory*],
+    [Proves that Welkin can express any proof.],
+
     [*@information-organization*],
     [#set text(hyphenate: false); *Organizing Information*],
     [Develops a Greedy algorithm to locally optimize information. Creates a

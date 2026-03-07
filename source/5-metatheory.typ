@@ -8,11 +8,19 @@
   corollary, equation_block, lemma, proof, theorem,
 )
 
-= Metatheory <metatheory:information>
+#import "template/ams-article.typ": proof-sketch
+
+= Metatheory <metatheory>
+
+[TODO: need a quick way to _establish_ the main definitions for information,
+then _justify_ here why they are complete.]
 
 This section discusses the provably most general definition of information. This
 section is optional. For the base definition of information, refer to
 @foundations:information.
+
++ We show that Welkin's base theory is equivalent to a weak fragment of
+  arithmetic, $I Delta_0$.
 
 + We overview Artemov's work in serial consistency. @artemov_serial_consistency.
 
@@ -28,6 +36,105 @@ Optimizations will be postponed to @information-organization.
 
 For notation, we will write $"PA"$ for Peano Arithmetic and $"PRA"$ for
 Primitive Recursive Arithmetic.
+
+
+== Establishing the Floor: $I Delta_0$
+
+To compare Welkin against other theories, we show the unit $"verify"$ can be
+translated to $I Delta_0$, a weak fragment of arithmetic, and vice versa. This
+subsection is optional, and we will keep the proofs at a high-level for
+readability. For background in first-order logic, please refer to
+@mendelson_logic.
+
+Herein, let $a <=> b$ denote $a$ if and only if $b$. Robinson Arithmetic denotes
+the base set of axioms; refer to @hajek-pudlak-metamath-arithmetic[Ch. 1], which
+use $I_Sigma_0$ to denote $I Delta_0$.
+
+[TODO[SMALL]: fix equation labels!]
+
+#definition[
+  *_(Robinson Arithmetic)_.* Robinson Arithmetic $Q$ s the first-order theory
+  over the language of arithmetic with the following axioms, universally
+  quantified over $x, y, z$:
+
+  - *Q1:* $not (S(x) != 0)$.
+  - *Q2:* $S(x) = S(y) => x = y$.
+  - *Q3:* $x != 0 => exists y. x = S(y)$.
+  - *Q4:* $x + 0 = x$.
+  - *Q5:* $x * S(y) = S(x + y)$.
+  - *Q6:* $x * 0 = 0$.
+  - *Q7:* $x * S(y) = (x * y) + x$.
+  - *Q8:* $x <= y equiv exists z. z + x = y$
+]<foundations:robinson-arithmetic>
+
+#definition[The theory $I Delta_0$ @paris-wilkie-delta-0-sets consists of $Q$
+  plus the *bounded induction schema*:
+
+  #equation_block(
+    prefix: "I",
+    [$(phi(0) and forall x. (phi(x) => phi(x + 1))) => forall x. phi(x)$],
+  )
+
+  for each $phi$ with bounded quantifiers, which means quantifiers
+  $exists x < t. psi(x, t)$ and $forall x < t. psi(x, t)$ where $x$ is free in
+  term $t$ and $psi(x, t)$ is quantifier free.
+]<foundations:I-Delta0>
+
+#remark[
+  Note that the induction schema is stronger than having open formulas. This
+  allows statements about, e.g., odd and even numbers to be proved. We will need
+  this to express $"verifier"$.
+]
+
+[TODO[MEDIUM]: make this more rigorous. ] #lemma[
+  The unit $"verifier"$ is definable in $I Delta_0$.
+]<foundations:I-Delta0-to-welkin>
+#proof-sketch[
+  The claim relies on defining $"unit"$. From there, one can easily express the
+  conditions in $"verifier"$ by simple recursion.
+
+  To this end, we first argue that the inductive definitions can be written in
+  $I Delta_0$. Clearly, every handle can be expressed, indexing each triple of
+  functions with Cantor's pairing function, sending triples
+  $("UID", "RID", "HID")$ to natural numbers. Similarly, representations can be
+  indexed by a pairing argument. It remains to show that blocks can be defined
+  as well. We claim that an extended pairing function can be made that is
+  defined inductively. [TODO: define this function!]
+
+  Second, it can be easily shown that each rule in @unit-rules are definable by
+  induction, in at most 5 variables.
+]
+
+An important consequence of this theorem is the following, proving that the
+meta-theory for Welkin is as minimal as possible.
+
+Now we proceed that Welkin's verifier is itself can process any $I Delta_0$
+proof.
+
+#lemma[
+  Welkin can embed Robinson Arithmetic $Q$ as a unit.
+]
+#proof[
+  [TODO[MEDIUM]] TBD.
+]
+
+#theorem[
+  Welkin's verifier verifies there is a context with all derivations of
+  $I Delta_0$.
+]<foundations:welkin-to-I-Delta0>
+
+Taken together, we can prove that Welkin has a minimal metatheory.
+
+#corollary[_(Base Theory: $I Delta_0$)._ Suppose $T$ is another first order
+  theory that proves the existence of Welkin's $"verifier"$. Then
+  $T => I Delta_0$.
+]<foundations:welkin-minimal>
+#proof[
+  Over $I Delta_0$, @foundations:I-Delta0 proves the existence of $"verifier"$
+  implies $I Delta_0$. Thus, if $T$ proves the existence of $"verifier"$, it
+  must satisfy $I Delta_0$ as well, completing the proof.
+]
+
 
 == Artemov's Approach
 
@@ -87,7 +194,7 @@ logics may not have a notion of inconsistency, we will not define consistency
 itself. However, given the results in @foundations, first order logic can be
 expressed in several ways.
 
-== Truth
+== Truth and Soundness
 
 We embed "Convention T", or Tarski's criterion for truth
 @tarski-undefinability-truth, as unit.
@@ -119,33 +226,39 @@ generated_. This means a units face a similar incompleteness theorem, _in the
 object level_. We now define serial-soundness as an approximation, feasible by a
 _metatheory_.
 
+[TODO: define the equivalent of total computable functions for units!]
+
 #definition[
-  A unit $u$ is *serial-sound* if .
+  A unit $u$ is *serial-sound* if there is a total computable function such that
+  , given an arbitrary, but fixed, unit $v$ as input, verifies that any
+  representation "claimed in $u$" is "actually in $v$".
 ]<metatheory:serial-sound>
 
+Note that not every total computable function can be proven to be total. For
+this reason, we have a more technical definition in @metatheory:meta-unit The
+precise definition will be given in @metatheory:meta-unit. For now, we can prove
+the following.
+
+[TODO[SMALL]: make sure to clarify this proof!]
 #lemma[
   The unit $"verifier"$ is serial-sound.
 ]
 #proof[
-  [TODO: likely uses $I Delta_0$ from a previous section.]
+  Equivalent to @foundations:verifier-correctness.
 ]
 
-== The Meta Unit
+== The Meta Unit <metatheory:meta-unit>
 
-// #definition[
-//   The *meta recursor* $"meta"$ over all units is defined recursively. We say
-//   that $"meta"$ *meta-proves* $T$, denoted $T ⊢_"meta" a$ if there is a proof
-//   through serial-soundness chains $"unit", T_1, ..., T_n$, where each unit $T_i$
-//   proves its own serial-soundness.
-// ]
 
-[TODO: complete!]
+[TODO: complete! Want to ensure that proofs can be _chains_ of serial-sound
+units.]
+
 #definition[
   The *meta recursor* $"meta"$ over all units is defined recursively:
   - *Base case:* $"unit" in "meta"$.
   - *Recursive step:* for each proof in $"meta"$, adding a self-verifying unit
     is a valid proof step.
-]
+]<metatheory:meta-def>
 
 #remark[A different approach to create more powerful chains of theories is
   _reflection_. One example is from Feferman @feferman-reflection: starting from
@@ -155,7 +268,7 @@ _metatheory_.
 
 #theorem[
   The unit $"meta"$ meta-proves that serial soundness implies soundness.
-]
+]<metatheory:serial-to-full-soundness>
 
 Remarkably, $"meta"$ _does_ meta-prove its own serial soundness.
 

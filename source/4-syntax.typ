@@ -106,7 +106,7 @@ that one of these, $|$, can be desugared in the bootstrap.
   caption: [Definitions for the main combinators used.],
 )
 
-== Encoding
+== Character Classes
 
 // TODO: complete table
 #figure(
