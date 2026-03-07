@@ -246,11 +246,32 @@ now, we can prove the following.
   Equivalent to @foundations:verifier-correctness.
 ]
 
+Moreover, serial-soundness is transitive, just as with soundness.
+
+[TODO: clarify that serial-soundness _can_ be relative, so we need to make
+stricter restrictions, e.g., using ONLY constructive methods, or avoiding
+explosion, to construct a selector.]
+
+#lemma[
+  Let $u$, $u'$, $u''$ be units, and suppose $u$ is serial-sound. If $u$ proves
+  that $u'$ is serial-sound and $u'$ proves that $u''$ is serial sound, then $u$
+  proves that $u''$ is serial sound.
+]<metatheory:serial-soundness-transitive>
+#proof[
+  Suppose $u$ is serial-sound. Then, in the context $u$, $u$ contains the a
+  selector of $u'$. This selector can then be composed with that from $u''$
+  proven in $u'$ to complete the proof.],
+
 == The Meta Unit <metatheory:meta-unit>
 
 
 [TODO: complete! Want to ensure that proofs can be _chains_ of serial-sound
 units.]
+
+[TODO: show that we can include _any_ specified derivation. So one can imagine
+taking a terminating sequence that shows each successive theory is sound,
+stepping from one to the next, and then relying on a derivation at the _final_
+theory. ]
 
 #definition[
   The *meta recursor* $"meta"$ over all units is defined recursively:
@@ -324,14 +345,12 @@ _external_ units, IF they can be proven to be reliable..
 Note that using a _specific_ mechanism here does not limit Welkin's
 expressivitiy. We will clarify this in the following theorem.
 
-#theorem[]
-
 #theorem[The unit $"meta"$ expresses any computably expressible proof. More
   precisely, for any recursive ordinal $alpha$, there is a unit $T in "meta"$
   with greater theoretic proof ordinal than $alpha$
 ]
 #proof[
-
+  TBD.
 ]
 
 Note, however, that detecting if an ordinal is recursive is undecidable. The
