@@ -209,15 +209,17 @@ expressed in several ways.
 == Truth and Soundness
 
 We embed "Convention T", or Tarski's criterion for truth
-@tarski-undefinability-truth, as unit.
+@tarski-undefinability-truth, as unit. Recall that, at this stage, Welkin deals
+with truh systems. The user's task is to ensure they accurately represent their
+referents, because these are free parameters in the theory (see
+@foundations:remark-handle-binding). For this reason, the aim is to demonstrate
+the _preservation_ of these truth systems. This means preserving their axioms
+and rules of inference. This motivates the following definition.
 
 // So the original convention T is:
 // [phi] is true iff phi,
 // where [] is the Goedel number, and phi
 // is a sentence in Peano Arithmetic.
-
-[TODO[SMALL]: emphasize role of axiomatizing handles here. Again, handles are
-_already_ abstracted by their properties.]
 
 #definition[Fix some context $c$. A unit $t in c$ is called a *truth predicate*
   for $c$ if for every unit $u$, $u - c -> t$ if and only if $u - c -> u$.

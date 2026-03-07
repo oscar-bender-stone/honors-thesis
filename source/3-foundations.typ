@@ -66,7 +66,7 @@ and _practically enforcing_ it is finite. For a thorough discussion, see ?.
   on this, the rest of the thesis will abstract away general units _as_ sets of
   axioms. Free parameters are used to define Welkin itself, however, see
   @syntax.
-]
+]<foundations:remark-handle-binding>
 
 [TODO[SMALL]: without getting into typing, enforce that equality has to be done
 on two words or two handles. Maybe lift to the latter to make sense?]
