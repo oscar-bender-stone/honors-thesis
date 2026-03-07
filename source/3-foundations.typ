@@ -368,12 +368,15 @@ Now, because Welkin is Turing expressible, $"unit"$ may not terminate in all
 cases, such as an infinite recursive loop. We want to have a mechanism to
 _check_ claims. This is the role of the verifier, built upon $"in"$.
 
+[TODO: make closed world assumption clear! Want to say below that in *any*
+context other than the context itself, there are no other arrows.]
+
 #definition[
   The unit $"in"$ is defined over units $u, v --> "unit"$:
   - $u --> {@u, v}$.
   - $~{{@u, v} --> u}$.
-  - $~{{@u, ~v} --> u}$.
-  - $u --> {@u, ~v}$.
+  - ${@u, ~v} --> u$.
+  - $~{u --> {@u, ~v}}$.
 ]<foundations:bootstrap-in>
 
 [TODO: maybe distinguish between $"in"$ and $"part"$? Need to _actually_ disable
@@ -383,33 +386,44 @@ some rules via negation.]
 #proof[
   We proceed by structural induction on units, or $u | u' - "unit" -> "unit"$:
   - *Base case:* we need to prove ${{} - "in" -> u'$ if and only if
-    ${} - u' -> {}$. For $u' equiv {}$, clearly both are false. Now, for
-    $u' = {g, a}$, suppose ${} - "in" -> g$ iff ${} - g -> {}$. Then this
-    extends to adding a new value as well. The case is similar $u' = {@g, a}$.
+    ${} - u' -> {}$.
+    - *Base case:* For $u' equiv {}$, clearly both are false.
+    - *Inductive step:* There are three cases:
+      - *Representations:* immediate.
+      - *Expansions:* .
+      - *Exclusions:* opposite to the case above.
   - *Inductive step:* similar to the base case. [TODO: complete this proof! But
     it is straightforward.]
 ]<foundations:in-correctness>
-
-We add a $"part"$ that is the .
 
 We can now define the verifier entirely in Welkin. Add new handles $"accept"$
 and $"reject"$.
 
 [TODO: deal with recursion! Need to ensure it halts! And make sure to establish
-a clear induction scheme!]
-
+a clear induction scheme! And maybe add a pair to store the context and target?
+Fill in $\_$!]
 
 #definition[
   The unit $"verify"$ is defined over a context $c$, a unit ${a - d -> b}$
-  called the *target*, and a unit $p$ called a *derivation*. We proceed by
+  called the *target*, and a unit $p$ called a *derivation*. We define this by
   recursion on $p$.
-  - *Base case:* if $p$, $"verify"$ holds if and only if
-    ${a - d -> b} <- "part" -> p$.
-  - *Inductive step:*.
+  - *Base case:* if $p$,
+    ${"context" --> c, "target" --> {a - d -> b}, "derivation" --> p} - "verify" -> "accepts"$
+    holds if and only if ${a - d -> b} <- "part" -> p$. Similarly, $"reject"$ if
+    and only if $~{{a - d -> b} - "part" -> p}$.
+  - *Recursive step:*. suppose $p equiv {p', e - f -> g}$. Then
+    ${p,_} - "verify" -> "accept"$ if and only if $p'$ is accepted in context
+    $$. [TODO: get the end of $p'$ and wrap it up in the context and target. See
+    if that's accepted. Then, add on an extra step and see if it's valid.]
 ]<foundations:verify>
 
 #lemma[
-  The term applies over all units
+  For all contexts $c$, targets ${a - b -> d}$, and derivations $p$,
+  $"verifier"$ is *sound*; it correctly identifies if $p$ is a derivation of
+  ${a - b -> d}$ in $c$.
+]
+#proof[
+  TBD[FINIS full inductive proof!]
 ]
 
 Note that this verifier, as simple as it is, will _not_ limit what proofs can be
