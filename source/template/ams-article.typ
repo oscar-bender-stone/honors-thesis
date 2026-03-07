@@ -320,6 +320,10 @@
   set figure(gap: 17pt)
   show figure: set block(above: 12.5pt, below: 15pt)
   show figure: it => {
+    // Avoid using "rule" for rule-table
+    if it.kind == "rule" {
+      return it.body
+    }
     // Customize the figure's caption.
     show figure.caption: caption => {
       smallcaps(caption.supplement)
@@ -446,6 +450,24 @@
     }
   })
 }
+
+#let acknowledgment(body) = {
+  block({
+    set par(first-line-indent: 0em)
+    set align(center)
+    set text(size: normal-size)
+    smallcaps[
+      #v(15pt, weak: true)
+      Acknowledgments
+      #v(normal-size, weak: true)
+    ]
+  })
+
+  set par(first-line-indent: 1.2em)
+  set align(start)
+  body
+}
+
 
 // This is the single numbering format all our environments will use
 #let theorem-numbering-format = n => counter(heading).display() + [#n]
@@ -602,8 +624,6 @@
   )
 }
 
-
-
 #let lang-def-horizontal(
   lang,
   symbols-data,
@@ -643,19 +663,40 @@
   )
 }
 
-#let acknowledgment(body) = {
-  block({
-    set par(first-line-indent: 0em)
-    set align(center)
-    set text(size: normal-size)
-    smallcaps[
-      #v(15pt, weak: true)
-      Acknowledgments
-      #v(normal-size, weak: true)
-    ]
-  })
+#let rule-table(prefix: "R", entries) = {
+  // 1. Reset the counter so numbering starts at 1 for each table
+  counter(figure.where(kind: "rule")).update(0)
 
-  set par(first-line-indent: 1.2em)
-  set align(start)
-  body
+  table(
+    // 2. Three columns: Number, Name, Content
+    columns: (auto, auto, 1fr),
+
+    // 3. Align everything to the top-left so multiline math doesn't float awkwardly
+    align: top + left,
+
+    table.header([*Rule*], [*Name*], [*Content*]),
+    ..entries
+      .map(entry => {
+        (
+          // Column 1: The Prefix and Number (e.g., R1.)
+          [
+            #figure(
+              kind: "rule",
+              supplement: prefix,
+              numbering: "1",
+              caption: none,
+            )[
+              *#prefix#context counter(figure.where(kind: "rule")).display().*
+            ] #label(entry.lbl)
+          ],
+
+          // Column 2: The Rule Name
+          [*#entry.name*],
+
+          // Column 3: The Content/Math
+          entry.content,
+        )
+      })
+      .flatten(),
+  )
 }

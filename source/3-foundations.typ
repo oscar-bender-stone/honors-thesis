@@ -6,6 +6,7 @@
 #show math.minus: matched-dash
 #show math.tilde: tilde-prefix
 
+#import "template/ams-article.typ": rule-table
 #import "template/ams-article.typ": definition, example, remark
 #import "template/ams-article.typ": corollary, equation_block, lemma, theorem
 
@@ -64,8 +65,7 @@ and _practically enforcing_ it is finite. For a thorough discussion, see ?.
 #remark[
   Because handles act as free parameters, we work with them through truth. Based
   on this, the rest of the thesis will abstract away general units _as_ sets of
-  axioms. Free parameters are used to define Welkin itself, however, see
-  @syntax.
+  axioms. Free parameters are used to define Welkin itself, however,see @syntax.
 ]<foundations:remark-handle-binding>
 
 [TODO[SMALL]: without getting into typing, enforce that equality has to be done
@@ -122,7 +122,10 @@ Important! This will avoid manual numbering _and_ ease referencing rules.]
     $h_1 <--> h_2$.
   - *R6. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
   // TODO: ensure this is clear! Need to distinguish from what
-  // we write in the syntax!
+  // we write in the syntax! Also, probably need to ensure
+  // this is *valid*, so with anonymous blocks, can't
+  // add new things! Wouldn't make sense! It would
+  // be a *whole* new thing.
   - *R7. Field Access:* $g.a <--> a$ if and only if $a - g -> a$.
   // TODO: make it clear what the current working context is!
   - *R8. Toplevel:* $\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.
@@ -136,6 +139,101 @@ Important! This will avoid manual numbering _and_ ease referencing rules.]
   - *R14. Commutativity:* ${a, b} <--> {b, a}$.
 ]<unit-rules>
 
+#rule-table(
+  prefix: "R",
+  (
+    (
+      name: "Internal Transitivity",
+      lbl: "r-int-trans",
+      content: [$a - c -> b$ and $b - c -> d$ imply $a - c -> d$.],
+    ),
+    (
+      name: "Contextual Lifting",
+      lbl: "r-ctx-lift",
+      content: [$a - c -> b$ and $d - b -> g$ imply
+        $\{d - a -> g\} - c -> \{d - a -> g\}$.],
+    ),
+    (
+      name: "Empty",
+      lbl: "r-empty",
+      content: [$\{\@g, \{\}\} <--> g$.],
+    ),
+    (
+      name: "Null",
+      lbl: "r-null",
+      content: [$\{a - \{\} -> b\} <--> \{\}$.],
+    ),
+    (
+      name: "Handle Substitution",
+      lbl: "r-handle-sub",
+      content: [if handle $h_1$ is equal to handle $h_2$, then $h_1 <--> h_2$.],
+    ),
+    (
+      name: "Membership",
+      lbl: "r-membership",
+      content: [
+        $\{\@g, a\} <--> g$ if and only if $a - g -> a$.
+        // TODO: ensure this is clear! Need to distinguish from what
+        // we write in the syntax! Also, probably need to ensure
+        // this is *valid*, so with anonymous blocks, can't
+        // add new things! Wouldn't make sense! It would
+        // be a *whole* new thing.
+      ],
+    ),
+    (
+      name: "Field Access",
+      lbl: "r-field-access",
+      content: [
+        $g.a <--> a$ if and only if $a - g -> a$.
+        // TODO: make it clear what the current working context is!
+      ],
+    ),
+    (
+      name: "Toplevel",
+      lbl: "r-toplevel",
+      content: [$\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.],
+    ),
+    (
+      name: "Identity",
+      lbl: "r-identity",
+      content: [$a <--> \{a - a -> a\}$.],
+    ),
+    (
+      name: "Singleton",
+      lbl: "r-singleton",
+      content: [
+        $a <--> \{a\}$.
+        // NOTE: this does add arrows. For clarity,
+        // could make this redundant and add a - g -> b here.
+      ],
+    ),
+    (
+      name: "Expansion",
+      lbl: "r-expansion",
+      content: [if $a - g -> b$, then
+        $\{\@g, c\} <--> \{\{\{\@g, a\}, b\}, c\}$.],
+    ),
+    (
+      name: "Exclusion",
+      lbl: "r-exclusion",
+      content: [if $g <--> \{\@g, a\}$, then
+        $\{\{\@g, "~"a\}, b\} <--> \{\@d, b\}$.],
+    ),
+    (
+      name: "Associativity",
+      lbl: "r-associativity",
+      content: [$\{a, \{b, c\}\} <--> \{\{a, b\}, c\}$.],
+    ),
+    (
+      name: "Commutativity",
+      lbl: "r-commutativity",
+      content: [$\{a, b\} <--> \{b, a\}$.],
+    ),
+  ),
+)
+
+Test: @r-commutativity.
+
 As more notation, we write:
 
 - $a - c -> b_1 | b_2 | ... | b_n$ to mean
@@ -146,15 +244,11 @@ This simplifies the presentation of the rules. We postpone formally defining the
 operator $|$ to the syntax in @syntax.
 
 We review the utility of each rule. Note that rules _between_ contexts is
-entirely flexible and user defined. Moreover, only ? are needed for Turing
+entirely flexible and user defined. Moreover, only *R1* is needed for Turing
 completeness. We will show, however, that the remaining axioms are optimal when
 organizing information, see @information-organization.
 
 [TODO: fix numbering!]
-
-[TODO: note that exclusions MUST be only done in the presence of an expansion!
-We do NOT want exclusions to be associative! Would mean there are certain units
-we can _never_ extend to larger contexts.]
 
 - *R1* and *R2* were discussed in @rationale:unit.[TODO: maybe review the
   discussion from earlier? Might be useful to reinforce main ideas to reader.]
@@ -177,7 +271,9 @@ we can _never_ extend to larger contexts.]
   example, ${@{a - b -> c, d}, ~{a - b -> c}}$ reduces to ${d}$. This also
   enables a way to disable _any_ rule in Welkin, based on user preference. This
   is intentionally restricted _per context_, so the rules are enacted by
-  default.
+  default. Also note that exclusions *must* be used in the presence of an
+  expansion. Otherwise, terms like ${a, {b, ~a}}$ would be allowed, so certain
+  units could never be expanded!
 - *R9* and *R10* ensure that information can be repeated and is positionally
   invariant.
 - *R11* provides a way to prevent representations in a block. We interpret this
