@@ -31,10 +31,9 @@ This section discuss the foundations of Welkin, as follows:
 == Base Rules
 
 As high-level notation, we write $a equiv b$ to mean that $a$ is definitionally
-equivalent to $b$. Note that $equiv$ will not be introduced in the syntax, see
-@rationale:bootstrap. Moreover, we will distinguish between _defining_ a term as
-finite and _practically enforcing_ it is finite. For a thorough discussion, see
-?.
+equivalent to $b$. High level notation will _not_ be stated in the syntax unless
+where noted. Moreover, we will distinguish between _defining_ a term as finite
+and _practically enforcing_ it is finite. For a thorough discussion, see ?.
 
 #definition[
   A *bit* is the symbols $0$ or $1$. A *binary word* is either the symbol
@@ -266,7 +265,8 @@ The proof of @turing-expressible demonstrates how contexts enable powerful
 recursive definitions. However, the underlying construction is tedious and
 results in extremely verbose terms. Keys are assigned manually, which can easily
 be error prone. We will refine the proof with a *recursor* over units. This is a
-unit that indexes every unit, as well as every handle.
+unit that indexes every unit, as well as every handle. Note that we will
+manually index new handles within the final bootstrap, see ?.
 
 The recursor needs to index through all possible keys. We first need to define a
 unit to recurse over binary words; we provide a natural definition in
@@ -290,13 +290,11 @@ This is similar to the Lisp definition of a list. In detail:
 
 We need to include equality as well, refer to @foundations:handle-equality:
 
-[TODO[SMALL]]
-
 #figure(
   [$"equality" <--> {\
     "0" <--> "0",\
     "1" <--> "1",\
-    "0" <- {} -> "1",\
+    ~{"0" <--> "1"},\
     "w1" | "w2" --> "word",\
     {"w1" <--> "w2"} <--> {"w1" <--> "empty" <--> "w2"} \
     | {"w1.top" <--> "w2.top", "w1.next" <--> "w2.next"}, \
@@ -311,12 +309,6 @@ We need to include equality as well, refer to @foundations:handle-equality:
   caption: [Definitions of equality in Welkin.],
 )<foundations:bootstrap-equality>
 
-#lemma[
-  @foundations:bootstrap-equality correctly implements equality. In particular,
-  this definition expresses every word.
-]
-#proof[TBD.]
-
 From there, we can define handle IDs through triples, see
 @foundations:bootstrap-handle-id.
 
@@ -328,10 +320,19 @@ From there, we can define handle IDs through triples, see
 )<foundations:bootstrap-handle-id>
 
 Here, a $"handle"$ is simply a pair ${"UID", "RID", "HID"}$, where $"UID"$,
-$"RID"$, $"HID"$ are words. This handles indexing all handles, _except_ for the
-ones in the bootstrap. We will leave details about that in the bootstrap, see ?.
-For now, we will assume new names are created with unique handles, all on a
-fixed revision.
+$"RID"$, $"HID"$ are words.
+
+To show these constructions are correct, we must prove the following.
+
+#lemma[
+  For all handles $"h1", "h2"$, $"w1" <- "equality" -> "w2"$ if and only if
+  $w_1 = w_2$.
+]
+#proof[Clearly it is sufficient to show that equality on words is correct. To do
+  so, we apply a simple proof by induction:
+  - *Base case:* immediate.
+  - *Inductive step:* correctly handles the the cases for $"top"$ and $"next"$.
+]
 
 Now, in @unit-rules, we needed enough _separate_ meta-variables. To do this in
 Welkin, we use representations of the form $"u" --> "unit"$. This appeared
@@ -358,13 +359,14 @@ definitions written in the meta-language (English).
     as well as cases for ${g, u}$, ${@g, u}$, and ${@g, ~u}$.
 ]<foundations:recursor-correctness>
 
-[TODO: develop inductive argument over units! Maybe *need* $"in"$ to get this
-started?]
-
 == Verifier
 
 Now we will includle a notion for containment. This will be useful for
 optimizations see @information-organization.
+
+Now, because Welkin is Turing expressible, $"unit"$ may not terminate in all
+cases, such as an infinite recursive loop. We want to have a mechanism to
+_check_ claims. This is the role of the verifier, built upon $"in"$.
 
 #definition[
   The unit $"in"$ is defined over units $u, v --> "unit"$:
@@ -376,14 +378,12 @@ optimizations see @information-organization.
 
 #lemma[$u - "in" -> u'$ if and only if $u - u' -> u$.]
 #proof[
-  We proceed by structural induction on units:
+  We proceed by structural induction on units, or $u | u' - "unit" -> "unit"$:
   - *Base case:*
   - *Inductive step:*
 ]<foundations:in-correctness>
 
-Now, because Welkin is Turing expressible, $"unit"$ may not terminate in all
-cases, such as an infinite recursive loop. We want to have a mechanism to
-_check_ claims. This is the role of the verifier, built upon $"part"$.
+We can now define the verifier entirely in Welkin.
 
 #definition[
   The unit $"verify"$ is defined recursively. *TODO*.
@@ -425,13 +425,57 @@ expressed. We prove this in @metatheory:transfinite-induction.
 
 == Equivalence to $I Delta_0$
 
-To compare Welkin against other theories, we show Welkin can be translated to
-$I Delta_0$, a weak fragment of arithmetic, and vice versa. This subsection is
-optional.
+To compare Welkin against other theories, we show the unit $"verify"$ can be
+translated to $I Delta_0$, a weak fragment of arithmetic, and vice versa. This
+subsection is optional, and we will keep the proofs at a high-level for
+readability. For background in first-order logic, please refer to
+@mendelson_logic.
+
+Herein, let $a <=> b$ denote $a$ if and only if $b$.
+
+[TODO[SMALL]: ensure all axioms are in the right order!]
+
+[TODO[SMALL]: fix equation labels!]
+
+#definition[
+  *_(Robinson Arithmetic)_.* Robinson Arithmetic $Q$
+  @robinson-arithmetic-main-source is the first-order theory over the language
+  of arithmetic with the following axioms (with $"exp"$ denoting
+  exponentiation):
+
+  - *Q1:* $forall x. not (x = 0)$.
+  - *Q2:* $forall x. forall y. (s x - s y => x = y)$.
+  - *Q3:* $forall x. (x + 0) = x$.
+  - *Q4:* $forall x. forall y. x + s y = s (x + y)$.
+  - *Q5:* $forall x. x * 0 = 0$.
+  - *Q6:* $forall x. forall y. (x * s y) = ((x * y) + x)$
+  - *Q7:* $forall x. x "exp" 0 = s 0$.
+  - *Q8:* $forall x. forall y. x "exp" (s y) = ((x "exp" y) * x)$.
+  - *Q9:* $forall x. not (x < 0)$.
+  - *Q10:* $forall x. forall y. (x < s y <=> (x < y or x = y))$.
+  - *Q11:* $forall x. forall y. (x < y or (x = y or y < x))$.
+]<foundations:robinson-arithmetic>
+
+#definition[The theory $I Delta_0$ @paris-wilkie-delta-0-sets consists of $Q$
+  plus the *bounded induction schema*:
+
+  #equation_block(
+    prefix: "I",
+    [$(phi(0) and forall x. (phi(x) => phi(x + 1))) => forall x. phi(x)$],
+  )
+
+  for each $phi$ with bounded quantifiers, which means quantifiers
+  $exists x < t$ and $forall x < t$ where $t$ is a _fixed_ finite number.
+]<foundations:I-Delta0>
+
+#remark[
+  Note that the induction schema is equivalent to .
+]
+
 
 [TODO[MEDIUM]: make this more rigorous. ]
 #lemma[
-  The "unit" recursor is definable in $"I" Delta_0$.
+  The "unit" recursor is definable in $I Delta_0$.
 ]
 #proof-sketch[
   First, we argue that the inductive definitions can be written in $I Delta_0$.
