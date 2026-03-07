@@ -113,7 +113,7 @@ proof.
 #lemma[
   There is a unit $"Q"$ in Welkin and a bijection from propositions $phi$ units
   $u_phi$ such that $Q tack.r phi$ if and only if $u_phi - in -> "Q"$.
-]
+]<metatheory:Q-in-welkin>
 #proof[
   Let $"Q"$ be a new handle. Encode the naturals into words via
   @foundations:bootstrap-binary-word and @foundations:binary-word-equality, with
@@ -131,7 +131,8 @@ proof.
   $I Delta_0$.
 ]<foundations:welkin-to-I-Delta0>
 #proof[
-
+  We prove that $"Q"$, constructed in @metatheory:Q-in-welkin, combined with the
+  $"verifier"$ unit proves the claim. TBD.
 ]
 
 Taken together, we can prove that Welkin has a minimal metatheory.
