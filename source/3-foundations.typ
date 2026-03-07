@@ -427,7 +427,6 @@ Fill in $\_$!]
 Note that this verifier, as simple as it is, will _not_ limit what proofs can be
 expressed. We prove this in @metatheory:transfinite-induction.
 
-
 == Queries and Information
 
 By @turing-expressible, every partial computable can be expressed as a unit.

@@ -204,8 +204,8 @@ We embed "Convention T", or Tarski's criterion for truth
 // where [] is the Goedel number, and phi
 // is a sentence in Peano Arithmetic.
 
-[TODO[MEDIUM]: refer back to Artemov to develop a syntactic description of truth
-that corresponds closely to using handles!]
+[TODO[SMALL]: emphasize role of axiomatizing handles here. Again, handles are
+_already_ abstracted by their properties.]
 
 #definition[Fix some context $c$. A unit $t in c$ is called a *truth predicate*
   for $c$ if for every unit $u$, $u - c -> t$ if and only if $u - c -> u$.
@@ -230,14 +230,13 @@ _metatheory_.
 
 #definition[
   A unit $u$ is *serial-sound* if there is a total computable function such that
-  , given an arbitrary, but fixed, unit $v$ as input, verifies that any
-  representation "claimed in $u$" is "actually in $v$".
+  the following property holds: given an arbitrary, but fixed, unit $v$ as
+  input, verifies that any representation "claimed in $u$" is "actually in $v$".
 ]<metatheory:serial-sound>
 
 Note that not every total computable function can be proven to be total. For
-this reason, we have a more technical definition in @metatheory:meta-unit The
-precise definition will be given in @metatheory:meta-unit. For now, we can prove
-the following.
+this reason, we have a more technical definition in @metatheory:meta-unit. For
+now, we can prove the following.
 
 [TODO[SMALL]: make sure to clarify this proof!]
 #lemma[
@@ -255,10 +254,12 @@ units.]
 
 #definition[
   The *meta recursor* $"meta"$ over all units is defined recursively:
-  - *Base case:* $"unit" in "meta"$.
+  - *Base case:* $"verifier" - "in" -> "meta"$.
   - *Recursive step:* for each proof in $"meta"$, adding a self-verifying unit
     is a valid proof step.
 ]<metatheory:meta-def>
+
+If $"meta"$ verifies a claim $C$, then we say that $"meta"$ *meta-proves* $C$.
 
 #remark[A different approach to create more powerful chains of theories is
   _reflection_. One example is from Feferman @feferman-reflection: starting from
@@ -266,17 +267,40 @@ units.]
   One can then iterate this through transfinite induction. While this, too, is a
   way to express all proofs, reflection is a _subset_ of our techniques.]
 
+[TODO: make this constructive! Probably possible. And maybe instead of
+consistency we want _coherency_, to generalize having a false operator? So to
+prevent _all_ things from being proved, or only useful things being proved?]
+
 #theorem[
   The unit $"meta"$ meta-proves that serial soundness implies soundness.
 ]<metatheory:serial-to-full-soundness>
+#proof[
+  Let $u$ be a serial sound unit. By way of contradiction, suppose $u$ is not
+  sound. Then there exists a specific instance $phi$ that $u$ contains but is
+  not true. However, as $u$ is finite, there is a finite trace that verifies the
+  failure of soundness. But, because the serial soundness proof is constructive,
+  it reliable proves that _no such_ trace exists, a contradiction. Therefore,
+  $u$ must be sound.
+]
 
-Remarkably, $"meta"$ _does_ meta-prove its own serial soundness.
+Remarkably, $"meta"$ _also_ meta-prove its own serial soundness.
 
 #corollary[The unit $"meta"$ meta-proves its own serial soundness, and hence,
   soundness.
 ]
+#proof[
+  Fix some claim $C$, and suppose $C$ can be proved by a terminating sequence of
+  self-verifying theories. On each $C$ with a proof, define $s$ to be one of
+  these proofs. [TODO: make sure choice is not needed! Probably need a way to
+  standardize this, though maybe it's already in the constructive definition? Or
+  the existence of _any_ of these is enough]. Clearly $s$ is total as the
+  sequence terminates, and is correct by construction. This proves $"meta"$ is
+  serial-sound. Thus, by @metatheory:serial-to-full-soundness, $"meta"$ is sound
+]
 
 == Proof of Complete Expressivity
+
+[TODO: find a simpler proof! Maybe we don't _need_ ordinals?]
 
 To show that this covers _every_ proof that can be computably recognized, we
 need to discuss recursive ordinals. We provide an embedding via $"unit"$. For
@@ -314,5 +338,6 @@ Note, however, that detecting if an ordinal is recursive is undecidable. The
 upper bound is the best one can hope for, in general.
 
 As an immediate corollary, this proves that $"unit"$, being a simple verifier,
-does _not_ impose further restrictions on proofs.
+does _not_ impose further restrictions on proofs. Moreover, additional layers of
+meta-theories are not needed, thanks to how expressive serial-soundness is.
 
