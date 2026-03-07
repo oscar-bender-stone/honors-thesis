@@ -89,14 +89,12 @@ unique.
   - A handle, see @foundations:handle.
   - A *block*, which is one of the following:
     - The symbol ${}$, the *empty block*.
-    - Given a units $g, u$, ${g, u}$, ${g, ~u}$, ${@g, u}$, and ${@g, ~u}$ are
-      blocks, where $@g$ is a unit called the *expansion* of $g$ and $~u$ is
-      called the *exclusion* of $u$.
+    - Given a units $g, u$, ${@g, u}$, and ${@g, ~u}$ are blocks, where $@g$ is
+      a unit called the *expansion* of $g$ and $~u$ is called the *exclusion* of
+      $u$.
   - A representation $a - c -> b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*. This is read as: $a$
     *represents* $b$ *in context* $c$.
-  - An *excluded representation* $a - ~c -> b$, to mean that $a$ does *not*
-    represent $b$ in context $c$.
 ]<foundations:unit>
 
 We will intentionally _avoid_ defining equality on units and postpone this until
@@ -105,9 +103,6 @@ We will intentionally _avoid_ defining equality on units and postpone this until
 [TODO[SMALL]: provide labels/links.]
 
 [TODO[SMALL]: Clarify role of global context!]
-
-[TODO[SMALL]: replace main negation mechniasm with exclusion! Makes more sense,
-and can always be limited!]
 
 #definition[
   The following rules apply, stated over meta-variables $a, b, c, d, g$ for
@@ -162,14 +157,16 @@ organizing information, see @information-organization.
   process of joining the contents of one unit into another. *R6* says how an
   import can add new units in a block. *R7* provides a mechanism to _exclude_
   specified contents in $g$, which can themselves be representations. For
-  example, ${@{a - b -> c, d}, ~{a - b -> c}}$ reduces to ${d}$.
+  example, ${@{a - b -> c, d}, ~{a - b -> c}}$ reduces to ${d}$. This also
+  enables a way to disable _any_ rule in Welkin, based on user preference. This
+  is intentionally restricted _per context_, so the rules are enacted by
+  default.
 - *R8* and *R9* ensure that information can be repeated and is positionally
   invariant.
 - *R10* provides a way to prevent representations in a block. We interpret this
   rule as stating: ${}$ contains nothing, so it cannot contain any
   representation, including $a - {} -> b$. We will use this rule to represent
-  negation. Note that this is _distinct_ from exclusion, as the latter is
-  restricted to imports.
+  negation. Note that this is _distinct_ from exclusion.
 - *R11* enables equality in handles to pass through into representations.
   Besides this, note that equivalences on units are _entirely_ user defined.
 
@@ -338,13 +335,16 @@ Now, in @unit-rules, we needed enough _separate_ meta-variables. To do this in
 Welkin, we use representations of the form $"u" --> "unit"$. This appeared
 frequently when defining terms in @turing-expressible.
 
+[TODO: maybe remove the cases of pairs for simplicity? Shouldn't these simplify
+due to associativity, so we _only_ need expansions?]
+
 #definition[
   The *unit recursor* $"unit"$ includes all rules in @unit-rules, as well as the
   following in context $"unit"$:
   - $"handle" --> "unit"$, see @foundations:bootstrap-handle-id.
   - ${} | u | v | c --> "unit"$.
   - ${u - c -> v} --> "unit"$.
-  - ${u, v} | {u, ~v} | {@u, v} | {@u, ~v} --> "unit"$.
+  - ${@u, v} | {@u, ~v} --> "unit"$.
 ]<foundations:recursor>
 
 The following statements are two parts of the same *Recursion theorem* for
@@ -356,7 +356,7 @@ definitions written in the meta-language (English).
 #proof[Fix the context to be $"unit"$. We proceed induction on units:
   - *Base case:* this is immediate, as ${}$ and all handles are included.
   - *Inductive step:* immediate; $"unit"$ includes representations $a - b -> c$,
-    as well as cases for ${g, u}$, ${@g, u}$, and ${@g, ~u}$.
+    as well as cases for ${@g, u}$, and ${@g, ~u}$.
 ]<foundations:recursor-correctness>
 
 == Verifier
@@ -376,52 +376,44 @@ _check_ claims. This is the role of the verifier, built upon $"in"$.
   - $u --> {@u, ~v}$.
 ]<foundations:bootstrap-in>
 
+[TODO: maybe distinguish between $"in"$ and $"part"$? Need to _actually_ disable
+some rules via negation.]
+
 #lemma[$u - "in" -> u'$ if and only if $u - u' -> u$.]
 #proof[
   We proceed by structural induction on units, or $u | u' - "unit" -> "unit"$:
-  - *Base case:*
-  - *Inductive step:*
+  - *Base case:* we need to prove ${{} - "in" -> u'$ if and only if
+    ${} - u' -> {}$. For $u' equiv {}$, clearly both are false. Now, for
+    $u' = {g, a}$, suppose ${} - "in" -> g$ iff ${} - g -> {}$. Then this
+    extends to adding a new value as well. The case is similar $u' = {@g, a}$.
+  - *Inductive step:* similar to the base case. [TODO: complete this proof! But
+    it is straightforward.]
 ]<foundations:in-correctness>
 
-We can now define the verifier entirely in Welkin.
+We add a $"part"$ that is the .
+
+We can now define the verifier entirely in Welkin. Add new handles $"accept"$
+and $"reject"$.
+
+[TODO: deal with recursion! Need to ensure it halts! And make sure to establish
+a clear induction scheme!]
+
 
 #definition[
-  The unit $"verify"$ is defined recursively. *TODO*.
+  The unit $"verify"$ is defined over a context $c$, a unit ${a - d -> b}$
+  called the *target*, and a unit $p$ called a *derivation*. We proceed by
+  recursion on $p$.
+  - *Base case:* if $p$, $"verify"$ holds if and only if
+    ${a - d -> b} <- "part" -> p$.
+  - *Inductive step:*.
 ]<foundations:verify>
+
+#lemma[
+  The term applies over all units
+]
 
 Note that this verifier, as simple as it is, will _not_ limit what proofs can be
 expressed. We prove this in @metatheory:transfinite-induction.
-
-// The last part behind the Recursion theorem underlies why $"unit"$ is enough to
-// embed the Welkin inside itself.
-
-// #lemma[*_(Uniqueness)_* Suppose unit $T$ contains exactly $u - T -> u$ for each
-//   unit $u$. Then $T <- R -> R$.]<foundations:recursion-uniqueness>
-// #proof[
-//   Clearly $T - "unit" -> "unit"$, and $"unit" - "unit" -> T$ follows from
-//   observing that ${"unit" - "unit" -> T} in T$.
-// ]
-
-// [TODO[MEDIUM]: clarify how $"unit"$ is a verifier!]
-
-// An important consequence of the recursion theorem is a basic form of
-// *reflection*. Most importantly, this theorem establishes that _any_ way to
-// characterize Welkin can be reduced to including the recursor $"unit"$. This
-// establishes that $"unit"$ is the _smallest_ set of foundations for Welkin. Note
-// that $"unit"$ acts as _both_ a recursive procedure _and_ verifier over units.
-
-// #theorem[*_(Base Reflection)._* Let $T$ be any unit extends $"unit"$. Then
-//   ${T --> "unit"} - "unit" -> "unit"$.]<foundations:base-reflection>
-// #proof[
-//   We proceed by induction, fixing the base to be $"unit"$.
-//   - *Base Case:* suppose $T$ is a unit exactly with the rules $u - T -> T$ for
-//     every unit $u$ and the rules in @unit-rules. Then by
-//     @foundations:recursion-uniqueness, $T <--> "unit"$, completing the base
-//     case.
-//   - *Inductive step:* suppose $T = {T', e}$ for a units $T', e$ where
-//     $T' --> "unit"$. Now, by monotonicitiy in $"unit"$, $T --> T'$, hence by
-//     transitivity, $T --> "unit"$.
-// ]
 
 == Equivalence to $I Delta_0$
 
@@ -431,29 +423,25 @@ subsection is optional, and we will keep the proofs at a high-level for
 readability. For background in first-order logic, please refer to
 @mendelson_logic.
 
-Herein, let $a <=> b$ denote $a$ if and only if $b$.
-
-[TODO[SMALL]: ensure all axioms are in the right order!]
+Herein, let $a <=> b$ denote $a$ if and only if $b$. Robinson Arithmetic denotes
+the base set of axioms; refer to @hajek-pudlak-metamath-arithmetic[Ch. 1], which
+use $I_Sigma_0$ to denote $I Delta_0$.
 
 [TODO[SMALL]: fix equation labels!]
 
 #definition[
-  *_(Robinson Arithmetic)_.* Robinson Arithmetic $Q$
-  @robinson-arithmetic-main-source is the first-order theory over the language
-  of arithmetic with the following axioms (with $"exp"$ denoting
-  exponentiation):
+  *_(Robinson Arithmetic)_.* Robinson Arithmetic $Q$ s the first-order theory
+  over the language of arithmetic with the following axioms, universally
+  quantified over $x, y, z$:
 
-  - *Q1:* $forall x. not (x = 0)$.
-  - *Q2:* $forall x. forall y. (s x - s y => x = y)$.
-  - *Q3:* $forall x. (x + 0) = x$.
-  - *Q4:* $forall x. forall y. x + s y = s (x + y)$.
-  - *Q5:* $forall x. x * 0 = 0$.
-  - *Q6:* $forall x. forall y. (x * s y) = ((x * y) + x)$
-  - *Q7:* $forall x. x "exp" 0 = s 0$.
-  - *Q8:* $forall x. forall y. x "exp" (s y) = ((x "exp" y) * x)$.
-  - *Q9:* $forall x. not (x < 0)$.
-  - *Q10:* $forall x. forall y. (x < s y <=> (x < y or x = y))$.
-  - *Q11:* $forall x. forall y. (x < y or (x = y or y < x))$.
+  - *Q1:* $not (S(x) != 0)$.
+  - *Q2:* $S(x) = S(y) => x = y$.
+  - *Q3:* $x != 0 => exists y. x = S(y)$.
+  - *Q4:* $x + 0 = x$.
+  - *Q5:* $x * S(y) = S(x + y)$.
+  - *Q6:* $x * 0 = 0$.
+  - *Q7:* $x * S(y) = (x * y) + x$.
+  - *Q8:* $x <= y equiv exists z. z + x = y$
 ]<foundations:robinson-arithmetic>
 
 #definition[The theory $I Delta_0$ @paris-wilkie-delta-0-sets consists of $Q$
@@ -465,45 +453,65 @@ Herein, let $a <=> b$ denote $a$ if and only if $b$.
   )
 
   for each $phi$ with bounded quantifiers, which means quantifiers
-  $exists x < t$ and $forall x < t$ where $t$ is a _fixed_ finite number.
+  $exists x < t. psi(x, t)$ and $forall x < t. psi(x, t)$ where $x$ is free in
+  term $t$ and $psi(x, t)$ is quantifier free.
 ]<foundations:I-Delta0>
 
 #remark[
-  Note that the induction schema is equivalent to .
+  Note that the induction schema is stronger than having open formulas. This
+  allows statements about, e.g., odd and even numbers to be proved. We will need
+  this to express $"verifier"$.
 ]
 
-
-[TODO[MEDIUM]: make this more rigorous. ]
-#lemma[
-  The "unit" recursor is definable in $I Delta_0$.
-]
+[TODO[MEDIUM]: make this more rigorous. ] #lemma[
+  The unit $"verifier"$ is definable in $I Delta_0$.
+]<foundations:conversion-to-I-Delta0>
 #proof-sketch[
-  First, we argue that the inductive definitions can be written in $I Delta_0$.
-  Clearly every handle can be expressed, indexing each triple of functions with
-  Cantor's pairing function, sending triples $("UID", "RID", "HID")$ to natural
-  numbers. Similarly, representations can be indexed by a pairing argument. It
-  remains to show that blocks can be defined as well. We claim that an extended
-  pairing function can be made that is defined inductively. [TODO: define this
-  function!]
+  The claim relies on defining $"unit"$. From there, one can easily express the
+  conditions in $"verifier"$ by simple recursion.
+
+  To this end, we first argue that the inductive definitions can be written in
+  $I Delta_0$. Clearly, every handle can be expressed, indexing each triple of
+  functions with Cantor's pairing function, sending triples
+  $("UID", "RID", "HID")$ to natural numbers. Similarly, representations can be
+  indexed by a pairing argument. It remains to show that blocks can be defined
+  as well. We claim that an extended pairing function can be made that is
+  defined inductively. [TODO: define this function!]
 
   Second, it can be easily shown that each rule in @unit-rules are definable by
   induction, in at most 5 variables.
 ]
 
+An important consequence of this theorem is the following, proving that the
+meta-theory for Welkin is as minimal as possible.
+
+#theorem[_(Base Theory: $I Delta_0$)._ Suppose $T$ is another first order theory
+  that proves the existence of Welkin's $"verifier"$. Then $T => I Delta_0$.
+]<foundations:welkin-minimal>
+#proof[
+  As before, it suffices to examine $"unit"$. TODO: finish.
+]
+
+Now we proceed that Welkin's verifier is itself can process any $I Delta_0$
+proof.
+
 #lemma[
-  Welkin can embed Robinson Arithmetic as a unit.
+  Welkin can embed Robinson Arithmetic $Q$ as a unit.
 ]
 #proof[
-  [TODO[MEDIUM]]
+  [TODO[MEDIUM]] TBD.
 ]
+
+In total, by @foundations:conversion-to-I-Delta0 and ?, we obtain the following.
 
 #theorem[
   Welkin proves that $"unit"$ and $I Delta_0$ are equivalent.
 ]
-#proof[
-  [TODO[MEDIUM]: explain how combinators can be used here to simplify the use of
-  quantifiers.]
-]
+
+
+An important result is we can prove the following.
+
+
 
 == Queries and Information
 
