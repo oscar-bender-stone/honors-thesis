@@ -13,7 +13,7 @@
 
 #let tilde-prefix = math.class(
   "unary",
-  box(baseline: -20%, scale(75%, $tilde$)),
+  box(baseline: -20%, scale(80%, $tilde$)),
 )
 #show math.tilde: tilde-prefix
 
@@ -82,18 +82,23 @@ on two words or two handles. Maybe lift to the latter to make sense?]
 To simplify the use of handle equality, we will ensure all defined handles are
 unique.
 
+
 #definition[
-  A *unit* is defined recursively as a finite combination of the following and
-  nothing else:
-  - A handle, see @foundations:handle.
-  - Given a unit $u$, $@u$ is a unit called the *expansion* of $u$.
-  - Given a unit $u$, $~u$ is a unit called the *exclusion* of $u$.
-  - A *block*, which is one of the following:
+  A *unit* is defined recursively and as nothing else:
+  - *Base case:*
+    - A handle, see @foundations:handle.
     - The symbol ${}$, the *empty block*.
-    - Given a units $u, v$, ${g, v}$ is a unit.
-  - A representation $a - c -> b$ of units $a, b, c$, where $a$ is the *sign*,
-    $c$ is the *context*, and $b$ is the *referent*. This is read as: $a$
-    *represents* $b$ *in context* $c$.
+  - *Recursive step:* let $u, v, g$ be units and $h$ a handle. The any finite
+    combination of the following are also units:
+    - $\#h$ called the *toplevel marker*.
+    - $@u$ unit called the *expansion* of $u$.
+    - $~u$, called the *exclusion* of $u$.
+    - ${u, v}$, called the *pair* of $u, v$.
+    - $g.v$ is called the *access of $v$ on $g$*.
+    // TODO: make the current working context clear!
+    - A *representation* $a - c -> b$ is a unit, where $a$ is the *sign*, $c$ is
+      the *context*, and $b$ is the *referent*. This is read as: $a$
+      *represents* $b$ *in context* $c$.
 ]<foundations:unit>
 
 We will intentionally _avoid_ defining equality on units and postpone this until
@@ -115,15 +120,21 @@ Important! This will avoid manual numbering _and_ ease referencing rules.]
   - *R4. Handle Substitution:* if handle $h_1$ is equal to handle $h_2$, then
     $h_1 <--> h_2$.
   - *R5. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
-  - *R6. Null:* ${a - {} -> b} --> {}$.
+  // TODO: ensure this is clear! Need to distinguish from what
+  // we write in the syntax!
+  - *R6. Field Access:* $g.a <--> a$ if and only if $a - g -> a$.
+  // TODO: make it clear what the current working context is!
+  - *R7. Toplevel:* $\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.
   - *R7. Identity:* $a <--> {a - a -> a}$.
-  - *R8. Identity:* $a <--> {a - a -> a}$.
+  - *R8. Singleton :* $a <--> {a}$.
+  // TODO: decide if reverse is needed
+  - *R9. Null:* ${a - {} -> b} --> {}$.
   // NOTE: this does add arrows. For clarity,
   // could make this redundant and add a - g -> b here.
-  - *R9. Expansion:* if $a - g -> b$, then ${@g, c} <-> {{{@g, a}, b}, c}$.
-  - *R10. Exclusion:* if $g <--> {@g, a}$, then ${{@g, ~a}, b} <--> {@d, b}$.
-  - *R11. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
-  - *R12. Commutativity:* ${{a, b}, c} <--> {{a, c}, b}$.
+  - *R10. Expansion:* if $a - g -> b$, then ${@g, c} <-> {{{@g, a}, b}, c}$.
+  - *R11. Exclusion:* if $g <--> {@g, a}$, then ${{@g, ~a}, b} <--> {@d, b}$.
+  - *R12. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
+  - *R13. Commutativity:* ${a, b} <--> {b, a}$.
 ]<unit-rules>
 
 As more notation, we write:
@@ -264,6 +275,7 @@ be error prone. We will refine the proof with a *recursor* over units. This is a
 unit that indexes every unit, as well as every handle. Note that we will
 manually index new handles within the final bootstrap, see ?.
 
+[TODO: connect discussion of unique IDs to meta math + meta math zero! Related!]
 The recursor needs to index through all possible keys. We first need to define a
 unit to recurse over binary words; we provide a natural definition in
 @foundations:bootstrap-binary-word.
@@ -323,7 +335,7 @@ To show these constructions are correct, we must prove the following.
 #lemma[
   For all handles $"h1", "h2"$, $"w1" <- "equality" -> "w2"$ if and only if
   $w_1 = w_2$.
-]
+]<foundations:bootstrap-equality-correctness>
 #proof[Clearly it is sufficient to show that equality on words is correct. To do
   so, we apply a simple proof by induction:
   - *Base case:* immediate.

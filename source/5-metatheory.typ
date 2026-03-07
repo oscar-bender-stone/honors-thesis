@@ -52,16 +52,15 @@ use $I_Sigma_0$ to denote $I Delta_0$.
 
 [TODO[SMALL]: fix equation labels!]
 
-#definition[
-  *_(Robinson Arithmetic)_.* Robinson Arithmetic $Q$ s the first-order theory
-  over the language of arithmetic with the following axioms, universally
-  quantified over $x, y, z$:
+#definition[*Robinson Arithmetic $Q$* is the first-order theory over the
+  language of arithmetic with the following axioms, universally quantified over
+  $x, y, z$:
 
   - *Q1:* $not (S(x) != 0)$.
   - *Q2:* $S(x) = S(y) => x = y$.
   - *Q3:* $x != 0 => exists y. x = S(y)$.
   - *Q4:* $x + 0 = x$.
-  - *Q5:* $x * S(y) = S(x + y)$.
+  - *Q5:* $x + S(y) = S(x + y)$.
   - *Q6:* $x * 0 = 0$.
   - *Q7:* $x * S(y) = (x * y) + x$.
   - *Q8:* $x <= y equiv exists z. z + x = y$
@@ -102,7 +101,7 @@ use $I_Sigma_0$ to denote $I Delta_0$.
   defined inductively. [TODO: define this function!]
 
   Second, it can be easily shown that each rule in @unit-rules are definable by
-  induction, in at most 5 variables.
+  induction, in at most 7 variables.
 ]
 
 An important consequence of this theorem is the following, proving that the
@@ -112,16 +111,28 @@ Now we proceed that Welkin's verifier is itself can process any $I Delta_0$
 proof.
 
 #lemma[
-  Welkin can embed Robinson Arithmetic $Q$ as a unit.
+  There is a unit $"Q"$ in Welkin and a bijection from propositions $phi$ units
+  $u_phi$ such that $Q tack.r phi$ if and only if $u_phi - in -> "Q"$.
 ]
 #proof[
-  [TODO[MEDIUM]] TBD.
+  Let $"Q"$ be a new handle. Encode the naturals into words via
+  @foundations:bootstrap-binary-word and @foundations:binary-word-equality, with
+  successor represented through pairs. [TODO: define addition and multiplication
+  via units, in the direct way.]
+
+  Axioms *Q1-Q3* easily follow from @foundations:bootstrap-equality-correctness.
+  The remaining axioms are included in $Q$. [TODO: note how quantifiers are
+  correctly expressed in a separate lemma]. Using transitivity and ?, this
+  completes the proof.
 ]
 
 #theorem[
   Welkin's verifier verifies there is a context with all derivations of
   $I Delta_0$.
 ]<foundations:welkin-to-I-Delta0>
+#proof[
+
+]
 
 Taken together, we can prove that Welkin has a minimal metatheory.
 
