@@ -229,21 +229,19 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
 
   #figure(
     [
-      $L equiv lr(
-        \{
-        (
-          K --> L, S --> L,\
-          {M --> L} --> L,\
-          {N --> L} --> L,\
-          {P --> L} --> L,\
-          C <--> {N - M -> L},\
-          C --> {M --> L},\
-          C --> {N --> L},\
-          {Y - {X - K -> L} -> L} - L -> X, \
-          {P - {N - {M - S -> L} -> L} -> L} - L -> {{P - N -> L} - {P - M -> L} -> L}
+      $
+        L = cases(
+          K arrow.r L, S arrow.r L,
+          {M arrow.r L} & arrow.r L,
+          {N arrow.r L} & arrow.r L,
+          {P arrow.r L} & arrow.r L,
+          C & arrow.l.r {N - M arrow.r L},
+          C & arrow.r {M arrow.r L},
+          C & arrow.r {N arrow.r L},
+          {Y - {X #matched-dash K arrow.r L} arrow.r L} & arrow.r X,
+          {P #matched-dash {N #matched-dash {M #matched-dash S arrow.r L} arrow.r L} arrow.r L} &arrow.r {{P -dash N arrow.r L} #matched-dash {P #matched-dash M arrow.r L} arrow.r L}
         )
-        \}
-      )$
+      $
     ],
     caption: [Definition of $L$ [TODO: fix formatting!].],
   )<foundations:turing-expressible-L>
