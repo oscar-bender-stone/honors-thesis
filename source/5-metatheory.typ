@@ -112,7 +112,7 @@ proof.
 
 #lemma[
   There is a unit $"Q"$ in Welkin and a bijection from propositions $phi$ units
-  $u_phi$ such that $Q tack.r phi$ if and only if $u_phi - in -> "Q"$.
+  $u_phi$ such that $Q tack.r phi$ if and only if $u_phi - "in" -> "Q"$.
 ]<metatheory:Q-in-welkin>
 #proof[
   Let $"Q"$ be a new handle. Encode the naturals into words via
@@ -221,29 +221,32 @@ and rules of inference. This motivates the following definition.
 // where [] is the Goedel number, and phi
 // is a sentence in Peano Arithmetic.
 
-#definition[Fix some context $c$. A unit $t in c$ is called a *truth predicate*
-  for $c$ if for every unit $u$, $u - c -> t$ if and only if $u - c -> u$.
+[TODO: clarify how $"in"$ works! May need to work with a direct representation.]
+
+#definition[Let $c$ be a context. A unit $t$ is called a *truth predicate* for
+  $c$ if for every unit $u$, $u - c -> t$ if and only if $u - "in" -> c$.
 ]<metatheory:truth>
 
 Truth systems in Welkin, however, are separated by contexts. How can it be
 determined whether a unit is "sound", or truthful about derivations? Our
-approach is to _merge_ the contents and determine if they match.
+approach is to _merge_ the contents and determine if they match. This precisely
+uses rule ? for whether a representation is contained in a unit. [TODO: still
+need to clarify global context here! Also, ensure that .]
 
-[TODO: clarify. The main definition here means that we can join the specific
-unit $u$ with the "actual" representation. They need to _match_. This is exactly
-what coherency means! So we are *merging* $c$ with the contents of the _actual_
-unit in question!]
 #definition[
-  A context $c$ is *sound* if for every $u - "in" -> c$, "$u$ is 'actually'
-  true".
+  A unit $u$ is *sound* if for every context $c$ and representation
+  ${{a - d -> b} - "in" -> c} - "in" -> u$, ${@c, {a - d -> b}} <--> c$.
 ]
+
+In other words, adding the representation ${a - d -> b}$ does *not* add new
+information to $c$.
 
 [TODO: discuss Tarski's undefinability theorem here.]
 
 In this setting, Gödel's incompleteness theorems manifest in the undecidability
 of derivations. The second cannot be avoided with soundness outright, but it can
 with a weaker notion. With the _usual_ notions of soundness, the second cannot
-be avoided. But
+be avoided. But it this can be mitigated using a weaker notion of soundness.
 
 [TODO: define the equivalent of total computable functions for units! And
 determine if a *single* input is enough to trust soundness. If not, need to
