@@ -225,6 +225,10 @@ and rules of inference. This motivates the following definition.
   for $c$ if for every unit $u$, $u - c -> t$ if and only if $u - c -> u$.
 ]<metatheory:truth>
 
+Truth systems in Welkin, however, are separated by contexts. How can it be
+determined whether a unit is "sound", or truthful about derivations? Our
+approach is to _merge_ the contents and determine if they match.
+
 [TODO: clarify. The main definition here means that we can join the specific
 unit $u$ with the "actual" representation. They need to _match_. This is exactly
 what coherency means! So we are *merging* $c$ with the contents of the _actual_
@@ -234,18 +238,23 @@ unit in question!]
   true".
 ]
 
-Recall that Gödel's incompleteness theorems asserts that the theory $"PA"$
-cannot prove its own soundness. And recall that each unit is _finitely
-generated_. This means a units face a similar incompleteness theorem, _in the
-object level_. We now define serial-soundness as an approximation, feasible by a
-_metatheory_.
+[TODO: discuss Tarski's undefinability theorem here.]
 
-[TODO: define the equivalent of total computable functions for units!]
+In this setting, Gödel's incompleteness theorems manifest in the undecidability
+of derivations. The second cannot be avoided with soundness outright, but it can
+with a weaker notion. With the _usual_ notions of soundness, the second cannot
+be avoided. But
+
+[TODO: define the equivalent of total computable functions for units! And
+determine if a *single* input is enough to trust soundness. If not, need to
+construct examples to show why!]
 
 #definition[
   A unit $u$ is *serial-sound* if there is a total computable function such that
   the following property holds: given an arbitrary, but fixed, unit $v$ as
   input, verifies that any representation "claimed in $u$" is "actually in $v$".
+  Moreover the selector must be proven *constructively*, or "without
+  explosion"[TODO: define in general!].
 ]<metatheory:serial-sound>
 
 Note that not every total computable function can be proven to be total. For
@@ -260,11 +269,8 @@ now, we can prove the following.
   Equivalent to @foundations:verifier-correctness.
 ]
 
-Moreover, serial-soundness is transitive, just as with soundness.
-
-[TODO: clarify that serial-soundness _can_ be relative, so we need to make
-stricter restrictions, e.g., using ONLY constructive methods, or avoiding
-explosion, to construct a selector.]
+Moreover, serial-soundness is transitive, just as with soundness. This
+corresponds to composition of meta-proofs.
 
 #lemma[
   Let $u$, $u'$, $u''$ be units, and suppose $u$ is serial-sound. If $u$ proves
@@ -277,7 +283,6 @@ explosion, to construct a selector.]
   proven in $u'$ to complete the proof.],
 
 == The Meta Unit <metatheory:meta-unit>
-
 
 [TODO: complete! Want to ensure that proofs can be _chains_ of serial-sound
 units.]
@@ -318,7 +323,7 @@ prevent _all_ things from being proved, or only useful things being proved?]
   $u$ must be sound.
 ]
 
-Remarkably, $"meta"$ _also_ meta-prove its own serial soundness.
+Remarkably, $"meta"$ _also_ meta-proves its own serial soundness.
 
 #corollary[The unit $"meta"$ meta-proves its own serial soundness, and hence,
   soundness.
