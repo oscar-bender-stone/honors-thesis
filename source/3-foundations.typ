@@ -86,11 +86,11 @@ unique.
   A *unit* is defined recursively as a finite combination of the following and
   nothing else:
   - A handle, see @foundations:handle.
+  - Given a unit $u$, $@u$ is a unit called the *expansion* of $u$.
+  - Given a unit $u$, $~u$ is a unit called the *exclusion* of $u$.
   - A *block*, which is one of the following:
     - The symbol ${}$, the *empty block*.
-    - Given a units $g, u$, ${@g, u}$, and ${@g, ~u}$ are blocks, where $@g$ is
-      a unit called the *expansion* of $g$ and $~u$ is called the *exclusion* of
-      $u$.
+    - Given a units $u, v$, ${g, v}$ is a unit.
   - A representation $a - c -> b$ of units $a, b, c$, where $a$ is the *sign*,
     $c$ is the *context*, and $b$ is the *referent*. This is read as: $a$
     *represents* $b$ *in context* $c$.
@@ -99,7 +99,8 @@ unique.
 We will intentionally _avoid_ defining equality on units and postpone this until
 @foundations:base-recursor.
 
-[TODO[SMALL]: provide labels/links.]
+[TODO[SMALL]: FIX order of rules! Need to refactor code to generate labels.
+Important! This will avoid manual numbering _and_ ease referencing rules.]
 
 [TODO[SMALL]: Clarify role of global context!]
 
@@ -111,19 +112,18 @@ We will intentionally _avoid_ defining equality on units and postpone this until
   - *R2. Contextual Lifting:* $a - c -> b$ and $d - b -> g$ imply
     ${d - a -> g} - c -> {d - a -> g}$.
   - *R3. Empty:* ${@g, {}} <--> g$.
-  - *R4. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
-  - *R5. Identity:* ${a} <--> {a - a -> a} <--> a$.
+  - *R4. Handle Substitution:* if handle $h_1$ is equal to handle $h_2$, then
+    $h_1 <--> h_2$.
+  - *R5. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
+  - *R6. Null:* ${a - {} -> b} --> {}$.
+  - *R7. Identity:* $a <--> {a - a -> a}$.
+  - *R8. Identity:* $a <--> {a - a -> a}$.
   // NOTE: this does add arrows. For clarity,
   // could make this redundant and add a - g -> b here.
-  - *R6. Expansion:* if $a - g -> b$, then ${@g, c} <-> {{{@g, a}, b}, c}$.
-  - *R7. Exclusion:* if $g <--> {@g, a}$, then ${{@g, ~a}, b} <--> {@d, b}$.
-  - *R8. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
-  - *R9. Commutativity:* ${{a, b}, c} <--> {{a, c}, b}$.
-  - *R10. Null:* ${a - {} -> b} --> {}$.
-
-  - *R11. Handle Substitution:* if handle $h_1$ is equal to handle $h_2$, then
-    $h_1 <--> h_2$.
-
+  - *R9. Expansion:* if $a - g -> b$, then ${@g, c} <-> {{{@g, a}, b}, c}$.
+  - *R10. Exclusion:* if $g <--> {@g, a}$, then ${{@g, ~a}, b} <--> {@d, b}$.
+  - *R11. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
+  - *R12. Commutativity:* ${{a, b}, c} <--> {{a, c}, b}$.
 ]<unit-rules>
 
 As more notation, we write:
@@ -131,7 +131,6 @@ As more notation, we write:
 - $a - c -> b_1 | b_2 | ... | b_n$ to mean
   ${a - c -> b_1, a - c -> b_2, ..., a - c -> b_n}$.
 - $a_1 | ... | a_n - c -> d$ to mean ${a_1 - c -> d, ..., a_n - c -> d}$.
-// - $q in c$ if $q - c -> q$.
 
 This simplifies the presentation of the rules. We postpone formally defining the
 operator $|$ to the syntax in @syntax.
@@ -141,7 +140,8 @@ entirely flexible and user defined. Moreover, only ? are needed for Turing
 completeness. We will show, however, that the remaining axioms are optimal when
 organizing information, see @information-organization.
 
-- *R1* and *R2* were discussed in @rationale:unit.
+- *R1* and *R2* were discussed in @rationale:unit.[TODO: maybe review the
+  discussion from earlier? Might be useful to reinforce main ideas to reader.]
 - *R3* define the behavior of the empty unit ${}$, similar to the empty set.
 - *R4* provides a way to represent $a in g$ through the representation
   $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, so it
