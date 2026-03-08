@@ -33,10 +33,14 @@ section is optional. For the base definition of information, refer to
 
 Optimizations will be postponed to @information-organization.
 
-
 For notation, we will write $"PA"$ for Peano Arithmetic and $"PRA"$ for
-Primitive Recursive Arithmetic.
-
+Primitive Recursive Arithmetic. Moreover, without loss of generality, we will
+consider only first-order theories $T$ that are RE. This can be shown in the
+proof of Traktenbroht's Theorem @trakhtenbrot50. In this proof, a step is to
+show that for any Turing machine $M$, there is a a first-order theory whose
+theorems concide with the language of $M$. [TODO: decide if we want to prove
+this is true IN $I Delta_0$, to show that it alone is enough. Put into the
+appendix. Pretty simple embedding.]
 
 == Establishing the Floor: $I Delta_0$
 
@@ -48,7 +52,7 @@ readability. For background in first-order logic, please refer to
 
 Herein, let $a <=> b$ denote $a$ if and only if $b$. Robinson Arithmetic denotes
 the base set of axioms; refer to @hajek-pudlak-metamath-arithmetic[Ch. 1], which
-use $I_Sigma_0$ to denote $I Delta_0$.
+use $I Sigma_0$ to denote $I Delta_0$.
 
 [TODO[SMALL]: fix equation labels!]
 
@@ -112,7 +116,7 @@ proof.
 
 #lemma[
   There is a unit $"Q"$ in Welkin and a bijection from propositions $phi$ units
-  $u_phi$ such that $Q tack.r phi$ if and only if $u_phi - "in" -> "Q"$.
+  $u_phi$ such that $Q tack.r phi$ if and only if $u_phi - "part" -> "Q"$.
 ]<metatheory:Q-in-welkin>
 #proof[
   Let $"Q"$ be a new handle. Encode the naturals into words via
