@@ -137,20 +137,37 @@ we need, see @syntax:base-combinators.
 
 #figure(
   [```
-  "TODO: provide a way to indicate what are input strings!",
-  s | t | u | v --> unit,
+  "TODO: indicate errors somehow!",
+  input <--> {} | {begin --> character, next --> input},
 
-  description <--> {parse --> unit, print --> unit},
+  codec <--> {
+    parse --> unit,
+    print --> unit,
+
+    {s --> input, u --> unit} -->
+    {
+      {s - parse -> u}
+      <-->
+      {u - print -> s}
+    }
+  },
 
   WHITESPACE_MANY <--> "" | {WHITESPACE - then -> WHITESPACE_MANY},
 
   {before - seq -> after} <--> ?,
 
-  {before - then -> after} <--> {before - seq -> WHITESPACE_MANY - seq -> after},
-
+  {before - then -> after} <--> {before - seq -> WHITESPACE_MANY - seq -> after}
   ```],
   caption: [Definitions for the main combinators used.],
 )<syntax:base-combinators>
+
+
+#lemma[
+  In the combinators above, `parser` commutes with `print`. More precisely: ?.
+]<syntax:combinator-correctness>
+#proof[
+
+]
 
 == Character Classes
 
