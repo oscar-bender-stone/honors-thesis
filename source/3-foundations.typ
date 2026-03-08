@@ -55,8 +55,8 @@ and _practically enforcing_ it is finite. For a thorough discussion, see ?.
   for this inequality.]
 
 #definition[
-  A _handle_ is given by a *key*, a triple $("UID", "RID", "HID")$, where
-  $"UID"$ is a binary word called a *user ID*, $"RID"$ is a binary word called
+  A _handle_ is given by a *key*, a triple $("MID", "RID", "HID")$, where
+  $"MID"$ is a binary word called a *user ID*, $"RID"$ is a binary word called
   the *revision ID*, and $"HID"$ is a binary word called the *handle ID*. The
   interpretation of keys are left as free parameters, and therefore are outside
   the scope of this language.
@@ -65,23 +65,29 @@ and _practically enforcing_ it is finite. For a thorough discussion, see ?.
 #remark[
   Because handles act as free parameters, we work with them through truth. Based
   on this, the rest of the thesis will abstract away general units _as_ sets of
-  axioms. Free parameters are used to define Welkin itself, however,see @syntax.
+  axioms. Free parameters are used to define Welkin itself, however; see
+  @syntax.
 ]<foundations:remark-handle-binding>
 
 [TODO[SMALL]: without getting into typing, enforce that equality has to be done
 on two words or two handles. Maybe lift to the latter to make sense?]
 #definition[Consider two handles
-  $h_1 equiv ("UID"_1, "RID"_1, "HID"_1), h_2 equiv ("UID"_2, "RID"_2, "HID"_2)$.
+  $h_1 equiv ("MID"_1, "RID"_1, "SYM"_1), h_2 equiv ("MID"_2, "RID"_2, "HID"_2)$.
   - $h_1$ and $h_2$ are equal, written $h_1 = h_2$, if and only if
-    $"UID"_1 = "UID"_2$, $"RID"_1 = "RID"_2$, and $"HID"_1 = "HID"_2$.
+    $"MID"_1 = "MID"_2$, $"RID"_1 = "RID"_2$, and $"SYM"_1 = "SYM"_2$.
   - $h_1$ is not equal to $h_2$, written $h_1 != h_2$, if and only if at least
-    one of the following hold: $"UID"_1 != "UID"_2$, $"RID"_1 != "RID"_2$, or
-    $"HID"_1 != "HID"_2$.
+    one of the following hold: $"MID"_1 != "MID"_2$, $"RID"_1 != "RID"_2$, or
+    $"SYM"_1 != "SYM"_2$.
 ]<foundations:handle-equality>
 
-To simplify the use of handle equality, we will ensure all defined handles are
-unique.
+We reserve an important symbol as notation, used outside of the language: $G$
+for the *global context*. This can be interpreted as the combination of _all_
+possible units, with any string ID. This, too, is left as a free parameter in
+the theory. The global context may range from anything to a local folder with
+welkin modules, to an entire global registry. [TODO: maybe make this more
+clear?]
 
+Now we can define units.
 
 #definition[
   A *unit* is defined recursively as follows and nothing else:
@@ -103,8 +109,6 @@ unique.
 
 We will intentionally _avoid_ defining equality on units and postpone this until
 @foundations:base-recursor.
-
-[TODO[SMALL]: Clarify role of global context!]
 
 #definition[
   The following rules apply, stated over meta-variables $a, b, c, d, g$ for
@@ -285,21 +289,21 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
       - $M = N$ if and only if $N = M$.
       - $M = N$ and $N = P$ imply $M = P$.
 
-]<foundations:sk-calculus>
-
-[TODO[SMALLL]: create boxes for remarks and important notes?]
+]<foundations:SK-calculus>
 
 #theorem[Any partial computable function can be expressed as some unit.
 ]<turing-expressible>
 #proof[
   We prove that we can embed any term in the $S K$-combinator calculus, defined
-  in @foundations:sk-calculus. This proof includes an important technique to
+  in @foundations:SK-calculus. This proof includes an important technique to
   represent _recursion_,
 
   We express recursion via a unit $L$. For keys, we set:
   - $L equiv (1, 0, 0)$.
   - $K equiv (1, 0, 1)$, $S equiv (1, 0, 2)$.
   - $M equiv (1, 0, 3)$, $N equiv (1, 0, 4)$ $P equiv (1, 0, 5)$.
+  Note that these IDs will be reused after this lemma, as this just shows its
+  _possible_ to store into an information base.
 
   For the rules, see @foundations:turing-expressible-L. Note that each rule of
   the form $A --> B$ written in $L$ means $A - L -> B$.
@@ -315,21 +319,21 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
       $
         L equiv {
           #align(left)[
-            $ K -> L, quad S -> L $
+            $ K -> L, quad S -> L, $
             \
-            $ {M -> L} -> L $
+            $ {M -> L} -> L, $
             \
-            $ {N -> L} -> L $
+            $ {N -> L} -> L, $
             \
-            $ {P -> L} -> L $
+            $ {P -> L} -> L, $
             \
-            $ C <-> {N - M -> L} $
+            $ C <-> {N - M -> L}, $
             \
-            $ C -> {M -> L} $
+            $ C -> {M -> L}, $
             \
-            $ C -> {N -> L} $
+            $ C -> {N -> L}, $
             \
-            $ {Y - {X - K -> L} -> L} -> X $
+            $ {N - {M - K -> L} -> L} -> M, $
             \
             $ {P - {N - {M - S -> L} -> L} -> L} $
             \
@@ -347,10 +351,13 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
     $K$ is a term of $L$.
   - We include variables $M, N, P$ over terms. The statement
     ${M - L -> L} - L -> L$ wraps around any term.
-  - Composition $M N$ is represented as $N - M -> L$. Moreover, compositions
-    $M N$ can be broken down into its constituent parts $M, N$.
+  - Composition $M N$ is represented as $N - M -> L$. Moreover, $M N$ can be
+    broken down into its constituent parts $M, N$.
 
   - The remaining representations are for the rule of $K$ and $S$, respectively.
+
+  [TODO: maybe present SK-calculus based on reductions, not equality? We can get
+  equality easily through transitivity, but do discuss.]
 
   Now, $L$ already includes the base rules for $K$ and $S$. It remains to be
   shown that $L$ is closed under composition: $M - L -> L$ and $N - L -> L$
@@ -365,13 +372,12 @@ The proof of @turing-expressible demonstrates how contexts enable powerful
 recursive definitions. However, the underlying construction is tedious and
 results in extremely verbose terms. Keys are assigned manually, which can easily
 be error prone. We will refine the proof with a *recursor* over units. This is a
-unit that indexes every unit, as well as every handle. Note that we will
-manually index new handles within the final bootstrap, see ?.
-
-[TODO: connect discussion of unique IDs to meta math + meta math zero! Related!]
-The recursor needs to index through all possible keys. We first need to define a
-unit to recurse over binary words; we provide a natural definition in
-@foundations:bootstrap-binary-word.
+unit that indexes every unit, as well as every handle. We gradually build
+$"unit"$ based on notions for $"word"$ and $"handle"$.#footnote[
+  [TODO: discuss how we are allowing the variables to be the same or different!
+  Related to bundling in MetaMath + MetaMath Zero [and cite these!].]
+] Note that we will manually index new handles within the final bootstrap, see
+?.
 
 [TODO[SMALL]: enforce that scopes create new names!] #figure(
   [
@@ -389,6 +395,19 @@ This is similar to the Lisp definition of a list. In detail:
 - $"word"$ is recursively defined, as either $"empty"$ or the pair
   ${"top", "next"}$, where $"top"$ is a $"bit"$ and $"next"$ is a $"word"$.
 
+From there, we can define handle IDs through triples, see
+@foundations:bootstrap-handle-id.
+
+#figure(
+  [
+    $"handle" <--> {"MID" --> "word", "RID" --> "word", "SYM" --> "word"}$
+  ],
+  caption: [Generator for handle keys in Welkin.],
+)<foundations:bootstrap-handle-id>
+
+Here, a $"handle"$ is simply a pair ${"MID", "RID", "SYM"}$, where $"MID"$,
+$"RID"$, $"SYM"$ are words.
+
 We need to include equality as well, refer to @foundations:handle-equality:
 
 #figure(
@@ -402,26 +421,15 @@ We need to include equality as well, refer to @foundations:handle-equality:
     "h1" | "h2" --> "handle",\
     {"h1" <--> "h2"} <--> \
     {\
-      "h1.UID" <--> "h2.UID",\
+      "h1.UID" <--> "h2.MID",\
       "h1.RID" <--> "h1.RID" \
-      "h1.HID" <--> "h1.HID" \
+      "h1.SYM" <--> "h1.SYM" \
     }
   }$],
   caption: [Definitions of equality in Welkin.],
 )<foundations:bootstrap-equality>
 
-From there, we can define handle IDs through triples, see
-@foundations:bootstrap-handle-id.
 
-#figure(
-  [
-    $"handle" <--> {"UID" --> "word", "RID" --> "word", "HID" --> "word"}$
-  ],
-  caption: [Generator for handle keys in Welkin.],
-)<foundations:bootstrap-handle-id>
-
-Here, a $"handle"$ is simply a pair ${"UID", "RID", "HID"}$, where $"UID"$,
-$"RID"$, $"HID"$ are words.
 
 To show these constructions are correct, we must prove the following.
 
@@ -447,8 +455,9 @@ due to associativity, so we _only_ need expansions?]
   following in context $"unit"$:
   - $"handle" --> "unit"$, see @foundations:bootstrap-handle-id.
   - ${} | u | v | c --> "unit"$.
+  - $@u --> "unit"$.
+  - ${u, v} | {@u, ~v} --> "unit"$.
   - ${u - c -> v} --> "unit"$.
-  - ${@u, v} | {@u, ~v} --> "unit"$.
 ]<foundations:recursor>
 
 The following statements are two parts of the same *Recursion theorem* for
@@ -463,33 +472,31 @@ definitions written in the meta-language (English).
     as well as cases for ${@g, u}$, and ${@g, ~u}$.
 ]<foundations:recursor-correctness>
 
+Now, for the rest of the thesis (except bootstrap), we will drop mentions of
+specific handles. These will all be facilitated by $"unit"$.
+
 == Base Verifier
 
-Now we will includle a notion for containment. This will be useful for
-optimizations see @information-organization.
+Now we will includle a notion for containment. Because Welkin is Turing
+expressible, $"unit"$ may not terminate in all cases, such as an infinite
+recursive loop. We want to have a mechanism to _check_ certain claims. This is
+the role of the verifier, built upon $"part"$. We will later on use $"part"$ for
+useful optimizations, see @information-organization.
 
-Now, because Welkin is Turing expressible, $"unit"$ may not terminate in all
-cases, such as an infinite recursive loop. We want to have a mechanism to
-_check_ claims. This is the role of the verifier, built upon $"in"$.
-
-[TODO: make closed world assumption clear! Want to say below that in *any*
-context other than the context itself, there are no other arrows.]
+[TODO: start converting list defs into single equations.]
 
 #definition[
-  The unit $"in"$ is defined over units $u, v --> "unit"$:
+  The unit $"part"$ is defined over units $u, v --> "unit"$:
   - $u --> {@u, v}$.
   - $~{{@u, v} --> u}$.
   - ${@u, ~v} --> u$.
   - $~{u --> {@u, ~v}}$.
 ]<foundations:bootstrap-in>
 
-[TODO: maybe distinguish between $"in"$ and $"part"$? Need to _actually_ disable
-some rules via negation.]
-
-#lemma[$u - "in" -> u'$ if and only if $u - u' -> u$.]
+#lemma[$u - "part" -> u'$ if and only if $u - u' -> u$.]
 #proof[
   We proceed by structural induction on units, or $u | u' - "unit" -> "unit"$:
-  - *Base case:* we need to prove ${{} - "in" -> u'$ if and only if
+  - *Base case:* we need to prove ${{} - "part" -> u'$ if and only if
     ${} - u' -> {}$.
     - *Base case:* For $u' equiv {}$, clearly both are false.
     - *Inductive step:* There are three cases:
