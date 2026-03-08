@@ -98,9 +98,9 @@ Now we can define units.
     - $\#h$, the *module marker*.
     - $@u$, the *expansion* of $u$.
     - ${u, v}$, the *pair* of $u, v$.
-    - An *import block*, defined as ${@g}$ for a unit $g$, or as ${b, @u}$ or
-      ${b, ~u}$ for an import block $b$:.In ${b, ~u}$, $~u$ is the *exclusion*
-      of $u$.
+    - An *import block*, defined as ${@g}$ for a unit $g$, or as ${b, @u}$,
+      ${b, ~u}$, or ${~u, b} equiv {b, ~u}$ for an import block $b$. In
+      ${b, ~u}$, $~u$ is the *exclusion* of $u$.
     - $g.v$, the *access of $v$ on $g$*.
     // TODO: make the current working context clear!
     - A *representation* $a - c -> b$, where $a$ is the *sign*, $c$ is the
@@ -161,7 +161,14 @@ We will intentionally _avoid_ defining equality on units and postpone this until
       // TODO: create a "current working file" or such,
       // or "current working context", and then use *that*
       // when getting input! (Though it could be streamed;
-      // we're using handles as an effective abstraction here!)
+      // we're using handles as an effective abstraction here!
+      // Do also make sure multiple users *could* use it as well,
+      // so need to make that clear. Might need a notion
+      // of a user/original source at a time.)
+      // TODO: need to figure out an effective way
+      // to get revisions! And need to keep in mind,
+      // might be implementation specific!
+      // So just need to *create* the map
       // (
       //   name: "Module",
       //   lbl: "r:module",
@@ -264,6 +271,13 @@ units as modules, as well as make it easier to use the language.
   ${a, {@g, ~b}} <--> {@g, {a, ~b}}$. If this were the case, then one could
   write ${a, {@{a}, ~a}}$ and produce ${}$, so new extensions of the second unit
   are impossible!
+
+We provide some reoccurring properties in the lemma below.
+
+#lemma[
+  - Import blocks are locally associative. More precisely, given import blocks
+    $m_1, m_2$ and units $u, v$, #box[${m_1, {m_2, ~u}} <--> {m_2, {m_1, ~u}}$].
+]<foundations:lemma-properties>
 
 
 As more notation, we write:
