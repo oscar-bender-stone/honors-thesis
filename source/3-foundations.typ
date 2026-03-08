@@ -201,7 +201,7 @@ Important! This will avoid manual numbering _and_ ease referencing rules.]
       (
         name: "Commutativity",
         lbl: "r:commutativity",
-        content: [$\{a, b\} <--> \{b, a\}$],
+        content: [$\{a, b\} <--> \{b, a\}$ and $$],
       ),
     ),
   )
@@ -226,14 +226,14 @@ organizing information, see @information-organization.
   the empty set. @r:null specifically states that ${}$ contains _no_
   representations, so any term $a - {} -> b$ may be written.
 - @r:identity provides a way to represent $a in g$ through the representation
-  $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, so it
-  is _not_ required in every unit. Identity is expressed instead by
-  ${a - a -> a}$, see the discussion below.
+  $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, _not_
+  identity. Instead, identity is expressed by ${a - a -> a}$, see the discussion
+  below.
 - @r:singleton reduces extraneous blocks. Note that this is _not_ the same thing
   as the Quine atom, which states ${a} = a$ in a set theoretic context
-  @quine:new-foundations. We do _not_ mean $a in a$, but instead, ${a}$ is a
-  _wrapper_ around $a$. While not useful for handles, it is for specifying
-  blocks of representations, such as ${a - b -> c, b - c -> d}$.
+  @quine:new-foundations. We interpret ${a}$ as a _wrapper_ around $a$. While
+  not useful for handles, it is for specifying blocks of representations, such
+  as ${a - b -> c, b - c -> d}$.
 - @r:expansion and @r:exclusion define how imports in the language work. An
   *import* is the process of joining the contents of one unit into another.
   @r:expansion says how an import can add new units in a block. @r:exclusion
@@ -246,7 +246,11 @@ organizing information, see @information-organization.
   Otherwise, terms like ${a, {b, ~a}}$ would be allowed, so certain units could
   never be expanded!
 - @r:associativity and @r:commutativity ensure that information can be repeated
-  and is positionally invariant.
+  and can be put into any order. Note that this does *not* mean
+  ${a, {@g, ~b}} <--> {@g, {a, ~b}}$. If this were the case, then one could
+  write ${a, {@{a}, ~a}}$ and produce ${}$, so new extensions of the second unit
+  are impossible!
+
 
 As more notation, we write:
 
