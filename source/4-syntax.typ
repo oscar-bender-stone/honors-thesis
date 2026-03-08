@@ -64,7 +64,7 @@ hexadecimal.
   ```
   bit <--> 0 | 1,
   digit <--> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
-  nibble <--> A | B | C | D | E | F
+  nibble <--> @digit | A | B | C | D | E | F
   ```,
   caption: "Binary, decimal, and hexadecimal digits.",
 )<digits>
@@ -72,7 +72,7 @@ hexadecimal.
 #figure(
   ```
   number <--> binary | decimal | hex,
-  decimal <--> {top --> bit, next --> decimal},
+  decimal <--> {top --> digit, next --> decimal},
   hex <--> {top --> nibble, next --> hex}
   ```,
   caption: "Definition of words.",
@@ -108,7 +108,6 @@ Moreover, we will need the following sets of terminals.
 // *or* list specific character classes?
 #figure(
   ```
-  // EPS <--> "",
   PRINTABLE <--> {ENCODING, ~ENCODING.EOF},
   WHITESPACE <--> "\t" | "\n" | "\r" | " ",
   RESERVED <--> @DELIMITER | "*" | "\" | "@" | "#",
@@ -156,9 +155,14 @@ invariants are held! So we may need verifier to come into play here!]
     }
   },
 
-  WHITESPACE_MANY <--> "" | {WHITESPACE - then -> WHITESPACE_MANY},
+  WHITESPACE_MANY <--> "" | {WHITESPACE - seq -> WHITESPACE_MANY},
 
-  {before - seq -> after} <--> ?,
+  {before - seq -> after} <--> {
+    @codec,
+    parse -->,
+
+    print -->,
+  },
 
   {before - then -> after} <--> {before - seq -> WHITESPACE_MANY - seq -> after}
   ```],
@@ -189,9 +193,9 @@ quotes.
 
 #figure(
   ```
-  toplevel <--> {marker --> "#", name --> id}
-  import <--> {marker --> "@", graph --> id},
-  id <--> {top --> {@printable, ~{@reserved, @whitespace}}, next --> id}
+  MODULE <--> {"#" - seq -> ID},
+  IMPORT <--> {"@" - seq -> ID}
+  ID <--> {top --> {@printable, ~{@reserved, @whitespace}}, next - seq -> ID}
   ```,
   caption: "IDs.",
 )<syntax:id>
@@ -205,16 +209,14 @@ certain characters, see @syntax:id.
 
 #figure(
   ```
-  string <--> sq_string | dq_string,
-  string_contents <--> sq_contents | dq_contents
+  STRING <--> SQ_STRING| DQ_STRING,
+  STRING_CONTENTS <--> SQ_CONTENTS | DQ_CONTENTS,
 
-  sq_string <--> {start --> "'", contents --> sq_contents, end --> "'"},
-  dq_strings <--> {start --> "\"", contents --> dq_contents, end --> "\""},
+  SQ_STRING <--> {start --> "'", contents --> sq_contents, end --> "'"},
+  DQ_STRING <--> {start --> "\"", contents --> DQ_CONTENTS, end --> "\""},
 
-  sq_contents <--> {top --> "" | {@printable, ~{"\""}}, next --> sq_contents},
-  dq_contents <--> {top --> "" | {@printable, ~{"\""}}, next --> dq_contents},
-  escape_sq <--> "\'" | "\\",
-  escape_dq <--> "\"" | "\\"
+  SQ_CONTENTS <--> {top --> "" | {@printable, ~{"\""}}| {"\" - seq -> "\" | "'"}, next --> SQ_CONTENTS},
+  DQ_CONTENTS <--> {top --> "" | {@printable, ~{"\""}}| {"\" - seq -> "\" | "\""}, next --> DQ_CONTENTS},
   ```,
   caption: "Strings.",
 )<syntax:string>

@@ -394,7 +394,7 @@ manually index new handles within the final bootstrap, see ?.
 
 #figure(
   [
-    $"bit" --> 0 | 1$
+    $"bit" --> 0 | 1,$
 
     $"word" <--> "{}" | {"top" --> "bit", "next" --> "word"}$
   ],
@@ -484,14 +484,14 @@ definitions written in the meta-language (English).
 #proof[Fix the context to be $"unit"$. We proceed induction on units:
   - *Base case:* this is immediate, as ${}$ and all handles are included.
   - *Inductive step:* immediate; $"unit"$ includes representations $a - b -> c$,
-    as well as cases for $@g$, ${g, u}$, and ${@g, ~u}$.
+    as well as cases for $@u$, ${u, v}$, ${@u, ~v}$, and ${~v, @u}$.
 ]<foundations:recursor-correctness>
 
 
 Now, for the rest of the thesis (except bootstrap), we will drop mentions of
 specific handles. These will all be facilitated by $"unit"$. Moreover, if
 $u --> "unit"$, then $u - "unit" -> "unit"$, based on @r:identity and
-@r:transitivity. We will use this shorter form for brevity.
+@r:transitivity. We will use the former for brevity.
 
 == Base Verifier
 
