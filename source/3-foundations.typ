@@ -112,125 +112,102 @@ Important! This will avoid manual numbering _and_ ease referencing rules.]
 #definition[
   The following rules apply, stated over meta-variables $a, b, c, d, g$ for
   units and $h_1, h_2$ for handles:
-  - *R1. Internal Transitivity:* $a - c -> b$ and $b - c -> d$ imply
-    $a - c -> d$.
-  - *R2. Contextual Lifting:* $a - c -> b$ and $d - b -> g$ imply
-    ${d - a -> g} - c -> {d - a -> g}$.
-  - *R3. Empty:* ${@g, {}} <--> g$.
-  - *R4. Null:* ${a - {} -> b} <--> {}$.
-  - *R5. Handle Substitution:* if handle $h_1$ is equal to handle $h_2$, then
-    $h_1 <--> h_2$.
-  - *R6. Membership:* ${@g, a} <--> g$ if and only if $a - g -> a$.
-  // TODO: ensure this is clear! Need to distinguish from what
-  // we write in the syntax! Also, probably need to ensure
-  // this is *valid*, so with anonymous blocks, can't
-  // add new things! Wouldn't make sense! It would
-  // be a *whole* new thing.
-  - *R7. Field Access:* $g.a <--> a$ if and only if $a - g -> a$.
-  // TODO: make it clear what the current working context is!
-  - *R8. Toplevel:* $\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.
-  - *R9. Identity:* $a <--> {a - a -> a}$.
-  - *R10. Singleton :* $a <--> {a}$.
-  // NOTE: this does add arrows. For clarity,
-  // could make this redundant and add a - g -> b here.
-  - *R11. Expansion:* if $a - g -> b$, then ${@g, c} <-> {{{@g, a}, b}, c}$.
-  - *R12. Exclusion:* if $g <--> {@g, a}$, then ${{@g, ~a}, b} <--> {@d, b}$.
-  - *R13. Associativity:* ${a, {b, c}} <--> {{a, b}, c}$.
-  - *R14. Commutativity:* ${a, b} <--> {b, a}$.
+  #rule-table(
+    prefix: "R",
+    (
+      (
+        name: "Internal Transitivity",
+        lbl: "r-int-trans",
+        content: [$a - c -> b$ and $b - c -> d$ imply $a - c -> d$.],
+      ),
+      (
+        name: "Contextual Lifting",
+        lbl: "r-ctx-lift",
+        content: [$a - c -> b$ and $d - b -> g$ imply
+          #box[$\{d - a -> g\} - c -> \{d - a -> g\}$]],
+      ),
+      (
+        name: "Empty",
+        lbl: "r-empty",
+        content: [$\{\@g, \{\}\} <--> g$],
+      ),
+      (
+        name: "Null",
+        lbl: "r-null",
+        content: [$\{a - \{\} -> b\} <--> \{\}$],
+      ),
+      (
+        name: "Handle Substitution",
+        lbl: "r-handle-sub",
+        content: [If handle $h_1$ is equal to handle $h_2$, then
+          $h_1 <--> h_2$.],
+      ),
+      (
+        name: "Membership",
+        lbl: "r-membership",
+        content: [
+          $\{\@g, a\} <--> g$ if and only if $a - g -> a$.
+          // TODO: ensure this is clear! Need to distinguish from what
+          // we write in the syntax! Also, probably need to ensure
+          // this is *valid*, so with anonymous blocks, can't
+          // add new things! Wouldn't make sense! It would
+          // be a *whole* new thing.
+        ],
+      ),
+      (
+        name: "Field Access",
+        lbl: "r-field-access",
+        content: [
+          $g.a <--> a$ if and only if $a - g -> a$.
+          // TODO: make it clear what the current working context is!
+        ],
+      ),
+      (
+        name: "Toplevel",
+        lbl: "r-toplevel",
+        content: [$\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.],
+      ),
+      (
+        name: "Identity",
+        lbl: "r-identity",
+        content: [$a <--> \{a - a -> a\}$],
+      ),
+      (
+        name: "Singleton",
+        lbl: "r-singleton",
+        content: [
+          $a <--> \{a\}$.
+          // NOTE: this does add arrows. For clarity,
+          // could make this redundant and add a - g -> b here.
+        ],
+      ),
+      (
+        name: "Expansion",
+        lbl: "r-expansion",
+        content: [if $a - g -> b$, then
+          #box[$\{\@g, c\} <--> \{\{\{\@g, a\}, b\}, c\}$]],
+      ),
+      (
+        name: "Exclusion",
+        lbl: "r-exclusion",
+        content: [if $g <--> \{\@g, a\}$, then
+          #box[$\{\{\@g, "~"a\}, b\} <--> \{\@d, b\}$]],
+      ),
+      (
+        name: "Associativity",
+        lbl: "r-associativity",
+        content: [$\{a, \{b, c\}\} <--> \{\{a, b\}, c\}$],
+      ),
+      (
+        name: "Commutativity",
+        lbl: "r-commutativity",
+        content: [$\{a, b\} <--> \{b, a\}$],
+      ),
+    ),
+  )
+
 ]<unit-rules>
 
-#rule-table(
-  prefix: "R",
-  (
-    (
-      name: "Internal Transitivity",
-      lbl: "r-int-trans",
-      content: [$a - c -> b$ and $b - c -> d$ imply $a - c -> d$.],
-    ),
-    (
-      name: "Contextual Lifting",
-      lbl: "r-ctx-lift",
-      content: [$a - c -> b$ and $d - b -> g$ imply
-        $\{d - a -> g\} - c -> \{d - a -> g\}$.],
-    ),
-    (
-      name: "Empty",
-      lbl: "r-empty",
-      content: [$\{\@g, \{\}\} <--> g$.],
-    ),
-    (
-      name: "Null",
-      lbl: "r-null",
-      content: [$\{a - \{\} -> b\} <--> \{\}$.],
-    ),
-    (
-      name: "Handle Substitution",
-      lbl: "r-handle-sub",
-      content: [if handle $h_1$ is equal to handle $h_2$, then $h_1 <--> h_2$.],
-    ),
-    (
-      name: "Membership",
-      lbl: "r-membership",
-      content: [
-        $\{\@g, a\} <--> g$ if and only if $a - g -> a$.
-        // TODO: ensure this is clear! Need to distinguish from what
-        // we write in the syntax! Also, probably need to ensure
-        // this is *valid*, so with anonymous blocks, can't
-        // add new things! Wouldn't make sense! It would
-        // be a *whole* new thing.
-      ],
-    ),
-    (
-      name: "Field Access",
-      lbl: "r-field-access",
-      content: [
-        $g.a <--> a$ if and only if $a - g -> a$.
-        // TODO: make it clear what the current working context is!
-      ],
-    ),
-    (
-      name: "Toplevel",
-      lbl: "r-toplevel",
-      content: [$\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.],
-    ),
-    (
-      name: "Identity",
-      lbl: "r-identity",
-      content: [$a <--> \{a - a -> a\}$.],
-    ),
-    (
-      name: "Singleton",
-      lbl: "r-singleton",
-      content: [
-        $a <--> \{a\}$.
-        // NOTE: this does add arrows. For clarity,
-        // could make this redundant and add a - g -> b here.
-      ],
-    ),
-    (
-      name: "Expansion",
-      lbl: "r-expansion",
-      content: [if $a - g -> b$, then
-        $\{\@g, c\} <--> \{\{\{\@g, a\}, b\}, c\}$.],
-    ),
-    (
-      name: "Exclusion",
-      lbl: "r-exclusion",
-      content: [if $g <--> \{\@g, a\}$, then
-        $\{\{\@g, "~"a\}, b\} <--> \{\@d, b\}$.],
-    ),
-    (
-      name: "Associativity",
-      lbl: "r-associativity",
-      content: [$\{a, \{b, c\}\} <--> \{\{a, b\}, c\}$.],
-    ),
-    (
-      name: "Commutativity",
-      lbl: "r-commutativity",
-      content: [$\{a, b\} <--> \{b, a\}$.],
-    ),
-  ),
-)
 
 Test: @r-commutativity.
 
