@@ -214,8 +214,8 @@ We will intentionally _avoid_ defining equality on units and postpone this until
 
 We review the utility of each rule. Note that rules _between_ contexts is
 entirely flexible and user defined. Moreover, only *R1* is needed for Turing
-completeness. We will show, however, that the remaining axioms are optimal when
-organizing information, see @information-organization.
+completeness. However, the other rules are in place to help with organizing
+units as modules, as well as make it easier to use the language.
 
 - @r:transitivity and @r:context-lift were discussed in @rationale:unit.[TODO:
   maybe review the discussion from earlier? Might be useful to reinforce main
@@ -372,13 +372,10 @@ recursive definitions. However, the underlying construction is tedious and
 results in extremely verbose terms. Keys are assigned manually, which can easily
 be error prone. We will refine the proof with a *recursor* over units. This is a
 unit that indexes every unit, as well as every handle. We gradually build
-$"unit"$ based on notions for $"word"$ and $"handle"$.#footnote[
-  [TODO: discuss how we are allowing the variables to be the same or different!
-  Related to bundling in MetaMath + MetaMath Zero [and cite these!].]
-] Note that we will manually index new handles within the final bootstrap, see
-?.
+$"unit"$ based on notions for $"word"$ and $"handle"$. Note that we will
+manually index new handles within the final bootstrap, see ?.
 
-[TODO[SMALL]: enforce that scopes create new names!] #figure(
+#figure(
   [
     $"bit" --> 0 | 1$
 
@@ -410,7 +407,7 @@ $"RID"$, $"SYM"$ are words.
 We need to include equality as well, refer to @foundations:handle-equality:
 
 #figure(
-  [$"equality" <--> {\
+  [$"equals" <--> {\
     "0" <--> "0",\
     "1" <--> "1",\
     ~{"0" <--> "1"},\
@@ -433,8 +430,8 @@ We need to include equality as well, refer to @foundations:handle-equality:
 To show these constructions are correct, we must prove the following.
 
 #lemma[
-  For all handles $"h1", "h2"$, $"w1" <- "equality" -> "w2"$ if and only if
-  $w_1 = w_2$.
+  Let $"h1"$ and $"h2"$ be handles. Then $"h1" <- "equals" -> "h2"$ if and only
+  if $h_1 = h_2$.
 ]<foundations:bootstrap-equality-correctness>
 #proof[Clearly it is sufficient to show that equality on words is correct. To do
   so, we apply a simple proof by induction:
@@ -445,7 +442,10 @@ To show these constructions are correct, we must prove the following.
 Now, in @unit-rules, we needed enough _separate_ meta-variables. To do this in
 Welkin, we use representations of the form $"u" --> "unit"$. This appeared
 frequently when defining terms in @turing-expressible.
-
+#footnote[
+  [TODO: discuss how we are allowing the variables to be the same or different!
+  Related to bundling in MetaMath + MetaMath Zero [and cite these!].]
+]
 [TODO: maybe remove the cases of pairs for simplicity? Shouldn't these simplify
 due to associativity, so we _only_ need expansions?]
 
@@ -468,11 +468,14 @@ definitions written in the meta-language (English).
 #proof[Fix the context to be $"unit"$. We proceed induction on units:
   - *Base case:* this is immediate, as ${}$ and all handles are included.
   - *Inductive step:* immediate; $"unit"$ includes representations $a - b -> c$,
-    as well as cases for ${@g, u}$, and ${@g, ~u}$.
+    as well as cases for $@g$, ${g, u}$, and ${@g, ~u}$.
 ]<foundations:recursor-correctness>
 
+
 Now, for the rest of the thesis (except bootstrap), we will drop mentions of
-specific handles. These will all be facilitated by $"unit"$.
+specific handles. These will all be facilitated by $"unit"$. Moreover, if
+$u --> "unit"$, then $u - "unit" -> "unit"$, based on @r:identity and
+@r:transitivity. We will use this shorter form for brevity.
 
 == Base Verifier
 
