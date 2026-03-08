@@ -98,7 +98,9 @@ Now we can define units.
     - $\#h$, the *module marker*.
     - $@u$, the *expansion* of $u$.
     - ${u, v}$, the *pair* of $u, v$.
-    - ${@u, ~v}$, where $v$ is the *exclusion* of $u$.
+    - An *import block*, defined as ${@g}$ for a unit $g$, or as ${b, @u}$ or
+      ${b, ~u}$ for an import block $b$:.In ${b, ~u}$, $~u$ is the *exclusion*
+      of $u$.
     - $g.v$, the *access of $v$ on $g$*.
     // TODO: make the current working context clear!
     - A *representation* $a - c -> b$, where $a$ is the *sign*, $c$ is the
