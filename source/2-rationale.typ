@@ -179,7 +179,7 @@ Another example concerns contexts in the presence of unique objects.
   context, the referent need _not_ be more refined than the sign; this is an
   intenional design choice for flexibility. With a another context $"Taxonomy"$,
   we may naturally state that $"Mammal" - "Taxonomy" -> "Animal"$, and we could
-  say `Survey - instanceof -> Taxonomy`. Thus, the lifting rule implies in
+  say $"Survey" - "instanceof" -> "Taxonomy"$. Thus, the lifting rule implies in
   context $"instanceof"$, $"Mammal" - "Survey" -> "Animal"$. Using transitivity,
   we obtain $"Fido" - "Survey" -> "Animal"$ and $"Lucy" - "Survey" -> "Animal"$
   in context $"instanceof"$. We can interpret this example as saying that the
@@ -199,7 +199,8 @@ positionally invariant information, see @foundations:unit.
 Now, units and information themselves could be expressed in infinitely many
 languages, with slightly different syntax or semantics. Welkin is carefully
 designed to be a _minimal_ expression of these concepts, with minimal friction
-to express any other universal information base. These include:
+to express any other universal information base. We write these in ASCII in
+`type-writer` font to show that they are shown digitally. These include:
 
 - In ASCII, #box[`a - b -> c`] for representations. These can be interpreted
   _as_ rewrite rules, depending on the context.
@@ -214,17 +215,16 @@ to express any other universal information base. These include:
 
 - Imports are done through `@u`, which takes all subunits of `u` and puts them
   into the current scope. In other words, the implementation _implicitly_ adds
-  denotations `v <--> a.v` for each subunit `v` of `u`. This is motivated by the
-  abundance of boolean logic in classical mathematics and computer science, as
-  any finite circuit can be expressed in terms of `and` and `not`. Selecting
-  specific subunits can be done via `@u.{v, x}`.
+  denotations `v <--> a.v` for each subunit `v` of `u`.
 
-- Imports can be _negated_ via the notation `~@u`, and specific units can be
-  negated through `~u`. This is an uncommon feature of most programming
-  languages, appearing primarily in Haskell and CSS. While potentially opaque,
-  Welkin provides robust definitions to ensure that negated forms can be easily
-  translated into more explicit ones _and_ back again. [TODO[SMALL]: provide
-  link, probably to bootstrap or so?]
+- Selecting specific nested units can be done via `u.{v, x}` or, equivalently,
+  `@u.{v, x}`.
+
+- Imports can be _negated_ via the notation `{@g, ~u}`. This is an uncommon
+  feature of most programming languages, appearing primarily in Haskell and CSS.
+  While potentially opaque, Welkin provides robust definitions to ensure that
+  negated forms can be easily translated into more explicit ones _and_ back
+  again. [TODO[SMALL]: provide link, probably to bootstrap or so?]
 
 - Comments _are_ strings can be treated as any unit. No comments need to be
   removed in the files and can _enhance_ the study of new
@@ -250,7 +250,7 @@ separated these aspects, particularly when describing the syntax and semantics
 of the language. However, this left many proofs in English, making it difficult
 to transfer.
 
-[TODO: provide citaitons] The author's emphasis of proofs stems from formal
+[TODO: provide citations] The author's emphasis of proofs stems from formal
 methods, the study of providing mathematical proof to verify computer programs.
 A central notion in this field is the *Trusted Computing Base (TCB)* of a
 program, which is code used to implement it, as well as the axioms used to prove
@@ -258,38 +258,47 @@ its correctness. Many authors advocate for a small, fixed TCB. However, this is
 inefficient in practice... Setting for a single system, like ZFC, does not
 resolve whether Welkin is universal _for proofs_.
 
-To resolve both issues, we "bootstrap" Welkin from the ground up. This will
-enable Welkin to define the syntax _as_ a term in the language. We proceed as
-follows:
+To resolve both issues, we "bootstrap" Welkin from the ground up.
+- First, we show that Welkin can express any computer program, as well as a
+  verifier for its own claims.
+- Next, we define the syntax using the notion of *invertible syntax
+  descriptions*, introduced in @invertible-syntax-descriptions. This will allow
+  us to define the syntax _entirely_ in Welkin. We will also prove the syntax is
+  *unambiguous*, or that given any string, if it is accepted, there must be one
+  way to process it in the program.
+- Then, in @metatheory, we prove that our definition of information is complete
+  with respect to being accepted by a Turing machine.
+- Finally, in :@information-organization, we show how to include optimizations,
+  which can be expressed into the stored size of a unit.
 
-+ We establish the base rules on units (@unit-rules).
-+ Using English as our meta-language, we prove that our rules can define the $S$
-  and $K$ combinators as any combination of terms, and thus is Turing complete,
-  (@turing-expressible).
-+ We show the language has a natural unit that indexes every other index. This
-  term will act as a verifier for proofs, which we will show does _not_ limit
-  which proofs we accept.
+// + We establish the base rules on units (@unit-rules).
+// + Using English as our meta-language, we prove that our rules can define the $S$
+//   and $K$ combinators as any combination of terms, and thus is Turing complete,
+//   (@turing-expressible).
+// + We show the language has a natural unit that indexes every other index. This
+//   term will act as a verifier for proofs, which we will show does _not_ limit
+//   which proofs we accept.
 
-+ Provide the base meta-theory for the language _in_ Welkin. This will be PRA,
-  written in a combinator based form. We will show the main axioms of PRA hold.
+// + Provide the base meta-theory for the language _in_ Welkin. This will be PRA,
+//   written in a combinator based form. We will show the main axioms of PRA hold.
 
-+ Prove that Peano Arithmetic is provably sound in a weak sense using a method
-  developed by Artemov @artemov_serial_consistency. From there, we carry out
-  Feferman's Reflection theorem written with our notions.
+// + Prove that Peano Arithmetic is provably sound in a weak sense using a method
+//   developed by Artemov @artemov_serial_consistency. From there, we carry out
+//   Feferman's Reflection theorem written with our notions.
 
-+ Define handles and information. We also justify information organization to
-  promote the _most_ optimal paths to prove things, _if_ proofs are provided.
-  This is deeply connected to Blum's speedup theorem and is essential for
-  proving Goal 2.
+// + Define handles and information. We also justify information organization to
+//   promote the _most_ optimal paths to prove things, _if_ proofs are provided.
+//   This is deeply connected to Blum's speedup theorem and is essential for
+//   proving Goal 2.
 
-+ Define the rules for path resolution and global IDs. These use a similar
-  result to syntax descriptions and are significantly easier to read. [NOTE:
-  emphasis on WIP here! Not yet developed in thesis !]
+// + Define the rules for path resolution and global IDs. These use a similar
+//   result to syntax descriptions and are significantly easier to read. [NOTE:
+//   emphasis on WIP here! Not yet developed in thesis !]
 
-+ Finally, define the syntax through an _invertible syntax description_. This
-  idea, pioneered by Rendel and Ostermann @invertible-syntax-descriptions,
-  provides a combinator approach to define how concrete syntax, that is user
-  written, is converted into abstract syntax, an abstracted form, _and back_.
-  Along with the syntax, the encoding is given _itself_ through a
-  representation, namely a table provided in this thesis.
+// + Finally, define the syntax through an _invertible syntax description_. This
+//   idea, pioneered by Rendel and Ostermann @invertible-syntax-descriptions,
+//   provides a combinator approach to define how concrete syntax, that is user
+//   written, is converted into abstract syntax, an abstracted form, _and back_.
+//   Along with the syntax, the encoding is given _itself_ through a
+//   representation, namely a table provided in this thesis.
 

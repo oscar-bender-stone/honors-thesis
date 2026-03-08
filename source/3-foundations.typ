@@ -25,7 +25,6 @@ This section discuss the foundations of Welkin, as follows:
 + We define units and their rules.
 + We prove there is a unit that indexes every other unit
   (@foundations:base-recursor).
-This section is optional.
 + We define queries.
 
 == Base Rules
