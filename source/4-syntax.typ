@@ -104,7 +104,20 @@ see @syntax:string.
 == Invertible Syntax Descriptions
 
 To more easily describe the language, we provide basic building blocks. Note
-that one of these, $|$, can be desugared in the bootstrap.
+that one of these, $|$, can be desugared in the bootstrap. For simplicity, we do
+not add many primitives. The names are taken from the the `parsec` combinator
+library in the programming language Haskell @leijen-meijer-parsec. The authors
+use the following notation:
+
+- `seq` to mean two rules that must be concatenated _directly_, no whitespace
+  allowed.
+
+- `lexeme`, to mean two rules can be joined with any number of whitespaces in
+  between.
+
+In contrast to @leijen-meijer-parsec, however, we include the ability to _print_
+as well, via the ideas in @invertible-syntax-descriptions. For the combinators
+we need, see @syntax:base-combinators.
 
 #figure(
   [```
@@ -126,7 +139,7 @@ that one of these, $|$, can be desugared in the bootstrap.
 
   ```],
   caption: [Definitions for the main combinators used.],
-)
+)<syntax:base-combinators>
 
 == Character Classes
 

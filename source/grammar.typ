@@ -3,29 +3,33 @@
 
 #let grammar = [
   ```
-  start <--> nodes,
+  start <--> {nodes - lexeme -> EOF},
 
-  node <--> "" | {term - then -> {"," - then -> term} - then -> "," | "" },
+  terms <--> "" | {term - lexeme -> terms_tail},
+  terms_tail <--> {"," - lexeme -> term}
+    | ","
+    | "",
 
   term <--> {
-    node - then ->
+    node - seq ->
     {} | {
-      arc - then -> term
+      arc - seq -> term
     }
   },
 
-  arc <--> left_arc | right_arc | both_arc
-  left_arc <--> {"<-" - then -> node - then -> "-"}
-  right_arc <--> {"-" - then -> node - then -> "->"}
-  both_arc <--> {"<-" - then -> node - then -> "->"}
+  arc <--> right_arc | other_arc
+  right_arc <--> {"-" - seq -> node - seq -> "->"}
+  other_arc <--> {"<-" - seq -> node - seq -> ("-" | "->")}
 
-  node {path - then -> contents | {}}
+  node {path - lexeme -> contents | {}}
 
-  path {MODIFIER | {} --> path_segment* -then ->  unit}
+  path {MODIFIER | {} --> path_segment* - seq ->  unit}
 
   path_segment <--> UNIT | ".*" | {@times, factor --> "."}
 
   path_segment ::= UNIT | ".*" | "."+
+
+
   UNIT <--> ID | STRING
   ```
 ]
