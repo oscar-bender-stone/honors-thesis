@@ -279,7 +279,9 @@ As more notation, we write:
 - $a_1 | ... | a_n - c -> d$ to mean ${a_1 - c -> d, ..., a_n - c -> d}$.
 
 This simplifies the presentation of the rules. We postpone formally defining the
-operator $|$ to the syntax in @syntax.
+operator $|$ to the syntax in @syntax. Moreover, we allow
+$c --> | b_1 | b_2 | ... | b_n$, which is synonymou to
+$a - c -> b_1 | b_2 | ... | b_n$.
 
 Before we proceed to prove Turing completeness, we introduce the
 $"SK"$-combinator calculus. This is an equational theory that is well known to
@@ -430,9 +432,9 @@ We need to include equality as well, refer to @foundations:handle-equality:
     "h1" | "h2" --> "handle",\
     {"h1" <--> "h2"} <--> \
     {\
-      "h1.UID" <--> "h2.MID",\
-      "h1.RID" <--> "h1.RID" \
-      "h1.SYM" <--> "h1.SYM" \
+      "h1.MID" <--> "h2.MID",\
+      "h1.RID" <--> "h2.RID" \
+      "h1.SYM" <--> "h2.SYM" \
     }
   }$],
   caption: [Definitions of equality in Welkin.],
