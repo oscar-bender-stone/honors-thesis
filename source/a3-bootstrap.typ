@@ -52,10 +52,50 @@ verify {
   query { context | goal --> ..unit },
   derivation --> .unit,
 
-  derivation - verify -> query
+  derivation - verify -> query,
+}
+
+numeral {
+  base {
+    bit <--> ..bit,
+    digit <--> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
+    nibble <--> @decimal | A | B | C | D | E | F,
+  },
+
+  system {
+    binary <--> ..word,
+    decimal <--> {} | {top --> .base.digit | next --> decimal},
+    hexadecimal <--> {} | {top --> .base.nibble | next --> decimal},
+    hex <--> hexadecimal
+  },
+
+  convert {
+
+  }
+}
+
+encoding {
+
+
+}
+
+characters {
+
+
+}
+
+syntax {
+
+
 }
 
 information {
+
+}
+
+
+compress {
+
 
 }
 

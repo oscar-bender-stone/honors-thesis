@@ -110,6 +110,8 @@ Now we can define units.
 We will intentionally _avoid_ defining equality on units and postpone this until
 @foundations:base-recursor.
 
+// TODO: maybe provide technique for unused imports?
+// Might JUST want to have for later, not have as part of unit.
 #definition[
   The following rules apply, stated over meta-variables $a, b, c, d, g$ for
   units and $h_1, h_2$ for handles:
