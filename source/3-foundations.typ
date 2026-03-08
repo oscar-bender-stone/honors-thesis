@@ -90,7 +90,7 @@ unique.
     - The symbol ${}$, the *empty block*.
   - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
     combination of the following are also units:
-    - $\#h$, the *toplevel marker*.
+    - $\#h$, the *module marker*.
     - $@u$, the *expansion* of $u$.
     - ${u, v}$, the *pair* of $u, v$.
     - ${@u, ~v}$, where $v$ is the *exclusion* of $u$.
@@ -103,9 +103,6 @@ unique.
 
 We will intentionally _avoid_ defining equality on units and postpone this until
 @foundations:base-recursor.
-
-[TODO[SMALL]: FIX order of rules! Need to refactor code to generate labels.
-Important! This will avoid manual numbering _and_ ease referencing rules.]
 
 [TODO[SMALL]: Clarify role of global context!]
 
@@ -142,6 +139,28 @@ Important! This will avoid manual numbering _and_ ease referencing rules.]
         content: [If handle $h_1$ is equal to handle $h_2$, then
           $h_1 <--> h_2$.],
       ),
+
+      (
+        name: "Identity",
+        lbl: "r:identity",
+        content: [$a <--> \{a - a -> a\}$],
+      ),
+
+      (
+        name: "Singleton",
+        lbl: "r:singleton",
+        content: [
+          $a <--> \{a\}$.
+          // NOTE: this does add arrows. For clarity,
+          // could make this redundant and add a - g -> b here.
+        ],
+      ),
+
+      (
+        name: "Module",
+        lbl: "r:module",
+        content: [$\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.],
+      ),
       (
         name: "Membership",
         lbl: "r:membership",
@@ -160,25 +179,6 @@ Important! This will avoid manual numbering _and_ ease referencing rules.]
         content: [
           $g.a <--> a$ if and only if $a - g -> a$.
           // TODO: make it clear what the current working context is!
-        ],
-      ),
-      (
-        name: "Module",
-        lbl: "r:module",
-        content: [$\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.],
-      ),
-      (
-        name: "Identity",
-        lbl: "r:identity",
-        content: [$a <--> \{a - a -> a\}$],
-      ),
-      (
-        name: "Singleton",
-        lbl: "r:singleton",
-        content: [
-          $a <--> \{a\}$.
-          // NOTE: this does add arrows. For clarity,
-          // could make this redundant and add a - g -> b here.
         ],
       ),
       (
@@ -217,23 +217,26 @@ organizing information, see @information-organization.
 - @r:transitivity and @r:context-lift were discussed in @rationale:unit.[TODO:
   maybe review the discussion from earlier? Might be useful to reinforce main
   ideas to reader.]
-- @r:handle-sub enables equality in handles to pass through into
-  representations. Besides this, note that equivalences on units are _entirely_
-  user defined.
-- @r:field-access provides a mechanism to access specific units in a scope. The
-  notation is entirely inspired by object oriented programming.
 - @r:empty and @r:null define the behavior of the empty unit ${}$, similar to
   the empty set. @r:null specifically states that ${}$ contains _no_
   representations, so any term $a - {} -> b$ may be written.
-- @r:identity provides a way to represent $a in g$ through the representation
-  $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, _not_
-  identity. Instead, identity is expressed by ${a - a -> a}$, see the discussion
-  below.
+- @r:handle-sub enables equality in handles to pass through into
+  representations. Besides this, note that equivalences on units are _entirely_
+  user defined.
+- @r:identity represents identity. This is _not_ the same as $a - g -> a$, see
+  the discussion below.
+- @r:module ensures that a _given_ module is unique. This is only accessible at
+  the highest scope in a file, see @syntax.
 - @r:singleton reduces extraneous blocks. Note that this is _not_ the same thing
   as the Quine atom, which states ${a} = a$ in a set theoretic context
   @quine:new-foundations. We interpret ${a}$ as a _wrapper_ around $a$. While
   not useful for handles, it is for specifying blocks of representations, such
   as ${a - b -> c, b - c -> d}$.
+- @r:membership provides a way to represent $a in g$ through the representation
+  $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, _not_
+  identity.
+- @r:field-access provides a mechanism to access specific units in a scope. The
+  notation is entirely inspired by object oriented programming.
 - @r:expansion and @r:exclusion define how imports in the language work. An
   *import* is the process of joining the contents of one unit into another.
   @r:expansion says how an import can add new units in a block. @r:exclusion
