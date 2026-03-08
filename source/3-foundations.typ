@@ -156,28 +156,32 @@ We will intentionally _avoid_ defining equality on units and postpone this until
         lbl: "r:singleton",
         content: [
           $a <--> \{a\}$.
-          // NOTE: this does add arrows. For clarity,
-          // could make this redundant and add a - g -> b here.
         ],
       ),
+      // TODO: create a "current working file" or such,
+      // or "current working context", and then use *that*
+      // when getting input! (Though it could be streamed;
+      // we're using handles as an effective abstraction here!)
+      // (
+      //   name: "Module",
+      //   lbl: "r:module",
+      //   content: [$\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.],
+      // ),
 
-      (
-        name: "Module",
-        lbl: "r:module",
-        content: [$\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.],
-      ),
+      // NOTE: may say this does add arrows?
       (
         name: "Membership",
         lbl: "r:membership",
         content: [
           $\{\@g, a\} <--> g$ if and only if $a - g -> a$.
-          // TODO: ensure this is clear! Need to distinguish from what
-          // we write in the syntax! Also, probably need to ensure
-          // this is *valid*, so with anonymous blocks, can't
-          // add new things! Wouldn't make sense! It would
-          // be a *whole* new thing.
         ],
       ),
+
+      // TODO: ensure this is clear! Need to distinguish from what
+      // we write in the syntax! Also, probably need to ensure
+      // this is *valid*, so with anonymous blocks, can't
+      // add new things! Wouldn't make sense! It would
+      // be a *whole* new thing.
       (
         name: "Field Access",
         lbl: "r:field-access",
@@ -198,6 +202,8 @@ We will intentionally _avoid_ defining equality on units and postpone this until
         content: [if $g <--> \{\@g, a\}$, then
           #box[$\{\{\@g, "~"a\}, b\} <--> \{\@d, b\}$]],
       ),
+      // TODO: show that there's a form of associativity
+      // and commutativity for import blocks!
       (
         name: "Associativity",
         lbl: "r:associativity",
@@ -230,8 +236,8 @@ units as modules, as well as make it easier to use the language.
   user defined.
 - @r:identity represents identity. This is _not_ the same as $a - g -> a$, see
   the discussion below.
-- @r:module ensures that a _given_ module is unique. This is only accessible at
-  the highest scope in a file, see @syntax.
+// - @r:module ensures that a _given_ module is unique. This is only accessible at
+//   the highest scope in a file, see @syntax.
 - @r:singleton reduces extraneous blocks. Note that this is _not_ the same thing
   as the Quine atom, which states ${a} = a$ in a set theoretic context
   @quine:new-foundations. We interpret ${a}$ as a _wrapper_ around $a$. While
