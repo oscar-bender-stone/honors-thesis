@@ -137,11 +137,16 @@ we need, see @syntax:base-combinators.
 
 #figure(
   [```
+  "TODO: provide a way to indicate what are input strings!",
   s | t | u | v --> unit,
 
   description <--> {parse --> unit, print --> unit},
 
-  WHITESPACE_MANY <--> {WHITESPACE - then -> WHITESPACE_MANY},
+  WHITESPACE_MANY <--> "" | {WHITESPACE - then -> WHITESPACE_MANY},
+
+  {before - seq -> after} <--> ?,
+
+  {before - then -> after} <--> {before - seq -> WHITESPACE_MANY - seq -> after},
 
   ```],
   caption: [Definitions for the main combinators used.],
