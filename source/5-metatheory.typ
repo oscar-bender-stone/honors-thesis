@@ -368,16 +368,43 @@ of Welkin is to be _as_ expressive as possible, especially as impredicative
 theories have use in certain areas, e.g., formal methods projects [TODO: cite
 these!]
 
-We now prove a major property of Welkin.
+Due to Artemov, there is a _massive_ jump from $I Delta_0$ all the way to
+$"ZFC"$. This is because, over $I Delta_0$ as the base-theory, $"ZFC"$ is
+self-verifying (proves its own soundness. A reason for this power in $"ZFC"$ is
+the axiom of replacement, or even comprehension. We extend this realization
+using hyperarithmetic sets, which are known to cover every recursive ordinal,
+see @kleene-ordinal-notation [TODO: make sure this citation is correct!]. Based
+on Kleene's theorem, our key construction in the limit case is to add this: let
+$lambda$ be a limit ordinal and consider all given theories
+$T_1, T_2, ..., T_beta, ...$ with $beta < lambda$. Then
+$T_lambda = union.big_(beta < lambda) T_beta union "Comp"_lambda (Delta^1_1)$.
+The set $"Comp"_lambda (Delta^1_1)$ is an axiom schema over each proposition
+$phi$ definable in the extended theory, stating that [TODO: clarify notation!
+And double check hyperarithmetic literature!]
+
+$exists X_(phi, lambda). forall n. (n in X <=> (exists p. "Prov"(T_{psi(p)}), phi(p)))$.
+
+Note that this set is encoded through $I Delta_0$ through an appropriate
+encoding. And the provability predicate is also encoded through the base theory.
+[TODO: clarify these encodings!] This new axiom naturally extends the Axiom of
+Comprehension through _other_ sound theories.
+
+[TODO: clarify that hyperarithmetic sets are connected to definability in
+$Delta^1_1$!]
+
+We now prove a major property of Welkin.[TODO: definitely clean up!]
 
 #theorem[The unit $"meta"$ expresses any computably expressible proof. More
   precisely, for any recursive ordinal $alpha$, there is a unit $T in "meta"$
   with greater theoretic proof ordinal than $alpha$.
 ]<metatheory:complete-proof-expressivity>
 #proof[
-
-
-
+  Using only autonomous progressions [CITE!], it is already know that one can
+  reach the Feferman-Schütte ordinal $Gamma_0$. We may therefore focus on
+  reaching higher ordinals, which depends on the limit case. But
+  @kleene-ordinal-notation already proves that using hyper-arithmetic sets in
+  the successor ensures that we can find _some_ $beta > alpha$. This completes
+  the proof.
 ]
 
 Note, however, that detecting if an ordinal is recursive is undecidable. The
@@ -386,4 +413,10 @@ upper bound is the best one can hope for, in general.
 As an immediate corollary, this proves that $"unit"$, being a simple verifier,
 does _not_ impose further restrictions on proofs. Moreover, additional layers of
 meta-theories are not needed, thanks to how expressive serial-soundness is.
+
+#remark[
+  The definition of information encompasses _every_ meta-proof.
+  @metatheory:complete-proof-expressivity is to show that even _one_ chain of
+  theories is enough to majorize each recursive ordinal. And the construction is
+  entirely definable by a Turing machine!]
 
