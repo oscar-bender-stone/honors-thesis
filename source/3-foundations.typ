@@ -539,7 +539,7 @@ Fill in $\_$!]
   TBD[FINISH full inductive proof!]
 ]
 Note that this verifier, as simple as it is, will _not_ limit what proofs can be
-expressed. We prove this in @metatheory:transfinite-induction.
+expressed. We prove this in @metatheory:complete-proof-expressivity.
 
 == Queries and Information
 

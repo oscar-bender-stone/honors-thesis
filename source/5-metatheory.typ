@@ -111,7 +111,7 @@ use $I Sigma_0$ to denote $I Delta_0$.
 An important consequence of this theorem is the following, proving that the
 meta-theory for Welkin is as minimal as possible.
 
-Now we proceed that Welkin's verifier is itself can process any $I Delta_0$
+Now we proceed that Welkin's $"verifier"$ is itself can process any $I Delta_0$
 proof.
 
 #lemma[
@@ -131,7 +131,7 @@ proof.
 ]
 
 #theorem[
-  Welkin's verifier verifies there is a context with all derivations of
+  Welkin's $"verifier"$ verifies there is a context with all derivations of
   $I Delta_0$.
 ]<foundations:welkin-to-I-Delta0>
 #proof[
@@ -287,17 +287,13 @@ corresponds to composition of meta-proofs.
 #proof[
   Suppose $u$ is serial-sound. Then, in the context $u$, $u$ contains the a
   selector of $u'$. This selector can then be composed with that from $u''$
-  proven in $u'$ to complete the proof.],
+  proven in $u'$ to complete the proof.]
 
 == The Meta Unit <metatheory:meta-unit>
 
 [TODO: complete! Want to ensure that proofs can be _chains_ of serial-sound
-units.]
-
-[TODO: show that we can include _any_ specified derivation. So one can imagine
-taking a terminating sequence that shows each successive theory is sound,
-stepping from one to the next, and then relying on a derivation at the _final_
-theory. ]
+units. Moreover, should include _any_ expressible derivation that is
+"reliable"!]
 
 #definition[
   The *meta recursor* $"meta"$ over all units is defined recursively:
@@ -353,30 +349,35 @@ To show that this covers _every_ proof that can be computably recognized, we
 need to discuss recursive ordinals. We provide an embedding via $"unit"$. For
 more background on ordinals, refer to @monk-set-theory[Ch. 2],
 @kleene-ordinal-notation. To keep the presentation self-contained, we will
-_define_ ordinals in a restricted context through transfinite induction.
+define a unit for recursive ordinals. [TODO: maybe use a separate appendix?]
 
-#definition[The unit $"recursive_ordinal"$ is defined recursively, containing
-  nothing else:
-  - *Base:* $0 in "recursive_ordinal"$.
-  - *Successor:*
-  - *Limit:*
-]<metatheory:transfinite-induction>
+// #definition[The unit $"recursive_ordinal"$ is defined recursively, containing
+//   nothing else:
+//   - *Base:* $0 in "recursive_ordinal"$.
+//   - *Successor:*
+//   - *Limit:*
+// ]<metatheory:transfinite-induction>
 
-#[TODO: probably add a big idea marker here!]
 
-// TODO: build on this! Very very important!
-The primary idea is: derivations about a unit can be checked from other
-_external_ units, IF they can be proven to be reliable..
+At a high level, it is not enough to carry out a _successor_ step, and then
+solely combine theories through a union in the limit stage. At most, we can only
+reach the Feferman–Schütte ordinal, denoted $Gamma_0$. [CITE!]. [TODO: discuss
+predicative and impredicative theories more closely!] Feferman himself
+_advocated_ for the sole use of predicative mathematics [CITE]. However, the aim
+of Welkin is to be _as_ expressive as possible, especially as impredicative
+theories have use in certain areas, e.g., formal methods projects [TODO: cite
+these!]
 
-Note that using a _specific_ mechanism here does not limit Welkin's
-expressivitiy. We will clarify this in the following theorem.
+We now prove a major property of Welkin.
 
 #theorem[The unit $"meta"$ expresses any computably expressible proof. More
   precisely, for any recursive ordinal $alpha$, there is a unit $T in "meta"$
-  with greater theoretic proof ordinal than $alpha$
-]
+  with greater theoretic proof ordinal than $alpha$.
+]<metatheory:complete-proof-expressivity>
 #proof[
-  TBD.
+
+
+
 ]
 
 Note, however, that detecting if an ordinal is recursive is undecidable. The
