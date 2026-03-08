@@ -8,12 +8,7 @@
 
 = Rationale <rationale>
 
-[TODO[MEDIUM]: make sure that the rationale blends nicely with some of these
-sections! For non-experts, say in logic, they should _not_ need to read _how_
-the meta-theory works or such. They should only need to follow the bootstrap and
-understand the syntax.]
-
-syntaaxIn this section, we justify the design of Welkin.
+In this section, we justify the design of Welkin.
 
 == General Requirements
 
@@ -60,7 +55,7 @@ respectively. Each ID serves the following purpose:
   or provide a static snapshot of a unit. This is _not_ a restriction on
   representing dynamic entities, but rather, this indicates to the information
   base which version of a handle to use.
-- The *symbol ID* $"SID"$ refers to the symbol used to index the handle.
+- The *symbol ID* $"SYM"$ refers to the symbol used to index the handle.
 
 We illustrate the use of these IDs in an example.
 
@@ -160,38 +155,40 @@ provide a simplified version of one McCarthy's examples below. For more existing
 examples in the literature, refer to
 @declarative-formalization-knowledge-translation.
 
+[TODO: clean up further!]
 #example[*(McCarthy's Above Theory).* Consider a set of physical blocks. Denote
-  the unit `above` to represent the relation `block A is above block B`. We want
-  to say this could be `on` to mean `block A is on block B`, or `floating_above`
-  to mean `block A is floating above block B`. One way to state is as two
-  axioms: and we could state as an axiom: `A - on -> B` implies `A - above -> B`
-  and `A - floating_above -> B` implies `A - floating_above -> B`. Lifting
-  provides a more economical approach _without_ needing to provide explicit
-  terms, or provides a "point-free" rendering. We could that, within `above`,
-  `above` represents `on` and `above` represents `floating_above`. In other
-  words, `above` _precisely abstracts_ from the precise relationship between the
-  two blocks.]
+  the unit $"above"$ to represent the relation: _block $"A"$ is above block
+  $"B"$_. We want to say this could be $"on"$ to mean: _block $"A"$ is on block
+  $"B"$_, or $"floating_above"$ to mean: "block $"A"$ is floating above block
+  $"A"$. One way to state is as two axioms: $$ . Alternatively, we could state
+  as one axiom: $"A" - "on" -> "B"$ implies $"A" - "above"-> "B"$ and
+  $"A" - "floating_above" -> "B"$ implies $"A" - "floating_above" -> "B"$.
+  Lifting provides a more economical approach _without_ needing to provide
+  explicit terms, or provides a "point-free" rendering. We could that, within
+  $"above"$, $"above"$ represents $"on"$ and $"above"$ represents
+  $"floating_above"$. In other words, $"above"$ _precisely abstracts_ from the
+  precise relationship between the two blocks.]
 
 Another example concerns contexts in the presence of unique objects.
 
-#example[Consider a biological survey of home pets, denoted by context `Survey`.
-  Suppose there are two units in `Mammal`, say a dog `Fido` and a cat `Lucy`. We
-  could state that `Fido` _represents_ `Mammal`, to say that `Fido` acts as a
-  stand-in for a mammal in the survey. The same could be said with `Lucy`
-  representing `Mammal`. Note that, depending on the context, the referent need
-  _not_ be more refined than the sign; this is an intenional design choice for
-  flexibility. With a another context `Taxonomy`, we may naturally state that
-  `Mammal - Taxonomy -> Animal`, and we could say
-  `Survey - instanceof -> Taxonomy`. Thus, the lifting rule implies in context
-  `instanceof`, `Mammal - Survey -> Animal`. Using transitivity, we obtain
-  `Fido - Survey -> Animal` and `Lucy - Survey -> Animal` in context
-  `instanceof`. We can interpret this example as saying that the _relationships_
-  of a general taxonomy are witnessed by a specific taxonomy, namely `Survey`,
-  and that they propagate through contexts.#footnote[In programming languages,
-    particularly C++ @stroustrup-cpp-lang and Java @java-reference, this
-    property is known as "upcasting", with a less refined base class being
-    replaced with a more refined subclass. The reverse is "downcasting". Both
-    are supported by Welkin for full expressivity.]
+#example[Consider a biological survey of home pets, denoted by context
+  $"Survey"$. Suppose there are two units in $"Mammal"$, say a dog $"Fido"$ and
+  a cat $"Lucy"$. We could state that $"Fido"$ _represents_ $"Mammal"$, to say
+  that $"Fido"$ acts as a stand-in for a mammal in the survey. The same could be
+  said with $"Lucy"$ representing $"Mammal"$. Note that, depending on the
+  context, the referent need _not_ be more refined than the sign; this is an
+  intenional design choice for flexibility. With a another context $"Taxonomy"$,
+  we may naturally state that $"Mammal" - "Taxonomy" -> "Animal"$, and we could
+  say `Survey - instanceof -> Taxonomy`. Thus, the lifting rule implies in
+  context $"instanceof"$, $"Mammal" - "Survey" -> "Animal"$. Using transitivity,
+  we obtain $"Fido" - "Survey" -> "Animal"$ and $"Lucy" - "Survey" -> "Animal"$
+  in context $"instanceof"$. We can interpret this example as saying that the
+  _relationships_ of a general taxonomy are witnessed by a specific taxonomy,
+  namely $"Survey"$, and that they propagate through contexts.#footnote[In
+    programming languages, particularly C++ @stroustrup-cpp-lang and Java
+    @java-reference, this property is known as "upcasting", with a less refined
+    base class being replaced with a more refined subclass. The reverse is
+    "downcasting". Both are supported by Welkin for full expressivity.]
 ]<rationale:more-to-less-refined>
 
 The remaining rules are primarily for efficiency, enabling users to have

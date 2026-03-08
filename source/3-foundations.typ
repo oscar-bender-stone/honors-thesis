@@ -502,7 +502,7 @@ useful optimizations, see @information-organization.
     - *Inductive step:* There are three cases:
       - *Representations:* immediate.
       - *Expansions:* .
-      - *Exclusions:* opposite to the case above.
+      - *Exclusions:* .
   - *Inductive step:* similar to the base case. [TODO: complete this proof! But
     it is straightforward.]
 ]<foundations:in-correctness>
