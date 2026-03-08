@@ -50,12 +50,19 @@ as free parameters in the theory#footnote[For mathematicians, this is analogous
   to how key notions are left undefined in Hilbert's formalism of geometry, or
   how a "set" is an undefined notion in set theory.] In an information base,
 handles are uniquely identified through their *key*, directly inspired by
-database theory. Keys are with triples of IDs $("UID", "RID", "HID")$, whose
-contents are the *user ID*, *revision ID*, and *handle ID*, respectively.
-Revisions ensure that storing axioms is *immutable*, or that a particular handle
-does not change over time. This is _not_ a restriction on dynamic entities, but
-rather an indication to the information base to determine a particular version
-of a handle.
+database theory. Keys are with triples of IDs $("OID", "MID", "RID", "SID")$,
+whose contents are the *origin ID*, *module ID*, *revision ID*, and *handle ID*,
+respectively. Each ID serves the following purpose:
+
+- The *origin ID* $"OID"$
+- The *module ID* $"MID"$ defines the ID for a given string written in Welkin.
+- The *revision ID* $"RID"$ ensures that storing specifications is *immmutable*,
+  or provide a static snapshot of a unit. This is _not_ a restriction on
+  representing dynamic entities, but rather, this indicates to the information
+  base which version of a handle to use.
+- The *symbol ID* $"SID"$ refers to the symbol used to index the handle.
+
+We illustrate the use of these IDs in an example.
 
 #example[
   In a scientific experiment, a handle could be an observation or experimental
