@@ -396,7 +396,7 @@ manually index new handles within the final bootstrap, see ?.
   [
     $"bit" --> 0 | 1$
 
-    $"word" <--> "empty" | {"top" --> "bit", "next" --> "word"}$
+    $"word" <--> "{}" | {"top" --> "bit", "next" --> "word"}$
   ],
   caption: [Generator for words in Welkin.],
 )<foundations:bootstrap-binary-word>
@@ -405,7 +405,7 @@ This is similar to the Lisp definition of a list. In detail:
 
 - $"bit"$ represents $0$ or $1$.
 
-- $"word"$ is recursively defined, as either $"empty"$ or the pair
+- $"word"$ is recursively defined, as either $"{}"$ (for empty) or the pair
   ${"top", "next"}$, where $"top"$ is a $"bit"$ and $"next"$ is a $"word"$.
 
 From there, we can define handle IDs through triples, see
@@ -413,7 +413,7 @@ From there, we can define handle IDs through triples, see
 
 #figure(
   [
-    $"handle" <--> {"MID" --> "word", "RID" --> "word", "SYM" --> "word"}$
+    $"handle" <--> {"MID" | "RID" | "SYM" --> "word"}$
   ],
   caption: [Generator for handle keys in Welkin.],
 )<foundations:bootstrap-handle-id>
@@ -429,14 +429,13 @@ We need to include equality as well, refer to @foundations:handle-equality:
     "1" <--> "1",\
     ~{"0" <--> "1"},\
     "w1" | "w2" --> "word",\
-    {"w1" <--> "w2"} <--> {"w1" <--> "empty" <--> "w2"} \
-    | {"w1.top" <--> "w2.top", "w1.next" <--> "w2.next"}, \
+    {"w1" <--> "w2"} &<--> {"w1" <--> {} <--> "w2"} \
+    &| {"w1.top" <--> "w2.top", "w1.next" <--> "w2.next"}, \
     "h1" | "h2" --> "handle",\
-    {"h1" <--> "h2"} <--> \
-    {\
-      "h1.MID" <--> "h2.MID",\
-      "h1.RID" <--> "h2.RID" \
-      "h1.SYM" <--> "h2.SYM" \
+    {"h1" <--> "h2"} <--> {\
+      &"h1.MID" <--> "h2.MID",\
+      &"h1.RID" <--> "h2.RID" \
+      &"h1.SYM" <--> "h2.SYM" \
     }
   }$],
   caption: [Definitions of equality in Welkin.],

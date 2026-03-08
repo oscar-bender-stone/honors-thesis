@@ -135,6 +135,10 @@ In contrast to @leijen-meijer-parsec, however, we include the ability to _print_
 as well, via the ideas in @invertible-syntax-descriptions. For the combinators
 we need, see @syntax:base-combinators.
 
+
+[TODO: an important thing is making sure that when using the standard library,
+invariants are held! So we may need verifier to come into play here!]
+
 #figure(
   [```
   "TODO: indicate errors somehow!",
