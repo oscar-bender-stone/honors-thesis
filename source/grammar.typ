@@ -3,22 +3,29 @@
 
 #let grammar = [
   ```
-  start <--> terms,
+  start <--> nodes,
 
-  // terms ::= term ("," term)* ","? | EPS
+  node <--> "" | {term - then -> {"," - then -> term} - then -> "," | "" },
 
-  terms <--> {term --> top, {top --> {top --> ",", next --> term} | "," | "" --> next} --> next}
+  term <--> {
+    node - then ->
+    {} | {
+      arc - then -> term
+    }
+  },
 
-  // term  <--> arc | graph | tuple | path
-  // arc          ::= (term ("-" | "<-") term ("-" | "->"))+ term
-  // graph        ::= path? "{" terms "}"
-  // tuple        ::= path? "(" terms ")"
+  arc <--> left_arc | right_arc | both_arc
+  left_arc <--> {"<-" - then -> node - then -> "-"}
+  right_arc <--> {"-" - then -> node - then -> "->"}
+  both_arc <--> {"<-" - then -> node - then -> "->"}
 
-  path         ::= MODIFIER? path_segment* unit
+  node {path - then -> contents | {}}
 
-  path_segment <--> unit | ".*" | {@times, factor --> "."}
+  path {MODIFIER | {} --> path_segment* -then ->  unit}
 
-  path_segment ::= unit | ".*" | "."+
-  unit         ::= ID | STRING
+  path_segment <--> UNIT | ".*" | {@times, factor --> "."}
+
+  path_segment ::= UNIT | ".*" | "."+
+  UNIT <--> ID | STRING
   ```
 ]

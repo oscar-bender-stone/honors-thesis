@@ -78,11 +78,6 @@ numeral {
   }
 }
 
-encoding {
-
-
-}
-
 characters {
 
 

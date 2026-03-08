@@ -120,6 +120,10 @@ that one of these, $|$, can be desugared in the bootstrap.
 
   atomic <--> ?,
   lexeme <--> {@pair, {top --> s, next --> ""}}
+
+
+  delimit <--> {start --> .character, content --> .unit, end --> .character}
+
   ```],
   caption: [Definitions for the main combinators used.],
 )
