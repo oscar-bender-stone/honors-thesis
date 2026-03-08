@@ -257,13 +257,16 @@ units as modules, as well as make it easier to use the language.
   never be expanded!
 - @r:associativity, @r:commutativity, and @r:import-commutativity ensure that
   information can be repeated and can be put into any order. Note that this does
-  *not* mean ${a, {@g, ~b}} <--> {@g, {a, ~b}}$. If this were the case, then one
-  could write ${a, {@{a}, ~a}}$ and produce ${}$, so new extensions of the
-  second unit are impossible!
+  *not* mean ${a, {@g, ~b}} <--> {@g, {a, ~b}}$ for general units $a, b$. If
+  this were the case, then one could write ${a, {@{a}, ~a}}$ and produce ${}$,
+  so extending certain units would be impossible!
 
 We provide some reoccurring properties in the lemma below.
 
 #lemma[
+  - For every unit $u$, there exists a unit $u'$ with at least one more entity
+    than $u$. [TODO: make this more clear! This says units can always be
+    extended to new ones!]
   - Import blocks are locally associative. More precisely, given import blocks
     $m_1, m_2$ and units $u, v$, #box[${m_1, {m_2, ~u}} <--> {m_2, {m_1, ~u}}$].
 ]<foundations:lemma-properties>

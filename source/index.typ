@@ -35,7 +35,9 @@
   )),
 )
 
+// TODO: add appendix header in single outline!
 #outline()
+
 
 #include "1-introduction.typ"
 #include "2-rationale.typ"
@@ -45,3 +47,16 @@
 // #include "5-semantics.typ"
 #include "6-information-organization.typ"
 #include "7-conclusion.typ"
+
+// TODO: fix numbering!
+#let appendix(body) = {
+  // pagebreak()
+  set heading(numbering: "A", supplement: [Appendix])
+  counter(heading).update(0)
+  body
+}
+
+
+#show: appendix
+#include "a3-bootstrap.typ"
+
