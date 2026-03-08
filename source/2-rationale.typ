@@ -50,12 +50,12 @@ as free parameters in the theory#footnote[For mathematicians, this is analogous
   to how key notions are left undefined in Hilbert's formalism of geometry, or
   how a "set" is an undefined notion in set theory.] In an information base,
 handles are uniquely identified through their *key*, directly inspired by
-database theory. Keys are with triples of IDs $("OID", "MID", "RID", "SID")$,
-whose contents are the *origin ID*, *module ID*, *revision ID*, and *handle ID*,
+database theory. Keys are with triples of IDs $("MID", "RID", "SID")$, whose
+contents are the *origin ID*, *module ID*, *revision ID*, and *handle ID*,
 respectively. Each ID serves the following purpose:
 
-- The *origin ID* $"OID"$
 - The *module ID* $"MID"$ defines the ID for a given string written in Welkin.
+  This identifies the *parent* of the contents of a string.
 - The *revision ID* $"RID"$ ensures that storing specifications is *immmutable*,
   or provide a static snapshot of a unit. This is _not_ a restriction on
   representing dynamic entities, but rather, this indicates to the information
@@ -136,6 +136,8 @@ users can assert their own notions of these terms by creating restricted
 contexts. There are technical constructions to show that our definition is _as
 general_ as possible (@foundations:information), as well as optimally organized
 (@information-organization).
+
+== Base Rules
 
 There are two primary inference rules, which we informally describe now:
 

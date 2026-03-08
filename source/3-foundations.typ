@@ -117,34 +117,34 @@ Important! This will avoid manual numbering _and_ ease referencing rules.]
     (
       (
         name: "Internal Transitivity",
-        lbl: "r-int-trans",
+        lbl: "r:transitivity",
         content: [$a - c -> b$ and $b - c -> d$ imply $a - c -> d$.],
       ),
       (
         name: "Contextual Lifting",
-        lbl: "r-ctx-lift",
+        lbl: "r:context-lift",
         content: [$a - c -> b$ and $d - b -> g$ imply
           #box[$\{d - a -> g\} - c -> \{d - a -> g\}$]],
       ),
       (
         name: "Empty",
-        lbl: "r-empty",
+        lbl: "r:empty",
         content: [$\{\@g, \{\}\} <--> g$],
       ),
       (
         name: "Null",
-        lbl: "r-null",
+        lbl: "r:null",
         content: [$\{a - \{\} -> b\} <--> \{\}$],
       ),
       (
         name: "Handle Substitution",
-        lbl: "r-handle-sub",
+        lbl: "r:handle-sub",
         content: [If handle $h_1$ is equal to handle $h_2$, then
           $h_1 <--> h_2$.],
       ),
       (
         name: "Membership",
-        lbl: "r-membership",
+        lbl: "r:membership",
         content: [
           $\{\@g, a\} <--> g$ if and only if $a - g -> a$.
           // TODO: ensure this is clear! Need to distinguish from what
@@ -156,25 +156,25 @@ Important! This will avoid manual numbering _and_ ease referencing rules.]
       ),
       (
         name: "Field Access",
-        lbl: "r-field-access",
+        lbl: "r:field-access",
         content: [
           $g.a <--> a$ if and only if $a - g -> a$.
           // TODO: make it clear what the current working context is!
         ],
       ),
       (
-        name: "Toplevel",
-        lbl: "r-toplevel",
+        name: "Module",
+        lbl: "r:module",
         content: [$\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.],
       ),
       (
         name: "Identity",
-        lbl: "r-identity",
+        lbl: "r:identity",
         content: [$a <--> \{a - a -> a\}$],
       ),
       (
         name: "Singleton",
-        lbl: "r-singleton",
+        lbl: "r:singleton",
         content: [
           $a <--> \{a\}$.
           // NOTE: this does add arrows. For clarity,
@@ -183,24 +183,24 @@ Important! This will avoid manual numbering _and_ ease referencing rules.]
       ),
       (
         name: "Expansion",
-        lbl: "r-expansion",
+        lbl: "r:expansion",
         content: [if $a - g -> b$, then
           #box[$\{\@g, c\} <--> \{\{\{\@g, a\}, b\}, c\}$]],
       ),
       (
         name: "Exclusion",
-        lbl: "r-exclusion",
+        lbl: "r:exclusion",
         content: [if $g <--> \{\@g, a\}$, then
           #box[$\{\{\@g, "~"a\}, b\} <--> \{\@d, b\}$]],
       ),
       (
         name: "Associativity",
-        lbl: "r-associativity",
+        lbl: "r:associativity",
         content: [$\{a, \{b, c\}\} <--> \{\{a, b\}, c\}$],
       ),
       (
         name: "Commutativity",
-        lbl: "r-commutativity",
+        lbl: "r:commutativity",
         content: [$\{a, b\} <--> \{b, a\}$],
       ),
     ),
@@ -209,7 +209,44 @@ Important! This will avoid manual numbering _and_ ease referencing rules.]
 ]<unit-rules>
 
 
-Test: @r-commutativity.
+We review the utility of each rule. Note that rules _between_ contexts is
+entirely flexible and user defined. Moreover, only *R1* is needed for Turing
+completeness. We will show, however, that the remaining axioms are optimal when
+organizing information, see @information-organization.
+
+- @r:transitivity and @r:context-lift were discussed in @rationale:unit.[TODO:
+  maybe review the discussion from earlier? Might be useful to reinforce main
+  ideas to reader.]
+- @r:handle-sub enables equality in handles to pass through into
+  representations. Besides this, note that equivalences on units are _entirely_
+  user defined.
+- @r:field-access provides a mechanism to access specific units in a scope. The
+  notation is entirely inspired by object oriented programming.
+- @r:empty and @r:null define the behavior of the empty unit ${}$, similar to
+  the empty set. @r:null specifically states that ${}$ contains _no_
+  representations, so any term $a - {} -> b$ may be written.
+- @r:identity provides a way to represent $a in g$ through the representation
+  $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, so it
+  is _not_ required in every unit. Identity is expressed instead by
+  ${a - a -> a}$, see the discussion below.
+- @r:singleton reduces extraneous blocks. Note that this is _not_ the same thing
+  as the Quine atom, which states ${a} = a$ in a set theoretic context
+  @quine:new-foundations. We do _not_ mean $a in a$, but instead, ${a}$ is a
+  _wrapper_ around $a$. While not useful for handles, it is for specifying
+  blocks of representations, such as ${a - b -> c, b - c -> d}$.
+- @r:expansion and @r:exclusion define how imports in the language work. An
+  *import* is the process of joining the contents of one unit into another.
+  @r:expansion says how an import can add new units in a block. @r:exclusion
+  provides a mechanism to _exclude_ specified contents in $g$, which can
+  themselves be representations. For example,
+  ${@{a - b -> c, d}, ~{a - b -> c}}$ reduces to ${d}$. This also enables a way
+  to disable _any_ rule in Welkin, based on user preference. This is
+  intentionally restricted _per context_, so the rules are enacted by default.
+  Also note that exclusions *must* be used in the presence of an expansion.
+  Otherwise, terms like ${a, {b, ~a}}$ would be allowed, so certain units could
+  never be expanded!
+- @r:associativity and @r:commutativity ensure that information can be repeated
+  and is positionally invariant.
 
 As more notation, we write:
 
@@ -219,47 +256,6 @@ As more notation, we write:
 
 This simplifies the presentation of the rules. We postpone formally defining the
 operator $|$ to the syntax in @syntax.
-
-We review the utility of each rule. Note that rules _between_ contexts is
-entirely flexible and user defined. Moreover, only *R1* is needed for Turing
-completeness. We will show, however, that the remaining axioms are optimal when
-organizing information, see @information-organization.
-
-[TODO: fix numbering!]
-
-- *R1* and *R2* were discussed in @rationale:unit.[TODO: maybe review the
-  discussion from earlier? Might be useful to reinforce main ideas to reader.]
-- *R3* and *R4* define the behavior of the empty unit ${}$, similar to the empty
-  set. *R4* specifically states that ${}$ contains _no_ representations, so any
-  term $a - {} -> b$ may be written.
-- *R5* provides a way to represent $a in g$ through the representation
-  $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, so it
-  is _not_ required in every unit. Identity is expressed instead by
-  ${a - a -> a}$, see the discussion below.
-- *R6* reduces extraneous blocks. Note that this is _not_ the same thing as the
-  Quine atom, which states ${a} = a$ in a set theoretic context
-  @quine:new-foundations. We do _not_ mean $a in a$, but instead, ${a}$ is a
-  _wrapper_ around $a$. While not useful for handles, it is for specifying
-  blocks of representations, such as ${a - b -> c, b - c -> d}$.
-- *R7* and *R8* define how imports in the language work. An *import* is the
-  process of joining the contents of one unit into another. *R7* says how an
-  import can add new units in a block. *R8* provides a mechanism to _exclude_
-  specified contents in $g$, which can themselves be representations. For
-  example, ${@{a - b -> c, d}, ~{a - b -> c}}$ reduces to ${d}$. This also
-  enables a way to disable _any_ rule in Welkin, based on user preference. This
-  is intentionally restricted _per context_, so the rules are enacted by
-  default. Also note that exclusions *must* be used in the presence of an
-  expansion. Otherwise, terms like ${a, {b, ~a}}$ would be allowed, so certain
-  units could never be expanded!
-- *R9* and *R10* ensure that information can be repeated and is positionally
-  invariant.
-- *R11* provides a way to prevent representations in a block. We interpret this
-  rule as stating: ${}$ contains nothing, so it cannot contain any
-  representation, including $a - {} -> b$. We will use this rule to represent
-  negation. Note that this is _distinct_ from exclusion.
-- *R12* enables equality in handles to pass through into representations.
-  Besides this, note that equivalences on units are _entirely_ user defined.
-
 
 Before we proceed to prove Turing completeness, we introduce the
 $"SK"$-combinator calculus. This is an equational theory that is well known to
