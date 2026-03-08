@@ -346,7 +346,7 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
             \
             $ C -> {N -> L}, $
             \
-            $ {N - {M - K -> L} -> L} -> M, $
+            $ {N - {M - K -> L} -> L} -> {M -> L}, $
             \
             $ {P - {N - {M - S -> L} -> L} -> L} $
             \
@@ -360,10 +360,10 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
 
   This definition means:
 
-  - $L$ includes $K$ and $S$ as base cases. We interpret $K - L -> L$ to mean
-    $K$ is a term of $L$.
-  - We include variables $M, N, P$ over terms. The statement
-    ${M - L -> L} - L -> L$ wraps around any term.
+  - $L$ includes $K$ and $S$ as base cases. We interpret $K --> L$ to mean $K$
+    is a term of $L$.
+  - We include variables $M, N, P$ over terms. The statement ${M --> L} --> L$
+    wraps around any term.
   - Composition $M N$ is represented as $N - M -> L$. Moreover, $M N$ can be
     broken down into its constituent parts $M, N$.
 
@@ -373,10 +373,9 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
   equality easily through transitivity, but do discuss.]
 
   Now, $L$ already includes the base rules for $K$ and $S$. It remains to be
-  shown that $L$ is closed under composition: $M - L -> L$ and $N - L -> L$
-  imply $C - L -> L$, where $C <--> (N - M -> L)$. By using *R1* on
-  $C - L -> (M - L -> L)$ and $(M - L -> L) - L -> L$, we obtain $C - L -> L$,
-  completing the proof.
+  shown that $L$ is closed under composition: $M --> L$ and $N --> L$ imply
+  $C --> L$, where $C <--> {N - M -> L}$. By using *R1* on $C --> {M --> L}$ and
+  ${M --> L} --> L$, we obtain $C --> L$, completing the proof.
 ]
 
 == The Unit Recursor <foundations:base-recursor>

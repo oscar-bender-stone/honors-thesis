@@ -4,7 +4,7 @@
 = Bootstrap Document <bootstrap-document>
 
 ```
-#weklin,
+#welkin,
 
 bit <--> 0 | 1,
 word <--> empty | {top --> bit, next --> word},
