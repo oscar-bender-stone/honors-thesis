@@ -101,6 +101,22 @@ version. #footnote[Note that this table _itself_ is a representation, which
 To represent general encodings, there is a binary format supported for strings,
 see @syntax:string.
 
+Moreover, we will need the following sets of terminals.
+
+// TODO: convert into using glyphs.
+// Maybe use abbreviations for Printable
+// *or* list specific character classes?
+#figure(
+  ```
+  // EPS <--> "",
+  PRINTABLE <--> {ENCODING, ~ENCODING.EOF},
+  WHITESPACE <--> "\t" | "\n" | "\r" | " ",
+  RESERVED <--> @DELIMITER | "*" | "\" | "@" | "#",
+  DELIMITER <--> "{" | "}" | "'"| "." | "," | "|"
+  ```,
+  caption: "Important character classes.",
+)<terminal-classes>
+
 == Invertible Syntax Descriptions
 
 To more easily describe the language, we provide basic building blocks. Note
@@ -125,17 +141,7 @@ we need, see @syntax:base-combinators.
 
   description <--> {parse --> unit, print --> unit},
 
-  {{top --> s, next --> t}, s - parse -> u, t - parse -> v}
-    - pair ->
-    {top --> u, next --> v},
-
-  sequence <--> ?,
-
-  atomic <--> ?,
-  lexeme <--> {@pair, {top --> s, next --> ""}}
-
-
-  delimit <--> {start --> .character, content --> .unit, end --> .character}
+  WHITESPACE_MANY <--> {WHITESPACE - then -> WHITESPACE_MANY},
 
   ```],
   caption: [Definitions for the main combinators used.],
@@ -150,21 +156,9 @@ we need, see @syntax:base-combinators.
 )<syntax:printable-ascii-codes>
 
 We denote specific characters through quotes, escaping if necessary. There are
-several important character classes in @character-classes, denoted through
-double quotes.
+several important character classes in @terminal-classes, denoted through double
+quotes.
 
-// TODO: convert into using glyphs.
-// Maybe use abbreviations for Printable
-// *or* list specific character classes?
-#figure(
-  ```
-  eps <--> "",
-  whitespace <--> "\t" | "\n" | "\r" | " ",
-  reserved <--> delimiter | "." | "*" | "\" | "@" | "#" | "|",
-  delimiter <--> "{" | "}" | "\"" | "'"| ","
-  ```,
-  caption: "Important character classes.",
-)<character-classes>
 
 
 #figure(
@@ -191,8 +185,8 @@ certain characters, see @syntax:id.
   sq_string <--> {start --> "'", contents --> sq_contents, end --> "'"},
   dq_strings <--> {start --> "\"", contents --> dq_contents, end --> "\""},
 
-  sq_contents <--> {top --> eps | {@printable, ~{"\""}}, next --> sq_contents},
-  dq_contents <--> {top --> eps | {@printable, ~{"\""}}, next --> dq_contents},
+  sq_contents <--> {top --> "" | {@printable, ~{"\""}}, next --> sq_contents},
+  dq_contents <--> {top --> "" | {@printable, ~{"\""}}, next --> dq_contents},
   escape_sq <--> "\'" | "\\",
   escape_dq <--> "\"" | "\\"
   ```,
