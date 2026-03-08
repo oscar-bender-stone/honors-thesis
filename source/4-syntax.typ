@@ -13,6 +13,24 @@
 #import "LL1/transforms.typ": ll1-transforms
 #import "LL1/predict-table.typ": ll1-predict-figure
 
+
+// TODO: create a "current working file" or such,
+// or "current working context", and then use *that*
+// when getting input! (Though it could be streamed;
+// we're using handles as an effective abstraction here!
+// Do also make sure multiple users *could* use it as well,
+// so need to make that clear. Might need a notion
+// of a user/original source at a time.)
+// TODO: need to figure out an effective way
+// to get revisions! And need to keep in mind,
+// might be implementation specific!
+// So just need to *create* the map
+// (
+//   name: "Module",
+//   lbl: "r:module",
+//   content: [$\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.],
+// ),
+
 = Syntax <syntax>
 
 // TODO: determine how rigorous the language is here

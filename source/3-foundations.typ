@@ -95,12 +95,11 @@ Now we can define units.
     - The symbol ${}$, the *empty block*.
   - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
     combination of the following are also units:
-    - $\#h$, the *module marker*.
     - $@u$, the *expansion* of $u$.
     - ${u, v}$, the *pair* of $u, v$.
     - An *import block*, defined as ${@g}$ for a unit $g$, or as ${b, @u}$,
-      ${b, ~u}$, or ${~u, b} equiv {b, ~u}$ for an import block $b$. In
-      ${b, ~u}$, $~u$ is the *exclusion* of $u$.
+      ${b, ~u}$, or ${~u, b}$ for an import block $b$. In ${b, ~u}$, $~u$ is the
+      *exclusion* of $u$.
     - $g.v$, the *access of $v$ on $g$*.
     // TODO: make the current working context clear!
     - A *representation* $a - c -> b$, where $a$ is the *sign*, $c$ is the
@@ -158,22 +157,6 @@ We will intentionally _avoid_ defining equality on units and postpone this until
           $a <--> \{a\}$.
         ],
       ),
-      // TODO: create a "current working file" or such,
-      // or "current working context", and then use *that*
-      // when getting input! (Though it could be streamed;
-      // we're using handles as an effective abstraction here!
-      // Do also make sure multiple users *could* use it as well,
-      // so need to make that clear. Might need a notion
-      // of a user/original source at a time.)
-      // TODO: need to figure out an effective way
-      // to get revisions! And need to keep in mind,
-      // might be implementation specific!
-      // So just need to *create* the map
-      // (
-      //   name: "Module",
-      //   lbl: "r:module",
-      //   content: [$\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.],
-      // ),
 
       // NOTE: may say this does add arrows?
       (
@@ -221,6 +204,12 @@ We will intentionally _avoid_ defining equality on units and postpone this until
         lbl: "r:commutativity",
         content: [$\{a, b\} <--> \{b, a\}$ and $$],
       ),
+
+      (
+        name: "Import Commutativity",
+        lbl: "r:import-commutativity",
+        content: [$\{@g, ~u\} <--> \{~u, @g\}$ and $$],
+      ),
     ),
   )
 
@@ -266,11 +255,11 @@ units as modules, as well as make it easier to use the language.
   Also note that exclusions *must* be used in the presence of an expansion.
   Otherwise, terms like ${a, {b, ~a}}$ would be allowed, so certain units could
   never be expanded!
-- @r:associativity and @r:commutativity ensure that information can be repeated
-  and can be put into any order. Note that this does *not* mean
-  ${a, {@g, ~b}} <--> {@g, {a, ~b}}$. If this were the case, then one could
-  write ${a, {@{a}, ~a}}$ and produce ${}$, so new extensions of the second unit
-  are impossible!
+- @r:associativity, @r:commutativity, and @r:import-commutativity ensure that
+  information can be repeated and can be put into any order. Note that this does
+  *not* mean ${a, {@g, ~b}} <--> {@g, {a, ~b}}$. If this were the case, then one
+  could write ${a, {@{a}, ~a}}$ and produce ${}$, so new extensions of the
+  second unit are impossible!
 
 We provide some reoccurring properties in the lemma below.
 
