@@ -30,14 +30,33 @@ equals <--> {
 }
 
 unit {
+  {} --> .,
+  u | v | c --> .,
+  @u --> .,
 
+  import_block <--> {} | @u | {import_block, ~v} | {~v, import_block},
+  import_block --> .,
 
+  {u - c -> v} --> .,
 }
 
-in {
-
-
+part {
+  u | v --> .unit,
+  u --> {@u, v},
+  ~{{@u, v} --> u},
+  {@u, ~v} --> u,
+  ~{u --> {@u, ~v}},
 }
 
+verify {
+  query { context | goal --> ..unit },
+  derivation --> .unit,
+
+  derivation - verify -> query
+}
+
+information {
+
+}
 
 ```

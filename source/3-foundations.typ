@@ -470,7 +470,7 @@ due to associativity, so we _only_ need expansions?]
   - $"handle" --> "unit"$, see @foundations:bootstrap-handle-id.
   - ${} | u | v | c --> "unit"$.
   - $@u --> "unit"$.
-  - ${u, v} | {@u, ~v} --> "unit"$.
+  - ${u, v} | {@u, ~v} | {~v, @u} --> "unit"$.
   - ${u - c -> v} --> "unit"$.
 ]<foundations:recursor>
 
