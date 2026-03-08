@@ -279,6 +279,21 @@
   // Configure equations (now only sets spacing).
   show math.equation: set block(below: 8pt, above: 9pt)
 
+  // Configure rules to show correctly
+  show ref: it => {
+    let el = it.element
+    if el != none and el.func() == figure and el.kind == "rule" {
+      // Get the specific number at the referenced location
+      let num = counter(figure.where(kind: "rule")).at(el.location()).first()
+
+      // Construct the reference as a link, using the supplement (your prefix) + number
+      link(it.target)[*#el.supplement#num*]
+    } else {
+      // Return all other references (to sections, equations, etc.) as normal
+      it
+    }
+  }
+
   // Configure citation and bibliography styles.
   // Adapted from CSL styles,
   // licensed under the
@@ -664,39 +679,34 @@
 }
 
 #let rule-table(prefix: "R", entries) = {
-  // 1. Reset the counter so numbering starts at 1 for each table
+  // 1. Reset the counter
   counter(figure.where(kind: "rule")).update(0)
 
+  // 2. Build the flat array of cells manually
+  let cells = ()
+
+  for entry in entries {
+    // Define the figure with an empty body [] to satisfy the syntax
+    let fig = figure(kind: "rule", supplement: [#prefix], caption: none, [])
+
+    // Push these three cells into the flat list.
+    // This creates 3 cells per iteration, keeping the structure strictly flat.
+    cells.push([
+      #fig #label(entry.lbl)
+      *#link(label(entry.lbl))[#prefix#context {
+          str(counter(figure.where(kind: "rule")).get().first())
+        }]*
+    ])
+    cells.push([*#entry.name*])
+    cells.push(entry.content)
+  }
+
+  // 3. Render the table
   table(
-    // 2. Three columns: Number, Name, Content
     columns: (auto, auto, 1fr),
-
-    // 3. Align everything to the top-left so multiline math doesn't float awkwardly
-    align: top + left,
-
+    align: (left, left, left),
     table.header([*Rule*], [*Name*], [*Content*]),
-    ..entries
-      .map(entry => {
-        (
-          // Column 1: The Prefix and Number (e.g., R1.)
-          [
-            #figure(
-              kind: "rule",
-              supplement: prefix,
-              numbering: "1",
-              caption: none,
-            )[
-              *#prefix#context counter(figure.where(kind: "rule")).display().*
-            ] #label(entry.lbl)
-          ],
-
-          // Column 2: The Rule Name
-          [*#entry.name*],
-
-          // Column 3: The Content/Math
-          entry.content,
-        )
-      })
-      .flatten(),
+    ..cells,
+    // This spreads the flat array into the table arguments
   )
 }
