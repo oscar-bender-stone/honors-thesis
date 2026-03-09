@@ -285,17 +285,17 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
 
   - A *term* is defined recursively as either $K$ or $S$, and if $M, N$ are
     terms, so is $(M)$ and their *application* $M N$.
-  - Evaluation: two terms $M, N$ are *equal*, written $M = N$, if they can be
-    deduced from the following axioms:
-    - *Base Rules:* for all terms $M, N, P$:
-      - $K M N = M$
-      - $S M N P = M P (N P)$.
-    - *Congruence:* if $M_1 = M_2$ and $M_2 = N = 2$, then $M_1 M_2 = N_1 N_2$.
+  - Evaluation: two terms $M, N$ are *equal*, written $M = N$, if their equality
+    can be deduced from the following axioms:
+    - *Base Rules:* for all terms $A, B, P$:
+      - $((K A) B) = M$
+      - $(((S M) N) P) = (M P) (N P)$.
+    - *Congruence:* if $M_1 = M_2$ and $N_1 = N_2$, then $M_1 N_1 = M_2 N_2$.
     - *Equivalence:* $=$ forms an equivalence relation, which means for all
-      $M, N, P$:
-      - $M = M$.
-      - $M = N$ if and only if $N = M$.
-      - $M = N$ and $N = P$ imply $M = P$.
+      $A, B, P$:
+      - $A = B$.
+      - $A = B$ if and only if $A = B$.
+      - $A = B$ and $B = P$ imply $A = P$.
 
 ]<foundations:SK-calculus>
 
