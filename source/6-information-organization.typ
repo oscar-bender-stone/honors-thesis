@@ -26,7 +26,11 @@ several parts:
   We prove that these can be converted purely into size and a certain measure,
   respectively.
 
-+
++ We prove that Welkin can calculate localized versions of these.
+
++ We show that queries can be _optimized_ based on the locally known
+  information. This optimization can be static or dynamic. This optimization is
+  not just in finding _shorter_ derivations, but in satisfying certain metrics.
 
 == Computable Measures and Size
 
@@ -73,8 +77,11 @@ combinators. How do we tailor recursors _for_ a specific context?
 == Dynamic Organization:
 
 
+== Query Optimization
 
-== Query Compression
+We completely generalize the results of
+@wenfei-query-preserving-graph-compression, which focuses on queries involving a
+_bisimulation_ relation.
 
 [TODO: show how this can be done for *both* cases.]
 

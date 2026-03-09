@@ -31,8 +31,8 @@ This section discuss the foundations of Welkin, as follows:
 
 As high-level notation, we write $a equiv b$ to mean that $a$ is definitionally
 equivalent to $b$. High level notation will _not_ be stated in the syntax unless
-where noted. Moreover, we will distinguish between _defining_ a term as finite
-and _practically enforcing_ it is finite. For a thorough discussion, see ?.
+where noted. Moreover, we will not worry about _enforcing_ a term is finite;
+this is left for implementations.
 
 #definition[
   A *bit* is the symbols $0$ or $1$. A *binary word* is either the symbol
