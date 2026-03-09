@@ -130,9 +130,13 @@ use the following notation:
 - `lexeme`, to mean two rules can be joined with any number of whitespaces in
   between.
 
-In contrast to @leijen-meijer-parsec, however, we include the ability to _print_
-as well, via the ideas in @invertible-syntax-descriptions. For the combinators
-we need, see @syntax:base-combinators.
+- `many_till`, to mean that in `A - many_till -> B`, parse zero or more
+  instances of `A` until `B` is encountered.
+
+In contrast to @leijen-meijer-parsec, however, we include the ability _print_ as
+well or present the corresponding string. This is done through
+@invertible-syntax-descriptions. For the combinators we need, see
+@syntax:base-combinators.
 
 
 [TODO: an important thing is making sure that when using the standard library,
@@ -147,7 +151,7 @@ invariants are held! So we may need verifier to come into play here!]
     parse --> unit,
     print --> unit,
 
-    {s --> input, u --> unit} -->
+    {s --> input, u --> unit, ~{s - parse -> {}} -->
     {
       {s - parse -> u}
       <-->
@@ -155,16 +159,25 @@ invariants are held! So we may need verifier to come into play here!]
     }
   },
 
-  WHITESPACE_MANY <--> "" | {WHITESPACE - seq -> WHITESPACE_MANY},
-
+  "TODO: incorporate abstract syntax tree here! Important!",
   {before - seq -> after} <--> {
     @codec,
-    parse -->,
+    parse -->
+    | "" --> {},
+    | {c --> char} --> {name --> c}
 
-    print -->,
+    print -->
+    | {} --> ""
+    |
+    ,
   },
 
-  {before - then -> after} <--> {before - seq -> WHITESPACE_MANY - seq -> after}
+  {before - many_till -> after} <--> {
+    repeat <--> {} | before - seq -> repeat,
+    repeat - seq -> after
+  },
+
+  {before - lexeme -> after} <--> {before - seq -> WHITESPACE - many_till -> after}
   ```],
   caption: [Definitions for the main combinators used.],
 )<syntax:base-combinators>
@@ -195,7 +208,7 @@ quotes.
   ```
   MODULE <--> {"#" - seq -> ID},
   IMPORT <--> {"@" - seq -> ID}
-  ID <--> {top --> {@printable, ~{@reserved, @whitespace}}, next - seq -> ID}
+  ID <--> {{@printable, ~{@reserved, @whitespace}} - many_till -> @reserved | @whitespace}
   ```,
   caption: "IDs.",
 )<syntax:id>
@@ -205,9 +218,7 @@ Strings allow escaped single or double quotes, see @syntax:string. IDs are
 special cases of strings that do not require quotes but forbid whitespace and
 certain characters, see @syntax:id.
 
-[TODO[SMALL]: determine if terminals should be uppercase.]
-
-#figure(
+[TODO: clean up with `many_till`!] #figure(
   ```
   STRING <--> SQ_STRING| DQ_STRING,
   STRING_CONTENTS <--> SQ_CONTENTS | DQ_CONTENTS,
@@ -215,7 +226,7 @@ certain characters, see @syntax:id.
   SQ_STRING <--> {start --> "'", contents --> sq_contents, end --> "'"},
   DQ_STRING <--> {start --> "\"", contents --> DQ_CONTENTS, end --> "\""},
 
-  SQ_CONTENTS <--> {top --> "" | {@printable, ~{"\""}}| {"\" - seq -> "\" | "'"}, next --> SQ_CONTENTS},
+  SQ_CONTENTS <--> {{@printable, ~{"\""}}| {"\" - seq -> "\" | "'"}, next --> SQ_CONTENTS},
   DQ_CONTENTS <--> {top --> "" | {@printable, ~{"\""}}| {"\" - seq -> "\" | "\""}, next --> DQ_CONTENTS},
   ```,
   caption: "Strings.",

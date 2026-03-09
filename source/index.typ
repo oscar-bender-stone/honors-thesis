@@ -21,8 +21,8 @@
     determine how to phrase soundness and incompleteness. Should we include
     these?].],
   notes: [This thesis used Google Gemini (#link("https://gemini.google.com/"))
-    to aid in research and help fix formatting. All the ideas presented are all
-    from the author.],
+    to aid in research and help fix formatting. All ideas presented come from
+    the author.],
   bibliography: bibliography((
     "references/misc.bib",
     "references/1-introduction.bib",
