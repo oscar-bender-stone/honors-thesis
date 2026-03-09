@@ -22,8 +22,9 @@
 This section overview the most optimal organization of Welkin. We proceed in
 several parts:
 
-+ We define metrics on units, and prove that _any_ metric can be converted into
-  one on size.
++ We define two kinds of metrics on units, either being *static* or *dynamic*.
+  We prove that these can be converted purely into size and a certain measure,
+  respectively.
 
 +
 
@@ -54,7 +55,10 @@ ensure this is _small_ to have small overhead.]
   automated by Welkin.
 ]
 
-== Localized Size Compression <local-size-compression>
+[TODO: show how to get a greater emphasis on size, so one could have a hybrid of
+static + dynamic. The dynamic one is basically that?]
+
+== Static Organization: Compression <local-size-compression>
 
 Welkin focuses on optimizing size as that is the simplest metric to use. The
 algorithm to calculate size is straightforward, based on the _direct_
@@ -66,7 +70,13 @@ proofs. However, it is _not_ efficient for every problem. Going back to
 @turing-expressible, there can easily be large expansions from the $S K$
 combinators. How do we tailor recursors _for_ a specific context?
 
+== Dynamic Organization:
+
+
+
 == Query Compression
+
+[TODO: show how this can be done for *both* cases.]
 
 Combining the previous sections, we define how to query on compressed
 representations, generalizing ?.

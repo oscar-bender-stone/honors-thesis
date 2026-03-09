@@ -151,7 +151,7 @@ invariants are held! So we may need verifier to come into play here!]
     parse --> unit,
     print --> unit,
 
-    {s --> input, u --> unit, ~{s - parse -> {}} -->
+    {s --> input, u --> unit, ~{s - parse -> {}}} -->
     {
       {s - parse -> u}
       <-->

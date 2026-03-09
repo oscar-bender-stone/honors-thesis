@@ -54,9 +54,9 @@ and _practically enforcing_ it is finite. For a thorough discussion, see ?.
   for this inequality.]
 
 #definition[
-  A _handle_ is given by a *key*, a triple $("MID", "RID", "HID")$, where
+  A _handle_ is given by a *key*, a triple $("MID", "RID", "SYM")$, where
   $"MID"$ is a binary word called a *user ID*, $"RID"$ is a binary word called
-  the *revision ID*, and $"HID"$ is a binary word called the *handle ID*. The
+  the *revision ID*, and $"SYM"$ is a binary word called the *symbol ID*. The
   interpretation of keys are left as free parameters, and therefore are outside
   the scope of this language.
 ]<foundations:handle>

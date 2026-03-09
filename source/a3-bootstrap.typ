@@ -9,7 +9,7 @@
 bit <--> 0 | 1,
 word <--> {} | {top --> bit, next --> word},
 
-handle <--> {MID --> word, RID --> word, SYM --> word},
+handle <--> {MID | RID | SYM --> word},
 
 equals <--> {
   0 <--> 0,
@@ -78,12 +78,28 @@ numeral {
   }
 }
 
-characters {
+encoding {
 
 
 }
 
-syntax { parse | print --> .unit }
+
+codec <--> {
+  parse --> unit,
+  print --> unit,
+
+  {s --> input, u --> unit, ~{s - parse -> {}}} -->
+  {
+    {s - parse -> u}
+    <-->
+    {u - print -> s}
+  }
+},
+
+characters {
+
+
+}
 
 grammar {
 
