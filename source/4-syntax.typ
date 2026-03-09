@@ -44,35 +44,6 @@ soon as possible!]
 
 Note that *R2 (Context Lifting)* will be crucial to define the syntax.
 
-== Numbers
-
-[TODO[MEDIUM]: make this easier to use! Maybe *just* use binary or so? OR can
-formally define digits and nibbles later, if so we choose.]
-
-We add numbers and provide equivalnces between them. Before this, we need an
-important construction: *general pairs*.
-
-Welkin's main encoding uses binary words, but add notation for decimal and
-hexadecimal.
-
-#figure(
-  ```
-  bit <--> 0 | 1,
-  digit <--> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
-  nibble <--> @digit | A | B | C | D | E | F
-  ```,
-  caption: "Binary, decimal, and hexadecimal digits.",
-)<digits>
-
-#figure(
-  ```
-  number <--> binary | decimal | hex,
-  decimal <--> {top --> digit, next --> decimal},
-  hex <--> {top --> nibble, next --> hex}
-  ```,
-  caption: "Definition of words.",
-)<syntax:word>
-
 == Encoding
 
 Welkin uses ASCII as its base encoding. The term ASCII is slightly ambiguous, as
@@ -80,6 +51,7 @@ there are subtly distinct variants, so we formally define US-ASCII as a standard
 version. #footnote[Note that this table _itself_ is a representation, which
   represents glyphs with binary words.]
 
+[TODO: for simplicity, just use binary for the encoding.]
 #definition[
   Welkin's encoding consists of *Printable US-ASCII*, listed in
   @syntax:printable-ascii-codes, as well as character *EOF*, with code 58. In
@@ -137,9 +109,10 @@ well or present the corresponding string. This is done through
 [TODO: an important thing is making sure that when using the standard library,
 invariants are held! So we may need verifier to come into play here!]
 
-#figure(
+[TODO: explain that we will keep `a` vs `"a"` distinct, just to make parsing
+easier.] #figure(
   [```
-  "TODO: indicate errors somehow!",
+  "TODO: indicate errors somehow! Likely needs to the accept/reject mechnaism in verify!",
   input <--> {} | {begin --> character, next --> input},
 
   codec <--> {
@@ -197,8 +170,6 @@ We denote specific characters through quotes, escaping if necessary. There are
 several important character classes in @terminal-classes, denoted through double
 quotes.
 
-
-
 #figure(
   ```
   MODULE <--> {"#" - seq -> ID},
@@ -218,7 +189,7 @@ certain characters, see @syntax:id.
   STRING <--> SQ_STRING| DQ_STRING,
   STRING_CONTENTS <--> SQ_CONTENTS | DQ_CONTENTS,
 
-  SQ_STRING <--> {start --> "'", contents --> sq_contents, end --> "'"},
+  SQ_STRING <--> {start --> "'", contents --> SQ_CONTENTS, end --> "'"},
   DQ_STRING <--> {start --> "\"", contents --> DQ_CONTENTS, end --> "\""},
 
   SQ_CONTENTS <--> {{@printable, ~{"\""}}| {"\" - seq -> "\" | "'"}, next --> SQ_CONTENTS},
@@ -245,35 +216,5 @@ We show that, by construction, the combinators we used form an $LL(1)$ grammar.
 This is a special kind of grammar that can be efficiently parsed. We will keep
 definitions self-contained; for more background, consult
 @compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
-
-// #definition[(@rosenkrantz-ll1). A grammar is LL(1) iff the following holds: for
-//   any terminal $w_1$ and nonterminal $A$, there is at most one rule $r$ such
-//   that for some $w_2, w_3$ appearing at the top of $A$ such that,
-//   - $S => "top"(w_1)A w_3$
-//   - $A => w_2 (p)$
-//   - $"top"(w_2 w_3) = w$
-// ]<LL1>
-
-// #theorem[
-//   There exists some _LL(1)_ grammar that accepts the same strings as the Welkin
-//   grammar @welkin-grammar. Hence, Welkin's syntax is unambiguous, i.e., every
-//   string accepted by the language has exactly one derivation.
-// ]
-// #proof[
-//   // TODO: should we explain why LL(1) => unambiguous?
-//   We use transformations in @transforms-ll1 that preserve the language of the
-//   original grammar, resulting in @grammar_ll1. For the refactor step by step,
-//   see @refactor_ll1. We can readily verify that there are no shared prefixes for
-//   a single production, see @predict-table-ll1. Because there are no conflicts,
-//   the transformed grammar is LL(1), and hence, the grammar is unambiguous.
-
-//   #ll1-transforms<transforms-ll1>
-
-//   #ll1-grammar<grammar_ll1> #ll1-refactor<refactor_ll1>
-
-//   #ll1-predict-figure<predict-table-ll1>
-
-// ]
-
 
 == Import Resolution

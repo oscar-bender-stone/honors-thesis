@@ -23,7 +23,6 @@ equals <--> {
 
   h1 | h2 --> handle,
   {h1 <--> h2} <--> {h1.ID <--> h2.ID},
-  }
 }
 
 unit {
@@ -55,25 +54,6 @@ verify {
   derivation --> .unit,
 
   derivation - verify -> query,
-}
-
-numeral {
-  base {
-    bit <--> ..bit,
-    digit <--> 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9,
-    nibble <--> @decimal | A | B | C | D | E | F,
-  },
-
-  system {
-    binary <--> ..word,
-    decimal <--> {} | {top --> .base.digit | next --> decimal},
-    hexadecimal <--> {} | {top --> .base.nibble | next --> decimal},
-    hex <--> hexadecimal
-  },
-
-  convert {
-
-  }
 }
 
 encoding {
