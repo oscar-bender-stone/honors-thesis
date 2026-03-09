@@ -12,12 +12,6 @@
 
 #import "template/ams-article.typ": proof, proof-sketch
 
-#let tilde-prefix = math.class(
-  "unary",
-  box(baseline: -20%, scale(80%, $tilde$)),
-)
-#show math.tilde: tilde-prefix
-
 = Foundations <foundations>
 
 This section discuss the foundations of Welkin, as follows:
@@ -118,7 +112,7 @@ We will intentionally _avoid_ defining equality on units and postpone this until
 // Might JUST want to have for later, not have as part of unit.
 #definition[
   The following rules apply, stated over meta-variables $a, b, c, d, g$ for
-  units, $w_1, w_2$ for words, and $h_1, h_2$ for handles:
+  units and $h_1, h_2$ for handles:
   #rule-table(
     prefix: "R",
     (
@@ -172,18 +166,11 @@ We will intentionally _avoid_ defining equality on units and postpone this until
           $\{\@g, a\} <--> g$ if and only if $a - g -> a$.
         ],
       ),
-
-      // TODO: ensure this is clear! Need to distinguish from what
-      // we write in the syntax! Also, probably need to ensure
-      // this is *valid*, so with anonymous blocks, can't
-      // add new things! Wouldn't make sense! It would
-      // be a *whole* new thing.
       (
         name: "Field Access",
         lbl: "r:field-access",
         content: [
-          $g.a <--> a$ if and only if $a - g -> a$.
-          // TODO: make it clear what the current working context is!
+          $g.a <--> a$ implies $a - g -> a$.
         ],
       ),
       (
@@ -208,13 +195,13 @@ We will intentionally _avoid_ defining equality on units and postpone this until
       (
         name: "Commutativity",
         lbl: "r:commutativity",
-        content: [$\{a, b\} <--> \{b, a\}$ and $$],
+        content: [$\{a, b\} <--> \{b, a\}$],
       ),
 
       (
         name: "Import Commutativity",
         lbl: "r:import-commutativity",
-        content: [$\{@g, ~u\} <--> \{~u, @g\}$ and $$],
+        content: [$\{@g, ~u\} <--> \{"~"u, @g\}$],
       ),
     ),
   )
@@ -248,35 +235,35 @@ units as modules, as well as make it easier to use the language.
 - @r:membership provides a way to represent $a in g$ through the representation
   $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, _not_
   identity.
-- @r:field-access provides a mechanism to access specific units in a scope. The
-  notation is entirely inspired by object oriented programming.
+- @r:field-access provides a way to access specific units in a scope. The
+  notation is entirely inspired by object oriented programming. Note that this
+  is _only_ in one way, because the full path $g.a$ need not be abbreviated to,
+  e.g., $a$.
 - @r:expansion and @r:exclusion define how imports in the language work. An
   *import* is the process of joining the contents of one unit into another.
   @r:expansion says how an import can add new units in a block. @r:exclusion
   provides a mechanism to _exclude_ specified contents in $g$, which can
   themselves be representations. For example,
-  ${@{a - b -> c, d}, ~{a - b -> c}}$ reduces to ${d}$. This also enables a way
-  to disable _any_ rule in Welkin, based on user preference. This is
+  ${@{a - b -> c, d}, "~"{a - b -> c}}$ reduces to ${d}$. This also enables a
+  way to disable _any_ rule in Welkin, based on user preference. This is
   intentionally restricted _per context_, so the rules are enacted by default.
   Also note that exclusions *must* be used in the presence of an expansion.
   Otherwise, terms like ${a, {b, ~a}}$ would be allowed, so certain units could
   never be expanded!
 - @r:associativity, @r:commutativity, and @r:import-commutativity ensure that
   information can be repeated and can be put into any order. Note that this does
-  *not* mean ${a, {@g, ~b}} <--> {@g, {a, ~b}}$ for general units $a, b$. If
-  this were the case, then one could write ${a, {@{a}, ~a}}$ and produce ${}$,
+  *not* mean ${a, {@g, "~"b}} <--> {@g, {a, "~"b}}$ for general units $a, b$. If
+  this were the case, then one could write ${a, {@{a}, "~"a}}$ and produce ${}$,
   so extending certain units would be impossible!
 
 We provide some reoccurring properties in the lemma below.
 
 #lemma[
-  - For every unit $u$, there exists a unit $u'$ with at least one more entity
-    than $u$. [TODO: make this more clear! This says units can always be
-    extended to new ones!]
+  - for every unit $u$ and $v$, if $~{v - u -> v}$, then $u' = {@u, v}$ is a
+    strictly larger unit.
   - Import blocks are locally associative. More precisely, given import blocks
     $m_1, m_2$ and units $u, v$, #box[${m_1, {m_2, ~u}} <--> {m_2, {m_1, ~u}}$].
 ]<foundations:lemma-properties>
-
 
 As more notation, we write:
 
@@ -285,8 +272,8 @@ As more notation, we write:
 - $a_1 | ... | a_n - c -> d$ to mean ${a_1 - c -> d, ..., a_n - c -> d}$.
 
 This simplifies the presentation of the rules. We postpone formally defining the
-operator $|$ to the syntax in @syntax. Moreover, we allow
-$c --> | b_1 | b_2 | ... | b_n$, which is synonymou to
+operator $|$ to the grammar in @syntax. Moreover, we allow
+$a - c -> | b_1 | b_2 | ... | b_n$, which is synonymous to
 $a - c -> b_1 | b_2 | ... | b_n$.
 
 Before we proceed to prove Turing completeness, we introduce the
@@ -445,7 +432,7 @@ We need to include equality as well, refer to @foundations:handle-equality:
     {"w1" <--> "w2"} &<--> {"w1" <--> {} <--> "w2"} \
     &| {"w1.top" <--> "w2.top", "w1.next" <--> "w2.next"}, \
     "h1" | "h2" --> "handle",\
-    {"h1" <--> "h2"} <--> { "h1.ID" <--> "h2.ID" },\
+    {"h1" <--> "h2"} &<--> { "h1.ID" <--> "h2.ID" },\
   }
   }$],
   caption: [Definitions of equality in Welkin.],
@@ -457,7 +444,7 @@ To show these constructions are correct, we must prove the following.
 
 #lemma[
   Let $"h1"$ and $"h2"$ be handles. Then $"h1" <- "equals" -> "h2"$ if and only
-  if $h_1 = h_2$.
+  if $"h1" = "h2"$.
 ]<foundations:bootstrap-equality-correctness>
 #proof[Clearly it is sufficient to show that equality on words is correct. To do
   so, we apply a simple proof by induction:
@@ -466,8 +453,8 @@ To show these constructions are correct, we must prove the following.
 ]
 
 Now, in @unit-rules, we needed enough _separate_ meta-variables. To do this in
-Welkin, we use representations of the form $"u" --> "unit"$. This appeared
-frequently when defining terms in @turing-expressible.
+Welkin, we use representations of the form $"u" --> "unit"$. This construction
+appeared frequently when defining terms in @turing-expressible.
 #footnote[
   [TODO: discuss how we are allowing the variables to be the same or different!
   Related to bundling in MetaMath + MetaMath Zero [and cite these!].]
@@ -484,9 +471,8 @@ frequently when defining terms in @turing-expressible.
   - ${u - c -> v} --> "unit"$.
 ]<foundations:recursor>
 
-The following statements are two parts of the same *Recursion theorem* for
-Welkin. The first is straightforward; their proofs closely aligns with the
-definitions written in the meta-language (English).
+Proving correctness is straightforward and closely aligns with the original
+definition.
 
 #lemma[*_(Recursor Correctness)._* For every unit $u$, $u - "unit" -> "unit"$.
 ]<foundations:recursion-correctness>

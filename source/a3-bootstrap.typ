@@ -32,8 +32,7 @@ unit {
   {u, v} --> .,
 
   import_block <-->
-    | {}
-    | @u
+    | {@u}
     | {import_block, ~v}
     | {~v, import_block},
   import_block --> .,
