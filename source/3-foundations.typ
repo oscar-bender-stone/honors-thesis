@@ -57,11 +57,9 @@ this is left for implementations.
 Words alone do not carry meaning. The extended meaning is provided to _handles_.
 
 #definition[
-  A _handle_ is given by a *key*, a triple $("MID", "RID", "SYM")$, where
-  $"MID"$ is a binary word called a *user ID*, $"RID"$ is a binary word called
-  the *revision ID*, and $"SYM"$ is a binary word called the *symbol ID*. The
-  interpretation of keys are left as free parameters, and therefore are outside
-  the scope of this language.
+  A _handle_ is given by an *ID*, which is a word. The interpretation of keys
+  are left as free parameters, and therefore are outside the scope of this
+  language.
 ]<foundations:handle>
 
 #remark[
@@ -80,27 +78,25 @@ for simplicity. LIkely to be easier to do this *internally*]
 
 [TODO[SMALL]: without getting into typing, enforce that equality has to be done
 on two words or two handles. Maybe lift to the latter to make sense?]
-#definition[Consider two handles
-  $h_1 equiv ("MID"_1, "RID"_1, "SYM"_1), h_2 equiv ("MID"_2, "RID"_2, "HID"_2)$.
+#definition[Consider two handles $h_1$, $h_2$ with IDs $"ID"_2$, $"ID"_2$,
+  respectively. Then:
   - $h_1$ and $h_2$ are equal, written $h_1 = h_2$, if and only if
-    $"MID"_1 = "MID"_2$, $"RID"_1 = "RID"_2$, and $"SYM"_1 = "SYM"_2$.
-  - $h_1$ is not equal to $h_2$, written $h_1 != h_2$, if and only if at least
-    one of the following hold: $"MID"_1 != "MID"_2$, $"RID"_1 != "RID"_2$, or
-    $"SYM"_1 != "SYM"_2$.
+    $"ID"_1 = "ID"_2$.
+  - $h_1$ is not equal to $h_2$, written $h_1 != h_2$, if and only if
+    $"ID"_1 != "ID"_2$.
 ]<foundations:handle-equality>
 
 We reserve an important symbol as notation, used outside of the language: $G$
 for the *global context*. This can be interpreted as the combination of _all_
-possible units, with any string ID. For simplicity, this context does _not_ have
-outside referents. To do this, we use special _reserved_ units that do. We will
-discuss details later.
+possible units, with any string ID. To enable handles to be used as free
+parameters, we use special _reserved_ units that do. We will discuss details
+later.
 
 Now we can define units.
 
 #definition[
   A *unit* is defined recursively as follows and nothing else:
   - *Base case:*
-    - A word, see @foundations:word.
     - A handle, see @foundations:handle.
     - The symbol ${}$, the *empty block*.
   - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
@@ -148,11 +144,6 @@ We will intentionally _avoid_ defining equality on units and postpone this until
         name: "Null",
         lbl: "r:null",
         content: [$\{a - \{\} -> b\} <--> \{\}$],
-      ),
-      (
-        name: "Word Substitution",
-        lbl: "r:word-sub",
-        content: [If word $w_1$ is equal to word $w_2$, then $w_1 <--> w_2$.],
       ),
       (
         name: "Handle Substitution",
@@ -244,9 +235,9 @@ units as modules, as well as make it easier to use the language.
 - @r:empty and @r:null define the behavior of the empty unit ${}$, similar to
   the empty set. @r:null specifically states that ${}$ contains _no_
   representations, so any term $a - {} -> b$ may be written.
-- @r:word-sub and @r:handle-sub enables equality in words and handles to pass
-  through into representations. Besides this, note that equivalences on units
-  are _entirely_ user defined.
+- @r:handle-sub enables equality in words and handles to pass through into
+  representations. Besides this, note that equivalences on units are _entirely_
+  user defined.
 - @r:identity represents identity. This is _not_ the same as $a - g -> a$, see
   the discussion below.
 // - @r:module ensures that a _given_ module is unique. This is only accessible at
@@ -437,13 +428,12 @@ From there, we can define handle IDs through triples, see
 
 #figure(
   [
-    $"handle" <--> {"MID" | "RID" | "SYM" --> "word"}$
+    $"handle" <--> {"ID" --> "word"}$
   ],
   caption: [Generator for handle keys in Welkin.],
 )<foundations:bootstrap-handle-id>
 
-Here, a $"handle"$ is simply a pair ${"MID", "RID", "SYM"}$, where $"MID"$,
-$"RID"$, $"SYM"$ are words.
+Here, a $"handle"$ is a wrapper around an $"ID"$, which is a word.
 
 We need to include equality as well, refer to @foundations:handle-equality:
 
@@ -456,11 +446,8 @@ We need to include equality as well, refer to @foundations:handle-equality:
     {"w1" <--> "w2"} &<--> {"w1" <--> {} <--> "w2"} \
     &| {"w1.top" <--> "w2.top", "w1.next" <--> "w2.next"}, \
     "h1" | "h2" --> "handle",\
-    {"h1" <--> "h2"} <--> {\
-      &"h1.MID" <--> "h2.MID",\
-      &"h1.RID" <--> "h2.RID" \
-      &"h1.SYM" <--> "h2.SYM" \
-    }
+    {"h1" <--> "h2"} <--> { "h1.ID" <--> "h2.ID" },\
+  }
   }$],
   caption: [Definitions of equality in Welkin.],
 )<foundations:bootstrap-equality>

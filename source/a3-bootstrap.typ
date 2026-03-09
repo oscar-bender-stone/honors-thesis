@@ -9,7 +9,7 @@
 bit <--> 0 | 1,
 word <--> {} | {top --> bit, next --> word},
 
-handle <--> {MID | RID | SYM --> word},
+handle <--> {ID --> word},
 
 equals <--> {
   0 <--> 0,
@@ -22,10 +22,7 @@ equals <--> {
     | {w1.top <--> w2.top, w1.next <--> w2.next},
 
   h1 | h2 --> handle,
-  {h1 <--> h2} <--> {
-    h1.MID <--> h2.MID,
-    h1.RID <--> h2.RID,
-    h1.SYM <--> h2.SYM,
+  {h1 <--> h2} <--> {h1.ID <--> h2.ID},
   }
 }
 
@@ -33,6 +30,7 @@ unit {
   {} --> .,
   u | v | c --> .,
   @u --> .,
+  {u, v} --> .,
 
   import_block <-->
     | {}

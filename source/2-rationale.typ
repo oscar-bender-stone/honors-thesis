@@ -44,20 +44,7 @@ The first core concept in Welkin is the notion of a *handle*. Handles are left
 as free parameters in the theory#footnote[For mathematicians, this is analogous
   to how key notions are left undefined in Hilbert's formalism of geometry, or
   how a "set" is an undefined notion in set theory.] In an information base,
-handles are uniquely identified through their *key*, directly inspired by
-database theory. Keys are with triples of IDs $("MID", "RID", "SID")$, whose
-contents are the *origin ID*, *module ID*, *revision ID*, and *handle ID*,
-respectively. Each ID serves the following purpose:
-
-- The *module ID* $"MID"$ defines the ID for a given string written in Welkin.
-  This identifies the *parent* of the contents of a string.
-- The *revision ID* $"RID"$ ensures that storing specifications is *immmutable*,
-  or provide a static snapshot of a unit. This is _not_ a restriction on
-  representing dynamic entities, but rather, this indicates to the information
-  base which version of a handle to use.
-- The *symbol ID* $"SYM"$ refers to the symbol used to index the handle.
-
-We illustrate the use of these IDs in an example.
+handles are uniquely identified through their *ID*.
 
 #example[
   In a scientific experiment, a handle could be an observation or experimental
