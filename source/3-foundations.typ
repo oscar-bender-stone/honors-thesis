@@ -39,7 +39,8 @@ this is left for implementations.
   $epsilon$ (the *empty word*), and if $w$ is a finite binary word, so are $w.0$
   and $w.1$, where $.$ is the symbol for *concatenation*. Nothing else is a
   word.
-]<binary-word>
+]<foundations:word>
+
 
 #definition[
   Equality $=$ and inequality $!=$ on words $w_1, w_2$ is defined recursively:
@@ -52,6 +53,8 @@ this is left for implementations.
 #remark[@foundations:binary-word-equality is given constructively to ensure that
   if two finite words are unequal, then an explicit bit can act as a certificate
   for this inequality.]
+
+Words alone do not carry meaning. The extended meaning is provided to _handles_.
 
 #definition[
   A _handle_ is given by a *key*, a triple $("MID", "RID", "SYM")$, where
@@ -67,6 +70,13 @@ this is left for implementations.
   axioms. Free parameters are used to define Welkin itself, however; see
   @syntax.
 ]<foundations:remark-handle-binding>
+
+#remark[
+  For implementations, it is easier to represent strings and numbers through a
+  word that _represents_ a stored handle, with the context being the information
+  base. See @syntax for details. For this reason, we can focus on most
+  operations on handles _only_.
+]
 
 [TODO[SMALL]: without getting into typing, enforce that equality has to be done
 on two words or two handles. Maybe lift to the latter to make sense?]
@@ -91,6 +101,7 @@ Now we can define units.
 #definition[
   A *unit* is defined recursively as follows and nothing else:
   - *Base case:*
+    - A word, see @foundations:word.
     - A handle, see @foundations:handle.
     - The symbol ${}$, the *empty block*.
   - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
@@ -114,7 +125,7 @@ We will intentionally _avoid_ defining equality on units and postpone this until
 // Might JUST want to have for later, not have as part of unit.
 #definition[
   The following rules apply, stated over meta-variables $a, b, c, d, g$ for
-  units and $h_1, h_2$ for handles:
+  units, $w_1, w_2$ for words, and $h_1, h_2$ for handles:
   #rule-table(
     prefix: "R",
     (
@@ -138,6 +149,11 @@ We will intentionally _avoid_ defining equality on units and postpone this until
         name: "Null",
         lbl: "r:null",
         content: [$\{a - \{\} -> b\} <--> \{\}$],
+      ),
+      (
+        name: "Word Substitution",
+        lbl: "r:word-sub",
+        content: [If word $w_1$ is equal to word $w_2$, then $w_1 <--> w_2$.],
       ),
       (
         name: "Handle Substitution",
@@ -229,9 +245,9 @@ units as modules, as well as make it easier to use the language.
 - @r:empty and @r:null define the behavior of the empty unit ${}$, similar to
   the empty set. @r:null specifically states that ${}$ contains _no_
   representations, so any term $a - {} -> b$ may be written.
-- @r:handle-sub enables equality in handles to pass through into
-  representations. Besides this, note that equivalences on units are _entirely_
-  user defined.
+- @r:word-sub and @r:handle-sub enables equality in words and handles to pass
+  through into representations. Besides this, note that equivalences on units
+  are _entirely_ user defined.
 - @r:identity represents identity. This is _not_ the same as $a - g -> a$, see
   the discussion below.
 // - @r:module ensures that a _given_ module is unique. This is only accessible at
