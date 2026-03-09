@@ -489,27 +489,6 @@ $u --> "unit"$, then $u - "unit" -> "unit"$, based on @r:identity and
 @r:transitivity. We will use the former for brevity.
 
 
-In addition to `unit`, we need to express the rules themselves.
-
-#definition[
-  The $"rules"$ unit is defined as exactly the things below, over
-  $a | b | c | d | g --> "unit"$ and $"h1"| "h2" --> "handle"$. The overarching
-  context is $"rules"$.
-  - $"R1" <--> {{a - c -> b}, {b - c -> d}} --> {a - c -> d}$
-  - ${"R2" <--> {a - c -> b}, {d - a -> g}} --> {l <--> {a - d - g}, l - g -> l}$
-  - $"R3" <--> {{@g, {}} <--> g}$
-  - $"R4" <--> {{a - {} -> b} <--> {}}$
-  - $"R5" <--> {{"h1" <--> "h2"} <--> {"h1" <- "equals" -> "h2"}}$
-  - $"R6" <--> {a <--> {a - a -> a}}$
-  - $"R7" <--> {a <--> {a}}$
-  - $"R8" <--> {{@g, a} <--> g} <--> {a - g -> a}$
-  - $"R9" <--> {a - g -> b} --> {{@g, c} <--> {{@g, a}, b}}$
-  - $"R10" <--> {{g <--> {@g, a}} --> {{{@g, "~"a}, b}, {@d, b}}}$
-  - $"R11" <--> {a, {b, c}} <--> {{a, b}, c}$
-  - $"R12" <--> {a, b} <--> {{a, b}, c}$
-  - $"R13" <--> {{@g, ~a} <--> {~a, @g}}$
-]
-
 == Base Verifier
 
 Now we will includle a notion for containment. Because Welkin is Turing
@@ -517,7 +496,38 @@ expressible, $"unit"$ may not terminate in all cases, such as an infinite
 recursive loop. We want to have a mechanism to _check_ certain claims. This is
 the role of the verifier, built upon $"part"$.
 
-[TODO: start converting list defs into single equations.]
+In addition to `unit`, we need to express the rules themselves.
+
+#definition[
+  The $"rules"$ unit is defined as exactly the things below, over
+  $a | b | c | d | g --> "unit"$ and $"h1"| "h2" --> "handle"$. The overarching
+  context is $"rules"$.
+  - $"R1" <--> {{a - c -> b}, {b - c -> d}} --> {a - c -> d}$
+  - $"R2" <--> {{a - c -> b}, {d - a -> g}} --> {l <--> {a - d - g}, l - g -> l}}$
+  - $"R3" <--> {{@g, {}} <--> g}$
+  - $"R4" <--> {{a - {} -> b} <--> {}}$
+  - $"R5" <--> {{"h1" <--> "h2"} <--> {"h1" <- "equals" -> "h2"}}$
+  - $"R6" <--> {a <--> {a - a -> a}}$
+  - $"R7" <--> {a <--> {a}}$
+  - $"R8" <--> {{{@g, a} <--> g} <--> {a - g -> a}}$
+  - $"R9" <--> {{a - g -> b} --> {{@g, c} <--> {{@g, a}, b}}}$
+  - $"R10" <--> {{g <--> {@g, a}} --> {{{@g, "~"a}, b} <--> {@d, b}}}$
+  - $"R11" <--> {a, {b, c}} <--> {{a, b}, c}$
+  - $"R12" <--> {a, b} <--> {{a, b}, c}$
+  - $"R13" <--> {{@g, ~a} <--> {~a, @g}}$
+]
+
+#lemma[
+  Each of the rules in $"rules"$ is embedded correctly.
+]<foundations:rules-correctness>
+#proof[
+  TBD (mostly tedious).
+]
+
+
+[TODO: decide whether to convert list defs into single equations.]
+
+Now we introduce $"part"$.
 
 #definition[
   The unit $"part"$ is defined over units $u, v --> "unit"$:

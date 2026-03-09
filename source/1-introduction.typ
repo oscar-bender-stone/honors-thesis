@@ -10,9 +10,12 @@
 [TODO[MEDIUM]: determine if the phrase: "see Section ?" should be used, or
 "refer to" instead, to fully include all readers.]
 
+[TODO: rephrase second sentence to say *when* the surge of data has come up.]
+
 Information Management is the study of systematically storing and organizing
-data. With the massive growth of data, particularly on the web, simply storing
-data to _use_ it. Raw databases are increasingly structured into organized
+data. Since the beginning of humanity, there has been a massive influx of data,
+including physical and digital data. Not a single person understands all of it.
+For effective use, raw databases are increasingly structured into organized
 _information bases_ to prove context surrounding the source and nature of data.
 The conceptual foundation for this process often traces back to Ackoff
 @ackoff-wisdom. His data-to-wisdom hierarchy posits that information is the
@@ -24,26 +27,30 @@ information is interpreted: as a _process_, as _knowledge_, and as _a thing_.
 While each of these are important, Buckland emphasizes that to _use_
 information, one must work with information as a thing—a tangible record like a
 document or digital file. Another author, Floridi, builds upon this tangible
-idea by requiring data be truthful @floridi-information-2010. Information must
-not only be in concrete records, but also accurately represent a topic of
-interest. As shown in this small sample of authors, information is a rich term,
-with an active pursuits to best manage it.
+idea by requiring data to be truthful @floridi-information-2010. Information
+must not only be in concrete records, but also accurately represent a topic of
+interest. As shown in this small sample of authors, the word information has
+several meanings, and they are driven by the goal to organize data.
 
-Despite these extensive ideas, applying Information Management in real world
-projects reveals ongoing problems. One of these issues is the _depth_ of
-domains. For example, at major retailers like Amazon, inventory and
-recommendation systems use immense amounts of data to power personalized
-recommendations to users @amazon-large-data-report. Another issue is the immense
-breadth of different subjects. As a well known example, Wikipedia struggles to
-constantly update its vast and interconnected web of knowledge
+[TODO: just giving citation does *not* mean they can certify the claim. Cite a
+specific page? If paper is *entirely* about the claim, then don't have page, but
+if NOT, do an address.]
+
+Despite efforts to understand information, there are ongoing problems in real
+world projects. One of these issues is the _depth_ of domains. For example, at
+major retailers like Amazon, inventory and recommendation systems use immense
+amounts of data to power personalized recommendations to users
+@amazon-large-data-report. Another issue is the immense _breadth_ of different
+subjects. As a well known example, Wikipedia struggles to constantly update its
+vast and interconnected web of knowledge, as found in
 @mesgari-research-review-on-wikipedia. Along with the depth and breadth of
 different disciplines, standardization is complex. Most systems have their own
-unique data formats, so making *interoperable* formats is hard, which is the
-ability to transfer one data format to another. For instance, transferring
-information between two medical platforms is notoriously difficult, even if they
-store the _same_ information about a patient @reisman-interoperable-data. These
-problems continue to be a challenge in effectively utilizing frameworks for
-information.
+unique data formats, so making *interoperable* formats is hard, An
+*interoperable format* is designed to enable data transfer from one solution to
+another. For instance, transferring information between two medical platforms is
+notoriously difficult, even if they store the _same_ information about a patient
+@reisman-interoperable-data. These problems continue to be a challenge in
+effectively utilizing frameworks for information.
 
 In consideration of these issues, several solutions partially resolve some of
 them, but not completely. The following provides a small list of major existing
