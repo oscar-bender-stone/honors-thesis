@@ -136,6 +136,8 @@ base operations are kept as simple as possible. However, they are proven to be
 maximally expressive. The simplicity of the language aids in standardization as
 well.
 
+[TODO: look back at ]
+
 #figure(
   table(
     columns: (auto, auto, auto),
@@ -143,7 +145,7 @@ well.
     table.header([*Goal*], [*Name*], [*Description*]),
     [*Goal 1*],
     [*Universality*],
-    [The language must enable any user created parameters, whose symbolic
+    [The language must enable any user-created parameters, whose symbolic
       representation is accepted a computable function. Every computable
       function must be definable in the language.],
 
@@ -159,10 +161,9 @@ well.
     [*Goal 3*],
     [*Standardization*],
     [The language needs a rigorous and formal specification. Moreover, the
-      bootstrap must be formalized, as well as an abstract machine model. The
-      grammar and bootstrap must be fixed to ensure complete forwards and
-      backwards compatibility. Certificates must be reliably checked and rely on
-      a low level of trust, or a small Trusted Computing Base.
+      bootstrap must be formalized. The grammar and bootstrap must be fixed to
+      ensure complete forwards and backwards compatibility. Certificates must be
+      reliably checked, with a transparent way to view every step of a proof.
     ],
   ),
   caption: "Goals for the Welkin language.",
