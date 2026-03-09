@@ -31,8 +31,6 @@ section is optional. For the base definition of information, refer to
 
 + We conclude with the definition of information.
 
-Optimizations will be postponed to @information-organization.
-
 For notation, we will write $"PA"$ for Peano Arithmetic and $"PRA"$ for
 Primitive Recursive Arithmetic. Moreover, without loss of generality, we will
 consider only first-order theories $T$ that are RE. This can be shown in the

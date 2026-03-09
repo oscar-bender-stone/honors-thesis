@@ -3,6 +3,8 @@
 
 = Conclusion <conclusion>
 
+[TODO: update conclusion.]
+
 This thesis introduced Welkin, a universal, formalized information language. The
 syntax (@syntax) was defined rigorously with a small EBNF, shown to be accepted
 by an LL(1) grammar, showing that parsing is unambiguous. The semantics
@@ -13,9 +15,7 @@ them to express any partial computable function @turing-expressible, in
 conjungtion with expressing any truth management system, demonstrates
 *universality* of the system. This is practically demonstrated by showing that
 all the major paradigms in Information Management and Knowledge Management are
-expressible within Welkin. Moreover, it was shown that there is a way to best
-organize the language given available information @information-organization,
-showing *scalability*. Finally, the bootstrap in @foundations self-hosts the
+expressible within Welkin. Finally, the bootstrap in @foundations self-hosts the
 language within a bounded 64 variant, whose complete Unambiguity (as well as the
 grammar's prior) establishes *standardization*. Revisions further enhance this
 by
@@ -64,10 +64,10 @@ Module system for Mathematical Theories (MMT), aimed to be more general and have
 seen limited success. More centralized systems, like `mathlib` in the Lean proof
 assistant @lean-mathlib, have seen adoption but do not give equal coverage nor
 are interoperable with other systems. Welkin enables this interopreeable through
-gradual translations, and with @information-organization, one can always
-determine if there is enough _direct_ information to complete a translation.
-This will help facilitate reusability among major tools, and aid in formal
-verification (@conclusion:programming) well.
+gradual translations, and with adaptive optimizations, one can always determine
+if there is enough _direct_ information to complete a translation. This will
+help facilitate reusability among major tools, and aid in formal verification
+(@conclusion:programming) well.
 
 Along with mathematics, Welkin could provide more rigorous frameworks for the
 sciences, with are currently scattered with different proposals. One prominent

@@ -527,8 +527,7 @@ groups that can be made associative.
 Now we will includle a notion for containment. Because Welkin is Turing
 expressible, $"unit"$ may not terminate in all cases, such as an infinite
 recursive loop. We want to have a mechanism to _check_ certain claims. This is
-the role of the verifier, built upon $"part"$. We will later on use $"part"$ for
-useful optimizations, see @information-organization.
+the role of the verifier, built upon $"part"$.
 
 [TODO: start converting list defs into single equations.]
 

@@ -141,8 +141,9 @@ enables ease of implementation.
     [*Scalability*],
     [
       The database must appropriately scale to broad representations of
-      information. Local queries must be efficient. Certificates must be
-      available to prove cases where optimal representations have been achieved.
+      information. Local queries must be efficient. Additionally, any future,
+      optimizations that correctly implement the language should be expressible
+      in the language.
     ],
 
     [*Goal 3*],
@@ -180,12 +181,6 @@ This thesis is organized according to @thesis-organization.
     [*@metatheory*],
     [*Metatheory*],
     [Proves that Welkin can express any proof.],
-
-    [*@information-organization*],
-    [#set text(hyphenate: false); *Organizing Information*],
-    [Develops a Greedy algorithm to locally optimize information. Creates a
-      certificate that demonstrates when a representation is optimal relative to
-      the current information database.],
 
     [*@conclusion*],
     [*Conclusion*],

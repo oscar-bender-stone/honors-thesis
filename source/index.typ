@@ -30,8 +30,8 @@
     "references/3-foundations.bib",
     "references/4-metatheory.bib",
     "references/5-syntax.bib",
-    "references/6-information-organization.bib",
-    "references/7-conclusion.bib",
+    // "references/6-information-organization.bib",
+    "references/6-conclusion.bib",
     "references/general.bib",
   )),
 )
@@ -45,8 +45,7 @@
 #include "3-foundations.typ"
 #include "4-syntax.typ"
 #include "5-metatheory.typ"
-#include "6-information-organization.typ"
-#include "7-conclusion.typ"
+#include "6-conclusion.typ"
 
 // TODO: fix numbering!
 #let appendix(body) = {

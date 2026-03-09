@@ -129,8 +129,7 @@ is a difference that makes a difference" @bateson-ecology-of-mind. Our practical
 distinction between information and knowledge is that we _use_ information, but
 users can assert their own notions of these terms by creating restricted
 contexts. There are technical constructions to show that our definition is _as
-general_ as possible (@foundations:information), as well as optimally organized
-(@information-organization).
+general_ as possible (@foundations:information).
 
 == Base Rules
 
@@ -268,37 +267,3 @@ To resolve both issues, we "bootstrap" Welkin from the ground up.
   way to process it in the program.
 - Then, in @metatheory, we prove that our definition of information is complete
   with respect to being accepted by a Turing machine.
-- Finally, in :@information-organization, we show how to include optimizations,
-  which can be expressed into the stored size of a unit.
-
-// + We establish the base rules on units (@unit-rules).
-// + Using English as our meta-language, we prove that our rules can define the $S$
-//   and $K$ combinators as any combination of terms, and thus is Turing complete,
-//   (@turing-expressible).
-// + We show the language has a natural unit that indexes every other index. This
-//   term will act as a verifier for proofs, which we will show does _not_ limit
-//   which proofs we accept.
-
-// + Provide the base meta-theory for the language _in_ Welkin. This will be PRA,
-//   written in a combinator based form. We will show the main axioms of PRA hold.
-
-// + Prove that Peano Arithmetic is provably sound in a weak sense using a method
-//   developed by Artemov @artemov_serial_consistency. From there, we carry out
-//   Feferman's Reflection theorem written with our notions.
-
-// + Define handles and information. We also justify information organization to
-//   promote the _most_ optimal paths to prove things, _if_ proofs are provided.
-//   This is deeply connected to Blum's speedup theorem and is essential for
-//   proving Goal 2.
-
-// + Define the rules for path resolution and global IDs. These use a similar
-//   result to syntax descriptions and are significantly easier to read. [NOTE:
-//   emphasis on WIP here! Not yet developed in thesis !]
-
-// + Finally, define the syntax through an _invertible syntax description_. This
-//   idea, pioneered by Rendel and Ostermann @invertible-syntax-descriptions,
-//   provides a combinator approach to define how concrete syntax, that is user
-//   written, is converted into abstract syntax, an abstracted form, _and back_.
-//   Along with the syntax, the encoding is given _itself_ through a
-//   representation, namely a table provided in this thesis.
-

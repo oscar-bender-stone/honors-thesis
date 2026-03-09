@@ -8,11 +8,6 @@
 #import "us-ascii.typ": printable-ascii-table
 
 #import "grammar.typ": grammar
-#import "LL1/grammar.typ": ll1-grammar
-#import "LL1/refactor.typ": ll1-refactor
-#import "LL1/transforms.typ": ll1-transforms
-#import "LL1/predict-table.typ": ll1-predict-figure
-
 
 // TODO: create a "current working file" or such,
 // or "current working context", and then use *that*
