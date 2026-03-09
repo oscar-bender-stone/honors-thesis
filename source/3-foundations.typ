@@ -486,6 +486,7 @@ frequently when defining terms in @turing-expressible.
   [TODO: discuss how we are allowing the variables to be the same or different!
   Related to bundling in MetaMath + MetaMath Zero [and cite these!].]
 ]
+
 #definition[
   The *unit recursor* $"unit"$ includes all rules in @unit-rules, as well as the
   following in context $"unit"$:
@@ -501,7 +502,7 @@ The following statements are two parts of the same *Recursion theorem* for
 Welkin. The first is straightforward; their proofs closely aligns with the
 definitions written in the meta-language (English).
 
-#lemma[*_(Correctness)._* For every unit $u$, $u - "unit" -> "unit"$.
+#lemma[*_(Recursor Correctness)._* For every unit $u$, $u - "unit" -> "unit"$.
 ]<foundations:recursion-correctness>
 #proof[Fix the context to be $"unit"$. We proceed induction on units:
   - *Base case:* this is immediate, as ${}$ and all handles are included.
@@ -514,6 +515,12 @@ Now, for the rest of the thesis (except bootstrap), we will drop mentions of
 specific handles. These will all be facilitated by $"unit"$. Moreover, if
 $u --> "unit"$, then $u - "unit" -> "unit"$, based on @r:identity and
 @r:transitivity. We will use the former for brevity.
+
+
+In addition to `unit`, we need a mechanism to assign IDs for two things: words
+and blocks. For the latter, we need a way to normalize at least to index those
+groups that can be made associative.
+
 
 == Base Verifier
 
