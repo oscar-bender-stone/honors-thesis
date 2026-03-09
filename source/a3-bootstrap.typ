@@ -60,6 +60,17 @@ encoding {
 
 }
 
+characters {
+
+
+
+}
+
+
+character_classes {
+
+
+}
 
 codec <--> {
   parse --> unit,
@@ -71,11 +82,6 @@ codec <--> {
     <-->
     {u - print -> s}
   }
-},
-
-characters {
-
-
 }
 
 grammar {

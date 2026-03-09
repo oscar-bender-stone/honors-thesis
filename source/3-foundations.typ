@@ -201,7 +201,7 @@ We will intentionally _avoid_ defining equality on units and postpone this until
       (
         name: "Import Commutativity",
         lbl: "r:import-commutativity",
-        content: [$\{@g, ~u\} <--> \{"~"u, @g\}$],
+        content: [$\{@g, ~a\} <--> \{"~"a, @g\}$],
       ),
     ),
   )
@@ -461,8 +461,8 @@ appeared frequently when defining terms in @turing-expressible.
 ]
 
 #definition[
-  The *unit recursor* $"unit"$ includes all rules in @unit-rules, as well as the
-  following in context $"unit"$:
+  The *unit recursor* $"unit"$ include exactly the following rules in context
+  $"unit"$:
   - $"word" --> "unit"$, see @foundations:bootstrap-binary-word.
   - $"handle" --> "unit"$, see @foundations:bootstrap-handle-id.
   - ${} | u | v | c --> "unit"$.
@@ -489,10 +489,26 @@ $u --> "unit"$, then $u - "unit" -> "unit"$, based on @r:identity and
 @r:transitivity. We will use the former for brevity.
 
 
-In addition to `unit`, we need a mechanism to assign IDs for two things: words
-and blocks. For the latter, we need a way to normalize at least to index those
-groups that can be made associative.
+In addition to `unit`, we need to express the rules themselves.
 
+#definition[
+  The $"rules"$ unit is defined as exactly the things below, over
+  $a | b | c | d | g --> "unit"$ and $"h1"| "h2" --> "handle"$. The overarching
+  context is $"rules"$.
+  - $"R1" <--> {{a - c -> b}, {b - c -> d}} --> {a - c -> d}$
+  - ${"R2" <--> {a - c -> b}, {d - a -> g}} --> {l <--> {a - d - g}, l - g -> l}$
+  - $"R3" <--> {{@g, {}} <--> g}$
+  - $"R4" <--> {{a - {} -> b} <--> {}}$
+  - $"R5" <--> {{"h1" <--> "h2"} <--> {"h1" <- "equals" -> "h2"}}$
+  - $"R6" <--> {a <--> {a - a -> a}}$
+  - $"R7" <--> {a <--> {a}}$
+  - $"R8" <--> {{@g, a} <--> g} <--> {a - g -> a}$
+  - $"R9" <--> {a - g -> b} --> {{@g, c} <--> {{@g, a}, b}}$
+  - $"R10" <--> {{g <--> {@g, a}} --> {{{@g, "~"a}, b}, {@d, b}}}$
+  - $"R11" <--> {a, {b, c}} <--> {{a, b}, c}$
+  - $"R12" <--> {a, b} <--> {{a, b}, c}$
+  - $"R13" <--> {{@g, ~a} <--> {~a, @g}}$
+]
 
 == Base Verifier
 
