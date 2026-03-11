@@ -25,8 +25,9 @@ This section discuss the foundations of Welkin, as follows:
 
 As high-level notation, we write $a equiv b$ to mean that $a$ is definitionally
 equivalent to $b$. High level notation will _not_ be stated in the syntax unless
-where noted. Moreover, we will not worry about _enforcing_ a term is finite;
-this is left for implementations.
+where noted. Moreovoer, implementation details are outside the scope of this
+thesis. This includes, e.g., practically restricting user input by fixed upper
+bounds.
 
 #definition[
   A *bit* is the symbols $0$ or $1$. A *binary word* is either the symbol
@@ -35,6 +36,9 @@ this is left for implementations.
   word.
 ]<foundations:word>
 
+We also require a notion of equality on bits. To ensure this is constructive, we
+provide a _separate_ definition of inequality as well. The latter provides an
+explicit certificate, meaning a bit that differs in two words.
 
 #definition[
   Equality $=$ and inequality $!=$ on words $w_1, w_2$ is defined recursively:
@@ -44,9 +48,6 @@ this is left for implementations.
     if $b_1 = b_2$ and $w'_1 = w'2$. Moreover, $w_1 != w_2$ if and only if
     $b_1 != b_2$ or $w'_1 != w'_2$.
 ]<foundations:binary-word-equality>
-#remark[@foundations:binary-word-equality is given constructively to ensure that
-  if two finite words are unequal, then an explicit bit can act as a certificate
-  for this inequality.]
 
 Words alone do not carry meaning. The extended meaning is provided to _handles_.
 
@@ -369,8 +370,9 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
 
   Now, $L$ already includes the base rules for $K$ and $S$. It remains to be
   shown that $L$ is closed under composition: $M --> L$ and $N --> L$ imply
-  $C --> L$, where $C <--> {N - M -> L}$. By using *R1* on $C --> {M --> L}$ and
-  ${M --> L} --> L$, we obtain $C --> L$, completing the proof.
+  $C --> L$, where $C <--> {N - M -> L}$. By using @r:transitivity on
+  $C --> {M --> L}$ and ${M --> L} --> L$, we obtain $C --> L$, completing the
+  proof.
 ]
 
 == The Unit Recursor <foundations:base-recursor>
