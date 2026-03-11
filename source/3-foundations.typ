@@ -98,6 +98,18 @@ representations. We present the complete definition below.
       $b$ *in context* $c$.
 ]<foundations:unit>
 
+Instead of equality, we define *membership* as a primary notion. To simplify the
+relation, we include ${}$ in every unit. The full definition is provided below.
+
+#definition[
+  Given units $u, v$, we define when $u$ is a *member of* $v$, written $u in v$:
+  - *Base case:* for any unit $v$:
+    - ${} in v$.
+    - $h in v$ iff .
+  - *Inductive step:* suppose $u equiv {@u_1, u_2}$. Then $u in v$ iff
+    $u_1 in v$ and $u_2 in v$.
+]<foundations:unit-membership>
+
 Units are characterized by the following rules.
 
 // TODO: maybe provide technique for unused imports?
@@ -116,8 +128,8 @@ Units are characterized by the following rules.
       (
         name: "Contextual Lifting",
         lbl: "r:context-lift",
-        content: [$a - c -> b$ and $d - b -> g$ imply
-          #box[$\{d - a -> g\} - c -> \{d - a -> g\}$]],
+        content: [$a - c -> b$ and $d - a -> g$ imply
+          #box[$\{d - a -> g\} in c$]],
       ),
       (
         name: "Empty",
@@ -269,7 +281,7 @@ $a - c -> b_1 | b_2 | ... | b_n$.
 
 Before we proceed to prove Turing completeness, we introduce the
 $"SK"$-combinator calculus. This is an equational theory that is well known to
-be Turing complete @curry-grundlagen. For simplicitly, we define the calculus
+be Turing complete @curry-grundlagen. For simplicity, we define the calculus
 using a *reduction relation* instead.
 
 #let sk-imp = math.attach($=>$, br: "SK")
@@ -311,26 +323,12 @@ We are now ready to prove the following.
     This was one of Curry's insights in connecting logic to computation
     @curry-grundlagen.]
 
-  // TODO: show that this construction
-  // WITH lifting does work!
-  // Just a bit more verbose
-  // than original calculus.
-  // (But suffices for this proof!)
-  // K - L -> L
-  // S - L -> L
-  // M - L -> L
-  // Context lift once:
-  // {M - K -> L} - L - {M - K -> L}
-  // {M - S -> L} - L - {M - S -> L}
-  //
-  // {S - {S - K -> L} -> L} -> L
-
   #figure(
     [
       $
         L equiv {
           #align(left)[
-            $ K -> L, quad S -> L, $
+            $ L -> K, quad L -> S, $
             \
             $ M -> L, $
             \
@@ -340,14 +338,12 @@ We are now ready to prove the following.
             \
             $ C <-> {N - M -> L}, $
             \
-            $ C -> M, C -> N, $
+            $ M | N -> C, $
             \
             $ {P -> M, Q -> N} -> $
             \
             $ {{P - Q -> L} -> {N - M -> L}}, $
             \
-            // $ C -> M, C -> N $
-            // \
             $ {N - {M - K -> L} -> L} -> M, $
             \
             $ {P - {N - {M - S -> L} -> L} -> L} $
@@ -365,9 +361,8 @@ We are now ready to prove the following.
   - $L$ includes $K$ and $S$ as base cases. We interpret $K --> L$ to mean $K$
     is a term of $L$.
   - We include variables $M, N, P$ over terms.
-  - Composition $M N$ is represented as $N - M -> L$. Moreover, $M N$ can be
-    broken down into its constituent parts $M, N$.
-
+  - Composition $M N$ is represented as $N - M -> L$. There are two injections:
+  $M --> {N - M -> L}$ and $N --> {N - M -> L}$.
   - The remaining representations are for the rule of $K$ and $S$, respectively.
 
   We claim that $L$ represents $#sk-imp$. Clearly $L$ includes the base rules
