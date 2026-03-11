@@ -150,7 +150,7 @@ denote *membership*.
         lbl: "r:referent-congruence",
         content: [
           If $a - c -> b$, then
-          #box[${d - g - a} - c -> {d - g - b}$]
+          #box[${d - g -> a} - c -> {d - g -> b}$]
         ],
       ),
       (
@@ -412,9 +412,9 @@ We are now ready to prove the following.
 
   We claim that $L$ represents $#sk-imp$. Clearly $L$ includes the base axioms
   for $K$ and $S$, and @r:sign-congruence provides congruence. It remains to be
-  shown that $M in L$ and $N in L$ entail $C in L$, where $C <--> {N - M -> L}$.
-  By using @r:transitivity on $C --> {M --> L}$ and ${M --> L} --> L$, we obtain
-  $C --> L$. This completes the proof.
+  shown that $M --> L$ and $N --> L$ entail $C --> L$, where
+  $C <--> {N - M -> L}$. By using @r:transitivity on $C --> M$ and $M --> L$, we
+  obtain $C --> L$. This completes the proof.
 ]
 
 == The Unit Recursor <foundations:base-recursor>
