@@ -122,42 +122,42 @@ denote *membership*.
       (
         name: "Internal Transitivity",
         lbl: "r:transitivity",
-        content: [$a - c -> b$ and $b - c -> d$ imply $a - c -> d$.],
+        content: [$a - c -> b$ and $b - c -> d$ imply $a - c -> d$],
       ),
       (
         name: "Contextual Lifting",
         lbl: "r:context-lift",
         content: [$a - c -> b$ and $d - a -> g$ imply
-          #box[$\{d - b -> g\} in c$]],
+          #box[${d - b -> g} in c$]],
       ),
       (
         name: "Empty",
         lbl: "r:empty",
-        content: [$\{\@g, \{\}\} <--> g$],
+        content: [${@g, {}} <--> g$],
       ),
       (
         name: "Null",
         lbl: "r:null",
-        content: [$\{a - \{\} -> b\} <--> \{\}$],
+        content: [${a - {} -> b} <--> {}$],
       ),
       (
         name: "Handle Substitution",
         lbl: "r:handle-sub",
-        content: [If handle $h_1$ is equal to handle $h_2$, then
-          $h_1 <--> h_2$.],
+        content: [If $h_1 = h_2$, then
+          $h_1 <--> h_2$],
       ),
 
       (
         name: "Identity",
         lbl: "r:identity",
-        content: [$a <--> \{a - a -> a\}$],
+        content: [$a <--> {a - a -> a}$],
       ),
 
       (
         name: "Singleton",
         lbl: "r:singleton",
         content: [
-          $a <--> \{a\}$.
+          $a <--> {a}$
         ],
       ),
 
@@ -165,16 +165,30 @@ denote *membership*.
         name: "Pair",
         lbl: "r:pair",
         content: [
-          $u in {u, v}$ and $v in {u, v}$.
+          $u in {u, v}$ and $v in {u, v}$
+        ],
+      ),
+      (
+        name: "Refinement",
+        lbl: "r:refine",
+        content: [
+          With $x <--> {a - c -> b, a - c -> d}$, $x --> {a - c -> b}$ and
+          $x --> {a - c -> d}$
         ],
       ),
 
-      // NOTE: may say this does add arrows?
+      (
+        name: "Closure",
+        lbl: "r:closure",
+        content: [
+          If $a - c -> b$ and $a --> b$, then $g --> {g, a --> b}$.
+        ],
+      ),
       (
         name: "Membership",
         lbl: "r:membership",
         content: [
-          $a in g$ if and only if $\{\@g, a\} <--> g$.
+          $a in g$ if and only if ${@g, a} <--> g$
         ],
       ),
       // TODO: make this more accurate!
@@ -184,36 +198,36 @@ denote *membership*.
         name: "Field Access",
         lbl: "r:field-access",
         content: [
-          $g.a <--> a$ implies $a - g -> a$.
+          $g.a <--> a$ implies $a - g -> a$
         ],
       ),
       (
         name: "Expansion",
         lbl: "r:expansion",
         content: [if $a - g -> b$, then
-          #box[$\{\@g, c\} <--> \{\{\{\@g, a\}, b\}, c\}$]],
+          #box[${@g, c} <--> {{{@g, a --> b}, c}$]],
       ),
       (
         name: "Exclusion",
         lbl: "r:exclusion",
-        content: [if $g <--> \{\@g, a\}$, then
-          #box[$\{\{\@g, "~"a\}, b\} <--> \{\@d, b\}$]],
+        content: [if $g <--> {@g, a}$, then
+          #box[${{@g, "~"a}, b} <--> {@d, b}$]],
       ),
       (
         name: "Associativity",
         lbl: "r:associativity",
-        content: [$\{a, \{b, c\}\} <--> \{\{a, b\}, c\}$],
+        content: [${a, {b, c}} <--> {{a, b}, c}$],
       ),
       (
         name: "Commutativity",
         lbl: "r:commutativity",
-        content: [$\{a, b\} <--> \{b, a\}$],
+        content: [${a, b} <--> {b, a}$],
       ),
 
       (
         name: "Import Commutativity",
         lbl: "r:import-commutativity",
-        content: [$\{@g, ~a\} <--> \{"~"a, @g\}$],
+        content: [${@g, "~"a} <--> {"~"a, @g}$],
       ),
     ),
   )
@@ -235,9 +249,10 @@ as make it easier to use the language.
   ideas to reader.]
 - @r:empty and @r:null define the behavior of the empty unit ${}$, similar to
   the empty set. @r:null specifically states that ${}$ contains _no_
-  representations. Thus, any term $a - {} -> b$ is equivalent to ${}$ itself.
+  representations. Thus, any term $a - {} -> b$ is equivalent to ${}$, i.e.,
+  carries no meaning.
 - @r:handle-sub enables equality in words and handles to pass through into
-  representations. Besides this, note that equivalences on units are _entirely_
+  representations. Besides this, note that equivalences on units are entirely
   user defined.
 - @r:identity represents identity. Users can take other representations, like
   $a - g -> a$, to be _distinct_ from identity.
@@ -247,6 +262,8 @@ as make it easier to use the language.
   not useful for handles, it is for specifying blocks of representations, such
   as ${a - b -> c, b - c -> d}$.
 - @r:pair states that components $u, v$ are members of the pair ${u, v}$.
+- @r:refine is explained as follows: suppose $a$ is a unit, and in a block, it
+  represents two other units $b, d$.
 - @r:membership defines membership $a in g$. Note that this is more relaxed than
   set-theoretic equality. First, by @r:empty, ${}$ is contained in every unit.
   Second, by @r:associativity, one can take $g equiv {a, {b, c}}$ and state
@@ -321,8 +338,7 @@ We are now ready to prove the following.
   represent _recursion_, expressed through a unit $L$. For handle IDs, we set:
   - $"ID"_L equiv 0$.
   - $"ID"_K equiv 1$, $"ID"_S equiv 2$.
-  - $"ID"_M equiv 3$, $"ID"_N equiv 4$
-  - $"ID"_P equiv 5$, $"ID"_Q equiv 6$
+  - $"ID"_M equiv 3$, $"ID"_N equiv 4$, $"ID"_P equiv 5$.
   Note that these IDs will be reused after this lemma. These are shown to
   demonstrate they _can_ be generated manually.
 
@@ -335,24 +351,18 @@ We are now ready to prove the following.
     This was one of Curry's insights in connecting logic to computation
     @curry-grundlagen.]
 
+
   #figure(
     [
       $
         L equiv {
           #align(left)[
-            $ K | S -> L, $
+            $ L -> K | S, $
             \
-            $ M | N | P | Q -> L, $
+            $ M | N | P -> L, $
             \
-            $ K | S -> M | N | P | Q, $
-            \
-            $ C <-> {N - M -> L}, $
-            \
-            $C -> M | N$
-            \
-            $ {P -> M, Q -> N} -> $
-            \
-            $ {{P - Q -> L} -> {N - M -> L}}, $
+            $ L -> {N - M -> L}, $
+            // $ {P -> M, Q -> N, P - Q -> L} -> {N - M -> L}, $
             \
             $ {N - {M - K -> L} -> L} -> M, $
             \
