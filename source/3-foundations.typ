@@ -157,7 +157,15 @@ denote *membership*.
         name: "Singleton",
         lbl: "r:singleton",
         content: [
-          $a <--> \{a\}$ and $a in {a}$.
+          $a <--> \{a\}$.
+        ],
+      ),
+
+      (
+        name: "Pair",
+        lbl: "r:pair",
+        content: [
+          $u in {u, v}$ and $v in {u, v}$.
         ],
       ),
 
@@ -238,6 +246,7 @@ as make it easier to use the language.
   @quine:new-foundations. We interpret ${a}$ as a _wrapper_ around $a$. While
   not useful for handles, it is for specifying blocks of representations, such
   as ${a - b -> c, b - c -> d}$.
+- @r:pair states that components $u, v$ are members of the pair ${u, v}$.
 - @r:membership defines membership $a in g$. Note that this is more relaxed than
   set-theoretic equality. First, by @r:empty, ${}$ is contained in every unit.
   Second, by @r:associativity, one can take $g equiv {a, {b, c}}$ and state
@@ -265,7 +274,7 @@ as make it easier to use the language.
 We provide some reoccurring properties in the lemma below.
 
 #lemma[
-  - For every unit $u$ and $v$, if $v in.not in u$, then $~{{@u, v} <--> u}$.
+  - For every unit $u$ and $v$, if $v in.not u$, then $~{{@u, v} <--> u}$.
   - Import blocks are locally associative: given import blocks $m_1, m_2$ and a
     unit $u$, #box[${m_1, {m_2, ~u}} <--> {m_2, {m_1, ~u}}$].
 ]<foundations:lemma-properties>
@@ -331,13 +340,15 @@ We are now ready to prove the following.
       $
         L equiv {
           #align(left)[
-            $ K | S -> L $
+            $ K | S -> L, $
             \
             $ M | N | P | Q -> L, $
             \
+            $ K | S -> M | N | P | Q, $
+            \
             $ C <-> {N - M -> L}, $
             \
-            $ M | N -> C, $
+            $C -> M | N$
             \
             $ {P -> M, Q -> N} -> $
             \
@@ -371,8 +382,8 @@ We are now ready to prove the following.
     respectively.
 
   We claim that $L$ represents $#sk-imp$. Clearly $L$ includes the base axioms
-  for $K$ and $S$, as well as congruence. It remains to be shown that, given
-  $M in L$ and $N in L$, $C in L$, where $C <--> {N - M -> L}$. By using
+  for $K$ and $S$, as well as congruence. It remains to be shown that $M in L$
+  and $N in L$ entail $C in L$, where $C <--> {N - M -> L}$. By using
   @r:transitivity on $C --> {M --> L}$ and ${M --> L} --> L$, we obtain
   $C --> L$. This completes the proof.
 ]
