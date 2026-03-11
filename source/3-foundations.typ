@@ -98,9 +98,7 @@ representations. We present the complete definition below.
       $b$ *in context* $c$.
 ]<foundations:unit>
 
-We will postpone the definition of equality; this will be written _in_ the
-language itself, see @foundations:base-recursor. For now, we present the full
-list of rules.
+Units are characterized by the following rules.
 
 // TODO: maybe provide technique for unused imports?
 // Might JUST want to have for later, not have as part of unit.
@@ -213,7 +211,7 @@ units as modules, as well as make it easier to use the language.
   ideas to reader.]
 - @r:empty and @r:null define the behavior of the empty unit ${}$, similar to
   the empty set. @r:null specifically states that ${}$ contains _no_
-  representations, so any term $a - {} -> b$ may be written.
+  representations. Thus, any term $a - {} -> b$ is equivalent to ${}$ itself.
 - @r:handle-sub enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are _entirely_
   user defined.
