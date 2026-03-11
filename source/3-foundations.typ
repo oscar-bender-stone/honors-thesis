@@ -311,9 +311,20 @@ We are now ready to prove the following.
     This was one of Curry's insights in connecting logic to computation
     @curry-grundlagen.]
 
-  // M - L -> L
+  // TODO: show that this construction
+  // WITH lifting does work!
+  // Just a bit more verbose
+  // than original calculus.
+  // (But suffices for this proof!)
   // K - L -> L
-  // {K - M -> L} - L -> {K - M -> L}
+  // S - L -> L
+  // M - L -> L
+  // Context lift once:
+  // {M - K -> L} - L - {M - K -> L}
+  // {M - S -> L} - L - {M - S -> L}
+  //
+  // {S - {S - K -> L} -> L} -> L
+
   #figure(
     [
       $
@@ -327,11 +338,9 @@ We are now ready to prove the following.
             \
             $ P -> L, $
             \
-            $ Q -> L, $
-            \
             $ C <-> {N - M -> L}, $
             \
-            $ M -> C, N -> C, $
+            $ C -> M, C -> N, $
             \
             $ {P -> M, Q -> N} -> $
             \
