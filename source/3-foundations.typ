@@ -82,8 +82,8 @@ representations. We present the complete definition below.
 #definition[
   A *unit* is defined recursively as follows and nothing else:
   - *Base case:*
-    - A handle, see @foundations:handle.
     - The symbol ${}$, the *empty block*.
+    - A handle, see @foundations:handle.
   - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
     combination of the following are also units:
     - $@u$, the *expansion* of $u$.
@@ -98,19 +98,8 @@ representations. We present the complete definition below.
       $b$ *in context* $c$.
 ]<foundations:unit>
 
-Instead of equality, we define *membership* as a primary notion. To simplify the
-relation, we include ${}$ in every unit. The full definition is provided below.
-
-#definition[
-  Given units $u, v$, we define when $u$ is a *member of* $v$, written $u in v$:
-  - *Base case:* for any unit $v$:
-    - ${} in v$.
-    - $h in v$ iff .
-  - *Inductive step:* suppose $u equiv {@u_1, u_2}$. Then $u in v$ iff
-    $u_1 in v$ and $u_2 in v$.
-]<foundations:unit-membership>
-
-Units are characterized by the following rules.
+We add an external symbol $in$ to represent membership. Units are characterized
+by the following rules.
 
 // TODO: maybe provide technique for unused imports?
 // Might JUST want to have for later, not have as part of unit.
@@ -158,7 +147,7 @@ Units are characterized by the following rules.
         name: "Singleton",
         lbl: "r:singleton",
         content: [
-          $a <--> \{a\}$.
+          $a <--> \{a\}$ and $a in {a}$.
         ],
       ),
 
@@ -167,7 +156,7 @@ Units are characterized by the following rules.
         name: "Membership",
         lbl: "r:membership",
         content: [
-          $\{\@g, a\} <--> g$ if and only if $a - g -> a$.
+          $a in g$ if and only if $\{\@g, a\} <--> g$.
         ],
       ),
       (
@@ -228,18 +217,18 @@ use the language.
 - @r:handle-sub enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are _entirely_
   user defined.
-- @r:identity represents identity. This is _not_ the same as $a - g -> a$, see
-  the discussion below.
-// - @r:module ensures that a _given_ module is unique. This is only accessible at
-//   the highest scope in a file, see @syntax.
+- @r:identity represents identity. Users can take other representations, like
+  $a - g -> a$, to be _distinct_ from identity.
 - @r:singleton reduces extraneous blocks. Note that this is _not_ the same thing
   as the Quine atom, which states ${a} = a$ in a set theoretic context
   @quine:new-foundations. We interpret ${a}$ as a _wrapper_ around $a$. While
   not useful for handles, it is for specifying blocks of representations, such
   as ${a - b -> c, b - c -> d}$.
-- @r:membership provides a way to represent $a in g$ through the representation
-  $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, _not_
-  identity.
+- @r:membership defines membership $a in g$. Note that this is more relaxed than
+  set-theoretic equality. First, by @r:empty, ${}$ is contained in every unit.
+  Second, by @r:associativity, one can take $g equiv {a, {b, c}}$ and state
+  ${b, c} in g$ _and_ ${a, b} in g$. Restrictions can be added through
+  user-defined contexts.
 - @r:field-access provides a way to access specific units in a scope. The
   notation is entirely inspired by object oriented programming. This style of
   programming has _objects_ that can have data (fields) and functions (methods).
