@@ -125,12 +125,6 @@ denote *membership*.
         content: [$a - c -> b$ and $b - c -> d$ imply $a - c -> d$],
       ),
       (
-        name: "Contextual Lifting",
-        lbl: "r:context-lift",
-        content: [$a - c -> b$ and $d - a -> g$ imply
-          #box[${d - b -> g} in c$]],
-      ),
-      (
         name: "Sign Congruence",
         lbl: "r:sign-congruence",
         content: [
@@ -152,6 +146,12 @@ denote *membership*.
           If $a - c -> b$, then
           #box[${d - g -> a} - c -> {d - g -> b}$]
         ],
+      ),
+      (
+        name: "Contextual Lifting",
+        lbl: "r:context-lift",
+        content: [$a - c -> b$ and $d - a -> g$ imply
+          #box[${d - b -> g} in c$]],
       ),
       (
         name: "Refinement",
@@ -256,11 +256,12 @@ denote *membership*.
 
 We review the utility of each rule. Note that rules _between_ contexts is
 entirely flexible and user defined. Moreover, only @r:transitivity,
-@r:context-lift, @r:sign-congruence, and @r:context-congruence are needed for
-Turing completeness. However, the other rules are in place to help with
-organizing units as modules, as well as make it easier to use the language.
+@r:sign-congruence, and @r:context-congruence are needed for Turing
+completeness. However, the other rules are in place to help with organizing
+units as modules, as well as make it easier to use the language.
 
-- @r:transitivity, @r:context-lift, @r:sign-congruence were discussed in
+- @r:transitivity, @r:sign-congruence, @r:context-congruence,
+  @r:referent-congruence, @r:context-lift were discussed in
   @rationale:unit.[TODO: maybe review the discussion from earlier? Might be
   useful to reinforce main ideas to reader.]
 // - @r:refine is explained as follows: suppose $a$ is a unit, and in a block, $a$
@@ -380,10 +381,6 @@ We are now ready to prove the following.
             \
             $ M | N | P -> L, $
             \
-            $ C <--> {N - M -> L}, $
-            \
-            $C --> M | N$,
-            \
             $ L -> {N - M -> L}, $
             \
             $ {N - {M - K -> L} -> L} -> M, $
@@ -404,18 +401,19 @@ We are now ready to prove the following.
     equivalent to $K --> L$ and $S --> L$. We interpret $K --> L$ to mean $K$ is
     a term of $L$.
   - We include variables $M, N, P, Q$ over terms.
-  - Composition $M N$ is represented as $N - M -> L$. We include relationships
-    between $M N$ and its components: $M --> {N - M -> L}$ and
-    $N --> {N - M -> L}$.
+  - Composition $M N$ is represented as $N - M -> L$.
   - The remaining representations are for the rules of $K$ and $S$,
     respectively.
 
-  We claim that $L$ represents $#sk-imp$. Clearly $L$ includes the base axioms
-  for $K$ and $S$, and @r:sign-congruence provides congruence. It remains to be
-  shown that $M --> L$ and $N --> L$ entail $C --> L$, where
-  $C <--> {N - M -> L}$. By using @r:transitivity on $C --> M$ and $M --> L$, we
-  obtain $C --> L$. This completes the proof.
-]
+  We claim that $L$ represents $#sk-imp$. First, to prove closure under
+  composition, suppose $L --> A$ and $L --> B$. Then by @r:transitivity,
+  $M --> A$ and $N --> B$, so by @r:sign-congruence and @r:context-congruence,
+  ${N - M -> L} --> {B - A -> L}$. Another application of @r:transitivity yields
+  $L --> {B - A -> L}$, as required. Second, the base axioms for $K$ and $S$ are
+  already included, and transitivity is provided by @r:transitivity. Finally,
+  @r:context-congruence applies congruence: if $M --> M'$, then by
+  @r:context-congruence, $N - M -> L$ represents $N - M' -> L$. This completes
+  the proof.]
 
 == The Unit Recursor <foundations:base-recursor>
 
