@@ -115,7 +115,7 @@ denote *membership*.
 // Might JUST want to have for later, not have as part of unit.
 #definition[
   All rules in @table:unit-rules hold, stated over meta-variables
-  $a, b, c, d, e, f, g$ for units and $h_1, h_2$ for handles.
+  $a, b, c, d, g$ for units and $h_1, h_2$ for handles.
   #let unit-rule-table = rule-table(
     prefix: "R",
     (
@@ -130,21 +130,35 @@ denote *membership*.
         content: [$a - c -> b$ and $d - a -> g$ imply
           #box[${d - b -> g} in c$]],
       ),
-
+      (
+        name: "Sign Congruence",
+        lbl: "r:sign-congruence",
+        content: [
+          If $a - c -> b$, then #box[${a - g -> b} - c -> {b - g -> d}$]
+        ],
+      ),
+      (
+        name: "Context Congruence",
+        lbl: "r:context-congruence",
+        content: [
+          If $a - c -> b$, then
+          #box[${d - a -> g} - c -> {d - b -> g}$]
+        ],
+      ),
+      (
+        name: "Referent Congruence",
+        lbl: "r:referent-congruence",
+        content: [
+          If $a - c -> b$, then
+          #box[${d - g - a} - c -> {d - g - b}$]
+        ],
+      ),
       (
         name: "Refinement",
         lbl: "r:refine",
         content: [
           With $x <--> {a - c -> b, a - c -> d}$, $x --> {a - c -> b}$ and
           $x --> {a - c -> d}$
-        ],
-      ),
-      (
-        name: "Congruence",
-        lbl: "r:congruence",
-        content: [
-          If $a - c -> d$, $b - c -> e$, and $f - c -> g$, then
-          ${a - f -> b} - c -> {d - g -> e}$
         ],
       ),
       (
@@ -242,12 +256,12 @@ denote *membership*.
 
 We review the utility of each rule. Note that rules _between_ contexts is
 entirely flexible and user defined. Moreover, only @r:transitivity,
-@r:context-lift, @r:refine, and @r:congruence are needed for Turing
-completeness. However, the other rules are in place to help with organizing
-units as modules, as well as make it easier to use the language.
+@r:context-lift, @r:sign-congruence, and @r:context-congruence are needed for
+Turing completeness. However, the other rules are in place to help with
+organizing units as modules, as well as make it easier to use the language.
 
-- @r:transitivity, @r:context-lift, @r:refine and @r:congruence were discussed
-  in @rationale:unit.[TODO: maybe review the discussion from earlier? Might be
+- @r:transitivity, @r:context-lift, @r:sign-congruence were discussed in
+  @rationale:unit.[TODO: maybe review the discussion from earlier? Might be
   useful to reinforce main ideas to reader.]
 // - @r:refine is explained as follows: suppose $a$ is a unit, and in a block, $a$
 //  represents two other units $b, d$. Then this block represents $a$
@@ -393,16 +407,13 @@ We are now ready to prove the following.
   - Composition $M N$ is represented as $N - M -> L$. We include relationships
     between $M N$ and its components: $M --> {N - M -> L}$ and
     $N --> {N - M -> L}$.
-  - Congruence is encoded through nested units: given a unit, containing
-    $P --> M$ and $Q --> N$, the term $P - Q -> L$ can be reduced to
-    $N - M -> L$.
   - The remaining representations are for the rules of $K$ and $S$,
     respectively.
 
   We claim that $L$ represents $#sk-imp$. Clearly $L$ includes the base axioms
-  for $K$ and $S$, and @r:congruence provides congruence. It remains to be shown
-  that $M in L$ and $N in L$ entail $C in L$, where $C <--> {N - M -> L}$. By
-  using @r:transitivity on $C --> {M --> L}$ and ${M --> L} --> L$, we obtain
+  for $K$ and $S$, and @r:sign-congruence provides congruence. It remains to be
+  shown that $M in L$ and $N in L$ entail $C in L$, where $C <--> {N - M -> L}$.
+  By using @r:transitivity on $C --> {M --> L}$ and ${M --> L} --> L$, we obtain
   $C --> L$. This completes the proof.
 ]
 
