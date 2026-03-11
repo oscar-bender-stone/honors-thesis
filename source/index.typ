@@ -21,8 +21,10 @@
     determine how to phrase soundness and incompleteness. Should we include
     these?].],
   notes: [This thesis used Google Gemini (#link("https://gemini.google.com/"))
-    to aid in identifying works in the literature, discuss research ideas, and
-    help fix formatting. All ideas presented come from the author.],
+    for the following tasks: reviewing the iterature, discussing conjectures,
+    clarifying new concepts, evaluating new language features, and creating
+    templates for tables and figures. All ideas presented come from the
+    author.],
   bibliography: bibliography((
     "references/misc.bib",
     "references/1-introduction.bib",
