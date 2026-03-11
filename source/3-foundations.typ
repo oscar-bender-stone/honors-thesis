@@ -228,25 +228,23 @@ units as modules, as well as make it easier to use the language.
   $a - g -> a$. Because of this, $a - g -> a$ may be a non-trivial path, _not_
   identity.
 - @r:field-access provides a way to access specific units in a scope. The
-  notation is entirely inspired by object oriented programming. Note that this
-  is _only_ in one way, because the full path $g.a$ need not be abbreviated to,
-  e.g., $a$.
+  notation is entirely inspired by object oriented programming. This style of
+  programming has _objects_ that can have data (fields) and functions (methods).
+  Note that this is _only_ in one way, because the full path $g.a$ need not be
+  abbreviated to, e.g., $a$.
 - @r:expansion and @r:exclusion define how imports in the language work. An
   *import* is the process of joining the contents of one unit into another.
-  @r:expansion says how an import can add new units in a block. @r:exclusion
-  provides a mechanism to _exclude_ specified contents in $g$, which can
-  themselves be representations. For example,
+  @r:expansion states how an import can add new units in a block. @r:exclusion
+  provides a mechanism to _exclude_ specified contents in $g$. For example,
   ${@{a - b -> c, d}, "~"{a - b -> c}}$ reduces to ${d}$. This also enables a
-  way to disable _any_ rule in Welkin, based on user preference. This is
-  intentionally restricted _per context_, so the rules are enacted by default.
-  Also note that exclusions *must* be used in the presence of an expansion.
-  Otherwise, terms like ${a, {b, ~a}}$ would be allowed, so certain units could
-  never be expanded!
+  way to disable _any_ rule in Welkin, based on user preference. Note that
+  exclusion is intentionally restricted _per context_, so the rules in
+  @unit-rules apply by default. Also note that exclusions *must* be used in the
+  presence of an expansion. Otherwise, terms like ${a, {b, ~a}}$ would be
+  allowed, so certain units could never be expanded!
 - @r:associativity, @r:commutativity, and @r:import-commutativity ensure that
-  information can be repeated and can be put into any order. Note that this does
-  *not* mean ${a, {@g, "~"b}} <--> {@g, {a, "~"b}}$ for general units $a, b$. If
-  this were the case, then one could write ${a, {@{a}, "~"a}}$ and produce ${}$,
-  so extending certain units would be impossible!
+  information can be repeated and can be put into any order. As mentioned above,
+  exclusions are *not* allowed with general units.
 
 We provide some reoccurring properties in the lemma below.
 
@@ -264,13 +262,15 @@ As more notation, we write:
 - $a_1 | ... | a_n - c -> d$ to mean ${a_1 - c -> d, ..., a_n - c -> d}$.
 
 This simplifies the presentation of the rules. We postpone formally defining the
-operator $|$ to the grammar in @syntax. Moreover, we allow
-$a - c -> | b_1 | b_2 | ... | b_n$, which is synonymous to
+operator $|$ to the grammar in @syntax. Moreover, we allow an extra $|$ at the
+start or end, e.g., $a - c -> | b_1 | b_2 | ... | b_n$ is synonymous with
 $a - c -> b_1 | b_2 | ... | b_n$.
 
 Before we proceed to prove Turing completeness, we introduce the
 $"SK"$-combinator calculus. This is an equational theory that is well known to
 be Turing complete @curry-grundlagen. We provide a full definition as follows.
+
+#let sk-eq = math.attach($=$, br: "SK")
 
 #definition[
   The $"SK"$-combinator calculus consists of the following:
@@ -280,16 +280,21 @@ be Turing complete @curry-grundlagen. We provide a full definition as follows.
   - Evaluation: two terms $M, N$ are *equal*, written $M = N$, if their equality
     can be deduced from the following axioms:
     - *Base Rules:* for all terms $A, B, P$:
-      - $((K A) B) = M$
-      - $(((S M) N) P) = (M P) (N P)$.
-    - *Congruence:* if $M_1 = M_2$ and $N_1 = N_2$, then $M_1 N_1 = M_2 N_2$.
-    - *Equivalence:* $=$ forms an equivalence relation, which means for all
+      - $((K A) B) #sk-eq M$
+      - $(((S M) N) P) #sk-eq (M P) (N P)$.
+    - *Congruence:* if $M_1 #sk-eq M_2$ and $N_1 = N_2$, then
+      $M_1 N_1 #sk-eq M_2 N_2$.
+    - *Equivalence:* $#sk-eq$ forms an equivalence relation, which means for all
       $A, B, P$:
-      - $A = B$.
-      - $A = B$ if and only if $A = B$.
-      - $A = B$ and $B = P$ imply $A = P$.
+      - $A #sk-eq B$.
+      - $A #sk-eq B$ if and only if $A #sk-eq B$.
+      - $A #sk-eq B$ and $B #sk-eq P$ imply $A #sk-eq P$.
 
 ]<foundations:SK-calculus>
+
+For simplicity, .
+
+We are now ready to prove the following.
 
 #theorem[Any partial computable function can be expressed as some unit.
 ]<turing-expressible>
