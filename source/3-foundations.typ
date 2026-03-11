@@ -141,8 +141,8 @@ denote *membership*.
         content: [${a - {} -> b} <--> {}$],
       ),
       (
-        name: "Handle Substitution",
-        lbl: "r:handle-sub",
+        name: "Handle Equality",
+        lbl: "r:handle-eq",
         content: [If $h_1 = h_2$, then
           $h_1 <--> h_2$],
       ),
@@ -178,12 +178,14 @@ denote *membership*.
       ),
 
       (
-        name: "Closure",
-        lbl: "r:closure",
+        name: "Substitution",
+        lbl: "r:sub",
         content: [
-          If $a - c -> b$ and $a --> b$, then $g --> {g, a --> b}$.
+          If $a <- c -> b$, then ${a - c -> d} <--> {b - c -> d}$ and
+          ${d - c -> a} <--> {d - c -> b}$
         ],
       ),
+
       (
         name: "Membership",
         lbl: "r:membership",
@@ -251,7 +253,7 @@ as make it easier to use the language.
   the empty set. @r:null specifically states that ${}$ contains _no_
   representations. Thus, any term $a - {} -> b$ is equivalent to ${}$, i.e.,
   carries no meaning.
-- @r:handle-sub enables equality in words and handles to pass through into
+- @r:handle-eq enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are entirely
   user defined.
 - @r:identity represents identity. Users can take other representations, like
@@ -262,8 +264,9 @@ as make it easier to use the language.
   not useful for handles, it is for specifying blocks of representations, such
   as ${a - b -> c, b - c -> d}$.
 - @r:pair states that components $u, v$ are members of the pair ${u, v}$.
-- @r:refine is explained as follows: suppose $a$ is a unit, and in a block, it
-  represents two other units $b, d$.
+- @r:refine is explained as follows: suppose $a$ is a unit, and in a block, $a$
+  represents two other units $b, d$. Then this block represents $a$
+  _representing_ $b$, and separately, $a$ _representing_ $d$.
 - @r:membership defines membership $a in g$. Note that this is more relaxed than
   set-theoretic equality. First, by @r:empty, ${}$ is contained in every unit.
   Second, by @r:associativity, one can take $g equiv {a, {b, c}}$ and state
