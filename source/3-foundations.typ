@@ -45,14 +45,19 @@ We also require a notion of equality on bits. To ensure this is constructive, we
 provide a _separate_ definition of inequality as well. The latter provides an
 explicit certificate, a bit that shows how two words are distinct.
 
+
+#let W-eq = math.attach($=$, br: "W")
+#let W-neq = math.attach($!=$, br: "W")
+
 #definition[
-  Equality $=_W$ and inequality $!=_W$ on words $w_1, w_2$ is defined
-  recursively:
+  Equality $#W-eq$ and inequality $#W-neq$ on words $w_1, w_2$ is defined
+  recursively and as nothing else:
   - *Base case:* $epsilon = epsilon$.
-  - *Recursive step:* suppose $w_1 =_W b_1.w_1'$ and $w_2 =_W b_2.w_2'$, where
-    $b_1, b_2$ as bits and $w_1', w_2'$ are words. Then $w_1 =_W w_2$ if and
-    only if $b_1 =_W b_2$ and $w'_1 =_W w'2$. Moreover, $w_1 !=_W w_2$ if and
-    only if $b_1 !=_W b_2$ or $w'_1 !=_W w'_2$.
+  - *Recursive step:* suppose $w_1 #W-eq b_1.w_1'$ and $w_2 #W-eq b_2.w_2'$,
+    where $b_1, b_2$ as bits and $w_1', w_2'$ are words. Then $w_1 #W-eq w_2$ if
+    and only if $b_1, b_2$ are both $0$ or $1$, and $w'_1 #W-eq w'2$. Moreover,
+    $w_1 #W-neq w_2$ if and only if $b_1$ and $b_2$ are different bits or
+    $w'_1 #W-neq w'_2$.
 ]<foundations:binary-word-equality>
 
 Words alone do not carry meaning. The extended meaning is provided by _handles_.
@@ -103,15 +108,15 @@ representations. We present the complete definition below.
       $b$ *in context* $c$.
 ]<foundations:unit>
 
-We add an external symbol $in$ to represent membership. Units are characterized
-by the following rules.
+Units are characterized by the following rules, where $in$ is a new symbol to
+denote *membership*.
 
 // TODO: maybe provide technique for unused imports?
 // Might JUST want to have for later, not have as part of unit.
 #definition[
-  The following rules apply, stated over meta-variables $a, b, c, d, g$ for
-  units and $h_1, h_2$ for handles:
-  #rule-table(
+  All rules in @table:unit-rules hold, stated over meta-variables
+  $a, b, c, d, g$ for units and $h_1, h_2$ for handles.
+  #let unit-rule-table = rule-table(
     prefix: "R",
     (
       (
@@ -123,7 +128,7 @@ by the following rules.
         name: "Contextual Lifting",
         lbl: "r:context-lift",
         content: [$a - c -> b$ and $d - a -> g$ imply
-          #box[$\{d - a -> g\} in c$]],
+          #box[$\{d - b -> g\} in c$]],
       ),
       (
         name: "Empty",
@@ -164,6 +169,9 @@ by the following rules.
           $a in g$ if and only if $\{\@g, a\} <--> g$.
         ],
       ),
+      // TODO: make this more accurate!
+      // We could always add an alias,
+      // so what do we _want_ from field access?
       (
         name: "Field Access",
         lbl: "r:field-access",
@@ -183,8 +191,6 @@ by the following rules.
         content: [if $g <--> \{\@g, a\}$, then
           #box[$\{\{\@g, "~"a\}, b\} <--> \{\@d, b\}$]],
       ),
-      // TODO: show that there's a form of associativity
-      // and commutativity for import blocks!
       (
         name: "Associativity",
         lbl: "r:associativity",
@@ -203,6 +209,10 @@ by the following rules.
       ),
     ),
   )
+  #figure(
+    unit-rule-table,
+    caption: "Set of all valid rules in Welkin.",
+  )<table:unit-rules>
 
 ]<unit-rules>
 
@@ -255,10 +265,9 @@ as make it easier to use the language.
 We provide some reoccurring properties in the lemma below.
 
 #lemma[
-  - for every unit $u$ and $v$, if $~{v - u -> v}$, then $u' = {@u, v}$ is a
-    strictly larger unit.
-  - Import blocks are locally associative. More precisely, given import blocks
-    $m_1, m_2$ and units $u, v$, #box[${m_1, {m_2, ~u}} <--> {m_2, {m_1, ~u}}$].
+  - For every unit $u$ and $v$, if $v in.not in u$, then $~{{@u, v} <--> u}$.
+  - Import blocks are locally associative: given import blocks $m_1, m_2$ and a
+    unit $u$, #box[${m_1, {m_2, ~u}} <--> {m_2, {m_1, ~u}}$].
 ]<foundations:lemma-properties>
 
 As more notation, we write:
@@ -267,15 +276,15 @@ As more notation, we write:
   ${a - c -> b_1, a - c -> b_2, ..., a - c -> b_n}$.
 - $a_1 | ... | a_n - c -> d$ to mean ${a_1 - c -> d, ..., a_n - c -> d}$.
 
-This simplifies the presentation of the rules. We postpone formally defining the
-operator $|$ to the grammar in @syntax. Moreover, we allow an extra $|$ at the
-start or end, e.g., $a - c -> | b_1 | b_2 | ... | b_n$ is synonymous with
+This condenses many definitions. We postpone formally defining the operator $|$
+to the grammar in @syntax. Moreover, we allow an extra $|$ at the start or end,
+e.g., #box($a - c -> | b_1 | b_2 | ... | b_n$) is synonymous with
 $a - c -> b_1 | b_2 | ... | b_n$.
 
 Before we proceed to prove Turing completeness, we introduce the
 $"SK"$-combinator calculus. This is an equational theory that is well known to
-be Turing complete @curry-grundlagen. For simplicity, we define the calculus
-using a *reduction relation* instead.
+be Turing complete @curry-grundlagen. As a simplification, we present the
+calculus using a *reduction relation* instead of equality.
 
 #let sk-imp = math.attach($=>$, br: "SK")
 
@@ -286,9 +295,9 @@ using a *reduction relation* instead.
     terms, so is $(M)$ and their *application* $M N$.
   - Evaluation: two terms $M, N$ are *equal*, written $M #sk-imp N$, if their
     equality can be deduced from the following axioms:
-    - *Base Rules:* for all terms $A, B, P$:
+    - *Base Axioms:* for all terms $A, B, P$:
       - $((K A) B) #sk-imp M$
-      - $(((S M) N) P) #sk-imp (M P) (N P)$.
+      - $(((S A) B) P) #sk-imp (A P) (B P)$.
     - *Congruence:* if $M_1 #sk-imp M_2$ and $N_1 #sk-imp N_2$, then
       $M_1 N_1 #sk-imp M_2 N_2$.
 ]<foundations:SK-calculus>
@@ -301,11 +310,12 @@ We are now ready to prove the following.
   We prove that we can embed any term in the $S K$-combinator calculus, defined
   in @foundations:SK-calculus. This proof includes an important technique to
   represent _recursion_, expressed through a unit $L$. For handle IDs, we set:
-  - $L equiv (1, 0, 0)$.
-  - $K equiv (1, 0, 1)$, $S equiv (1, 0, 2)$.
-  - $M equiv (1, 0, 3)$, $N equiv (1, 0, 4)$ $P equiv (1, 0, 5)$.
+  - $"ID"_L equiv 0$.
+  - $"ID"_K equiv 1$, $"ID"_S equiv 2$.
+  - $"ID"_M equiv 3$, $"ID"_N equiv 4$
+  - $"ID"_P equiv 5$, $"ID"_Q equiv 6$
   Note that these IDs will be reused after this lemma. These are shown to
-  demonstrate they _can_ be inspected manually.
+  demonstrate they _can_ be generated manually.
 
   For the rules, see @foundations:turing-expressible-L. Note that each rule of
   the form $A --> B$ written in $L$ means $A - L -> B$.
@@ -347,23 +357,23 @@ We are now ready to prove the following.
 
   This definition means:
 
-  - $L$ includes $K$ and $S$ as base cases. Recall that $K | S --> L$ means
-    $K --> L$ and $S --> L$. We interpret $K --> L$ to mean $K$ is a term of
-    $L$.
+  - $L$ includes $K$ and $S$ as base cases. Recall that $K | S --> L$ is
+    equivalent to $K --> L$ and $S --> L$. We interpret $K --> L$ to mean $K$ is
+    a term of $L$.
   - We include variables $M, N, P, Q$ over terms.
   - Composition $M N$ is represented as $N - M -> L$. We include relationships
     between $M N$ and its components: $M --> {N - M -> L}$ and
     $N --> {N - M -> L}$.
-  - The next representation encodes congruence. Given a unit, containing
+  - Congruence is encoded through nested units: given a unit, containing
     $P --> M$ and $Q --> N$, the term $P - Q -> L$ can be reduced to
     $N - M -> L$.
   - The remaining representations are for the rules of $K$ and $S$,
     respectively.
 
-  We claim that $L$ represents $#sk-imp$. Clearly $L$ includes the base rules
+  We claim that $L$ represents $#sk-imp$. Clearly $L$ includes the base axioms
   for $K$ and $S$, as well as congruence. It remains to be shown that, given
-  $M in L$ and $N in L$, we must prove $C in L$, where $C <--> {N - M -> L}$. By
-  using @r:transitivity on $C --> {M --> L}$ and ${M --> L} --> L$, we obtain
+  $M in L$ and $N in L$, $C in L$, where $C <--> {N - M -> L}$. By using
+  @r:transitivity on $C --> {M --> L}$ and ${M --> L} --> L$, we obtain
   $C --> L$. This completes the proof.
 ]
 

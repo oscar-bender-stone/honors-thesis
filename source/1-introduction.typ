@@ -14,7 +14,7 @@
 
 Information Management is the study of systematically storing and organizing
 data. Since the beginning of humanity, there has been a massive influx of data,
-including physical and digital data. Not a single person understands all of it.
+including physical and digital forms. Not a single person understands all of it.
 For effective use, raw databases are increasingly structured into organized
 _information bases_ to prove context surrounding the source and nature of data.
 The conceptual foundation for this process often traces back to Ackoff
@@ -32,9 +32,9 @@ must not only be in concrete records, but also accurately represent a topic of
 interest. As shown in this small sample of authors, the word information has
 several meanings, and they are driven by the goal to organize data.
 
-[TODO: just giving citation does *not* mean they can certify the claim. Cite a
-specific page? If paper is *entirely* about the claim, then don't have page, but
-if NOT, do an address.]
+// TODO: just giving citation does *not* mean they can certify the claim. Cite a
+// specific page? If paper is *entirely* about the claim, then don't have page, but
+// if NOT, do an address.]
 
 Despite efforts to understand information, there are ongoing problems in real
 world projects. One of these issues is the _depth_ of domains. For example, at
@@ -98,15 +98,17 @@ see @conclusion:comparisons.
 
 - *fcaR (Formal Concept Analysis in R):* This tool is a modern implementation
   for the field of Formal Concept Analysis (FCA). FCA studies relationships
-  through _formal concepts_. The central idea is the _concept lattice_, a
-  hierarchical data structure that maps objects to attributes in a fixed domain.
-  Given only a database, fcaR is a program developed in the R programming
-  language. It can automatically identify the underlying core concepts and
-  derived concepts @fcaR-package-2026. While being highly effective in
-  specialized domains, concept lattices can become impractically large as the
-  number of attributes increases @formal-concept-analysis-trends. This makes it
-  difficult to interpret results when applied to large-scale databases or when
-  bridging disparate domains @formal-concept-analysis-trends.
+  through _formal concepts_, defined as a pair: an _extension_ and an
+  _intension_. Concepts are studied through a _concept lattice_, a hierarchical
+  data structure that maps objects to attributes in a fixed domain. A modern
+  implementation of this system is fcaR, a program developed in the R
+  programming language. Given a fixed domain, the program can automatically
+  identify the underlying core concepts and derived concepts @fcaR-package-2026.
+  While being highly effective in specialized domains, concept lattices can
+  become impractically large as the number of attributes increases
+  @formal-concept-analysis-trends. This makes it difficult to interpret results
+  when applied to large-scale databases or when bridging disparate domains
+  @formal-concept-analysis-trends.
 
 This thesis introduces a language to resolve these issues for Information
 Management. I call this language *Welkin*, based on an old German word meaning
