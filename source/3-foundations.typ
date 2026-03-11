@@ -115,7 +115,7 @@ denote *membership*.
 // Might JUST want to have for later, not have as part of unit.
 #definition[
   All rules in @table:unit-rules hold, stated over meta-variables
-  $a, b, c, d, g$ for units and $h_1, h_2$ for handles.
+  $a, b, c, d, e, f, g$ for units and $h_1, h_2$ for handles.
   #let unit-rule-table = rule-table(
     prefix: "R",
     (
@@ -129,6 +129,23 @@ denote *membership*.
         lbl: "r:context-lift",
         content: [$a - c -> b$ and $d - a -> g$ imply
           #box[${d - b -> g} in c$]],
+      ),
+
+      (
+        name: "Refinement",
+        lbl: "r:refine",
+        content: [
+          With $x <--> {a - c -> b, a - c -> d}$, $x --> {a - c -> b}$ and
+          $x --> {a - c -> d}$
+        ],
+      ),
+      (
+        name: "Congruence",
+        lbl: "r:congruence",
+        content: [
+          If $a - c -> d$, $b - c -> e$, and $f - c -> g$, then
+          ${a - f -> b} - c -> {d - g -> e}$
+        ],
       ),
       (
         name: "Empty",
@@ -166,23 +183,6 @@ denote *membership*.
         lbl: "r:pair",
         content: [
           $u in {u, v}$ and $v in {u, v}$
-        ],
-      ),
-      (
-        name: "Refinement",
-        lbl: "r:refine",
-        content: [
-          With $x <--> {a - c -> b, a - c -> d}$, $x --> {a - c -> b}$ and
-          $x --> {a - c -> d}$
-        ],
-      ),
-
-      (
-        name: "Substitution",
-        lbl: "r:sub",
-        content: [
-          If $a <- c -> b$, then ${a - c -> d} <--> {b - c -> d}$ and
-          ${d - c -> a} <--> {d - c -> b}$
         ],
       ),
 
@@ -242,13 +242,16 @@ denote *membership*.
 
 We review the utility of each rule. Note that rules _between_ contexts is
 entirely flexible and user defined. Moreover, only @r:transitivity,
-@r:context-lift, and @r:membership are needed for Turing completeness. However,
-the other rules are in place to help with organizing units as modules, as well
-as make it easier to use the language.
+@r:context-lift, @r:refine, and @r:congruence are needed for Turing
+completeness. However, the other rules are in place to help with organizing
+units as modules, as well as make it easier to use the language.
 
-- @r:transitivity and @r:context-lift were discussed in @rationale:unit.[TODO:
-  maybe review the discussion from earlier? Might be useful to reinforce main
-  ideas to reader.]
+- @r:transitivity, @r:context-lift, @r:refine and @r:congruence were discussed
+  in @rationale:unit.[TODO: maybe review the discussion from earlier? Might be
+  useful to reinforce main ideas to reader.]
+// - @r:refine is explained as follows: suppose $a$ is a unit, and in a block, $a$
+//  represents two other units $b, d$. Then this block represents $a$
+//  _representing_ $b$, and separately, $a$ _representing_ $d$.
 - @r:empty and @r:null define the behavior of the empty unit ${}$, similar to
   the empty set. @r:null specifically states that ${}$ contains _no_
   representations. Thus, any term $a - {} -> b$ is equivalent to ${}$, i.e.,
@@ -264,9 +267,6 @@ as make it easier to use the language.
   not useful for handles, it is for specifying blocks of representations, such
   as ${a - b -> c, b - c -> d}$.
 - @r:pair states that components $u, v$ are members of the pair ${u, v}$.
-- @r:refine is explained as follows: suppose $a$ is a unit, and in a block, $a$
-  represents two other units $b, d$. Then this block represents $a$
-  _representing_ $b$, and separately, $a$ _representing_ $d$.
 - @r:membership defines membership $a in g$. Note that this is more relaxed than
   set-theoretic equality. First, by @r:empty, ${}$ is contained in every unit.
   Second, by @r:associativity, one can take $g equiv {a, {b, c}}$ and state
@@ -322,11 +322,13 @@ calculus using a *reduction relation* instead of equality.
 
   - A *term* is defined recursively as either $K$ or $S$, and if $M, N$ are
     terms, so is $(M)$ and their *application* $M N$.
-  - Evaluation: two terms $M, N$ are *equal*, written $M #sk-imp N$, if their
-    equality can be deduced from the following axioms:
+  - Evaluation: $M$ *reduces* to $N$, written $M #sk-imp N$, if their equality
+    can be deduced from the following axioms.
     - *Base Axioms:* for all terms $A, B, P$:
       - $((K A) B) #sk-imp M$
       - $(((S A) B) P) #sk-imp (A P) (B P)$.
+    - *Transitivity:* if $M_1 #sk-imp M_2$ and $M_2 #sk-imp M_3$, then
+      $M_1 #sk-imp M_3$.
     - *Congruence:* if $M_1 #sk-imp M_2$ and $N_1 #sk-imp N_2$, then
       $M_1 N_1 #sk-imp M_2 N_2$.
 ]<foundations:SK-calculus>
@@ -364,8 +366,11 @@ We are now ready to prove the following.
             \
             $ M | N | P -> L, $
             \
+            $ C <--> {N - M -> L}, $
+            \
+            $C --> M | N$,
+            \
             $ L -> {N - M -> L}, $
-            // $ {P -> M, Q -> N, P - Q -> L} -> {N - M -> L}, $
             \
             $ {N - {M - K -> L} -> L} -> M, $
             \
@@ -395,9 +400,9 @@ We are now ready to prove the following.
     respectively.
 
   We claim that $L$ represents $#sk-imp$. Clearly $L$ includes the base axioms
-  for $K$ and $S$, as well as congruence. It remains to be shown that $M in L$
-  and $N in L$ entail $C in L$, where $C <--> {N - M -> L}$. By using
-  @r:transitivity on $C --> {M --> L}$ and ${M --> L} --> L$, we obtain
+  for $K$ and $S$, and @r:congruence provides congruence. It remains to be shown
+  that $M in L$ and $N in L$ entail $C in L$, where $C <--> {N - M -> L}$. By
+  using @r:transitivity on $C --> {M --> L}$ and ${M --> L} --> L$, we obtain
   $C --> L$. This completes the proof.
 ]
 
