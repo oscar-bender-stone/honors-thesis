@@ -303,14 +303,14 @@ We are now ready to prove the following.
 
   For the rules, see @foundations:turing-expressible-L. Note that each rule of
   the form $A --> B$ written in $L$ means $A - L -> B$.
-  #footnote[As a note for logicians: these rules are extremely similar to a
+  #footnote[A note for logicians: these rules are extremely similar to a
     Hilbert-style proof system, with $K$ and $S$ corresponding to the rules
     $(phi => (psi => phi))$ and
     $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.
     This was one of Curry's insights in connecting logic to computation
     @curry-grundlagen.]
 
-  #figure(
+  [TODO: make sure substitution of terms work correctly!] #figure(
     [
       $
         L equiv {
@@ -323,9 +323,13 @@ We are now ready to prove the following.
             \
             $ P -> L, $
             \
+            $ Q -> L, $
+            \
             $ C <-> {N - M -> L}, $
             \
             $ C -> M, C -> N $
+            \
+            $ -> M, C -> N $
             \
             $ {N - {M - K -> L} -> L} -> {M -> L}, $
             \
@@ -343,8 +347,7 @@ We are now ready to prove the following.
 
   - $L$ includes $K$ and $S$ as base cases. We interpret $K --> L$ to mean $K$
     is a term of $L$.
-  - We include variables $M, N, P$ over terms. The statement $M --> L$. wraps
-    around any term.
+  - We include variables $M, N, P$ over terms.
   - Composition $M N$ is represented as $N - M -> L$. Moreover, $M N$ can be
     broken down into its constituent parts $M, N$.
 
