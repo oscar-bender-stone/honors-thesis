@@ -16,10 +16,15 @@
 
 This section discuss the foundations of Welkin, as follows:
 
++ We define words and handles.
 + We define units and their rules.
 + We prove there is a unit that indexes every other unit
   (@foundations:base-recursor).
 + We define queries.
+
+
+After the base rules, our goal will be to define _as much_ in Welkin as
+possible. Definitions will be gradually given in the language.
 
 == Words and Handles
 
@@ -201,12 +206,11 @@ by the following rules.
 
 ]<unit-rules>
 
-
 We review the utility of each rule. Note that rules _between_ contexts is
-entirely flexible and user defined. Moreover, only @r:transitivity and
-@r:context-lift are needed for Turing completeness. However, the other rules are
-in place to help with organizing units as modules, as well as make it easier to
-use the language.
+entirely flexible and user defined. Moreover, only @r:transitivity,
+@r:context-lift, and @r:membership are needed for Turing completeness. However,
+the other rules are in place to help with organizing units as modules, as well
+as make it easier to use the language.
 
 - @r:transitivity and @r:context-lift were discussed in @rationale:unit.[TODO:
   maybe review the discussion from earlier? Might be useful to reinforce main
@@ -317,13 +321,9 @@ We are now ready to prove the following.
       $
         L equiv {
           #align(left)[
-            $ L -> K, quad L -> S, $
+            $ K | S -> L $
             \
-            $ M -> L, $
-            \
-            $ N -> L, $
-            \
-            $ P -> L, $
+            $ M | N | P | Q -> L, $
             \
             $ C <-> {N - M -> L}, $
             \
@@ -347,17 +347,23 @@ We are now ready to prove the following.
 
   This definition means:
 
-  - $L$ includes $K$ and $S$ as base cases. We interpret $K --> L$ to mean $K$
-    is a term of $L$.
-  - We include variables $M, N, P$ over terms.
-  - Composition $M N$ is represented as $N - M -> L$. There are two injections:
-  $M --> {N - M -> L}$ and $N --> {N - M -> L}$.
-  - The remaining representations are for the rule of $K$ and $S$, respectively.
+  - $L$ includes $K$ and $S$ as base cases. Recall that $K | S --> L$ means
+    $K --> L$ and $S --> L$. We interpret $K --> L$ to mean $K$ is a term of
+    $L$.
+  - We include variables $M, N, P, Q$ over terms.
+  - Composition $M N$ is represented as $N - M -> L$. We include relationships
+    between $M N$ and its components: $M --> {N - M -> L}$ and
+    $N --> {N - M -> L}$.
+  - The next representation encodes congruence. Given a unit, containing
+    $P --> M$ and $Q --> N$, the term $P - Q -> L$ can be reduced to
+    $N - M -> L$.
+  - The remaining representations are for the rules of $K$ and $S$,
+    respectively.
 
   We claim that $L$ represents $#sk-imp$. Clearly $L$ includes the base rules
   for $K$ and $S$, as well as congruence. It remains to be shown that, given
-  $M --> L$ and $N --> L$, we must prove $C --> L$, where $C <--> {N - M -> L}$.
-  By using @r:transitivity on $C --> {M --> L}$ and ${M --> L} --> L$, we obtain
+  $M in L$ and $N in L$, we must prove $C in L$, where $C <--> {N - M -> L}$. By
+  using @r:transitivity on $C --> {M --> L}$ and ${M --> L} --> L$, we obtain
   $C --> L$. This completes the proof.
 ]
 
