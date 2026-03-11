@@ -268,47 +268,38 @@ $a - c -> b_1 | b_2 | ... | b_n$.
 
 Before we proceed to prove Turing completeness, we introduce the
 $"SK"$-combinator calculus. This is an equational theory that is well known to
-be Turing complete @curry-grundlagen. We provide a full definition as follows.
+be Turing complete @curry-grundlagen. For simplicitly, we define the calculus
+using a *reduction relation* instead.
 
-#let sk-eq = math.attach($=$, br: "SK")
+#let sk-imp = math.attach($=>$, br: "SK")
 
 #definition[
   The $"SK"$-combinator calculus consists of the following:
 
   - A *term* is defined recursively as either $K$ or $S$, and if $M, N$ are
     terms, so is $(M)$ and their *application* $M N$.
-  - Evaluation: two terms $M, N$ are *equal*, written $M = N$, if their equality
-    can be deduced from the following axioms:
+  - Evaluation: two terms $M, N$ are *equal*, written $M #sk-imp N$, if their
+    equality can be deduced from the following axioms:
     - *Base Rules:* for all terms $A, B, P$:
-      - $((K A) B) #sk-eq M$
-      - $(((S M) N) P) #sk-eq (M P) (N P)$.
-    - *Congruence:* if $M_1 #sk-eq M_2$ and $N_1 = N_2$, then
-      $M_1 N_1 #sk-eq M_2 N_2$.
-    - *Equivalence:* $#sk-eq$ forms an equivalence relation, which means for all
-      $A, B, P$:
-      - $A #sk-eq B$.
-      - $A #sk-eq B$ if and only if $A #sk-eq B$.
-      - $A #sk-eq B$ and $B #sk-eq P$ imply $A #sk-eq P$.
-
+      - $((K A) B) #sk-imp M$
+      - $(((S M) N) P) #sk-imp (M P) (N P)$.
+    - *Congruence:* if $M_1 #sk-imp M_2$ and $N_1 #sk-imp N_2$, then
+      $M_1 N_1 #sk-imp M_2 N_2$.
 ]<foundations:SK-calculus>
-
-For simplicity, .
 
 We are now ready to prove the following.
 
-#theorem[Any partial computable function can be expressed as some unit.
+#theorem[Any Turing machine can be represented by some unit.
 ]<turing-expressible>
 #proof[
   We prove that we can embed any term in the $S K$-combinator calculus, defined
   in @foundations:SK-calculus. This proof includes an important technique to
-  represent _recursion_,
-
-  We express recursion via a unit $L$. For keys, we set:
+  represent _recursion_, expressed through a unit $L$. For handle IDs, we set:
   - $L equiv (1, 0, 0)$.
   - $K equiv (1, 0, 1)$, $S equiv (1, 0, 2)$.
   - $M equiv (1, 0, 3)$, $N equiv (1, 0, 4)$ $P equiv (1, 0, 5)$.
-  Note that these IDs will be reused after this lemma, as this just shows its
-  _possible_ to store into an information base.
+  Note that these IDs will be reused after this lemma. These are shown to
+  demonstrate they _can_ be inspected manually.
 
   For the rules, see @foundations:turing-expressible-L. Note that each rule of
   the form $A --> B$ written in $L$ means $A - L -> B$.
@@ -326,17 +317,15 @@ We are now ready to prove the following.
           #align(left)[
             $ K -> L, quad S -> L, $
             \
-            $ {M -> L} -> L, $
+            $ M -> L $
             \
-            $ {N -> L} -> L, $
+            $ N -> L, $
             \
-            $ {P -> L} -> L, $
+            $ P -> L, $
             \
             $ C <-> {N - M -> L}, $
             \
-            $ C -> {M -> L}, $
-            \
-            $ C -> {N -> L}, $
+            $ C -> M, C -> N $
             \
             $ {N - {M - K -> L} -> L} -> {M -> L}, $
             \
@@ -354,21 +343,18 @@ We are now ready to prove the following.
 
   - $L$ includes $K$ and $S$ as base cases. We interpret $K --> L$ to mean $K$
     is a term of $L$.
-  - We include variables $M, N, P$ over terms. The statement ${M --> L} --> L$
-    wraps around any term.
+  - We include variables $M, N, P$ over terms. The statement $M --> L$. wraps
+    around any term.
   - Composition $M N$ is represented as $N - M -> L$. Moreover, $M N$ can be
     broken down into its constituent parts $M, N$.
 
   - The remaining representations are for the rule of $K$ and $S$, respectively.
 
-  [TODO: maybe present SK-calculus based on reductions, not equality? We can get
-  equality easily through transitivity, but do discuss.]
-
-  Now, $L$ already includes the base rules for $K$ and $S$. It remains to be
-  shown that $L$ is closed under composition: $M --> L$ and $N --> L$ imply
-  $C --> L$, where $C <--> {N - M -> L}$. By using @r:transitivity on
-  $C --> {M --> L}$ and ${M --> L} --> L$, we obtain $C --> L$, completing the
-  proof.
+  We claim that $L$ represents $#sk-imp$. Clearly $L$ includes the base rules
+  for $K$ and $S$, as well as congruence. It remains to be shown that, given
+  $M --> L$ and $N --> L$, we must prove $C --> L$, where $C <--> {N - M -> L}$.
+  By using @r:transitivity on $C --> {M --> L}$ and ${M --> L} --> L$, we obtain
+  $C --> L$. This completes the proof.
 ]
 
 == The Unit Recursor <foundations:base-recursor>
