@@ -202,9 +202,10 @@ Units are characterized by the following rules.
 
 
 We review the utility of each rule. Note that rules _between_ contexts is
-entirely flexible and user defined. Moreover, only *R1* is needed for Turing
-completeness. However, the other rules are in place to help with organizing
-units as modules, as well as make it easier to use the language.
+entirely flexible and user defined. Moreover, only @r:transitivity and
+@r:context-lift are needed for Turing completeness. However, the other rules are
+in place to help with organizing units as modules, as well as make it easier to
+use the language.
 
 - @r:transitivity and @r:context-lift were discussed in @rationale:unit.[TODO:
   maybe review the discussion from earlier? Might be useful to reinforce main
@@ -303,21 +304,24 @@ We are now ready to prove the following.
 
   For the rules, see @foundations:turing-expressible-L. Note that each rule of
   the form $A --> B$ written in $L$ means $A - L -> B$.
-  #footnote[A note for logicians: these rules are extremely similar to a
+  #footnote[A remark for logicians: these rules are extremely similar to a
     Hilbert-style proof system, with $K$ and $S$ corresponding to the rules
     $(phi => (psi => phi))$ and
     $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.
     This was one of Curry's insights in connecting logic to computation
     @curry-grundlagen.]
 
-  [TODO: make sure substitution of terms work correctly!] #figure(
+  // M - L -> L
+  // K - L -> L
+  // {K - M -> L} - L -> {K - M -> L}
+  #figure(
     [
       $
         L equiv {
           #align(left)[
             $ K -> L, quad S -> L, $
             \
-            $ M -> L $
+            $ M -> L, $
             \
             $ N -> L, $
             \
@@ -327,11 +331,15 @@ We are now ready to prove the following.
             \
             $ C <-> {N - M -> L}, $
             \
-            $ C -> M, C -> N $
+            $ M -> C, N -> C, $
             \
-            $ -> M, C -> N $
+            $ {P -> M, Q -> N} -> $
             \
-            $ {N - {M - K -> L} -> L} -> {M -> L}, $
+            $ {{P - Q -> L} -> {N - M -> L}}, $
+            \
+            // $ C -> M, C -> N $
+            // \
+            $ {N - {M - K -> L} -> L} -> M, $
             \
             $ {P - {N - {M - S -> L} -> L} -> L} $
             \
