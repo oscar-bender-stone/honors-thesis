@@ -409,11 +409,12 @@ We are now ready to prove the following.
   composition, suppose $L --> A$ and $L --> B$. Then by @r:transitivity,
   $M --> A$ and $N --> B$, so by @r:sign-congruence and @r:context-congruence,
   ${N - M -> L} --> {B - A -> L}$. Another application of @r:transitivity yields
-  $L --> {B - A -> L}$, as required. Second, the base axioms for $K$ and $S$ are
-  already included, and transitivity is provided by @r:transitivity. Finally,
-  @r:context-congruence applies congruence: if $M --> M'$, then by
-  @r:context-congruence, $N - M -> L$ represents $N - M' -> L$. This completes
-  the proof.]
+  $L --> {B - A -> L}$. The rules $L --> K | S$ and $L --> {N - M -> L}$ are the
+  _only_ terms with sign $L$ (distinct from $L$), so $L$ contains _exactly_ the
+  terms in the SK-calculus. Second, the base axioms for $K$ and $S$ are already
+  included, and transitivity is provided by @r:transitivity. Finally,
+  @r:context-congruence entails term congruence: if $M --> M'$, then
+  $N - M -> L$ represents $N - M' -> L$. This completes the proof.]
 
 == The Unit Recursor <foundations:base-recursor>
 
