@@ -35,6 +35,8 @@
   move(dy: 0.2pt, scale(80%, $tilde$)),
 )
 
+#let end-def = sym.triangle
+
 // Sizes used across the template.
 #let script-size = 7.97224pt
 #let footnote-size = 8.50012pt
@@ -387,6 +389,12 @@
     theorem-counter.step()
     format-header(it, is-emph: false)
     [ ] + it.body
+
+    sym.wj
+    sym.space.nobreak
+    h(1fr)
+
+    $#end-def$
   })
 
   show figure.where(kind: "remark"): set align(start)
@@ -394,6 +402,12 @@
     theorem-counter.step()
     format-header(it, is-emph: true)
     [ ] + it.body
+
+    sym.wj
+    sym.space.nobreak
+    h(1fr)
+
+    $#end-def$
   })
 
   // Display the title and authors.
@@ -677,6 +691,7 @@
     caption: caption,
   )
 }
+
 
 #let rule-table(prefix: "R", entries) = {
   // 1. Reset the counter

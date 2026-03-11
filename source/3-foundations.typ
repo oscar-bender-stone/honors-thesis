@@ -11,7 +11,7 @@
 #import "template/ams-article.typ": corollary, equation_block, lemma, theorem
 
 #import "template/ams-article.typ": proof, proof-sketch
-
+#import "template/ams-article.typ": end-def
 = Foundations <foundations>
 
 This section discuss the foundations of Welkin, as follows:
@@ -26,12 +26,15 @@ This section discuss the foundations of Welkin, as follows:
 After the base rules, our goal will be to define _as much_ in Welkin as
 possible. Definitions will be gradually given in the language.
 
+As a convention, each *Definition* and *Remark* ends with a triangle
+($#end-def$). Proofs end with a square ($square.stroked$).
+
 == Words and Handles
 
-As high-level notation, we write $a equiv b$ to mean that $a$ is definitionally
+For high-level notation, we write $a equiv b$ to mean that $a$ is definitionally
 equivalent to $b$. High level notation will _not_ be stated in the syntax unless
 where noted. We will be pedantic in most notation for complete precision.
-Moreovoer, implementation details are outside the scope of this thesis. This
+Moreover, implementation details are outside the scope of this thesis. This
 includes, e.g., practically restricting user input by fixed upper bounds.
 
 #definition[
@@ -60,10 +63,11 @@ explicit certificate, a bit that shows how two words are distinct.
     $w'_1 #W-neq w'_2$.
 ]<foundations:binary-word-equality>
 
-Words alone do not carry meaning. The extended meaning is provided by _handles_.
+Words alone do not carry meaning. Instead, meaning is provided through
+*handles*.
 
 #definition[
-  A _handle_ is given by an *ID*, which is a word. The interpretation of a given
+  A *handle* is given by an *ID*, which is a word. The interpretation of a given
   handle is a free parameter, and therefore are outside the scope of this
   language.
 ]<foundations:handle>
@@ -76,18 +80,18 @@ words can be interpreted as handles without external meaning; see @syntax.
 Now, we can define equality and inequality between handles. We will reserve $=$
 and $!=$ for handles, respectively.
 
-#definition[Consider two handles $h_1$, $h_2$ with IDs $"ID"_2$, $"ID"_2$,
-  respectively. Then:
+#definition[Consider two handles $h_1$, $h_2$, and let $"ID"_1$ and $"ID"_2$ be
+  there their respective IDs. Then:
   - $h_1$ and $h_2$ are equal, written $h_1 = h_2$, if and only if
-    $"ID"_1 = "ID"_2$.
+    $"ID"_1 #W-eq "ID"_2$.
   - $h_1$ is not equal to $h_2$, written $h_1 != h_2$, if and only if
-    $"ID"_1 != "ID"_2$.
+    $"ID"_1 #W-neq "ID"_2$.
 ]<foundations:handle-equality>
 
 == Units
 
 Now we can define units. Roughly, units are finite combinations of handles and
-representations. We present the complete definition below.
+representations. We present the complete definition as follows.
 
 #definition[
   A *unit* is defined recursively as follows and nothing else:
@@ -110,6 +114,8 @@ representations. We present the complete definition below.
 
 Units are characterized by the following rules, where $in$ is a new symbol to
 denote *membership*.
+
+[TODO: fix wrapping of long table! Want to make this clearer!]
 
 // TODO: maybe provide technique for unused imports?
 // Might JUST want to have for later, not have as part of unit.
@@ -157,8 +163,8 @@ denote *membership*.
         name: "Refinement",
         lbl: "r:refine",
         content: [
-          With $x <--> {a - c -> b, a - c -> d}$, $x --> {a - c -> b}$ and
-          $x --> {a - c -> d}$
+          With $x <--> {a - c -> b, a - c -> d}$, #box[$x --> {a - c -> b}$] and
+          #box[$x --> {a - c -> d}$]
         ],
       ),
       (
@@ -420,11 +426,11 @@ We are now ready to prove the following.
 
 The proof of @turing-expressible demonstrates how contexts enable powerful
 recursive definitions. However, the underlying construction is tedious and
-results in extremely verbose terms. Keys are assigned manually, which can easily
-be error prone. We will refine the proof with a *recursor* over units. This is a
-unit that indexes every unit, as well as every handle. We gradually build
-$"unit"$ based on notions for $"word"$ and $"handle"$. Note that we will
-manually index new handles within the final bootstrap, see ?.
+results in verbose terms. IDs are assigned manually, which can easily be error
+prone. We will refine the proof with a *recursor* over units. This is a unit
+that indexes every unit, as well as every handle. We gradually build this
+recursor from smaller parts; specific handles are only assigned in the
+bootstrap, see ?.
 
 First, we need to establish some default units in the global context:
 
@@ -450,6 +456,15 @@ This is similar to the Lisp definition of a list. In detail:
 
 - $"word"$ is recursively defined, as either $"{}"$ (for empty) or the pair
   ${"top", "next"}$, where $"top"$ is a $"bit"$ and $"next"$ is a $"word"$.
+
+#example[
+  Consider the word $0.1.0$. We can derive a form by repeatedly using @r:refine:
+  $
+    "word" &<--> {} | {"top" -> "bit", "next" -> "word"} \
+    &-> {"top" -> 0, "next" -> {"top" -> "bit", "next" -> "word"}} \
+    &-> {"top" -> 0, "next" -> {"top" -> 1, "next" -> {"top" -> 0, "next" -> {}}}}.
+  $
+]
 
 From there, we can define handle IDs through triples, see
 @foundations:bootstrap-handle-id.
