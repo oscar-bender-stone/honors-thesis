@@ -112,10 +112,9 @@ representations. We present the complete definition as follows.
 
 We add $a <--> b$ as a shorthand for $a --> b$ and $a <-- b$; this is formally
 defined in @syntax. Moreover, we add a symbol $subset.sq.eq$ for *containment*,
-where $a subset.eq g$ iff ${g, a} <--> a$.#footnote[This definition is similar
-  to a fact in set theory: $X subset.eq Y$ iff $X union Y = X$.] When writing
-_in_ the language, we will prefer the latter form, but we will add a unit
-corresponding to $subset.eq$ later on, see ?.
+where $a subset.eq.sq g$ iff #box[${g, a} <--> a$]. When writing _in_ the
+language, we will prefer the latter form, but we will add a unit corresponding
+to $subset.eq.sq$ later on, see ?.
 
 [TODO: fix wrapping of long table! Want to make this clearer!]
 
@@ -131,6 +130,14 @@ corresponding to $subset.eq$ later on, see ?.
         name: "Internal Transitivity",
         lbl: "r:transitivity",
         content: [$a - c -> b$ and $b - c -> d$ imply $a - c -> d$],
+      ),
+      (
+        name: "Pair Congruence",
+        lbl: "r:pair-congruence",
+        content: [
+          If $a - c -> b$, then
+          #box[${a, d} - c -> {b, d}$]
+        ],
       ),
       (
         name: "Sign Congruence",
@@ -157,14 +164,6 @@ corresponding to $subset.eq$ later on, see ?.
       ),
 
       (
-        name: "Pair Congruence",
-        lbl: "r:pair-congruence",
-        content: [
-          If $a - c -> b$, then
-          #box[${a, d} - c -> {b, d}$]
-        ],
-      ),
-      (
         name: "Contextual Lifting",
         lbl: "r:context-lift",
         content: [$a - c -> b$ and $d - a -> g$ imply
@@ -179,13 +178,6 @@ corresponding to $subset.eq$ later on, see ?.
         ],
       ),
       (
-        name: "Distributivity",
-        lbl: "r:distribute",
-        content: [
-          $c { a --> b} <--> {a - c -> b}$
-        ],
-      ),
-      (
         name: "Empty",
         lbl: "r:empty",
         content: [${g, {}} <--> g$],
@@ -193,20 +185,17 @@ corresponding to $subset.eq$ later on, see ?.
       (
         name: "Sign Absorption",
         lbl: "r:sign-null",
-        content: [${{} - a -> b} --> {}$, ${a - {} -> b} --> {}$,
-          ${a - b -> {}} --> {}$],
+        content: [${{} - a -> b} --> {}$],
       ),
       (
         name: "Context Absorption",
         lbl: "r:context-null",
-        content: [${{} - a -> b} --> {}$, ${a - {} -> b} --> {}$,
-          ${a - b -> {}} --> {}$],
+        content: [${a - {} -> b} --> {}$],
       ),
       (
         name: "Referent Absorption",
         lbl: "r:referent-null",
-        content: [${{} - a -> b} --> {}$, ${a - {} -> b} --> {}$,
-          ${a - b -> {}} --> {}$],
+        content: [ ${a - b -> {}} --> {}$],
       ),
       (
         name: "Handle Equality",
@@ -229,14 +218,6 @@ corresponding to $subset.eq$ later on, see ?.
         ],
       ),
 
-      (
-        name: "Pair",
-        lbl: "r:pair",
-        content: [
-          ${u} subset.eq.sq {u, v}$ and ${v} subset.eq.sq {u, v}$
-        ],
-      ),
-
       // TODO: make this more accurate!
       // We could always add an alias,
       // so what do we _want_ from field access?
@@ -254,7 +235,7 @@ corresponding to $subset.eq$ later on, see ?.
           #box[${g, c} <--> {{{g, a --> b}, c}$]],
       ),
       (
-        name: "Idempotent",
+        name: "Idempotentcy",
         lbl: "r:idempotent",
         content: [${a, a} <--> {a}$],
       ),
@@ -285,19 +266,19 @@ units as modules, as well as make it easier to use the language.
 
 [TODO: refer to rules with ranges when appropriate! Much nicer.]
 
-- @r:transitivity, @r:sign-congruence, @r:context-congruence,
-  @r:referent-congruence, @r:context-lift were discussed in
-  @rationale:unit.[TODO: maybe review the discussion from earlier? Might be
+- @r:pair-congruence, @r:transitivity, @r:sign-congruence,
+  @r:context-congruence, @r:referent-congruence, @r:context-lift were discussed
+  in @rationale:unit.[TODO: maybe review the discussion from earlier? Might be
   useful to reinforce main ideas to reader.]
 - @r:refine is explained as follows: suppose $a$ is a unit, and in a block, $a$
   represents two other units $b, d$. Then this block _represents_ ${a --> b}$
   and ${a --> d}$, separately. This provides a mechanism to _refine_ a general
   unit into a more specific one.
-- @r:distribute is used to apply a context over a combination of units. The more
-  verbose form ${a - d -> b} - c -> {a - d -> b}$ is included once, primarily
-  for readability in text. However, we will prefer $c { a - c -> b}$ for
-  brevity. We say that $c$ *owns* (a copy of) $a - c -> b$. See @syntax for more
-  details.
+//- @r:distribute is used to apply a context over a combination of units. The more
+//  verbose form ${a - d -> b} - c -> {a - d -> b}$ is included once, primarily
+//  for readability in text. However, we will prefer $c { a - c -> b}$ for
+//  brevity. We say that $c$ *owns* (a copy of) $a - c -> b$. See @syntax for more
+//  details.
 - @r:empty, @r:sign-null, @r:context-null, and @r:referent-null define the
   behavior of the empty unit ${}$, similar to the empty set. @r:sign-null and
   the like specifically states that ${}$ contains _no_ representations. Thus, if
@@ -315,7 +296,6 @@ units as modules, as well as make it easier to use the language.
   @quine:new-foundations. We interpret ${a}$ as a _wrapper_ around $a$. While
   not useful for handles, it is for specifying blocks of representations, such
   as ${a - b -> c, b - c -> d}$.
-- @r:pair states that components $u, v$ are members of the pair ${u, v}$.
 - @r:field-access provides a way to access specific units in a scope. The
   notation is entirely inspired by object oriented programming. This style of
   programming has _objects_ that can have data (fields) and functions (methods).

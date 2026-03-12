@@ -110,6 +110,8 @@ see @conclusion:comparisons.
   when applied to large-scale databases or when bridging disparate domains
   @formal-concept-analysis-trends.
 
+- *Frame Logic:* TODO: finish!
+
 This thesis introduces a language to resolve these issues for Information
 Management. I call this language *Welkin*, based on an old German word meaning
 cloud @dictionary:welkin. This word represents the expansive nature of the
