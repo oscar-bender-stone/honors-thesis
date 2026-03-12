@@ -103,6 +103,7 @@ representations. We present the complete definition as follows.
     combination of the following are also units:
     - $@u$, the *expansion* of $u$.
     - ${u, v}$, the *pair* of $u, v$.
+    - $h {u}$, called a *named unit*.
     - $g.v$, the *access of $v$ on $g$*.
     // TODO: make the current working context clear!
     - A *representation* $a - c -> b$, where $a$ is the *sign*, $c$ is the
@@ -110,8 +111,9 @@ representations. We present the complete definition as follows.
       $b$ *in context* $c$.
 ]<foundations:unit>
 
-Units are characterized by the following rules, where $in$ is a new symbol to
-denote *membership* and $a <--> b$ is shorthand for ${a --> b, b --> a}$.
+Units are characterized by the following rules, where $subset.sq.eq$ is a new
+symbol to denote *membership* and $a <--> b$ is shorthand for
+${a --> b, b --> a}$.
 
 [TODO: fix wrapping of long table! Want to make this clearer!]
 
@@ -164,7 +166,7 @@ denote *membership* and $a <--> b$ is shorthand for ${a --> b, b --> a}$.
         name: "Contextual Lifting",
         lbl: "r:context-lift",
         content: [$a - c -> b$ and $d - a -> g$ imply
-          #box[${d - b -> g} in c$]],
+          #box[${d - b -> g} subset.sq.eq c$]],
       ),
       (
         name: "Refinement",
@@ -172,6 +174,13 @@ denote *membership* and $a <--> b$ is shorthand for ${a --> b, b --> a}$.
         content: [
           With $x <--> {a - c -> b, a - c -> d}$, #box[$x --> {a - c -> b}$] and
           #box[$x --> {a - c -> d}$]
+        ],
+      ),
+      (
+        name: "Distributivity",
+        lbl: "r:distribute",
+        content: [
+          $c { a - d -> b} <--> {{a - d -> b} - c -> {a - d -> b}}$
         ],
       ),
       (
@@ -209,7 +218,7 @@ denote *membership* and $a <--> b$ is shorthand for ${a --> b, b --> a}$.
         name: "Pair",
         lbl: "r:pair",
         content: [
-          $u in {u, v}$ and $v in {u, v}$
+          ${u} subset.eq.sq {u, v}$ and ${v} subset.eq.sq {u, v}$
         ],
       ),
 
@@ -235,6 +244,11 @@ denote *membership* and $a <--> b$ is shorthand for ${a --> b, b --> a}$.
         lbl: "r:expansion",
         content: [if $a - g -> b$, then
           #box[${@g, c} <--> {{{@g, a --> b}, c}$]],
+      ),
+      (
+        name: "Idempotent",
+        lbl: "r:idempotent",
+        content: [${a, a} <--> {a}$],
       ),
       (
         name: "Associativity",
@@ -265,9 +279,14 @@ units as modules, as well as make it easier to use the language.
   @r:referent-congruence, @r:context-lift were discussed in
   @rationale:unit.[TODO: maybe review the discussion from earlier? Might be
   useful to reinforce main ideas to reader.]
-// - @r:refine is explained as follows: suppose $a$ is a unit, and in a block, $a$
-//  represents two other units $b, d$. Then this block represents $a$
-//  _representing_ $b$, and separately, $a$ _representing_ $d$.
+- @r:refine is explained as follows: suppose $a$ is a unit, and in a block, $a$
+  represents two other units $b, d$. Then this block represents $a$
+  _representing_ $b$, and separately, $a$ _representing_ $d$.
+- @r:distribute is used to apply a context over a combination of units. The more
+  verbose form ${a - d -> b} - c -> {a - d -> b}$ is included once, primarily
+  for readability in text. However, we will prefer $c { a - c -> b}$ for
+  brevity. We also say that $c$ *owns* (a copy of) $a - c -> b$. See @syntax for
+  more details.
 - @r:empty and @r:null define the behavior of the empty unit ${}$, similar to
   the empty set. @r:null specifically states that ${}$ contains _no_
   representations. Thus, any term $a - {} -> b$ is equivalent to ${}$, i.e.,
@@ -306,8 +325,8 @@ exclusion is intentionally restricted _per context_, so the rules in
 presence of an expansion. Otherwise, terms like ${a, {b, ~a}}$ would be
 allowed, so certain units could never be expanded!
 */
-- @r:associativity, and @r:commutativity ensure that information can be repeated
-  and can be put into any order.
+- @r:idempotent, @r:associativity, and @r:commutativity ensure that information
+  can be repeated and arranged in any order.
 
 As more notation, we write:
 
@@ -319,6 +338,18 @@ This condenses many definitions. We postpone formally defining the operator $|$
 to the grammar in @syntax. Moreover, we allow an extra $|$ at the start or end,
 e.g., #box($a - c -> | b_1 | b_2 | ... | b_n$) is synonymous with
 $a - c -> b_1 | b_2 | ... | b_n$.
+
+[TODO: determine if this lemma is necessary. Likely not.]
+
+#lemma[Let $a, b, c, d, g$ be units.
+  - $c { g { a --> b}, {b --> d} } <--> c { g { a --> d} }$.
+  - $c { u --> v} <--> {u - c -> v}$.
+  - $$.
+]
+#proof[
+  Can be proven directly by expanding out notation and reviewing @unit-rules.
+]
+
 
 Before we proceed to prove Turing completeness, we introduce the
 $"SK"$-combinator calculus. This is an equational theory that is well known to
