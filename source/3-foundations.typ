@@ -27,7 +27,8 @@ After the base rules, our goal will be to define _as much_ in Welkin as
 possible. Definitions will be gradually given in the language.
 
 As a convention, each *Definition* and *Remark* ends with a triangle
-($#end-def$). Proofs end with a square ($square.stroked$).
+($#end-def$). Proofs end with a square ($square.stroked$). We frequently
+abbreviate "if and only if" as "iff".
 
 == Words and Handles
 
@@ -445,7 +446,7 @@ Now, we present @foundations:bootstrap-binary-word.
   [
     $"bit" --> 0 | 1,$
 
-    $"word" <--> "{}" | {"top" --> "bit", "next" --> "word"}$
+    $"word" --> "{}" | {"top" --> "bit", "next" --> "word"}$
   ],
   caption: [Generator for words in Welkin.],
 )<foundations:bootstrap-binary-word>
@@ -460,7 +461,7 @@ This is similar to the Lisp definition of a list. In detail:
 #example[
   Consider the word $0.1.0$. We can derive a form by repeatedly using @r:refine:
   $
-    "word" &<--> {} | {"top" -> "bit", "next" -> "word"} \
+    "word" &--> {} | {"top" -> "bit", "next" -> "word"} \
     &-> {"top" -> 0, "next" -> {"top" -> "bit", "next" -> "word"}} \
     &-> {"top" -> 0, "next" -> {"top" -> 1, "next" -> {"top" -> 0, "next" -> {}}}}.
   $
@@ -471,7 +472,7 @@ From there, we can define handle IDs through triples, see
 
 #figure(
   [
-    $"handle" <--> {"ID" --> "word"}$
+    $"handle" --> {"ID" --> "word"}$
   ],
   caption: [Generator for handle keys in Welkin.],
 )<foundations:bootstrap-handle-id>
@@ -508,27 +509,27 @@ To show these constructions are correct, we must prove the following.
   - *Inductive step:* correctly handles the the cases for $"top"$ and $"next"$.
 ]
 
-Now, in @unit-rules, we needed enough _separate_ meta-variables. To do this in
-Welkin, we use representations of the form $"u" --> "unit"$. This construction
-appeared frequently in the proof of @turing-expressible.
-#footnote[
+With handles established, we may proceed to defining the unit recursor. We reuse
+an important technique from the proof in @turing-expressible: representing
+meta-variables using $u --> c$, where $c$ is the overarching context. #footnote[
   [TODO: discuss how we are allowing the variables to be the same or different!
   Related to bundling in MetaMath + MetaMath Zero [and cite these!].]
 ]
 
+// TODO: what if we want to do cases? Probably need to address! Important!
 #definition[
   The *unit recursor* $"unit"$ include exactly the following rules in context
   $"unit"$:
   - $"unit" --> {}$
   - $"unit" --> "handle"$, see @foundations:bootstrap-handle-id.
-  - $u | v | c --> "unit"$ are meta-variables.
+  - $u | v | c --> "unit"$, which means $u, v, c$ are meta-variables over units.
   - $"unit" --> @u$.
   - $"unit" --> {u, v} | {@u, ~v} | {~v, @u}$.
   - $"unit" --> {u - c -> v}$.
 ]<foundations:recursor>
 
-Proving correctness is straightforward and closely aligns with the original
-definition.
+Proving correctness is straightforward and closely aligns with
+@foundations:unit.
 
 #lemma[*_(Recursor Correctness)._* For every unit $u$, $u - "unit" -> "unit"$.
 ]<foundations:recursion-correctness>
@@ -549,9 +550,9 @@ based on @r:identity and @r:transitivity.
 Now we will includle a notion for containment. Because Welkin is Turing
 expressible, $"unit"$ may not terminate in all cases, such as an infinite
 recursive loop. We want to have a mechanism to _check_ certain claims. This is
-the role of the verifier, built upon $"part"$.
+the role of the verifier.
 
-In addition to `unit`, we need to express the rules themselves.
+First, we need to express the rules inside Welkin.
 
 #definition[
   The $"rules"$ unit is defined as exactly the things below, over
@@ -592,7 +593,7 @@ Now we introduce $"part"$.
   - $~{u --> {@u, ~v}}$.
 ]<foundations:bootstrap-in>
 
-#lemma[$u - "part" -> u'$ if and only if $u - u' -> u$.]
+#lemma[$u - "part" -> u'$ iff $u - u' -> u$.]
 #proof[
   We proceed by structural induction on units, or $u | u' - "unit" -> "unit"$:
   - *Base case:* we need to prove ${{} - "part" -> u'$ if and only if
@@ -613,14 +614,14 @@ and $"reject"$.
 a clear induction scheme! And maybe add a pair to store the context and target?
 Fill in $\_$!]
 
+$"claim" <--> {"context" --> "unit", "query" --> {"unit" - "unit" -> "unit"}, "derivation" --> "unit"}$
+
 #definition[
-  The unit $"verify"$ is defined over a context $c$, a unit ${a - d -> b}$
-  called the *target*, and a unit $p$ called a *derivation*. We define this by
-  recursion on $p$.
-  - *Base case:* if $p$,
-    ${"context" --> c, "target" --> {a - d -> b}, "derivation" --> p} - "verify" -> "accepts"$
-    holds if and only if ${a - d -> b} <- "part" -> p$. Similarly, $"reject"$ if
-    and only if $~{{a - d -> b} - "part" -> p}$.
+  The unit $"verify"$ is defined over meta-variables
+  $c | u | v | g | d --> "unit"$ and sets $"query" <--> {u - g -> v}$:
+  - *Base case:* if $d$ is empty or a handle, then
+    ${"context" --> c, "target" --> {a - d -> b}, "derivation" --> p} - "verify" -> "accept"$
+    if and only if $d <--> a <--> d <--> b$.
   - *Recursive step:*. suppose $p equiv {p', e - f -> g}$. Then
     ${p,_} - "verify" -> "accept"$ if and only if $p'$ is accepted in context
     $$. [TODO: get the end of $p'$ and wrap it up in the context and target. See
