@@ -496,8 +496,6 @@ We need to include equality as well, refer to @foundations:handle-equality:
   caption: [Definitions of equality in Welkin.],
 )<foundations:bootstrap-equality>
 
-
-
 To show these constructions are correct, we must prove the following.
 
 #lemma[
@@ -512,7 +510,7 @@ To show these constructions are correct, we must prove the following.
 
 Now, in @unit-rules, we needed enough _separate_ meta-variables. To do this in
 Welkin, we use representations of the form $"u" --> "unit"$. This construction
-appeared frequently when defining terms in @turing-expressible.
+appeared frequently in the proof of @turing-expressible.
 #footnote[
   [TODO: discuss how we are allowing the variables to be the same or different!
   Related to bundling in MetaMath + MetaMath Zero [and cite these!].]
@@ -521,12 +519,12 @@ appeared frequently when defining terms in @turing-expressible.
 #definition[
   The *unit recursor* $"unit"$ include exactly the following rules in context
   $"unit"$:
-  - $"word" --> "unit"$, see @foundations:bootstrap-binary-word.
-  - $"handle" --> "unit"$, see @foundations:bootstrap-handle-id.
-  - ${} | u | v | c --> "unit"$.
-  - $@u --> "unit"$.
-  - ${u, v} | {@u, ~v} | {~v, @u} --> "unit"$.
-  - ${u - c -> v} --> "unit"$.
+  - $"unit" --> {}$
+  - $"unit" --> "handle"$, see @foundations:bootstrap-handle-id.
+  - $u | v | c --> "unit"$ are meta-variables.
+  - $"unit" --> @u$.
+  - $"unit" --> {u, v} | {@u, ~v} | {~v, @u}$.
+  - $"unit" --> {u - c -> v}$.
 ]<foundations:recursor>
 
 Proving correctness is straightforward and closely aligns with the original
@@ -541,11 +539,10 @@ definition.
 ]<foundations:recursor-correctness>
 
 
-Now, for the rest of the thesis (except bootstrap), we will drop mentions of
-specific handles. These will all be facilitated by $"unit"$. Moreover, if
-$u --> "unit"$, then $u - "unit" -> "unit"$, based on @r:identity and
-@r:transitivity. We will use the former for brevity.
-
+Now, for the rest of the thesis (except the bootstrap), we will drop mentions of
+specific handles. These will all be facilitated by $"unit"$. For brevity, we
+will write $u --> "unit"$. Notice that this form implies $u - "unit" -> "unit"$,
+based on @r:identity and @r:transitivity.
 
 == Base Verifier
 
