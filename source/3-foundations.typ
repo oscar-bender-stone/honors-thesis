@@ -111,7 +111,7 @@ representations. We present the complete definition as follows.
 ]<foundations:unit>
 
 Units are characterized by the following rules, where $in$ is a new symbol to
-denote *membership* and $a <--> b$ is shorthand for $a --> b$ and $b --> a$.
+denote *membership* and $a <--> b$ is shorthand for ${a --> b, b --> a}$.
 
 [TODO: fix wrapping of long table! Want to make this clearer!]
 
@@ -246,12 +246,6 @@ denote *membership* and $a <--> b$ is shorthand for $a --> b$ and $b --> a$.
         lbl: "r:commutativity",
         content: [${a, b} <--> {b, a}$],
       ),
-
-      (
-        name: "Import Commutativity",
-        lbl: "r:import-commutativity",
-        content: [${@g, "~"a} <--> {"~"a, @g}$],
-      ),
     ),
   )
   #figure(
@@ -312,9 +306,8 @@ exclusion is intentionally restricted _per context_, so the rules in
 presence of an expansion. Otherwise, terms like ${a, {b, ~a}}$ would be
 allowed, so certain units could never be expanded!
 */
-- @r:associativity, @r:commutativity, and @r:import-commutativity ensure that
-  information can be repeated and can be put into any order. As mentioned above,
-  exclusions are *not* allowed with general units.
+- @r:associativity, and @r:commutativity ensure that information can be repeated
+  and can be put into any order.
 
 As more notation, we write:
 
@@ -520,7 +513,7 @@ meta-variables using $u --> c$, where $c$ is the overarching context. #footnote[
   - $"unit" --> "handle"$, see @foundations:bootstrap-handle-id.
   - $u | v | c --> "unit"$, which means $u, v, c$ are meta-variables over units.
   - $"unit" --> @u$.
-  - $"unit" --> {u, v} | {@u, ~v} | {~v, @u}$.
+  - $"unit" --> {u, v}$.
   - $"unit" --> {u - c -> v}$.
 ]<foundations:recursor>
 
