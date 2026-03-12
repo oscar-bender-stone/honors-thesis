@@ -83,7 +83,7 @@ and $!=$ for handles, respectively.
 
 #definition[Consider two handles $h_1$, $h_2$, and let $"ID"_1$ and $"ID"_2$ be
   there their respective IDs. Then:
-  - $h_1$ and $h_2$ are equal, written $h_1 = h_2$, if and only if
+  - $h_1$ is equal to $h_2$, written $h_1 = h_2$, if and only if
     $"ID"_1 #W-eq "ID"_2$.
   - $h_1$ is not equal to $h_2$, written $h_1 != h_2$, if and only if
     $"ID"_1 #W-neq "ID"_2$.
@@ -112,7 +112,7 @@ representations. We present the complete definition as follows.
 
 Units are characterized by the following rules, where $subset.sq.eq$ is a new
 symbol to denote *membership* and $a <--> b$ is shorthand for
-${a --> b, b --> a}$.
+${a --> b, b --> a}$ (defined formally in @syntax).
 
 [TODO: fix wrapping of long table! Want to make this clearer!]
 
@@ -179,7 +179,7 @@ ${a --> b, b --> a}$.
         name: "Distributivity",
         lbl: "r:distribute",
         content: [
-          $c { a - d -> b} <--> {{a - d -> b} - c -> {a - d -> b}}$
+          $c { a --> b} <--> {a - c -> b}$
         ],
       ),
       (
@@ -188,9 +188,10 @@ ${a --> b, b --> a}$.
         content: [${g, {}} <--> g$],
       ),
       (
-        name: "Null",
+        name: "Absorption",
         lbl: "r:null",
-        content: [${a - {} -> b} <--> {}$],
+        content: [${{} - a -> b} --> {}$, ${a - {} -> b} --> {}$,
+          ${a - b -> {}} --> {}$],
       ),
       (
         name: "Handle Equality",
@@ -279,17 +280,20 @@ units as modules, as well as make it easier to use the language.
   @rationale:unit.[TODO: maybe review the discussion from earlier? Might be
   useful to reinforce main ideas to reader.]
 - @r:refine is explained as follows: suppose $a$ is a unit, and in a block, $a$
-  represents two other units $b, d$. Then this block represents $a$
-  _representing_ $b$, and separately, $a$ _representing_ $d$.
+  represents two other units $b, d$. Then this block _represents_ ${a --> b}$
+  and ${a --> d}$, separately. This provides a mechanism to _refine_ a general
+  unit into a more specific one.
 - @r:distribute is used to apply a context over a combination of units. The more
   verbose form ${a - d -> b} - c -> {a - d -> b}$ is included once, primarily
   for readability in text. However, we will prefer $c { a - c -> b}$ for
-  brevity. We also say that $c$ *owns* (a copy of) $a - c -> b$. See @syntax for
-  more details.
+  brevity. We say that $c$ *owns* (a copy of) $a - c -> b$. See @syntax for more
+  details.
 - @r:empty and @r:null define the behavior of the empty unit ${}$, similar to
   the empty set. @r:null specifically states that ${}$ contains _no_
-  representations. Thus, any term $a - {} -> b$ is equivalent to ${}$, i.e.,
-  carries no meaning.
+  representations. Thus, if ${}$ is involved in _any_ representation, it is
+  equivalent to ${}$. In other words,representations built from ${}$ carry no
+  meaning. This provides a mechanism to _exclude_ units in a context, which we
+  will need for the verifier, see @foundations:verify.
 - @r:handle-eq enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are entirely
   user defined.
@@ -315,15 +319,6 @@ units as modules, as well as make it easier to use the language.
   process of joining the contents of one unit into another. @r:expansion states
   how an import can add new units in a block.
 
-/*@r:exclusion
-provides a mechanism to _exclude_ specified contents in $g$. For example,
-${@{a - b -> c, d}, "~"{a - b -> c}}$ reduces to ${d}$. This also enables a
-way to disable _any_ rule in Welkin, based on user preference. Note that
-exclusion is intentionally restricted _per context_, so the rules in
-@unit-rules apply by default. Also note that exclusions *must* be used in the
-presence of an expansion. Otherwise, terms like ${a, {b, ~a}}$ would be
-allowed, so certain units could never be expanded!
-*/
 - @r:idempotent, @r:associativity, and @r:commutativity ensure that information
   can be repeated and arranged in any order.
 
@@ -331,12 +326,11 @@ As more notation, we write:
 
 - $a - c -> b_1 | b_2 | ... | b_n$ to mean
   ${a - c -> b_1, a - c -> b_2, ..., a - c -> b_n}$.
-- $a_1 | ... | a_n - c -> d$ to mean ${a_1 - c -> d, ..., a_n - c -> d}$.
+- $~a$ to mean ${a --> {}}$.
 
 This condenses many definitions. We postpone formally defining the operator $|$
 to the grammar in @syntax. Moreover, we allow an extra $|$ at the start or end,
-e.g., #box($a - c -> | b_1 | b_2 | ... | b_n$) is synonymous with
-$a - c -> b_1 | b_2 | ... | b_n$.
+e.g., #box($a - c -> | b_1 | b_2$) is synonymous with $a - c -> b_1 | b_2$.
 
 [TODO: determine if this lemma is necessary. Likely not.]
 
@@ -505,7 +499,7 @@ We need to include equality as well, refer to @foundations:handle-equality:
   [$"equals" <--> {\
     "0" <--> "0",\
     "1" <--> "1",\
-    ~{"0" <--> "1"},\
+    ~{"0" <--> "1"},
     "w1" | "w2" --> "word",\
     {"w1" <--> "w2"} &<--> {"w1" <--> {} <--> "w2"} \
     &| {"w1.top" <--> "w2.top", "w1.next" <--> "w2.next"}, \
@@ -542,7 +536,6 @@ meta-variables using $u --> c$, where $c$ is the overarching context. #footnote[
   - $"unit" --> {}$
   - $"unit" --> "handle"$, see @foundations:bootstrap-handle-id.
   - $u | v | c --> "unit"$, which means $u, v, c$ are meta-variables over units.
-  - $"unit" --> @u$.
   - $"unit" --> {u, v}$.
   - $"unit" --> {u - c -> v}$.
 ]<foundations:recursor>
