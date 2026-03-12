@@ -62,6 +62,8 @@ they are and are _not_ restricted. This idea is directly inspired from Fine's
 idea of arbitrary objects @fine-arbitrary-objects, and allows refinements to a
 study of interest.
 
+[TODO: come up with a better example here! Maybe math based, but simple?]
+
 #example[
   A more looser example is a user written journal for therapy sessions,
   containing information about daily habits and emotions. While neither of these
@@ -73,8 +75,8 @@ study of interest.
 We represent handles in Welkin using an extended notion called a *unit*. A unit
 is either a handle, a finite collection of units, or a representation.
 Collections of units can have a uniquely generated name by the information base
-called a *block*#footnote[In programming languages, this is analogous to an
-  anonymous function.].
+called a *block*.#footnote[In programming languages, this is analogous to an
+  anonymous function.]
 
 #example[
 

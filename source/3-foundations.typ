@@ -59,9 +59,9 @@ explicit certificate, a bit that shows how two words are distinct.
   - *Base case:* $epsilon = epsilon$.
   - *Recursive step:* suppose $w_1 #W-eq b_1.w_1'$ and $w_2 #W-eq b_2.w_2'$,
     where $b_1, b_2$ as bits and $w_1', w_2'$ are words. Then $w_1 #W-eq w_2$ if
-    and only if $b_1, b_2$ are both $0$ or $1$, and $w'_1 #W-eq w'2$. Moreover,
-    $w_1 #W-neq w_2$ if and only if $b_1$ and $b_2$ are different bits or
-    $w'_1 #W-neq w'_2$.
+    and only if $b_1, b_2$ are both $0$ or $1$, and $w'_1 #W-eq w'_2$. Moreover,
+    $w_1 #W-neq w_2$ if and only if $b_1$ is $0$ and $b_2$ is $1$, $b_1$ is $1$
+    and $b_2$ is $0$, or $w'_1 #W-neq w'_2$.
 ]<foundations:binary-word-equality>
 
 Words alone do not carry meaning. Instead, meaning is provided through
@@ -103,9 +103,6 @@ representations. We present the complete definition as follows.
     combination of the following are also units:
     - $@u$, the *expansion* of $u$.
     - ${u, v}$, the *pair* of $u, v$.
-    - An *import block*, defined as ${@g}$ for a unit $g$, or as ${b, @u}$,
-      ${b, ~u}$, or ${~u, b}$ for an import block $b$. In ${b, ~u}$, $~u$ is the
-      *exclusion* of $u$.
     - $g.v$, the *access of $v$ on $g$*.
     // TODO: make the current working context clear!
     - A *representation* $a - c -> b$, where $a$ is the *sign*, $c$ is the
@@ -135,7 +132,7 @@ denote *membership*.
         name: "Sign Congruence",
         lbl: "r:sign-congruence",
         content: [
-          If $a - c -> b$, then #box[${a - g -> b} - c -> {b - g -> d}$]
+          If $a - c -> b$, then #box[${a - g -> d} - c -> {b - g -> d}$]
         ],
       ),
       (
@@ -152,6 +149,15 @@ denote *membership*.
         content: [
           If $a - c -> b$, then
           #box[${d - g -> a} - c -> {d - g -> b}$]
+        ],
+      ),
+
+      (
+        name: "Pair Congruence",
+        lbl: "r:pair-congruence",
+        content: [
+          If $a - c -> b$, then
+          #box[${a, d} - c -> {b, d}$]
         ],
       ),
       (
@@ -231,12 +237,6 @@ denote *membership*.
           #box[${@g, c} <--> {{{@g, a --> b}, c}$]],
       ),
       (
-        name: "Exclusion",
-        lbl: "r:exclusion",
-        content: [if $g <--> {@g, a}$, then
-          #box[${{@g, "~"a}, b} <--> {@d, b}$]],
-      ),
-      (
         name: "Associativity",
         lbl: "r:associativity",
         content: [${a, {b, c}} <--> {{a, b}, c}$],
@@ -299,27 +299,22 @@ units as modules, as well as make it easier to use the language.
   programming has _objects_ that can have data (fields) and functions (methods).
   Note that this is _only_ in one way, because the full path $g.a$ need not be
   abbreviated to, e.g., $a$.
-- @r:expansion and @r:exclusion define how imports in the language work. An
-  *import* is the process of joining the contents of one unit into another.
-  @r:expansion states how an import can add new units in a block. @r:exclusion
-  provides a mechanism to _exclude_ specified contents in $g$. For example,
-  ${@{a - b -> c, d}, "~"{a - b -> c}}$ reduces to ${d}$. This also enables a
-  way to disable _any_ rule in Welkin, based on user preference. Note that
-  exclusion is intentionally restricted _per context_, so the rules in
-  @unit-rules apply by default. Also note that exclusions *must* be used in the
-  presence of an expansion. Otherwise, terms like ${a, {b, ~a}}$ would be
-  allowed, so certain units could never be expanded!
+- @r:expansion defines how imports in the language work. An *import* is the
+  process of joining the contents of one unit into another. @r:expansion states
+  how an import can add new units in a block.
+
+/*@r:exclusion
+provides a mechanism to _exclude_ specified contents in $g$. For example,
+${@{a - b -> c, d}, "~"{a - b -> c}}$ reduces to ${d}$. This also enables a
+way to disable _any_ rule in Welkin, based on user preference. Note that
+exclusion is intentionally restricted _per context_, so the rules in
+@unit-rules apply by default. Also note that exclusions *must* be used in the
+presence of an expansion. Otherwise, terms like ${a, {b, ~a}}$ would be
+allowed, so certain units could never be expanded!
+*/
 - @r:associativity, @r:commutativity, and @r:import-commutativity ensure that
   information can be repeated and can be put into any order. As mentioned above,
   exclusions are *not* allowed with general units.
-
-We provide some reoccurring properties in the lemma below.
-
-#lemma[
-  - For every unit $u$ and $v$, if $v in.not u$, then $~{{@u, v} <--> u}$.
-  - Import blocks are locally associative: given import blocks $m_1, m_2$ and a
-    unit $u$, #box[${m_1, {m_2, ~u}} <--> {m_2, {m_1, ~u}}$].
-]<foundations:lemma-properties>
 
 As more notation, we write:
 
@@ -602,7 +597,6 @@ Now we introduce $"part"$.
     - *Inductive step:* There are three cases:
       - *Representations:* immediate.
       - *Expansions:* .
-      - *Exclusions:* .
   - *Inductive step:* similar to the base case. [TODO: complete this proof! But
     it is straightforward.]
 ]<foundations:in-correctness>
@@ -614,7 +608,11 @@ and $"reject"$.
 a clear induction scheme! And maybe add a pair to store the context and target?
 Fill in $\_$!]
 
-$"claim" <--> {"context" --> "unit", "query" --> {"unit" - "unit" -> "unit"}, "derivation" --> "unit"}$
+$"claim" <--> {\
+  "context" &--> "unit",\
+  "query" &--> {"unit" - "unit" -> "unit"},\
+  "derivation" &--> "unit"\
+}$
 
 #definition[
   The unit $"verify"$ is defined over meta-variables
