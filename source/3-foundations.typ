@@ -111,7 +111,7 @@ representations. We present the complete definition as follows.
 ]<foundations:unit>
 
 Units are characterized by the following rules, where $in$ is a new symbol to
-denote *membership*.
+denote *membership* and $a <--> b$ is shorthand for $a --> b$ and $b --> a$.
 
 [TODO: fix wrapping of long table! Want to make this clearer!]
 
@@ -454,9 +454,10 @@ This is similar to the Lisp definition of a list. In detail:
   ${"top", "next"}$, where $"top"$ is a $"bit"$ and $"next"$ is a $"word"$.
 
 #example[
-  Consider the word $0.1.0$. We can derive a form by repeatedly using @r:refine:
+  Consider the word $0.1.0$. We can derive a form by applyin
+  @r:referent-congruence and @r:refine together:
   $
-    "word" &--> {} | {"top" -> "bit", "next" -> "word"} \
+    "word" &-> {} | {"top" -> "bit", "next" -> "word"} \
     &-> {"top" -> 0, "next" -> {"top" -> "bit", "next" -> "word"}} \
     &-> {"top" -> 0, "next" -> {"top" -> 1, "next" -> {"top" -> 0, "next" -> {}}}}.
   $
