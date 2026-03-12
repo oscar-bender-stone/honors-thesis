@@ -101,7 +101,6 @@ representations. We present the complete definition as follows.
     - A handle, see @foundations:handle.
   - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
     combination of the following are also units:
-    - $@u$, the *expansion* of $u$.
     - ${u, v}$, the *pair* of $u, v$.
     - $h {u}$, called a *named unit*.
     - $g.v$, the *access of $v$ on $g$*.
@@ -186,7 +185,7 @@ ${a --> b, b --> a}$.
       (
         name: "Empty",
         lbl: "r:empty",
-        content: [${@g, {}} <--> g$],
+        content: [${g, {}} <--> g$],
       ),
       (
         name: "Null",
@@ -226,7 +225,7 @@ ${a --> b, b --> a}$.
         name: "Membership",
         lbl: "r:membership",
         content: [
-          $a in g$ if and only if ${@g, a} <--> g$
+          $a in g$ if and only if ${g, a} <--> g$
         ],
       ),
       // TODO: make this more accurate!
@@ -243,7 +242,7 @@ ${a --> b, b --> a}$.
         name: "Expansion",
         lbl: "r:expansion",
         content: [if $a - g -> b$, then
-          #box[${@g, c} <--> {{{@g, a --> b}, c}$]],
+          #box[${g, c} <--> {{{g, a --> b}, c}$]],
       ),
       (
         name: "Idempotent",
