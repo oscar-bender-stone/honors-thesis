@@ -40,9 +40,9 @@ includes, e.g., practically restricting user input by fixed upper bounds.
 
 #definition[
   A *bit* is the symbols $0$ or $1$. A *binary word* is either the symbol
-  $epsilon$ (the *empty word*), and if $w$ is a finite binary word, so are $w.0$
-  and $w.1$, where $.$ is the symbol for *concatenation*. Nothing else is a
-  word.
+  $epsilon$ (the *empty word*), and if $w$ is a finite binary word, so are $w 0$
+  and $w 1$, where the juxtaposition of symbols denote *concatenation*. Nothing
+  else is a word.
 ]<foundations:word>
 
 We also require a notion of equality on bits. To ensure this is constructive, we
@@ -57,9 +57,9 @@ explicit certificate, a bit that shows how two words are distinct.
   Equality $#W-eq$ and inequality $#W-neq$ on words $w_1, w_2$ is defined
   recursively and as nothing else:
   - *Base case:* $epsilon = epsilon$.
-  - *Recursive step:* suppose $w_1 #W-eq b_1.w_1'$ and $w_2 #W-eq b_2.w_2'$,
-    where $b_1, b_2$ as bits and $w_1', w_2'$ are words. Then $w_1 #W-eq w_2$ if
-    and only if $b_1, b_2$ are both $0$ or $1$, and $w'_1 #W-eq w'_2$. Moreover,
+  - *Recursive step:* suppose $w_1 #W-eq b_1w_1'$ and $w_2 #W-eq b_2w_2'$, where
+    $b_1, b_2$ as bits and $w_1', w_2'$ are words. Then $w_1 #W-eq w_2$ if and
+    only if $b_1, b_2$ are both $0$ or $1$, and $w'_1 #W-eq w'_2$. Moreover,
     $w_1 #W-neq w_2$ if and only if $b_1$ is $0$ and $b_2$ is $1$, $b_1$ is $1$
     and $b_2$ is $0$, or $w'_1 #W-neq w'_2$.
 ]<foundations:binary-word-equality>
@@ -98,13 +98,13 @@ representations. We present the complete definition as follows.
   A *unit* is defined recursively as follows and nothing else:
   - *Base case:*
     - The symbol ${}$, the *empty block*.
+    - The symbol $.$ called the *relative unit*.
     - A handle, see @foundations:handle.
   - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
     combination of the following are also units:
     - ${u, v}$, the *pair* of $u, v$.
     - $h {u}$, called a *named unit*.
-    - $g.v$, the *access of $v$ on $g$*.
-    // TODO: make the current working context clear!
+    - $g.v$, a *path*.
     - A *representation* $a - c -> b$, where $a$ is the *sign*, $c$ is the
       *context*, and $b$ is the *referent*. This is read as: $a$ *represents*
       $b$ *in context* $c$.
@@ -222,10 +222,10 @@ to $subset.eq.sq$ later on, see ?.
       // We could always add an alias,
       // so what do we _want_ from field access?
       (
-        name: "Field Access",
+        name: "Field",
         lbl: "r:field-access",
         content: [
-          $g.a <--> a$ implies $a - g -> a$
+          ${a - c -> b} subset.eq.sq c$ implies $c.a - c.d -> c.b$
         ],
       ),
       (
@@ -299,8 +299,7 @@ units as modules, as well as make it easier to use the language.
 - @r:field-access provides a way to access specific units in a scope. The
   notation is entirely inspired by object oriented programming. This style of
   programming has _objects_ that can have data (fields) and functions (methods).
-  Note that this is _only_ in one way, because the full path $g.a$ need not be
-  abbreviated to, e.g., $a$.
+  Note that this is in _one_ direction
 - @r:expansion defines how imports in the language work. An *import* is the
   process of joining the contents of one unit into another. @r:expansion states
   how an import can add new units in a block.
