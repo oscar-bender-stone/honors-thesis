@@ -110,9 +110,12 @@ representations. We present the complete definition as follows.
       $b$ *in context* $c$.
 ]<foundations:unit>
 
-Units are characterized by the following rules, where $subset.sq.eq$ is a new
-symbol to denote *membership* and $a <--> b$ is shorthand for
-${a --> b, b --> a}$ (defined formally in @syntax).
+We add $a <--> b$ as a shorthand for $a --> b$ and $a <-- b$; this is formally
+defined in @syntax. Moreover, we add a symbol $subset.sq.eq$ for *containment*,
+where $a subset.eq g$ iff ${g, a} <--> a$.#footnote[This definition is similar
+  to a fact in set theory: $X subset.eq Y$ iff $X union Y = X$.] When writing
+_in_ the language, we will prefer the latter form, but we will add a unit
+corresponding to $subset.eq$ later on, see ?.
 
 [TODO: fix wrapping of long table! Want to make this clearer!]
 
@@ -188,8 +191,20 @@ ${a --> b, b --> a}$ (defined formally in @syntax).
         content: [${g, {}} <--> g$],
       ),
       (
-        name: "Absorption",
-        lbl: "r:null",
+        name: "Sign Absorption",
+        lbl: "r:sign-null",
+        content: [${{} - a -> b} --> {}$, ${a - {} -> b} --> {}$,
+          ${a - b -> {}} --> {}$],
+      ),
+      (
+        name: "Context Absorption",
+        lbl: "r:context-null",
+        content: [${{} - a -> b} --> {}$, ${a - {} -> b} --> {}$,
+          ${a - b -> {}} --> {}$],
+      ),
+      (
+        name: "Referent Absorption",
+        lbl: "r:referent-null",
         content: [${{} - a -> b} --> {}$, ${a - {} -> b} --> {}$,
           ${a - b -> {}} --> {}$],
       ),
@@ -222,13 +237,6 @@ ${a --> b, b --> a}$ (defined formally in @syntax).
         ],
       ),
 
-      (
-        name: "Membership",
-        lbl: "r:membership",
-        content: [
-          $a in g$ if and only if ${g, a} <--> g$
-        ],
-      ),
       // TODO: make this more accurate!
       // We could always add an alias,
       // so what do we _want_ from field access?
@@ -275,6 +283,8 @@ entirely flexible and user defined. Moreover, only @r:transitivity,
 completeness. However, the other rules are in place to help with organizing
 units as modules, as well as make it easier to use the language.
 
+[TODO: refer to rules with ranges when appropriate! Much nicer.]
+
 - @r:transitivity, @r:sign-congruence, @r:context-congruence,
   @r:referent-congruence, @r:context-lift were discussed in
   @rationale:unit.[TODO: maybe review the discussion from earlier? Might be
@@ -288,12 +298,13 @@ units as modules, as well as make it easier to use the language.
   for readability in text. However, we will prefer $c { a - c -> b}$ for
   brevity. We say that $c$ *owns* (a copy of) $a - c -> b$. See @syntax for more
   details.
-- @r:empty and @r:null define the behavior of the empty unit ${}$, similar to
-  the empty set. @r:null specifically states that ${}$ contains _no_
-  representations. Thus, if ${}$ is involved in _any_ representation, it is
-  equivalent to ${}$. In other words,representations built from ${}$ carry no
-  meaning. This provides a mechanism to _exclude_ units in a context, which we
-  will need for the verifier, see @foundations:verify.
+- @r:empty, @r:sign-null, @r:context-null, and @r:referent-null define the
+  behavior of the empty unit ${}$, similar to the empty set. @r:sign-null and
+  the like specifically states that ${}$ contains _no_ representations. Thus, if
+  ${}$ is involved in _any_ representation, it is equivalent to ${}$. In other
+  words,representations built from ${}$ carry no meaning. This provides a
+  mechanism to _exclude_ units in a context, which we will need for the
+  verifier, see @foundations:verify.
 - @r:handle-eq enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are entirely
   user defined.
@@ -305,11 +316,6 @@ units as modules, as well as make it easier to use the language.
   not useful for handles, it is for specifying blocks of representations, such
   as ${a - b -> c, b - c -> d}$.
 - @r:pair states that components $u, v$ are members of the pair ${u, v}$.
-- @r:membership defines membership $a in g$. Note that this is more relaxed than
-  set-theoretic equality. First, by @r:empty, ${}$ is contained in every unit.
-  Second, by @r:associativity, one can take $g equiv {a, {b, c}}$ and state
-  ${b, c} in g$ _and_ ${a, b} in g$. Restrictions can be added through
-  user-defined contexts.
 - @r:field-access provides a way to access specific units in a scope. The
   notation is entirely inspired by object oriented programming. This style of
   programming has _objects_ that can have data (fields) and functions (methods).
@@ -328,9 +334,10 @@ As more notation, we write:
   ${a - c -> b_1, a - c -> b_2, ..., a - c -> b_n}$.
 - $~a$ to mean ${a --> {}}$.
 
-This condenses many definitions. We postpone formally defining the operator $|$
-to the grammar in @syntax. Moreover, we allow an extra $|$ at the start or end,
-e.g., #box($a - c -> | b_1 | b_2$) is synonymous with $a - c -> b_1 | b_2$.
+This condenses many definitions. We postpone formally defining the operators $|$
+and $~$ to the grammar in @syntax. Moreover, we allow an extra $|$ at the start
+or end, e.g., #box($a - c -> | b_1 | b_2$) is synonymous with
+$a - c -> b_1 | b_2$.
 
 [TODO: determine if this lemma is necessary. Likely not.]
 
