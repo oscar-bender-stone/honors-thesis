@@ -19,7 +19,7 @@ unit := {
 }
 
 part := {
-  u | v --> .unit,
+  *{u, v} --> .unit,
   u --> {u, v},
   ~{{u, v} --> u},
   {u, ~v} --> u,
