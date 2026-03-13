@@ -4,12 +4,27 @@
 = Bootstrap Document: `welkin.welkin` <bootstrap-document>
 
 ```
-#welkin,
+@welkin,
 
-bit <--> 0 | 1,
-word <--> {} | {top --> bit, next --> word},
+epsilon,
+bit := 0 | 1,
+word := epsilon | {top --> bit, next --> word},
 
-handle <--> {ID --> word},
+handle := {ID --> word},
+
+unit := {
+  . --> {},
+  *{u, v, c} --> .,
+  . --> {u, v} | {u - c -> v}
+}
+
+part := {
+  u | v --> .unit,
+  u --> {u, v},
+  ~{{u, v} --> u},
+  {u, ~v} --> u,
+  ~{u --> {u, ~v}},
+}
 
 equals <--> {
   0 <--> 0,
@@ -25,32 +40,9 @@ equals <--> {
   {h1 <--> h2} <--> {h1.ID <--> h2.ID},
 }
 
-unit {
-  {} --> .,
-  u | v | c --> .,
-  @u --> .,
-  {u, v} --> .,
-
-  import_block <-->
-    | {@u}
-    | {import_block, ~v}
-    | {~v, import_block},
-  import_block --> .,
-
-  {u - c -> v} --> .,
-}
-
-part {
-  u | v --> .unit,
-  u --> {@u, v},
-  ~{{@u, v} --> u},
-  {@u, ~v} --> u,
-  ~{u --> {@u, ~v}},
-}
-
 verify {
-  query { context | goal --> ..unit },
-  derivation --> .unit,
+  query { context, goal },
+  derivation,
 
   derivation - verify -> query,
 }
@@ -94,10 +86,5 @@ information {
 
 }
 
-
-compress {
-
-
-}
 
 ```
