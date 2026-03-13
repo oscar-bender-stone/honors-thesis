@@ -551,7 +551,6 @@ Proving correctness is straightforward and closely aligns with
     @r:referent-congruence.
 ]<foundations:recursor-correctness>
 
-
 Now, for the rest of the thesis (except the bootstrap), we will drop mentions of
 specific handles. These will all be facilitated by $"unit"$. For brevity, we
 will write $u --> "unit"$. Notice that this form implies $u - "unit" -> "unit"$,
@@ -564,7 +563,32 @@ expressible, $"unit"$ may not terminate in all cases, such as an infinite
 recursive loop. We want to have a mechanism to _check_ certain claims. This is
 the role of the verifier.
 
-First, we need to express the rules inside Welkin.
+
+First, we need to express $subset.eq.sq$. We do this with the unit called
+$"part"$.
+
+#definition[
+  The unit $"part"$ is defined over units $u, v --> "unit"$:
+  - $u --> {@u, v}$.
+  - $~{{@u, v} --> u}$.
+  - ${@u, ~v} --> u$.
+  - $~{u --> {@u, ~v}}$.
+]<foundations:bootstrap-in>
+
+#lemma[$u - "part" -> u'$ iff $u - u' -> u$.]
+#proof[
+  We proceed by structural induction on units, or $u | u' - "unit" -> "unit"$:
+  - *Base case:* we need to prove ${{} - "part" -> u'$ if and only if
+    ${} - u' -> {}$.
+    - *Base case:* For $u' equiv {}$, clearly both are false.
+    - *Inductive step:* There are three cases:
+      - *Representations:* immediate.
+      - *Expansions:* .
+  - *Inductive step:* similar to the base case. [TODO: complete this proof! But
+    it is straightforward.]
+]<foundations:in-correctness>
+
+Next, we need to express the rules inside Welkin.
 
 #definition[
   The $"rules"$ unit is defined as exactly the things below, over
@@ -592,44 +616,22 @@ First, we need to express the rules inside Welkin.
   TBD (mostly tedious).
 ]
 
-
 [TODO: decide whether to convert list defs into single equations.]
 
-Now we introduce $"part"$.
 
-#definition[
-  The unit $"part"$ is defined over units $u, v --> "unit"$:
-  - $u --> {@u, v}$.
-  - $~{{@u, v} --> u}$.
-  - ${@u, ~v} --> u$.
-  - $~{u --> {@u, ~v}}$.
-]<foundations:bootstrap-in>
-
-#lemma[$u - "part" -> u'$ iff $u - u' -> u$.]
-#proof[
-  We proceed by structural induction on units, or $u | u' - "unit" -> "unit"$:
-  - *Base case:* we need to prove ${{} - "part" -> u'$ if and only if
-    ${} - u' -> {}$.
-    - *Base case:* For $u' equiv {}$, clearly both are false.
-    - *Inductive step:* There are three cases:
-      - *Representations:* immediate.
-      - *Expansions:* .
-  - *Inductive step:* similar to the base case. [TODO: complete this proof! But
-    it is straightforward.]
-]<foundations:in-correctness>
-
-We can now define the verifier entirely in Welkin. Add new handles $"accept"$
-and $"reject"$.
-
-[TODO: deal with recursion! Need to ensure it halts! And make sure to establish
-a clear induction scheme! And maybe add a pair to store the context and target?
-Fill in $\_$!]
+Finally, we can define the verifier entirely in Welkin. Add new handles
+$"accept"$ and $"reject"$, as well as the following unit $"claim"$:
 
 $"claim" <--> {\
   "context" &--> "unit",\
   "query" &--> {"unit" - "unit" -> "unit"},\
   "derivation" &--> "unit"\
 }$
+
+[TODO: deal with recursion! Need to ensure it halts! And make sure to establish
+a clear induction scheme! And maybe add a pair to store the context and target?
+Fill in $\_$!]
+
 
 #definition[
   The unit $"verify"$ is defined over meta-variables
