@@ -311,6 +311,7 @@ As more notation, we write:
 - $a - c -> b_1 | b_2 | ... | b_n$ to mean
   ${a - c -> b_1, a - c -> b_2, ..., a - c -> b_n}$.
 - $~a$ to mean ${a --> {}}$.
+- $*{a_1, ..., a_n} --> b$ means ${a_1 --> b, a_2 --> b, .., a_n --> b}$.
 
 This condenses many definitions. We postpone formally defining the operators $|$
 and $~$ to the grammar in @syntax. Moreover, we allow an extra $|$ at the start
@@ -499,8 +500,9 @@ equality!]
 To show these constructions are correct, we must prove the following.
 
 #lemma[
-  Let $"h1"$ and $"h2"$ be handles. Then $"h1" <- "equals" -> "h2"$ if and only
-  if $"h1" = "h2"$.
+  Let $"h1"$ and $"h2"$ be handles, so that $"handle" --> "h1"$ and
+  $"handle" --> "h2"$. Then $"h1" <- "equals" -> "h2"$ if and only if
+  $"h1" = "h2"$.
 ]<foundations:bootstrap-equality-correctness>
 #proof[Clearly it is sufficient to show that equality on words is correct. To do
   so, we apply a simple proof by induction:
@@ -532,13 +534,21 @@ Proving correctness is straightforward and closely aligns with
 
 #lemma[*_(Recursor Correctness)._* For every unit $u$, $u - "unit" -> "unit"$.
 ]<foundations:recursion-correctness>
-#proof[Fix the context to be $"unit"$. We proceed induction on units:
-  - *Base case:* by definition, $"unit" --> {}$. Additionally, for each handle
-    $h$, $"handle" --> h$, so by @r:transitivity, $"unit" --> h$, as required.
+#proof[We proceed induction on units:
+  - *Base case:* by definition, $"unit" - "unit" -> {}$. Additionally, for each
+    handle $h$, $"handle" --> h$, so by @r:transitivity, $"unit" - "unit" -> h$,
+    as required.
   - *Inductive step:* there are two cases.
-    - *Pairs:* let $u$ and $v$ units, and suppose $"unit" --> u$ and
-      $"unit" --> v$, respectively. Then $$
-    - *Representations:*
+    - *Pairs:* let $a$ and $b$ units, and suppose $"unit" --> a$ and
+      $"unit" --> b$, respectively. Then, by @r:refine multiple times, we can
+      restrict our attention to $"unit" {u --> a, v --> b, "unit" --> {u, v}}$.
+      Applying @r:pair-congruence twice, for $a$ and $b$, shows that
+      ${u, v} - "unit" -> {a, b}$, hence by @r:transitivity,
+      $"unit" - "unit" -> {a, b}$.
+    - *Representations:* similar to the case above, except this uses the
+      congruence axioms for representations,
+    namely @r:sign-congruence, @r:context-congruence, and
+    @r:referent-congruence.
 ]<foundations:recursor-correctness>
 
 
