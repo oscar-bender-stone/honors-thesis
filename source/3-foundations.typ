@@ -317,18 +317,6 @@ and $~$ to the grammar in @syntax. Moreover, we allow an extra $|$ at the start
 or end, e.g., #box($a - c -> | b_1 | b_2$) is synonymous with
 $a - c -> b_1 | b_2$.
 
-[TODO: determine if this lemma is necessary. Likely not.]
-
-#lemma[Let $a, b, c, d, g$ be units.
-  - $c { g { a --> b}, {b --> d} } <--> c { g { a --> d} }$.
-  - $c { u --> v} <--> {u - c -> v}$.
-  - $$.
-]
-#proof[
-  Can be proven directly by expanding out notation and reviewing @unit-rules.
-]
-
-
 Before we proceed to prove Turing completeness, we introduce the
 $"SK"$-combinator calculus. This is an equational theory that is well known to
 be Turing complete @curry-grundlagen. As a simplification, we present the
@@ -444,27 +432,34 @@ Now, we present @foundations:bootstrap-binary-word.
 
 #figure(
   [
+    $"epsilon",$
+
     $"bit" --> 0 | 1,$
 
-    $"word" --> "{}" | {"top" --> "bit", "next" --> "word"}$
+    $"word" --> "epsilon" | {"top" --> "bit", "next" --> "word"}$
   ],
   caption: [Generator for words in Welkin.],
 )<foundations:bootstrap-binary-word>
 
 This is similar to the Lisp definition of a list. In detail:
 
+- $"epsilon"$ represents the empty.
+
 - $"bit"$ represents $0$ or $1$.
 
-- $"word"$ is recursively defined, as either $"{}"$ (for empty) or the pair
+- $"word"$ is recursively defined, as either $epsilon$, or the pair
   ${"top", "next"}$, where $"top"$ is a $"bit"$ and $"next"$ is a $"word"$.
+
+Note that we do _not_ want $"epsilon" --> {}$, since ${}$ is primarily for
+restricting representations.
 
 #example[
   Consider the word $0.1.0$. We can derive a form by applyin
   @r:referent-congruence and @r:refine together:
   $
-    "word" &-> {} | {"top" -> "bit", "next" -> "word"} \
+    "word" &-> "epsilon" | {"top" -> "bit", "next" -> "word"} \
     &-> {"top" -> 0, "next" -> {"top" -> "bit", "next" -> "word"}} \
-    &-> {"top" -> 0, "next" -> {"top" -> 1, "next" -> {"top" -> 0, "next" -> {}}}}.
+    &-> {"top" -> 0, "next" -> {"top" -> 1, "next" -> {"top" -> 0, "next" -> "epsilon"}}.
   $
 ]
 
@@ -478,16 +473,15 @@ From there, we can define handle IDs through triples, see
   caption: [Generator for handle keys in Welkin.],
 )<foundations:bootstrap-handle-id>
 
-Here, a $"handle"$ is a wrapper around an $"ID"$, which is a word. around a word
-$"ID"$. a ${"MID", "RID", "SYM"}$, where $"MID"$,
+Here, a $"handle"$ is a wrapper around an $"ID"$, which is a word.
 
-We need to include equality as well, refer to @foundations:handle-equality:
+We need to include equality as well, refer to @foundations:bootstrap-equality.
 
 #figure(
   [$"equals" <--> {\
     "0" <--> "0",\
     "1" <--> "1",\
-    ~{"0" <--> "1"},
+    ~{"0" <--> "1"},\
     "w1" | "w2" --> "word",\
     {"w1" <--> "w2"} &<--> {"w1" <--> {} <--> "w2"} \
     &| {"w1.top" <--> "w2.top", "w1.next" <--> "w2.next"}, \
@@ -523,7 +517,8 @@ meta-variables using $u --> c$, where $c$ is the overarching context. #footnote[
   $"unit"$:
   - $"unit" --> {}$
   - $"unit" --> "handle"$, see @foundations:bootstrap-handle-id.
-  - $u | v | c --> "unit"$, which means $u, v, c$ are meta-variables over units.
+  - $*{u, v, c} --> "unit"$, which means $u, v, c$ are meta-variables over
+    units.
   - $"unit" --> {u, v}$.
   - $"unit" --> {u - c -> v}$.
 ]<foundations:recursor>
@@ -534,9 +529,12 @@ Proving correctness is straightforward and closely aligns with
 #lemma[*_(Recursor Correctness)._* For every unit $u$, $u - "unit" -> "unit"$.
 ]<foundations:recursion-correctness>
 #proof[Fix the context to be $"unit"$. We proceed induction on units:
-  - *Base case:* this is immediate, as ${}$ and all handles are included.
-  - *Inductive step:* immediate; $"unit"$ includes representations $a - b -> c$,
-    as well as cases for $@u$, ${u, v}$, ${@u, ~v}$, and ${~v, @u}$.
+  - *Base case:* by definition, $"unit" --> {}$. Additionally, for each handle
+    $h$, $"handle" --> h$, so by @r:transitivity, $"unit" --> h$, as required.
+  - *Inductive step:* there are two cases.
+    - *Pairs:* let $u$ and $v$ units, and suppose $"unit" --> u$ and
+      $"unit" --> v$, respectively. Then $$
+    - *Representations:*
 ]<foundations:recursor-correctness>
 
 
