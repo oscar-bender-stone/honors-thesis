@@ -485,19 +485,21 @@ equality!]
 
 #figure(
   [$"equals" := {\
-    *{"b1", "b2" --> "bit"},
+    "*"{"b1", "b2"} --> "bit",\
     {"b1" <--> "b2"} &<--> {"b1" <--> "0" <--> "b2"} \
-    &\ {"b1" <--> "1" <--> "b2"}
-    ~{{"b1" <--> "b2"} <--> {{"b1", "b2"} <--> {"0", "1"}}}
-    *{"w1", "w2"} --> "word",\
+    &| {"b1" <--> "1" <--> "b2"}, \
+    ~{{"b1" <--> "b2"} &<--> {{"b1", "b2"} <--> {"0", "1"}}}, \
+    "*"{"w1", "w2"} --> "word",\
     {"w1" <--> "w2"} &<--> {"w1" <--> "epsilon" <--> "w2"} \
     &| {"w1.top" <--> "w2.top", "w1.next" <--> "w2.next"}, \
-    *{"h1", "h2"} --> "handle",\
+    "*"{"h1", "h2"} --> "handle",\
     {"h1" <--> "h2"} &<--> { "h1.ID" <--> "h2.ID" },\
   }
   }$],
-  caption: [Definitions of equality in Welkin.],
+  caption: [Definitions of equality in Welkin. [TODO: fix formatting!]],
 )<foundations:bootstrap-equality>
+
+[TODO: maybe make proof here more precise?]
 
 To show these constructions are correct, we must prove the following.
 
@@ -525,7 +527,7 @@ meta-variables using $u --> c$, where $c$ is the overarching context. #footnote[
   $"unit"$:
   - $"unit" --> {}$
   - $"unit" --> "handle"$, see @foundations:bootstrap-handle-id.
-  - $*{u, v, c} --> "unit"$, which means $u, v, c$ are meta-variables over
+  - $"*"{u, v, c} --> "unit"$, which means $u, v, c$ are meta-variables over
     units.
   - $"unit" --> {u, v}$.
   - $"unit" --> {u - c -> v}$.
@@ -569,6 +571,9 @@ the role of the verifier.
 First, we need to express $subset.eq.sq$. We do this with the unit called
 $"part"$.
 
+[TODO: explain that, when saying "defined", implies a *closed* definition! Or
+otherwise use figures from here on out. Maybe say "nothing else" to be clearer?]
+
 #definition[
   The unit $"part"$ is defined over units $u, v --> "unit"$:
   - $u --> {@u, v}$.
@@ -576,6 +581,8 @@ $"part"$.
   - ${@u, ~v} --> u$.
   - $~{u --> {@u, ~v}}$.
 ]<foundations:bootstrap-in>
+
+[TODO: probably need a negated version as well, just like with word inequality!]
 
 #lemma[$u - "part" -> u'$ iff $u - u' -> u$.]
 #proof[
