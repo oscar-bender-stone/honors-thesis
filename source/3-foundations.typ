@@ -98,7 +98,6 @@ representations. We present the complete definition as follows.
   A *unit* is defined recursively as follows and nothing else:
   - *Base case:*
     - The symbol ${}$, the *empty block*.
-    - The symbol $.$ called the *relative unit*.
     - A handle, see @foundations:handle.
   - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
     combination of the following are also units:
@@ -434,6 +433,9 @@ bootstrap, see ?.
 First, we need to establish some default units in the global context:
 
 - The `welkin` unit. This is defined in @bootstrap-document.
+
+- The `draft` unit, contained in `welkin`. This will be used for the user's
+  current unit.
 
 The rest of this thesis will take place in the `welkin` module except where
 noted.
