@@ -598,7 +598,7 @@
 ]
 
 
-#let induction(base_case, inductive_step) = proof[
+#let induction(base_case, inductive_step) = [
   - *Base case:* #base_case
   - *Inductive step:* #inductive_step
 ]

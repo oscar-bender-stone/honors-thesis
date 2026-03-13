@@ -548,26 +548,49 @@ $"part"$.
 otherwise use figures from here on out. Maybe say "nothing else" to be clearer?]
 
 #definition[
-  The unit $"part"$ is defined over units $u, v --> "unit"$:
-  - $u --> {@u, v}$.
-  - $~{{@u, v} --> u}$.
-  - ${@u, ~v} --> u$.
-  - $~{u --> {@u, ~v}}$.
+  The unit $"part"$ is defined over units $u, v$:
+  - $u --> {u, v}$.
+  - $~{{u, v} --> u}$.
+  - ${u, ~v} --> u$.
+  - $~{u --> {u, ~v}}$.
 ]<foundations:bootstrap-in>
 
 [TODO: probably need a negated version as well, just like with word inequality!]
 
-#lemma[$u - "part" -> u'$ iff $u - u' -> u$.]
+Notice that we have kept the definition of $"part"$ minimal. This is useful for
+the bootstrap, but it does require more checks.
+
+[TODO: make sure to add derivations with precise steps! Might be helpful to use
+tables here.]
+
+#lemma[
+  For all units $u$, ${} - "part" -> u$ iff ${} subset.eq.sq u$.
+]<foundations:bootstrap-part-basis>
+#proof[We proceed by induction on $u$.
+  #induction[
+    For $v equiv {}$, the former is true by definition, while the latter is a
+    consequence of @r:empty.
+  ][
+    There are two cases.
+    - *Pairs:* suppose $u_1, u_2$ are units with ${} - "part" -> u_1$ and
+      ${} - "part" -> u_2$. Then
+      ${} - "part" -> {} <--> {{}, {}} - "part" -> {u_1, u_2}$.
+    - *Representations:* similar to the case above, except with the congruence
+      on representations.
+  ]
+
+]
+
+#lemma[For all units $u$ and $v$, $u - "part" -> v$ iff $u subset.eq.sq v$.]
 #proof[
-  We proceed by structural induction on units, or $u | u' - "unit" -> "unit"$:
-  - *Base case:* we need to prove ${{} - "part" -> u'$ if and only if
-    ${} - u' -> {}$.
-    - *Base case:* For $u' equiv {}$, clearly both are false.
-    - *Inductive step:* There are three cases:
-      - *Representations:* immediate.
-      - *Expansions:* .
-  - *Inductive step:* similar to the base case. [TODO: complete this proof! But
-    it is straightforward.]
+  Let $I(u, v)$ denote the stated invariant: $u - "part" -> v$ iff
+  $u subset.eq.sq v$. We proceed by induction on units $u, v$:
+  - *Base case:* shown by @foundations:bootstrap-part-basis.
+  - *Inductive step:* there are two cases.
+    - *Pairs:* suppose $u_1, v_1, u_2, v_2$ are units such that $I(u_1, v_1)$
+      and $I(u_2, v_2)$. Apply @r:pair-congruence twice to produce
+      ${u_1, u_2} - "part" -> {v_1, v_2}$, as desired.
+    - *Representations:* similar to the case above.
 ]<foundations:in-correctness>
 
 We need to include equality as well, refer to @foundations:bootstrap-equality.
@@ -609,9 +632,9 @@ We need to include equality as well, refer to @foundations:bootstrap-equality.
 Next, we need to express the rules inside Welkin.
 
 #definition[
-  The $"rules"$ unit is defined as exactly the things below, over
-  $a | b | c | d | g --> "unit"$ and $"h1"| "h2" --> "handle"$. The overarching
-  context is $"rules"$.
+  The $"rules"$ unit is defined as exactly the things below, over units
+  $a, b, c, d, g$ and handles $"h1", "h2"$. The overarching context is
+  $"rules"$.
   - $"R1" <--> {{a - c -> b}, {b - c -> d}} --> {a - c -> d}$
   - $"R2" <--> {{a - c -> b} --> {{a, d} - c -> {b, d}}}$
   - $"R3" <--> {{a - c -> b} --> {{a - g -> d} - c -> {b - g -> d}}}$

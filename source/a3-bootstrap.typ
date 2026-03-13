@@ -10,9 +10,9 @@ epsilon,
 bit := 0 | 1,
 word := epsilon | {top --> bit, next --> word},
 
-handle := {ID --> word},
-
 unit := {
+  handle := {ID --> word},
+
   . --> {},
   *{u, v, c} --> .,
   . --> {u, v} | {u - c -> v}
