@@ -519,7 +519,6 @@
   )
 }
 
-// Now generate your environment functions
 #let theorem = create-theorem("theorem", [Theorem])
 #let lemma = create-theorem("theorem", [Lemma])
 #let corollary = create-theorem("theorem", [Corollary])
@@ -527,20 +526,6 @@
 #let example = create-theorem("definition", [Example])
 #let remark = create-theorem("remark", [Remark])
 #let experiment = create-theorem("definition", [Experiment])
-// === NEW DEFINITIONS ADDED HERE ===
-
-#let recursion(base_case, recursive_step) = [
-  - *Base case:* #base_case
-  - *Recursive step:* #recursive_step
-]
-
-
-#let induction(base_case, inductive_step) = proof[
-  - *Base case:* #base_case
-  - *Inductive step:* #inductive_step
-]
-
-// === END OF NEW DEFINITIONS ===
 
 
 // This function creates a scoped environment for a list of equations.
@@ -605,6 +590,18 @@
 
   $square.stroked$
 })
+
+
+#let recursion(base_case, recursive_step) = [
+  - *Base case:* #base_case
+  - *Recursive step:* #recursive_step
+]
+
+
+#let induction(base_case, inductive_step) = proof[
+  - *Base case:* #base_case
+  - *Inductive step:* #inductive_step
+]
 
 
 #let lang-def-vertical(

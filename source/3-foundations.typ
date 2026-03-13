@@ -11,6 +11,7 @@
 #import "template/ams-article.typ": corollary, equation_block, lemma, theorem
 
 #import "template/ams-article.typ": proof, proof-sketch
+#import "template/ams-article.typ": induction
 #import "template/ams-article.typ": end-def
 = Foundations <foundations>
 
@@ -48,7 +49,6 @@ includes, e.g., practically restricting user input by fixed upper bounds.
 We also require a notion of equality on bits. To ensure this is constructive, we
 provide a _separate_ definition of inequality as well. The latter provides an
 explicit certificate, a bit that shows how two words are distinct.
-
 
 #let W-eq = math.attach($=$, br: "W")
 #let W-neq = math.attach($!=$, br: "W")
@@ -471,42 +471,21 @@ From there, we can define handle IDs through triples, see
 
 Here, a $"handle"$ is a wrapper around an $"ID"$, which is a word.
 
-We need to include equality as well, refer to @foundations:bootstrap-equality.
-
-[TODO: make sure to enforce closed definitions here! Very important for
-equality!]
-
-[TODO: explained closed definitions, i.e., the $:=$ syntax!]
-
-#figure(
-  [$"equals" := {\
-    "*"{"b1", "b2"} --> "bit",\
-    {"b1" <--> "b2"} &<--> {"b1" <--> "0" <--> "b2"} \
-    &| {"b1" <--> "1" <--> "b2"}, \
-    ~{{"b1" <--> "b2"} &<--> {{"b1", "b2"} <--> {"0", "1"}}}, \
-    "*"{"w1", "w2"} --> "word",\
-    {"w1" <--> "w2"} &<--> {"w1" <--> "epsilon" <--> "w2"} \
-    &| {"w1.top" <--> "w2.top", "w1.next" <--> "w2.next"}, \
-    "*"{"h1", "h2"} --> "handle",\
-    {"h1" <--> "h2"} &<--> { "h1.ID" <--> "h2.ID" },\
-  }
-  }$],
-  caption: [Definitions of equality in Welkin. [TODO: fix formatting!]],
-)<foundations:bootstrap-equality>
-
-[TODO: maybe make proof here more precise?]
-
-To show these constructions are correct, we must prove the following.
-
 #lemma[
-  Let $"h1"$ and $"h2"$ be handles, so that $"handle" --> "h1"$ and
-  $"handle" --> "h2"$. Then $"h1" <- "equals" -> "h2"$ if and only if
-  $"h1" = "h2"$.
-]<foundations:bootstrap-equality-correctness>
-#proof[Clearly it is sufficient to show that equality on words is correct. To do
-  so, we apply a simple proof by induction:
-  - *Base case:* immediate.
-  - *Inductive step:* correctly handles the the cases for $"top"$ and $"next"$.
+  Every handle $h$ is represented by some unit $h'$.
+]<foundations:bootstrap-handle-correctness>
+#proof[
+  It suffices to show that every word is represented by some unit. We proceed by
+  induction:
+  #induction(
+    [immediate, as $"epsilon"$ represents $epsilon$ and $"bit"$ represents
+      either $0$ or $1$.],
+    [suppose $w$ is represented by some word $w'$. Then there are two cases:
+      - $0w$, which is represented by ${"top" --> "0", "next" --> w'}$.
+      - $1w$, which is represented by ${"top"--> "1", "next" --> w'}$.
+    ],
+  )
+  This completes the proof.
 ]
 
 With handles established, we may proceed to defining the unit recursor. We reuse
@@ -534,14 +513,14 @@ Proving correctness is straightforward and closely aligns with
 #lemma[*_(Recursor Correctness)._* For every unit $u$, $u - "unit" -> "unit"$.
 ]<foundations:recursion-correctness>
 #proof[We proceed induction on units:
-  - *Base case:* by definition, $"unit" - "unit" -> {}$. Additionally, for each
-    handle $h$, $"handle" --> h$, so by @r:transitivity, $"unit" - "unit" -> h$,
-    as required.
+  - *Base case:* by definition, $"unit" - "unit" -> {}$. Additionally, let $h$
+    be a handle. By @foundations:bootstrap-handle-correctness, $"handle" --> h$,
+    Thus, by @r:transitivity, $"unit" - "unit" -> h$.
   - *Inductive step:* there are two cases.
     - *Pairs:* let $a$ and $b$ units, and suppose $"unit" --> a$ and
-      $"unit" --> b$, respectively. Then, by @r:refine multiple times, we can
-      restrict our attention to $"unit" {u --> a, v --> b, "unit" --> {u, v}}$.
-      Applying @r:pair-congruence twice, for $a$ and $b$, shows that
+      $"unit" --> b$, respectively. Then, by repeated application of @r:refine,
+      we derive $"unit" {u --> a, v --> b, "unit" --> {u, v}}$. Applying
+      @r:pair-congruence twice, for $a$ and $b$, shows that
       ${u, v} - "unit" -> {a, b}$, hence by @r:transitivity,
       $"unit" - "unit" -> {a, b}$.
     - *Representations:* similar to the case above, except this uses the
@@ -590,6 +569,42 @@ otherwise use figures from here on out. Maybe say "nothing else" to be clearer?]
   - *Inductive step:* similar to the base case. [TODO: complete this proof! But
     it is straightforward.]
 ]<foundations:in-correctness>
+
+We need to include equality as well, refer to @foundations:bootstrap-equality.
+
+[TODO: maybe make proof here more precise?]
+
+[TODO: explained closed definitions, i.e., the $:=$ syntax!]
+
+#figure(
+  [$"equals" := {\
+    "*"{"b1", "b2"} --> "bit",\
+    {"b1" <--> "b2"} &<--> {"b1" <--> "0" <--> "b2"} \
+    &| {"b1" <--> "1" <--> "b2"}, \
+    ~{{"b1" <--> "b2"} &<--> {{"b1", "b2"} <--> {"0", "1"}}}, \
+    "*"{"w1", "w2"} --> "word",\
+    {"w1" <--> "w2"} &<--> {"w1" <--> "epsilon" <--> "w2"} \
+    &| {"w1.top" <--> "w2.top", "w1.next" <--> "w2.next"}, \
+    "*"{"h1", "h2"} --> "handle",\
+    {"h1" <--> "h2"} &<--> { "h1.ID" <--> "h2.ID" },\
+  }
+  }$],
+  caption: [Definitions of equality in Welkin. [TODO: fix formatting!]],
+)<foundations:bootstrap-equality>
+
+
+#lemma[
+  Let $"h1"$ and $"h2"$ be handles, so that $"handle" --> "h1"$ and
+  $"handle" --> "h2"$. Then $"h1" <- "equals" -> "h2"$ if and only if
+  $"h1" = "h2"$.
+]<foundations:bootstrap-equality-correctness>
+#proof[Clearly it is sufficient to show that equality on words is correct. To do
+  so, we apply a simple proof by induction:
+  - *Base case:* immediate.
+  - *Inductive step:* correctly handles the the cases for $"top"$ and $"next"$.
+]
+
+
 
 Next, we need to express the rules inside Welkin.
 

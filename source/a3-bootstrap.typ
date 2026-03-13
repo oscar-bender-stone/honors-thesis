@@ -34,7 +34,10 @@ equals := {
   word := .word,
 
   *{b1, b2} --> .bit,
-  {b1 <--> b2} <--> {b1 <--> 0 <--> b2} | {b2 <--> 1 <--> b2},
+  {b1 <--> b2} <-->
+    | {b1 <--> 0 <--> b2}
+    | {b2 <--> 1 <--> b2},
+
   "~{0 <--> 1},",
 
   *{w1, w2} --> word,
@@ -50,7 +53,7 @@ rules := {
 
 }
 
-verify {
+verify := {
   query { context, goal },
   derivation,
 
@@ -70,23 +73,23 @@ characters {
 
 }
 
-
 character_classes {
 
 
 }
 
-codec <--> {
+codec := {
   parse --> unit,
   print --> unit,
 
-  {s --> input, u --> unit, ~{s - parse -> {}}} -->
+  {s --> input, u --> unit, ~{s - parse -> error}} -->
   {
     {s - parse -> u}
     <-->
     {u - print -> s}
   }
 }
+
 
 grammar {
 
