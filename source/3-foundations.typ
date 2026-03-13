@@ -450,7 +450,7 @@ Note that we do _not_ want $"epsilon" --> {}$, since ${}$ is primarily used to
 restrict representations.
 
 #example[
-  Consider the word $010$. We can derive a form by applyin
+  Consider the word $010$. We can derive this form from $"word"$ by applying
   @r:referent-congruence and @r:refine together:
   $
     "word" &-> "epsilon" | {"top" -> "bit", "next" -> "word"} \
@@ -545,9 +545,8 @@ Proving correctness is straightforward and closely aligns with
       ${u, v} - "unit" -> {a, b}$, hence by @r:transitivity,
       $"unit" - "unit" -> {a, b}$.
     - *Representations:* similar to the case above, except this uses the
-      congruence axioms for representations,
-    namely @r:sign-congruence, @r:context-congruence, and
-    @r:referent-congruence.
+      congruence rules @r:sign-congruence, @r:context-congruence, and
+      @r:referent-congruence.
 ]<foundations:recursor-correctness>
 
 Now, for the rest of the thesis (except the bootstrap), we will drop mentions of

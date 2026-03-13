@@ -443,6 +443,7 @@
 
   // Display the bibliography, if any is given.
   if bibliography != none {
+    pagebreak()
     show std.bibliography: set text(footnote-size)
     show std.bibliography: set block(above: 11pt)
     show std.bibliography: pad.with(x: 0.5pt)
