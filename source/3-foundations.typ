@@ -496,8 +496,7 @@ meta-variables using $u --> c$, where $c$ is the overarching context. #footnote[
   - $"unit" --> "handle"$, see @foundations:bootstrap-handle-id.
   - $"*"{u, v, c} --> "unit"$, which means $u, v, c$ are meta-variables over
     $"unit"$.
-  - $"unit" --> {u, v}$.
-  - $"unit" --> {u - c -> v}$.
+  - $"unit" --> u.v | {u, v} | {u - c -> v}$.
 ]<foundations:recursor>
 
 Proving correctness is straightforward and closely aligns with
@@ -510,7 +509,7 @@ Proving correctness is straightforward and closely aligns with
     be a handle. By @foundations:bootstrap-handle-correctness, $"handle" --> h$,
     Thus, by @r:transitivity, $"unit" - "unit" -> h$.
   - *Inductive step:* there are three cases.
-    - *Paths:* TBD.
+    - *Paths:* TBD(may need path congruence here!).
     - *Pairs:* let $a$ and $b$ units, and suppose $"unit" --> a$ and
       $"unit" --> b$, respectively. Then, by repeated application of @r:refine,
       we derive $"unit" {u --> a, v --> b, "unit" --> {u, v}}$. Applying
@@ -545,9 +544,7 @@ $"part"$.
 #definition[
   The unit $"part"$ is defined over units $u, v$ and as nothing else:
   - $u --> {u, v}$.
-  // - $~{{u, v} --> u}$.
   - ${u, ~v} --> u$.
-  // - $~{u --> {u, ~v}}$.
 ]<foundations:bootstrap-in>
 
 Notice that we have kept the definition of $"part"$ minimal. This is useful for
@@ -564,7 +561,8 @@ tables here.]
     For $v equiv {}$, the former is true by definition, while the latter is a
     consequence of @r:empty.
   ][
-    There are two cases.
+    There are three cases.
+    - *Paths:* immediate.
     - *Pairs:* suppose $u_1, u_2$ are units with ${} - "part" -> u_1$ and
       ${} - "part" -> u_2$. Then
       ${} - "part" -> {} <--> {{}, {}} - "part" -> {u_1, u_2}$.
@@ -583,7 +581,7 @@ Now we can prove the general case.
   - *Base case:* by @r:empty, ${} subset.sq.eq u$ is true for all units, so the
     invariant holds by @foundations:bootstrap-part-basis.
   - *Inductive step:* there are three cases.
-    - *Paths:* TBD.
+    - *Paths:* immediate.
     - *Pairs:* suppose $u_1, v_1, u_2, v_2$ are units such that $I(u_1, v_1)$
       and $I(u_2, v_2)$. Apply @r:pair-congruence twice to produce
       $I({u_1, u_2}, {v_1, v_2})$, as desired.
