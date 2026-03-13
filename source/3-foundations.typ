@@ -215,14 +215,11 @@ Now we may introduce the rules on units.
         lbl: "r:identity",
         content: [$a <--> {a - a -> a}$],
       ),
-      // TODO: make this more accurate!
-      // We could always add an alias,
-      // so what do we _want_ from field access?
       (
         name: "Field",
         lbl: "r:field-access",
         content: [
-          ${a - c -> b} subset.eq.sq c$ implies $c.a - c.d -> c.b$
+          ${a - d -> b} subset.eq.sq c$ implies $c.a - c.d -> c.b$
         ],
       ),
       (
