@@ -26,18 +26,28 @@ part := {
   ~{u --> {u, ~v}},
 }
 
-equals <--> {
-  0 <--> 0,
-  1 <--> 1,
-  ~{0 <--> 1},
+equals := {
+  epsilon := .epsilon,
+  bit := .bit,
+  0 := .0,
+  1 := .1,
+  word := .word,
 
-  w1 | w2 --> word,
+  *{b1, b2} --> .bit,
+  {b1 <--> b2} <--> {b1 <--> 0 <--> b2} | {b2 <--> 1 <--> b2},
+  "~{0 <--> 1},",
+
+  *{w1, w2} --> word,
   {w1 <--> w2} <-->
-    | {w1 <--> {} <--> w2}
+    | {w1 <--> epsilon <--> w2}
     | {w1.top <--> w2.top, w1.next <--> w2.next},
 
-  h1 | h2 --> handle,
+  *{h1, h2} --> handle,
   {h1 <--> h2} <--> {h1.ID <--> h2.ID},
+}
+
+rules := {
+
 }
 
 verify {
