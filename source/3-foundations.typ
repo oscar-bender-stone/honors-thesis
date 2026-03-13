@@ -481,8 +481,10 @@ We need to include equality as well, refer to @foundations:bootstrap-equality.
 [TODO: make sure to enforce closed definitions here! Very important for
 equality!]
 
+[TODO: explained closed definitions, i.e., the $:=$ syntax!]
+
 #figure(
-  [$"equals" <--> {\
+  [$"equals" := {\
     *{"b1", "b2" --> "bit"},
     {"b1" <--> "b2"} &<--> {"b1" <--> "0" <--> "b2"} \
     &\ {"b1" <--> "1" <--> "b2"}
@@ -595,10 +597,11 @@ Next, we need to express the rules inside Welkin.
   $a | b | c | d | g --> "unit"$ and $"h1"| "h2" --> "handle"$. The overarching
   context is $"rules"$.
   - $"R1" <--> {{a - c -> b}, {b - c -> d}} --> {a - c -> d}$
-  - $"R2" <--> {{a - c -> b}, {d - a -> g}} --> {l <--> {a - d - g}, l - g -> l}}$
+  - $"R2" <--> {{{a - g -> d} - c -> {b - g -> d}}}$
+  - $"R2" <--> {{a - c -> b}, {d - a -> g}} --> {{a - d - g} - "part" -> g}}$
   - $"R3" <--> {{@g, {}} <--> g}$
   - $"R4" <--> {{a - {} -> b} <--> {}}$
-  - $"R5" <--> {{"h1" <--> "h2"} <--> {"h1" <- "equals" -> "h2"}}$
+  - $"R5" <--> {{"h1" <- "equals" -> "h2"} -> {"h1" <--> "h2"}}$
   - $"R6" <--> {a <--> {a - a -> a}}$
   - $"R7" <--> {a <--> {a}}$
   - $"R8" <--> {{{@g, a} <--> g} <--> {a - g -> a}}$
