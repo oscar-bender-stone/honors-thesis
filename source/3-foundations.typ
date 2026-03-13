@@ -305,7 +305,8 @@ As more notation, we write:
 This condenses many definitions. We postpone formally defining the operators $|$
 and $~$ to the grammar in @syntax. Moreover, we allow an extra $|$ at the start
 or end, e.g., #box($a - c -> | b_1 | b_2$) is synonymous with
-$a - c -> b_1 | b_2$.
+$a - c -> b_1 | b_2$. This is useful to break long definitions into separate
+lines.
 
 Before we proceed to prove Turing completeness, we introduce the
 $"SK"$-combinator calculus. This is an equational theory that is well known to
@@ -382,21 +383,26 @@ We are now ready to prove the following.
   - $L$ includes $K$ and $S$ as base cases. Recall that $K | S --> L$ is
     equivalent to $K --> L$ and $S --> L$. We interpret $K --> L$ to mean $K$ is
     a term of $L$.
-  - We include variables $M, N, P, Q$ over terms.
+  - We include variables $M, N, P$ over terms.
   - Composition $M N$ is represented as $N - M -> L$.
   - The remaining representations are for the rules of $K$ and $S$,
     respectively.
 
-  We claim that $L$ represents $#sk-imp$. First, to prove closure under
-  composition, suppose $L --> A$ and $L --> B$. Then by @r:transitivity,
-  $M --> A$ and $N --> B$, so by @r:sign-congruence and @r:context-congruence,
-  ${N - M -> L} --> {B - A -> L}$. Another application of @r:transitivity yields
-  $L --> {B - A -> L}$. The rules $L --> K | S$ and $L --> {N - M -> L}$ are the
-  only terms with sign $L$ (besides $L$ itself), so $L$ contains _exactly_ the
-  terms in the SK-calculus. Second, the base axioms for $K$ and $S$ are already
-  included, and transitivity is provided by @r:transitivity. Finally,
-  @r:context-congruence entails term congruence: if $M --> M'$, then
-  $N - M -> L$ represents $N - M' -> L$. This completes the proof.]
+  We claim that $L$ represents $#sk-imp$.
+
+  - First, to prove closure under composition, suppose $L --> A$ and $L --> B$.
+    Then by @r:transitivity, $M --> A$ and $N --> B$, so by @r:sign-congruence
+    and @r:context-congruence, ${N - M -> L} --> {B - A -> L}$. Another
+    application of @r:transitivity yields $L --> {B - A -> L}$. The rules
+    $L --> K | S$ and $L --> {N - M -> L}$ are the only terms with sign $L$
+    (besides $L$ itself), so $L$ contains _exactly_ the terms in the
+    SK-calculus.
+
+  - Second, the base axioms for $K$ and $S$ are already included, and
+    transitivity is provided by @r:transitivity.
+  - Finally, @r:context-congruence entails term congruence: if $M --> M'$, then
+    $N - M -> L$ represents $N - M' -> L$. This completes the proof.
+]
 
 == The Unit Recursor <foundations:base-recursor>
 
@@ -433,18 +439,18 @@ Now, we present @foundations:bootstrap-binary-word.
 
 This is similar to the Lisp definition of a list. In detail:
 
-- $"epsilon"$ represents the empty.
+- $"epsilon"$ represents the empty word.
 
 - $"bit"$ represents $0$ or $1$.
 
 - $"word"$ is recursively defined, as either $epsilon$, or the pair
   ${"top", "next"}$, where $"top"$ is a $"bit"$ and $"next"$ is a $"word"$.
 
-Note that we do _not_ want $"epsilon" --> {}$, since ${}$ is primarily for
-restricting representations.
+Note that we do _not_ want $"epsilon" --> {}$, since ${}$ is primarily used to
+restrict representations.
 
 #example[
-  Consider the word $0.1.0$. We can derive a form by applyin
+  Consider the word $010$. We can derive a form by applyin
   @r:referent-congruence and @r:refine together:
   $
     "word" &-> "epsilon" | {"top" -> "bit", "next" -> "word"} \
