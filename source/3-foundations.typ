@@ -297,14 +297,16 @@ units as modules, as well as make it easier to use the language.
 
 As more notation, we write:
 
-- $a - c -> b_1 | b_2 | ... | b_n$ to mean
+- $a - c -> b_1 | b_2 | ... | b_n$ for
   ${a - c -> b_1, a - c -> b_2, ..., a - c -> b_n}$.
-- $~a$ to mean ${a --> {}}$.
-- $*{a_1, ..., a_n} --> b$ means ${a_1 --> b, a_2 --> b, .., a_n --> b}$.
+- $~a$ for ${a --> {}}$.
+- $*{a_1, ..., a_n} - c -> b$ for
+  ${a_1 - c -> b, a_2 - c -> b, .., a_n - c -> b}$.
+- $a - c -> *{b_1, ..., b_n}$ for ${a --> b_1, a --> b_2, .., a --> b_n}$.
 
-This condenses many definitions. We postpone formally defining the operators $|$
-and $~$ to the grammar in @syntax. Moreover, we allow an extra $|$ at the start
-or end, e.g., #box($a - c -> | b_1 | b_2$) is synonymous with
+This condenses many definitions. We postpone formally defining the operators
+$"|"$, $"~"$, and $"*"$ to the grammar in @syntax. Moreover, we allow an extra
+$|$ at the start or end, e.g., #box($a - c -> | b_1 | b_2$) is synonymous with
 $a - c -> b_1 | b_2$. This is useful to break long definitions into separate
 lines.
 
@@ -362,7 +364,7 @@ We are now ready to prove the following.
           #align(left)[
             $ L -> K | S, $
             \
-            $ M | N | P -> L, $
+            $ *{M, N, P} -> L, $
             \
             $ L -> {N - M -> L}, $
             \
