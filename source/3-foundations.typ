@@ -172,8 +172,9 @@ to $subset.eq.sq$ later on, see ?.
         name: "Refinement",
         lbl: "r:refine",
         content: [
-          With $x <--> {a - c -> b, a - c -> d}$, #box[$x --> {a - c -> b}$] and
-          #box[$x --> {a - c -> d}$]
+          If $g <--> {a - c -> b, a - c -> d}$, then #box[$g --> {a - c -> b}$]
+          and
+          #box[$g --> {a - c -> d}$]
         ],
       ),
       (
@@ -226,12 +227,6 @@ to $subset.eq.sq$ later on, see ?.
         content: [
           ${a - c -> b} subset.eq.sq c$ implies $c.a - c.d -> c.b$
         ],
-      ),
-      (
-        name: "Expansion",
-        lbl: "r:expansion",
-        content: [if $a - g -> b$, then
-          #box[${g, c} <--> {{{g, a --> b}, c}$]],
       ),
       (
         name: "Idempotentcy",
@@ -299,10 +294,6 @@ units as modules, as well as make it easier to use the language.
   notation is entirely inspired by object oriented programming. This style of
   programming has _objects_ that can have data (fields) and functions (methods).
   Note that this is in _one_ direction
-- @r:expansion defines how imports in the language work. An *import* is the
-  process of joining the contents of one unit into another. @r:expansion states
-  how an import can add new units in a block.
-
 - @r:idempotent, @r:associativity, and @r:commutativity ensure that information
   can be repeated and arranged in any order.
 
@@ -604,19 +595,24 @@ Next, we need to express the rules inside Welkin.
   $a | b | c | d | g --> "unit"$ and $"h1"| "h2" --> "handle"$. The overarching
   context is $"rules"$.
   - $"R1" <--> {{a - c -> b}, {b - c -> d}} --> {a - c -> d}$
-  - $"R2" <--> {{{a - g -> d} - c -> {b - g -> d}}}$
-  - $"R2" <--> {{a - c -> b}, {d - a -> g}} --> {{a - d - g} - "part" -> g}}$
-  - $"R3" <--> {{@g, {}} <--> g}$
-  - $"R4" <--> {{a - {} -> b} <--> {}}$
-  - $"R5" <--> {{"h1" <- "equals" -> "h2"} -> {"h1" <--> "h2"}}$
-  - $"R6" <--> {a <--> {a - a -> a}}$
-  - $"R7" <--> {a <--> {a}}$
-  - $"R8" <--> {{{@g, a} <--> g} <--> {a - g -> a}}$
-  - $"R9" <--> {{a - g -> b} --> {{@g, c} <--> {{@g, a}, b}}}$
-  - $"R10" <--> {{g <--> {@g, a}} --> {{{@g, "~"a}, b} <--> {@d, b}}}$
-  - $"R11" <--> {a, {b, c}} <--> {{a, b}, c}$
-  - $"R12" <--> {a, b} <--> {{a, b}, c}$
-  - $"R13" <--> {{@g, ~a} <--> {~a, @g}}$
+  - $"R2" <--> {{a - c -> b} --> {{a, d} - c -> {b, d}}}$
+  - $"R3" <--> {{a - c -> b} --> {{a - g -> d} - c -> {b - g -> d}}}$
+  - $"R4" <--> {{a - c -> b} --> {{d - a -> g} - c -> {d - b -> g}}}$
+  - $"R5" <--> {{a - c -> b} --> {{d - g -> a} - c -> {d - g -> b}}}$
+  - $"R6" <--> {{a - c -> b}, {d - a -> g}} --> {{a - d - g} - "part" -> g}}$
+  - $"R7" <--> {g <--> {a - c -> b, a - c -> d}, g --> [a - c -> b}, g --> {a - c -> d}}$
+  - $"R8" <--> {{g, {}} <--> g}$
+  - $"R9" <--> {{{} - a -> b} --> {}}$
+  - $"R10" <--> {{a - {} -> b} --> {}}$
+  - $"R11" <--> {{a - b -> {}} --> {}}$
+  - $"R12" <--> {{a - {} -> b} <--> {}}$
+  - $"R13" <--> {{"h1" <- "equals" -> "h2"} -> {"h1" <--> "h2"}}$
+  - $"R14" <--> {a <--> {a - a -> a}}$
+  - $"R15" <--> {a <--> {a}}$
+  - $"R16" <--> {{{a - c -> b} - "part" -> c} --> {c.a - c.d -> c.b}}$
+  - $"R17" <--> {{g <--> {@g, a}} --> {{{@g, "~"a}, b} <--> {@d, b}}}$
+  - $"R18" <--> {{a, {b, c}} <--> {{a, b}, c}}$
+  - $"R19" <--> {{a, b} <--> {b, a}}$
 ]
 
 #lemma[
