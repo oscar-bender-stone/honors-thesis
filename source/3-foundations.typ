@@ -109,11 +109,19 @@ representations. We present the complete definition as follows.
       $b$ *in context* $c$.
 ]<foundations:unit>
 
-We add $a <--> b$ as a shorthand for $a --> b$ and $a <-- b$; this is formally
-defined in @syntax. Moreover, we add a symbol $subset.sq.eq$ for *containment*,
-where $a subset.eq.sq g$ iff #box[${g, a} <--> a$]. When writing _in_ the
-language, we will prefer the latter form, but we will add a unit corresponding
-to $subset.eq.sq$ later on, see ?.
+We add several abbreviations:
+
+- ${a}$ denotes ${a, {}}$.
+
+- $a <--> b$ denotes that both $a --> b$ and $a <-- b$ hold; this is formally
+defined in @syntax.
+
+- We add a symbol $subset.sq.eq$ for *containment*, where $a subset.eq.sq g$ iff
+  #box[${g, a} <--> a$]. When writing _in_ the language, we will prefer the
+  latter form, but we will add a unit corresponding to $subset.eq.sq$ later on,
+  see @foundations:bootstrap-part-basis.
+
+Now we may introduce the rules on units.
 
 [TODO: fix wrapping of long table! Want to make this clearer!]
 
@@ -207,15 +215,6 @@ to $subset.eq.sq$ later on, see ?.
         lbl: "r:identity",
         content: [$a <--> {a - a -> a}$],
       ),
-
-      (
-        name: "Singleton",
-        lbl: "r:singleton",
-        content: [
-          $a <--> {a}$
-        ],
-      ),
-
       // TODO: make this more accurate!
       // We could always add an alias,
       // so what do we _want_ from field access?
@@ -229,7 +228,7 @@ to $subset.eq.sq$ later on, see ?.
       (
         name: "Idempotentcy",
         lbl: "r:idempotent",
-        content: [${a, a} <--> {a}$],
+        content: [${a, a} <--> a$],
       ),
       (
         name: "Associativity",
@@ -283,11 +282,6 @@ units as modules, as well as make it easier to use the language.
   user defined.
 - @r:identity represents identity. Users can take other representations, like
   $a - g -> a$, to be _distinct_ from identity.
-- @r:singleton reduces extraneous blocks. Note that this is _not_ the same thing
-  as the Quine atom, which states ${a} = a$ in a set theoretic context
-  @quine:new-foundations. We interpret ${a}$ as a _wrapper_ around $a$. While
-  not useful for handles, it is for specifying blocks of representations, such
-  as ${a - b -> c, b - c -> d}$.
 - @r:field-access provides a way to access specific units in a scope. The
   notation is entirely inspired by object oriented programming. This style of
   programming has _objects_ that can have data (fields) and functions (methods).
@@ -399,7 +393,6 @@ We are now ready to prove the following.
     $L --> K | S$ and $L --> {N - M -> L}$ are the only terms with sign $L$
     (besides $L$ itself), so $L$ contains _exactly_ the terms in the
     SK-calculus.
-
   - Second, the base axioms for $K$ and $S$ are already included, and
     transitivity is provided by @r:transitivity.
   - Finally, @r:context-congruence entails term congruence: if $M --> M'$, then
@@ -504,7 +497,7 @@ meta-variables using $u --> c$, where $c$ is the overarching context. #footnote[
   - $"unit" --> {}$
   - $"unit" --> "handle"$, see @foundations:bootstrap-handle-id.
   - $"*"{u, v, c} --> "unit"$, which means $u, v, c$ are meta-variables over
-    units.
+    $"unit"$.
   - $"unit" --> {u, v}$.
   - $"unit" --> {u - c -> v}$.
 ]<foundations:recursor>
@@ -553,9 +546,9 @@ $"part"$.
 #definition[
   The unit $"part"$ is defined over units $u, v$ and as nothing else:
   - $u --> {u, v}$.
-  - $~{{u, v} --> u}$.
+  // - $~{{u, v} --> u}$.
   - ${u, ~v} --> u$.
-  - $~{u --> {u, ~v}}$.
+  // - $~{u --> {u, ~v}}$.
 ]<foundations:bootstrap-in>
 
 Notice that we have kept the definition of $"part"$ minimal. This is useful for
@@ -652,10 +645,9 @@ Next, we need to express the rules inside Welkin.
   - $"R12" <--> {{a - {} -> b} <--> {}}$
   - $"R13" <--> {{"h1" <- "equals" -> "h2"} -> {"h1" <--> "h2"}}$
   - $"R14" <--> {a <--> {a - a -> a}}$
-  - $"R15" <--> {a <--> {a}}$
-  - $"R16" <--> {{{a - c -> b} - "part" -> c} --> {c.a - c.d -> c.b}}$
-  - $"R17" <--> {{a, {b, c}} <--> {{a, b}, c}}$
-  - $"R18" <--> {{a, b} <--> {b, a}}$
+  - $"R15" <--> {{{a - c -> b} - "part" -> c} --> {c.a - c.d -> c.b}}$
+  - $"R16" <--> {{a, {b, c}} <--> {{a, b}, c}}$
+  - $"R17" <--> {{a, b} <--> {b, a}}$
 ]
 
 #lemma[
