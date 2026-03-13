@@ -69,8 +69,7 @@ Words alone do not carry meaning. Instead, meaning is provided through
 
 #definition[
   A *handle* is given by an *ID*, which is a word. The interpretation of a given
-  handle is a free parameter, and therefore are outside the scope of this
-  language.
+  handle is a free parameter, and therefore outside the scope of this language.
 ]<foundations:handle>
 
 Because handles act as free parameters, we work with them through truth. Based
@@ -82,10 +81,10 @@ Now, we can define equality and inequality between handles. We will reserve $=$
 and $!=$ for handles, respectively.
 
 #definition[Consider two handles $h_1$, $h_2$, and let $"ID"_1$ and $"ID"_2$ be
-  there their respective IDs. Then:
-  - $h_1$ is equal to $h_2$, written $h_1 = h_2$, if and only if
+  their respective IDs. Then:
+  - $h_1$ is *equal* to $h_2$, written $h_1 = h_2$, if and only if
     $"ID"_1 #W-eq "ID"_2$.
-  - $h_1$ is not equal to $h_2$, written $h_1 != h_2$, if and only if
+  - $h_1$ is *not equal* to $h_2$, written $h_1 != h_2$, if and only if
     $"ID"_1 #W-neq "ID"_2$.
 ]<foundations:handle-equality>
 
@@ -101,25 +100,26 @@ representations. We present the complete definition as follows.
     - A handle, see @foundations:handle.
   - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
     combination of the following are also units:
-    - ${u, v}$, the *pair* of $u, v$.
-    - $h {u}$, called a *named unit*.
-    - $g.v$, a *path*.
+    - A *path* $g.v$.
+    - A *pair* ${u, v}$.
     - A *representation* $a - c -> b$, where $a$ is the *sign*, $c$ is the
       *context*, and $b$ is the *referent*. This is read as: $a$ *represents*
       $b$ *in context* $c$.
 ]<foundations:unit>
 
-We add several abbreviations:
+We add several abbreviations, most of which will appear in @syntax:
 
 - ${a}$ denotes ${a, {}}$.
 
-- $a <--> b$ denotes that both $a --> b$ and $a <-- b$ hold; this is formally
-defined in @syntax.
+- $a <--> b$ denotes that both $a --> b$ and $a <-- b$ hold.
+
+- $c {x --> y}$ denotes ${x - c -> y}$.
 
 - We add a symbol $subset.sq.eq$ for *containment*, where $a subset.eq.sq g$ iff
   #box[${g, a} <--> a$]. When writing _in_ the language, we will prefer the
   latter form, but we will add a unit corresponding to $subset.eq.sq$ later on,
   see @foundations:bootstrap-part-basis.
+
 
 Now we may introduce the rules on units.
 
@@ -216,10 +216,10 @@ Now we may introduce the rules on units.
         content: [$a <--> {a - a -> a}$],
       ),
       (
-        name: "Field",
-        lbl: "r:field-access",
+        name: "Path",
+        lbl: "r:path",
         content: [
-          ${a - d -> b} subset.eq.sq c$ implies $c.a - c.d -> c.b$
+          $c {a - d -> b} subset.eq.sq c -> {c.a - c.d -> c.b}$
         ],
       ),
       (
@@ -279,21 +279,22 @@ units as modules, as well as make it easier to use the language.
   user defined.
 - @r:identity represents identity. Users can take other representations, like
   $a - g -> a$, to be _distinct_ from identity.
-- @r:field-access provides a way to access specific units in a scope. The
-  notation is entirely inspired by object oriented programming. This style of
-  programming has _objects_ that can have data (fields) and functions (methods).
-  Note that this is in _one_ direction
+- @r:path provides a way to access specific units in a scope. The notation is
+  entirely inspired by object oriented programming. This style of programming
+  has _objects_ that can have data (fields) and functions (methods). Note that
+  this is in _one_ direction
 - @r:idempotent, @r:associativity, and @r:commutativity ensure that information
-  can be repeated and arranged in any order.
+  can be repeated and arranged in any order. Mathematically, this means that
+  units have a *semi-lattice* structure.
 
 As more notation, we write:
 
 - $a - c -> b_1 | b_2 | ... | b_n$ for
   ${a - c -> b_1, a - c -> b_2, ..., a - c -> b_n}$.
 - $~a$ for ${a --> {}}$.
-- $*{a_1, ..., a_n} - c -> b$ for
+- $"*"{a_1, ..., a_n} - c -> b$ for
   ${a_1 - c -> b, a_2 - c -> b, .., a_n - c -> b}$.
-- $a - c -> *{b_1, ..., b_n}$ for ${a --> b_1, a --> b_2, .., a --> b_n}$.
+- $a - c -> "*"{b_1, ..., b_n}$ for ${a --> b_1, a --> b_2, .., a --> b_n}$.
 
 This condenses many definitions. We postpone formally defining the operators
 $"|"$, $"~"$, and $"*"$ to the grammar in @syntax. Moreover, we allow an extra
@@ -301,10 +302,10 @@ $|$ at the start or end, e.g., #box($a - c -> | b_1 | b_2$) is synonymous with
 $a - c -> b_1 | b_2$. This is useful to break long definitions into separate
 lines.
 
-Before we proceed to prove Turing completeness, we introduce the
-$"SK"$-combinator calculus. This is an equational theory that is well known to
-be Turing complete @curry-grundlagen. As a simplification, we present the
-calculus using a *reduction relation* instead of equality.
+Our approach to prove Turing completeness is to embed the $"SK"$-combinator
+calculus. This is an equational theory, first developed by Schönfinkel[CITE],
+and independently discovered by Curry @curry-grundlagen. As a simplification, we
+present the calculus using a *reduction relation* instead of equality.
 
 #let sk-imp = math.attach($=>$, br: "SK")
 
@@ -355,7 +356,7 @@ We are now ready to prove the following.
           #align(left)[
             $ L -> K | S, $
             \
-            $ *{M, N, P} -> L, $
+            $ "*"{M, N, P} -> L, $
             \
             $ L -> {N - M -> L}, $
             \
@@ -376,7 +377,8 @@ We are now ready to prove the following.
   - $L$ includes $K$ and $S$ as base cases. Recall that $K | S --> L$ is
     equivalent to $K --> L$ and $S --> L$. We interpret $K --> L$ to mean $K$ is
     a term of $L$.
-  - We include variables $M, N, P$ over terms.
+  - We include variables $M, N, P$ over terms, represented by the form
+    $M --> L$.
   - Composition $M N$ is represented as $N - M -> L$.
   - The remaining representations are for the rules of $K$ and $S$,
     respectively.
@@ -508,7 +510,8 @@ Proving correctness is straightforward and closely aligns with
   - *Base case:* by definition, $"unit" - "unit" -> {}$. Additionally, let $h$
     be a handle. By @foundations:bootstrap-handle-correctness, $"handle" --> h$,
     Thus, by @r:transitivity, $"unit" - "unit" -> h$.
-  - *Inductive step:* there are two cases.
+  - *Inductive step:* there are three cases.
+    - *Paths:* TBD.
     - *Pairs:* let $a$ and $b$ units, and suppose $"unit" --> a$ and
       $"unit" --> b$, respectively. Then, by repeated application of @r:refine,
       we derive $"unit" {u --> a, v --> b, "unit" --> {u, v}}$. Applying
@@ -555,9 +558,9 @@ the bootstrap, but it does require more checks. We start with a helper lemma.
 tables here.]
 
 #lemma[
-  For all units $u$, ${} - "part" -> u$ iff ${} subset.eq.sq u$.
+  For all units $u$, ${} - "part" -> u$.
 ]<foundations:bootstrap-part-basis>
-#proof[We proceed by induction on $u$.
+#proof[We prove this by induction on $u$.
   #induction[
     For $v equiv {}$, the former is true by definition, while the latter is a
     consequence of @r:empty.
@@ -578,8 +581,10 @@ Now we can prove the general case.
 #proof[
   Let $I(u, v)$ denote the stated invariant: $u - "part" -> v$ iff
   $u subset.eq.sq v$. We proceed by induction on units $u, v$:
-  - *Base case:* shown by @foundations:bootstrap-part-basis.
-  - *Inductive step:* there are two cases.
+  - *Base case:* by @r:empty, ${} subset.sq.eq u$ is true for all units, so the
+    invariant holds by @foundations:bootstrap-part-basis.
+  - *Inductive step:* there are three cases.
+    - *Paths:* TBD.
     - *Pairs:* suppose $u_1, v_1, u_2, v_2$ are units such that $I(u_1, v_1)$
       and $I(u_2, v_2)$. Apply @r:pair-congruence twice to produce
       $I({u_1, u_2}, {v_1, v_2})$, as desired.
