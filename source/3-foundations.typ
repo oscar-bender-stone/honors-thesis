@@ -538,27 +538,26 @@ based on @r:identity and @r:transitivity.
 Now we will includle a notion for containment. Because Welkin is Turing
 expressible, $"unit"$ may not terminate in all cases, such as an infinite
 recursive loop. We want to have a mechanism to _check_ certain claims. This is
-the role of the verifier.
-
+the role of the verifier. We gradually build up the verifier from smaller
+pieces. The lemmas may be read before reading the proofs. Note that this section
+slowly incorporates syntax from Welkin, as one way to illustrate the language.
 
 First, we need to express $subset.eq.sq$. We do this with the unit called
 $"part"$.
 
-[TODO: explain that, when saying "defined", implies a *closed* definition! Or
-otherwise use figures from here on out. Maybe say "nothing else" to be clearer?]
+// [TODO: explain that, when saying "defined", implies a *closed* definition! Or
+// otherwise use figures from here on out. Maybe say "nothing else" to be clearer?]
 
 #definition[
-  The unit $"part"$ is defined over units $u, v$:
+  The unit $"part"$ is defined over units $u, v$ and as nothing else:
   - $u --> {u, v}$.
   - $~{{u, v} --> u}$.
   - ${u, ~v} --> u$.
   - $~{u --> {u, ~v}}$.
 ]<foundations:bootstrap-in>
 
-[TODO: probably need a negated version as well, just like with word inequality!]
-
 Notice that we have kept the definition of $"part"$ minimal. This is useful for
-the bootstrap, but it does require more checks.
+the bootstrap, but it does require more checks. We start with a helper lemma.
 
 [TODO: make sure to add derivations with precise steps! Might be helpful to use
 tables here.]
@@ -581,6 +580,8 @@ tables here.]
 
 ]
 
+Now we can prove the general case.
+
 #lemma[For all units $u$ and $v$, $u - "part" -> v$ iff $u subset.eq.sq v$.]
 #proof[
   Let $I(u, v)$ denote the stated invariant: $u - "part" -> v$ iff
@@ -589,7 +590,7 @@ tables here.]
   - *Inductive step:* there are two cases.
     - *Pairs:* suppose $u_1, v_1, u_2, v_2$ are units such that $I(u_1, v_1)$
       and $I(u_2, v_2)$. Apply @r:pair-congruence twice to produce
-      ${u_1, u_2} - "part" -> {v_1, v_2}$, as desired.
+      $I({u_1, u_2}, {v_1, v_2})$, as desired.
     - *Representations:* similar to the case above.
 ]<foundations:in-correctness>
 
