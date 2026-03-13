@@ -270,10 +270,9 @@ units as modules, as well as make it easier to use the language.
 - @r:empty, @r:sign-null, @r:context-null, and @r:referent-null define the
   behavior of the empty unit ${}$, similar to the empty set. @r:sign-null and
   the like specifically states that ${}$ contains _no_ representations. Thus, if
-  ${}$ is involved in _any_ representation, it is equivalent to ${}$. In other
-  words,representations built from ${}$ carry no meaning. This provides a
-  mechanism to _exclude_ units in a context, which we will need for the
-  verifier, see @foundations:verify.
+  a representation has a component that is ${}$, then it carries no meaning.
+  This provides a mechanism to _exclude_ units in a context, which we will need
+  for the verifier, see @foundations:verify.
 - @r:handle-eq enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are entirely
   user defined.
@@ -296,16 +295,16 @@ As more notation, we write:
   ${a_1 - c -> b, a_2 - c -> b, .., a_n - c -> b}$.
 - $a - c -> "*"{b_1, ..., b_n}$ for ${a --> b_1, a --> b_2, .., a --> b_n}$.
 
-This condenses many definitions. We postpone formally defining the operators
-$"|"$, $"~"$, and $"*"$ to the grammar in @syntax. Moreover, we allow an extra
-$|$ at the start or end, e.g., #box($a - c -> | b_1 | b_2$) is synonymous with
-$a - c -> b_1 | b_2$. This is useful to break long definitions into separate
-lines.
+We postpone formally defining the operators $"|"$, $"~"$, and $"*"$ to the
+grammar in @syntax. Moreover, we allow an extra $|$ at the start or end, e.g.,
+#box($a - c -> | b_1 | b_2$) is synonymous with $a - c -> b_1 | b_2$. This is
+useful to break long definitions into separate lines.
 
 Our approach to prove Turing completeness is to embed the $"SK"$-combinator
-calculus. This is an equational theory, first developed by Schönfinkel[CITE],
-and independently discovered by Curry @curry-grundlagen. As a simplification, we
-present the calculus using a *reduction relation* instead of equality.
+calculus. This is an equational theory, first developed by Schönfinkel
+@schoenfinkel-combinators, and independently discovered by Curry
+@curry-grundlagen. As a simplification, we present the calculus using a
+*reduction relation* instead of equality.
 
 #let sk-imp = math.attach($=>$, br: "SK")
 
