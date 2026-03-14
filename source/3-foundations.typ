@@ -33,6 +33,8 @@ abbreviate "if and only if" as "iff".
 
 == Words and Handles
 
+// TODO: replace equiv with a delta equiv
+
 For high-level notation, we write $a equiv b$ to mean that $a$ is definitionally
 equivalent to $b$. High level notation will _not_ be stated in the syntax unless
 where noted. We will be pedantic in most notation for complete precision.
@@ -115,6 +117,8 @@ We add several abbreviations, most of which will appear in @syntax:
 
 - $c {x --> y}$ denotes ${x - c -> y}$.
 
+- $c { x }$ denotes $c { x --> x}$.
+
 - We add a symbol $subset.sq.eq$ for *containment*, where $a subset.eq.sq g$ iff
   #box[$a - g -> a$]. When writing _in_ the language, we will prefer the latter
   form, but we will add a unit corresponding to $subset.eq.sq$ later on, see
@@ -146,8 +150,9 @@ Now we may introduce the rules on units.
           #box[${a, d} - c -> {b, d}$]
         ],
       ),
+      // TODO: combine congruence axioms into one
       (
-        name: "Sign Congruence",
+        name: "Congruence",
         lbl: "r:sign-congruence",
         content: [
           If $a - c -> b$, then #box[${a - g -> d} - c -> {b - g -> d}$]
@@ -521,7 +526,7 @@ Proving correctness is straightforward and closely aligns with
 Now, for the rest of the thesis (except the bootstrap), we will drop mentions of
 specific handles. These will all be facilitated by $"unit"$. For brevity, we
 will write $u --> "unit"$. Notice that this form implies $u - "unit" -> "unit"$,
-based on @r:identity and @r:transitivity.
+based on $"unit" - "unit" -> "unit"$ and @r:transitivity.
 
 == Base Verifier
 
