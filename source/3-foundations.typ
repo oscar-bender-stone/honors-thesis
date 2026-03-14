@@ -116,9 +116,9 @@ We add several abbreviations, most of which will appear in @syntax:
 - $c {x --> y}$ denotes ${x - c -> y}$.
 
 - We add a symbol $subset.sq.eq$ for *containment*, where $a subset.eq.sq g$ iff
-  #box[${g, a} <--> a$]. When writing _in_ the language, we will prefer the
-  latter form, but we will add a unit corresponding to $subset.eq.sq$ later on,
-  see @foundations:bootstrap-part-basis.
+  #box[$a - g -> a$]. When writing _in_ the language, we will prefer the latter
+  form, but we will add a unit corresponding to $subset.eq.sq$ later on, see
+  @foundations:bootstrap-part-basis.
 
 
 Now we may introduce the rules on units.
@@ -209,17 +209,18 @@ Now we may introduce the rules on units.
         content: [If $h_1 = h_2$, then
           $h_1 <--> h_2$],
       ),
-
       (
-        name: "Identity",
-        lbl: "r:identity",
-        content: [$a <--> {a - a -> a}$],
+        name: "Containment",
+        lbl: "r:a",
+        content: [
+          #box[$a - g -> a$ if and only if ${g, a} <--> g$]
+        ],
       ),
       (
         name: "Path",
         lbl: "r:path",
         content: [
-          $c {a - d -> b} subset.eq.sq c -> {c.a - c.d -> c.b}$
+          $c {a - d -> b} subset.eq.sq c$ if and only if $c.a - c.d -> c.b$
         ],
       ),
       (
@@ -254,7 +255,7 @@ units as modules, as well as make it easier to use the language.
 
 [TODO: refer to rules with ranges when appropriate! Much nicer.]
 
-- @r:pair-congruence, @r:transitivity, @r:sign-congruence,
+- @r:transitivity, @r:pair-congruence, @r:sign-congruence,
   @r:context-congruence, @r:referent-congruence, @r:context-lift were discussed
   in @rationale:unit.[TODO: maybe review the discussion from earlier? Might be
   useful to reinforce main ideas to reader.]
@@ -276,8 +277,6 @@ units as modules, as well as make it easier to use the language.
 - @r:handle-eq enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are entirely
   user defined.
-- @r:identity represents identity. Users can take other representations, like
-  $a - g -> a$, to be _distinct_ from identity.
 - @r:path provides a way to access specific units in a scope. The notation is
   entirely inspired by object oriented programming. This style of programming
   has _objects_ that can have data (fields) and functions (methods). Note that
@@ -508,17 +507,15 @@ Proving correctness is straightforward and closely aligns with
   - *Base case:* by definition, $"unit" - "unit" -> {}$. Additionally, let $h$
     be a handle. By @foundations:bootstrap-handle-correctness, $"handle" --> h$,
     Thus, by @r:transitivity, $"unit" - "unit" -> h$.
-  - *Inductive step:* there are three cases.
-    - *Paths:* TBD(may need path congruence here!).
-    - *Pairs:* let $a$ and $b$ units, and suppose $"unit" --> a$ and
+  - *Inductive step:* there are three cases. We will prove the one for paths.
+    The remaining cases areas the rest are similar, only using different
+    congruence rules.
+    - *Paths:* let $a$ and $b$ units, and suppose $"unit" --> a$ and
       $"unit" --> b$, respectively. Then, by repeated application of @r:refine,
       we derive $"unit" {u --> a, v --> b, "unit" --> {u, v}}$. Applying
       @r:pair-congruence twice, for $a$ and $b$, shows that
       ${u, v} - "unit" -> {a, b}$, hence by @r:transitivity,
       $"unit" - "unit" -> {a, b}$.
-    - *Representations:* similar to the case above, except this uses the
-      congruence rules @r:sign-congruence, @r:context-congruence, and
-      @r:referent-congruence.
 ]<foundations:recursor-correctness>
 
 Now, for the rest of the thesis (except the bootstrap), we will drop mentions of
