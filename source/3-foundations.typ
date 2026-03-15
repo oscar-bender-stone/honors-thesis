@@ -113,7 +113,7 @@ We add several abbreviations, most of which will appear in @syntax:
 
 - ${a}$ denotes ${a, {}}$.
 
-- $a <--> b$ denotes that both $a --> b$ and $a <-- b$ hold.
+- $a <- c -> b$ denotes that both $a - c -> b$ and $a <- c - b$ hold.
 
 - We add a symbol $subset.sq.eq$ for *containment*, where $a subset.eq.sq g$ iff
   #box[$a - g -> a$]. When writing _in_ the language, we will prefer the latter
@@ -187,50 +187,50 @@ Now we may introduce the rules on units.
       (
         name: "Empty",
         lbl: "r:empty",
-        content: [${g, {}} <--> g$],
+        content: [${g, {}} <- c -> g$],
       ),
       (
         name: "Sign Absorption",
         lbl: "r:sign-null",
-        content: [${{} - a -> b} --> {}$],
+        content: [${{} - a -> b} - c -> {}$],
       ),
       (
         name: "Context Absorption",
         lbl: "r:context-null",
-        content: [${a - {} -> b} --> {}$],
+        content: [${a - {} -> b} - c -> {}$],
       ),
       (
         name: "Referent Absorption",
         lbl: "r:referent-null",
-        content: [ ${a - b -> {}} --> {}$],
+        content: [ ${a - b -> {}} - c -> {}$],
       ),
       (
         name: "Handle Equality",
         lbl: "r:handle-eq",
         content: [If $h_1 = h_2$, then
-          $h_1 <--> h_2$],
+          $h_1 <-c-> h_2$],
       ),
       (
         name: "Containment",
         lbl: "r:a",
         content: [
-          #box[${a - g -> a} <--> {{g, a} <--> g}$]
+          #box[${a - g -> a} <- c -> {{g, a} <--> g}$]
         ],
       ),
       (
         name: "Idempotentcy",
         lbl: "r:idempotent",
-        content: [${a, a} <--> a$],
+        content: [${a, a} <-c-> a$],
       ),
       (
         name: "Associativity",
         lbl: "r:associativity",
-        content: [${a, {b, c}} <--> {{a, b}, c}$],
+        content: [${a, {b, c}} <-c-> {{a, b}, c}$],
       ),
       (
         name: "Commutativity",
         lbl: "r:commutativity",
-        content: [${a, b} <--> {b, a}$],
+        content: [${a, b} <-c-> {b, a}$],
       ),
     ),
   )
@@ -298,16 +298,15 @@ We want to show that every unit corresponds to some Turing machine and vice
 versa. More precisely, we want to find a one-to-one mapping $phi$ from units $c$
 to a Turing machine $phi_c$ such that
 
-$a - c -> b$ if and only if $phi_c (⟨phi_a⟩) = ⟨phi_b⟩$,
+$a - c -> b$ if and only if $phi_c (⟨phi_a⟩) = ⟨phi_b⟩$.
 
 Here, $⟨phi_a⟩$ denotes a standard encoding of a Turing machine as a string (see
 @sipser-theory-ofcomputation[Ch 3.3, pg. 185]). We also require that $phi$ is
 surjective, i.e., each Turing machine $T$ can be expressed as $phi_u$ for some
 unit $u$. The purpose of $phi$ is to provide a computational interpretation of
 units _as_ operators. Note that handles can have user-defined meaning, which is
-not explicitly written (see @foundations:handle). However, when _mechanically_
-processing units, within the theory, they can be treated as computer
-program.#footnote[
+not explicitly written (see @foundations:handle). However, within Welkin's
+mechanized rules, units can be treated as computer program.#footnote[
   In connection to linguistics, this is the difference between a formal
   semantics, what is stated in the language, and pragmatics, the intension or
   purpose of a term.]
@@ -316,14 +315,16 @@ At this point, we are concerned with showing _some_ $phi$ exists, thereby
 validating Goal 1 [TODO: provide a link to this]. Our approach is base the
 construction on the $"SK"$-combinator calculus. This is an equational theory,
 first developed by Schönfinkel @schoenfinkel-combinators, and independently
-discovered by Curry @curry-grundlagen. As a simplification, we present the
-calculus using a *reduction relation* instead of equality.
+discovered by Curry @curry-grundlagen. In this theory, a _combinator_ is a
+higher-order function: a function that takes in other functions as inputs.
+
+As a simplification, we present this calculus using a *reduction relation*
+instead of equality.
 
 #let sk-imp = math.attach($=>$, br: "SK")
 
 #definition[
   The $"SK"$-combinator calculus consists of the following:
-
   - A *term* is defined recursively as either $K$ or $S$, and if $M, N$ are
     terms, so is $(M)$ and their *application* $M N$.
   - Evaluation: $M$ *reduces* to $N$, written $M #sk-imp N$, if their equality
