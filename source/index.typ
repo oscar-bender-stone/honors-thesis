@@ -4,7 +4,7 @@
 #import "template/ams-article.typ": ams_article
 
 #show: ams_article.with(
-  title: [Creating a Universal Information Language],
+  title: [Designing a Universal Information Language],
   authors: (
     (
       name: "Oscar Bender-Stone",
@@ -47,19 +47,5 @@
 #include "3-foundations.typ"
 #include "4-syntax.typ"
 #include "5-metatheory.typ"
-#include "6-bootstrap.typ"
-#include "7-conclusion.typ"
-
-// TODO: fix numbering!
-#let appendix(body) = {
-  // pagebreak()
-  set heading(numbering: "A", supplement: [Appendix])
-  counter(heading).update(0)
-  body
-}
-
-
-#show: appendix
-#pagebreak()
-#include "a3-bootstrap.typ"
+#include "6-conclusion.typ"
 

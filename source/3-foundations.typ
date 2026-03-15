@@ -23,7 +23,7 @@ This section discuss the foundations of Welkin, as follows:
 + We prove that is a correspondence between units and Turing machines.
 + We define queries.
 
-Until @bootstrap, definitions and proofs will be given at a high level.
+For this thesis, definitions and proofs will be given at a high level.
 Additionally, we adopt several conventions:
 
 - Each *Definition*, *Remark*, and *Example* ends with a triangle ($#end-def$).
@@ -117,9 +117,7 @@ We add several abbreviations, most of which will appear in @syntax:
 
 - We add a symbol $subset.sq.eq$ for *containment*, where $a subset.eq.sq g$ iff
   #box[$a - g -> a$]. When writing _in_ the language, we will prefer the latter
-  form, but we will add a unit corresponding to $subset.eq.sq$ later on, see
-  @foundations:bootstrap-part-basis.
-
+  form.
 
 Now we may introduce the rules on units.
 
@@ -266,8 +264,8 @@ organizing units as modules, as well as make it easier to use the language.
   behavior of the empty unit ${}$, similar to the empty set. @r:sign-null and
   the like specifically states that ${}$ contains _no_ representations. Thus, if
   a representation has a component that is ${}$, then it carries no meaning.
-  This provides a mechanism to _exclude_ units in a context, which we will need
-  for the verifier, see @foundations:verify.
+  This provides a mechanism to _exclude_ units in a context. This is useful for
+  imposing invariants.
 - @r:handle-eq enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are entirely
   user defined.

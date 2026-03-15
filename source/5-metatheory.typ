@@ -118,14 +118,13 @@ proof.
 ]<metatheory:Q-in-welkin>
 #proof[
   Let $"Q"$ be a new handle. Encode the naturals into words via
-  @foundations:bootstrap-binary-word and @foundations:binary-word-equality, with
-  successor represented through pairs. [TODO: define addition and multiplication
-  via units, in the direct way.]
+  @foundations:word and @foundations:binary-word-equality, with successor
+  represented through pairs. [TODO: define addition and multiplication via
+  units, in the direct way.]
 
-  Axioms *Q1-Q3* easily follow from @foundations:bootstrap-equality-correctness.
-  The remaining axioms are included in $Q$. [TODO: note how quantifiers are
-  correctly expressed in a separate lemma]. Using transitivity and ?, this
-  completes the proof.
+  Axioms *Q1-Q3* easily follow from []. The remaining axioms are included in
+  $Q$. [TODO: note how quantifiers are correctly expressed in a separate lemma].
+  Using transitivity and ?, this completes the proof.
 ]
 
 #theorem[
@@ -267,12 +266,10 @@ Note that not every total computable function can be proven to be total. For
 this reason, we have a more technical definition in @metatheory:meta-unit. For
 now, we can prove the following.
 
+[TODO: make this much more succinct and do not rely on bootstrap anymore]
 [TODO[SMALL]: make sure to clarify this proof!]
 #lemma[
   The unit $"verifier"$ is serial-sound.
-]
-#proof[
-  Equivalent to @foundations:verifier-correctness.
 ]
 
 Moreover, serial-soundness is transitive, just as with soundness. This
