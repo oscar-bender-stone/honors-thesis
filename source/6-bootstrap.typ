@@ -14,11 +14,11 @@ this thesis, but that could easily be a future extension.
 
 == The Unit Recursor <foundations:base-recursor>
 
-The proof of @turing-expressible demonstrates how contexts enable powerful
-recursive definitions. However, the underlying construction is tedious and
-results in verbose terms. IDs are assigned manually, which can easily be error
-prone. We will refine the proof with a *recursor* over units. This is a unit
-that indexes every unit, as well as every handle. We gradually build this
+The proof of @foundations:turing-expressible demonstrates how contexts enable
+powerful recursive definitions. However, the underlying construction is tedious
+and results in verbose terms. IDs are assigned manually, which can easily be
+error prone. We will refine the proof with a *recursor* over units. This is a
+unit that indexes every unit, as well as every handle. We gradually build this
 recursor from smaller parts; specific handles are only assigned in the
 bootstrap, see ?.
 
@@ -97,8 +97,9 @@ Here, a $"handle"$ is a wrapper around an $"ID"$, which is a word.
 ]
 
 With handles established, we may proceed to defining the unit recursor. We reuse
-an important technique from the proof in @turing-expressible: representing
-meta-variables using $u --> c$, where $c$ is the overarching context. #footnote[
+an important technique from the proof in @foundations:turing-expressible:
+representing meta-variables using $u --> c$, where $c$ is the overarching
+context. #footnote[
   [TODO: discuss how we are allowing the variables to be the same or different!
   Related to bundling in MetaMath + MetaMath Zero [and cite these!].]
 ]

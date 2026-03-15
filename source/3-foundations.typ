@@ -20,17 +20,15 @@ This section discuss the foundations of Welkin, as follows:
 
 + We define words and handles.
 + We define units and their rules.
-+ We prove there is a unit that indexes every other unit
-  (@foundations:base-recursor).
++ We prove that is a correspondence between units and Turing machines.
 + We define queries.
 
+Until @bootstrap, definitions and proofs will be given at a high level.
+Additionally, we adopt several conventions:
 
-After the base rules, our goal will be to define _as much_ in Welkin as
-possible. Definitions will be gradually given in the language.
-
-As a convention, each *Definition* and *Remark* ends with a triangle
-($#end-def$). Proofs end with a square ($square.stroked$). We frequently
-abbreviate "if and only if" as "iff".
+- Each *Definition*, *Remark*, and *Example* ends with a triangle ($#end-def$).
+- Each proof ends with a square ($square.stroked$).
+- We frequently abbreviate "if and only if" as "iff".
 
 == Words and Handles
 
@@ -291,11 +289,30 @@ grammar in @syntax. Moreover, we allow an extra $|$ at the start or end, e.g.,
 #box($a - c -> | b_1 | b_2$) is synonymous with $a - c -> b_1 | b_2$. This is
 useful to break long definitions into separate lines.
 
-Our approach to prove Turing completeness is to embed the $"SK"$-combinator
-calculus. This is an equational theory, first developed by Schönfinkel
-@schoenfinkel-combinators, and independently discovered by Curry
-@curry-grundlagen. As a simplification, we present the calculus using a
-*reduction relation* instead of equality.
+== Turing Completeness
+
+To prove Turing completeness, we need to show that there is a one-to-one
+correspondence between units and Turing machines. More precisely, we prove that
+there is a mapping between $phi$ between units $u$ and Turing machines $phi_u$
+such that
+
+$a - c -> b$ if and only if $phi_c(a) = b$.
+
+Moreover, this mapping is invertible: all Turing machines correspond to some
+unit. The mapping $phi$, therefore, provides a computational interpretation of
+units _as_ operators. Although handles can have external user-defined meaning
+(see @foundations:handle), based on the data we can mechanically store and
+query, units are equivalent to Turing machines.#footnote[
+  In connection to linguistics, this is the difference between a formal
+  semantics, what is stated in the language, and pragmatics, the intension or
+  purpose of a term.]
+
+Thus, units can be seen as Turing machines, or operators.
+
+Our approach to prove this is to embed the $"SK"$-combinator calculus. This is
+an equational theory, first developed by Schönfinkel @schoenfinkel-combinators,
+and independently discovered by Curry @curry-grundlagen. As a simplification, we
+present the calculus using a *reduction relation* instead of equality.
 
 #let sk-imp = math.attach($=>$, br: "SK")
 
@@ -315,10 +332,17 @@ calculus. This is an equational theory, first developed by Schönfinkel
       $M_1 N_1 #sk-imp M_2 N_2$.
 ]<foundations:SK-calculus>
 
-We are now ready to prove the following.
+
+
+
+#theorem[
+  Every unit is represented by some Turing machine.
+]
+
+Now we prove the converse.
 
 #theorem[Any Turing machine can be represented by some unit.
-]<turing-expressible>
+]<foundations:turing-expressible>
 #proof[
   We prove that we can embed any term in the $S K$-combinator calculus, defined
   in @foundations:SK-calculus. This proof includes an important technique to
@@ -390,8 +414,8 @@ We are now ready to prove the following.
 
 == Queries and Information
 
-By @turing-expressible, every partial computable can be expressed as a unit.
-Additionally, in the construction used, reductions of terms are _also_
+By @foundations:turing-expressible, every partial computable can be expressed as
+a unit. Additionally, in the construction used, reductions of terms are _also_
 represented. This provides a ceiling on what queries we can _express_
 computably. For more details, refer to @hopcroft-automata-theory[Ch. 1]. This
 asks whether a representation is contained in a context.
@@ -407,8 +431,18 @@ asks whether a representation is contained in a context.
 We can then apply $"unit"$ in an attempt to evaluate this. In some cases, this
 is easy and only uses _direct definitions_. Consider, for example, examining $p$
 in context ${p, q}$. We can resolve this with a quick traversal, showing that
-$p$ is in fact in ${p, q}$. However, @turing-expressible implies that finding
-general derivations are uncomputable.
+$p$ is in fact in ${p, q}$. However, @foundations:turing-expressible implies
+that finding general derivations are uncomputable. More precisely, we have the
+following.
+
+
+#corollary[
+  The problem of determining whether a query is satisfiable is RE-complete.
+]
+#proof[
+  Because of , resolving query correspond
+]
+
 
 We want information to _resolve_ a query. Formally, we want information to be
 _proof_, not a "yes/no" answer by itself. When the context is finite, like
