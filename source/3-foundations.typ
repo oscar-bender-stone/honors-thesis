@@ -291,28 +291,32 @@ useful to break long definitions into separate lines.
 
 == Turing Completeness
 
-To prove Turing completeness, we need to show that there is a one-to-one
-correspondence between units and Turing machines. More precisely, we prove that
-there is a mapping between $phi$ between units $u$ and Turing machines $phi_u$
-such that
+This section shows that Welkin is Turing complete. For background, there are
+many papers, e.g., @sipser-theory-ofcomputation[Ch. 3].
 
-$a - c -> b$ if and only if $phi_c(a) = b$.
+We want to show that every unit corresponds to some Turing machine and vice
+versa. More precisely, we want to find a one-to-one mapping $phi$ from units $c$
+to a Turing machine $phi_c$ such that
 
-Moreover, this mapping is invertible: all Turing machines correspond to some
-unit. The mapping $phi$, therefore, provides a computational interpretation of
-units _as_ operators. Although handles can have external user-defined meaning
-(see @foundations:handle), based on the data we can mechanically store and
-query, units are equivalent to Turing machines.#footnote[
+$a - c -> b$ if and only if $phi_c (⟨phi_a⟩) = ⟨phi_b⟩$,
+
+Here, $⟨phi_a⟩$ denotes a standard encoding of a Turing machine as a string (see
+@sipser-theory-ofcomputation[Ch 3.3, pg. 185]). We also require that $phi$ is
+surjective, i.e., each Turing machine $T$ can be expressed as $phi_u$ for some
+unit $u$. The purpose of $phi$ is to provide a computational interpretation of
+units _as_ operators. Note that handles can have user-defined meaning, which is
+not explicitly written (see @foundations:handle). However, when _mechanically_
+processing units, within the theory, they can be treated as computer
+program.#footnote[
   In connection to linguistics, this is the difference between a formal
   semantics, what is stated in the language, and pragmatics, the intension or
   purpose of a term.]
 
-Thus, units can be seen as Turing machines, or operators.
-
-Our approach to prove this is to embed the $"SK"$-combinator calculus. This is
-an equational theory, first developed by Schönfinkel @schoenfinkel-combinators,
-and independently discovered by Curry @curry-grundlagen. As a simplification, we
-present the calculus using a *reduction relation* instead of equality.
+At this point, we are only interested that _some_ $phi$ exists. Our approach is
+to embed the $"SK"$-combinator calculus. This is an equational theory, first
+developed by Schönfinkel @schoenfinkel-combinators, and independently discovered
+by Curry @curry-grundlagen. As a simplification, we present the calculus using a
+*reduction relation* instead of equality.
 
 #let sk-imp = math.attach($=>$, br: "SK")
 
@@ -332,16 +336,14 @@ present the calculus using a *reduction relation* instead of equality.
       $M_1 N_1 #sk-imp M_2 N_2$.
 ]<foundations:SK-calculus>
 
-
-
-
 #theorem[
   Every unit is represented by some Turing machine.
 ]
 
 Now we prove the converse.
 
-#theorem[Any Turing machine can be represented by some unit.
+#theorem[Let $T$ be a term in the $"SK"$-combinator calculus. Then there is some
+  unit $u$ such that $T = phi_u$.
 ]<foundations:turing-expressible>
 #proof[
   We prove that we can embed any term in the $S K$-combinator calculus, defined

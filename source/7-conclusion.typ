@@ -11,8 +11,8 @@ by an LL(1) grammar, showing that parsing is unambiguous. The semantics
 (@foundations) were provided with several passes to convert parse trees into
 units, which contain both a hierarchical and relational structure for scoping
 and direct representations, respectively. Units have key properties that enable
-them to express any partial computable function @turing-expressible, in
-conjungtion with expressing any truth management system, demonstrates
+them to express any partial computable function @foundations:turing-expressible,
+in conjungtion with expressing any truth management system, demonstrates
 *universality* of the system. This is practically demonstrated by showing that
 all the major paradigms in Information Management and Knowledge Management are
 expressible within Welkin. Finally, the bootstrap in @foundations self-hosts the
