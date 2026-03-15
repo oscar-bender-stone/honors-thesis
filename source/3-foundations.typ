@@ -312,11 +312,12 @@ program.#footnote[
   semantics, what is stated in the language, and pragmatics, the intension or
   purpose of a term.]
 
-At this point, we are only interested that _some_ $phi$ exists. Our approach is
-to embed the $"SK"$-combinator calculus. This is an equational theory, first
-developed by Schönfinkel @schoenfinkel-combinators, and independently discovered
-by Curry @curry-grundlagen. As a simplification, we present the calculus using a
-*reduction relation* instead of equality.
+At this point, we are concerned with showing _some_ $phi$ exists, thereby
+validating Goal 1 [TODO: provide a link to this]. Our approach is base the
+construction on the $"SK"$-combinator calculus. This is an equational theory,
+first developed by Schönfinkel @schoenfinkel-combinators, and independently
+discovered by Curry @curry-grundlagen. As a simplification, we present the
+calculus using a *reduction relation* instead of equality.
 
 #let sk-imp = math.attach($=>$, br: "SK")
 
@@ -335,6 +336,8 @@ by Curry @curry-grundlagen. As a simplification, we present the calculus using a
     - *Congruence:* if $M_1 #sk-imp M_2$ and $N_1 #sk-imp N_2$, then
       $M_1 N_1 #sk-imp M_2 N_2$.
 ]<foundations:SK-calculus>
+
+[TODO: complete $phi$. Do at a high level.]
 
 #theorem[
   Every unit is represented by some Turing machine.
