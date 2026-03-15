@@ -315,7 +315,7 @@ At this point, we are concerned with showing _some_ $phi$ exists, thereby
 validating Goal 1 [TODO: provide a link to this]. Our approach is base the
 construction on the $"SK"$-combinator calculus. This is an equational theory,
 first developed by Schönfinkel @schoenfinkel-combinators, and independently
-discovered by Curry @curry-grundlagen. In this theory, a _combinator_ is a
+discovered by Curry @curry-grundlagen. In this theory, a *combinator* is a
 higher-order function: a function that takes in other functions as inputs.
 
 As a simplification, we present this calculus using a *reduction relation*
@@ -338,13 +338,22 @@ instead of equality.
       $M_1 N_1 #sk-imp M_2 N_2$.
 ]<foundations:SK-calculus>
 
-[TODO: complete $phi$. Do at a high level.]
+Now, first observe that Welkin can be embedded into the $" S K"$-combinator
+calculus. This embedding constructs $phi$. For brevity, we discuss this
+embedding at a high level:
 
-#theorem[
-  Every unit is represented by some Turing machine.
-]
+- Each unit @foundations:unit can be built from handles, or by finite
+  combinations of pairs and representations. These can be represented as
+  combinators through suitable encodings of positive integers and finite tuples,
+  respectively. For more details, refer to
+  @turner-applicative-languages-combinators.
 
-Now we prove the converse.
+- Each rule in @unit-rules are themselves finite, ranging over a finite number
+  of meta-variables. These, too, can be encoded as combinators through if/else
+  statements.
+
+It remains to show that every combinator is included in this embedding. For
+this, we prove the following.
 
 #theorem[Let $T$ be a term in the $"SK"$-combinator calculus. Then there is some
   unit $u$ such that $T = phi_u$.
@@ -417,6 +426,9 @@ Now we prove the converse.
   - Finally, @r:context-congruence entails term congruence: if $M --> M'$, then
     $N - M -> L$ represents $N - M' -> L$. This completes the proof.
 ]
+
+Taken together, we have completed _one_ part of Goal 1 [LINK]. The other part
+will be addressed in the next section.
 
 == Queries and Information
 
