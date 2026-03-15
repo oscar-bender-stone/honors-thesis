@@ -643,9 +643,9 @@ We need a helper to avoid non-determinism.#footnote[For rewrite theorists: this
   $"map"(D, V, A, s) equiv {D := "derivation" --> "unit", V := "variables" --> "unit", A := "axiom" --> "rules", s := "step" --> "unit"}$:
   - $"map"(D, V, {}, {})$
   - $"map"(D, V, h, h)$, with $h --> "handle"$
+  - *Pairs:* $"map"(D, V, h, h) - {V_1 <--> V_2} -> "map"()$
+  - *Representations:* TBD.
 ]
-
-
 
 
 Finally, add new handles $"accept"$ and $"reject"$, as well as the following
@@ -661,6 +661,8 @@ $"claim" <--> {\
 a clear induction scheme! And maybe add a pair to store the context and target?
 Fill in $\_$!]
 
+
+// TODO: add unify here to check if a step contains an axiom! Important!
 #definition[
   The unit $"verify"$ is defined over meta-variables
   $c | u | v | g | d --> "unit"$ and sets $"query" <--> {u - g -> v}$:
