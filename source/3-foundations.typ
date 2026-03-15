@@ -625,8 +625,31 @@ We need to include equality as well, refer to @foundations:bootstrap-equality.
 
 Now, the rules in @table:unit-rules are already stated in Welkin. The formal
 embedding is provided in @bootstrap-document. Using this and $"part"$, we can
-define the verifier entirely in Welkin. Add new handles $"accept"$ and
-$"reject"$, as well as the following unit $"claim"$:
+define the verifier entirely in Welkin. We need to build the unification
+algorithm.
+
+We need a helper to avoid non-determinism.#footnote[For rewrite theorists: this
+  is a technique for defining confluence.]
+
+#lemma[
+  Let $a,b,c,d$ be units. Then ${a - c -> b, {a - c -> d} --> *{b --> d | {}}}$
+  normalizes to ${a - c -> b}$ modulo alpha conversion. (TODO: what we want to
+  say is that ${a - c -> b}$ is always contained and NO other possibility.).
+  Thus, this expresses that a refernt is *unique* in a given representation.
+]
+
+#definition[
+  The unit $"unify"$ is defined as follows, with
+  $"map"(D, V, A, s) equiv {D := "derivation" --> "unit", V := "variables" --> "unit", A := "axiom" --> "rules", s := "step" --> "unit"}$:
+  - $"map"(D, V, {}, {})$
+  - $"map"(D, V, h, h)$, with $h --> "handle"$
+]
+
+
+
+
+Finally, add new handles $"accept"$ and $"reject"$, as well as the following
+unit $"claim"$:
 
 $"claim" <--> {\
   "context" &--> "unit",\
