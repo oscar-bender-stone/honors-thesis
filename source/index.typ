@@ -47,7 +47,8 @@
 #include "3-foundations.typ"
 #include "4-syntax.typ"
 #include "5-metatheory.typ"
-#include "6-conclusion.typ"
+#include "6-bootstrap.typ"
+#include "7-conclusion.typ"
 
 // TODO: fix numbering!
 #let appendix(body) = {
