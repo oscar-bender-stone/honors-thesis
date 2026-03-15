@@ -102,22 +102,19 @@ representations. We present the complete definition as follows.
     - A handle, see @foundations:handle.
   - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
     combination of the following are also units:
-    - A *path* $g.v$.
     - A *pair* ${u, v}$.
     - A *representation* $a - c -> b$, where $a$ is the *sign*, $c$ is the
       *context*, and $b$ is the *referent*. This is read as: $a$ *represents*
       $b$ *in context* $c$.
 ]<foundations:unit>
 
+[TODO: define $:=$ and $.$ formally in the syntax + validate!]
+
 We add several abbreviations, most of which will appear in @syntax:
 
 - ${a}$ denotes ${a, {}}$.
 
 - $a <--> b$ denotes that both $a --> b$ and $a <-- b$ hold.
-
-- $c {x --> y}$ denotes ${x - c -> y}$.
-
-- $c { x }$ denotes $c { x --> x}$.
 
 - We add a symbol $subset.sq.eq$ for *containment*, where $a subset.eq.sq g$ iff
   #box[$a - g -> a$]. When writing _in_ the language, we will prefer the latter
@@ -218,14 +215,7 @@ Now we may introduce the rules on units.
         name: "Containment",
         lbl: "r:a",
         content: [
-          #box[$a - g -> a$ if and only if ${g, a} <--> g$]
-        ],
-      ),
-      (
-        name: "Path",
-        lbl: "r:path",
-        content: [
-          $c {a - d -> b} subset.eq.sq c$ if and only if $c.a - c.d -> c.b$
+          #box[${a - g -> a} <--> {{g, a} <--> g}$]
         ],
       ),
       (
@@ -252,11 +242,11 @@ Now we may introduce the rules on units.
 
 ]<unit-rules>
 
-We review the utility of each rule. Note that rules _between_ contexts is
-entirely flexible and user defined. Moreover, only @r:transitivity,
-@r:sign-congruence, and @r:context-congruence are needed for Turing
-completeness. However, the other rules are in place to help with organizing
-units as modules, as well as make it easier to use the language.
+We review the utility of each rule. Note @r:context-lift is the only rule
+_between_ contexts; the rest is entirely user defined. Moreover, only
+@r:transitivity, @r:sign-congruence, and @r:context-congruence are needed for
+Turing completeness. However, the other rules are in place to help with
+organizing units as modules, as well as make it easier to use the language.
 
 [TODO: refer to rules with ranges when appropriate! Much nicer.]
 
@@ -282,10 +272,6 @@ units as modules, as well as make it easier to use the language.
 - @r:handle-eq enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are entirely
   user defined.
-- @r:path provides a way to access specific units in a scope. The notation is
-  entirely inspired by object oriented programming. This style of programming
-  has _objects_ that can have data (fields) and functions (methods). Note that
-  this is in _one_ direction
 - @r:idempotent, @r:associativity, and @r:commutativity ensure that information
   can be repeated and arranged in any order. Mathematically, this means that
   units have a *semi-lattice* structure.
@@ -461,7 +447,7 @@ From there, we can define handle IDs through triples, see
 
 #figure(
   [
-    $"handle" --> {"ID" --> "word"}$
+    $"handle" <--> {"ID" --> "word"}$
   ],
   caption: [Generator for handle keys in Welkin.],
 )<foundations:bootstrap-handle-id>
@@ -500,7 +486,7 @@ meta-variables using $u --> c$, where $c$ is the overarching context. #footnote[
   - $"unit" --> "handle"$, see @foundations:bootstrap-handle-id.
   - $"*"{u, v, c} --> "unit"$, which means $u, v, c$ are meta-variables over
     $"unit"$.
-  - $"unit" --> u.v | {u, v} | {u - c -> v}$.
+  - $"unit" --> {u, v} | {u - c -> v}$.
 ]<foundations:recursor>
 
 Proving correctness is straightforward and closely aligns with
@@ -599,14 +585,25 @@ We need to include equality as well, refer to @foundations:bootstrap-equality.
 #figure(
   [$"equals" := {\
     "*"{"b1", "b2"} --> "bit",\
-    {"b1" <--> "b2"} &<--> {"b1" <--> "0" <--> "b2"} \
+    {"b1" <--> "b2"} &<--> \
+    &| {"b1" <--> "0" <--> "b2"} \
     &| {"b1" <--> "1" <--> "b2"}, \
     ~{{"b1" <--> "b2"} &<--> {{"b1", "b2"} <--> {"0", "1"}}}, \
     "*"{"w1", "w2"} --> "word",\
-    {"w1" <--> "w2"} &<--> {"w1" <--> "epsilon" <--> "w2"} \
-    &| {"w1.top" <--> "w2.top", "w1.next" <--> "w2.next"}, \
+    {"w1" <--> "w2"} &<--> \
+    &| {"w1" <--> "epsilon" <--> "w2"} \
+    &| {\
+      "w1" &<--> {"top" --> "top1", "next" --> "next1"},\
+      "w2" &<--> {"top" --> "top2", "next" --> "next2"},\
+      "top1" &<--> "top2",\
+      "next1" &<--> "next2"\
+    }, \
     "*"{"h1", "h2"} --> "handle",\
-    {"h1" <--> "h2"} &<--> { "h1.ID" <--> "h2.ID" },\
+    {"h1" <--> "h2"} &<--> {\
+      "h1" <--> {"ID" <--> "n1"},\
+      "h2" <--> {"ID" <--> "n2"},\
+      "n1" <--> "n2"\
+    },\
   }
   }$],
   caption: [Definitions of equality in Welkin. [TODO: fix formatting!]],
@@ -624,45 +621,12 @@ We need to include equality as well, refer to @foundations:bootstrap-equality.
   - *Inductive step:* correctly handles the the cases for $"top"$ and $"next"$.
 ]
 
-
-
-Next, we need to express the rules inside Welkin.
-
-#definition[
-  The $"rules"$ unit is defined as exactly the things below, over units
-  $a, b, c, d, g$ and handles $"h1", "h2"$. The overarching context is
-  $"rules"$.
-  - $"R1" <--> {{a - c -> b}, {b - c -> d}} --> {a - c -> d}$
-  - $"R2" <--> {{a - c -> b} --> {{a, d} - c -> {b, d}}}$
-  - $"R3" <--> {{a - c -> b} --> {{a - g -> d} - c -> {b - g -> d}}}$
-  - $"R4" <--> {{a - c -> b} --> {{d - a -> g} - c -> {d - b -> g}}}$
-  - $"R5" <--> {{a - c -> b} --> {{d - g -> a} - c -> {d - g -> b}}}$
-  - $"R6" <--> {{a - c -> b}, {d - a -> g}} --> {{a - d - g} - "part" -> c}}$
-  - $"R7" <--> {{a - c -> b, a - c -> d} --> {a - c -> b}}$
-  - $"R8" <--> {{g, {}} <--> g}$
-  - $"R9" <--> {{{} - a -> b} --> {}}$
-  - $"R10" <--> {{a - {} -> b} --> {}}$
-  - $"R11" <--> {{a - b -> {}} --> {}}$
-  - $"R12" <--> {{a - {} -> b} <--> {}}$
-  - $"R13" <--> {{"h1" <- "equals" -> "h2"} -> {"h1" <--> "h2"}}$
-  - $"R14" <--> {a <--> {a - a -> a}}$
-  - $"R15" <--> {{{a - c -> b} - "part" -> c} --> {c.a - c.d -> c.b}}$
-  - $"R16" <--> {{a, {b, c}} <--> {{a, b}, c}}$
-  - $"R17" <--> {{a, b} <--> {b, a}}$
-]
-
-#lemma[
-  Each of the rules in $"rules"$ is embedded correctly.
-]<foundations:rules-correctness>
-#proof[
-  TBD (mostly tedious).
-]
-
 [TODO: decide whether to convert list defs into single equations.]
 
-
-Finally, we can define the verifier entirely in Welkin. Add new handles
-$"accept"$ and $"reject"$, as well as the following unit $"claim"$:
+Now, the rules in @table:unit-rules are already stated in Welkin. The formal
+embedding is provided in @bootstrap-document. Using this and $"part"$, we can
+define the verifier entirely in Welkin. Add new handles $"accept"$ and
+$"reject"$, as well as the following unit $"claim"$:
 
 $"claim" <--> {\
   "context" &--> "unit",\
@@ -673,7 +637,6 @@ $"claim" <--> {\
 [TODO: deal with recursion! Need to ensure it halts! And make sure to establish
 a clear induction scheme! And maybe add a pair to store the context and target?
 Fill in $\_$!]
-
 
 #definition[
   The unit $"verify"$ is defined over meta-variables
