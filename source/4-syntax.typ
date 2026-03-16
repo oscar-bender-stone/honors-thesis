@@ -23,7 +23,7 @@ clearer, we write syntactic features in `type-writer font`.#footnote[This font
     "https://github.com/intel/intel-one-mono",
   )), licensed under OFL 1.1 (#link(
     "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",
-  )).]
+  )).] For clarity, we will write at a slightly higher level than @foundations.
 
 == Encoding
 
@@ -40,8 +40,10 @@ version. #footnote[Note that this table _itself_ is a representation, which
 
 #definition[
   Welkin's encoding consists of *Printable US-ASCII*, listed in
-  @syntax:printable-ascii-codes, as well as character `EOF`, with code 58.
-]
+  @syntax:printable-ascii-codes, as well as character `EOF`, with code 58. An
+  *ASCII string* is the concatenation of any finite number of printable
+  characters, followed by an `EOF` character.
+]<syntax:encoding-strings>
 
 To represent general encodings, there is a binary format supported for strings,
 see @syntax:string.
@@ -71,7 +73,7 @@ slash `\`, see @syntax:string.
     `UPPERCASE`.],
 )<syntax:character-classes>
 
-== Invertible Syntax Descriptions
+== Invertible Syntax Descriptions <syntax:invertible-descriptions>
 
 To more easily describe the language, we provide basic building blocks. For
 simplicity, we do not add many primitives. The names are taken from the the
@@ -97,11 +99,7 @@ In contrast to @leijen-meijer-parsec, however, we include the ability _print_ as
 well or present the corresponding string. This is done through
 @invertible-syntax-descriptions.
 
-== Character Classes
-
-// TODO: complete table
-We denote specific characters through quotes, escaping if necessary. There are
-several important character classes in , denoted through double quotes.
+== Strings and IDs
 
 Strings allow escaped single or double quotes, see @syntax:string. Note that,
 semantically, single and double quoted strings are equivalent, see
@@ -178,9 +176,47 @@ UNIT := ID | STRING
 == Proof of Unambiguity
 
 We show that, by construction, the combinators we used form an $"LL"(1)$
-grammar. This is a special kind of grammar that can be efficiently parsed. We
-will keep definitions here self-contained. For more background, please consult
-@compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
+grammar. This is a special kind of grammar with two desirable properties:
+
+- If a string is accepted, it is parsed unambiguously.
+
+- Efficient parsers can be easily and efficiently implemented
+  @compilers-dragon-book[Sect. 4.4.3].
+
+Our approach is to provide an equivalence between @welkin-grammar and a new
+grammar. More precisely, we require a bijection with the following property: a
+string accepted by @welkin-grammar is also accepted by the new grammar, and vice
+versa. We will then prove the latter is $LL(1)$.
+
+We will keep definitions and theorems here self-contained. For more background,
+please consult @compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
+
+First, we need to define a general *context-free grammar*.
+
+#definition[
+  A *Context-free Grammar (CFG)* $G = (N, T, P)$ consists of:
+  - A finite set of *non-terminals*.
+  - A finite set of *terminals* $T$.
+  - A finite set of *productions* $P$, where a *production* is a rule of the
+    form $A => alpha_1 ... alpha_n$, where $A in N$ and $alpha_1 ... alpha_n$ is
+    the concatenation of terminals $alpha_1, ..., alpha_2$ in $T$,
+]
+
+For our use case, we will assume that $T$ is a set of ASCII strings
+(@syntax:encoding-strings).
+
+#definition[
+  Let $G = (N, T, P)$ be a CFG and $A$ a non-terminal.
+  - The *FIRST* set of
+  - The *FOLLOW* set of
+]
+
+#definition[*_(@compilers-dragon-book[Ch. 5])_* A CFG is $"LL"(1)$ if and only
+  if for every production $A => alpha_1 | ... | alpha_n$
+  -
+  -
+]
+
 
 == Validation and Transformations <syntax:validation-and-transforms>
 
