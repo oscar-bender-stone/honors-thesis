@@ -42,31 +42,28 @@ version. #footnote[Note that this table _itself_ is a representation, which
 To represent general encodings, there is a binary format supported for strings,
 see @syntax:string.
 
-Moreover, we will need the following sets of terminals, each of which are
-written in `UPPERCASE`.#footnote[The use of upper-case is traditional in
-  grammars for programming languages, see, e.g., @compilers-dragon-book.]
+[TODO: turn into a table.]
 
-- `PRINTABLE` is the whole set of characters defined in
-  @syntax:printable-ascii-codes.
+Moreover, we will need to define *character classes*, or important sets of
+characters. These are presented in @syntax:character-classes, with each
+character separated by |.
 
-- `WHITESPACE` is a set containing:
-  - Tab: `\t`,
-  - Carriage return: `\r`,
-  - Space: ` `
+#figure(
+  table(
+    columns: (1fr, 1fr),
+    align: center,
+    table.header([*Set Name*], [*Characters*]),
+    [`PRINTABLE`],
+    [All characters listed in @syntax:printable-ascii-codes, i.e., all US-ASCII
+      characters _except_ `EOF`.],
 
-- `DELIMITER` is a set containing:
-  - Left Braces: `{`
-  - Right Braces: `}`
-  - Single Quote: `'`
-  - Double Quote: `"`
-  - Period: `.`
-  - Comma: `,`
-  - Vertical line: `|`
-
-- `RESERVED` consists of all characters in `DELIMITER`, as well as:
-  - Asterisk: `*`.
-  - Slash: `\`.
-  - At: `@`.
+    [`WHITESPACE`], [`\t` | `\r` |` `],
+    [`DELIMITER`], [`{` | `}` | `'` | `"`| `.` | `,`],
+    [`RESERVED`], [`DELIMITER` | `*` | `@`],
+  ),
+  caption: [Definitions of key character classes. Each class is denoted in
+    `UPPERCASE`.],
+)<syntax:character-classes>
 
 == Invertible Syntax Descriptions
 
@@ -151,8 +148,7 @@ easier.] #figure(
 )<syntax:printable-ascii-codes>
 
 We denote specific characters through quotes, escaping if necessary. There are
-several important character classes in @terminal-classes, denoted through double
-quotes.
+several important character classes in , denoted through double quotes.
 
 #figure(
   ```
