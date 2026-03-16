@@ -160,9 +160,9 @@ syntax.
 
 == Proof of Unambiguity
 
-We show that, by construction, the combinators we used form an $LL(1)$ grammar.
-This is a special kind of grammar that can be efficiently parsed. We will keep
-definitions self-contained; for more background, consult
+We show that, by construction, the combinators we used form an $"LL"(1)$
+grammar. This is a special kind of grammar that can be efficiently parsed. We
+will keep definitions self-contained; for more background, consult
 @compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
 
 == Validation

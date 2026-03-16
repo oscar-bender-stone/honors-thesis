@@ -10,8 +10,6 @@
 [TODO[MEDIUM]: determine if the phrase: "see Section ?" should be used, or
 "refer to" instead, to fully include all readers.]
 
-[TODO: rephrase second sentence to say *when* the surge of data has come up.]
-
 Information Management is the study of systematically storing and organizing
 data. Since the beginning of humanity, there has been a massive influx of data,
 including physical and digital forms. Not a single person understands all of it.
@@ -46,12 +44,11 @@ vast and interconnected web of knowledge, as found in
 @mesgari-research-review-on-wikipedia. Along with the depth and breadth of
 different disciplines, standardization is complex. Most systems have their own
 unique data formats, so making formats that are *interoperable* is hard. (A
-format is *interoperable* if data can be transferred to different formats).
-Being *interoperable format* is designed to enable data transfer from one
-solution to another. For instance, transferring information between two medical
-platforms is notoriously difficult, even if they store the _same_ information
-about a patient @reisman-interoperable-data. These problems continue to be a
-challenge in effectively utilizing frameworks for information.
+format is *interoperable* if data can be transferred to different formats.) For
+instance, transferring information between two medical platforms is notoriously
+difficult, even if they store the _same_ information about a patient
+@reisman-interoperable-data. These problems continue to be a challenge in
+effectively utilizing frameworks for information.
 
 In consideration of these issues, several solutions partially resolve some of
 them, but not completely. The following provides a small list of major existing
@@ -109,8 +106,6 @@ see @conclusion:comparisons.
   @formal-concept-analysis-trends. This makes it difficult to interpret results
   when applied to large-scale databases or when bridging disparate domains
   @formal-concept-analysis-trends.
-
-- *Frame Logic:* TODO: finish!
 
 This thesis introduces a language to resolve these issues for Information
 Management. I call this language *Welkin*, based on an old German word meaning
