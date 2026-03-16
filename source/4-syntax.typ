@@ -39,7 +39,8 @@ specific sections, consult @syntax:overview.
 
     [*@syntax:welkin-grammar*],
     [*The Welkin #linebreak() Grammar*],
-    [Presentts the Welkin grammar.],
+    [Presentts the Welkin grammar, defining which strings are syntactically
+      allowed.],
 
     [*@syntax:proof-unambiguous*],
     [*Proof of #linebreak() Unambiguity*],
@@ -47,9 +48,8 @@ specific sections, consult @syntax:overview.
 
     [*@syntax:validation-and-transforms*],
     [*Validation and Transforms*],
-    [Concludes with comparisons to existing theories and possible applications,
-      particularly in programming languages and broader academic knowledge
-      management.],
+    [Defines which strings are *valid*, as well as transforms on certain
+      constructs.],
   ),
   caption: [Organization for the thesis.],
 )<syntax:overview>
