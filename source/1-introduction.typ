@@ -172,7 +172,7 @@ left for another work, see @conclusion.
   caption: "Goals for the Welkin language.",
 )<goals>
 
-This thesis is organized according to @thesis-organization.
+This thesis is organized according to @introduction:thesis-organization.
 
 #figure(
   table(
@@ -203,4 +203,4 @@ This thesis is organized according to @thesis-organization.
       management.],
   ),
   caption: [Organization for the thesis.],
-)<thesis-organization>
+)<introduction:thesis-organization>

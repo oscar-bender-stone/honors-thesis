@@ -17,19 +17,42 @@
 // TODO: determine how rigorous the language is here
 // vs bootstrap!
 // Should the standard be put into an appendix?
-This section examines the grammar for Welkin and provides validation rules. In
-more detail:
+This section examines the grammar for Welkin and provides validation rules. For
+specific sections, consult @syntax:overview.
 
-- We define the encoding for Welkin.
+#figure(
+  table(
+    columns: (20%, 25%, 55%),
+    align: left,
+    table.header([*Section Number*], [*Title*], [*Description*]),
+    [*@syntax:encoding*], [*Encoding*], [Introduces the encoding for Welkin.],
 
-- We define invertible syntax descriptions, which are the fundamental building
-  blocks for the grammar.
+    [*@foundations*],
+    [*Foundations*],
+    [Introduces the core theory behind Welkin, which is the starting point to
+      specify the user-facing language.],
 
-- We define strings and IDs syntactically.
+    [*@syntax:invertible-descriptions*],
+    [*Invertible Syntax Descriptions*],
+    [Defines *invertible syntax descriptions*, the fundamental building blocks
+      for the grammar.],
 
-- We present the complete grammar.
+    [*@syntax:strings-and-ids*],
+    [*Strings and IDs*],
+    [Proves that Welkin can express any proof.],
 
-- We prove that this grammar is unambiguous.
+    [*@syntax:proof-unambiguous*],
+    [*Proof of Unambiguity*],
+    [Proves that the Welkin grammar is unambiguous.],
+
+    [*@syntax:validation-and-transforms*],
+    [*Validation and Transforms*],
+    [Concludes with comparisons to existing theories and possible applications,
+      particularly in programming languages and broader academic knowledge
+      management.],
+  ),
+  caption: [Organization for the thesis.],
+)<syntax:overview>
 
 To make specific characters clearer, we write syntactic features in
 `type-writer font`.#footnote[This font is Intel One Mono (#link(
@@ -38,7 +61,7 @@ To make specific characters clearer, we write syntactic features in
     "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",
   )).] For clarity, we will write at a slightly higher level than @foundations.
 
-== Encoding
+== Encoding <syntax:encoding>
 
 Welkin uses ASCII as its base encoding. The term ASCII is slightly ambiguous, as
 there are subtly distinct variants, so we formally define US-ASCII as a standard
@@ -112,7 +135,7 @@ In contrast to @leijen-meijer-parsec, however, we include the ability _print_ as
 well or present the corresponding string. This is done through
 @invertible-syntax-descriptions.
 
-== Strings and IDs
+== Strings and IDs <syntax:strings-and-ids>
 
 Strings allow escaped single or double quotes, see @syntax:string. Note that,
 semantically, single and double quoted strings are equivalent, see
@@ -138,9 +161,10 @@ whitespace and certain characters, see @syntax:id.
   caption: "Syntactic definition of an ID.",
 )<syntax:id>
 
-== The Welkin Grammar
+== The Welkin Grammar <syntax:welkin-grammar>
 
-Welkin's grammar is displayed in @welkin-grammar, inspired by several languages.
+Welkin's grammar is displayed in @syntax:figure-welkin-grammar, inspired by
+several languages.
 
 #let grammar = ```
 start := {terms - lexeme -> EOF},
@@ -184,9 +208,9 @@ UNIT := ID | STRING
   grammar,
   caption: [The grammar for Welkin. The rules `STRING` and `ID` are defined in
     @syntax:string and @syntax:id, respectively.],
-)<welkin-grammar>
+)<syntax:figure-welkin-grammar>
 
-== Proof of Unambiguity
+== Proof of Unambiguity <syntax:proof-unambiguous>
 
 We show that, by construction, the combinators we used form an $"LL"(1)$
 grammar. This is a special kind of grammar with two desirable properties:
@@ -196,10 +220,10 @@ grammar. This is a special kind of grammar with two desirable properties:
 - Efficient parsers can be easily and efficiently implemented
   @compilers-dragon-book[Sect. 4.4.3].
 
-Our approach is to provide an equivalence between @welkin-grammar and a new
-grammar. More precisely, we require a bijection with the following property: a
-string accepted by @welkin-grammar is also accepted by the new grammar, and vice
-versa. We will then prove the latter is $LL(1)$.
+Our approach is to provide an equivalence between @syntax:figure-welkin-grammar
+and a new grammar. More precisely, we require a bijection with the following
+property: a string accepted by @syntax:figure-welkin-grammar is also accepted by
+the new grammar, and vice versa. We will then prove the latter is $LL(1)$.
 
 We will keep definitions and theorems here self-contained. For more background,
 please consult @compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
@@ -227,7 +251,8 @@ Next, we work on the proof that $G_"welkin"$ is $"LL"(1)$. From ,
 #figure(
   ```
   ```,
-  caption: [CFG for the Welkin grammar, based on @welkin-grammar.],
+  caption: [CFG for the Welkin grammar, based on
+    @syntax:figure-welkin-grammar.],
 )
 
 
@@ -247,8 +272,8 @@ Next, we work on the proof that $G_"welkin"$ is $"LL"(1)$. From ,
 
 == Validation and Transformations <syntax:validation-and-transforms>
 
-We say a string is *valid* if it is accepted by the grammar (@welkin-grammar),
-and the following hold:
+We say a string is *valid* if it is accepted by the grammar
+(@syntax:figure-welkin-grammar), and the following hold:
 
 - The number of dots (relative import) used must not exceed the number of levels
   available.
