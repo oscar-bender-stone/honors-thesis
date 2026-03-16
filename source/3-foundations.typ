@@ -295,15 +295,17 @@ We want to demonstrate that every unit corresponds to some Turing machine, and
 vice versa. More precisely, we want to find a one-to-one mapping $phi$ from
 units $c$ to a Turing machine $phi_c$ such that
 
-#align(center, [$a - c -> b$ if and only if $phi_c (⟨phi_a⟩) = ⟨phi_b⟩$.])
+#set math.equation(numbering: _ => $(#math.star.filled)$)
+$ a - c -> b #math.text("if and only if") phi_c (⟨phi_a⟩) = ⟨phi_b⟩. $
 
 Here, $⟨phi_a⟩$ denotes a standard encoding of a Turing machine as a string (see
 @sipser-theory-ofcomputation[Ch 3.3, pg. 185]). We also require that $phi$ is
 surjective, i.e., each Turing machine $T$ can be expressed as $phi_u$ for some
 unit $u$. The purpose of $phi$ is to provide a computational interpretation of
-units _as_ operators. Note that handles can have implicit, user-defined meaning
-(see @foundations:handle). However, within Welkin's mechanized rules, units can
-be treated as programs.#footnote[
+units _as_ programs, or operators. Note that handles can have implicit,
+user-defined meaning (see @foundations:handle). Practically, we will maintain
+this interpretation, as representations are managed mechanically through truth
+#footnote[
   In connection to linguistics, this is the difference between a formal
   semantics, what is stated in the language, and pragmatics, the intension or
   purpose of a term.]
@@ -311,8 +313,8 @@ be treated as programs.#footnote[
 At this point, we are concerned with showing _some_ $phi$ exists, thereby
 validating Goal 1 [TODO: provide a link to this]. We are not concerned about
 efficiency; this will be left for a future work, see @conclusion. To construct
-$phi$, our approach is base the construction on the $"SK"$-combinator calculus.
-This is an equational theory, first developed by Schönfinkel
+$phi$, we want to create an embedding into the $"SK"$-combinator calculus. This
+is an equational theory, first developed by Schönfinkel
 @schoenfinkel-combinators, and independently discovered by Curry
 @curry-grundlagen. In this theory, a *combinator* is a higher-order function: a
 function that takes in other functions as inputs.
@@ -343,8 +345,8 @@ instead of equality.
       $M_1 N_1 #sk-imp M_2 N_2$.
 ]<foundations:SK-calculus>
 
-We can construct $phi$ by creating an embedding into the the calculus. For
-brevity, we discuss this embedding at a high level:
+Now, Welkin can be embedded into this calculus. We discuss this embedding at a
+high level:
 
 - Each unit @foundations:unit can be built from handles, or by finite
   combinations of pairs and representations. These can be represented as
@@ -384,7 +386,7 @@ this, we prove the following. Our proof technique uses recursion within Welkin.
   - ${P - {N - {M - S -> L} -> L} -> L} - L -> {N - {M - K -> L} -> L}$ :
     represents the reduction rule for $S$.
 
-  We claim that $L$ represents $#sk-imp$.First, to prove closure under
+  We claim that $L$ represents $#sk-imp$. First, to prove closure under
   composition, suppose $L --> A$ and $L --> B$. Then by @r:transitivity,
   $M --> A$ and $N --> B$, so by @r:sign-congruence and @r:context-congruence,
   ${N - M -> L} --> {B - A -> L}$. Another application of @r:transitivity yields
@@ -425,14 +427,9 @@ $p$ is in fact in ${p, q}$. However, @foundations:turing-expressible implies
 that finding general derivations are uncomputable. More precisely, we have the
 following.
 
-
 #corollary[
   The problem of determining whether a query is satisfiable is RE-complete.
 ]
-#proof[
-  Because of , resolving query correspond
-]
-
 
 We want information to _resolve_ a query. Formally, we want information to be
 _proof_, not a "yes/no" answer by itself. When the context is finite, like
@@ -446,7 +443,7 @@ this _is_ complete. That should be independent of the next section!]
 
 #definition[
   *Information* about a query $q$ in context $c$ is a any partial meta-proof in
-  $"meta"$ of a derivation of ${@c, q}$.
+  $"meta"$ of a derivation of ${c, q}$.
 ]<foundations:information>
 
 

@@ -14,35 +14,18 @@
 // when getting input! (Though it could be streamed;
 // we're using handles as an effective abstraction here!
 // Do also make sure multiple users *could* use it as well,
-// so need to make that clear. Might need a notion
-// of a user/original source at a time.)
-// TODO: need to figure out an effective way
-// to get revisions! And need to keep in mind,
-// might be implementation specific!
-// So just need to *create* the map
-// (
-//   name: "Module",
-//   lbl: "r:module",
-//   content: [$\#h_1 <--> \#h_2$ if and only if $h_1 <--> h_2$.],
-// ),
-
 = Syntax <syntax>
 
 // TODO: determine how rigorous the language is here
 // vs bootstrap!
 // Should the standard be put into an appendix?
-[TODO[SMALL]: determine where to use type writer font. Maybe ONLY in the
-bootstrap?] For consistency with Welkin, we write syntax using
-`type-writer font`.#footnote[This font is Intel One Mono (#link(
+This section introduces the grammar for Welkin. To make specific characters
+clearer, we write syntactic features in `type-writer font`.#footnote[This font
+  is Intel One Mono (#link(
     "https://github.com/intel/intel-one-mono",
   )), licensed under OFL 1.1 (#link(
     "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",
   )).]
-
-[TODO[MEDIUM]: make imports precise! We *want* to get into using dot notation as
-soon as possible!]
-
-Note that *R2 (Context Lifting)* will be crucial to define the syntax.
 
 == Encoding
 
@@ -51,45 +34,46 @@ there are subtly distinct variants, so we formally define US-ASCII as a standard
 version. #footnote[Note that this table _itself_ is a representation, which
   represents glyphs with binary words.]
 
-[TODO: for simplicity, just use binary for the encoding.]
 #definition[
   Welkin's encoding consists of *Printable US-ASCII*, listed in
-  @syntax:printable-ascii-codes, as well as character *EOF*, with code 58. In
-  Welkin (@syntax:welkin-encoding):
-
-  #figure(
-    [```
-    encoding <--> {"EOF" --> 58, @printable}
-    ```],
-    caption: [The full encoding for Welkin, written in Welkin.],
-  )<syntax:welkin-encoding>
+  @syntax:printable-ascii-codes, as well as character *EOF*, with code 58.
 ]
 
 To represent general encodings, there is a binary format supported for strings,
 see @syntax:string.
 
-Moreover, we will need the following sets of terminals.
+Moreover, we will need the following sets of terminals, each of which are
+written in `UPPERCASE`.#footnote[The use of upper-case is traditional in
+  grammars for programming languages, see, e.g., @compilers-dragon-book.]
 
-// TODO: convert into using glyphs.
-// Maybe use abbreviations for Printable
-// *or* list specific character classes?
-#figure(
-  ```
-  PRINTABLE <--> {ENCODING, ~ENCODING.EOF},
-  WHITESPACE <--> "\t" | "\n" | "\r" | " ",
-  RESERVED <--> @DELIMITER | "*" | "\" | "@" | "#",
-  DELIMITER <--> "{" | "}" | "'"| "." | "," | "|"
-  ```,
-  caption: "Important character classes.",
-)<terminal-classes>
+- `PRINTABLE` is the whole set of characters defined in
+  @syntax:printable-ascii-codes.
+
+- `WHITESPACE` is a set containing:
+  - Tab: `\t`,
+  - Carriage return: `\r`,
+  - Space: ` `
+
+- `DELIMITER` is a set containing:
+  - Left Braces: `{`
+  - Right Braces: `}`
+  - Single Quote: `'`
+  - Double Quote: `"`
+  - Period: `.`
+  - Comma: `,`
+  - Vertical line: `|`
+
+- `RESERVED` consists of all characters in `DELIMITER`, as well as:
+  - Asterisk: `*`.
+  - Slash: `\`.
+  - At: `@`.
 
 == Invertible Syntax Descriptions
 
-To more easily describe the language, we provide basic building blocks. Note
-that one of these, $|$, can be desugared in the bootstrap. For simplicity, we do
-not add many primitives. The names are taken from the the `parsec` combinator
-library in the programming language Haskell @leijen-meijer-parsec. The authors
-use the following notation:
+To more easily describe the language, we provide basic building blocks. For
+simplicity, we do not add many primitives. The names are taken from the the
+`parsec` combinator library in the programming language Haskell
+@leijen-meijer-parsec. The authors use the following notation:
 
 - `seq` to mean two rules that must be concatenated _directly_, no whitespace
   allowed.
