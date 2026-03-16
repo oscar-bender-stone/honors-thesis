@@ -50,9 +50,8 @@ see @syntax:string.
 
 Moreover, we will need to define *character classes*, or important sets of
 characters. These are presented in @syntax:character-classes, with each
-character separated by |. Notice that `SQ_CHAR` and `DQ_CHAR` contain a word
-with two characters. In other words, while `'` (resp. `"`) is not allowed by
-itself, `\'` (resp. `\"`) is permitted.
+character separated by |. Note that strings _may_ contain quotes prefixed with a
+slash `\`, see @syntax:string.
 
 #figure(
   table(
@@ -64,8 +63,8 @@ itself, `\'` (resp. `\"`) is permitted.
     [`WHITESPACE`], [`\t` | `\r` | Space ],
     [`DELIMITER`], [`{` | `}` | `'` | `"`| `.` | `,`],
     [`RESERVED`], [`DELIMITER` | `*` | `@`],
-    [`SQ_CHAR`], [Any `PRINTABLE` character except `'` | `\'`],
-    [`DQ_CHAR`], [Any `PRINTABLE` character except `"` | `\"`],
+    [`SQ_CHAR`], [Any `PRINTABLE` character except `'`],
+    [`DQ_CHAR`], [Any `PRINTABLE` character except `"`],
     [`ID_CHAR`], [Any `PRINTABLE` character not in `RESERVED` or `WHITESPACE`],
   ),
   caption: [Definitions of key character classes. Each class is denoted in
@@ -98,16 +97,16 @@ well or present the corresponding string. This is done through
 We denote specific characters through quotes, escaping if necessary. There are
 several important character classes in , denoted through double quotes.
 
-
-
-Strings allow escaped single or double quotes, see @syntax:string.
+Strings allow escaped single or double quotes, see @syntax:string. Note that,
+semantically, single and double quoted strings are equivalent, see
+@syntax:validation-and-transforms.
 
 #figure(
   ```
   STRING := SQ_STRING | DQ_STRING,
 
-  SQ_STRING := "'" - seq -> SQ_CHAR - many_until-> "'",
-  DQ_STRING := "\"" - seq -> DQ_CHAR - many_until -> "\"",
+  SQ_STRING := "'" - seq -> SQ_CHAR | "\'" - many_until-> "'",
+  DQ_STRING := '"' - seq -> DQ_CHAR | '\"' - many_until -> '"',
   ```,
   caption: "Strings.",
 )<syntax:string>
@@ -128,27 +127,31 @@ Welkin's grammar is displayed in @welkin-grammar, inspired by a minimal, C-style
 syntax.
 
 #let grammar = ```
- start := {nodes - lexeme -> EOF},
+start := {nodes - lexeme -> EOF},
 
- terms := "" | {term - lexeme -> terms_tail},
- terms_tail := "" | {"," - lexeme -> "" | term}
+terms := "" | {term - lexeme -> terms_tail},
+terms_tail := "" | {"," - lexeme -> "" | term}
 
- term := {
-   node - seq ->
-   "" | {
-     arc - seq -> term
-   }
- },
+term := {
+  node - seq ->
+  "" | {
+    arc - seq -> term
+  }
+},
 
- arc := right_arc | other_arc,
- right_arc := {"-" - seq -> node - seq -> "->"},
- other_arc := {"<-" - seq -> node - seq -> "-" | "->"},
+arc := right_arc | other_arc,
+right_arc := {"-" - seq -> node - seq -> "->"},
+other_arc := {"<-" - seq -> node - seq -> "-" | "->"},
 
- node := {path - lexeme -> "" | {"" | ":=" - lexeme -> "{" - lexeme -> path - lexeme -> terms - lexeme -> "}"}},
+node := {path - lexeme -> "" | {"" | ":=" - lexeme -> "{" - lexeme -> path - lexeme -> terms - lexeme -> "}"}},
 
- path := {{"@" - seq -> UNIT } | {"." - many_until -> UNIT} | "" - seq -> {UNIT | "*" - seq -> "."} - many_until -> node}
+path := {
+  {"@" - seq -> UNIT } | {"." - many_until -> UNIT} | ""
+  - seq -> {UNIT | "*" - seq -> "."}
+  - many_until -> node
+},
 
- UNIT := ID | STRING
+UNIT := ID | STRING
 ```
 
 #figure(
@@ -165,7 +168,7 @@ grammar. This is a special kind of grammar that can be efficiently parsed. We
 will keep definitions self-contained; for more background, consult
 @compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
 
-== Validation and Transformations
+== Validation and Transformations <syntax:validation-and-transforms>
 
 We state two important rules:
 
@@ -178,7 +181,8 @@ We state two important rules:
 
 We leave error handling for future work, see @conclusion.
 
-Additionally, we define one transformation for strings:
+Additionally, we define transformation rules after parsing, primarily for
+strings:
 
 - If `\'` appears in a single quoted string, then this will be replaced by `'`
   in the final contents. For example, given a string `"John\'s dog"`, the
@@ -187,4 +191,9 @@ Additionally, we define one transformation for strings:
 - A similar rule applies for `"` but with `\"`.
 
 - Double slashes `\\` are converted into one slash `\`.
+
+- Single and double quoted strings are represent each other. For example,
+`'hello' <--> "hello"`. However, in general, `hello` is _not_ equivalent to
+`"hello"`. [TODO: make sure this is not confusing!]
+
 
