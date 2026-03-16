@@ -85,8 +85,9 @@ simplicity, we do not add many primitives. The names are taken from the the
   characters in between.
 
 
-- `many_till` means that in `A - many_till -> B`, parse zero or more instances
-  of `A` _without_ any `WHITESPACE` characters, until `B` is encountered.
+- `seq_many_till` means that in `A - many_till -> B`, parse zero or more
+  instances of `A` _without_ any `WHITESPACE` characters, until `B` is
+  encountered.
 
 - `lex_many_till` means that in `A - many_till -> B`, parse zero or more
   instances of `A` _with_ any number of `WHITESPACE` characters, until `B` is
@@ -110,8 +111,8 @@ semantically, single and double quoted strings are equivalent, see
   ```
   STRING := SQ_STRING | DQ_STRING,
 
-  SQ_STRING := "'" - seq -> SQ_CHAR | "\'" - many_until-> "'",
-  DQ_STRING := '"' - seq -> DQ_CHAR | '\"' - many_until -> '"',
+  SQ_STRING := "'" - seq -> SQ_CHAR | "\'" - seq_many_till-> "'",
+  DQ_STRING := '"' - seq -> DQ_CHAR | '\"' - seq_many_till -> '"',
   ```,
   caption: "Strings.",
 )<syntax:string>
@@ -160,7 +161,7 @@ node := {
 },
 
 path := {
-  {"@" - seq -> UNIT } | {"." - many_until -> UNIT} | ""
+  {"@" - seq -> UNIT } | {"." - seq_many_till -> UNIT} | ""
   - seq -> {UNIT | "*" - seq -> "."}
   - many_until -> node
 },
@@ -184,7 +185,8 @@ will keep definitions self-contained. For more background, please consult
 
 == Validation and Transformations <syntax:validation-and-transforms>
 
-We state two important rules:
+We say a string is *valid* if it is accepted by the grammar (@welkin-grammar),
+and the following hold:
 
 - The number of dots used must not exceed the number of levels available.
 
@@ -195,8 +197,7 @@ We state two important rules:
 
 We leave error handling for future work, see @conclusion.
 
-Additionally, we define transformation rules after parsing, primarily for
-strings:
+Additionally, we define transformation rules after parsing:
 
 - If `\'` appears in a single quoted string, then this will be replaced by `'`
   in the final contents. For example, given a string `"John\'s dog"`, the
@@ -210,4 +211,9 @@ strings:
 `'hello' <--> "hello"`. However, in general, `hello` is _not_ equivalent to
 `"hello"`. [TODO: make sure this is not confusing!]
 
+- Each `*` within a path expands to all the members in the respective unit.
 
+- Each `*{...}` term expands to all the members in the enclosed unit.
+
+- The definitions for `|` and `~` (see @unit-rules) are expanded [TODO: maybe
+  provide a remark on new notation? Or make a notation env?].
