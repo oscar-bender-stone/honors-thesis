@@ -51,7 +51,7 @@ specific sections, consult @syntax:overview.
     [Defines which strings are *valid*, as well as transforms on certain
       constructs.],
   ),
-  caption: [Organization for the thesis.],
+  caption: [Overview of @syntax.],
 )<syntax:overview>
 
 To make specific characters clearer, we write syntactic features in
@@ -112,7 +112,21 @@ slash `\`, see @syntax:string.
 To more easily describe the language, we provide basic building blocks. For
 simplicity, we do not add many primitives. The names are taken from the the
 `parsec` combinator library in the programming language Haskell
-@leijen-meijer-parsec. We adapt their notation for our purposes:
+@leijen-meijer-parsec. Using @invertible-syntax-descriptions, we augment these
+functions as invertible syntax descriptions. Here, an *invertible syntax
+description* is a pair of functions:
+- A `parser`, from strings to an intermediate data structure.#footnote[For
+    computer scientists, this is an AST (Abstract Syntax Tree). We are
+    intentionally catering to a larger audience, so we leave details to
+    @invertible-syntax-descriptions.
+  ]
+- A `printer`, the reverse of `parser`.
+
+The detailed correspondence is described in @syntax:invertible-descriptions. We
+adapt the notation from `parsec` and @invertible-syntax-descriptions for our
+purposes:
+
+[TODO: define how printing works here! Use a table.]
 
 - `seq` means two rules that must be concatenated _directly_, no `WHITESPACE`
   characters allowed.
