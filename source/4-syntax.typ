@@ -40,7 +40,7 @@ version. #footnote[Note that this table _itself_ is a representation, which
 
 #definition[
   Welkin's encoding consists of *Printable US-ASCII*, listed in
-  @syntax:printable-ascii-codes, as well as character *EOF*, with code 58.
+  @syntax:printable-ascii-codes, as well as character `EOF`, with code 58.
 ]
 
 To represent general encodings, there is a binary format supported for strings,
@@ -132,7 +132,7 @@ whitespace and certain characters, see @syntax:id.
 Welkin's grammar is displayed in @welkin-grammar, inspired by several languages.
 
 #let grammar = ```
-start := {nodes - lexeme -> EOF},
+start := {terms - lexeme -> EOF},
 
 terms := "" | {term - lexeme -> terms_tail},
 terms_tail := "" | {"," - lexeme -> "" | term},
@@ -152,7 +152,7 @@ node := {
   path - lexeme ->
     | ""
     | {
-      "" | ":="
+      *{"", ":="}
       - lexeme -> "{"
       - lexeme -> path
       - lexeme -> terms
@@ -161,8 +161,8 @@ node := {
 },
 
 path := {
-  {"@" - seq -> UNIT } | {"." - seq_many_till -> UNIT} | ""
-  - seq -> {UNIT | "*" - seq -> "."}
+  *{{"@" - seq -> UNIT }, {"." - seq_many_till -> UNIT}, ""}
+  - seq -> {*{UNIT, "*"} - seq -> "."}
   - many_until -> node
 },
 
@@ -171,16 +171,15 @@ UNIT := ID | STRING
 
 #figure(
   grammar,
-  caption: [The grammar for Welkin. This includes the definitions of `STRING`
-    and `ID`, which are also defined in @syntax:string and @syntax:id,
-    respectively.],
+  caption: [The grammar for Welkin. The rules `STRING` and `ID` are defined in
+    @syntax:string and @syntax:id, respectively.],
 )<welkin-grammar>
 
 == Proof of Unambiguity
 
 We show that, by construction, the combinators we used form an $"LL"(1)$
 grammar. This is a special kind of grammar that can be efficiently parsed. We
-will keep definitions self-contained. For more background, please consult
+will keep definitions here self-contained. For more background, please consult
 @compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
 
 == Validation and Transformations <syntax:validation-and-transforms>
@@ -188,12 +187,15 @@ will keep definitions self-contained. For more background, please consult
 We say a string is *valid* if it is accepted by the grammar (@welkin-grammar),
 and the following hold:
 
-- The number of dots used must not exceed the number of levels available.
+- The number of dots (relative import) used must not exceed the number of levels
+  available.
 
-- Every definition of a unit must only be stated once.
+- Every definition of a unit must only be stated once. This means
+  `u := v, u:= w` is not allowed.
 
 - Accessing a unit $v$ from $u$ requires that $u$ has a closed definition
-  containing $v$.
+  containing $v$. This means neither `u := {v, w}, u.x` nor `u.x` alone are
+  valid.
 
 We leave error handling for future work, see @conclusion.
 
