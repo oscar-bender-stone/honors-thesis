@@ -138,7 +138,9 @@ representations, information is defined as a property preserved under
 equivalences relative to a context. To make the information base scalable, the
 base operations are kept as simple as possible. However, they are proven to be
 maximally expressive. The simplicity of the language aids in standardization as
-well.
+well. However, to keep this thesis self-contained, we will discuss
+standardization at a high level. The full standardization and bootstrap will be
+left for another work, see @conclusion.
 
 [TODO: look back at ]
 
