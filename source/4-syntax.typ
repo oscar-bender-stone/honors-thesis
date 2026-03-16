@@ -50,14 +50,12 @@ character separated by |.
 
 #figure(
   table(
-    columns: (1fr, 1fr),
+    columns: (auto, auto),
     align: center,
     table.header([*Set Name*], [*Characters*]),
-    [`PRINTABLE`],
-    [All characters listed in @syntax:printable-ascii-codes, i.e., all US-ASCII
-      characters _except_ `EOF`.],
+    [`PRINTABLE`], [See @syntax:printable-ascii-codes.],
 
-    [`WHITESPACE`], [`\t` | `\r` |` `],
+    [`WHITESPACE`], [`\t` | `\r` | Space ],
     [`DELIMITER`], [`{` | `}` | `'` | `"`| `.` | `,`],
     [`RESERVED`], [`DELIMITER` | `*` | `@`],
   ),
@@ -70,67 +68,23 @@ character separated by |.
 To more easily describe the language, we provide basic building blocks. For
 simplicity, we do not add many primitives. The names are taken from the the
 `parsec` combinator library in the programming language Haskell
-@leijen-meijer-parsec. The authors use the following notation:
+@leijen-meijer-parsec. We adapt their notation for our purposes:
 
-- `seq` to mean two rules that must be concatenated _directly_, no whitespace
+- `seq` means two rules that must be concatenated _directly_, no whitespace
   allowed.
 
-- `lexeme`, to mean two rules can be joined with any number of whitespaces in
+- `lexeme` means two rules can be joined with any number of whitespaces in
   between.
 
-- `many_till`, to mean that in `A - many_till -> B`, parse zero or more
-  instances of `A` until `B` is encountered.
+- `many_till` means that in `A - many_till -> B`, parse zero or more instances
+  of `A` until `B` is encountered.
 
 In contrast to @leijen-meijer-parsec, however, we include the ability _print_ as
 well or present the corresponding string. This is done through
-@invertible-syntax-descriptions. For the combinators we need, see
-@syntax:base-combinators.
+@invertible-syntax-descriptions.
 
-
-[TODO: an important thing is making sure that when using the standard library,
-invariants are held! So we may need verifier to come into play here!]
-
-[TODO: explain that we will keep `a` vs `"a"` distinct, just to make parsing
-easier.] #figure(
-  [```
-  "TODO: indicate errors somehow! Likely needs to the accept/reject mechnaism in verify!",
-  input <--> {} | {begin --> character, next --> input},
-
-  codec <--> {
-    parse --> unit,
-    print --> unit,
-
-    {s --> input, u --> unit, ~{s - parse -> {}}} -->
-    {
-      {s - parse -> u}
-      <-->
-      {u - print -> s}
-    }
-  },
-
-  "TODO: incorporate abstract syntax tree here! Important!",
-  {before - seq -> after} <--> {
-    @codec,
-    parse -->
-    | "" --> {},
-    | {c --> char} --> {name --> c}
-
-    print -->
-    | {} --> ""
-    |
-    ,
-  },
-
-  {before - many_till -> after} <--> {
-    repeat <--> {} | before - seq -> repeat,
-    repeat - seq -> after
-  },
-
-  {before - lexeme -> after} <--> {before - seq -> WHITESPACE - many_till -> after}
-  ```],
-  caption: [Definitions for the main combinators used.],
-)<syntax:base-combinators>
-
+[TODO: cite existing results for this lemma. That's all we need, as we're using
+US-ASCII.]
 
 #lemma[
   In the combinators above, `parser` commutes with `print`. More precisely: ?.
@@ -152,8 +106,7 @@ several important character classes in , denoted through double quotes.
 
 #figure(
   ```
-  MODULE <--> {"#" - seq -> ID},
-  IMPORT <--> {"@" - seq -> ID}
+  ROOT <--> {"@" - seq -> ID}
   ID <--> {{@printable, ~{@reserved, @whitespace}} - many_till -> @reserved | @whitespace}
   ```,
   caption: "IDs.",
@@ -197,4 +150,16 @@ This is a special kind of grammar that can be efficiently parsed. We will keep
 definitions self-contained; for more background, consult
 @compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
 
-== Import Resolution
+== Validation
+
+We state two important rules:
+
+- The number of dots used must not exceed the number of levels available.
+
+- Every definition of a unit must only be stated once.
+
+- Accessing a unit $v$ from $u$ requires that $u$ has a closed definition
+  containing $v$.
+
+We leave error handling for future work, see @conclusion.
+
