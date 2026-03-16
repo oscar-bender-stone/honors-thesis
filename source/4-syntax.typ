@@ -32,6 +32,12 @@ there are subtly distinct variants, so we formally define US-ASCII as a standard
 version. #footnote[Note that this table _itself_ is a representation, which
   represents glyphs with binary words.]
 
+#figure(
+  printable-ascii-table(),
+  caption: [Printable US-ASCII codes and glyphs.],
+)<syntax:printable-ascii-codes>
+
+
 #definition[
   Welkin's encoding consists of *Printable US-ASCII*, listed in
   @syntax:printable-ascii-codes, as well as character *EOF*, with code 58.
@@ -44,7 +50,9 @@ see @syntax:string.
 
 Moreover, we will need to define *character classes*, or important sets of
 characters. These are presented in @syntax:character-classes, with each
-character separated by |.
+character separated by |. Notice that `SQ_CHAR` and `DQ_CHAR` contain a word
+with two characters. In other words, while `'` (resp. `"`) is not allowed by
+itself, `\'` (resp. `\"`) is permitted.
 
 #figure(
   table(
@@ -56,6 +64,9 @@ character separated by |.
     [`WHITESPACE`], [`\t` | `\r` | Space ],
     [`DELIMITER`], [`{` | `}` | `'` | `"`| `.` | `,`],
     [`RESERVED`], [`DELIMITER` | `*` | `@`],
+    [`SQ_CHAR`], [Any `PRINTABLE` character except `'` | `\'`],
+    [`DQ_CHAR`], [Any `PRINTABLE` character except `"` | `\"`],
+    [`ID_CHAR`], [Any `PRINTABLE` character not in `RESERVED` or `WHITESPACE`],
   ),
   caption: [Definitions of key character classes. Each class is denoted in
     `UPPERCASE`.],
@@ -68,11 +79,11 @@ simplicity, we do not add many primitives. The names are taken from the the
 `parsec` combinator library in the programming language Haskell
 @leijen-meijer-parsec. We adapt their notation for our purposes:
 
-- `seq` means two rules that must be concatenated _directly_, no whitespace
-  allowed.
+- `seq` means two rules that must be concatenated _directly_, no `WHITESPACE`
+  characters allowed.
 
-- `lexeme` means two rules can be joined with any number of whitespaces in
-  between.
+- `lexeme` means two rules can be joined with any number of `WHITESPACE`
+  characters in between.
 
 - `many_till` means that in `A - many_till -> B`, parse zero or more instances
   of `A` until `B` is encountered.
@@ -81,53 +92,35 @@ In contrast to @leijen-meijer-parsec, however, we include the ability _print_ as
 well or present the corresponding string. This is done through
 @invertible-syntax-descriptions.
 
-[TODO: cite existing results for this lemma. That's all we need, as we're using
-US-ASCII.]
-
-#lemma[
-  In the combinators above, `parser` commutes with `print`. More precisely: ?.
-]<syntax:combinator-correctness>
-#proof[
-
-]
-
 == Character Classes
 
 // TODO: complete table
-#figure(
-  printable-ascii-table(),
-  caption: [Printable US-ASCII codes and glyphs.],
-)<syntax:printable-ascii-codes>
-
 We denote specific characters through quotes, escaping if necessary. There are
 several important character classes in , denoted through double quotes.
 
+
+
+Strings allow escaped single or double quotes, see @syntax:string.
+
 #figure(
   ```
-  ROOT <--> {"@" - seq -> ID}
-  ID <--> {{@printable, ~{@reserved, @whitespace}} - many_till -> @reserved | @whitespace}
-  ```,
-  caption: "IDs.",
-)<syntax:id>
+  STRING := SQ_STRING | DQ_STRING,
 
-
-Strings allow escaped single or double quotes, see @syntax:string. IDs are
-special cases of strings that do not require quotes but forbid whitespace and
-certain characters, see @syntax:id.
-
-[TODO: clean up with `many_till`!] #figure(
-  ```
-  STRING <--> SQ_STRING| DQ_STRING,
-  STRING_CONTENTS <--> SQ_CONTENTS | DQ_CONTENTS,
-
-  SQ_STRING <--> {start --> "'", contents --> SQ_CONTENTS, end --> "'"},
-  DQ_STRING <--> {start --> "\"", contents --> DQ_CONTENTS, end --> "\""},
-
-  SQ_CONTENTS <--> {{@printable, ~{"\""}}| {"\" - seq -> "\" | "'"}, next --> SQ_CONTENTS},
-  DQ_CONTENTS <--> {top --> "" | {@printable, ~{"\""}}| {"\" - seq -> "\" | "\""}, next --> DQ_CONTENTS},
+  SQ_STRING := "'" - seq -> SQ_CHAR - many_until-> "'",
+  DQ_STRING := "\"" - seq -> DQ_CHAR - many_until -> "\"",
   ```,
   caption: "Strings.",
 )<syntax:string>
+
+IDs are special cases of strings that do not require quotes but forbid
+whitespace and certain characters, see @syntax:id.
+
+#figure(
+  ```
+  ID := ID_CHAR - many_till -> *RESERVED | *WHTIESPACE
+  ```,
+  caption: "Syntactic definition of an ID.",
+)<syntax:id>
 
 == The Welkin Grammar
 
