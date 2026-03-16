@@ -317,16 +317,13 @@ $phi$, we want to create an embedding into the $"SK"$-combinator calculus. This
 is an equational theory, first developed by Schönfinkel
 @schoenfinkel-combinators, and independently discovered by Curry
 @curry-grundlagen. In this theory, a *combinator* is a higher-order function: a
-function that takes in other functions as inputs.
-#footnote[A remark for logicians: this calculus is extremely similar to a
-  Hilbert-style proof system, with $K$ and $S$ corresponding to the rules
-  $(phi => (psi => phi))$ and
+function that takes in other functions as inputs. #footnote[A remark for
+  logicians: this calculus is extremely similar to a Hilbert-style proof system,
+  with $K$ and $S$ corresponding to the rules $(phi => (psi => phi))$ and
   $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.
   This was one of Curry's insights in connecting logic to computation
-  @curry-grundlagen.]
-
-As a simplification, we present this calculus using a *reduction relation*
-instead of equality.
+  @curry-grundlagen.] As a simplification, we present this calculus using a
+*reduction relation* instead of equality.
 
 #let sk-imp = math.attach($=>$, br: "SK")
 
@@ -365,17 +362,18 @@ this, we prove the following. Our proof technique uses recursion within Welkin.
   unit $u$ such that $T = phi_u$.
 ]<foundations:turing-expressible>
 #proof[
-  We represent the calculus with a unit $L$. Moreover, we use $K$ and $S$ to
-  represent the corresponding combinators in @foundations:SK-calculus, as well
-  as $M$, $N$, $P$ to represent meta-variables. With these, $L$ is defined with
-  exactly the following:
+  We prove there is a unit $L$ that can generate a unit $u_T$ for each term of
+  the $"SK"$ calculus. To this end, we use $K$ and $S$ to represent the
+  corresponding combinators in @foundations:SK-calculus, as well as $M$, $N$,
+  $P$ to represent meta-variables. With these, $L$ is defined with exactly the
+  following:
 
   - $L - L -> K | S$: this represents that both $K$ and $S$ are terms.
 
   - $*{M, N, P} - L -> L$: recall that this is equivalent to $M - L -> L$,
     $N - L -> L$, and $P - L -> L$. Each of these represent meta-variables
     through @r:transitivity. For example, $M - L -> K$ holds, but also
-    $M - L - > S$. In other words, $M$ represents the _possibility_ of $K$ or
+    $M - L -> S$. In other words, $M$ represents the _possibility_ of $K$ or
     $S$.
 
   - $L - {N - M -> L}$: composition $M N$ of two terms $M, N$ is represented as
@@ -387,18 +385,19 @@ this, we prove the following. Our proof technique uses recursion within Welkin.
     represents the reduction rule for $S$.
 
   We claim that $L$ represents $#sk-imp$. First, to prove closure under
-  composition, suppose $L --> A$ and $L --> B$. Then by @r:transitivity,
-  $M --> A$ and $N --> B$, so by @r:sign-congruence and @r:context-congruence,
-  ${N - M -> L} --> {B - A -> L}$. Another application of @r:transitivity yields
-  $L --> {B - A -> L}$. The rules $L --> K | S$ and $L --> {N - M -> L}$ are the
-  only terms with sign $L$ (besides $L$ itself), so $L$ contains _exactly_ the
-  terms in the SK-calculus.
+  composition, suppose $L - L -> A$ and $L - L -> B$. Then by @r:transitivity,
+  $M - L -> A$ and $N - L -> B$, so by @r:sign-congruence and
+  @r:context-congruence, ${N - M -> L} - L -> {B - A -> L}$. Another application
+  of @r:transitivity yields $L --> {B - A -> L}$. The rules $L --> K | S$ and
+  $L - L -> {N - M -> L}$ are the only terms with sign $L$ (besides $L$ itself),
+  so $L$ contains _exactly_ the terms in the SK-calculus.
 
   Second, the base axioms for $K$ and $S$ are already included, and transitivity
   is provided by @r:transitivity.
 
-  Finally, @r:context-congruence entails term congruence: if $M --> M'$, then
-  $N - M -> L$ represents $N - M' -> L$. This completes the proof.
+  Finally, @r:context-congruence entails term congruence: if $M - L -> M'$, then
+  $N - M -> L$ represents $N - M' -> L$. Because $=>_"SK"$ and any term can be
+  represented in $L$, this completes the proof.
 ]
 
 Taken together, we have completed _one_ part of Goal 1 [LINK]. The other part
