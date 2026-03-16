@@ -117,7 +117,7 @@ whitespace and certain characters, see @syntax:id.
 
 #figure(
   ```
-  ID := ID_CHAR - many_till -> *RESERVED | *WHTIESPACE
+  ID := ID_CHAR - many_till -> *RESERVED | *WHITESPACE
   ```,
   caption: "Syntactic definition of an ID.",
 )<syntax:id>
@@ -131,30 +131,24 @@ syntax.
  start := {nodes - lexeme -> EOF},
 
  terms := "" | {term - lexeme -> terms_tail},
- terms_tail := {"," - lexeme -> term}
-   | ","
-   | "",
+ terms_tail := "" | {"," - lexeme -> "" | term}
 
  term := {
    node - seq ->
-   {} | {
+   "" | {
      arc - seq -> term
    }
  },
 
  arc := right_arc | other_arc,
  right_arc := {"-" - seq -> node - seq -> "->"},
- other_arc := {"<-" - seq -> node - seq -> ("-" | "->")},
+ other_arc := {"<-" - seq -> node - seq -> "-" | "->"},
 
- node := {path - lexeme -> contents | {}},
+ node := {path - lexeme -> "" | {"" | ":=" - lexeme -> "{" - lexeme -> path - lexeme -> terms - lexeme -> "}"}},
 
- path := {ROOT | EPS --> path_segment - many_til -> unit},
+ path := {"@" UNIT | {"." - many_until -> UNIT} | "" - seq -> UNIT "." | "*." - many_until -> UNIT | node}
 
- path_segment := UNIT | ".*" | {@times, factor --> "."},
-
- path_segment := UNIT | ".*" | "."+,
-
- UNIT <--> ID | STRING
+ UNIT := ID | STRING
 ```
 
 #figure(
