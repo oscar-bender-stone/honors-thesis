@@ -143,7 +143,15 @@ arc := right_arc | other_arc,
 right_arc := {"-" - seq -> node - seq -> "->"},
 other_arc := {"<-" - seq -> node - seq -> "-" | "->"},
 
-node := {path - lexeme -> "" | {"" | ":=" - lexeme -> "{" - lexeme -> path - lexeme -> terms - lexeme -> "}"}},
+node := {
+  path - lexeme ->
+    | ""
+    | {
+      "" | ":="
+      - lexeme ->
+      "{" - lexeme -> path - lexeme -> terms - lexeme -> "}"
+      }
+},
 
 path := {
   {"@" - seq -> UNIT } | {"." - many_until -> UNIT} | ""
