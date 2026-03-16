@@ -27,22 +27,22 @@ specific sections, consult @syntax:overview.
     table.header([*Section Number*], [*Title*], [*Description*]),
     [*@syntax:encoding*], [*Encoding*], [Introduces the encoding for Welkin.],
 
-    [*@foundations*],
-    [*Foundations*],
-    [Introduces the core theory behind Welkin, which is the starting point to
-      specify the user-facing language.],
-
     [*@syntax:invertible-descriptions*],
-    [*Invertible Syntax Descriptions*],
+    [*Invertible #linebreak(justify: true) Syntax #linebreak(justify: true)
+    Descriptions*],
     [Defines *invertible syntax descriptions*, the fundamental building blocks
       for the grammar.],
 
     [*@syntax:strings-and-ids*],
     [*Strings and IDs*],
-    [Proves that Welkin can express any proof.],
+    [Defines the syntax for strings and IDs.],
+
+    [*@syntax:welkin-grammar*],
+    [*The Welkin #linebreak() Grammar*],
+    [Presentts the Welkin grammar.],
 
     [*@syntax:proof-unambiguous*],
-    [*Proof of Unambiguity*],
+    [*Proof of #linebreak() Unambiguity*],
     [Proves that the Welkin grammar is unambiguous.],
 
     [*@syntax:validation-and-transforms*],
@@ -83,8 +83,6 @@ version. #footnote[Note that this table _itself_ is a representation, which
 
 To represent general encodings, there is a binary format supported for strings,
 see @syntax:string.
-
-[TODO: turn into a table.]
 
 Moreover, we will need to define *character classes*, or important sets of
 characters. These are presented in @syntax:character-classes, with each
