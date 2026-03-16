@@ -84,8 +84,13 @@ simplicity, we do not add many primitives. The names are taken from the the
 - `lexeme` means two rules can be joined with any number of `WHITESPACE`
   characters in between.
 
+
 - `many_till` means that in `A - many_till -> B`, parse zero or more instances
-  of `A` until `B` is encountered.
+  of `A` _without_ any `WHITESPACE` characters, until `B` is encountered.
+
+- `lex_many_till` means that in `A - many_till -> B`, parse zero or more
+  instances of `A` _with_ any number of `WHITESPACE` characters, until `B` is
+  encountered.
 
 In contrast to @leijen-meijer-parsec, however, we include the ability _print_ as
 well or present the corresponding string. This is done through
@@ -123,14 +128,13 @@ whitespace and certain characters, see @syntax:id.
 
 == The Welkin Grammar
 
-Welkin's grammar is displayed in @welkin-grammar, inspired by a minimal, C-style
-syntax.
+Welkin's grammar is displayed in @welkin-grammar, inspired by several languages.
 
 #let grammar = ```
 start := {nodes - lexeme -> EOF},
 
 terms := "" | {term - lexeme -> terms_tail},
-terms_tail := "" | {"," - lexeme -> "" | term}
+terms_tail := "" | {"," - lexeme -> "" | term},
 
 term := {
   node - seq ->
@@ -148,8 +152,10 @@ node := {
     | ""
     | {
       "" | ":="
-      - lexeme ->
-      "{" - lexeme -> path - lexeme -> terms - lexeme -> "}"
+      - lexeme -> "{"
+      - lexeme -> path
+      - lexeme -> terms
+      - lexeme -> "}"
       }
 },
 
@@ -164,8 +170,8 @@ UNIT := ID | STRING
 
 #figure(
   grammar,
-  caption: [The grammar for Welkin. This includes the definitions of `id` and
-    `string`, which are also defined in @syntax:id and @syntax:string,
+  caption: [The grammar for Welkin. This includes the definitions of `STRING`
+    and `ID`, which are also defined in @syntax:string and @syntax:id,
     respectively.],
 )<welkin-grammar>
 
@@ -173,7 +179,7 @@ UNIT := ID | STRING
 
 We show that, by construction, the combinators we used form an $"LL"(1)$
 grammar. This is a special kind of grammar that can be efficiently parsed. We
-will keep definitions self-contained; for more background, consult
+will keep definitions self-contained. For more background, please consult
 @compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
 
 == Validation and Transformations <syntax:validation-and-transforms>
