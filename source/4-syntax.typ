@@ -17,9 +17,22 @@
 // TODO: determine how rigorous the language is here
 // vs bootstrap!
 // Should the standard be put into an appendix?
-This section introduces the grammar for Welkin. To make specific characters
-clearer, we write syntactic features in `type-writer font`.#footnote[This font
-  is Intel One Mono (#link(
+This section examines the grammar for Welkin and provides validation rules. In
+more detail:
+
+- We define the encoding for Welkin.
+
+- We define invertible syntax descriptions, which are the fundamental building
+  blocks for the grammar.
+
+- We define strings and IDs syntactically.
+
+- We present the complete grammar.
+
+- We prove that this grammar is unambiguous.
+
+To make specific characters clearer, we write syntactic features in
+`type-writer font`.#footnote[This font is Intel One Mono (#link(
     "https://github.com/intel/intel-one-mono",
   )), licensed under OFL 1.1 (#link(
     "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",
@@ -204,6 +217,20 @@ First, we need to define a general *context-free grammar*.
 
 For our use case, we will assume that $T$ is a set of ASCII strings
 (@syntax:encoding-strings).
+
+Next, we work on the proof that $G_"welkin"$ is $"LL"(1)$. From ,
+
+-
+-
+-
+
+#figure(
+  ```
+  ```,
+  caption: [CFG for the Welkin grammar, based on @welkin-grammar.],
+)
+
+
 
 #definition[
   Let $G = (N, T, P)$ be a CFG and $A$ a non-terminal.
