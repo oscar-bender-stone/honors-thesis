@@ -163,7 +163,7 @@ node := {
 path := {
   *{{"@" - seq -> UNIT }, {"." - seq_many_till -> UNIT}, ""}
   - seq -> {*{UNIT, "*"} - seq -> "."}
-  - many_until -> node
+  - many_until -> UNIT
 },
 
 UNIT := ID | STRING
@@ -210,8 +210,8 @@ Additionally, we define transformation rules after parsing:
 - Double slashes `\\` are converted into one slash `\`.
 
 - Single and double quoted strings are represent each other. For example,
-`'hello' <--> "hello"`. However, in general, `hello` is _not_ equivalent to
-`"hello"`. [TODO: make sure this is not confusing!]
+  `'hello' <--> "hello"`. However, in general, `hello` is _not_ equivalent to
+  `"hello"`. [TODO: make sure this is not confusing!]
 
 - Each `*` within a path expands to all the members in the respective unit.
 

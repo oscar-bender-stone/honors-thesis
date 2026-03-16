@@ -273,18 +273,12 @@ organizing units as modules, as well as make it easier to use the language.
 
 As more notation, we write:
 
-- $a - c -> b_1 | b_2 | ... | b_n$ for
-  ${a - c -> b_1, a - c -> b_2, ..., a - c -> b_n}$.
 - $~a$ for ${a --> {}}$.
 - $"*"{a_1, ..., a_n} - c -> b$ for
   ${a_1 - c -> b, a_2 - c -> b, .., a_n - c -> b}$.
 - $a - c -> "*"{b_1, ..., b_n}$ for ${a --> b_1, a --> b_2, .., a --> b_n}$.
 
-We will officially add $"|"$, $"~"$, and $"*"$ to the grammar in @syntax.
-Moreover, we allow an extra $|$ at the start or end, e.g., #box(
-  $a - c -> | b_1 | b_2$,
-) is synonymous with $a - c -> b_1 | b_2$. This is useful to break long
-definitions into separate lines.
+We will officially add $"~"$ and $"*"$ to the grammar in @syntax.
 
 == Turing Completeness
 
@@ -368,20 +362,21 @@ this, we prove the following. Our proof technique uses recursion within Welkin.
   $P$ to represent meta-variables. With these, $L$ is defined with exactly the
   following:
 
-  - $L - L -> K | S$: this represents that both $K$ and $S$ are terms.
+  - $L - L -> *{K, S}$: recall that this is equivalent to $L - L -> K$ and
+    $L - L -> S$. These units represent that $K$ and $S$, respectively, are
+    terms.
 
-  - $*{M, N, P} - L -> L$: recall that this is equivalent to $M - L -> L$,
+  - $"*"{M, N, P} - L -> L$: recall that this is equivalent to $M - L -> L$,
     $N - L -> L$, and $P - L -> L$. Each of these represent meta-variables
     through @r:transitivity. For example, $M - L -> K$ holds, but also
-    $M - L -> S$. In other words, $M$ represents the _possibility_ of $K$ or
-    $S$.
+    $M - L -> S$. In other words, $M$ can _potentially hold_ $K$ or $S$.
 
   - $L - {N - M -> L}$: composition $M N$ of two terms $M, N$ is represented as
     ${N - M -> L}$, which itself is a term.
 
   - ${N - {M - K -> L} -> L} - L -> M$: represents the reduction rule for $K$.
 
-  - ${P - {N - {M - S -> L} -> L} -> L} - L -> {N - {M - K -> L} -> L}$ :
+  - ${P - {N - {M - S -> L} -> L} -> L} - L -> {N - {M - K -> L} -> L}$:
     represents the reduction rule for $S$.
 
   We claim that $L$ represents $#sk-imp$. First, to prove closure under
