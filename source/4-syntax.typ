@@ -165,7 +165,7 @@ grammar. This is a special kind of grammar that can be efficiently parsed. We
 will keep definitions self-contained; for more background, consult
 @compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
 
-== Validation
+== Validation and Transformations
 
 We state two important rules:
 
@@ -177,4 +177,14 @@ We state two important rules:
   containing $v$.
 
 We leave error handling for future work, see @conclusion.
+
+Additionally, we define one transformation for strings:
+
+- If `\'` appears in a single quoted string, then this will be replaced by `'`
+  in the final contents. For example, given a string `"John\'s dog"`, the
+  contents would be `John's dog`.
+
+- A similar rule applies for `"` but with `\"`.
+
+- Double slashes `\\` are converted into one slash `\`.
 
