@@ -146,7 +146,7 @@ syntax.
 
  node := {path - lexeme -> "" | {"" | ":=" - lexeme -> "{" - lexeme -> path - lexeme -> terms - lexeme -> "}"}},
 
- path := {"@" UNIT | {"." - many_until -> UNIT} | "" - seq -> UNIT "." | "*." - many_until -> UNIT | node}
+ path := {{"@" - seq -> UNIT } | {"." - many_until -> UNIT} | "" - seq -> {UNIT | "*" - seq -> "."} - many_until -> node}
 
  UNIT := ID | STRING
 ```
