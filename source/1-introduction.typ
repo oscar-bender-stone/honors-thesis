@@ -115,7 +115,8 @@ see @conclusion:comparisons.
 This thesis introduces a language to resolve these issues for Information
 Management. I call this language *Welkin*, based on an old German word meaning
 cloud @dictionary:welkin. This word represents the expansive nature of the
-language.
+language, able to express any concept and justification that can be processed
+through a computer program.
 
 The core result of this thesis is fact that Welkin fulfills three goals: it is
 *universal*, *scalable*, and *standardized*. For details, see @goals. The
@@ -142,7 +143,8 @@ well. However, to keep this thesis self-contained, we will discuss
 standardization at a high level. The full standardization and bootstrap will be
 left for another work, see @conclusion.
 
-[TODO: look back at ]
+
+[TODO: add links to each cell]
 
 #figure(
   table(

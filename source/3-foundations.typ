@@ -107,8 +107,6 @@ representations. We present the complete definition as follows.
       $b$ *in context* $c$.
 ]<foundations:unit>
 
-[TODO: define $:=$ and $.$ formally in the syntax + validate!]
-
 We add several abbreviations, most of which will appear in @syntax:
 
 - ${a}$ denotes ${a, {}}$.
@@ -282,39 +280,48 @@ As more notation, we write:
   ${a_1 - c -> b, a_2 - c -> b, .., a_n - c -> b}$.
 - $a - c -> "*"{b_1, ..., b_n}$ for ${a --> b_1, a --> b_2, .., a --> b_n}$.
 
-We postpone formally defining the operators $"|"$, $"~"$, and $"*"$ to the
-grammar in @syntax. Moreover, we allow an extra $|$ at the start or end, e.g.,
-#box($a - c -> | b_1 | b_2$) is synonymous with $a - c -> b_1 | b_2$. This is
-useful to break long definitions into separate lines.
+We will officially add $"|"$, $"~"$, and $"*"$ to the grammar in @syntax.
+Moreover, we allow an extra $|$ at the start or end, e.g., #box(
+  $a - c -> | b_1 | b_2$,
+) is synonymous with $a - c -> b_1 | b_2$. This is useful to break long
+definitions into separate lines.
 
 == Turing Completeness
 
 This section shows that Welkin is Turing complete. For background, there are
 many papers, e.g., @sipser-theory-ofcomputation[Ch. 3].
 
-We want to show that every unit corresponds to some Turing machine and vice
-versa. More precisely, we want to find a one-to-one mapping $phi$ from units $c$
-to a Turing machine $phi_c$ such that
+We want to demonstrate that every unit corresponds to some Turing machine, and
+vice versa. More precisely, we want to find a one-to-one mapping $phi$ from
+units $c$ to a Turing machine $phi_c$ such that
 
-$a - c -> b$ if and only if $phi_c (⟨phi_a⟩) = ⟨phi_b⟩$.
+#align(center, [$a - c -> b$ if and only if $phi_c (⟨phi_a⟩) = ⟨phi_b⟩$.])
 
 Here, $⟨phi_a⟩$ denotes a standard encoding of a Turing machine as a string (see
 @sipser-theory-ofcomputation[Ch 3.3, pg. 185]). We also require that $phi$ is
 surjective, i.e., each Turing machine $T$ can be expressed as $phi_u$ for some
 unit $u$. The purpose of $phi$ is to provide a computational interpretation of
-units _as_ operators. Note that handles can have user-defined meaning, which is
-not explicitly written (see @foundations:handle). However, within Welkin's
-mechanized rules, units can be treated as computer program.#footnote[
+units _as_ operators. Note that handles can have implicit, user-defined meaning
+(see @foundations:handle). However, within Welkin's mechanized rules, units can
+be treated as programs.#footnote[
   In connection to linguistics, this is the difference between a formal
   semantics, what is stated in the language, and pragmatics, the intension or
   purpose of a term.]
 
 At this point, we are concerned with showing _some_ $phi$ exists, thereby
-validating Goal 1 [TODO: provide a link to this]. Our approach is base the
-construction on the $"SK"$-combinator calculus. This is an equational theory,
-first developed by Schönfinkel @schoenfinkel-combinators, and independently
-discovered by Curry @curry-grundlagen. In this theory, a *combinator* is a
-higher-order function: a function that takes in other functions as inputs.
+validating Goal 1 [TODO: provide a link to this]. We are not concerned about
+efficiency; this will be left for a future work, see @conclusion. To construct
+$phi$, our approach is base the construction on the $"SK"$-combinator calculus.
+This is an equational theory, first developed by Schönfinkel
+@schoenfinkel-combinators, and independently discovered by Curry
+@curry-grundlagen. In this theory, a *combinator* is a higher-order function: a
+function that takes in other functions as inputs.
+#footnote[A remark for logicians: this calculus is extremely similar to a
+  Hilbert-style proof system, with $K$ and $S$ corresponding to the rules
+  $(phi => (psi => phi))$ and
+  $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.
+  This was one of Curry's insights in connecting logic to computation
+  @curry-grundlagen.]
 
 As a simplification, we present this calculus using a *reduction relation*
 instead of equality.
@@ -336,9 +343,8 @@ instead of equality.
       $M_1 N_1 #sk-imp M_2 N_2$.
 ]<foundations:SK-calculus>
 
-Now, first observe that Welkin can be embedded into the $" S K"$-combinator
-calculus. This embedding constructs $phi$. For brevity, we discuss this
-embedding at a high level:
+We can construct $phi$ by creating an embedding into the the calculus. For
+brevity, we discuss this embedding at a high level:
 
 - Each unit @foundations:unit can be built from handles, or by finite
   combinations of pairs and representations. These can be represented as
@@ -351,78 +357,46 @@ embedding at a high level:
   statements.
 
 It remains to show that every combinator is included in this embedding. For
-this, we prove the following.
+this, we prove the following. Our proof technique uses recursion within Welkin.
 
 #theorem[Let $T$ be a term in the $"SK"$-combinator calculus. Then there is some
   unit $u$ such that $T = phi_u$.
 ]<foundations:turing-expressible>
 #proof[
-  We prove that we can embed any term in the $S K$-combinator calculus, defined
-  in @foundations:SK-calculus. This proof includes an important technique to
-  represent _recursion_, expressed through a unit $L$. For handle IDs, we set:
-  - $"ID"_L equiv 0$.
-  - $"ID"_K equiv 1$, $"ID"_S equiv 2$.
-  - $"ID"_M equiv 3$, $"ID"_N equiv 4$, $"ID"_P equiv 5$.
-  Note that these IDs will be reused after this lemma. These are shown to
-  demonstrate they _can_ be generated manually.
+  We represent the calculus with a unit $L$. Moreover, we use $K$ and $S$ to
+  represent the corresponding combinators in @foundations:SK-calculus, as well
+  as $M$, $N$, $P$ to represent meta-variables. With these, $L$ is defined with
+  exactly the following:
 
-  For the rules, see @foundations:turing-expressible-L. Note that each rule of
-  the form $A --> B$ written in $L$ means $A - L -> B$.
-  #footnote[A remark for logicians: these rules are extremely similar to a
-    Hilbert-style proof system, with $K$ and $S$ corresponding to the rules
-    $(phi => (psi => phi))$ and
-    $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.
-    This was one of Curry's insights in connecting logic to computation
-    @curry-grundlagen.]
+  - $L - L -> K | S$: this represents that both $K$ and $S$ are terms.
 
+  - $*{M, N, P} - L -> L$: recall that this is equivalent to $M - L -> L$,
+    $N - L -> L$, and $P - L -> L$. Each of these represent meta-variables
+    through @r:transitivity. For example, $M - L -> K$ holds, but also
+    $M - L - > S$. In other words, $M$ represents the _possibility_ of $K$ or
+    $S$.
 
-  #figure(
-    [
-      $
-        L equiv {
-          #align(left)[
-            $ L -> K | S, $
-            \
-            $ "*"{M, N, P} -> L, $
-            \
-            $ L -> {N - M -> L}, $
-            \
-            $ {N - {M - K -> L} -> L} -> M, $
-            \
-            $ {P - {N - {M - S -> L} -> L} -> L} $
-            \
-            $ #h(2em) -> {{P - N -> L} - {P - M -> L} -> L} $
-          ]
-        }
-      $
-    ],
-    caption: [Definition of $L$ [TODO: fix formatting!].],
-  )<foundations:turing-expressible-L>
+  - $L - {N - M -> L}$: composition $M N$ of two terms $M, N$ is represented as
+    ${N - M -> L}$, which itself is a term.
 
-  This definition means:
+  - ${N - {M - K -> L} -> L} - L -> M$: represents the reduction rule for $K$.
 
-  - $L$ includes $K$ and $S$ as base cases. Recall that $K | S --> L$ is
-    equivalent to $K --> L$ and $S --> L$. We interpret $K --> L$ to mean $K$ is
-    a term of $L$.
-  - We include variables $M, N, P$ over terms, represented by the form
-    $M --> L$.
-  - Composition $M N$ is represented as $N - M -> L$.
-  - The remaining representations are for the rules of $K$ and $S$,
-    respectively.
+  - ${P - {N - {M - S -> L} -> L} -> L} - L -> {N - {M - K -> L} -> L}$ :
+    represents the reduction rule for $S$.
 
-  We claim that $L$ represents $#sk-imp$.
+  We claim that $L$ represents $#sk-imp$.First, to prove closure under
+  composition, suppose $L --> A$ and $L --> B$. Then by @r:transitivity,
+  $M --> A$ and $N --> B$, so by @r:sign-congruence and @r:context-congruence,
+  ${N - M -> L} --> {B - A -> L}$. Another application of @r:transitivity yields
+  $L --> {B - A -> L}$. The rules $L --> K | S$ and $L --> {N - M -> L}$ are the
+  only terms with sign $L$ (besides $L$ itself), so $L$ contains _exactly_ the
+  terms in the SK-calculus.
 
-  - First, to prove closure under composition, suppose $L --> A$ and $L --> B$.
-    Then by @r:transitivity, $M --> A$ and $N --> B$, so by @r:sign-congruence
-    and @r:context-congruence, ${N - M -> L} --> {B - A -> L}$. Another
-    application of @r:transitivity yields $L --> {B - A -> L}$. The rules
-    $L --> K | S$ and $L --> {N - M -> L}$ are the only terms with sign $L$
-    (besides $L$ itself), so $L$ contains _exactly_ the terms in the
-    SK-calculus.
-  - Second, the base axioms for $K$ and $S$ are already included, and
-    transitivity is provided by @r:transitivity.
-  - Finally, @r:context-congruence entails term congruence: if $M --> M'$, then
-    $N - M -> L$ represents $N - M' -> L$. This completes the proof.
+  Second, the base axioms for $K$ and $S$ are already included, and transitivity
+  is provided by @r:transitivity.
+
+  Finally, @r:context-congruence entails term congruence: if $M --> M'$, then
+  $N - M -> L$ represents $N - M' -> L$. This completes the proof.
 ]
 
 Taken together, we have completed _one_ part of Goal 1 [LINK]. The other part
