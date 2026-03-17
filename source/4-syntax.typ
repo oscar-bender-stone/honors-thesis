@@ -99,8 +99,8 @@ slash `\`, see @syntax:string.
     [`WHITESPACE`], [`\t` | `\r` | Space ],
     [`DELIMITER`], [`{` | `}` | `'` | `"` | `.` | `,`],
     [`RESERVED`], [`DELIMITER` | `*` | `@`],
-    [`SQ_CHAR`], [Any `PRINTABLE` character except `'`],
-    [`DQ_CHAR`], [Any `PRINTABLE` character except `"`],
+    [`SQ_CHAR`], [Any `PRINTABLE` character except `'` and `\`],
+    [`DQ_CHAR`], [Any `PRINTABLE` character except `"` and `\`],
     [`ID_CHAR`], [Any `PRINTABLE` character not in `RESERVED` or `WHITESPACE`],
   ),
   caption: [Definitions of key character classes. Each class is denoted in
@@ -116,9 +116,8 @@ simplicity, we do not add many primitives. The names are taken from the the
 functions as invertible syntax descriptions. Here, an *invertible syntax
 description* is a pair of functions:
 - A `parser`, from strings to an intermediate data structure.#footnote[For
-    computer scientists: this is an AST (Abstract Syntax Tree). Because this
-    thesis aims to have a broader audience, we leave details to
-    @invertible-syntax-descriptions.
+    computer scientists: this is an AST. Because this thesis aims to have a
+    broader audience, we leave details to @invertible-syntax-descriptions.
   ]
 - A `printer`, the reverse of `parser`.
 
@@ -157,8 +156,8 @@ semantically, single and double quoted strings are equivalent, see
   ```
   STRING := SQ_STRING | DQ_STRING,
 
-  SQ_STRING := "'" - seq -> SQ_CHAR | "\'" - seq_many_till-> "'",
-  DQ_STRING := '"' - seq -> DQ_CHAR | '\"' - seq_many_till -> '"',
+  SQ_STRING := "'" - seq -> *{SQ_CHAR, "\'"} - seq_many_till -> "'",
+  DQ_STRING := '"' - seq -> *{DQ_CHAR, '\"'} - seq_many_till -> '"',
   ```,
   caption: "Strings.",
 )<syntax:string>
@@ -233,6 +232,46 @@ HANDLE := ID | STRING
     @syntax:string and @syntax:id, respectively.],
 )<syntax:figure-welkin-grammar>
 
+== Validation and Transformations <syntax:validation-and-transforms>
+
+We say a string is *valid* if it is accepted by the grammar
+(@syntax:figure-welkin-grammar), and the following hold:
+
+- The number of dots (relative import) used must not exceed the number of levels
+  available.
+
+- Every definition of a unit must only be stated once. This means
+  `u := v, u:= w` is not allowed.
+
+- Accessing a unit $v$ from $u$ requires that $u$ has a closed definition
+  containing $v$. This means neither `u := {v, w}, u.x` nor `u.x` alone are
+  valid.
+
+We leave error handling for future work, see @conclusion.
+
+Additionally, we define transformation rules after parsing:
+
+- If `\'` appears in a single quoted string, then this will be replaced by `'`
+  in the final contents. For example, given a string `"John\'s dog"`, the
+  contents would be `John's dog`.
+
+- A similar rule applies for `"` but with `\"`.
+
+- Double slashes `\\` are converted into one slash `\`.
+
+- Single and double quoted strings are represent each other. For example,
+  `'hello' <--> "hello"`. In fact, IDs are special cases of strings, so
+  `hello <--> 'hello'`. Practically, the only difference is that units forbid
+  `WHITESPACE` or `RESERVED` characters, but they can be written without quotes.
+
+- Each `*` within a path expands to all the members in the respective unit.
+
+- Each `*u` for a handle or graph $u$ expands to all the members in the enclosed
+  unit.
+
+- The definitions for `|` and `~` are expanded, see @unit-rules. [TODO: maybe
+  provide a remark on new notation? Or make a notation env?].
+
 == Proof of Unambiguity <syntax:proof-unambiguous>
 
 We show that, by construction, the combinators we used form an $"LL"(1)$
@@ -267,7 +306,8 @@ For our use case, we will assume that $T$ is a set of ASCII strings
 (@syntax:encoding-strings). Additionally, we define a *string of grammar
 symbols* as a string of the form $alpha_1...alpha_n$, with each $alpha_i$ being
 a terminal or non-terminal. Additionally, we will abbreviate `WHITESPACE` in a
-CFG as $"WS"$.
+CFG as $"WS"$, and $A => alpha | beta$ means the grammar includes the
+productions $A => alpha$ and $A => beta$.
 
 We require another important definition.
 
@@ -290,8 +330,8 @@ accept exactly the same set of strings as their transformed productions.
 - `A - lexeme -> B` corresponds to $"A_B" => "A" "WS_star" "B"$, where
   $"WS_star" => "WS" "WS_star" | epsilon$.
 
-- `A - seq_many_till -> B` corresponds to $"A_star_B" => "A_star" "B"$,
-where $"A_star" => "A" "A_star" | epsilon$.
+- `A - seq_many_till -> B` corresponds to $"A_star_B" => "A_star" "B"$, where
+  $"A_star" => "A" "A_star" | epsilon$.
 
 - `A - lex_many_till -> B`corresponds to
   $"A_lex_star_B" => "A_lex_star" "WS_star" "B"$ where
@@ -311,13 +351,11 @@ theorem.
 #theorem[
   The Welkin grammar (@syntax:figure-welkin-grammar) accepts exactly the same
   ASCII words as @syntax:converted-cfg.
-]
-
-
+]<syntax:original-equiv-cfg>
 
 #definition[
-  *_(@compilers-dragon-book)_* Let $G = (N, T, P)$ be a CFG and string of
-  grammar symbols $A$.
+  (@compilers-dragon-book). Let $G = (N, T, P)$ be a CFG and string of grammar
+  symbols $A$.
   - The *FIRST* set, denoted $"FIRST"(A)$, consists of all $beta$ such that
     $alpha => beta gamma_1 ... gamma_n$, as well as $epsilon$ if the grammar
     contains a a production $alpha => epsilon$.
@@ -327,8 +365,8 @@ theorem.
 
 Using this definition, we are now ready to define $"LL"(1)$ grammars.
 
-#definition[*_(@compilers-dragon-book[Ch. 5])_* A CFG is $"LL"(1)$ if and only
-  if for every production $A => alpha | beta$:
+#definition[(@compilers-dragon-book[Ch. 5]). A CFG is $"LL"(1)$ if and only if
+  for every production #box[$A => alpha | beta$]:
   - At most one of $alpha$ or $beta$ can derive $epsilon$.
   - $"FIRST"(alpha)$ and $"FIRST"(beta)$ are disjoint.
   - if $epsilon in "FIRST"(beta)$, then $"FIRST"(alpha)$ and $"FOLLOW"(A)$ are
@@ -353,7 +391,7 @@ Now, we work on the proof that the new grammar is $LL(1)$.
   this, see the calculations in @syntax:LL1-calculations. Because the
   intersections in this table are all empty, and because at most one derivation
   derives $epsilon$ in a given choice, this proves that @syntax:converted-cfg is
-  $LL(1)$. Thus, by , so is the Welkin grammar.
+  $"LL"(1)$. Thus, by @syntax:original-equiv-cfg, so is the Welkin grammar.
 
   #figure(
     table(
@@ -367,43 +405,3 @@ Now, we work on the proof that the new grammar is $LL(1)$.
     caption: [Calculations needed for $"LL"(1)$ proof.],
   )<syntax:LL1-calculations>
 ]
-
-
-== Validation and Transformations <syntax:validation-and-transforms>
-
-We say a string is *valid* if it is accepted by the grammar
-(@syntax:figure-welkin-grammar), and the following hold:
-
-- The number of dots (relative import) used must not exceed the number of levels
-  available.
-
-- Every definition of a unit must only be stated once. This means
-  `u := v, u:= w` is not allowed.
-
-- Accessing a unit $v$ from $u$ requires that $u$ has a closed definition
-  containing $v$. This means neither `u := {v, w}, u.x` nor `u.x` alone are
-  valid.
-
-We leave error handling for future work, see @conclusion.
-
-Additionally, we define transformation rules after parsing:
-
-- If `\'` appears in a single quoted string, then this will be replaced by `'`
-  in the final contents. For example, given a string `"John\'s dog"`, the
-  contents would be `John's dog`.
-
-- A similar rule applies for `"` but with `\"`.
-
-- Double slashes `\\` are converted into one slash `\`.
-
-- Single and double quoted strings are represent each other. For example,
-  `'hello' <--> "hello"`. However, in general, `hello` is _not_ equivalent to
-  `"hello"`. [TODO: make sure this is not confusing!]
-
-- Each `*` within a path expands to all the members in the respective unit.
-
-- Each `*u` for a handle or graph $u$ expands to all the members in the enclosed
-  unit.
-
-- The definitions for `|` and `~` (see @unit-rules) are expanded [TODO: maybe
-  provide a remark on new notation? Or make a notation env?].
