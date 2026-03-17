@@ -19,6 +19,8 @@ This section discusses the provably most general definition of information. This
 section is optional. For the base definition of information, refer to
 @foundations:information.
 
+[TODO: convert this into a table.]
+
 + We show that Welkin's base theory is equivalent to a weak fragment of
   arithmetic, $I Delta_0$.
 
@@ -31,14 +33,24 @@ section is optional. For the base definition of information, refer to
 
 + We conclude with the definition of information.
 
-For notation, we will write $"PA"$ for Peano Arithmetic and $"PRA"$ for
-Primitive Recursive Arithmetic. Moreover, without loss of generality, we will
-consider only first-order theories $T$ that are RE. This can be shown in the
-proof of Traktenbroht's Theorem @trakhtenbrot50. In this proof, a step is to
-show that for any Turing machine $M$, there is a a first-order theory whose
-theorems concide with the language of $M$. [TODO: decide if we want to prove
-this is true IN $I Delta_0$, to show that it alone is enough. Put into the
-appendix. Pretty simple embedding.]
+[TODO: define language of arithmetic!]
+
+We will make two assumptions without loss of generality:
+
+- First, we will consider only first-order theories $T$ that are RE. This is
+  because any formal system must be defined with proofs accepted by some Turing
+  machine. In turn, this Turing machine can be expressed as a first order
+  theory, see @trakhtenbrot50. [TODO: maybe make more clearer claim?]
+
+- Secondly, we will only consider theories in the language of arithmetic [TODO:
+  maybe define?]. A first-order theory can be encoded via arithmetic, similar to
+  the assumption above.
+
+// In this proof, a step is to
+// show that for any Turing machine $M$, there is a a first-order theory whose
+// theorems concide with the language of $M$. [TODO: decide if we want to prove
+// this is true IN $I Delta_0$, to show that it alone is enough. Put into the
+// appendix. Pretty simple embedding.]
 
 == Establishing the Floor: $I Delta_0$
 
