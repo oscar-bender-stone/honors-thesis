@@ -190,33 +190,35 @@ units :=
 
 unit := node - lexeme -> *{"", arc - lexeme -> unit},
 
-node := *{"", "*"}
-  - seq -> *{
-    graph
-    defines
-  },
-
-graph := path - lexeme -> "{" - lexeme -> units - lexeme -> "}",
-defines := path - lexeme -> *{"", unit, ":=" - seq -> choices},
-choices := *{"", "|"}
-  - lexeme -> unit
-  - lexeme -> *{
-
-  },
-
 arc := right_arc | other_arc,
 right_arc := {"-" - seq -> node - seq -> "->"},
 other_arc := {"<-" - seq -> node - seq -> *{"-" | "->"}},
 
-node :=
-  | expansion := "*" - seq -> node,
-  | graph,
+node := *{"", "*"}
+  - seq -> *{
+    defines
+    graph
+  },
 
-path := *{{"@" - seq -> UNIT }, {"." - seq_many_till -> UNIT}, ""}
-  - seq -> {*{UNIT, "*"} - seq -> "."}
-  - many_until -> UNIT,
+defines := path - lexeme -> *{"", unit, ":=" - seq -> choices},
+choices := *{"", "|"}
+  - lexeme -> unit
+  - lexeme -> *{
+    "",
+    {"|" - lexeme -> unit}
+    - lex_many_until -> *{"}",","}
+  },
 
-UNIT := ID | STRING
+graph := path - lexeme -> "{" - lexeme -> units - lexeme -> "}",
+
+path := *{"", "~"}
+  - seq -> *{"", "@"}
+  - seq -> UNIT
+  - lexeme -> {"." - seq_many_till -> UNIT}, ""}
+  - seq -> {*{HANDLE, "*"} - seq -> "."}
+  - many_until -> graph,
+
+HANDLE := ID | STRING
 ```
 
 #figure(
