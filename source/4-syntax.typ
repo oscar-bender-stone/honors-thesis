@@ -195,10 +195,8 @@ right_arc := {"-" - seq -> node - seq -> "->"},
 other_arc := {"<-" - seq -> node - seq -> *{"-" | "->"}},
 
 node := *{"", "*"}
-  - seq -> *{
-    defines
-    graph
-  },
+  - seq -> path
+  - lexeme -> *{defines, graph}
 
 defines := path - lexeme -> *{"", unit, ":=" - seq -> choices},
 choices := *{"", "|"}
@@ -217,7 +215,7 @@ path := *{"", "~"}
   - seq -> {
     *{
       "",
-      "." - seq_many_till -> UNIT
+      "." - seq_many_till -> HANDLE
     } - seq -> HANDLE
   } - seq -> "."
     - many_until -> *{"*", HANDLE, graph},
