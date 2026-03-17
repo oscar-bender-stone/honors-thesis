@@ -282,17 +282,19 @@ We require another important definition.
   Then $alpha A beta => alpha gamma beta$ if there is a production $A => gamma$
   in $P$. This is called a *one-step derivation*. More generally, $alpha$
   *derives* $beta$, denoted $alpha =>^* beta$, if there is some finite sequence
-  $alpha_1 equiv alpha => alpha_2 => ... => alpha_n equiv beta$. The *language*
-  of $G$, denoted $L(G)$, is the set of all strings $s$ such that $S =>^* s$.
+  #box[$alpha_1 equiv alpha => alpha_2 => ... => alpha_n equiv beta$]. The
+  *language* of $G$, denoted $L(G)$, is the set of all strings $s$ such that
+  $S =>^* s$.
 ]<syntax:derivation>
 
 #definition[
   *_(@compilers-dragon-book)_* Let $G = (N, T, P)$ be a CFG and string of
-  grammar symbols $alpha$.
+  grammar symbols $A$.
   - The *FIRST* set, denoted $"FIRST"(A)$, consists of all $beta$ such that
     $alpha => beta gamma_1 ... gamma_n$, as well as $epsilon$ if the grammar
     contains a a production $alpha => epsilon$.
-  - The *FOLLOWS* set, denoted $"FOLLOWS"(A)$,
+  - The *FOLLOWS* set, denoted $"FOLLOWS"(A)$, is the set of all non-terminals
+    $A$ such that, for some $alpha$ and $beta$, $S =>^* alpha A a beta$.
 ]
 
 #definition[*_(@compilers-dragon-book[Ch. 5])_* A CFG is $"LL"(1)$ if and only
