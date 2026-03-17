@@ -183,9 +183,10 @@ start := {units - lexeme -> EOF},
 
 units :=
   | ""
-  | {unit
-    - lexeme -> *{"", "," - lexeme -> units}
-    - lex_many_until -> *{"", ","}
+  | {
+      unit
+      - lexeme -> *{"", "," - lexeme -> units}
+      - lex_many_until -> *{"", ","}
     },
 
 unit := node - lexeme -> *{"", arc - lexeme -> unit},
@@ -206,21 +207,22 @@ choices := *{"", "|"}
   - lexeme -> *{
     "",
     {"|" - lexeme -> unit}
-    - lex_many_until -> *{"}",","}
+    - lex_many_until -> *{"}", ","}
   },
 
 graph := path - lexeme -> "{" - lexeme -> units - lexeme -> "}",
 
 path := *{"", "~"}
   - seq -> *{"", "@"}
-  - seq -> UNIT
+  - seq -> HANDLE
   - seq -> {
-    *{
-      "",
-      "." - seq_many_till -> HANDLE
-    } - seq -> HANDLE
-  } - seq -> "."
-    - many_until -> *{"*", HANDLE, graph},
+    {
+      *{
+        "",
+        "." - seq_many_till -> HANDLE
+      }
+    } - seq -> "."
+  } - many_until -> *{"*", HANDLE, graph},
 
 HANDLE := ID | STRING
 ```
@@ -269,8 +271,9 @@ a terminal or non-terminal.
 We require another important definition.
 
 #figure(
-  ```
-  ```,
+  $
+    "start" => "unit" "WS"
+  $,
   caption: [CFG for the Welkin grammar, based on
     @syntax:figure-welkin-grammar.],
 )<syntax:converted-cfg>
@@ -317,7 +320,7 @@ Now, we work on the proof that the new grammar is $LL(1)$.
       columns: (auto, auto, auto, auto, auto),
       table.header(
         [*Rule*], [*Sets*], [*Set One*], [*Set Two*], [*Intersection*],
-        [$"unit"$],
+        [$"unit"$], [], [], [], [],
       ),
     ),
 
