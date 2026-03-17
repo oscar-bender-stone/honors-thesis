@@ -190,14 +190,19 @@ units :=
 
 unit := node - lexeme -> *{"", arc - lexeme -> unit},
 
-
 node := *{"", "*"}
   - seq -> *{
-    graph := ,
-    path - lexeme -> "{" - lexeme -> units - lexeme -> "}",
+    graph
+    defines
   },
 
-choices := *{"", "|"} - lexeme -> unit - lexeme -> *{HANDLE, node},
+graph := path - lexeme -> "{" - lexeme -> units - lexeme -> "}",
+defines := path - lexeme -> *{"", unit, ":=" - seq -> choices},
+choices := *{"", "|"}
+  - lexeme -> unit
+  - lexeme -> *{
+
+  },
 
 arc := right_arc | other_arc,
 right_arc := {"-" - seq -> node - seq -> "->"},
