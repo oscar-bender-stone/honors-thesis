@@ -266,19 +266,10 @@ First, we need to define a general *context-free grammar*.
 For our use case, we will assume that $T$ is a set of ASCII strings
 (@syntax:encoding-strings). Additionally, we define a *string of grammar
 symbols* as a string of the form $alpha_1...alpha_n$, with each $alpha_i$ being
-a terminal or non-terminal.
+a terminal or non-terminal. Additionally, we will abbreviate `WHITESPACE` in a
+CFG as $"WS"$.
 
 We require another important definition.
-
-#figure(
-  $
-    "start" => "unit" "WS"
-  $,
-  caption: [CFG for the Welkin grammar, based on
-    @syntax:figure-welkin-grammar.],
-)<syntax:converted-cfg>
-
-[TODO: complete ...]
 
 #definition[
   Let $G = (N, T, P, S)$ be a CFG. Let $A in N$ and $alpha, beta, gamma in T$.
@@ -290,30 +281,79 @@ We require another important definition.
   $S =>^* s$.
 ]<syntax:derivation>
 
+Next, we need to convert the combinators in @syntax:invertible-descriptions into
+CFG productions. These are based on [CITE], which proves that the combinators
+accept exactly the same set of strings as their transformed productions.
+
+- `A - seq -> B` corresponds to $"A_B" => "A" "B"$.
+
+- `A - lexeme -> B` corresponds to $"A_B" => "A" "WS_star" "B"$, where
+  $"WS_star" => "WS" "WS_star" | epsilon$.
+
+- `A - seq_many_till -> B` corresponds to $"A_star_B" => "A_star" "B"$,
+where $"A_star" => "A" "A_star" | epsilon$.
+
+- `A - lex_many_till -> B`corresponds to
+  $"A_lex_star_B" => "A_lex_star" "WS_star" "B"$ where
+  $"A_lex_star" => "A" "WS_star" "A_star" | epsilon$.
+
+#figure(
+  $
+    "start" => "unit" "WS"
+  $,
+  caption: [CFG for the Welkin grammar, based on
+    @syntax:figure-welkin-grammar.],
+)<syntax:converted-cfg>
+
+Substituting these produces @syntax:converted-cfg, and we obtain the following
+theorem.
+
+#theorem[
+  The Welkin grammar (@syntax:figure-welkin-grammar) accepts exactly the same
+  ASCII words as @syntax:converted-cfg.
+]
+
+
+
 #definition[
   *_(@compilers-dragon-book)_* Let $G = (N, T, P)$ be a CFG and string of
   grammar symbols $A$.
   - The *FIRST* set, denoted $"FIRST"(A)$, consists of all $beta$ such that
     $alpha => beta gamma_1 ... gamma_n$, as well as $epsilon$ if the grammar
     contains a a production $alpha => epsilon$.
-  - The *FOLLOWS* set, denoted $"FOLLOWS"(A)$, is the set of all non-terminals
-    $A$ such that, for some $alpha$ and $beta$, $S =>^* alpha A a beta$.
-]
+  - The *FOLLOW* set, denoted $"FOLLOW"(A)$, is the set of all non-terminals $A$
+    such that, for some $alpha$ and $beta$, $S =>^* alpha A a beta$.
+]<syntax:first-and-follow>
+
+Using this definition, we are now ready to define $"LL"(1)$ grammars.
 
 #definition[*_(@compilers-dragon-book[Ch. 5])_* A CFG is $"LL"(1)$ if and only
-  if for every production $A => alpha_1 | ... | alpha_n$
-  -
-  -
-]
+  if for every production $A => alpha | beta$:
+  - At most one of $alpha$ or $beta$ can derive $epsilon$.
+  - $"FIRST"(alpha)$ and $"FIRST"(beta)$ are disjoint.
+  - if $epsilon in "FIRST"(beta)$, then $"FIRST"(alpha)$ and $"FOLLOW"(A)$ are
+    disjoint. A similar condition is required on $beta$ if
+    $epsilon in "FIRST"(alpha)$.
+]<syntax:LL1>
 
 Now, we work on the proof that the new grammar is $LL(1)$.
-
 
 #theorem[
   The grammar in @syntax:converted-cfg is $"LL"(1)$, and hence, so is the Welkin
   grammar.
 ]
 #proof[
+  We first observe that the character classes in @syntax:character-classes are
+  disjoint from each other.
+  - Strings are enclosed in quoets and do not overlap with $"RESERVED"$ or
+    $"WHITESPACE"$.
+  - IDs are defined to be disjoint from $"RESERVED"$ or $"WHITESPACE"$.
+
+  It remains to show that all other applicable rules satisfy @syntax:LL1. For
+  this, see the calculations in @syntax:LL1-calculations. Because the
+  intersections in this table are all empty, and because at most one derivation
+  derives $epsilon$ in a given choice, this proves that @syntax:converted-cfg is
+  $LL(1)$. Thus, by , so is the Welkin grammar.
 
   #figure(
     table(
@@ -324,8 +364,8 @@ Now, we work on the proof that the new grammar is $LL(1)$.
       ),
     ),
 
-    caption: [Branching points needed for $"LL"(1)$ proof.],
-  )
+    caption: [Calculations needed for $"LL"(1)$ proof.],
+  )<syntax:LL1-calculations>
 ]
 
 
