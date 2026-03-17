@@ -144,7 +144,7 @@ Now we may introduce the rules on units.
       ),
       // TODO: combine congruence axioms into one
       (
-        name: "Congruence",
+        name: "Sign Congruence",
         lbl: "r:sign-congruence",
         content: [
           If $a - c -> b$, then #box[${a - g -> d} - c -> {b - g -> d}$]
@@ -270,6 +270,15 @@ organizing units as modules, as well as make it easier to use the language.
 - @r:idempotent, @r:associativity, and @r:commutativity ensure that information
   can be repeated and arranged in any order. Mathematically, this means that
   units have a *semi-lattice* structure.
+
+#remark[The rules in @unit-rules use few meta-variables, which may _or_ may not
+  equal each other. This is connected to variables as managed by the proof
+  checker MetaMath Zero @mm0. In first-order logic, variables in quantifiers are
+  assumed to be distinct. To _allow_ for equality as well, these must be
+  separately included, but this quickly explodes in size. All of this means that
+  Welkin, similar to MetaMath Zero, achieves a significant level of compression.
+  However, _direct_ conversions to first-order theories may not be feasible.
+]
 
 As more notation, we write:
 
