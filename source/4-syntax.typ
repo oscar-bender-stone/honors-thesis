@@ -214,9 +214,13 @@ graph := path - lexeme -> "{" - lexeme -> units - lexeme -> "}",
 path := *{"", "~"}
   - seq -> *{"", "@"}
   - seq -> UNIT
-  - lexeme -> {"." - seq_many_till -> UNIT}, ""}
-  - seq -> {*{HANDLE, "*"} - seq -> "."}
-  - many_until -> graph,
+  - seq -> {
+    *{
+      "",
+      "." - seq_many_till -> UNIT
+    } - seq -> HANDLE
+  } - seq -> "."
+    - many_until -> *{"*", HANDLE, graph},
 
 HANDLE := ID | STRING
 ```
