@@ -3,8 +3,8 @@
 
 #import "template/ams-article.typ": definition, example, remark
 #import "template/ams-article.typ": lang-def-vertical
-#import "template/ams-article.typ": equation_block, lemma, proof, theorem
-#import "template/ams-article.typ": todo
+#import "template/ams-article.typ": corollary, lemma, theorem
+#import "template/ams-article.typ": proof
 #import "us-ascii.typ": printable-ascii-table
 
 // TODO: create a "current working file" or such,
@@ -374,11 +374,11 @@ Using this definition, we are now ready to define $"LL"(1)$ grammars.
     $epsilon in "FIRST"(alpha)$.
 ]<syntax:LL1>
 
-Now, we work on the proof that the new grammar is $LL(1)$.
+Now, we work on the proof that the new grammar is $"LL"(1)$.
 
 #theorem[
-  The grammar in @syntax:converted-cfg is $"LL"(1)$, and hence, so is the Welkin
-  grammar.
+  The grammar in @syntax:converted-cfg is $"LL"(1)$. Hence, the Welkin grammar
+  @syntax:figure-welkin-grammar is unambiguous.
 ]
 #proof[
   We first observe that the character classes in @syntax:character-classes are
@@ -391,7 +391,8 @@ Now, we work on the proof that the new grammar is $LL(1)$.
   this, see the calculations in @syntax:LL1-calculations. Because the
   intersections in this table are all empty, and because at most one derivation
   derives $epsilon$ in a given choice, this proves that @syntax:converted-cfg is
-  $"LL"(1)$. Thus, by @syntax:original-equiv-cfg, so is the Welkin grammar.
+  $"LL"(1)$. Thus, by @syntax:original-equiv-cfg, the Welkin grammar accepts the
+  same strings as an unambiguous language.
 
   #figure(
     table(
@@ -404,4 +405,10 @@ Now, we work on the proof that the new grammar is $LL(1)$.
 
     caption: [Calculations needed for $"LL"(1)$ proof.],
   )<syntax:LL1-calculations>
+]
+
+By @syntax:original-equiv-cfg, we immediately obtain the following.
+
+#theorem[
+  The Welkin grammar (@syntax:figure-welkin-grammar) is unambiguous.
 ]
