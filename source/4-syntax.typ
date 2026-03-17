@@ -195,10 +195,12 @@ right_arc := {"-" - seq -> node - seq -> "->"},
 other_arc := {"<-" - seq -> node - seq -> *{"-" | "->"}},
 
 node := *{"", "*"}
-  - seq -> path
-  - lexeme -> *{defines, graph}
+  - seq -> *{
+    graph,
+    path - lexeme -> *{"", binding, graph}
+  }
 
-defines := path - lexeme -> *{"", unit, ":=" - seq -> choices},
+binding := path - lexeme -> *{"", unit, ":=" - seq -> choices},
 choices := *{"", "|"}
   - lexeme -> unit
   - lexeme -> *{
@@ -287,6 +289,12 @@ Now, we work on the proof that $G_"welkin"$ is $"LL"(1)$. From ,
 -
 -
 -
+
+
+#figure(
+  table(columns: (auto, auto, auto, auto)),
+  caption: [Branching points needed for $"LL"(1)$ proof.],
+)
 
 
 
