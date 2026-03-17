@@ -206,7 +206,7 @@ choices := *{"", "|"}
   - lexeme -> *{
     "",
     {"|" - lexeme -> unit}
-    - lex_many_until -> *{"}", ","}
+    - lex_many_ntil -> *{"}", ","}
   },
 
 graph := path - lexeme -> "{" - lexeme -> units - lexeme -> "}",
@@ -224,12 +224,20 @@ path := *{"", "~"}
   } - many_until -> *{"*", HANDLE, graph},
 
 HANDLE := ID | STRING
+
+STRING := SQ_STRING | DQ_STRING,
+
+SQ_STRING := "'" - seq -> *{SQ_CHAR, "\'"} - seq_many_till -> "'",
+DQ_STRING := '"' - seq -> *{DQ_CHAR, '\"'} - seq_many_till -> '"',
+
+ID := ID_CHAR - seq_many_till -> *{RESERVED, WHITESPACE}
 ```
 
 #figure(
   grammar,
-  caption: [The grammar for Welkin. The rules `STRING` and `ID` are defined in
-    @syntax:string and @syntax:id, respectively.],
+  caption: [The complete grammar for Welkin. This includes the rules `STRING`
+    and `ID`, which are also provided in @syntax:string and @syntax:id,
+    respectively. Character classes are defined in @syntax:character-classes.],
 )<syntax:figure-welkin-grammar>
 
 == Validation and Transformations <syntax:validation-and-transforms>
@@ -279,6 +287,8 @@ grammar. These grammars have two desirable properties:
 - If a string is accepted, it is parsed unambiguously.
 - Efficient parsers can be easily and efficiently implemented
   @compilers-dragon-book[Sect. 4.4.3].
+
+[TODO: simplify! This translation is error prone!]
 
 Our approach is to provide an equivalence between @syntax:figure-welkin-grammar
 and a new grammar. More precisely, we require a bijection with the following
