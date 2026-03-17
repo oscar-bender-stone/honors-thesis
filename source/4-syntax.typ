@@ -273,7 +273,7 @@ We require another important definition.
   ```,
   caption: [CFG for the Welkin grammar, based on
     @syntax:figure-welkin-grammar.],
-)
+)<syntax:converted-cfg>
 
 [TODO: complete ...]
 
@@ -303,18 +303,27 @@ We require another important definition.
   -
 ]
 
-Now, we work on the proof that $G_"welkin"$ is $"LL"(1)$. From ,
-
--
--
--
+Now, we work on the proof that the new grammar is $LL(1)$.
 
 
-#figure(
-  table(columns: (auto, auto, auto, auto)),
-  caption: [Branching points needed for $"LL"(1)$ proof.],
-)
+#theorem[
+  The grammar in @syntax:converted-cfg is $"LL"(1)$, and hence, so is the Welkin
+  grammar.
+]
+#proof[
 
+  #figure(
+    table(
+      columns: (auto, auto, auto, auto, auto),
+      table.header(
+        [*Rule*], [*Sets*], [*Set One*], [*Set Two*], [*Intersection*],
+        [$"unit"$],
+      ),
+    ),
+
+    caption: [Branching points needed for $"LL"(1)$ proof.],
+  )
+]
 
 
 == Validation and Transformations <syntax:validation-and-transforms>
