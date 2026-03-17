@@ -256,11 +256,18 @@ First, we need to define a general *context-free grammar*.
   - A finite set of *productions* $P$, where a *production* is a rule of the
     form #box[$A => alpha_1 ... alpha_n$]. Here, $A$ is a non-terminal,
     $alpha_1 ... alpha_n$ denotes concatenation, and each $alpha_i$ may be a
-    non-terminal or terminal.
+    non-terminal or terminal. Note that this string may be empty, denoted by
+    $"EPS"$.
+  - A *start symbol* $S in N$.
 ]
 
 For our use case, we will assume that $T$ is a set of ASCII strings
-(@syntax:encoding-strings).
+(@syntax:encoding-strings). Additionally, we define a *string of grammar
+symbols* as a string of the form $alpha_1...alpha_n$, with each $alpha_i$ being
+a terminal or non-terminal.
+
+We require another important definition.
+
 #figure(
   ```
   ```,
@@ -268,12 +275,24 @@ For our use case, we will assume that $T$ is a set of ASCII strings
     @syntax:figure-welkin-grammar.],
 )
 
-
+[TODO: complete ...]
 
 #definition[
-  Let $G = (N, T, P)$ be a CFG and $A$ a non-terminal.
-  - The *FIRST* set of
-  - The *FOLLOW* set of
+  Let $G = (N, T, P, S)$ be a CFG. Let $A in N$ and $alpha, beta, gamma in T$.
+  Then $alpha A beta => alpha gamma beta$ if there is a production $A => gamma$
+  in $P$. This is called a *one-step derivation*. More generally, $alpha$
+  *derives* $beta$, denoted $alpha =>^* beta$, if there is some finite sequence
+  $alpha_1 equiv alpha => alpha_2 => ... => alpha_n equiv beta$. The *language*
+  of $G$, denoted $L(G)$, is the set of all strings $s$ such that $S =>^* s$.
+]<syntax:derivation>
+
+#definition[
+  *_(@compilers-dragon-book)_* Let $G = (N, T, P)$ be a CFG and string of
+  grammar symbols $alpha$.
+  - The *FIRST* set, denoted $"FIRST"(A)$, consists of all $beta$ such that
+    $alpha => beta gamma_1 ... gamma_n$, as well as $epsilon$ if the grammar
+    contains a a production $alpha => epsilon$.
+  - The *FOLLOWS* set, denoted $"FOLLOWS"(A)$,
 ]
 
 #definition[*_(@compilers-dragon-book[Ch. 5])_* A CFG is $"LL"(1)$ if and only
@@ -281,8 +300,6 @@ For our use case, we will assume that $T$ is a set of ASCII strings
   -
   -
 ]
-
-
 
 Now, we work on the proof that $G_"welkin"$ is $"LL"(1)$. From ,
 
