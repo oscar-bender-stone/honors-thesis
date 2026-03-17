@@ -45,4 +45,23 @@ severe shortcomings, highlighting major obstacles for IM.
 
 == Future Work <conclusion:future-work>
 
+The author has several future projects for Welkin in mind. These include:
+
+- *Writing the Standard:* this would be a self contained document that
+  describes. The Standard would _bootstrap_ the language, providing step-by-step
+  instructions on how to implement a Welkin information base. There would also
+  be a core library that enables user created languages that convert _into_
+  Welkin. For example, writing _in_ Welkin, a user could define a grammar that
+  takes their own syntax and _converts_ it into units.
+
+- *Revision System:* . These would be similar to a belief revision system.
+
+- *Package Managmeent:* building on revision systems, this would .
+
+- *Creating Query Solvers:* this would involve incorporating an information base
+  with a program called a _solver_. Given a query, the solver would first
+  confirms if there is enough information in the database. If not, the solver
+  runs its own internal methods and heuristics. Moreover, the solvers
+  _themselves_ can be specified in Welkin, making them easier to study and
+  maintain.
 
