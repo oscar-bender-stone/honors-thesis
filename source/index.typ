@@ -32,8 +32,6 @@
     "references/3-foundations.bib",
     "references/4-metatheory.bib",
     "references/5-syntax.bib",
-    // "references/6-information-organization.bib",
-    "references/6-conclusion.bib",
     "references/general.bib",
   )),
 )
