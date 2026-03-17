@@ -188,34 +188,28 @@ units :=
     - lex_many_until -> *{"", ","}
     },
 
-unit := node - lexeme -> *{"", arc - lexeme -> unit}
-
-choices := *{"", "|"} - lexeme -> unit - lexeme -> *{HANDLE, node}
+unit := node - lexeme -> *{"", arc - lexeme -> unit},
 
 
-terms_tail := "" | {"," - lexeme -> "" | term},
+node := *{"", "*"}
+  - seq -> *{
+    graph := ,
+    path - lexeme -> "{" - lexeme -> units - lexeme -> "}",
+  },
+
+choices := *{"", "|"} - lexeme -> unit - lexeme -> *{HANDLE, node},
 
 arc := right_arc | other_arc,
 right_arc := {"-" - seq -> node - seq -> "->"},
-other_arc := {"<-" - seq -> node - seq -> "-" | "->"},
+other_arc := {"<-" - seq -> node - seq -> *{"-" | "->"}},
 
-node := {
-  path - lexeme ->
-    | ""
-    | {
-      *{"", ":="}
-      - lexeme -> "{"
-      - lexeme -> path
-      - lexeme -> terms
-      - lexeme -> "}"
-      }
-},
+node :=
+  | expansion := "*" - seq -> node,
+  | graph,
 
-path := {
-  *{{"@" - seq -> UNIT }, {"." - seq_many_till -> UNIT}, ""}
+path := *{{"@" - seq -> UNIT }, {"." - seq_many_till -> UNIT}, ""}
   - seq -> {*{UNIT, "*"} - seq -> "."}
-  - many_until -> UNIT
-},
+  - many_until -> UNIT,
 
 UNIT := ID | STRING
 ```
