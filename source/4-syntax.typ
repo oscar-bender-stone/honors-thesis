@@ -97,7 +97,7 @@ slash `\`, see @syntax:string.
     [`PRINTABLE`], [See @syntax:printable-ascii-codes.],
 
     [`WHITESPACE`], [`\t` | `\r` | Space ],
-    [`DELIMITER`], [`{` | `}` | `'` | `"`| `.` | `,`],
+    [`DELIMITER`], [`{` | `}` | `'` | `"` | `.` | `,`],
     [`RESERVED`], [`DELIMITER` | `*` | `@`],
     [`SQ_CHAR`], [Any `PRINTABLE` character except `'`],
     [`DQ_CHAR`], [Any `PRINTABLE` character except `"`],
@@ -116,8 +116,8 @@ simplicity, we do not add many primitives. The names are taken from the the
 functions as invertible syntax descriptions. Here, an *invertible syntax
 description* is a pair of functions:
 - A `parser`, from strings to an intermediate data structure.#footnote[For
-    computer scientists, this is an AST (Abstract Syntax Tree). We are
-    intentionally catering to a larger audience, so we leave details to
+    computer scientists: this is an AST (Abstract Syntax Tree). Because this
+    thesis aims to have a broader audience, we leave details to
     @invertible-syntax-descriptions.
   ]
 - A `printer`, the reverse of `parser`.
@@ -168,7 +168,7 @@ whitespace and certain characters, see @syntax:id.
 
 #figure(
   ```
-  ID := ID_CHAR - many_till -> *RESERVED | *WHITESPACE
+  ID := ID_CHAR - seq_many_till -> *{RESERVED, *WHITESPACE}
   ```,
   caption: "Syntactic definition of an ID.",
 )<syntax:id>
@@ -179,17 +179,21 @@ Welkin's grammar is displayed in @syntax:figure-welkin-grammar, inspired by
 several languages.
 
 #let grammar = ```
-start := {terms - lexeme -> EOF},
+start := {units - lexeme -> EOF},
 
-terms := "" | {term - lexeme -> terms_tail},
+units :=
+  | ""
+  | {unit
+    - lexeme -> *{"", "," - lexeme -> units}
+    - lex_many_until -> *{"", ","}
+    },
+
+unit := node - lexeme -> *{"", arc - lexeme -> unit}
+
+choices := *{"", "|"} - lexeme -> unit - lexeme -> *{HANDLE, node}
+
+
 terms_tail := "" | {"," - lexeme -> "" | term},
-
-term := {
-  node - seq ->
-  "" | {
-    arc - seq -> term
-  }
-},
 
 arc := right_arc | other_arc,
 right_arc := {"-" - seq -> node - seq -> "->"},
@@ -225,17 +229,15 @@ UNIT := ID | STRING
 == Proof of Unambiguity <syntax:proof-unambiguous>
 
 We show that, by construction, the combinators we used form an $"LL"(1)$
-grammar. This is a special kind of grammar with two desirable properties:
-
+grammar. These grammars have two desirable properties:
 - If a string is accepted, it is parsed unambiguously.
-
 - Efficient parsers can be easily and efficiently implemented
   @compilers-dragon-book[Sect. 4.4.3].
 
 Our approach is to provide an equivalence between @syntax:figure-welkin-grammar
 and a new grammar. More precisely, we require a bijection with the following
 property: a string accepted by @syntax:figure-welkin-grammar is also accepted by
-the new grammar, and vice versa. We will then prove the latter is $LL(1)$.
+the new grammar, and vice versa. We will then prove the latter is $"LL"(1)$.
 
 We will keep definitions and theorems here self-contained. For more background,
 please consult @compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
@@ -244,22 +246,16 @@ First, we need to define a general *context-free grammar*.
 
 #definition[
   A *Context-free Grammar (CFG)* $G = (N, T, P)$ consists of:
-  - A finite set of *non-terminals*.
+  - A finite set of *non-terminals* $N$.
   - A finite set of *terminals* $T$.
   - A finite set of *productions* $P$, where a *production* is a rule of the
-    form $A => alpha_1 ... alpha_n$, where $A in N$ and $alpha_1 ... alpha_n$ is
-    the concatenation of terminals $alpha_1, ..., alpha_2$ in $T$,
+    form #box[$A => alpha_1 ... alpha_n$]. Here, $A$ is a non-terminal,
+    $alpha_1 ... alpha_n$ denotes concatenation, and each $alpha_i$ may be a
+    non-terminal or terminal.
 ]
 
 For our use case, we will assume that $T$ is a set of ASCII strings
 (@syntax:encoding-strings).
-
-Next, we work on the proof that $G_"welkin"$ is $"LL"(1)$. From ,
-
--
--
--
-
 #figure(
   ```
   ```,
@@ -280,6 +276,15 @@ Next, we work on the proof that $G_"welkin"$ is $"LL"(1)$. From ,
   -
   -
 ]
+
+
+
+Now, we work on the proof that $G_"welkin"$ is $"LL"(1)$. From ,
+
+-
+-
+-
+
 
 
 == Validation and Transformations <syntax:validation-and-transforms>
@@ -315,7 +320,8 @@ Additionally, we define transformation rules after parsing:
 
 - Each `*` within a path expands to all the members in the respective unit.
 
-- Each `*{...}` term expands to all the members in the enclosed unit.
+- Each `*u` for a handle or graph $u$ expands to all the members in the enclosed
+  unit.
 
 - The definitions for `|` and `~` (see @unit-rules) are expanded [TODO: maybe
   provide a remark on new notation? Or make a notation env?].
