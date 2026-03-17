@@ -155,7 +155,6 @@ semantically, single and double quoted strings are equivalent, see
 #figure(
   ```
   STRING := SQ_STRING | DQ_STRING,
-
   SQ_STRING := "'" - seq -> *{SQ_CHAR, "\'"} - seq_many_till -> "'",
   DQ_STRING := '"' - seq -> *{DQ_CHAR, '\"'} - seq_many_till -> '"',
   ```,
@@ -178,7 +177,7 @@ Welkin's grammar is displayed in @syntax:figure-welkin-grammar, inspired by
 several languages.
 
 #let grammar = ```
-start := {units - lexeme -> EOF},
+start := units - lexeme -> EOF,
 
 units :=
   | ""
@@ -191,8 +190,8 @@ units :=
 unit := node - lexeme -> *{"", arc - lexeme -> unit},
 
 arc := right_arc | other_arc,
-right_arc := {"-" - seq -> node - seq -> "->"},
-other_arc := {"<-" - seq -> node - seq -> *{"-" | "->"}},
+right_arc := "-" - seq -> node - seq -> "->",
+other_arc := "<-" - seq -> node - seq -> *{"-" | "->"},
 
 node := *{"", "*"}
   - seq -> *{
@@ -206,7 +205,7 @@ choices := *{"", "|"}
   - lexeme -> *{
     "",
     {"|" - lexeme -> unit}
-    - lex_many_ntil -> *{"}", ","}
+    - lex_many_til -> *{"}", ","}
   },
 
 graph := path - lexeme -> "{" - lexeme -> units - lexeme -> "}",
@@ -214,19 +213,16 @@ graph := path - lexeme -> "{" - lexeme -> units - lexeme -> "}",
 path := *{"", "~"}
   - seq -> *{"", "@"}
   - seq -> HANDLE
-  - seq -> {
-    {
-      *{
-        "",
-        "." - seq_many_till -> HANDLE
-      }
-    } - seq -> "."
-  } - many_until -> *{"*", HANDLE, graph},
+  - seq -> trailer,
+
+trailer - *{
+  "",
+  "." - seq -> *{graph, HANDLE - seq -> trailer}
+}
 
 HANDLE := ID | STRING
 
 STRING := SQ_STRING | DQ_STRING,
-
 SQ_STRING := "'" - seq -> *{SQ_CHAR, "\'"} - seq_many_till -> "'",
 DQ_STRING := '"' - seq -> *{DQ_CHAR, '\"'} - seq_many_till -> '"',
 
