@@ -47,41 +47,37 @@ as free parameters in the theory#footnote[For mathematicians, this is analogous
 handles are uniquely identified through their *ID*.
 
 #example[
-  In a scientific experiment, a handle could be an observation or experimental
-  data. The unit is then written as a symbol, say $u$, and is _implicitly_ bound
-  to this meaning. To distinguish from other symbols, say $v$, the computational
-  content is analyzed.[TODO[MEDIUM]: expand out this example!]
-]
+  Consider a business that distributes vehicle parts. The inventory could be
+  could be recorded via handles, one for each category. One could be for
+  `tires`, another for `wheels`, and so for. Each of these names are then
+  _distinct_, ensuring one category does not interfere with another. Specific
+  items can be given their own handles as well.
+]<rationale:example-1>
 
-Indexing handles is only one important aspect of handles. Another is that
-handles are precisely by their relationships. These are written as
-*representations* $a - c -> b$, which means that $a$ represents $b$ in context
-$c$. Here, we call $a$ the *sign*, $b$ the *referent*, and $c$ the *context*.
-One can interpret this characterization as follows: handles are defined by how
-they are and are _not_ restricted. This idea is directly inspired from Fine's
-idea of arbitrary objects @fine-arbitrary-objects, and allows refinements to a
-study of interest.
-
-[TODO: come up with a better example here! Maybe math based, but simple?]
+Having unique indexes is only one important aspect of handles. Another is that
+they are precisely by their relationships. These are written as
+*representations* $a - c -> b$. This is read as: $a$ *represents* $b$ *in
+context* $c$. Here, we call $a$ the *sign*, $b$ the *referent*, and $c$ the
+*context*. One can interpret this characterization as follows: handles are
+defined by how they are and are _not_ restricted. This idea is directly inspired
+from the philosophical idea of arbitrary objects, developed by Fine
+@fine-arbitrary-objects. These representations can be refined and adjusted to a
+given study of interest.
 
 #example[
-  A more looser example is a user written journal for therapy sessions,
-  containing information about daily habits and emotions. While neither of these
-  are stored in the information base, their handles are, via units $"habit"$ and
-  $"emotions"$ in a context $"journal"$. Moreover, multiple revisions of the
-  journal can be made with dates or other unique IDs.
-]
+  An anaimal taxonomy can be stored through representations. Here, we write
+  $"A" -$ for handles $"A", "B"$ if $"B"$ is a special case of $"A"$. For
+  example, $"Mammal" - "Taxonomy" -> "Dog"$ and
+  $"Mammal" - "Taxonomy" -> "cat"$. Adding the rule
+  $"Animal" - "Taxonomy" -> "Mammal"$ would allow simple deductions, such as
+  $"Animal" - "Taxonomy" -> "Dog"$.
+]<rationale:example-2>
 
 We represent handles in Welkin using an extended notion called a *unit*. A unit
 is either a handle, a finite collection of units, or a representation.
 Collections of units can have a uniquely generated name by the information base
 called a *block*.#footnote[In programming languages, this is analogous to an
   anonymous function.]
-
-#example[
-
-]
-
 
 Units define their own *context*, which means the unit provides its own names
 and representations. Writing $a - c -> b$, therefore, only applies to the
