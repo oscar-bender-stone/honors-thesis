@@ -447,8 +447,9 @@ of a query? As it turns out, a valid derivation suffices.
   Let $c$ and $q$ be units.
 
   - A *derivation over* $c$ is a unit ${u_1 - c -> u_2 ... - c -> u_n}$ such
-    that each $u_i$ is either a) already in $c$, or b) an application of a rule
-    in @unit-rules from previous units $u_1, ..., u_j$.
+    that each $u_i$ is either a) $u_i$ is contained in the definition of $c$
+    written from @foundations:unit, or b) an application of a rule in
+    @unit-rules from previous units $u_1, ..., u_j$.
   - We say $u$ *contains information* about a query $q$ in context $c$ if it
     contains a derivation that ends with the unit ${q - c -> q}$. Moreovoer, we
     say it *is* information if it only contains derivations ending in
