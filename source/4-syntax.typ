@@ -105,12 +105,11 @@ slash `\`, refer to @syntax:string.
 
 == Invertible Syntax Descriptions <syntax:invertible-descriptions>
 
-To more easily describe the language, we provide basic building blocks. For
-simplicity, we do not add many primitives. The names are taken from the the
-`parsec` combinator library in the programming language Haskell
-@leijen-meijer-parsec. Using @invertible-syntax-descriptions, we augment these
-functions as invertible syntax descriptions. Here, an *invertible syntax
-description* is a pair of functions:
+To more easily describe the language, we provide basic building blocks. Our
+approach is based on _parser combinators_, which are functions that take other
+parsers as input. We augment these combinators using *invertible syntax
+descriptions*, first introduced in @invertible-syntax-descriptions. Here, an
+*invertible syntax description* is a pair of functions:
 - A _parser_, converts strings into an intermediate data structure.#footnote[For
     computer scientists: this is an AST. Because this thesis aims to have a
     broader audience, we leave details to @invertible-syntax-descriptions.
@@ -122,10 +121,11 @@ users more seamlessly switch between a string and the underlying unit. Specific
 details are provided in @invertible-syntax-descriptions.
 
 For our use case, we will need four invertible syntax descriptions. These are
-based on functions from `parsec`, a Haskell parsing library. Here, `A` and `B`
-denote meta-variables over syntax descriptions. Parsing `A` means applying the
-parser in `A`, and likewise, printing `A` means printing the corresponding rule.
-Additionally, `WS` is short-hand for `WHITESPACE` (@syntax:character-classes).
+based on functions from `parsec`, a Haskell combinator parser library. Here, `A`
+and `B` denote meta-variables over syntax descriptions. Parsing `A` means
+applying the parser in `A`, and likewise, printing `A` means printing the
+corresponding rule. Additionally, `WS` is short-hand for `WHITESPACE`
+(@syntax:character-classes).
 
 - `A - seq -> B`:
   - *Parser:* Consumes a string based on `A`. immediately followed by the rule
@@ -192,12 +192,10 @@ _themselves_ can include definitions.
 #let grammar = ```
 start := units - lexeme -> EOF,
 
-units :=
-  | ""
+units := ""
   | {
-      unit
-      - lexeme -> {"," - lexeme -> unit}
-      - lex_many_until -> *{"", ","}
+    unit - lexeme -> {"," - lexeme -> unit}
+          - lex_many_until -> *{"", ","}
     },
 
 unit := node - lexeme -> *{"", arc - lexeme -> unit},
@@ -320,10 +318,12 @@ grammar. These grammars have two desirable properties:
 - Efficient parsers can be easily and efficiently implemented
   @compilers-dragon-book[Sect. 4.4.3].
 
-Our approach is to provide an equivalence between @syntax:figure-welkin-grammar
-and a new grammar. More precisely, we require a bijection with the following
-property: a string accepted by @syntax:figure-welkin-grammar is also accepted by
-the new grammar, and vice versa. We will then prove the latter is $"LL"(1)$.
+Our approach is to based on the work of @edelmann-ll1-parsing. There, they
+define $LL(1)$ parsing specifically for parser combinators, which an equivalence
+between @syntax:figure-welkin-grammar and a new grammar. More precisely, we
+require a bijection with the following property: a string accepted by
+@syntax:figure-welkin-grammar is also accepted by the new grammar, and vice
+versa. We will then prove the latter is $"LL"(1)$.
 
 #definition[
   (@compilers-dragon-book). Let $G = (N, T, P)$ be a CFG and string of grammar
