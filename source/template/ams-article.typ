@@ -280,7 +280,7 @@
           #v(normal-size, weak: true)
         ]
 
-        theorem-counter.update(0)
+        theorem-counter.update(1)
         // Reset equation counter at each new section
         counter(math.equation).update(0)
       } else {
