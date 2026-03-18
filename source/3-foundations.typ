@@ -456,7 +456,8 @@ of a query? As it turns out, a valid derivation suffices.
 ]<foundations:information>
 
 Our work in @metatheory proves that this definition is _complete_, or that _any_
-proof accepted by a turing machine is accepted by Welkin.
+proof accepted by a turing machine is accepted by Welkin. Note that this _highly
+depends_ on contextual lifting (@r:context-lift).
 
 
 
