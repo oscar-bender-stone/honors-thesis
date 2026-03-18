@@ -111,8 +111,8 @@ use $I Sigma_0$ to denote $I Delta_0$.
   as well. We claim that an extended pairing function can be made that is
   defined inductively. [TODO: define this function!]
 
-  Second, it can be easily shown that each rule in @unit-rules are definable by
-  induction, in at most 7 variables.
+  Second, it can be easily shown that each rule in @table:unit-rules are
+  definable by induction, in at most 7 variables.
 ]
 
 An important consequence of this theorem is the following, proving that the

@@ -129,8 +129,8 @@ Now, units and information themselves could be expressed in infinitely many
 languages, with slightly different syntax or semantics. Welkin is carefully
 designed to be a _minimal_ expression of these concepts, with minimal friction
 to express any other universal information base. The core rules are provided in
-@unit-rules. To express the syntax of the language, we write these in ASCII in
-`type-writer` font.#footnote[This font is Intel One Mono (#link(
+@table:unit-rules. To express the syntax of the language, we write these in
+ASCII in `type-writer` font.#footnote[This font is Intel One Mono (#link(
     "https://github.com/intel/intel-one-mono",
   )), licensed under OFL 1.1 (#link(
     "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",

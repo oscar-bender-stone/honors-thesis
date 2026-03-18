@@ -30,7 +30,8 @@ This section discuss the foundations of Welkin, outlined in
 
     [*@foundations:units-section*],
     [*Units*],
-    [Recursively defines units @foundations:unit as their rules @unit-rules.],
+    [Recursively defines units @foundations:unit as their rules
+      (@table:unit-rules).],
 
     [*@foundations:turing-completeness-section*],
     [*Turing #linebreak() Completeness*],
@@ -63,10 +64,10 @@ Moreover, implementation details are outside the scope of this thesis. This
 includes, e.g., practically restricting user input by fixed upper bounds.
 
 #definition[
-  A *bit* is the symbols $0$ or $1$. A *binary word* is either the symbol
-  $epsilon$ (the *empty word*), and if $w$ is a finite binary word, so are $w 0$
-  and $w 1$, where the juxtaposition of symbols denote *concatenation*. Nothing
-  else is a word.
+  A *bit* is either of the symbols $0$ or $1$. A *binary word* is either the
+  symbol $epsilon$ (the *empty word*), and if $w$ is a finite binary word, so
+  are $w 0$ and $w 1$, where the juxtaposition of symbols denote
+  *concatenation*. Nothing else is a word.
 ]<foundations:word>
 
 We also require a notion of equality on bits. To ensure this is constructive, we
@@ -83,8 +84,8 @@ explicit certificate, a bit that shows how two words are distinct.
   - *Recursive step:* suppose $w_1 #W-eq b_1w_1'$ and $w_2 #W-eq b_2w_2'$, where
     $b_1, b_2$ as bits and $w_1', w_2'$ are words. Then $w_1 #W-eq w_2$ if and
     only if $b_1, b_2$ are both $0$ or $1$, and $w'_1 #W-eq w'_2$. Moreover,
-    $w_1 #W-neq w_2$ if and only if $b_1$ is $0$ and $b_2$ is $1$, $b_1$ is $1$
-    and $b_2$ is $0$, or $w'_1 #W-neq w'_2$.
+    $w_1 #W-neq w_2$ if and only if $b_1$ and $b_2$ are distinct bits or
+    $w'_1 #W-neq w'_2$.
 ]<foundations:binary-word-equality>
 
 Words alone do not carry meaning. Instead, meaning is provided through
@@ -97,8 +98,7 @@ Words alone do not carry meaning. Instead, meaning is provided through
 
 Because handles act as free parameters, we work with them through truth. Based
 on this, the rest of the thesis will abstract away general units _as_ sets of
-axioms. Certain interpretations are used to define Welkin's syntax. For example,
-words can be interpreted as handles without external meaning.
+axioms.
 
 Now, we can define equality and inequality between handles. We will reserve $=$
 and $!=$ for handles, respectively.
@@ -129,15 +129,6 @@ representations. We present the complete definition as follows.
       $b$ *in context* $c$.
 ]<foundations:unit>
 
-[TODO: finish!]
-
-We also need a form of *containment*.
-
-#definition[
-  Let $u$ and $c$ be units. Then $u$ is *contained in* $c$, denoted
-  $u subset.eq.sq c$, if either $u equiv {}$ or for some unit $v$,
-  $c equiv {u, v}$.
-]<foundations:containment>
 
 We add several abbreviations, most of which will appear in @syntax:
 
@@ -148,121 +139,120 @@ We add several abbreviations, most of which will appear in @syntax:
 - We add a symbol $prec.curly.eq$ for *derives*, where $a prec.curly.eq b$
   (read: $a$ is derived by $b$) iff #box[$a - b -> a$].
 
-Now we may introduce the rules on units.
+Now we may introduce the rules on units. These are provided in
+@table:unit-rules, stated over stated over meta-variables $a, b, c, d, g$ for
+units and $h_1, h_2$ for handles.
 
-#definition[
-  All rules in @table:unit-rules hold, stated over meta-variables
-  $a, b, c, d, g$ for units and $h_1, h_2$ for handles.
-  #let unit-rule-table = label-table(
-    prefix: "R",
+#let unit-rule-table = label-table(
+  prefix: "R",
+  (
     (
-      (
-        name: "Internal Transitivity",
-        lbl: "r:transitivity",
-        content: [$a - c -> b$ and $b - c -> d$ imply $a - c -> d$],
-      ),
-      (
-        name: "Pair Congruence",
-        lbl: "r:pair-congruence",
-        content: [
-          If $a - c -> b$, then
-          #box[${a, d} - c -> {b, d}$]
-        ],
-      ),
-      // TODO: combine congruence axioms into one
-      (
-        name: "Sign Congruence",
-        lbl: "r:sign-congruence",
-        content: [
-          If $a - c -> b$, then #box[${a - g -> d} - c -> {b - g -> d}$]
-        ],
-      ),
-      (
-        name: "Context Congruence",
-        lbl: "r:context-congruence",
-        content: [
-          If $a - c -> b$, then
-          #box[${d - a -> g} - c -> {d - b -> g}$]
-        ],
-      ),
-      (
-        name: "Referent Congruence",
-        lbl: "r:referent-congruence",
-        content: [
-          If $a - c -> b$, then
-          #box[${d - g -> a} - c -> {d - g -> b}$]
-        ],
-      ),
-
-      (
-        name: "Contextual Lifting",
-        lbl: "r:context-lift",
-        content: [$a - c -> b$ and $d - a -> g$ imply
-          #box[${d - b -> g} prec.curly.eq c$]],
-      ),
-      (
-        name: "Refinement",
-        lbl: "r:refine",
-        content: [
-          #box[${a - c -> b, a - c -> d} --> {a - c -> b}$]
-        ],
-      ),
-      (
-        name: "Empty",
-        lbl: "r:empty",
-        content: [${g, {}} <- c -> g$],
-      ),
-      (
-        name: "Sign Absorption",
-        lbl: "r:sign-null",
-        content: [${{} - a -> b} - c -> {}$],
-      ),
-      (
-        name: "Context Absorption",
-        lbl: "r:context-null",
-        content: [${a - {} -> b} - c -> {}$],
-      ),
-      (
-        name: "Referent Absorption",
-        lbl: "r:referent-null",
-        content: [ ${a - b -> {}} - c -> {}$],
-      ),
-      (
-        name: "Handle Equality",
-        lbl: "r:handle-eq",
-        content: [If $h_1 = h_2$, then
-          $h_1 <-c-> h_2$],
-      ),
-      (
-        name: "Derivation",
-        lbl: "r:derivation",
-        content: [
-          #box[${a - g -> a} <- c -> {{g, a} <--> g}$]
-        ],
-      ),
-      (
-        name: "Idempotentcy",
-        lbl: "r:idempotent",
-        content: [${a, a} <-c-> a$],
-      ),
-      (
-        name: "Associativity",
-        lbl: "r:associativity",
-        content: [${a, {b, c}} <-c-> {{a, b}, c}$],
-      ),
-      (
-        name: "Commutativity",
-        lbl: "r:commutativity",
-        content: [${a, b} <-c-> {b, a}$],
-      ),
+      name: "Internal Transitivity",
+      lbl: "r:transitivity",
+      content: [$a - c -> b$ and $b - c -> d$ imply $a - c -> d$],
     ),
-  )
-  #figure(
-    unit-rule-table,
-    caption: "Set of all valid rules in Welkin.",
-  )<table:unit-rules>
+    (
+      name: "Pair Congruence",
+      lbl: "r:pair-congruence",
+      content: [
+        If $a - c -> b$, then
+        #box[${a, d} - c -> {b, d}$]
+      ],
+    ),
+    // TODO: combine congruence axioms into one
+    (
+      name: "Sign Congruence",
+      lbl: "r:sign-congruence",
+      content: [
+        If $a - c -> b$, then #box[${a - g -> d} - c -> {b - g -> d}$]
+      ],
+    ),
+    (
+      name: "Context Congruence",
+      lbl: "r:context-congruence",
+      content: [
+        If $a - c -> b$, then
+        #box[${d - a -> g} - c -> {d - b -> g}$]
+      ],
+    ),
+    (
+      name: "Referent Congruence",
+      lbl: "r:referent-congruence",
+      content: [
+        If $a - c -> b$, then
+        #box[${d - g -> a} - c -> {d - g -> b}$]
+      ],
+    ),
 
-]<unit-rules>
+    (
+      name: "Contextual Lifting",
+      lbl: "r:context-lift",
+      content: [$a - c -> b$ and $d - a -> g$ imply
+        #box[${d - b -> g} prec.curly.eq c$]],
+    ),
+    (
+      name: "Refinement",
+      lbl: "r:refine",
+      content: [
+        #box[${a - c -> b, a - c -> d} --> {a - c -> b}$]
+      ],
+    ),
+    (
+      name: "Empty",
+      lbl: "r:empty",
+      content: [${g, {}} <- c -> g$],
+    ),
+    (
+      name: "Sign Absorption",
+      lbl: "r:sign-null",
+      content: [${{} - a -> b} - c -> {}$],
+    ),
+    (
+      name: "Context Absorption",
+      lbl: "r:context-null",
+      content: [${a - {} -> b} - c -> {}$],
+    ),
+    (
+      name: "Referent Absorption",
+      lbl: "r:referent-null",
+      content: [ ${a - b -> {}} - c -> {}$],
+    ),
+    (
+      name: "Handle Equality",
+      lbl: "r:handle-eq",
+      content: [If $h_1 = h_2$, then
+        $h_1 <-c-> h_2$],
+    ),
+    (
+      name: "Derivation",
+      lbl: "r:derivation",
+      content: [
+        #box[${a - g -> a} <- c -> {{g, a} <--> g}$]
+      ],
+    ),
+    (
+      name: "Idempotentcy",
+      lbl: "r:idempotent",
+      content: [${a, a} <-c-> a$],
+    ),
+    (
+      name: "Associativity",
+      lbl: "r:associativity",
+      content: [${a, {b, c}} <-c-> {{a, b}, c}$],
+    ),
+    (
+      name: "Commutativity",
+      lbl: "r:commutativity",
+      content: [${a, b} <-c-> {b, a}$],
+    ),
+  ),
+)
+
+#show figure: set block(breakable: true)
+#figure(
+  unit-rule-table,
+  caption: "Set of all valid rules in Welkin.",
+)<table:unit-rules>
 
 We review the utility of each rule. Note @r:context-lift is the only rule
 _between_ contexts; the rest is entirely user defined. Moreover, only
@@ -270,14 +260,18 @@ _between_ contexts; the rest is entirely user defined. Moreover, only
 Turing completeness. However, the other rules are in place to help with
 organizing units as modules, as well as make it easier to use the language.
 
-[TODO: refer to rules with ranges when appropriate! Much nicer.]
-
 [TODO: discuss derivation!]
 
-- @r:transitivity, @r:pair-congruence, @r:sign-congruence,
-  @r:context-congruence, @r:referent-congruence, @r:context-lift were discussed
-  in @rationale:unit.[TODO: maybe review the discussion from earlier? Might be
-  useful to reinforce main ideas to reader.]
+- @r:transitivity ensures that each context is closed under transitivity. This
+  makes it easier to reason _within_ a context. Truth systems with
+  non-transitive rules can be expressed through combining contexts.
+- @r:sign-congruence, @r:context-congruence, @r:referent-congruence enable the
+  transe
+- @r:context-lift was previously discussed in
+  @rationale:mechanizing-information. This provides a mechanism to test the
+  relability of certain representations. That is, if $a$ represents $b$ in
+  context $c$, then $a$ is a *surrogate* for $b$. This means that all
+  representations contained in $a$ can be transferred onto $b$, _within_ $c$.
 - @r:refine is explained as follows: suppose $a$ is a unit, and in a block, $a$
   represents two other units $b, d$. Then this block _represents_ ${a --> b}$
   and ${a --> d}$, separately. This provides a mechanism to _refine_ a general
@@ -291,26 +285,41 @@ organizing units as modules, as well as make it easier to use the language.
 - @r:handle-eq enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are entirely
   user defined.
+- @r:derivation characterizes $a prec.curly.eq g$ as ${g, a} <--> a$. This is
+  parallel to the following proposition in set theory: $A$ is a subset of $B$
+  iff $A$ _combined_ with $B$ results in $B$. Note that derives $prec.curly.eq$
+  is a coarser notion. In particular, by @r:transitivity, it is transitively
+  closed.
 - @r:idempotent, @r:associativity, and @r:commutativity ensure that information
   can be repeated and arranged in any order. Mathematically, this means that
   units have a *semi-lattice* structure.
 
-#remark[The rules in @unit-rules use few meta-variables, which may _or_ may not
-  equal each other. This is connected to variables as managed by the proof
-  checker MetaMath Zero @mm0. In first-order logic, variables in quantifiers are
-  assumed to be distinct. To _allow_ for equality as well, these must be
-  separately included, but this quickly explodes in size. All of this means that
-  Welkin, similar to MetaMath Zero, achieves a significant level of compression.
-  However, _direct_ conversions to first-order theories may not be feasible.
+#remark[The rules in @table:unit-rules use few meta-variables, which may _or_
+  may not equal each other. This is connected to variables as managed by the
+  proof checker MetaMath Zero @mm0. In first-order logic, variables in
+  quantifiers are assumed to be distinct. To _allow_ for equality as well, these
+  must be separately included, but this quickly explodes in size. All of this
+  means that Welkin, similar to MetaMath Zero, achieves a significant level of
+  compression. However, _direct_ conversions to first-order theories may not be
+  feasible.
 ]
 
-As more notation, we write:
+We also need a form of *containment*.
+
+#definition[
+  Let $u$ and $c$ be units. Then $u$ is *contained in* $c$, denoted
+  $u subset.eq.sq c$, if either $u equiv {}$, or for some unit $v$,
+  $c <--> {u, v}$.
+]<foundations:containment>
+
+Finally, we add more notation. We write:
 
 - $"*"{a_1, ..., a_n} - c -> b$ for
   ${a_1 - c -> b, a_2 - c -> b, .., a_n - c -> b}$.
 - $a - c -> "*"{b_1, ..., b_n}$ for ${a --> b_1, a --> b_2, .., a --> b_n}$.
 
-We will officially add $"*"$ to the grammar in @syntax.
+Note that $"*"$ is officially defined in the grammar, refer to
+@syntax:welkin-grammar.
 
 == Turing Completeness <foundations:turing-completeness-section>
 
@@ -378,9 +387,9 @@ high level:
   respectively. For more details, refer to
   @turner-applicative-languages-combinators.
 
-- Each rule in @unit-rules are themselves finite, ranging over a finite number
-  of meta-variables. These, too, can be encoded as combinators through if/else
-  statements.
+- Each rule in @table:unit-rules are themselves finite, ranging over a finite
+  number of meta-variables. These, too, can be encoded as combinators through
+  if/else statements.
 
 It remains to show that every combinator is included in this embedding. For
 this, we prove the following. Our proof technique uses recursion within Welkin.
@@ -459,7 +468,7 @@ Welkin, this is exactly a derivation involving $q - c -> q$.
 
   - A *derivation over* $c$ is a unit ${u_1 - c -> u_2 ... - c -> u_n}$ such
     that each $u_i$ is either a) $u_i$ is contained in $c$, or b) an application
-    of a rule in @unit-rules from previous units $u_1, ..., u_j$.
+    of a rule in @table:unit-rules from previous units $u_1, ..., u_j$.
   - We say $u$ *contains information* about a query $q$ in context $c$ if it
     contains a derivation that ends with the unit ${q - c -> q}$. Moreovoer, we
     say it *is information* if it only contains derivations ending in
