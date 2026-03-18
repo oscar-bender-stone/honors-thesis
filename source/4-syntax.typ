@@ -311,10 +311,12 @@ grammar. These grammars have two desirable properties:
   @compilers-dragon-book[Sect. 4.4.3].
 
 Our approach is to based on the work of @edelmann-ll1-parsing. There, they
-define $"LL"(1)$ parsing specifically for parser combinators. We first bridge
-parsers in @invertible-syntax-descriptions with their notions, provided in
-@syntax:original-to-edelmann. For more details, consult
-@edelmann-ll1-parsing[Sect. 3].
+define $"LL"(1)$ parsing specifically for parser combinators. An important
+notion is rules involving _exit variables_, or rules of the form
+$x mapsto (A dot x) dot B$. These track when a parser still consumes an $A$,
+_or_ encounters a $B$. We use this idea, and other base operations, to convert
+from our original combinators. listed in @syntax:original-to-edelmann. For more
+details on the algebraic rules, refer to @edelmann-ll1-parsing[Sect. 3].
 
 #figure(
   table(
