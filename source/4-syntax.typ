@@ -310,13 +310,16 @@ grammar. These grammars have two desirable properties:
 - Efficient parsers can be easily and efficiently implemented
   @compilers-dragon-book[Sect. 4.4.3].
 
-Our approach is to based on the work of @edelmann-ll1-parsing. There, they
-define $"LL"(1)$ parsing specifically for parser combinators. An important
-notion is rules involving _exit variables_, or rules of the form
-$x mapsto (A dot x) dot B$. These track when a parser still consumes an $A$,
-_or_ encounters a $B$. We use this idea, and other base operations, to convert
-from our original combinators. listed in @syntax:original-to-edelmann. For more
-details on the algebraic rules, refer to @edelmann-ll1-parsing[Sect. 3].
+Our approach is to based converting the combinators in
+@invertible-syntax-descriptions to an algebraic from, based on
+@edelmann-ll1-parsing. There, they define $"LL"(1)$ parsing specifically for
+parser combinators. An important construction is rules involving _exit
+variables_, or rules of the form $x mapsto (A dot x) dot B$. These track when a
+parser still consumes an $A$, _or_ encounters a $B$. For example, to define a
+parser consuming zero or more whitespaces, one may define
+#box[$"WS*" equiv w mapsto ("WS" dot w) or epsilon$]. This is heavily used in
+the conversions, provided in @syntax:original-to-edelmann. For more details on
+the algebraic rules, refer to @edelmann-ll1-parsing[Sect. 3].
 
 #figure(
   table(
@@ -324,8 +327,8 @@ details on the algebraic rules, refer to @edelmann-ll1-parsing[Sect. 3].
     table.header([*Original*], [*Algebraic Form*]),
     [$A - "seq" -> B$], [$A dot B$],
     [$A - "lexeme" -> B$], [$A dot ("WS""*" dot B)$],
-    [$A - "seq_many_till" -> B$], [$$],
-    [$A - "lex_many_till" -> B$], [$$],
+    [$A - "seq_many_till" -> B$], [$x mapsto (A dot x) or B$],
+    [$A - "lex_many_till" -> B$], [$x mapsto ((A dot "WS*") dot x) or B$],
     [$C := A | B$], [$C equiv A or B$],
     [$"*"{A, B}$], [$A or B$],
     [$"*"{epsilon, B}$], [$epsilon or B$],
