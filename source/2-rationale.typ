@@ -107,16 +107,13 @@ technical constructions to show that our definition is _as general_ as possible
 An important rule pivotal to information is the following rule called
 *contextual lifting*:
 
-#align(center, [
-  #set quote(block: true)
-  #quote([Suppose $a$ represents $b$ in context $c$,
+#set quote(block: true)
+#quote(
+  [Suppose $a$ represents $b$ in context $c$, and $p$ represents $q$ in context
+    $a$. #linebreak() Then, _within_ context $c$, $p$ represents $q$ in context
+    $b$.],
+)
 
-    and $p$ represents $q$ in context $a$.
-
-    Then, _within_ context $c$,
-
-    $p$ represents $q$ in context $b$.])
-])
 Written in symbols: $a - c -> b$ and $p - a -> q$ implies $p - b -> q$ _within_
 $c$. Lifting is a notion closely tied to McCarthy's notion of lifting, but
 formulated with representations. The idea is, if $a$ represents $b$ in context
