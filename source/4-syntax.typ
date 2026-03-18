@@ -183,7 +183,7 @@ units :=
   | ""
   | {
       unit
-      - lexeme -> *{"", "," - lexeme -> unit}
+      - lexeme -> {"," - lexeme -> unit}
       - lex_many_until -> *{"", ","}
     },
 
@@ -193,8 +193,7 @@ arc := right_arc | other_arc,
 right_arc := "-" - seq -> node - seq -> "->",
 other_arc := "<-" - seq -> node - seq -> *{"-" | "->"},
 
-node := *{"", "*"}
-  - seq -> *{
+node := "*" - seq_many_till -> *{
     graph,
     path - lexeme -> *{"", binding}
   }
@@ -244,6 +243,12 @@ We say a string is *valid* if it is accepted by the grammar
 - The number of dots (relative import) used must not exceed the number of levels
   available.
 
+- There must be at least one path that starts with `@h`, where `h` is some
+  handle. This is used to name the module.
+
+- For all paths that start with `@h1` and `@h2`, respectively, `h1` must be
+  equal to `h2`.
+
 - Every definition of a unit must only be stated once. This means
   `u := v, u:= w` is not allowed.
 
@@ -254,6 +259,9 @@ We say a string is *valid* if it is accepted by the grammar
 We leave error handling for future work, see @conclusion.
 
 Additionally, we define transformation rules after parsing:
+
+- Some node that starts with `@` is found. This marks the module name. Denote
+  this name as $m$.
 
 - If `\'` appears in a single quoted string, then this will be replaced by `'`
   in the final contents. For example, given a string `"John\'s dog"`, the
@@ -268,13 +276,27 @@ Additionally, we define transformation rules after parsing:
   `hello <--> 'hello'`. Practically, the only difference is that units forbid
   `WHITESPACE` or `RESERVED` characters, but they can be written without quotes.
 
-- Each `*` within a path expands to all the members in the respective unit.
+- Paths are resolved, determined where the unit originated. For example, in
+  `a, c := {.a, b}`, the `.a` inside `c` would be expanded as `a`.
 
-- Each `*u` for a handle or graph $u$ expands to all the members in the enclosed
-  unit.
+- Each `*u` for a handle or graph `u` expands to all the members in the enclosed
+  unit. If `u` contains a at most one item or is a representation, then `*u` is
+  expanded as `u`. Multiple `*`, such as `**u`, recursively expands the contents
+  in a unit.
 
-- The definitions for `|` and `~` are expanded, see @unit-rules. [TODO: maybe
-  provide a remark on new notation? Or make a notation env?].
+- Each definition `x := a1 | ... | an` expands to
+  `x <--> {x - x -> a1, ..., b - x -> an}`. For each graph `a1`, the generated
+  graph will contain `v - x -> v`, where `v` is a handle or representation in
+  `a1`.
+
+- Each `~x` expands to `x - g -> {}`, where `g` is the name where `~x` is
+  placed. At the highest level, this would be the module name, $m$.
+
+- The definitions for `|` and `~` are expanded, see @unit-rules.
+
+  -
+
+  -
 
 == Proof of Unambiguity <syntax:proof-unambiguous>
 

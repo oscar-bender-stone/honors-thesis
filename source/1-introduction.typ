@@ -30,10 +30,6 @@ must not only be in concrete records, but also accurately represent a topic of
 interest. As shown in this small sample of authors, the word information has
 several meanings, and they are driven by the goal to organize data.
 
-// TODO: just giving citation does *not* mean they can certify the claim. Cite a
-// specific page? If paper is *entirely* about the claim, then don't have page, but
-// if NOT, do an address.]
-
 Despite efforts to understand information, there are ongoing problems in real
 world projects. One of these issues is the _depth_ of domains. For example, at
 major retailers like Amazon, inventory and recommendation systems use immense
@@ -107,14 +103,16 @@ see @conclusion:comparisons.
   when applied to large-scale databases or when bridging disparate domains
   @formal-concept-analysis-trends.
 
-This thesis introduces a language to resolve these issues for Information
+This thesis designs a language to resolve these issues for Information
 Management. I call this language *Welkin*, based on an old German word meaning
 cloud @dictionary:welkin. This word represents the expansive nature of the
 language, able to express any concept and justification that can be processed
 through a computer program.
 
-The core result of this thesis is fact that Welkin fulfills three goals: it is
-*universal*, *scalable*, and *standardized*. For details, see @goals. The
+The core result of this thesis is that Welkin fulfills two goals: it is
+*universal* and *scalable*. Moreover, Welkin has another goal: to be fully
+*standardized*. While many parts of this thesis partially reach this goal, the
+rest is left for a future work. More details are available in @goals. The
 fundamental building block is based on *representations*, containing a
 relationship between a *sign* representing a *referent* in a
 *context*.#footnote[There are similarities with representations and Peirce's
@@ -130,7 +128,7 @@ conflicting claims isolated [maybe different word than isolated?], providing a
 clear separation from other contexts.
 
 [TODO: revise with latest version of what information is!] Building on
-representations, information is defined as a property preserved under
+representations, information is defined as a _collection_ . preserved under
 equivalences relative to a context. To make the information base scalable, the
 base operations are kept as simple as possible. However, they are proven to be
 maximally expressive. The simplicity of the language aids in standardization as
