@@ -45,7 +45,7 @@
 #let large-size = 11.74988pt
 #let text-font = "STIX Two Text"
 
-#let add-defense-page(
+#let defense-page(
   title: "",
   author: "",
   department: "",
@@ -85,6 +85,8 @@
     )
 
     #v(2fr)
+    #text(weight: "bold")[Defense Date]
+    #v(0.5em)
     #defense_date
     #pagebreak()
   ]
@@ -120,6 +122,12 @@
   keywords: none,
   // Enable draft mode
   draft: false,
+  // Enable thesis:
+  thesis: true,
+  // Thesis based options
+  // Advisor for thesis
+  advisor: (),
+  defense-date: (),
 ) = {
   let watermark = if draft {
     rotate(24deg, text(80pt, fill: gray.lighten(70%))[
@@ -155,6 +163,18 @@
 
   // Set equation numbering to (section.equation)
   set math.equation(numbering: "(1.1)")
+
+  if thesis {
+    defense-page(
+      title: title,
+      author: author-string,
+      department: authors.first().department,
+      defense_date: defense-date,
+      // advisor: advisor,
+      // committee: committee,
+    )
+    counter(page).update(1) // Reset page count after title page
+  }
 
   // Configure the page.
   set page(

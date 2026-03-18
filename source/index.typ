@@ -5,6 +5,7 @@
 
 #show: ams_article.with(
   draft: true,
+  thesis: false,
   title: [Designing a Universal Information Language],
   authors: (
     (
@@ -16,6 +17,7 @@
     ),
   ),
   date: [March 18, 2026],
+  defense-date: [March 26, 2026],
   abstract: [This thesis proposes a universal information language called
     Welkin. We introduce its use cases and rigorously define its underlying
     theory and syntax. We prove that the syntax is unambiguous, and that Welkin
