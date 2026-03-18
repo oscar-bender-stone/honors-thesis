@@ -336,22 +336,22 @@ for some unit $u$. The purpose of $phi$ is to provide a computational
 interpretation of units _as_ programs, or operators. Note that handles can have
 implicit, user-defined meaning (outlined in @foundations:handle). Practically,
 we will maintain this interpretation, as representations are managed
-mechanically through truth
+mechanically through truth.
 #footnote[
   In connection to linguistics, this is the difference between a formal
   semantics, what is stated in the language, and pragmatics, the intension or
   purpose of a term.]
 
-At this point, we are concerned with showing _some_ $phi$ exists, thereby
-validating Goal 1 [TODO: provide a link to this]. We are not concerned about
-efficiency; this will be left for a future work, refer to @conclusion. To
-construct $phi$, we want to create an embedding into the $"SK"$-combinator
-calculus. This is an equational theory, first developed by Schönfinkel
-@schoenfinkel-combinators, and independently discovered by Curry
-@curry-grundlagen. In this theory, a *combinator* is a higher-order function: a
-function that takes in other functions as inputs. #footnote[A remark for
-  logicians: this calculus is extremely similar to a Hilbert-style proof system,
-  with $K$ and $S$ corresponding to the rules $(phi => (psi => phi))$ and
+At this point, we are concerned with showing _some_ $phi$ exists, necessary to
+fulfill @universal. We are not concerned about efficiency; this will be left for
+a future work, refer to @conclusion. To construct $phi$, we want to create an
+embedding into the $"SK"$-combinator calculus. This is an equational theory,
+first developed by Schönfinkel @schoenfinkel-combinators, and independently
+discovered by Curry @curry-grundlagen. In this theory, a *combinator* is a
+higher-order function: a function that takes in other functions as inputs.
+#footnote[A remark for logicians: this calculus is extremely similar to a
+  Hilbert-style proof system, with $K$ and $S$ corresponding to the rules
+  $(phi => (psi => phi))$ and
   $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.
   This was one of Curry's insights in connecting logic to computation
   @curry-grundlagen.] As a simplification, we present this calculus using a
@@ -400,7 +400,7 @@ this, we prove the following. Our proof technique uses recursion within Welkin.
   $P$ to represent meta-variables. With these, $L$ is defined with exactly the
   following:
 
-  - $L - L -> *{K, S}$: recall that this is equivalent to $L - L -> K$ and
+  - $L - L -> "*"{K, S}$: recall that this is equivalent to $L - L -> K$ and
     $L - L -> S$. These units represent that $K$ and $S$, respectively, are
     terms.
 
@@ -429,7 +429,7 @@ this, we prove the following. Our proof technique uses recursion within Welkin.
   is provided by @r:transitivity.
 
   Finally, @r:context-congruence entails term congruence: if $M - L -> M'$, then
-  $N - M -> L$ represents $N - M' -> L$. Because $=>_"SK"$ and any term can be
+  $N - M -> L$ represents $N - M' -> L$. Because $#sk-imp$ and any term can be
   represented in $L$, this completes the proof.
 ]
 
@@ -455,8 +455,9 @@ example, we can quickly verify that $p$ is in context ${p, q}$ using
 i.e., determining whether any Turing machine halts can be determined through a
 query in Welkin.
 
-Based on the uncomputability of general queries, what is a valid _certificate_
-of a query? As it turns out, a valid derivation suffices.
+Although general queries are uncomputable, we can verify _certificates_. These
+provide a specific derivation that demonstrates the query is true or false. In
+Welkin, this is exactly a derivation involving $q - c -> q$.
 
 #definition[
   Let $c$ and $q$ be units.
@@ -472,7 +473,10 @@ of a query? As it turns out, a valid derivation suffices.
 
 Our work in @metatheory proves that this definition is _complete_, or that _any_
 proof accepted by a Turing machine is accepted by Welkin. Note that this _highly
-depends_ on contextual lifting (@r:context-lift).
+depends_ on contextual lifting (@r:context-lift). Additionally, this enables
+proofs that certain queries are _not_ possible. This method is inherently
+incomplete, due to limitations in Turing machines. For more details, consult
+@metatheory.
 
 
 
