@@ -25,7 +25,7 @@ This section discuss the foundations of Welkin, outlined in
     align: left,
     table.header([*Section Number*], [*Title*], [*Description*]),
     [*@foundations:words-and-handles*],
-    [*Words and Handles*],
+    [*Words and #linebreak() Handles*],
     [Introduces binary words and handles.],
 
     [*@foundations:units-section*],
@@ -33,14 +33,14 @@ This section discuss the foundations of Welkin, outlined in
     [Recursively defines units @foundations:unit as their rules @unit-rules.],
 
     [*@foundations:turing-completeness-section*],
-    [*Turing Completeness*],
+    [*Turing #linebreak() Completeness*],
     [Proves that there is a natural correspondence between untis in Welkin and
       Turing machines.],
 
     [*@foundations:queries-and-information*],
-    [*Queries and Information*],
-    [Defines queries @foundations:query and information
-      @foundations:information],
+    [*Queries and #linebreak() Information*],
+    [Defines queries (@foundations:query) and information
+      (@foundations:information)],
   ),
   caption: [Overview of @syntax.],
 )<foundations:overview>
@@ -141,10 +141,6 @@ We add several abbreviations, most of which will appear in @syntax:
 
 Now we may introduce the rules on units.
 
-[TODO: fix wrapping of long table! Want to make this clearer!]
-
-// TODO: maybe provide technique for unused imports?
-// Might JUST want to have for later, not have as part of unit.
 #definition[
   All rules in @table:unit-rules hold, stated over meta-variables
   $a, b, c, d, g$ for units and $h_1, h_2$ for handles.
@@ -433,39 +429,35 @@ computably. For more details, refer to @hopcroft-automata-theory[Ch. 1]. This
 asks whether a representation is contained in a context.
 
 #definition[
-  Let $c$ be a context. Then a *query over $c$* is a question over fixed units
-  $p, q, d$:
-  #quote[
-    Does ${p - q -> d} - "unit" -> c$ hold?
-  ]
+  Let $c$ and $q$ be units. A *query over* $c$ is the following question: does
+  $q subset.eq.sq c$ hold?
 ]<foundations:query>
 
-We can then apply $"unit"$ in an attempt to evaluate this. In some cases, this
-is easy and only uses _direct definitions_. Consider, for example, examining $p$
-in context ${p, q}$. We can resolve this with a quick traversal, showing that
-$p$ is in fact in ${p, q}$. However, @foundations:turing-expressible implies
-that finding general derivations are uncomputable. More precisely, we have the
-following.
+Certain queries are easy and rely on _direct definitions_. Consider, for
+example, we can quickly verify that $p$ is in context ${p, q}$ using
+@foundations:unit. However, in general, this will be uncomputable, due to
+@foundations:turing-expressible. In fact, this problem is is $"RE"$-complete,
+i.e., determining whether any Turing machine halts can be determined through a
+query in Welkin.
 
-#corollary[
-  The problem of determining whether a query is satisfiable is RE-complete.
-]
-
-We want information to _resolve_ a query. Formally, we want information to be
-_proof_, not a "yes/no" answer by itself. When the context is finite, like
-${p, q}$, there is a direct proof. But what about the general case? Some queries
-may reduce _forever_. While we cannot determine _which_ ones reduce to ${}$ or
-not, we _can_ find the ceiling of proofs expressible by computable functions.
-This process is more involved and is the subject of the next section.
-
-[TODO[MEDIUM]: make this definition self-contained! The goal is to show that
-this _is_ complete. That should be independent of the next section!]
+Based on the uncomputability of general queries, what is a valid _certificate_
+of a query? As it turns out, a valid derivation suffices.
 
 #definition[
-  *Information* about a query $q$ in context $c$ is a any partial meta-proof in
-  $"meta"$ of a derivation of ${c, q}$.
+  Let $c$ and $q$ be units.
+
+  - A *derivation over* $c$ is a unit ${u_1 - c -> u_2 ... - c -> u_n}$ such
+    that each $u_i$ is either a) already in
+  $c$, or b) an application of a rule in @unit-rules from previous units
+  $u_1, ..., u_j$.
+  - We say $u$ *contains information* about a query $q$ in context $c$ if it
+    contains a derivation that ends with the unit ${q - c -> q}$. Moreovoer, we
+    say it *is* information if it only contains derivations ending in
+    ${q - c -> q}$.
 ]<foundations:information>
 
+Our work in @metatheory proves that this definition is _complete_, or that _any_
+proof accepted by a turing machine is accepted by Welkin.
 
 
 
