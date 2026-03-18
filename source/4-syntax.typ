@@ -7,6 +7,8 @@
 #import "template/ams-article.typ": proof
 #import "us-ascii.typ": printable-ascii-table
 
+#show sym.emptyset: math.diameter
+
 = Syntax <syntax>
 
 This section examines the grammar for Welkin and provides validation rules. For
@@ -208,7 +210,7 @@ choices := *{"", "|"}
   - lexeme -> *{
     "",
     {"|" - lexeme -> unit}
-    - lex_many_till -> *{"}", ","}
+    - lex_many_till -> *{"", "|"}
   },
 
 graph := path
@@ -310,15 +312,19 @@ grammar. These grammars have two desirable properties:
   @compilers-dragon-book[Sect. 4.4.3].
 
 Our approach is to based converting the combinators in
-@invertible-syntax-descriptions to an algebraic from, based on
-@edelmann-ll1-parsing. There, they define $"LL"(1)$ parsing specifically for
-parser combinators. An important construction is rules involving _exit
-variables_, or rules of the form $x mapsto (A dot x) dot B$. These track when a
-parser still consumes an $A$, _or_ encounters a $B$. For example, to define a
-parser consuming zero or more whitespaces, one may define
-#box[$"WS*" equiv w mapsto ("WS" dot w) or epsilon$]. This is heavily used in
-the conversions, provided in @syntax:original-to-edelmann. For more details on
-the algebraic rules, refer to @edelmann-ll1-parsing[Sect. 3].
+@invertible-syntax-descriptions to an algebraic from, based on a paper by
+Edelmann, Hamza, and Kunčak @edelmann-ll1-parsing. These authors define create
+an algebra on parsing combinators, used to define a combinator form of
+$"LL"(1)$. In this algebra, two natural operations are disjunction $A or B$,
+which behaves exactly like $A | B$ in our notation, and $A dot B$, which
+represents concatenation. Additionally, the algebra includes rules with _exit
+variables_, or rules of the form #box[$x mapsto (A dot x) dot B$]. Using
+recursion in $x$, these track when a parser still consumes an $A$, _or_
+encounters a $B$. For example, we can define a parser that takes in zero or more
+whitespaces: #box[$"WS*" equiv w mapsto ("WS" dot w) or epsilon$]. We heavily
+use exit variables in the conversions, provided in @syntax:original-to-edelmann.
+For more details on the algebraic rules, refer to @edelmann-ll1-parsing[Sect.
+  3].
 
 #figure(
   table(
@@ -332,29 +338,54 @@ the algebraic rules, refer to @edelmann-ll1-parsing[Sect. 3].
     [$"*"{A, B}$], [$A or B$],
     [$"*"{epsilon, B}$], [$epsilon or B$],
   ),
-  caption: [Translations of base combinator parsers to the algebra in
+  caption: [Conversions of parser combinators into the algebra defined by
     @edelmann-ll1-parsing.],
 )<syntax:original-to-edelmann>
 
+Next, we need to define properties of combinators, provided below. Note that
+$emptyset$ denotes the empty set, $f in F$ denotes that $f$ is an element of
+$F$, and $F union E$ denotes the union of sets $F$ and $E$.
+#let NULLABLE = math.text("NULLABLE")
+#let FIRST = math.text("FIRST")
+#let FOLLOW = math.text("FOLLOW")
+#let SNFOLLOW = math.text("SN-FOLLOW")
+
 #definition[
-  (@compilers-dragon-book). Let $G = (N, T, P)$ be a CFG and string of grammar
-  symbols $A$.
-  - The *FIRST* set, denoted $"FIRST"(A)$, consists of all $beta$ such that
-    $alpha => beta gamma_1 ... gamma_n$, as well as $epsilon$ if the grammar
-    contains a a production $alpha => epsilon$.
-  - The *FOLLOW* set, denoted $"FOLLOW"(A)$, is the set of all non-terminals $A$
-    such that, for some $alpha$ and $beta$, $S =>^* alpha A a beta$.
-]<syntax:first-and-follow>
+  (@edelmann-ll1-parsing). Let $A, B$ be meta-variables for parser combinators .
+  Moreover, let $c$ be a meta-variable for a simple combinator, one which
+  consumes a single literal character. The following properties on parsing
+  combinators are defined recursively:
 
-Using this definition, we are now ready to define $"LL"(1)$ grammars.
+  - $NULLABLE$: returns a boolean, checking whether a combinator matches
+    $epsilon$.
+    - $NULLABLE(epsilon) = "True"$.
+    - $NULLABLE(c) = "False"$.
+    - $NULLABLE(A | B) = NULLABLE(A) "or" NULLABLE(B)$.
+    - $NULLABLE(A B) = NULLABLE(A) "and" NULLABLE(B)$.
+  - $FIRST$: gathers the first character in a combinator.
+    - $FIRST(epsilon) = emptyset$.
+    - $FIRST(c) = {c}$.
+    - $FIRST(A | B) = FIRST(A) union FIRST(B)$.
+    - $FIRST(A dot B) = FIRST(A) union FIRST(B) "if" NULLABLE(A) "else" FIRST(A)$.
+  - $SNFOLLOW$: this set stands for "should not follow". It is used to locally
+    detect ambiguities.
+    #footnote[A note for computer scientists: this is a _new_ $"LL"(1)$ related
+      set, replacing the usual $"FOLLOW"$ set. This change is needed because
+      parsing combinators are built bottom-up; they do not access a global
+      parsing context. For details, consult @edelmann-ll1-parsing.
+    ]
+    - $SNFOLLOW(epsilon) = emptyset$
+    - $SNFOLLOW(c) = emptyset$
+    - $SNFOLLOW(A dot B) = SNFOLLOW(A) union SNFOLLOW(B) "if" NULLABLE(A) "else" emptyset$.
+    - $SNFOLLOW(A | B) = SNFOLLOW(A) union SNFOLLOW(B) union (FIRST(A) "if" NULLABLE(B) "else" emptyset) union (FIRST(B) "if" NULLABLE(A) "else" emptyset)$.
+]
 
-#definition[(@compilers-dragon-book[Ch. 5]). A CFG is $"LL"(1)$ if and only if
-  for every production #box[$A => alpha | beta$]:
-  - At most one of $alpha$ or $beta$ can derive $epsilon$.
-  - $"FIRST"(alpha)$ and $"FIRST"(beta)$ are disjoint.
-  - if $epsilon in "FIRST"(beta)$, then $"FIRST"(alpha)$ and $"FOLLOW"(A)$ are
-    disjoint. A similar condition is required on $beta$ if
-    $epsilon in "FIRST"(alpha)$.
+Using these properties, we are now ready to define $"LL"(1)$ grammars.
+#definition[(@compilers-dragon-book[Ch. 5]). A set $P$ of parsing combinators is
+  $"LL"(1)$ if and only if, for all $A$ and $B$:
+  - Any rule $A | B in P$
+  -
+  -
 ]<syntax:LL1>
 
 Now, we work on the proof that the new grammar is $"LL"(1)$.
