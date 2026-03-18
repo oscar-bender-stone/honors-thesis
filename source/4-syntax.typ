@@ -357,7 +357,7 @@ $F$, and $F union E$ denotes the union of sets $F$ and $E$.
   combinators are defined recursively:
 
   - $NULLABLE$: returns a boolean, checking whether a combinator matches
-    $epsilon$.
+    $epsilon$. We say a combinator is *nullable* if this check returns true.
     - $NULLABLE(epsilon) = "True"$.
     - $NULLABLE(c) = "False"$.
     - $NULLABLE(A | B) = NULLABLE(A) "or" NULLABLE(B)$.
@@ -380,12 +380,18 @@ $F$, and $F union E$ denotes the union of sets $F$ and $E$.
     - $SNFOLLOW(A | B) = SNFOLLOW(A) union SNFOLLOW(B) union (FIRST(A) "if" NULLABLE(B) "else" emptyset) union (FIRST(B) "if" NULLABLE(A) "else" emptyset)$.
 ]
 
-Using these properties, we are now ready to define $"LL"(1)$ grammars.
+Using these properties, we are now ready to define $"LL"(1)$ grammars. Without
+loss of generality, we assume the set of parser combinators contains rules
+strictly of the form $A | B$, $A dot B$, or $x mapsto (A dot x) or B$. We will
+implicitly use this form when examining the proof for the Welkin grammar.
 #definition[(@compilers-dragon-book[Ch. 5]). A set $P$ of parsing combinators is
   $"LL"(1)$ if and only if, for all $A$ and $B$:
-  - Any rule $A | B in P$
-  -
-  -
+  - For any rule $A | B in P$, neither $A$ nor $B$ are nullable, and
+    $FIRST(A) inter FIRST(B) = emptyset$.
+  - For any rule $A dot B in P$, $SNFOLLOW(A) inter FIRST(B) = emptyset$. In
+    other words, the set of characters that locally follow $A$ must be disjoint
+    with the characters starting in $B$.
+  - In any recursive expression $x mapsto (A dot x) or B$, $A$ is not nullable.
 ]<syntax:LL1>
 
 Now, we work on the proof that the new grammar is $"LL"(1)$.
