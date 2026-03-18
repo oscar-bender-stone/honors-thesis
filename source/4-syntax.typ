@@ -303,74 +303,6 @@ and a new grammar. More precisely, we require a bijection with the following
 property: a string accepted by @syntax:figure-welkin-grammar is also accepted by
 the new grammar, and vice versa. We will then prove the latter is $"LL"(1)$.
 
-We will keep definitions and theorems here self-contained. For more background,
-please consult @compilers-dragon-book[Ch. 5], @rosenkrantz-ll1.
-
-First, we need to define a general *context-free grammar*.
-
-#definition[
-  A *Context-free Grammar (CFG)* $G = (N, T, P)$ consists of:
-  - A finite set of *non-terminals* $N$.
-  - A finite set of *terminals* $T$.
-  - A finite set of *productions* $P$, where a *production* is a rule of the
-    form #box[$A => alpha_1 ... alpha_n$]. Here, $A$ is a non-terminal,
-    $alpha_1 ... alpha_n$ denotes concatenation, and each $alpha_i$ may be a
-    non-terminal or terminal. Note that this string may be empty, denoted by
-    $"EPS"$.
-  - A *start symbol* $S in N$.
-]
-
-For our use case, we will assume that $T$ is a set of ASCII strings
-(@syntax:encoding-strings). Additionally, we define a *string of grammar
-symbols* as a string of the form $alpha_1...alpha_n$, with each $alpha_i$ being
-a terminal or non-terminal. Additionally, we will abbreviate `WHITESPACE` in a
-CFG as $"WS"$, and $A => alpha | beta$ means the grammar includes the
-productions $A => alpha$ and $A => beta$.
-
-We require another important definition.
-
-#definition[
-  Let $G = (N, T, P, S)$ be a CFG. Let $A in N$ and $alpha, beta, gamma in T$.
-  Then $alpha A beta => alpha gamma beta$ if there is a production $A => gamma$
-  in $P$. This is called a *one-step derivation*. More generally, $alpha$
-  *derives* $beta$, denoted $alpha =>^* beta$, if there is some finite sequence
-  #box[$alpha_1 equiv alpha => alpha_2 => ... => alpha_n equiv beta$]. The
-  *language* of $G$, denoted $L(G)$, is the set of all strings $s$ such that
-  $S =>^* s$.
-]<syntax:derivation>
-
-Next, we need to convert the combinators in @syntax:invertible-descriptions into
-CFG productions. These are based on [CITE], which proves that the combinators
-accept exactly the same set of strings as their transformed productions.
-
-- `A - seq -> B` corresponds to $"A_B" => "A" "B"$.
-
-- `A - lexeme -> B` corresponds to $"A_B" => "A" "WS_star" "B"$, where
-  $"WS_star" => "WS" "WS_star" | epsilon$.
-
-- `A - seq_many_till -> B` corresponds to $"A_star_B" => "A_star" "B"$, where
-  $"A_star" => "A" "A_star" | epsilon$.
-
-- `A - lex_many_till -> B`corresponds to
-  $"A_lex_star_B" => "A_lex_star" "WS_star" "B"$ where
-  $"A_lex_star" => "A" "WS_star" "A_star" | epsilon$.
-
-#figure(
-  $
-    "start" => "unit" "WS"
-  $,
-  caption: [CFG for the Welkin grammar, based on
-    @syntax:figure-welkin-grammar.],
-)<syntax:converted-cfg>
-
-Substituting these produces @syntax:converted-cfg, and we obtain the following
-theorem.
-
-#theorem[
-  The Welkin grammar (@syntax:figure-welkin-grammar) accepts exactly the same
-  ASCII words as @syntax:converted-cfg.
-]<syntax:original-equiv-cfg>
-
 #definition[
   (@compilers-dragon-book). Let $G = (N, T, P)$ be a CFG and string of grammar
   symbols $A$.
@@ -395,8 +327,8 @@ Using this definition, we are now ready to define $"LL"(1)$ grammars.
 Now, we work on the proof that the new grammar is $"LL"(1)$.
 
 #theorem[
-  The grammar in @syntax:converted-cfg is $"LL"(1)$. Hence, the Welkin grammar
-  @syntax:figure-welkin-grammar is unambiguous.
+  The Welkin grammar @syntax:figure-welkin-grammar is $"LL"(1)$, and is
+  therefore unambiguous.
 ]
 #proof[
   We first observe that the character classes in @syntax:character-classes are
@@ -408,9 +340,9 @@ Now, we work on the proof that the new grammar is $"LL"(1)$.
   It remains to show that all other applicable rules satisfy @syntax:LL1. The
   calculations are given in @syntax:LL1-calculations. Because the intersections
   in this table are all empty, and because at most one derivation derives
-  $epsilon$ in a given choice, this proves that @syntax:converted-cfg is
-  $"LL"(1)$. Thus, by @syntax:original-equiv-cfg, the Welkin grammar accepts the
-  same strings as an unambiguous language.
+  $epsilon$ in a given choice, this proves that @syntax:figure-welkin-grammar
+  $"LL"(1)$. Thus, as all $"LL"(1)$ grammars are uanmbiguous by construction, so
+  is the Welkin grammar.
 
   #figure(
     table(
@@ -423,10 +355,4 @@ Now, we work on the proof that the new grammar is $"LL"(1)$.
 
     caption: [Calculations needed for $"LL"(1)$ proof.],
   )<syntax:LL1-calculations>
-]
-
-By @syntax:original-equiv-cfg, we immediately obtain the following.
-
-#theorem[
-  The Welkin grammar (@syntax:figure-welkin-grammar) is unambiguous.
 ]
