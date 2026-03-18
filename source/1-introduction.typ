@@ -111,10 +111,13 @@ through a computer program.
 
 The core result of this thesis is that Welkin fulfills two goals: it is
 *universal* and *scalable*. Moreover, Welkin has another goal: to be fully
-*standardized*. While many parts of this thesis partially reach this goal, the
-rest is left for a future work. More details are available in @goals. The
-fundamental building block is based on *representations*, containing a
-relationship between a *sign* representing a *referent* in a
+*standardized*. Due to time restrictions, completely standardizing the language
+is left for a future work. Thus, only a _proposal_ for Welkin is provided here,
+but the main results will be used in the final version. For more details on the
+goals, see @goals.
+
+The fundamental building block of Welkin is based on *representations*,
+containing a relationship between a *sign* representing a *referent* in a
 *context*.#footnote[There are similarities with representations and Peirce's
   semiotics. This theory studies the relationship between a symbol, the object
   it represents, and the interpretation that provides that meaning

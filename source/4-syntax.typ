@@ -237,6 +237,9 @@ ID := ID_CHAR - seq_many_till -> *{RESERVED, WHITESPACE}
 
 == Validation and Transformations <syntax:validation-and-transforms>
 
+Due to limited time, this section of the thesis is given at a higher level than
+intended. These details may change in the final revision of the language.
+
 We say a string is *valid* if it is accepted by the grammar
 (@syntax:figure-welkin-grammar), and the following hold:
 
