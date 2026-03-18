@@ -247,7 +247,7 @@ ID := ID_CHAR - seq_many_till -> *{RESERVED, WHITESPACE}
   grammar,
   caption: [The complete grammar for Welkin. This includes the rules `STRING`
     and `ID`, which are also provided in @syntax:string and @syntax:id,
-    respectively. Character classes are defined in @syntax:character-classes.],
+    respectively.],
 )<syntax:figure-welkin-grammar>
 
 == Validation and Transformations <syntax:validation-and-transforms>

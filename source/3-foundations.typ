@@ -129,14 +129,13 @@ representations. We present the complete definition as follows.
       *represents* $b$ *in context* $c$.
 ]<foundations:unit>
 
-We add several abbreviations, most of which will appear in @syntax:
+#let derives = $prec.curly.eq$
+#let derivedby = $prec.curly.eq$
 
-- ${a}$ denotes ${a, {}}$.
-
-- $a <- c -> b$ denotes that both $a - c -> b$ and $a <- c - b$ hold.
-
-- We add a symbol $prec.curly.eq$ for *derives*, where $a prec.curly.eq b$
-  (read: $a$ is derived by $b$) iff #box[$a - b -> a$].
+We require more notation. First, we define $a <- c -> b$ to mean that both
+$a - c -> b$ and $a <- c - b$ hold. Second, we add a symbol $prec.curly.eq$ for
+*derives*, where $a derivedby g$ iff #box[$a - b -> a$]. The relation
+$a derivedby g$ is read as either "$a$ is derived by $g$," or "$g$ derives $a$".
 
 Now we may introduce the rules on units. These are provided in
 @table:unit-rules, stated over stated over meta-variables $a, b, c, d, g$ for
@@ -259,8 +258,6 @@ _between_ contexts; the rest is entirely user defined. Moreover, only
 Turing completeness. However, the other rules are in place to help with
 organizing units as modules, as well as make it easier to use the language.
 
-[TODO: discuss derivation!]
-
 - @r:transitivity ensures that each context is closed under transitivity. This
   makes it easier to reason _within_ a context. Truth systems with
   non-transitive rules can be expressed through combining contexts.
@@ -284,14 +281,16 @@ organizing units as modules, as well as make it easier to use the language.
 - @r:handle-eq enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are entirely
   user defined.
-- @r:derivation characterizes $a prec.curly.eq g$ as ${g, a} <--> a$. This is
-  parallel to the following proposition in set theory: $A$ is a subset of $B$
-  iff $A$ _combined_ with $B$ results in $B$. Note that derives $prec.curly.eq$
-  is a coarser notion. In particular, by @r:transitivity, it is transitively
-  closed.
+- @r:derivation characterizes $a prec.curly.eq g$ as ${g, a} <--> g$. This is
+  closely related to the *semi-lattice* structure formed by units; refer to the
+  point below.
 - @r:idempotent, @r:associativity, and @r:commutativity ensure that information
-  can be repeated and arranged in any order. Mathematically, this means that
-  units have a *semi-lattice* structure.
+  can be repeated and arranged in any order. Together with @r:transitivity, this
+  means that units have a *semi-lattice* structure, first introduced by Birkoff
+  @birkhoff-1967-lattice. Moreover, $prec.curly.eq$ is the corresponding partial
+  order, which is a relation that is transitive ($x prec.curly.eq y$ and
+  $y prec.curly.eq z$ entail $x prec.curly.eq z$) and reflexive
+  ($x prec.curly.eq x$).
 
 #remark[The rules in @table:unit-rules use few meta-variables, which may _or_
   may not equal each other. This is connected to variables as managed by the
@@ -311,6 +310,8 @@ We also need a form of *containment*.
   $c <--> {u, v}$.
 ]<foundations:containment>
 
+One can easily verify that $u subset.eq.sq v$ implies $u derives v$.
+
 Finally, we add more notation. We write:
 
 - $"*"{a_1, ..., a_n} - c -> b$ for
@@ -323,7 +324,7 @@ Note that $"*"$ is officially defined in the grammar, refer to
 == Turing Completeness <foundations:turing-completeness-section>
 
 This section shows that Welkin is Turing complete. For background, there are
-many papers, e.g., @sipser-theory-ofcomputation[Ch. 3].
+many resources, e.g., @sipser-theory-ofcomputation[Ch. 3].
 
 We want to demonstrate that every unit corresponds to some Turing machine, and
 vice versa. More precisely, we want to find a one-to-one mapping $phi$ from
@@ -367,14 +368,13 @@ higher-order function: a function that takes in other functions as inputs.
   - A *term* is defined recursively as either $K$ or $S$, and if $M, N$ are
     terms, so is $(M)$ and their *application* $M N$.
   - Evaluation: $M$ *reduces* to $N$, written $M #sk-imp N$, if their equality
-    can be deduced from the following axioms.
-    - *Base Axioms:* for all terms $A, B, P$:
-      - $((K A) B) #sk-imp M$
+    can be deduced from the following axioms, defined over meta-variables
+    $A, B, P, Q$:
+    - *Base Axioms:*
+      - $((K A) B) #sk-imp M$.
       - $(((S A) B) P) #sk-imp (A P) (B P)$.
-    - *Transitivity:* if $M_1 #sk-imp M_2$ and $M_2 #sk-imp M_3$, then
-      $M_1 #sk-imp M_3$.
-    - *Congruence:* if $M_1 #sk-imp M_2$ and $N_1 #sk-imp N_2$, then
-      $M_1 N_1 #sk-imp M_2 N_2$.
+    - *Transitivity:* if $A #sk-imp B$ and $B #sk-imp P$, then $A #sk-imp P$.
+    - *Congruence:* if $A #sk-imp P$ and $B #sk-imp Q$, then $A B #sk-imp P Q$.
 ]<foundations:SK-calculus>
 
 Now, Welkin can be embedded into this calculus. We discuss this embedding at a
@@ -436,8 +436,8 @@ this, we prove the following. Our proof technique uses recursion within Welkin.
   represented in $L$, this completes the proof.
 ]
 
-Taken together, we have completed _one_ part of Goal 1 [LINK]. The other part
-will be addressed in the next section.
+Taken together, we have completed one part of @universal. The other part will be
+addressed in the next section.
 
 == Queries and Information <foundations:queries-and-information>
 
@@ -451,9 +451,9 @@ asks whether a representation is contained in a context.
   Let $c$ and $q$ be units. A *query over* $c$ is the following question: is $q$
   derived by $c$?]<foundations:query>
 
-Certain queries are easy and rely on _direct definitions_. Consider, for
-example, we can quickly verify that $p$ is in context ${p, q}$ using
-@foundations:unit. However, in general, this will be uncomputable, due to
+Certain queries are easy, particular those restriicted to containment. Consider,
+for example, we immediately have that $p subset.eq.sq {p, q}$, hence
+$p prec.curly.eq c$. However, in general, this will be uncomputable, due to
 @foundations:turing-expressible. In fact, this problem is is $"RE"$-complete,
 i.e., determining whether any Turing machine halts can be determined through a
 query in Welkin.
