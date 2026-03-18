@@ -183,7 +183,7 @@ units :=
   | ""
   | {
       unit
-      - lexeme -> *{"", "," - lexeme -> units}
+      - lexeme -> *{"", "," - lexeme -> unit}
       - lex_many_until -> *{"", ","}
     },
 
@@ -196,10 +196,10 @@ other_arc := "<-" - seq -> node - seq -> *{"-" | "->"},
 node := *{"", "*"}
   - seq -> *{
     graph,
-    path - lexeme -> *{"", binding, graph}
+    path - lexeme -> *{"", binding}
   }
 
-binding := path - lexeme -> *{"", unit, ":=" - seq -> choices},
+binding := ":=" - lexeme -> choices,
 choices := *{"", "|"}
   - lexeme -> unit
   - lexeme -> *{
@@ -283,8 +283,6 @@ grammar. These grammars have two desirable properties:
 - If a string is accepted, it is parsed unambiguously.
 - Efficient parsers can be easily and efficiently implemented
   @compilers-dragon-book[Sect. 4.4.3].
-
-[TODO: simplify! This translation is error prone!]
 
 Our approach is to provide an equivalence between @syntax:figure-welkin-grammar
 and a new grammar. More precisely, we require a bijection with the following
