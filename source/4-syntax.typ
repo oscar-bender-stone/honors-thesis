@@ -311,11 +311,26 @@ grammar. These grammars have two desirable properties:
   @compilers-dragon-book[Sect. 4.4.3].
 
 Our approach is to based on the work of @edelmann-ll1-parsing. There, they
-define $"LL"(1)$ parsing specifically for parser combinators, which an
-equivalence between @syntax:figure-welkin-grammar and a new grammar. More
-precisely, we require a bijection with the following property: a string accepted
-by @syntax:figure-welkin-grammar is also accepted by the new grammar, and vice
-versa. We will then prove the latter is $"LL"(1)$.
+define $"LL"(1)$ parsing specifically for parser combinators. We first bridge
+parsers in @invertible-syntax-descriptions with their notions, provided in
+@syntax:original-to-edelmann. For more details, consult
+@edelmann-ll1-parsing[Sect. 3].
+
+#figure(
+  table(
+    columns: (auto, auto),
+    table.header([*Original*], [*Algebraic Form*]),
+    [$A - "seq" -> B$], [$A dot B$],
+    [$A - "lexeme" -> B$], [$A dot ("WS""*" dot B)$],
+    [$A - "seq_many_till" -> B$], [$$],
+    [$A - "lex_many_till" -> B$], [$$],
+    [$C := A | B$], [$C equiv A or B$],
+    [$"*"{A, B}$], [$A or B$],
+    [$"*"{epsilon, B}$], [$epsilon or B$],
+  ),
+  caption: [Translations of base combinator parsers to the algebra in
+    @edelmann-ll1-parsing.],
+)<syntax:original-to-edelmann>
 
 #definition[
   (@compilers-dragon-book). Let $G = (N, T, P)$ be a CFG and string of grammar

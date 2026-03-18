@@ -65,7 +65,7 @@ given study of interest.
   An animal taxonomy can be stored through representations. Here, we write
   $"A" -$ for handles $"A", "B"$ if $"B"$ is a special case of $"A"$. For
   example, $"Mammal" - "Taxonomy" -> "Dog"$ and
-  $"Mammal" - "Taxonomy" -> "cat"$. Adding the rule
+  $"Mammal" - "Taxonomy" -> "Cat"$. Adding the rule
   $"Animal" - "Taxonomy" -> "Mammal"$ would allow simple deductions, such as
   $"Animal" - "Taxonomy" -> "Dog"$.
 ]<rationale:example-2>

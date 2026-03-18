@@ -11,7 +11,7 @@
       department: [Department of Mathematics],
       organization: [University of Colorado at Boulder],
       location: [Boulder, CO],
-      email: "oscar-bender-stone@protonmail.com",
+      email: "osbe6746@colorado.edu",
     ),
   ),
   date: [March 18, 2026],
