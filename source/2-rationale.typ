@@ -65,7 +65,7 @@ from the philosophical idea of arbitrary objects, developed by Fine
 given study of interest.
 
 #example[
-  An anaimal taxonomy can be stored through representations. Here, we write
+  An animal taxonomy can be stored through representations. Here, we write
   $"A" -$ for handles $"A", "B"$ if $"B"$ is a special case of $"A"$. For
   example, $"Mammal" - "Taxonomy" -> "Dog"$ and
   $"Mammal" - "Taxonomy" -> "cat"$. Adding the rule
@@ -83,7 +83,6 @@ Units define their own *context*, which means the unit provides its own names
 and representations. Writing $a - c -> b$, therefore, only applies to the
 _fixed_ context $c$.
 
-
 [TODO[SMALL]: use better names for entities/businesses/etc]
 #example[
   A business could represent their operations using a unit $"business"$ that
@@ -93,13 +92,6 @@ _fixed_ context $c$.
   have _distinct_ rules, such as those for how business operations are
   performed.
 ]
-
-// collectioWithin a fixed revision, handles, by being defined by how they are
-// restricted, are _exactly_ described by the consequences of their relationships.
-// We describe this as a syntactic rendering of truth through the notion of a truth
-// management system. Here, we define a truth management system to consist of a set
-// of axioms along with inference rules, whose derivations are accepted by some
-// Turing machine. Welkin proves that not only is _any_ truth management system.
 
 == Mechanizing Information <rationale:mechanizing-information>
 
@@ -116,75 +108,37 @@ users can assert their own notions of these terms by creating restricted
 contexts. There are technical constructions to show that our definition is _as
 general_ as possible (@foundations:information).
 
-== Base Rules
+An important rule pivotal to information is the following rule called
+*contextual lifting*:
 
-There are two primary inference rules, which we informally describe now:
+#set quote(block: true)
+#quote(
+  [If $a$ represents $b$ in context $c$ and $p$ represents $q$ in context $a$,
+    then _within_ context $c$, $p$ represents $q$ in context $b$.],
+)
 
-- *Internal Transitivity:* if $u$ represents $v$ in context $c$ and $v$
-  represents $x$ in context $c$, then $u$ represents $x$ in context $c$.
-
-- *Lifting:* if $u$ represents $v$ in context $c$ and $p$ represents $q$ in
-  context $v$, then within context $c$, $p$ represents $q$ in _nested_ context
-  $u$.
-
-Transitivity is a common axiom in many systems. It is particularly efficient
-when used in contexts, as shown by several projects @lenat-cyc-common-sense,
-@goczyla-context-description-logic. Lifting is a notion closely tied to
-McCarthy's notion of lifting, but formulated with representations. The idea is,
-if $a$ represents $b$ in context $c$, then $a$ provides an _abstraction_ for $b$
-relative to $c$. Wherever $b$ is involved in a relationship, $a$ can be used
-_instead_, acting as a proxy relative to $c$. Contexts provide an import
-mechanism as well, thereby providing Welkin with a module based system. We
-provide a simplified version of one McCarthy's examples below. For more existing
-examples in the literature, refer to
-@declarative-formalization-knowledge-translation.
-
-[TODO: clean up further!]
-#example[*(McCarthy's Above Theory).* Consider a set of physical blocks. Denote
-  the unit $"above"$ to represent the relation: _block $"A"$ is above block
-  $"B"$_. We want to say this could be $"on"$ to mean: _block $"A"$ is on block
-  $"B"$_, or $"floating_above"$ to mean: "block $"A"$ is floating above block
-  $"A"$. One way to state is as two axioms: $$ . Alternatively, we could state
-  as one axiom: $"A" - "on" -> "B"$ implies $"A" - "above"-> "B"$ and
-  $"A" - "floating_above" -> "B"$ implies $"A" - "floating_above" -> "B"$.
-  Lifting provides a more economical approach _without_ needing to provide
-  explicit terms, or provides a "point-free" rendering. We could that, within
-  $"above"$, $"above"$ represents $"on"$ and $"above"$ represents
-  $"floating_above"$. In other words, $"above"$ _precisely abstracts_ from the
-  precise relationship between the two blocks.]
-
-Another example concerns contexts in the presence of unique objects.
-
-#example[Consider a biological survey of home pets, denoted by context
-  $"Survey"$. Suppose there are two units in $"Mammal"$, say a dog $"Fido"$ and
-  a cat $"Lucy"$. We could state that $"Fido"$ _represents_ $"Mammal"$, to say
-  that $"Fido"$ acts as a stand-in for a mammal in the survey. The same could be
-  said with $"Lucy"$ representing $"Mammal"$. Note that, depending on the
-  context, the referent need _not_ be more refined than the sign; this is an
-  intenional design choice for flexibility. With a another context $"Taxonomy"$,
-  we may naturally state that $"Mammal" - "Taxonomy" -> "Animal"$, and we could
-  say $"Survey" - "instanceof" -> "Taxonomy"$. Thus, the lifting rule implies in
-  context $"instanceof"$, $"Mammal" - "Survey" -> "Animal"$. Using transitivity,
-  we obtain $"Fido" - "Survey" -> "Animal"$ and $"Lucy" - "Survey" -> "Animal"$
-  in context $"instanceof"$. We can interpret this example as saying that the
-  _relationships_ of a general taxonomy are witnessed by a specific taxonomy,
-  namely $"Survey"$, and that they propagate through contexts.#footnote[In
-    programming languages, particularly C++ @stroustrup-cpp-lang and Java
-    @java-reference, this property is known as "upcasting", with a less refined
-    base class being replaced with a more refined subclass. The reverse is
-    "downcasting". Both are supported by Welkin for full expressivity.]
-]<rationale:more-to-less-refined>
-
-The remaining rules are primarily for efficiency, enabling users to have
-positionally invariant information, see @foundations:unit.
+Written in symbols: $a - c -> b$ and $p - a -> q$ implies $p - b -> q$. Lifting
+is a notion closely tied to McCarthy's notion of lifting, but formulated with
+representations. The idea is, if $a$ represents $b$ in context $c$, then $a$ is
+a _surrogate_ for $b$ relative to $c$. In other words, $a$ is a _faithfuL_ proxy
+to $b$: if there is a relationship in context $a$, then it will _also_ be in
+context $b$. Specific examples can be found throughout the literature, including
+@declarative-formalization-knowledge-translation. Additionally, lifting means
+that the definition of information is theoretically _as general_ as possible.
+For details, see @metatheory.
 
 == Base Operations
 
 Now, units and information themselves could be expressed in infinitely many
 languages, with slightly different syntax or semantics. Welkin is carefully
 designed to be a _minimal_ expression of these concepts, with minimal friction
-to express any other universal information base. We write these in ASCII in
-`type-writer` font to show that they are shown digitally. These include:
+to express any other universal information base. The core rules are provided in
+@unit-rules. To express the syntax of the language, we write these in ASCII in
+`type-writer` font.#footnote[This font is Intel One Mono (#link(
+    "https://github.com/intel/intel-one-mono",
+  )), licensed under OFL 1.1 (#link(
+    "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",
+  )).] These include:
 
 - In ASCII, #box[`a - b -> c`] for representations. These can be interpreted
   _as_ rewrite rules, depending on the context.
@@ -197,18 +151,15 @@ to express any other universal information base. We write these in ASCII in
   prefixed with `#`. Subsets of units can be written via `u.{v, x}`, or even
   `u.{v --> x}` to refer to a subset of representations.
 
-- Imports are done through `@u`, which takes all subunits of `u` and puts them
-  into the current scope. In other words, the implementation _implicitly_ adds
-  denotations `v <--> a.v` for each subunit `v` of `u`.
+- Imports are done through `@u`, which takes all units in `u` and puts them into
+  the current scope. In other words, the implementation _implicitly_ adds
+  denotations `v <--> a.v` for each unit `v` in `u`.
 
 - Selecting specific nested units can be done via `u.{v, x}` or, equivalently,
-  `@u.{v, x}`.
+  `u.{v, x}`.
 
-- Imports can be _negated_ via the notation `{@g, ~u}`. This is an uncommon
+- Imports can be _negated_ via the notation `{g, ~u}`. This is an uncommon
   feature of most programming languages, appearing primarily in Haskell and CSS.
-  While potentially opaque, Welkin provides robust definitions to ensure that
-  negated forms can be easily translated into more explicit ones _and_ back
-  again. [TODO[SMALL]: provide link, probably to bootstrap or so?]
 
 - Comments _are_ strings can be treated as any unit. No comments need to be
   removed in the files and can _enhance_ the study of new
@@ -224,31 +175,3 @@ ASCII encoding for easier standardization, but the rest of the program can be
 done _entirely_ in the user's native language. This is a novel feature in most
 programming languages, which are either predominantly English or are fine tuned
 for specific human languages.
-
-
-== Bootstrapping <rationale:bootstrap>
-
-There are two important considerations in Welkin: how the base operations are
-implemented, and how proofs are expressed. In previous revisions, the author
-separated these aspects, particularly when describing the syntax and semantics
-of the language. However, this left many proofs in English, making it difficult
-to transfer.
-
-[TODO: provide citations] The author's emphasis of proofs stems from formal
-methods, the study of providing mathematical proof to verify computer programs.
-A central notion in this field is the *Trusted Computing Base (TCB)* of a
-program, which is code used to implement it, as well as the axioms used to prove
-its correctness. Many authors advocate for a small, fixed TCB. However, this is
-inefficient in practice... Setting for a single system, like ZFC, does not
-resolve whether Welkin is universal _for proofs_.
-
-To resolve both issues, we "bootstrap" Welkin from the ground up.
-- First, we show that Welkin can express any computer program, as well as a
-  verifier for its own claims.
-- Next, we define the syntax using the notion of *invertible syntax
-  descriptions*, introduced in @invertible-syntax-descriptions. This will allow
-  us to define the syntax _entirely_ in Welkin. We will also prove the syntax is
-  *unambiguous*, or that given any string, if it is accepted, there must be one
-  way to process it in the program.
-- Then, in @metatheory, we prove that our definition of information is complete
-  with respect to being accepted by a Turing machine.
