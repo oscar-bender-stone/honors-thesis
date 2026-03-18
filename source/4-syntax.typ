@@ -179,9 +179,9 @@ but forbid whitespace and certain characters. This comparison is reinforced in
 Welkin's grammar is displayed in @syntax:figure-welkin-grammar, inspired by
 several languages.
 
-- The binding operator `:=` is inspired by functional languages, emphasizing
-how Welkin is immutable. Moreovoer, choices can be written via `|`, which
-_themselves_ can include definitions.
+- The binding operator `:=` is inspired by functional languages, emphasizing how
+  Welkin is immutable. Moreover, choices can be written via `|`, which
+  _themselves_ can include definitions.
 
 - The import system is inspired by Python. Additionally, `*u` is a concept
   borrowed from Python, which gets the contents of a tuple.#footnote[The grammar
@@ -252,8 +252,8 @@ ID := ID_CHAR - seq_many_till -> *{RESERVED, WHITESPACE}
 
 == Validation and Transformations <syntax:validation-and-transforms>
 
-Due to limited time, this section of the thesis is given at a higher level than
-intended. These details may change in the final revision of the language.
+Due to time constraints, this section of the thesis is given at a higher level
+than intended. These details may change in the final revision of the language.
 
 We say a string is *valid* if it is accepted by the grammar
 (@syntax:figure-welkin-grammar), and the following hold:
@@ -319,10 +319,10 @@ grammar. These grammars have two desirable properties:
   @compilers-dragon-book[Sect. 4.4.3].
 
 Our approach is to based on the work of @edelmann-ll1-parsing. There, they
-define $LL(1)$ parsing specifically for parser combinators, which an equivalence
-between @syntax:figure-welkin-grammar and a new grammar. More precisely, we
-require a bijection with the following property: a string accepted by
-@syntax:figure-welkin-grammar is also accepted by the new grammar, and vice
+define $"LL"(1)$ parsing specifically for parser combinators, which an
+equivalence between @syntax:figure-welkin-grammar and a new grammar. More
+precisely, we require a bijection with the following property: a string accepted
+by @syntax:figure-welkin-grammar is also accepted by the new grammar, and vice
 versa. We will then prove the latter is $"LL"(1)$.
 
 #definition[

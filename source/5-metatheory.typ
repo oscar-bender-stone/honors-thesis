@@ -12,11 +12,23 @@
 
 = Metatheory <metatheory>
 
-This section discusses the provably most general definition of information. This
-section is optional. For the base definition of information, refer to
-@foundations:information.
+This section proves that Welkin's definition of information
+(@foundations:information) is as general as possible, outlined in
+@metatheory:overview. This proof is optional, and most readers are recommended
+to jump to @conclusion. We assume the reader has background in first-order logic
+and set theory. For specific references, consult @mendelson_logic and
+@monk-set-theory, respectively.
 
-[TODO: convert this into a table.]
+#figure(
+  table(
+    columns: (20%, 25%, 55%),
+    align: left,
+    table.header([*Section Number*], [*Title*], [*Description*]),
+    // [*@syntax:encoding*], [*Encoding*], [Introduces the encoding for Welkin.],
+  ),
+  caption: [Overview of @syntax.],
+)<metatheory:overview>
+
 
 + We show that Welkin's base theory is equivalent to a weak fragment of
   arithmetic, $I Delta_0$.
@@ -231,8 +243,6 @@ predicate* accordingly.
 // [phi] is true iff phi,
 // where [] is the Goedel number, and phi
 // is a sentence in Peano Arithmetic.
-
-[TODO: clarify how $"in"$ works! May need to work with a direct representation.]
 
 #definition[Let $c$ be a context. A unit $t$ is called a *truth predicate* for
   $c$ if for every unit $u$, $u - c -> t$ if and only if $u - "in" -> c$.
