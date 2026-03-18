@@ -45,33 +45,51 @@
 #let large-size = 11.74988pt
 #let text-font = "STIX Two Text"
 
-#let draft = true
+#let add-defense-page(
+  title: "",
+  author: "",
+  department: "",
+  defense_date: none,
+  advisor: (name: "", dept: ""),
+  committee: (),
+  // body,
+) = {
+  // Title Page
+  page(numbering: none)[
+    #set align(center)
+    #v(2fr)
 
-#let show-todos = true
+    #text(size: 2em, weight: "bold")[#title]
 
-#let todo(body, color: orange) = {
-  if draft {
-    place(
-      left,
-      dx: 100% + 0.5cm,
-      block(
-        width: 3.5cm,
-        fill: color.lighten(90%),
-        stroke: 1pt + color,
-        inset: 8pt,
-        radius: 4pt,
-        outset: (y: 2pt),
-        {
-          set par(first-line-indent: 0pt, hanging-indent: 0pt, justify: false)
-          set align(left)
+    #v(1.5fr)
 
-          text(weight: "bold", fill: color)[TODO:]
-          [ ] + body
-        },
-      ),
+    #text(size: 1.2em)[#author] \
+    #department
+
+    #v(1.5fr)
+
+    #text(weight: "bold")[Thesis Committee]
+    #v(0.5em)
+
+    #grid(
+      columns: (auto, auto),
+      column-gutter: 2em,
+      row-gutter: 1.2em,
+      align: left,
+
+      [#advisor.name (#advisor.dept)], [Thesis Advisor],
+
+      ..for member in committee {
+        ([#member.name (#member.dept)], [#member.role])
+      },
     )
-  }
+
+    #v(2fr)
+    #defense_date
+    #pagebreak()
+  ]
 }
+
 // This function gets your whole document as its `body` and formats
 // it as an article in the style of the American Mathematical Society.
 #let ams_article(
@@ -100,7 +118,8 @@
   msc: none,
   // Keywords
   keywords: none,
-  // Notes
+  // Enable draft mode
+  draft: false,
 ) = {
   let watermark = if draft {
     rotate(24deg, text(80pt, fill: gray.lighten(70%))[
@@ -480,24 +499,6 @@
     }
   })
 }
-
-// #let acknowledgment(body) = {
-//   block({
-//     set par(first-line-indent: 0em)
-//     set align(center)
-//     set text(size: normal-size)
-//     smallcaps[
-//       #v(15pt, weak: true)
-//       Acknowledgments
-//       #v(normal-size, weak: true)
-//     ]
-//   })
-
-//   set par(first-line-indent: 1.2em)
-//   set align(start)
-//   body
-// }
-
 
 // This is the single numbering format all our environments will use
 #let theorem-numbering-format = n => counter(heading).display() + [#n]

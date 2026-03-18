@@ -4,6 +4,7 @@
 #import "template/ams-article.typ": ams_article
 
 #show: ams_article.with(
+  draft: true,
   title: [Designing a Universal Information Language],
   authors: (
     (
@@ -37,9 +38,8 @@
   )),
 )
 
-// TODO: add appendix header in single outline!
-#outline()
 
+#outline()
 
 #include "1-introduction.typ"
 #include "2-rationale.typ"

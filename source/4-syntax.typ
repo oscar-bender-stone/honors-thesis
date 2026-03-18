@@ -234,7 +234,6 @@ DQ_STRING := '"' - seq -> *{DQ_CHAR, '\"'} - seq_many_till -> '"',
 
 ID := ID_CHAR - seq_many_till -> *{RESERVED, WHITESPACE}
 ```
-
 #figure(
   grammar,
   caption: [The complete grammar for Welkin. This includes the rules `STRING`
