@@ -12,9 +12,6 @@
 
 = Metatheory <metatheory>
 
-[TODO: need a quick way to _establish_ the main definitions for information,
-then _justify_ here why they are complete.]
-
 This section discusses the provably most general definition of information. This
 section is optional. For the base definition of information, refer to
 @foundations:information.

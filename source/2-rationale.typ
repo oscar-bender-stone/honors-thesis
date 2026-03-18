@@ -6,7 +6,7 @@
 
 #import "template/ams-article.typ": example
 
-= Rationale <rationale>
+= Language Design <rationale>
 
 In this section, we justify the design of Welkin.
 
@@ -22,7 +22,7 @@ requirements, we require two important properties:
   functions are computer programs that can process a finite input, and that
   either stop on an input or continue forever. The bedrock for these functions
   is the notion of a _Turing machine_, which models every current form of
-  computation. For more information, refer to @turing-computable-numbers. To
+  computation. For more background, refer to @turing-computable-numbers. To
   obtain universality, we need to express _every_ one of these machines.
 
 + The information base must provide a mechanism to _ground_ symbols defined by
@@ -31,14 +31,11 @@ requirements, we require two important properties:
   should have a way to provide _meaning_ to symbols, or a way to _represent_
   their topic of interest.
 
-Combined together, we can now state universality as follows: _an information
-base is universal if it can represent anything representable by a partial
-computable function._ We will clarify how we define "representable" in the next
-section.
+Combined together, we can now state universality as follows: an information base
+is universal _if it can represent anything representable by a computer program._
+We will clarify how we define "representable" in the next section.
 
 == Units <rationale:unit>
-
-[TODO[MEDIUM]: double check all examples!]
 
 The first core concept in Welkin is the notion of a *handle*. Handles are left
 as free parameters in the theory#footnote[For mathematicians, this is analogous
@@ -83,7 +80,6 @@ Units define their own *context*, which means the unit provides its own names
 and representations. Writing $a - c -> b$, therefore, only applies to the
 _fixed_ context $c$.
 
-[TODO[SMALL]: use better names for entities/businesses/etc]
 #example[
   A business could represent their operations using a unit $"business"$ that
   contains units for their workers and ledgers. This allows another unit, say
@@ -96,17 +92,17 @@ _fixed_ context $c$.
 == Mechanizing Information <rationale:mechanizing-information>
 
 From the notion of a unit, we practically define information on a unit $v$ as a
-_unit that tracks reductions in $v$_. Formally, we define information as a proof
-used in derivations, which include refinements of $v$ to other units. Key to
-this definition is making it _context-based_, thereby enabling separate
-truth-management systems (those systems defined by some Turing machine). This
-notion corresponds to Burgin's idea of information as an _operator_ that
-transforms a system, and is closely to Bateson's famous quote that "information
-is a difference that makes a difference" @bateson-ecology-of-mind. Our practical
-distinction between information and knowledge is that we _use_ information, but
-users can assert their own notions of these terms by creating restricted
-contexts. There are technical constructions to show that our definition is _as
-general_ as possible (@foundations:information).
+_unit that tracks reductions in $v$_. Formally, we define information as a unit
+containing a derivation ending in a unit containing $v$. Key to this definition
+is making it _context-based_, thereby enabling separate truth-management systems
+(those systems defined by some Turing machine). This notion corresponds to
+Burgin's idea of information as an _operator_ that transforms a system, and is
+closely to Bateson's famous quote that "information is a difference that makes a
+difference" @bateson-ecology-of-mind. Our practical distinction between
+information and knowledge is that we _use_ information, but users can assert
+their own notions of these terms by creating restricted contexts. There are
+technical constructions to show that our definition is _as general_ as possible
+(@foundations:information).
 
 An important rule pivotal to information is the following rule called
 *contextual lifting*:
@@ -117,15 +113,15 @@ An important rule pivotal to information is the following rule called
     then _within_ context $c$, $p$ represents $q$ in context $b$.],
 )
 
-Written in symbols: $a - c -> b$ and $p - a -> q$ implies $p - b -> q$. Lifting
-is a notion closely tied to McCarthy's notion of lifting, but formulated with
-representations. The idea is, if $a$ represents $b$ in context $c$, then $a$ is
-a _surrogate_ for $b$ relative to $c$. In other words, $a$ is a _faithfuL_ proxy
-to $b$: if there is a relationship in context $a$, then it will _also_ be in
-context $b$. Specific examples can be found throughout the literature, including
-@declarative-formalization-knowledge-translation. Additionally, lifting means
-that the definition of information is theoretically _as general_ as possible.
-For details, consult @metatheory.
+Written in symbols: $a - c -> b$ and $p - a -> q$ implies $p - b -> q$ _within_
+$c$. Lifting is a notion closely tied to McCarthy's notion of lifting, but
+formulated with representations. The idea is, if $a$ represents $b$ in context
+$c$, then $a$ is a *surrogate* for $b$ relative to $c$. In other words, $a$ is a
+_faithful_ proxy to $b$: if there is a relationship in context $a$, then it will
+_also_ be in context $b$. Specific examples can be found throughout the
+literature, including @declarative-formalization-knowledge-translation.
+Additionally, lifting means that the definition of information is theoretically
+_as general_ as possible. For details, consult @metatheory.
 
 == Base Operations
 
@@ -148,7 +144,7 @@ to express any other universal information base. The core rules are provided in
 
 - Paths via dots `.` that is inspired by the Python programming language.
   Relative paths are denoted with multiple dots `...`, and absolute imports are
-  prefixed with `#`. Subsets of units can be written via `u.{v, x}`, or even
+  prefixed with `@`. Subsets of units can be written via `u.{v, x}`, or even
   `u.{v --> x}` to refer to a subset of representations.
 
 - Imports are done through `@u`, which takes all units in `u` and puts them into
@@ -174,4 +170,4 @@ other languages. An implementation of Welkin will contain a small section of
 ASCII encoding for easier standardization, but the rest of the program can be
 done _entirely_ in the user's native language. This is a novel feature in most
 programming languages, which are either predominantly English or are fine tuned
-for specific human languages.
+to a specific human language.

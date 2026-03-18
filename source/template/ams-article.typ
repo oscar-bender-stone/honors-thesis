@@ -691,7 +691,7 @@
 }
 
 
-#let rule-table(prefix: "R", entries) = {
+#let label-table(label-header: "Rule", prefix: "R", entries) = {
   // 1. Reset the counter
   counter(figure.where(kind: "rule")).update(0)
 
@@ -718,7 +718,7 @@
   table(
     columns: (auto, auto, 1fr),
     align: (left, left, left),
-    table.header([*Rule*], [*Name*], [*Content*]),
+    table.header([*#label-header*], [*Name*], [*Content*]),
     ..cells,
     // This spreads the flat array into the table arguments
   )

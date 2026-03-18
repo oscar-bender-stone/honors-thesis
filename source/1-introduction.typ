@@ -4,6 +4,8 @@
 #import "template/ams-article.typ": matched-dash
 #show math.minus: matched-dash
 
+#import "template/ams-article.typ": label-table
+
 
 = Introduction
 
@@ -105,12 +107,11 @@ cloud @dictionary:welkin. This word represents the expansive nature of the
 language, able to express any concept and justification that can be processed
 through a computer program.
 
-The core result of this thesis is that Welkin fulfills two goals: it is
-*universal* and *scalable*. Moreover, Welkin has another goal: to be fully
-*standardized*. Due to time restrictions, completely standardizing the language
-is left for a future work. Thus, only a _proposal_ for Welkin is provided here,
-but the main results will be used in the final version. For more details on the
-goals, consult @goals.
+Welkin has three design goals, listed in @goals: to be *universal*, *scalable*,
+and *standardized*. This thesis focuses on proving it is universal, discussed in
+detail at @rationale. The latter goals, to be scalable and standardized, are
+partially met in certain parts of the thesis. However, due to time restrictions,
+these are not fully complete and left for a future work.
 
 The fundamental building block of Welkin is based on *representations*,
 containing a relationship between a *sign* representing a *referent* in a
@@ -135,36 +136,41 @@ aids in standardization as well. However, to keep this thesis self-contained, we
 will discuss most definitions and proofs at a high level.
 
 
+
 #figure(
-  table(
-    columns: (auto, auto, auto),
-    align: left,
-    table.header([*Goal*], [*Name*], [*Description*]),
-    [*Goal 1*],
-    [*Universality*],
-    [The language must enable any user-created parameters, whose symbolic
-      representation is accepted a computable function. Every computable
-      function must be definable in the language.],
-
-    [*Goal 2*],
-    [*Scalability*],
-    [
-      The database must appropriately scale to broad representations of
-      information. Local queries must be efficient. Additionally, any future,
-      optimizations that correctly implement the language should be expressible
-      in the language.
-    ],
-
-    [*Goal 3*],
-    [*Standardization*],
-    [The language needs a rigorous and formal specification. Moreover, the
-      bootstrap must be formalized. The grammar and bootstrap must be fixed to
-      ensure complete forwards and backwards compatibility. Certificates must be
-      reliably checked, with a transparent way to view every step of a proof.
-    ],
+  label-table(
+    label-header: "Goal",
+    prefix: "G",
+    (
+      (
+        lbl: "universal",
+        name: "Universality",
+        content: [The language must enable user-created parameters, whosse
+          symbolic representation is accepted by a computer program. Any program
+          must be definable in the language.],
+      ),
+      (
+        lbl: "scalable",
+        name: "Scalability",
+        content: [The information base must appropriately scale to broad
+          representations of information. Local queries must be efficient.
+          Additionally, any future optimizations must be expressible _inside_
+          the language itself.],
+      ),
+      (
+        lbl: "standard",
+        name: "Standardization",
+        content: [The language needs a rigorous and formal specification.
+          Moreover, the bootstrap must be formalized. The grammar and bootstrap
+          must be fixed to ensure complete forwards and backwards compatibility.
+          Certificates must be reliably checked, with a transparent way to view
+          every step of a proof or argument.],
+      ),
+    ),
   ),
   caption: "Goals for the Welkin language.",
 )<goals>
+
 
 This thesis is organized according to @introduction:thesis-organization.
 

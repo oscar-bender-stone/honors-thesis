@@ -30,8 +30,8 @@ specific sections, consult @syntax:overview.
     [*@syntax:invertible-descriptions*],
     [*Invertible #linebreak(justify: true) Syntax #linebreak(justify: true)
     Descriptions*],
-    [Defines *invertible syntax descriptions*, the fundamental building blocks
-      for the grammar.],
+    [Defines invertible syntax descriptions, the fundamental building blocks for
+      the grammar.],
 
     [*@syntax:strings-and-ids*],
     [*Strings and IDs*],
@@ -271,8 +271,8 @@ We say a string is *valid* if it is accepted by the grammar
   `u := v, u:= w` is not allowed.
 
 - Accessing a unit $v$ from $u$ requires that $u$ has a closed definition
-  containing $v$. This means neither `u := {v, w}, u.x` nor `u.x` alone are
-  valid.
+  containing $v$. This means `u := {v, w}, u.x` is not valid, and neither is
+  `u.x` alone.
 
 We leave error handling for future work, described in @conclusion.
 
@@ -370,7 +370,7 @@ Now, we work on the proof that the new grammar is $"LL"(1)$.
     table(
       columns: (auto, auto, auto, auto, auto),
       table.header(
-        [*Rule*], [*Sets*], [*Set One*], [*Set Two*], [*Intersection*],
+        [*Rule*], [*Conflict Type*], [*Set One*], [*Set Two*], [*Intersection*],
         [$"unit"$], [], [], [], [],
       ),
     ),

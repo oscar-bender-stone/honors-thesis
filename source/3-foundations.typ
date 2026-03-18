@@ -6,7 +6,7 @@
 #show math.minus: matched-dash
 #show math.tilde: tilde-prefix
 
-#import "template/ams-article.typ": rule-table
+#import "template/ams-article.typ": label-table
 #import "template/ams-article.typ": definition, example, remark
 #import "template/ams-article.typ": corollary, equation_block, lemma, theorem
 
@@ -17,7 +17,7 @@
 = Foundations <foundations>
 
 This section discuss the foundations of Welkin, outlined in
-@<foundations:overview>:
+@foundations:overview.
 
 #figure(
   table(
@@ -49,7 +49,7 @@ For this thesis, definitions and proofs will be given at a high level.
 Additionally, we adopt several conventions:
 
 - Each *Definition* and *Remark* ends with a triangle ($#end-def$).
-- Each proof ends with a square ($square.stroked$).
+- Each _Proof_ ends with a square ($square.stroked$).
 - We frequently abbreviate "if and only if" as "iff".
 
 == Words and Handles <foundations:words-and-handles>
@@ -158,7 +158,7 @@ Now we may introduce the rules on units.
 #definition[
   All rules in @table:unit-rules hold, stated over meta-variables
   $a, b, c, d, g$ for units and $h_1, h_2$ for handles.
-  #let unit-rule-table = rule-table(
+  #let unit-rule-table = label-table(
     prefix: "R",
     (
       (
@@ -445,9 +445,8 @@ computably. For more details, refer to @hopcroft-automata-theory[Ch. 1]. This
 asks whether a representation is contained in a context.
 
 #definition[
-  Let $c$ and $q$ be units. A *query over* $c$ is the following question: does
-  $q subset.eq.sq c$ hold?
-]<foundations:query>
+  Let $c$ and $q$ be units. A *query over* $c$ is the following question: is $q$
+  derived by $c$?]<foundations:query>
 
 Certain queries are easy and rely on _direct definitions_. Consider, for
 example, we can quickly verify that $p$ is in context ${p, q}$ using
@@ -463,17 +462,16 @@ of a query? As it turns out, a valid derivation suffices.
   Let $c$ and $q$ be units.
 
   - A *derivation over* $c$ is a unit ${u_1 - c -> u_2 ... - c -> u_n}$ such
-    that each $u_i$ is either a) $u_i$ is contained in the definition of $c$
-    written from @foundations:unit, or b) an application of a rule in
-    @unit-rules from previous units $u_1, ..., u_j$.
+    that each $u_i$ is either a) $u_i$ is contained in $c$, or b) an application
+    of a rule in @unit-rules from previous units $u_1, ..., u_j$.
   - We say $u$ *contains information* about a query $q$ in context $c$ if it
     contains a derivation that ends with the unit ${q - c -> q}$. Moreovoer, we
-    say it *is* information if it only contains derivations ending in
+    say it *is information* if it only contains derivations ending in
     ${q - c -> q}$.
 ]<foundations:information>
 
 Our work in @metatheory proves that this definition is _complete_, or that _any_
-proof accepted by a turing machine is accepted by Welkin. Note that this _highly
+proof accepted by a Turing machine is accepted by Welkin. Note that this _highly
 depends_ on contextual lifting (@r:context-lift).
 
 
