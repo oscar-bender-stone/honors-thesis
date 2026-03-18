@@ -11,7 +11,7 @@
 #import "template/ams-article.typ": corollary, equation_block, lemma, theorem
 
 #import "template/ams-article.typ": proof, proof-sketch
-#import "template/ams-article.typ": induction
+#import "template/ams-article.typ": induction, recursion
 #import "template/ams-article.typ": end-def
 
 = Foundations <foundations>
@@ -129,15 +129,29 @@ representations. We present the complete definition as follows.
       $b$ *in context* $c$.
 ]<foundations:unit>
 
+[TODO: finish!]
+
+We also need a form of *containment*.
+
+#definition[
+  Let $u$ and $c$ be units. Then $u$ is *contained in* $c$, denoted
+  $u subset.eq.sq c$, is defined recursively:
+  #recursion[
+    $u equiv {}$. We set ${} subset.eq.sq c$.
+  ][There are two cases. [TODO: also recurse on $c$!]
+    - *Pair:*
+    - *Representations:*
+  ]
+]<foundations:parthood>
+
 We add several abbreviations, most of which will appear in @syntax:
 
 - ${a}$ denotes ${a, {}}$.
 
 - $a <- c -> b$ denotes that both $a - c -> b$ and $a <- c - b$ hold.
 
-- We add a symbol $subset.sq.eq$ for *containment*, where $a subset.eq.sq g$ iff
-  #box[$a - g -> a$]. When writing _in_ the language, we will prefer the latter
-  form.
+- We add a symbol $prec.curly.eq$ for *derives*, where $a prec.curly.eq b$
+  (read: $a$ is derived by $b$) iff #box[$a - b -> a$].
 
 Now we may introduce the rules on units.
 
@@ -189,7 +203,7 @@ Now we may introduce the rules on units.
         name: "Contextual Lifting",
         lbl: "r:context-lift",
         content: [$a - c -> b$ and $d - a -> g$ imply
-          #box[${d - b -> g} subset.sq.eq c$]],
+          #box[${d - b -> g} prec.curly.eq c$]],
       ),
       (
         name: "Refinement",
@@ -225,8 +239,8 @@ Now we may introduce the rules on units.
           $h_1 <-c-> h_2$],
       ),
       (
-        name: "Containment",
-        lbl: "r:a",
+        name: "Derivation",
+        lbl: "r:derivation",
         content: [
           #box[${a - g -> a} <- c -> {{g, a} <--> g}$]
         ],
@@ -262,6 +276,8 @@ Turing completeness. However, the other rules are in place to help with
 organizing units as modules, as well as make it easier to use the language.
 
 [TODO: refer to rules with ranges when appropriate! Much nicer.]
+
+[TODO: discuss derivation!]
 
 - @r:transitivity, @r:pair-congruence, @r:sign-congruence,
   @r:context-congruence, @r:referent-congruence, @r:context-lift were discussed

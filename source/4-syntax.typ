@@ -110,11 +110,11 @@ approach is based on _parser combinators_, which are functions that take other
 parsers as input. We augment these combinators using *invertible syntax
 descriptions*, first introduced in @invertible-syntax-descriptions. Here, an
 *invertible syntax description* is a pair of functions:
-- A _parser_, converts strings into an intermediate data structure.#footnote[For
+- A *Parser*, converts strings into an intermediate data structure.#footnote[For
     computer scientists: this is an AST. Because this thesis aims to have a
     broader audience, we leave details to @invertible-syntax-descriptions.
   ] We say the parser _consumes_ a string.
-- A _printer_, the reverse of `parser`.
+- A *Printer*, the reverse of Parser.
 
 Invertible syntax descriptions are used to enable easier formatting. This helps
 users more seamlessly switch between a string and the underlying unit. Specific
@@ -136,12 +136,12 @@ corresponding rule. Additionally, `WS` is short-hand for `WHITESPACE`
     `WHITESPACE` characters, and finally consumes the input based on `B`.
   - *Printer:* first prints `A`, then zero or more `WS` characters, then `B`.
     whitespaces.
-- `A - seq_many_until -> B`:
+- `A - seq_many_till -> B`:
   - *Parser:* Consumes a string based on `A` zero more times, _until_ the input
     is accepted by the rule `B`. Note that the end marker `B` supports
     unambiguous parsing.
   - *Printer:* prints `A*B`, where `A*` is zero or more instances of `A`.
-- `A - lex_many_until -> B`:
+- `A - lex_many_till -> B`:
   - *Parser:* Consumes a string based on `A` _and_ optional whitespace zero more
     times, _until_ the input is accepted by the rule `B`. Note that the end
     marker `B` supports unambiguous parsing.
