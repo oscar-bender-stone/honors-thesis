@@ -407,21 +407,30 @@ $"LL"(1)$.
   nullable. This is clear upon inspection.
 
   Second, we check that, in all recursive rules of the form
-  $x mapsto (A dot x) or B$, $A$ is not nullable. This is immediately clear by
-  inspection: every rule in @syntax:welkin-grammar based on $"seq_many_till"$
-  and $"lex_many_till"$ starts with at least one character.
+  $x mapsto (A dot x) or B$, $A$ is not nullable. Through inspection, this too
+  clearly holds: every rule in @syntax:welkin-grammar based on $"seq_many_till"$
+  and $"lex_many_till"$ starts with at least one character. Thus, these rules
+  have an $A$ that is not nullable.
 
   Third, we must calculate certain sets and check for disjointness, based on
   @syntax:LL1 and @syntax:original-to-edelmann. More precisely:
   - For each rule $A | B$ or $"*"{A, B}$, we need to calculate $FIRST(A)$ and
-    $FIRST(B)$; and
+    $FIRST(B)$. We say this has *conflict type* $FIRST/FIRST$.
   - For each rule $A - "seq" -> B$ or $A - "lexeme" -> B$, we need to calculate
-    $SNFOLLOW(A)$ and $FIRST(B)$.
+    $SNFOLLOW(A)$ and $FIRST(B)$. We say this has *conflict type*
+    $FIRST/SNFOLLOW$.
 
-  All of the necessary calculations are presented in in @syntax:LL1-calculations
-  Because the intersections in this table are all empty, this proves that
-  @syntax:figure-welkin-grammar $"LL"(1)$. Thus, as all $"LL"(1)$ grammars are
-  uanmbiguous by construction, so is the Welkin grammar.
+  Note that a conflict type is refers to a _potential_ conflict, a property that
+  would invalidate being $"LL"(1)$. Our last goal is to show these conflicts _to
+  not_ exist in the grammar. This is shown to be the case in
+  @syntax:LL1-calculations.
+
+  All of the necessary calculations are presented in in
+  @syntax:LL1-calculations. The case where we compare $FIRST(A)$ and $FIRST(B)$
+  is denoted by We set the *conflict type* depending on In the case where we
+  check $A | B$, we write Because the intersections in this table are all empty,
+  this proves that @syntax:figure-welkin-grammar $"LL"(1)$. Thus, as all
+  $"LL"(1)$ grammars are uanmbiguous by construction, so is the Welkin grammar.
 
   #figure(
     table(
@@ -432,6 +441,7 @@ $"LL"(1)$.
       ),
     ),
 
-    caption: [Calculations needed for $"LL"(1)$ proof.],
+    caption: [Calculations for each possible conflict, along with the
+      corresponding sets.],
   )<syntax:LL1-calculations>
 ]
