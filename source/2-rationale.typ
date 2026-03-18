@@ -138,7 +138,8 @@ ASCII in `type-writer` font.#footnote[This font is Intel One Mono (#link(
   )).] These include:
 
 - In ASCII, #box[`a - b -> c`] for representations. These can be interpreted
-  _as_ rewrite rules, depending on the context.
+  _as_ rewrite rules, depending on the context. The shorthand #box[`a --> b`] is
+  used for the overarching context.
 
 - Traditional braces `{ }` to denote closed definitions of contexts, inspired by
   the C programming language.
