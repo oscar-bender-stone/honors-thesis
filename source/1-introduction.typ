@@ -48,9 +48,8 @@ effectively utilizing frameworks for information.
 
 In consideration of these issues, several solutions partially resolve some of
 them, but not completely. The following provides a small list of major existing
-solutions. Reading these is optional and not required to understand this thesis
-[TODO: rephrase this sentence?]. We will not revisit these until the conclusion,
-see @conclusion:comparisons.
+solutions. Reading these is optional; they are not needed to understand the
+thesis. We revisit these points in the conclusion, see @conclusion:comparisons.
 
 - *Resource Description Framework (RDF):* These systems serve as the primary
   implementations of an internet standard called the Web Ontology Language (OWL)
@@ -127,17 +126,15 @@ to define domain-specific terminology, and are provided rules inspired by
 McCarthy's work in AI systems @mccarthy-contexts. Moreover, truth is defined
 relative to contexts and enables the user to recognize _under which conditions_
 a statement is true. In this way, the information base keeps theories with
-conflicting claims isolated [maybe different word than isolated?], providing a
-clear separation from other contexts.
+conflicting claims isolated, providing a clear separation from other contexts.
 
-[TODO: revise with latest version of what information is!] Building on
-representations, information is defined as a _collection_ . preserved under
-equivalences relative to a context. To make the information base scalable, the
-base operations are kept as simple as possible. However, they are proven to be
-maximally expressive. The simplicity of the language aids in standardization as
-well. However, to keep this thesis self-contained, we will discuss
-standardization at a high level. The full standardization and bootstrap will be
-left for another work, see @conclusion.
+Building on representations, information is defined as a sequence of
+representations, with each step being valid within a context and a base set of
+rules. To make the information base scalable, the base operations are kept as
+simple as possible. However, they are proven to be maximally expressive, see
+@foundations:turing-expressible and @metatheory. The simplicity of the language
+aids in standardization as well. However, to keep this thesis self-contained, we
+will discuss most definitions and proofs at a high level.
 
 
 [TODO: add links to each cell]
