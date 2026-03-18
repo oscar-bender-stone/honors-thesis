@@ -294,16 +294,17 @@ organizing units as modules, as well as make it easier to use the language.
 #remark[The rules in @table:unit-rules use few, independent meta-variables,
   which may be equal or distinct. This phenomena is called "bundling", and it
   appears in the proof checker MetaMath Zero for first-order logic @mm0[Sect.
-    1.2.1]. In first-order logic, the statement $forall x. forall y. x = y$ has
-  two different meanings, depending on whether $x$ and $y$ denote the same
-  meta-variable. Presenting these meanings requires _two_ statements in
-  first-order logic, and with slightly larger examples, this quickly explodes in
-  size. All of this means that Welkin, similar to MetaMath Zero, achieves a
-  significant level of compression. However, _direct_ conversions to tools based
-  on first-order logic may not be feasible.
+    1.2.1]. In first-order logic, the statement
+  $forall x. forall y. #h(0.1em) x = y$ has two different meanings, depending on
+  whether $x$ and $y$ denote the same meta-variable. Presenting these meanings
+  requires _two_ statements in first-order logic, and with slightly larger
+  examples, this quickly explodes in size. All of this means that Welkin,
+  similar to MetaMath Zero, achieves a significant level of compression.
+  However, _direct_ conversions to tools based on first-order logic may not be
+  feasible.
 ]
 
-We also need a form of *containment*.
+In addition to @table:unit-rules, we need a form of *containment*.
 
 #definition[
   Let $u$ and $c$ be units. Then $u$ is *contained in* $c$, denoted

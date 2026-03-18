@@ -14,7 +14,7 @@
       email: "oscar-bender-stone@protonmail.com",
     ),
   ),
-  date: [March 6, 2026],
+  date: [March 18, 2026],
   abstract: [This thesis proposes a universal information language called
     Welkin. We introduce its use cases and rigorously define its underlying
     theory and syntax. We prove that the syntax is unambiguous, and that Welkin
