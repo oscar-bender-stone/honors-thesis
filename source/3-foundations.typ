@@ -124,11 +124,10 @@ representations. We present the complete definition as follows.
   - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
     combination of the following are also units:
     - A *pair* ${u, v}$.
-    - A *representation* $a - c -> b$, where $a$ is the *sign*, $c$ is the
-      *context*, and $b$ is the *referent*. This is read as: $a$ *represents*
-      $b$ *in context* $c$.
+    - A *representation* or *arc* $a - c -> b$, where $a$ is the *sign*, $c$ is
+      the *context*, and $b$ is the *referent*. This is read as: $a$
+      *represents* $b$ *in context* $c$.
 ]<foundations:unit>
-
 
 We add several abbreviations, most of which will appear in @syntax:
 
@@ -265,8 +264,8 @@ organizing units as modules, as well as make it easier to use the language.
 - @r:transitivity ensures that each context is closed under transitivity. This
   makes it easier to reason _within_ a context. Truth systems with
   non-transitive rules can be expressed through combining contexts.
-- @r:sign-congruence, @r:context-congruence, @r:referent-congruence enable the
-  transe
+- *@r:pair-congruence\-@r:referent-congruence* enable the transfer of arcs onto
+  pairs and other arcs.
 - @r:context-lift was previously discussed in
   @rationale:mechanizing-information. This provides a mechanism to test the
   relability of certain representations. That is, if $a$ represents $b$ in
