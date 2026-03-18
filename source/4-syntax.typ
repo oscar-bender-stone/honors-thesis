@@ -394,25 +394,34 @@ implicitly use this form when examining the proof for the Welkin grammar.
   - In any recursive expression $x mapsto (A dot x) or B$, $A$ is not nullable.
 ]<syntax:LL1>
 
-Now, we work on the proof that the new grammar is $"LL"(1)$.
+Finally, we conclude this section with the proof the Welkin grammar is
+$"LL"(1)$.
 
 #theorem[
-  The Welkin grammar @syntax:figure-welkin-grammar is $"LL"(1)$, and is
-  therefore unambiguous.
+  The Welkin grammar (provided in @syntax:figure-welkin-grammar) is $"LL"(1)$,
+  and is therefore unambiguous.
 ]
 #proof[
-  We first observe that the character classes in @syntax:character-classes are
-  disjoint from each other.
-  - Strings are enclosed in quoets and do not overlap with $"RESERVED"$ or
-    $"WHITESPACE"$.
-  - IDs are defined to be disjoint from $"RESERVED"$ or $"WHITESPACE"$.
+  We proceed by checking the necessary conditions. First, we need to confirm
+  that in any rule of the form $A | B$, $"*"{A, B}$, neither $A$ nor $B$ are
+  nullable. This is clear upon inspection.
 
-  It remains to show that all other applicable rules satisfy @syntax:LL1. The
-  calculations are given in @syntax:LL1-calculations. Because the intersections
-  in this table are all empty, and because at most one derivation derives
-  $epsilon$ in a given choice, this proves that @syntax:figure-welkin-grammar
-  $"LL"(1)$. Thus, as all $"LL"(1)$ grammars are uanmbiguous by construction, so
-  is the Welkin grammar.
+  Second, we check that, in all recursive rules of the form
+  $x mapsto (A dot x) or B$, $A$ is not nullable. This is immediately clear by
+  inspection: every rule in @syntax:welkin-grammar based on $"seq_many_till"$
+  and $"lex_many_till"$ starts with at least one character.
+
+  Third, we must calculate certain sets and check for disjointness, based on
+  @syntax:LL1 and @syntax:original-to-edelmann. More precisely:
+  - For each rule $A | B$ or $"*"{A, B}$, we need to calculate $FIRST(A)$ and
+    $FIRST(B)$; and
+  - For each rule $A - "seq" -> B$ or $A - "lexeme" -> B$, we need to calculate
+    $SNFOLLOW(A)$ and $FIRST(B)$.
+
+  All of the necessary calculations are presented in in @syntax:LL1-calculations
+  Because the intersections in this table are all empty, this proves that
+  @syntax:figure-welkin-grammar $"LL"(1)$. Thus, as all $"LL"(1)$ grammars are
+  uanmbiguous by construction, so is the Welkin grammar.
 
   #figure(
     table(
