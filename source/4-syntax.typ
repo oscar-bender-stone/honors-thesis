@@ -7,16 +7,8 @@
 #import "template/ams-article.typ": proof
 #import "us-ascii.typ": printable-ascii-table
 
-// TODO: create a "current working file" or such,
-// or "current working context", and then use *that*
-// when getting input! (Though it could be streamed;
-// we're using handles as an effective abstraction here!
-// Do also make sure multiple users *could* use it as well,
 = Syntax <syntax>
 
-// TODO: determine how rigorous the language is here
-// vs bootstrap!
-// Should the standard be put into an appendix?
 This section examines the grammar for Welkin and provides validation rules. For
 specific sections, consult @syntax:overview.
 

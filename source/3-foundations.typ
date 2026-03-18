@@ -272,34 +272,35 @@ organizing units as modules, as well as make it easier to use the language.
   represents two other units $b, d$. Then this block _represents_ ${a --> b}$
   and ${a --> d}$, separately. This provides a mechanism to _refine_ a general
   unit into a more specific one.
-- @r:empty, @r:sign-null, @r:context-null, and @r:referent-null define the
-  behavior of the empty unit ${}$, similar to the empty set. @r:sign-null and
-  the like specifically states that ${}$ contains _no_ representations. Thus, if
-  a representation has a component that is ${}$, then it carries no meaning.
-  This provides a mechanism to _exclude_ units in a context. This is useful for
-  imposing invariants.
+- *@r:empty\-@r:referent-null* define the behavior of the empty unit ${}$,
+  similar to the empty set. @r:sign-null and the like specifically states that
+  ${}$ contains _no_ representations. Thus, if a representation has a component
+  that is ${}$, then it carries no meaning. This provides a mechanism to
+  _exclude_ units in a context. This is useful for imposing invariants.
 - @r:handle-eq enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are entirely
   user defined.
 - @r:derivation characterizes $a prec.curly.eq g$ as ${g, a} <--> g$. This is
   closely related to the *semi-lattice* structure formed by units; refer to the
   point below.
-- @r:idempotent, @r:associativity, and @r:commutativity ensure that information
-  can be repeated and arranged in any order. Together with @r:transitivity, this
-  means that units have a *semi-lattice* structure, first introduced by Birkoff
+- *@r:idempotent\-@r:commutativity* ensure that information can be repeated and
+  arranged in any order. Together with @r:transitivity, this means that units
+  have a *semi-lattice* structure, a term first introduced by Birkoff
   @birkhoff-1967-lattice. Moreover, $prec.curly.eq$ is the corresponding partial
   order, which is a relation that is transitive ($x prec.curly.eq y$ and
   $y prec.curly.eq z$ entail $x prec.curly.eq z$) and reflexive
   ($x prec.curly.eq x$).
 
-#remark[The rules in @table:unit-rules use few meta-variables, which may _or_
-  may not equal each other. This is connected to variables as managed by the
-  proof checker MetaMath Zero @mm0. In first-order logic, variables in
-  quantifiers are assumed to be distinct. To _allow_ for equality as well, these
-  must be separately included, but this quickly explodes in size. All of this
-  means that Welkin, similar to MetaMath Zero, achieves a significant level of
-  compression. However, _direct_ conversions to first-order theories may not be
-  feasible.
+#remark[The rules in @table:unit-rules use few, independent meta-variables,
+  which may be equal or distinct. This phenomena is called "bundling", and it
+  appears in the proof checker MetaMath Zero for first-order logic @mm0[Sect.
+    1.2.1]. In first-order logic, the statement $forall x. forall y. x = y$ has
+  two different meanings, depending on whether $x$ and $y$ denote the same
+  meta-variable. Presenting these meanings requires _two_ statements in
+  first-order logic, and with slightly larger examples, this quickly explodes in
+  size. All of this means that Welkin, similar to MetaMath Zero, achieves a
+  significant level of compression. However, _direct_ conversions to tools based
+  on first-order logic may not be feasible.
 ]
 
 We also need a form of *containment*.
