@@ -16,12 +16,34 @@
 
 = Foundations <foundations>
 
-This section discuss the foundations of Welkin, as follows:
+This section discuss the foundations of Welkin, outlined in
+@<foundations:overview>:
 
-+ We define words and handles.
-+ We define units and their rules.
-+ We prove that is a correspondence between units and Turing machines.
-+ We define queries.
+#figure(
+  table(
+    columns: (20%, 25%, 55%),
+    align: left,
+    table.header([*Section Number*], [*Title*], [*Description*]),
+    [*@foundations:words-and-handles*],
+    [*Words and Handles*],
+    [Introduces binary words and handles.],
+
+    [*@foundations:units-section*],
+    [*Units*],
+    [Recursively defines units @foundations:unit as their rules @unit-rules.],
+
+    [*@foundations:turing-completeness-section*],
+    [*Turing Completeness*],
+    [Proves that there is a natural correspondence between untis in Welkin and
+      Turing machines.],
+
+    [*@foundations:queries-and-information*],
+    [*Queries and Information*],
+    [Defines queries @foundations:query and information
+      @foundations:information],
+  ),
+  caption: [Overview of @syntax.],
+)<foundations:overview>
 
 For this thesis, definitions and proofs will be given at a high level.
 Additionally, we adopt several conventions:
@@ -30,7 +52,7 @@ Additionally, we adopt several conventions:
 - Each proof ends with a square ($square.stroked$).
 - We frequently abbreviate "if and only if" as "iff".
 
-== Words and Handles
+== Words and Handles <foundations:words-and-handles>
 
 // TODO: replace equiv with a delta equiv
 
@@ -89,7 +111,7 @@ and $!=$ for handles, respectively.
     $"ID"_1 #W-neq "ID"_2$.
 ]<foundations:handle-equality>
 
-== Units
+== Units <foundations:units-section>
 
 Now we can define units. Roughly, units are finite combinations of handles and
 representations. We present the complete definition as follows.
@@ -283,7 +305,7 @@ As more notation, we write:
 
 We will officially add $"*"$ to the grammar in @syntax.
 
-== Turing Completeness
+== Turing Completeness <foundations:turing-completeness-section>
 
 This section shows that Welkin is Turing complete. For background, there are
 many papers, e.g., @sipser-theory-ofcomputation[Ch. 3].
@@ -402,7 +424,7 @@ this, we prove the following. Our proof technique uses recursion within Welkin.
 Taken together, we have completed _one_ part of Goal 1 [LINK]. The other part
 will be addressed in the next section.
 
-== Queries and Information
+== Queries and Information <foundations:queries-and-information>
 
 By @foundations:turing-expressible, every partial computable can be expressed as
 a unit. Additionally, in the construction used, reductions of terms are _also_
