@@ -76,7 +76,7 @@ Words alone do not carry meaning. Instead, meaning is provided through
 Because handles act as free parameters, we work with them through truth. Based
 on this, the rest of the thesis will abstract away general units _as_ sets of
 axioms. Certain interpretations are used to define Welkin's syntax. For example,
-words can be interpreted as handles without external meaning; see @syntax.
+words can be interpreted as handles without external meaning.
 
 Now, we can define equality and inequality between handles. We will reserve $=$
 and $!=$ for handles, respectively.
@@ -98,7 +98,7 @@ representations. We present the complete definition as follows.
   A *unit* is defined recursively as follows and nothing else:
   - *Base case:*
     - The symbol ${}$, the *empty block*.
-    - A handle, see @foundations:handle.
+    - A handle, defined in @foundations:handle.
   - *Recursive step:* let $u, v, g$ be units and $h$ a handle. Then any finite
     combination of the following are also units:
     - A *pair* ${u, v}$.
@@ -253,11 +253,6 @@ organizing units as modules, as well as make it easier to use the language.
   represents two other units $b, d$. Then this block _represents_ ${a --> b}$
   and ${a --> d}$, separately. This provides a mechanism to _refine_ a general
   unit into a more specific one.
-//- @r:distribute is used to apply a context over a combination of units. The more
-//  verbose form ${a - d -> b} - c -> {a - d -> b}$ is included once, primarily
-//  for readability in text. However, we will prefer $c { a - c -> b}$ for
-//  brevity. We say that $c$ *owns* (a copy of) $a - c -> b$. See @syntax for more
-//  details.
 - @r:empty, @r:sign-null, @r:context-null, and @r:referent-null define the
   behavior of the empty unit ${}$, similar to the empty set. @r:sign-null and
   the like specifically states that ${}$ contains _no_ representations. Thus, if
@@ -301,13 +296,14 @@ units $c$ to a Turing machine $phi_c$ such that
 #set math.equation(numbering: _ => $(#math.star.filled)$)
 $ a - c -> b #math.text("if and only if") phi_c (⟨phi_a⟩) = ⟨phi_b⟩. $
 
-Here, $⟨phi_a⟩$ denotes a standard encoding of a Turing machine as a string (see
-@sipser-theory-ofcomputation[Ch 3.3, pg. 185]). We also require that $phi$ is
-surjective, i.e., each Turing machine $T$ can be expressed as $phi_u$ for some
-unit $u$. The purpose of $phi$ is to provide a computational interpretation of
-units _as_ programs, or operators. Note that handles can have implicit,
-user-defined meaning (see @foundations:handle). Practically, we will maintain
-this interpretation, as representations are managed mechanically through truth
+Here, $⟨phi_a⟩$ denotes a standard encoding of a Turing machine as a string
+(refer to @sipser-theory-ofcomputation[Ch 3.3, pg. 185]). We also require that
+$phi$ is surjective, i.e., each Turing machine $T$ can be expressed as $phi_u$
+for some unit $u$. The purpose of $phi$ is to provide a computational
+interpretation of units _as_ programs, or operators. Note that handles can have
+implicit, user-defined meaning (outlined in @foundations:handle). Practically,
+we will maintain this interpretation, as representations are managed
+mechanically through truth
 #footnote[
   In connection to linguistics, this is the difference between a formal
   semantics, what is stated in the language, and pragmatics, the intension or
@@ -315,9 +311,9 @@ this interpretation, as representations are managed mechanically through truth
 
 At this point, we are concerned with showing _some_ $phi$ exists, thereby
 validating Goal 1 [TODO: provide a link to this]. We are not concerned about
-efficiency; this will be left for a future work, see @conclusion. To construct
-$phi$, we want to create an embedding into the $"SK"$-combinator calculus. This
-is an equational theory, first developed by Schönfinkel
+efficiency; this will be left for a future work, refer to @conclusion. To
+construct $phi$, we want to create an embedding into the $"SK"$-combinator
+calculus. This is an equational theory, first developed by Schönfinkel
 @schoenfinkel-combinators, and independently discovered by Curry
 @curry-grundlagen. In this theory, a *combinator* is a higher-order function: a
 function that takes in other functions as inputs. #footnote[A remark for

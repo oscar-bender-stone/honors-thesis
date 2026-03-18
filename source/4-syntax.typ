@@ -55,11 +55,8 @@ specific sections, consult @syntax:overview.
 )<syntax:overview>
 
 To make specific characters clearer, we write syntactic features in
-`type-writer font`.#footnote[This font is Intel One Mono (#link(
-    "https://github.com/intel/intel-one-mono",
-  )), licensed under OFL 1.1 (#link(
-    "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",
-  )).] For clarity, we will write at a slightly higher level than @foundations.
+`type-writer font`. For clarity, we will write at a slightly higher level than
+@foundations.
 
 == Encoding <syntax:encoding>
 
@@ -81,20 +78,17 @@ version. #footnote[Note that this table _itself_ is a representation, which
   characters, followed by an `EOF` character.
 ]<syntax:encoding-strings>
 
-To represent general encodings, there is a binary format supported for strings,
-see @syntax:string.
-
 Moreover, we will need to define *character classes*, or important sets of
 characters. These are presented in @syntax:character-classes, with each
 character separated by |. Note that strings _may_ contain quotes prefixed with a
-slash `\`, see @syntax:string.
+slash `\`, refer to @syntax:string.
 
 #figure(
   table(
     columns: (auto, auto),
     align: center,
     table.header([*Set Name*], [*Characters*]),
-    [`PRINTABLE`], [See @syntax:printable-ascii-codes.],
+    [`PRINTABLE`], [Listed in @syntax:printable-ascii-codes.],
 
     [`WHITESPACE`], [`\t` | `\r` | Space ],
     [`DELIMITER`], [`{` | `}` | `'` | `"` | `.` | `,`],
@@ -148,9 +142,9 @@ well or present the corresponding string. This is done through
 
 == Strings and IDs <syntax:strings-and-ids>
 
-Strings allow escaped single or double quotes, see @syntax:string. Note that,
-semantically, single and double quoted strings are equivalent, see
-@syntax:validation-and-transforms.
+Strings are defined in @syntax:string, and they allow escaped single or double
+quotes. Note that, semantically, single and double quoted strings are
+equivalent, consult @syntax:validation-and-transforms.
 
 #figure(
   ```
@@ -161,8 +155,9 @@ semantically, single and double quoted strings are equivalent, see
   caption: "Strings.",
 )<syntax:string>
 
-IDs are special cases of strings that do not require quotes but forbid
-whitespace and certain characters, see @syntax:id.
+IDs are defined in @syntax:id. These are special strings do not require quotes
+but forbid whitespace and certain characters. This comparison is reinforced in
+@syntax:validation-and-transforms.
 
 #figure(
   ```
@@ -259,7 +254,7 @@ We say a string is *valid* if it is accepted by the grammar
   containing $v$. This means neither `u := {v, w}, u.x` nor `u.x` alone are
   valid.
 
-We leave error handling for future work, see @conclusion.
+We leave error handling for future work, described in @conclusion.
 
 Additionally, we define transformation rules after parsing:
 
@@ -294,12 +289,6 @@ Additionally, we define transformation rules after parsing:
 
 - Each `~x` expands to `x - g -> {}`, where `g` is the name where `~x` is
   placed. At the highest level, this would be the module name, $m$.
-
-- The definitions for `|` and `~` are expanded, see @unit-rules.
-
-  -
-
-  -
 
 == Proof of Unambiguity <syntax:proof-unambiguous>
 
@@ -416,10 +405,10 @@ Now, we work on the proof that the new grammar is $"LL"(1)$.
     $"WHITESPACE"$.
   - IDs are defined to be disjoint from $"RESERVED"$ or $"WHITESPACE"$.
 
-  It remains to show that all other applicable rules satisfy @syntax:LL1. For
-  this, see the calculations in @syntax:LL1-calculations. Because the
-  intersections in this table are all empty, and because at most one derivation
-  derives $epsilon$ in a given choice, this proves that @syntax:converted-cfg is
+  It remains to show that all other applicable rules satisfy @syntax:LL1. The
+  calculations are given in @syntax:LL1-calculations. Because the intersections
+  in this table are all empty, and because at most one derivation derives
+  $epsilon$ in a given choice, this proves that @syntax:converted-cfg is
   $"LL"(1)$. Thus, by @syntax:original-equiv-cfg, the Welkin grammar accepts the
   same strings as an unambiguous language.
 

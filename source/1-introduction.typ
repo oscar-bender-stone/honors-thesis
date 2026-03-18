@@ -7,9 +7,6 @@
 
 = Introduction
 
-[TODO[MEDIUM]: determine if the phrase: "see Section ?" should be used, or
-"refer to" instead, to fully include all readers.]
-
 Information Management is the study of systematically storing and organizing
 data. Since the beginning of humanity, there has been a massive influx of data,
 including physical and digital forms. Not a single person understands all of it.
@@ -49,19 +46,19 @@ effectively utilizing frameworks for information.
 In consideration of these issues, several solutions partially resolve some of
 them, but not completely. The following provides a small list of major existing
 solutions. Reading these is optional; they are not needed to understand the
-thesis. We revisit these points in the conclusion, see @conclusion:comparisons.
+thesis. We revisit these points in the conclusion (@conclusion:comparisons).
 
 - *Resource Description Framework (RDF):* These systems serve as the primary
   implementations of an internet standard called the Web Ontology Language (OWL)
   @OWL2. Information is stored as triples $"subject"-"predicate"->"object"$.
   From there, the language can enforce rules and ensure new relationships are
   derived _only_ from from previous ones. OWL has been highly successful in
-  providing a machine-readable format to websites across the internet, see
-  @hitzler-review-the-semantic-web. However, despite their widespread adoption,
-  RDF-based solutions struggle with extensive sources of data. Enforcing logical
-  rules can be expensive @owl-approximate-reasoning. Additionally, because OWL
-  treats missing sources of data as _unknown_ rather than _false_, it often
-  fails to resolve conflicts between two sources
+  providing a machine-readable format to websites across the internet, outlined
+  in @hitzler-review-the-semantic-web. However, despite their widespread
+  adoption, RDF-based solutions struggle with extensive sources of data.
+  Enforcing logical rules can be expensive @owl-approximate-reasoning.
+  Additionally, because OWL treats missing sources of data as _unknown_ rather
+  than _false_, it often fails to resolve conflicts between two sources
   @hitzler-review-the-semantic-web.
 
 - *Labeled Property Graphs (LPGs):* This is an architecture defined by the
@@ -113,7 +110,7 @@ The core result of this thesis is that Welkin fulfills two goals: it is
 *standardized*. Due to time restrictions, completely standardizing the language
 is left for a future work. Thus, only a _proposal_ for Welkin is provided here,
 but the main results will be used in the final version. For more details on the
-goals, see @goals.
+goals, consult @goals.
 
 The fundamental building block of Welkin is based on *representations*,
 containing a relationship between a *sign* representing a *referent* in a
@@ -121,23 +118,22 @@ containing a relationship between a *sign* representing a *referent* in a
   semiotics. This theory studies the relationship between a symbol, the object
   it represents, and the interpretation that provides that meaning
   @sep-peirce-semiotics. Our notion is different in that contexts are a
-  generalized interpretant, see @rationale:unit.] Contexts provide flexibility
-to define domain-specific terminology, and are provided rules inspired by
-McCarthy's work in AI systems @mccarthy-contexts. Moreover, truth is defined
-relative to contexts and enables the user to recognize _under which conditions_
-a statement is true. In this way, the information base keeps theories with
-conflicting claims isolated, providing a clear separation from other contexts.
+  generalized interpretant; refer to @rationale:unit.] Contexts provide
+flexibility to define domain-specific terminology, and are provided rules
+inspired by McCarthy's work in AI systems @mccarthy-contexts. Moreover, truth is
+defined relative to contexts and enables the user to recognize _under which
+conditions_ a statement is true. In this way, the information base keeps
+theories with conflicting claims isolated, providing a clear separation from
+other contexts.
 
 Building on representations, information is defined as a sequence of
 representations, with each step being valid within a context and a base set of
 rules. To make the information base scalable, the base operations are kept as
-simple as possible. However, they are proven to be maximally expressive, see
+simple as possible. However, they are proven to be maximally expressive in
 @foundations:turing-expressible and @metatheory. The simplicity of the language
 aids in standardization as well. However, to keep this thesis self-contained, we
 will discuss most definitions and proofs at a high level.
 
-
-[TODO: add links to each cell]
 
 #figure(
   table(

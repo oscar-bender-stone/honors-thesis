@@ -22,8 +22,8 @@ requirements, we require two important properties:
   functions are computer programs that can process a finite input, and that
   either stop on an input or continue forever. The bedrock for these functions
   is the notion of a _Turing machine_, which models every current form of
-  computation. For more information, see @turing-computable-numbers. To obtain
-  universality, we need to express _every_ one of these machines.
+  computation. For more information, refer to @turing-computable-numbers. To
+  obtain universality, we need to express _every_ one of these machines.
 
 + The information base must provide a mechanism to _ground_ symbols defined by
   users. This stems from the Symbol Grounding Problem, posed by Harnard
@@ -125,7 +125,7 @@ to $b$: if there is a relationship in context $a$, then it will _also_ be in
 context $b$. Specific examples can be found throughout the literature, including
 @declarative-formalization-knowledge-translation. Additionally, lifting means
 that the definition of information is theoretically _as general_ as possible.
-For details, see @metatheory.
+For details, consult @metatheory.
 
 == Base Operations
 

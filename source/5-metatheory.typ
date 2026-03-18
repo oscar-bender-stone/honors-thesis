@@ -40,7 +40,7 @@ We will make two assumptions without loss of generality:
 - First, we will consider only first-order theories $T$ that are RE. This is
   because any formal system must be defined with proofs accepted by some Turing
   machine. In turn, this Turing machine can be expressed as a first order
-  theory, see @trakhtenbrot50. [TODO: maybe make more clearer claim?]
+  theory, consult @trakhtenbrot50. [TODO: maybe make more clearer claim?]
 
 - Secondly, we will only consider theories in the language of arithmetic [TODO:
   maybe define?]. A first-order theory can be encoded via arithmetic, similar to
@@ -208,7 +208,7 @@ technique, and its acceptance by other logicians.#footnote[The discussion is
   ).]
 
 Despite its initial controversy, Artemov's techniques follow closely with
-several constructive schools, see @artemov_serial_consistency. This thesis
+several constructive schools, consult @artemov_serial_consistency. This thesis
 builds upon this result with a stronger property: *serial-soundness*. The exact
 same proof applies, using the same partial truth definition. Tarski's theorem
 says that a formal system cannot define its own truth predicate _at the object
@@ -224,11 +224,11 @@ expressed in several ways.
 We embed "Convention T", or Tarski's criterion for truth
 @tarski-undefinability-truth, as unit. Recall that, at this stage, Welkin deals
 with truh systems. The user's task is to ensure they accurately represent their
-referents, because these are free parameters in the theory (see the discussion
-below @foundations:handle). For this reason, the aim is to demonstrate the
-_preservation_ of these truth systems. This means preserving their axioms and
-rules of inference. With this goal in mind, we define a *truth predicate*
-accordingly.
+referents, because these are free parameters in the theory (refer to the
+discussion below @foundations:handle). For this reason, the aim is to
+demonstrate the _preservation_ of these truth systems. This means preserving
+their axioms and rules of inference. With this goal in mind, we define a *truth
+predicate* accordingly.
 
 // So the original convention T is:
 // [phi] is true iff phi,
@@ -381,9 +381,9 @@ $"ZFC"$. This is because, over $I Delta_0$ as the base-theory, $"ZFC"$ is
 self-verifying (proves its own soundness. A reason for this power in $"ZFC"$ is
 the axiom of replacement, or even comprehension. We extend this realization
 using hyperarithmetic sets, which are known to cover every recursive ordinal,
-see @kleene-ordinal-notation [TODO: make sure this citation is correct!]. Based
-on Kleene's theorem, our key construction in the limit case is to add this: let
-$lambda$ be a limit ordinal and consider all given theories
+refer to @kleene-ordinal-notation [TODO: make sure this citation is correct!].
+Based on Kleene's theorem, our key construction in the limit case is to add
+this: let $lambda$ be a limit ordinal and consider all given theories
 $T_1, T_2, ..., T_beta, ...$ with $beta < lambda$. Then
 $T_lambda = union.big_(beta < lambda) T_beta union "Comp"_lambda (Delta^1_1)$.
 The set $"Comp"_lambda (Delta^1_1)$ is an axiom schema over each proposition
