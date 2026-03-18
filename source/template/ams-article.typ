@@ -481,22 +481,22 @@
   })
 }
 
-#let acknowledgment(body) = {
-  block({
-    set par(first-line-indent: 0em)
-    set align(center)
-    set text(size: normal-size)
-    smallcaps[
-      #v(15pt, weak: true)
-      Acknowledgments
-      #v(normal-size, weak: true)
-    ]
-  })
+// #let acknowledgment(body) = {
+//   block({
+//     set par(first-line-indent: 0em)
+//     set align(center)
+//     set text(size: normal-size)
+//     smallcaps[
+//       #v(15pt, weak: true)
+//       Acknowledgments
+//       #v(normal-size, weak: true)
+//     ]
+//   })
 
-  set par(first-line-indent: 1.2em)
-  set align(start)
-  body
-}
+//   set par(first-line-indent: 1.2em)
+//   set align(start)
+//   body
+// }
 
 
 // This is the single numbering format all our environments will use

@@ -109,32 +109,42 @@ simplicity, we do not add many primitives. The names are taken from the the
 @leijen-meijer-parsec. Using @invertible-syntax-descriptions, we augment these
 functions as invertible syntax descriptions. Here, an *invertible syntax
 description* is a pair of functions:
-- A `parser`, from strings to an intermediate data structure.#footnote[For
+- A _parser_, converts strings into an intermediate data structure.#footnote[For
     computer scientists: this is an AST. Because this thesis aims to have a
     broader audience, we leave details to @invertible-syntax-descriptions.
-  ]
-- A `printer`, the reverse of `parser`.
+  ] We say the parser _consumes_ a string.
+- A _printer_, the reverse of `parser`.
 
-The detailed correspondence is described in @syntax:invertible-descriptions. We
-adapt the notation from `parsec` and @invertible-syntax-descriptions for our
-purposes:
+Invertible syntax descriptions are used to enable easier formatting. This helps
+users more seamlessly switch between a string and the underlying unit. Specific
+details are provided in @invertible-syntax-descriptions.
 
-[TODO: define how printing works here! Use a table.]
+For our use case, we will need four invertible syntax descriptions. These are
+based on functions from `parsec`, a Haskell parsing library. Here, `A` and `B`
+denote meta-variables over syntax descriptions. Parsing `A` means applying the
+parser in `A`, and likewise, printing `A` means printing the corresponding rule.
+Additionally, `WS` is short-hand for `WHITESPACE` (@syntax:character-classes).
 
-- `seq` means two rules that must be concatenated _directly_, no `WHITESPACE`
-  characters allowed.
-
-- `lexeme` means two rules can be joined with any number of `WHITESPACE`
-  characters in between.
-
-
-- `seq_many_till` means that in `A - many_till -> B`, parse zero or more
-  instances of `A` _without_ any `WHITESPACE` characters, until `B` is
-  encountered.
-
-- `lex_many_till` means that in `A - many_till -> B`, parse zero or more
-  instances of `A` _with_ any number of `WHITESPACE` characters, until `B` is
-  encountered.
+- `A - seq -> B`:
+  - *Parser:* Consumes a string based on `A`. immediately followed by the rule
+    `B`. Notice that _no_ `WS` characters are allowed.
+  - *Printer:* prints the string `AB`.
+- `A - lexeme -> B`:
+  - *Parser:* Consumes a string based on `A`. then accepts any number of
+    `WHITESPACE` characters, and finally consumes the input based on `B`.
+  - *Printer:* first prints `A`, then zero or more `WS` characters, then `B`.
+    whitespaces.
+- `A - seq_many_until -> B`:
+  - *Parser:* Consumes a string based on `A` zero more times, _until_ the input
+    is accepted by the rule `B`. Note that the end marker `B` supports
+    unambiguous parsing.
+  - *Printer:* prints `A*B`, where `A*` is zero or more instances of `A`.
+- `A - lex_many_until -> B`:
+  - *Parser:* Consumes a string based on `A` _and_ optional whitespace zero more
+    times, _until_ the input is accepted by the rule `B`. Note that the end
+    marker `B` supports unambiguous parsing.
+  - *Printer:* prints zero or more instances of `A` _with_ optional whitespace,
+    followed by `B`.
 
 In contrast to @leijen-meijer-parsec, however, we include the ability _print_ as
 well or present the corresponding string. This is done through
