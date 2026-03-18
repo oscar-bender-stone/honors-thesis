@@ -415,10 +415,10 @@ $"LL"(1)$.
   Third, we must calculate certain sets and check for disjointness, based on
   @syntax:LL1 and @syntax:original-to-edelmann. More precisely:
   - For each rule $A | B$ or $"*"{A, B}$, we need to calculate $FIRST(A)$ and
-    $FIRST(B)$. We say this has *conflict type* $FIRST/FIRST$.
+    $FIRST(B)$. We say this has *conflict type* $FIRST\/FIRST$.
   - For each rule $A - "seq" -> B$ or $A - "lexeme" -> B$, we need to calculate
     $SNFOLLOW(A)$ and $FIRST(B)$. We say this has *conflict type*
-    $FIRST/SNFOLLOW$.
+    $FIRST\/SNFOLLOW$.
 
   Note that a conflict type is refers to a _potential_ conflict, a property that
   would invalidate being $"LL"(1)$. Our last goal is to show these conflicts _to
