@@ -135,14 +135,9 @@ We also need a form of *containment*.
 
 #definition[
   Let $u$ and $c$ be units. Then $u$ is *contained in* $c$, denoted
-  $u subset.eq.sq c$, is defined recursively:
-  #recursion[
-    $u equiv {}$. We set ${} subset.eq.sq c$.
-  ][There are two cases. [TODO: also recurse on $c$!]
-    - *Pair:*
-    - *Representations:*
-  ]
-]<foundations:parthood>
+  $u subset.eq.sq c$, if either $u equiv {}$ or for some unit $v$,
+  $c equiv {u, v}$.
+]<foundations:containment>
 
 We add several abbreviations, most of which will appear in @syntax:
 
