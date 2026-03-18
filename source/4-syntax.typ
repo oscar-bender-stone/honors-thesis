@@ -63,7 +63,9 @@ To make specific characters clearer, we write syntactic features in
 Welkin uses ASCII as its base encoding. The term ASCII is slightly ambiguous, as
 there are subtly distinct variants, so we formally define US-ASCII as a standard
 version. #footnote[Note that this table _itself_ is a representation, which
-  represents glyphs with binary words.]
+  represents glyphs with binary words.] We provide the codes for each character
+in decimal and hexadecimal, but these can easily be converted into binary words
+in Welkin.
 
 #figure(
   printable-ascii-table(),
@@ -146,10 +148,6 @@ Additionally, `WS` is short-hand for `WHITESPACE` (@syntax:character-classes).
   - *Printer:* prints zero or more instances of `A` _with_ optional whitespace,
     followed by `B`.
 
-In contrast to @leijen-meijer-parsec, however, we include the ability _print_ as
-well or present the corresponding string. This is done through
-@invertible-syntax-descriptions.
-
 == Strings and IDs <syntax:strings-and-ids>
 
 Strings are defined in @syntax:string, and they allow escaped single or double
@@ -181,6 +179,16 @@ but forbid whitespace and certain characters. This comparison is reinforced in
 Welkin's grammar is displayed in @syntax:figure-welkin-grammar, inspired by
 several languages.
 
+- The binding operator `:=` is inspired by functional languages, emphasizing
+how Welkin is immutable. Moreovoer, choices can be written via `|`, which
+_themselves_ can include definitions.
+
+- The import system is inspired by Python. Additionally, `*u` is a concept
+  borrowed from Python, which gets the contents of a tuple.#footnote[The grammar
+    rule `trailer` is also inspired by Python. The Python grammar is available
+    at:
+    #link("https://docs.python.org/3/reference/grammar.html")]
+
 #let grammar = ```
 start := units - lexeme -> EOF,
 
@@ -198,7 +206,8 @@ arc := right_arc | other_arc,
 right_arc := "-" - seq -> node - seq -> "->",
 other_arc := "<-" - seq -> node - seq -> *{"-" | "->"},
 
-node := "*" - seq_many_till -> *{
+node := "*"
+  - seq_many_till -> *{
     graph,
     path - lexeme -> *{"", binding}
   }
@@ -209,10 +218,13 @@ choices := *{"", "|"}
   - lexeme -> *{
     "",
     {"|" - lexeme -> unit}
-    - lex_many_til -> *{"}", ","}
+    - lex_many_till -> *{"}", ","}
   },
 
-graph := path - lexeme -> "{" - lexeme -> units - lexeme -> "}",
+graph := path
+  - lexeme -> "{"
+  - lexeme -> units
+  - lexeme -> "}",
 
 path := *{"", "~"}
   - seq -> *{"", "@"}

@@ -26,7 +26,7 @@ This section discuss the foundations of Welkin, as follows:
 For this thesis, definitions and proofs will be given at a high level.
 Additionally, we adopt several conventions:
 
-- Each *Definition*, *Remark*, and *Example* ends with a triangle ($#end-def$).
+- Each *Definition* and *Remark* ends with a triangle ($#end-def$).
 - Each proof ends with a square ($square.stroked$).
 - We frequently abbreviate "if and only if" as "iff".
 
@@ -277,12 +277,11 @@ organizing units as modules, as well as make it easier to use the language.
 
 As more notation, we write:
 
-- $~a$ for ${a --> {}}$.
 - $"*"{a_1, ..., a_n} - c -> b$ for
   ${a_1 - c -> b, a_2 - c -> b, .., a_n - c -> b}$.
 - $a - c -> "*"{b_1, ..., b_n}$ for ${a --> b_1, a --> b_2, .., a --> b_n}$.
 
-We will officially add $"~"$ and $"*"$ to the grammar in @syntax.
+We will officially add $"*"$ to the grammar in @syntax.
 
 == Turing Completeness
 
