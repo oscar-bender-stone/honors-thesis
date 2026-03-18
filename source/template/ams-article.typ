@@ -45,50 +45,40 @@
 #let large-size = 11.74988pt
 #let text-font = "STIX Two Text"
 
+
 #let defense-page(
   title: "",
   author: "",
   department: "",
   defense_date: none,
-  advisor: (name: "", dept: ""),
   committee: (),
-  // body,
 ) = {
-  // Title Page
-  page(numbering: none)[
+  page(numbering: "1")[
     #set align(center)
-    #v(2fr)
+    #set text(font: text-font, size: 1.2em)
 
-    #text(size: 2em, weight: "bold")[#title]
+    #v(12%)
 
-    #v(1.5fr)
+    #text(size: 1.6em, weight: "bold")[#title]
+    #v(1.5em)
 
-    #text(size: 1.2em)[#author] \
+    #author \
     #department
-
-    #v(1.5fr)
+    #v(2.5em)
 
     #text(weight: "bold")[Thesis Committee]
-    #v(0.5em)
+    #v(0.8em)
 
-    #grid(
-      columns: (auto, auto),
-      column-gutter: 2em,
-      row-gutter: 1.2em,
-      align: left,
+    #for member in committee {
+      block(spacing: 1.2em)[
+        #member.name \
+        #member.role, #member.dept
+      ]
+    }
 
-      [#advisor.name (#advisor.dept)], [Thesis Advisor],
-
-      ..for member in committee {
-        ([#member.name (#member.dept)], [#member.role])
-      },
-    )
-
-    #v(2fr)
-    #text(weight: "bold")[Defense Date]
-    #v(0.5em)
+    #v(2.5em)
+    #text(weight: "bold")[Defense Date] \
     #defense_date
-    #pagebreak()
   ]
 }
 
@@ -122,11 +112,13 @@
   keywords: none,
   // Enable draft mode
   draft: false,
-  // Enable thesis:
-  thesis: true,
+  // Enable for defense copy
+  defense-copy: true,
   // Thesis based options
   // Advisor for thesis
   advisor: (),
+  // Thesis committee
+  committee: (),
   defense-date: (),
 ) = {
   let watermark = if draft {
@@ -164,16 +156,14 @@
   // Set equation numbering to (section.equation)
   set math.equation(numbering: "(1.1)")
 
-  if thesis {
+  if defense-copy {
     defense-page(
       title: title,
       author: author-string,
       department: authors.first().department,
       defense_date: defense-date,
-      // advisor: advisor,
-      // committee: committee,
+      committee: committee,
     )
-    counter(page).update(1) // Reset page count after title page
   }
 
   // Configure the page.
@@ -497,7 +487,7 @@
     set text(script-size)
 
     for author in authors {
-      let keys = ("department", "organization", "location")
+      let keys = ("organization", "location")
 
       let dept-str = keys
         .filter(key => key in author)
