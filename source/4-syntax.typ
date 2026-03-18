@@ -161,7 +161,7 @@ but forbid whitespace and certain characters. This comparison is reinforced in
 
 #figure(
   ```
-  ID := ID_CHAR - seq_many_till -> *{RESERVED, *WHITESPACE}
+  ID := ID_CHAR - seq_many_till -> *{RESERVED, WHITESPACE}
   ```,
   caption: "Syntactic definition of an ID.",
 )<syntax:id>
