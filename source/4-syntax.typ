@@ -84,7 +84,7 @@ slash `\`, refer to @syntax:string.
     columns: (auto, auto),
     align: center,
     table.header([*Set Name*], [*Characters*]),
-    [`PRINTABLE`], [Listed in @syntax:printable-ascii-codes.],
+    [`PRINTABLE`], [Listed in @syntax:printable-ascii-codes],
 
     [`WHITESPACE`], [`\t` | `\r` | Space ],
     [`DELIMITER`], [`{` | `}` | `'` | `"` | `.` | `,`],
@@ -386,8 +386,8 @@ strictly of the form $A | B$, $A dot B$, or $x mapsto (A dot x) or B$. We will
 implicitly use this form when examining the proof for the Welkin grammar.
 #definition[(@compilers-dragon-book[Ch. 5]). A set $P$ of parsing combinators is
   $"LL"(1)$ if and only if, for all $A$ and $B$:
-  - For any rule $A | B in P$, neither $A$ nor $B$ are nullable, and
-    $FIRST(A) inter FIRST(B) = emptyset$.
+  - For any rule $A | B in P$, at most $A$ or $B$ are nullable, and $FIRST(A)$
+    and $FIRST(B)$ are disjoint.
   - For any rule $A dot B in P$, $SNFOLLOW(A) inter FIRST(B) = emptyset$. In
     other words, the set of characters that locally follow $A$ must be disjoint
     with the characters starting in $B$.
@@ -403,43 +403,56 @@ $"LL"(1)$.
 ]
 #proof[
   We proceed by checking the necessary conditions. First, we need to confirm
-  that in any rule of the form $A | B$, $"*"{A, B}$, neither $A$ nor $B$ are
+  that in any rule of the form $A | B$, $"*"{A, B}$, at least $A$ or $B$ are not
   nullable. This is clear upon inspection.
 
   Second, we check that, in all recursive rules of the form
-  $x mapsto (A dot x) or B$, $A$ is not nullable. Through inspection, this too
-  clearly holds: every rule in @syntax:welkin-grammar based on $"seq_many_till"$
-  and $"lex_many_till"$ starts with at least one character. Thus, these rules
-  have an $A$ that is not nullable.
+  $x mapsto (A dot x) or B$, $A$ is not nullable. This, too, clearly holds:
+  every rule in @syntax:welkin-grammar based on $"seq_many_till"$ and
+  $"lex_many_till"$ starts with at least one character. Thus, these rules have
+  an $A$ that is not nullable.
 
-  Third, we must calculate certain sets and check for disjointness, based on
+  Third, we must confirm that certain pairs of sets are disjoint, based on
   @syntax:LL1 and @syntax:original-to-edelmann. More precisely:
-  - For each rule $A | B$ or $"*"{A, B}$, we need to calculate $FIRST(A)$ and
-    $FIRST(B)$. We say this has *conflict type* $FIRST\/FIRST$.
-  - For each rule $A - "seq" -> B$ or $A - "lexeme" -> B$, we need to calculate
-    $SNFOLLOW(A)$ and $FIRST(B)$. We say this has *conflict type*
-    $FIRST\/SNFOLLOW$.
+  - For each rule $A | B$ or $"*"{A, B}$, we need to confirm $FIRST(A)$ and
+    $FIRST(B)$ are disjoint. We say this has *conflict type* First/First.
+  - For each rule $A - "seq" -> B$ or $A - "lexeme" -> B$, we need to confirm
+    $SNFOLLOW(A)$ and $FIRST(B)$ are disjoint. We say this has *conflict type*
+    First/Follow.
 
   Note that a conflict type is refers to a _potential_ conflict, a property that
-  would invalidate being $"LL"(1)$. Our last goal is to show these conflicts _to
-  not_ exist in the grammar. This is shown to be the case in
-  @syntax:LL1-calculations.
+  would invalidate being $"LL"(1)$. Our last goal is to demonstrate these
+  conflicts are _absent_ in the grammar. This is readily verified in
+  @syntax:LL1-calculations. Note that the first column includes the rule _named_
+  in the grammar, followed by the relevant subrule. The latter is used in the
+  analysis. To conserve space, each subrule is assigned an $"ID"$, and may be
+  used in other subrules. Moreover, any rule of the form $"*"{"", A}$
+  immediately has disjoint $FIRST$ sets, so we exclude these in the table.
 
-  All of the necessary calculations are presented in in
-  @syntax:LL1-calculations. The case where we compare $FIRST(A)$ and $FIRST(B)$
-  is denoted by We set the *conflict type* depending on In the case where we
-  check $A | B$, we write Because the intersections in this table are all empty,
-  this proves that @syntax:figure-welkin-grammar $"LL"(1)$. Thus, as all
-  $"LL"(1)$ grammars are uanmbiguous by construction, so is the Welkin grammar.
+  With each of these properties satisfied, this proves that
+  @syntax:figure-welkin-grammar is $"LL"(1)$. Thus, as all $"LL"(1)$ grammars
+  are uanmbiguous by construction, so is the Welkin grammar.
 
   #figure(
-    table(
-      columns: (auto, auto, auto, auto, auto),
-      table.header(
-        [*Rule*], [*Conflict Type*], [*Set One*], [*Set Two*], [*Intersection*],
-        [$"unit"$], [], [], [], [],
-      ),
-    ),
+    [#show raw: set text(size: 7pt)
+      #table(
+        columns: (0.2fr, 1fr, auto, auto, auto),
+        table.header(
+          [*ID*],
+          [*Rule: Subrule*],
+          [*Conflict Type*],
+          [*Set One*],
+          [*Set Two*],
+
+          [1], [`{"," - lexeme -> unit}`], [First/Follow], [${","}$], [${"*"}$],
+
+          [2],
+          [`units`: `unit - lex -> (1)`],
+          [First/Follow],
+          [${","}$],
+          [${"*"}$],
+        ),
+      )],
 
     caption: [Calculations for each possible conflict, along with the
       corresponding sets.],
