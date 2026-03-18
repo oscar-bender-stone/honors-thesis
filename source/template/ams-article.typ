@@ -318,7 +318,7 @@
       // Heavy 1.5pt rule at the very top
       // Light 0.5pt rule under the header (row 1)
       // No lines anywhere else (left, right, bottom)
-      top: if y == 0 { 1.5pt + black } else if y == 1 { 0.5pt + black } else {
+      top: if y == 0 { 1.0pt + black } else if y == 1 { 0.5pt + black } else {
         none
       },
       bottom: none,
@@ -329,7 +329,7 @@
 
   // 2. Wrap the newly styled tables in a block to add the final heavy bottom rule.
   show table: it => block(
-    stroke: (bottom: 1.5pt + black),
+    stroke: (bottom: 1.0pt + black),
     outset: 0pt,
     it,
   )
