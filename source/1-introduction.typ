@@ -105,13 +105,12 @@ This thesis designs a language to resolve these issues for Information
 Management. I call this language *Welkin*, based on an old German word meaning
 cloud @dictionary:welkin. This word represents the expansive nature of the
 language, able to express any concept and justification that can be processed
-through a computer program.
-
-Welkin has three design goals, listed in @goals: to be *universal*, *scalable*,
-and *standardized*. This thesis focuses on proving it is universal, discussed in
-detail at @rationale. The latter goals, to be scalable and standardized, are
-partially met in certain parts of the thesis. However, due to time restrictions,
-these are not fully complete and left for a future work.
+through a computer program. Welkin has three design goals, listed in @goals: to
+be *universal*, *scalable*, and *standardized*. This thesis focuses on proving
+it is universal, discussed in detail at @rationale. The latter goals, to be
+scalable and standardized, are partially met in certain parts of the thesis.
+However, due to time restrictions, these are not fully complete and left for a
+future work.
 
 The fundamental building block of Welkin is based on *representations*,
 containing a relationship between a *sign* representing a *referent* in a
