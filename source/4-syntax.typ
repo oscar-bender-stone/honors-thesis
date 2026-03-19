@@ -440,12 +440,13 @@ $"LL"(1)$.
       [[1]], [`units`], [`{"," - lexeme -> unit}`],
       [[2]], [`units`], [`[1] - lex_many_until -> *{"", ","}`],
       [[3]], [`units`], [`node - lexeme -> *{"", arc - lexeme -> unit}`],
-      [[4]], [`node`], [`path - lexeme -> *{"", binding}`],
-      [[5]], [`node`], [`"*" - seq_many_till -> *{graph, [4]}`],
-      [[6]], [`choices`], [`{"|" - lexeme -> unit}`],
-      [[7]], [`choices`], [`[6] - lex_many_till -> *{"", "|"}`],
-      [[8]], [`trailer`], [`HANDLE - seq -> trailer`],
-      [[9]], [`trailer`], [`"." - seq -> *{graph, [8]}`],
+      [[4]], [`arc`], [`right_arc | other_arc`],
+      [[5]], [`node`], [`path - lexeme -> *{"", binding}`],
+      [[6]], [`node`], [`"*" - seq_many_till -> *{graph, [5]}`],
+      [[7]], [`choices`], [`{"|" - lexeme -> unit}`],
+      [[8]], [`choices`], [`[7] - lex_many_till -> *{"", "|"}`],
+      [[9]], [`trailer`], [`HANDLE - seq -> trailer`],
+      [[10]], [`trailer`], [`"." - seq -> *{graph, [9]}`],
     )],
     caption: [IDs ],
   )<syntax:LL1-subrule-IDs>
@@ -458,7 +459,6 @@ $"LL"(1)$.
           [*Subrule ID*], [*Conflict Type*], [*Set One*], [*Set Two*],
 
           [[1]], [First/Follow], [${","}$], [${"*"}$],
-
           [[2]], [First/Follow], [${"*"}$], [${"*"}$],
         ),
       )],
