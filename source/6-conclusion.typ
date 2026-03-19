@@ -66,10 +66,14 @@ The author has several future projects for Welkin in mind. These include:
   optimizations could be expressed within Welkin itself, using handles for
   specific resources or operations, such as base operations in Python.
 
-- *Revision System:* . These would be similar to a belief revision system,
-  introduced in @belief-revision-system.
+- *Revision System:* because Welkin's grammar is relatively simple, a native
+  revision system could be built as a core library. This could enable users to
+  have greater control than existing tools. For instance, differences between
+  versions could be easily analyzed _in_ Welkin. This feature would be similar
+  to a belief revision system, introduced in @belief-revision-system.
 
-- *Package Managmeent:* building on revision systems, this would .
+- *Package Management:* building on revision systems, users could organize their
+  Welkin code into packages.
 
 - *Creating Query Solvers:* this would involve incorporating an information base
   with a program called a _solver_. Given a query, the solver would first
