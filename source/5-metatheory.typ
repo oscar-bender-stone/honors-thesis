@@ -25,13 +25,13 @@ and set theory. For specific references, consult @mendelson_logic and
     align: left,
     table.header([*Section Number*], [*Title*], [*Description*]),
     [@metatheory:artemov-selector-proofs],
-    [*Artemov's Selector Proofs*],
-    [Explains Artemov's selector proofs, specifically his finitistic proof of
+    [*Artëmov's Selector Proofs*],
+    [Explains Artëmov's selector proofs, specifically his finitistic proof of
       Peano Arithmetic's consistency. Expands this to soundness.],
 
     [@metatheory:artemov-logic-of-proofs],
-    [*Artemov's Logic of Proofs*],
-    [Introduces Artemov's *Logic of Proofs*, a logic that explains how
+    [*Artëmov's Logic of Proofs*],
+    [Introduces Artëmov's *Logic of Proofs*, a logic that explains how
       jutsifications work. We also define *serial-soundness*.],
 
     [@metatheory:proof-completeness],
@@ -67,7 +67,7 @@ embed Welkin. Additionally, we make two assumptions without loss of generality:
   translation. More details are available in @goedel-double-translation, but the
   details are not important here.
 
-== Artemov's Selector Proofs <metatheory:artemov-selector-proofs>
+== Artëmov's Selector Proofs <metatheory:artemov-selector-proofs>
 
 A major goal in Welkin is to express any representable notion, _including_ any
 representabale proof. Proofs are a finite certificate that consists of a valid
@@ -78,9 +78,9 @@ These are illustrated by several impossibility theorems, including Gödel's
 infamous incompleteness theorems @goedel-original-incompletness-theorems.
 
 However, previous impossibility results rely on proving strong properties of
-proofs. Artemov argues that weaker, constructive properties can be used instead.
-We provide a high-level definition of *serial-consistency* before proceeding
-onto the embedding in Welkin.
+proofs. Artëmov's argues that weaker, constructive properties can be used
+instead. We provide a high-level definition of *serial-consistency* before
+proceeding onto the embedding in Welkin.
 
 #definition[
   Suppose $T$ is sufficiently strong to express its own proofs. Then $T$ is
@@ -92,18 +92,18 @@ onto the embedding in Welkin.
   - if $s$ accepts a proof, then it cannot contain a contradiction.
 ]<metatheroy:artemov-serial-consistency>
 
-Artemov overcomes Gödel's second incompleteness theorem. This theorem states
-that Peano Arithmetic $PA$, cannot prove its own consistency. Artemov instead
+Artëmov overcomes Gödel's second incompleteness theorem. This theorem states
+that Peano Arithmetic $PA$, cannot prove its own consistency. Artëmov instead
 demonstrates that $PA$ proves its own _serial-consistency_, as follows:
 - He uses a weak meta-theory, in this case, Primitive Recursive Arithmetic
   ($PRA$). This theory is bounded by a weak principle of induction.
-- Artemov encodes all proofs as natural numbers in $PRA$; this theory is
+- Artëmov encodes all proofs as natural numbers in $PRA$; this theory is
   sufficiently strong _just_ to encode all of these proofs.
 - Finally, he uses a proof by induction, over encoded proofs in $PRA$, to show
   that $PA$ proves each _individual_ proof contains no contradictions. This is
   possible through partial truth definitions.
 
-To be clear: Artemov does _not_ show that there is a _single_ proof that $PA$ is
+To be clear: Artëmov does _not_ show that there is a _single_ proof that $PA$ is
 consistent, that works for all proofs. Instead, his method _takes_ a proof as a
 parameter. There have been extensive discussion on the validity of this
 technique, and its acceptance by other logicians.#footnote[The discussion is
@@ -111,16 +111,16 @@ technique, and its acceptance by other logicians.#footnote[The discussion is
     "https://mathoverflow.net/questions/469247/situation-with-artemovs-paper",
   ).]
 
-Despite its initial controversy, Artemov's techniques follow closely with
+Despite its initial controversy, Artëmov's techniques follow closely with
 several constructive schools, consult @artemov_serial_consistency. This thesis
 builds upon this result with a stronger property: *serial-soundness*. We will
 need a specific stronger version for our purposes.
 
 #definition[
-  Let $T$ be an extension of $PA$. Then $T$ is *(reliably) serial-sound* if
-  there is a total computable function $s$ over proofs of $T$, constructed in
-  $PA$, such that $T$ proves this selector only accepts sound proofs. Moreover,
-  this selector may _not_ use the general Law of the Excluded Middle
+  Let $T$ be an extension of $PA$. Then $T$ is *(meta-) self-verifying* if there
+  is a total computable function $s$ over proofs of $T$, constructed in $PA$,
+  such that $T$ proves this selector only accepts sound proofs. Moreover, this
+  selector may _not_ use the general Law of the Excluded Middle
   ($phi or not phi$) nor the Principle of Explosion (#box[$bot => phi$]).
 ]
 
@@ -133,11 +133,14 @@ logics may not have a notion of inconsistency, we will not define consistency
 itself. However, given the results in @foundations, first order logic can be
 expressed in several ways.
 
-== Artemov's Logic of Proofs <metatheory:artemov-logic-of-proofs>
+== Artëmov's Logic of Proofs <metatheory:artemov-logic-of-proofs>
 
-In addition to serial soundness.
+Building on serial soundness, we need to leverage Artëmov's *Logic of Proofs*.
+This system is used to give semantics for meta-proofs, or proofs _on_ proofs.
 
+#definition[
 
+]<metatheory:def-logic-of-proofs>
 
 
 == Proof Completeness <metatheory:proof-completeness>
@@ -167,15 +170,15 @@ of Welkin is to be _as_ expressive as possible, especially as impredicative
 theories have use in certain areas, e.g., formal methods projects [TODO: cite
 these!]
 
-Due to Artemov, there is a _massive_ jump from $I Delta_0$ all the way to $ZFC$.
-This is because, over $PA$ as the base-theory, $ZFC$ is self-verifying (proves
-its own soundness. A reason for this power in $ZFC$ is the axiom of replacement,
-or even comprehension. We extend this realization using hyperarithmetic sets,
-which are known to cover every recursive ordinal, refer to
-@kleene-ordinal-notation [TODO: make sure this citation is correct!]. Based on
-Kleene's theorem, our key construction in the limit case is to add this: let
-$lambda$ be a limit ordinal and consider all given theories
-$T_1, T_2, ..., T_beta, ...$ with $beta < lambda$. Then
+Due to Artëmov's, there is an enormous jump from $PA$ all the way to $ZFC$. This
+is because, over $PA$ as the base-theory, $ZFC$ is self-verifying (proves its
+own soundness. A reason for this power in $ZFC$ is the axiom of replacement, or
+even comprehension. We extend this realization using hyperarithmetic sets, which
+are known to cover every recursive ordinal, refer to @kleene-ordinal-notation
+[TODO: make sure this citation is correct!]. Based on Kleene's theorem, our key
+construction in the limit case is to add this: let $lambda$ be a limit ordinal
+and consider all given theories $T_1, T_2, ..., T_beta, ...$ with
+$beta < lambda$. Then
 $T_lambda = union.big_(beta < lambda) T_beta union "Comp"_lambda (Delta^1_1)$.
 The set $"Comp"_lambda (Delta^1_1)$ is an axiom schema over each proposition
 $phi$ definable in the extended theory, stating that [TODO: clarify notation!
@@ -188,34 +191,31 @@ encoding. And the provability predicate is also encoded through the base theory.
 [TODO: clarify these encodings!] This new axiom naturally extends the Axiom of
 Comprehension through _other_ sound theories.
 
-[TODO: clarify that hyperarithmetic sets are connected to definability in
-$Delta^1_1$!]
-
 We now prove a major property of Welkin.[TODO: definitely clean up!]
 
-#theorem[The unit $"meta"$ expresses any computably expressible proof. More
-  precisely, for any recursive ordinal $alpha$, there is a unit $T in "meta"$
-  with greater theoretic proof ordinal than $alpha$.
+#theorem[$PA$, equipped with meta-proofs, can express any computably expressible
+  proof from a sound RE theory. More precisely, for any recursive ordinal
+  $alpha$, there is an RE theory $T$ such that:
+  - $PA$ meta-proves that $T$ proves its own serial-soundness.
+  - $T$ has a theoretic proof ordinal greater than $alpha$.
+  than $alpha$.
 ]<metatheory:complete-proof-expressivity>
 #proof[
-  Using only autonomous progressions [CITE!], it is already know that one can
-  reach the Feferman-Schütte ordinal $Gamma_0$. We may therefore focus on
-  reaching higher ordinals, which depends on the limit case. But
+  Using only autonomous progressions, it is already know that one can reach the
+  Feferman-Schütte ordinal $Gamma_0$ @feferman-progressions. We may therefore
+  focus on reaching higher ordinals, which depends on the limit case. But
   @kleene-ordinal-notation already proves that using hyper-arithmetic sets in
-  the successor ensures that we can find _some_ $beta > alpha$. This completes
-  the proof.
+  the successor ensures that we can find _some_ $beta > alpha$. This is
+  precisely the construction presented above. This completes the proof.
 ]
 
 Note, however, that detecting if an ordinal is recursive is undecidable. The
 upper bound is the best one can hope for, in general.
 
-As an immediate corollary, this proves that $"unit"$, being a simple verifier,
-does _not_ impose further restrictions on proofs. Moreover, additional layers of
-meta-theories are not needed, thanks to how expressive serial-soundness is.
+To complete the proof for Welkin, we call upon contextual lifting
+(@r:context-lift).
 
-#remark[
-  The definition of information encompasses _every_ meta-proof.
-  @metatheory:complete-proof-expressivity is to show that even _one_ chain of
-  theories is enough to majorize each recursive ordinal. And the construction is
-  entirely definable by a Turing machine!]
+#corollary[Welkin can express]
+#proof[
 
+]

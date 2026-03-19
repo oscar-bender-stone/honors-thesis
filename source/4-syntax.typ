@@ -186,34 +186,29 @@ several languages.
 #let grammar = ```
 start := units - lexeme -> EOF,
 
-units := "" | {
-    unit - lexeme -> {"," - lexeme -> unit}
-          - lex_many_until -> *{"", ","}
-    },
+units := "" | {unit - lexeme -> *{"", "," - lexeme -> units}},
 
-unit := node - lexeme -> *{"", arc - lexeme -> unit},
+unit := binding | chain,
+binding := HANDLE - lexeme -> ":=" - lexeme -> choices,
+chain - lexeme -> *{"", ":=" - lexeme -> choices},
+chain := node - lexeme -> *{"", arc - lexeme -> chain},
+choices := *{"", "|"} - lexeme -> choices_list,
+choices_list := *{"",
+  chain - lexeme -> *{"", "|" - lexeme -> choice_list}
+},
 
 arc := right_arc | other_arc,
 right_arc := "-" - seq -> node - seq -> "->",
 other_arc := "<-" - seq -> node - seq -> *{"-" | "->"},
 
-node := *{"", "*"} - seq -> path - lexeme -> *{"", binding},
-binding := ":=" - lexeme -> choices,
-choices := *{"", "|"}
-  - lexeme -> unit
-  - lexeme -> *{
-    "",
-    {"|" - lexeme -> unit}
-    - lex_many_till -> *{"", "|"}
-  },
-
-path := *{"", modifier} - seq -> trailer
-modifier := "~" - seq -> *{"", "@"} | "@"
-trailer := segment - seq -> *{"", "." - seq -> choice},
+node := *{"", "*"} - seq -> path,
+path := *{"", modifier} - seq -> trailer,
+modifier := "~" - seq -> *{"", "@"} | "@",
+trailer := segment - seq -> *{"", "." - seq -> trailer},
 segment := HANDLE - lexeme -> *{"", graph},
 graph :=  "{" - lexeme -> units - lexeme -> "}",
 
-HANDLE := ID | STRING
+HANDLE := ID | STRING,
 
 STRING := SQ_STRING | DQ_STRING,
 SQ_STRING := "'" - seq -> *{SQ_CHAR, "\'"} - seq_many_till -> "'",
@@ -447,17 +442,17 @@ $"LL"(1)$.
           [*ID*], [*Conflict Type*], [*Set One*], [*Set Two*],
 
           [[1]],
-          [First/Follow],
-          [$SNFOLLOW("unit") = emptyset$],
+          [First/#linebreak()Follow],
+          [$SNFOLLOW(#`","`) =$],
           [$FIRST(#`unit`) = {#`*`, #`{`, #`"~"`, #`@`, #`HANDLE`}$],
 
           [[2]],
-          [First/Follow],
+          [First/#linebreak()Follow],
           [$SNFOLLOW([1]) = {#`,`}$],
-          [$FIRST({#`,`}) = {#`,`}$],
+          [$FIRST({#`{"", ","}`}) = {#`,`}$],
 
           [[3]],
-          [First/Follow],
+          [First/#linebreak()Follow],
           [$SNFOLLOW([1]) = {#raw(",")}$],
           [${#raw("*")}$],
         ),
