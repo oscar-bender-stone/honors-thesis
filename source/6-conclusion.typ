@@ -71,6 +71,12 @@ The author has several future projects for Welkin in mind. These include:
   optimizations could be expressed within Welkin itself, using handles for
   specific resources or operations, such as base operations in Python.
 
+- *Query Solvers:* this would involve incorporating an information base with a
+  program called a _solver_. Given a query, the solver would first confirms if
+  there is enough information in the database. If not, the solver runs its own
+  internal methods and heuristics. Moreover, the solvers _themselves_ can be
+  specified in Welkin, making them easier to study and maintain.
+
 - *Revision System:* because Welkin's grammar is relatively simple, a native
   revision system could be built as a core library. This could enable users to
   have greater control than existing tools. For instance, differences between
@@ -80,11 +86,4 @@ The author has several future projects for Welkin in mind. These include:
 - *Package Management:* building on revision systems, users could organize their
   Welkin code into packages. These would promote modular pieces of code, as well
   as simplify code distribution.
-
-- *Creating Query Solvers:* this would involve incorporating an information base
-  with a program called a _solver_. Given a query, the solver would first
-  confirms if there is enough information in the database. If not, the solver
-  runs its own internal methods and heuristics. Moreover, the solvers
-  _themselves_ can be specified in Welkin, making them easier to study and
-  maintain.
 
