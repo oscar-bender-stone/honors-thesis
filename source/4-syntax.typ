@@ -505,6 +505,26 @@ $"LL"(1)$.
       [FIRST(`-`) = { `-` }],
       [FIRST(`->`) = { `->` }],
       [$emptyset$],
+
+      [[10]],
+      [First/ \ Follow],
+      [SN-FOLLOW([10]) = \ { `~`, `@`, `ID`, `STRING`, \ `:=`, `-`, `<-`, `|`,
+        `,`, `}`, `EOF`, `->` }],
+      [FIRST(`*`) = { `*` }],
+      [$emptyset$],
+
+      [[11]],
+      [First/ \ Follow],
+      [SN-FOLLOW([11]) = \ { `ID`, `STRING`, `:=`, `-`, `<-`, \ `|`, `,`, `}`,
+        `EOF`, `->` }],
+      [FIRST("modifiers") = { `@`, `~` }],
+      [$emptyset$],
+
+      [[12]],
+      [First/ \ First],
+      [FIRST(`@`) = { `@` }],
+      [FIRST(`~`) = { `~` }],
+      [$emptyset$],
     )
   ]
   #figure(
