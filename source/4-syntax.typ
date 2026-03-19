@@ -456,15 +456,21 @@ $"LL"(1)$.
         [*ID*], [*Conflict Type*], [*Set One*], [*Set Two*], [*Intersection*],
 
         [[1]],
-        [First/Follow],
+        [First#linebreak()/Follow],
         [$FIRST(#`,`) = {#`,`}$],
         [$SNFOLLOW("units") = {#`}`, #`EOF`}$],
         [$emptyset$],
 
         [[2]],
-        [First/Follow],
-        [$FIRST(#`unit`) = { #`*`, #`~`, #`@`, #`ID`, #`STR`}$],
+        [First#linebreak()/Follow],
+        [$FIRST(#`unit`) = { #`*`, #`~`, #`@`, #`ID`, #`STRING`}$],
         [$SNFOLLOW("units") = { #`}`, #`EOF`}$],
+        [$emptyset$],
+
+        [[3]],
+        [First#linebreak()/First],
+        [$FIRST(#`:=`) = { #`:=` }$],
+        [$FIRST("arc") union SNFOLLOW("unit") = { #`-`, #`<-`, #`,`, #`}`, #`EOF` }$],
         [$emptyset$],
       )
     ],
