@@ -22,7 +22,7 @@ respectively.
 
 #figure(
   table(
-    columns: (20%, 25%, 55%),
+    columns: (20%, 30%, 50%),
     align: left,
     table.header([*Section Number*], [*Title*], [*Description*]),
     [@metatheory:artemov-selector-proofs],
@@ -37,8 +37,7 @@ respectively.
 
     [@metatheory:proof-completeness],
     [*Proof #linebreak() Completeness*],
-    [Proves that Welkin can define any proof that based in a provably sound RE
-      theory.],
+    [Proves that Welkin can accepts any proof from a provably sound RE theory.],
   ),
   caption: [Overview of @syntax.],
 )<metatheory:overview>
