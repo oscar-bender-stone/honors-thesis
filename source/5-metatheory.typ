@@ -174,9 +174,9 @@ For more details, refer to @Artemov1994-ARTLOP.
       formula. We say that $t$ *realizes* $F$.#footnote[Note that Artëmov
         originally denostes this by $t : F$. However, this conflicts with
         standard notation in type theory. For this reason, we have chosen to
-        write $t realizes F$ instead. Additionally, this relates back to the
-        connections between Artëmov's work and realizability. For details,
-        consult @Artemov1994-ARTLOP.]
+        write $t realizes F$ instead. Additionally, the symbol $realizes$
+        solidifies the connection between Artëmov's work and realizability. For
+        details, consult @Artemov1994-ARTLOP.]
   - The axioms are presented as follows:
     - All the rules of classical propositional logic, except the Law of the
       Excluded Middle ($p or not p$) and Explosion ($bot => p$). Again, these
@@ -214,7 +214,7 @@ From this, we define a *meta-proof* in $PA$ as follows.
 #let metaproves = math.attach(entails, br: $"meta"$)
 
 If there is a meta-proof in $PA$ of $phi$, we say $PA$ *meta-proves* $phi$,
-denoted $PA metaproves phi$.b
+denoted $PA metaproves phi$.
 
 == Proof Completeness <metatheory:proof-completeness>
 
@@ -290,10 +290,10 @@ Using the construction above, we can now prove the power of meta-proofs in $PA$.
   - $T$ has a theoretic proof ordinal greater than $alpha$.
 ]<metatheory:complete-proof-expressivity>
 #proof[
-  Using only autonomous progressions, it is already know that one can reach the
+  As previously mentioned, autonomous progressions are enough to reach the
   Feferman-Schütte ordinal $Gamma_0$ @feferman-progressions. We may therefore
-  focus on reaching higher ordinals, which depends on the limit stage. For this,
-  @kleene-ordinal-notation already proves that using hyper-arithmetic sets
+  focus on reaching higher ordinals, i.e., defining a suitable limit stage. For
+  this, @kleene-ordinal-notation already proves that using hyper-arithmetic sets
   suffice, which is precisely done by the construction above. This completes the
   proof.
 ]
