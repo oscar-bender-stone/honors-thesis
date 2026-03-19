@@ -143,19 +143,15 @@ For more details, refer to @Artemov1994-ARTLOP.
 
 #let entails = $⊢$
 #let realizes = math.class("relation", context {
-  // Use the Unicode turnstile
   let ts = $entails$
 
-  // Measure the turnstile to make the bar the exact same height
   let ts_metrics = measure(ts)
   let bar_height = ts_metrics.height
 
-  // Create a custom-sized vertical bar
   let bar = box(
     line(start: (0pt, 0pt), end: (0pt, bar_height), stroke: 0.05em),
   )
 
-  // Combine with a small, adjustable gap
   bar
   h(0.15em) // Increase this if you want them further apart
   ts
@@ -201,7 +197,9 @@ For more details, refer to @Artemov1994-ARTLOP.
 
 From this, we define a *meta-proof* in $PA$ as a proof term $t$ derived (under
 entailment) from a constant specification $cal("CS")$. Moreover, this
-$cal("CS")$ must be self-verifying (@metatheory:self-verifying).
+$cal("CS")$ must be self-verifying (@metatheory:self-verifying). We write
+$t attach(realizes, br: cal("CS")) F$ to specify which constants are used in
+proving that $t$ realizes $F$.
 
 == Proof Completeness <metatheory:proof-completeness>
 
@@ -218,7 +216,7 @@ only define specific properties needed for this thesis:
 - The limit of these ordinals is called the *Church-Kleene ordinal*, denoted
   $churchkleene$. This is the first non-recursive ordinal.
 
-- Every RE first-order theory $T$ has a recursive proof ordinal. Here a proof
+- Every RE first-order theory $T$ has a recursive proof ordinal. Here, a proof
   ordinal is related to the strength of the theory. More details are available
   in @kleene-ordinal-notation.
 
@@ -226,11 +224,11 @@ only define specific properties needed for this thesis:
   @proof-theory-ordinals[Ch. 6].
 
 Note that we can only reach so far with the successor stage. If we only permit
-unionis in the limit stage, we can only reach the Feferman–Schütte ordinal,
-denoted $Gamma_0$, as proven in @feferman-progressions. This ordinal is related
-to predicative mathematics. However, the aim of Welkin is to be _as_ expressive
-as possible, so we want to include _every_ impredicative theory that we can
-express as well.
+unionis in the limit stage, we can only reach the Feferman–Schütte ordinal
+$Gamma_0$, as proven in @feferman-progressions. This ordinal is related to
+predicative mathematics. However, the aim of Welkin is to be _as_ expressive as
+possible, so we want to include _every_ impredicative theory that we can express
+as well.
 
 To reach these impredicative theories, we can utilize Artëmov's approach.
 Following his method, one can soundly jump from $PA$ all the way to $ZFC$. This
@@ -241,26 +239,32 @@ every recursive ordinal, proven in @kleene-hyperarithmetic-covering. Our
 construction relies on a well known principle of comprehension established in by
 Simpson in Reverse Mathematics @simpson-arithmetic:
 
-$ exists X. forall n. (n in X <=> Phi(n)) $
+#set math.equation(numbering: none)
+$ exists X. forall n. lr((n in X <=> Phi(n))) $
 
 where $Phi(n)$ is a predicate that is both $Sigma^1_1$ and $Pi^1_1$. For
 details, consult @simpson-arithmetic.
 
-We carry out this same construction for our use case. Let $lambda$ be a limit
-ordinal and consider all given theories $T_1, T_2, ..., T_beta, ...$ with
-$beta < lambda$. Then
+We carry out this same construction for our use case. Let $lambda$ be a
+recursive limit ordinal, and consider all given theories
+$T_1, T_2, ..., T_beta, ...$ with $beta < lambda$. Note that, by definition,
+this sequence is computable by some Turing machine. Then
 $T_lambda = union.big_(beta < lambda) T_beta union "Comp"_lambda (Delta^1_1)$.
 The set $"Comp"_lambda (Delta^1_1)$ is an axiom schema over each proposition
-$phi$ definable in the extended theory, stating that
+$phi$ definable in the extended theory. It states that
 
+#set math.equation(numbering: none)
 $
-  exists X_(phi, lambda). forall n. (n in X_(phi, lambda) <=> (exists t. (t realizes_Lambda phi(n)))
+  exists X_(phi, lambda). forall n. lr(
+    (n in X_(phi, lambda) <=> (exists t. (t
+          attach(realizes, br: Lambda) phi(n))))
+  )
 $
 
-where $Lambda$ is a constant specification, defined as the combination of all
-previous theories $T_beta$. To actually construct each step, dovetailing can be
-applied. That is, one can simulate each of these theories in parallel,
-incrementally adding more steps from each theory used.
+where $Lambda$ is a constant specification, defined by all the constants in
+$union.big_(beta < lambda) T_beta$. To actually construct $T_lambda$,
+dovetailing can be applied. That is, one can simulate each of these theories in
+parallel, incrementally adding more steps from each theory used.
 
 Using the construction above, we can now prove the power of meta-proofs in $PA$.
 
@@ -269,15 +273,14 @@ Using the construction above, we can now prove the power of meta-proofs in $PA$.
   $alpha$, there is an RE theory $T$ such that:
   - $PA$ meta-proves that $T$ proves its own serial-soundness.
   - $T$ has a theoretic proof ordinal greater than $alpha$.
-  than $alpha$.
 ]<metatheory:complete-proof-expressivity>
 #proof[
   Using only autonomous progressions, it is already know that one can reach the
   Feferman-Schütte ordinal $Gamma_0$ @feferman-progressions. We may therefore
-  focus on reaching higher ordinals, which depends on the limit case. But
-  @kleene-ordinal-notation already proves that using hyper-arithmetic sets in
-  the successor ensures that we can find _some_ $beta > alpha$. This is
-  precisely the construction presented above. This completes the proof.
+  focus on reaching higher ordinals, which depends on the limit stage. For this,
+  @kleene-ordinal-notation already proves that using hyper-arithmetic sets
+  suffice, which is precisely done by the construction above. This completes the
+  proof.
 ]
 
 Note, however, that detecting if an ordinal is recursive is undecidable. The
