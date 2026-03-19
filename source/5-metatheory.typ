@@ -30,6 +30,11 @@ respectively.
     [Explains Artëmov's selector proofs. This includes his finitistic proof of
       Peano Arithmetic's consistency. Expands selector proofs for soundness.],
 
+    [@metatheory:serial-soundness-and-reliability],
+    [*Serial-Soundness and Reliable Proofs*],
+    [Expands selector proofs to *serial-soundness*, as well as *self-verifying*
+      theories. Defines *reliable proofs* for more general theories.],
+
     [@metatheory:proof-completeness],
     [*Proof #linebreak() Completeness*],
     [Proves that Welkin can define any proof that based in a provably sound RE
@@ -106,26 +111,48 @@ several constructive schools, consult @artemov_serial_consistency. This thesis
 builds upon this result with a stronger property: *serial-soundness*. We will
 need a specific stronger version for our purposes.
 
+== Serial-Soundness and Reliable Proofs <metatheory:serial-soundness-and-reliability>
+
+We now introduce a stronger version of *serial-soundness*. We will reuse the
+term *selector* for this stronger notion.
+
 #definition[
   Let $T$ be an extension of $PA$. Then $T$ is *serial-sound* if there is a
-  total computable function $s$ over proofs of $T$, constructed in $PA$, such
-  that:
+  *selector* $s$. A *selector* is a total computable function of $s$ constructed
+  in $PA$, with inputs over proofs of $T$. This function must satisfy two
+  properties:
   - $s$ accepts all proofs in $T$.
-  - Any proof $p$ accepted by $s$ must satisfy $"Tr"_n (s(p))$, where $"Tr"_n$
-    is the $n$-th partial truth predicate. For details, refer to
-    @hajek-pudlak-metamath-arithmetic[Ch. 1.1].
+  - Any proof $p$ accepted by $s$ must satisfy
+    $"Tr"_n (chevron.l s(p) chevron.r)$, where $"Tr"_n$ is the $n$-th partial
+    truth predicate. For details, refer to @hajek-pudlak-metamath-arithmetic[Ch.
+      1.1].
   Moreover, this selector must be proven _without_ use the general Law of the
   Excluded Middle ($phi or not phi$), and without the Principle of Explosion
-  (#box[$bot => phi$]).
+  (#box[$bot => phi$]). In this case, we call $s$
 ]<metatheory:serial-soundness>
 
-We need to remove the Law of the Excluded Middle to ensure the proof is
-completely constructive. Additionally, we must ensure Principle of Explosion is
-not used to falsely prove claims.
+#remark[We need to remove the Law of the Excluded Middle to ensure the proof is
+  completely constructive. Additionally, we must ensure Principle of Explosion
+  is not used to falsely prove claims.]
+
+#remark[
+  We will briefly explain why, in the meta-theory, serial-soundness is enough to
+  justify soundness. By way of contradiction, suppose $T$ is a theory that is
+  serial-sound but not sound.#footnote[Constructively, proof of contradiction
+    may be used to prove a _negative_ statement. Thus, our use of contradiction
+    in this argument is permissible.] Let $s$ be a selector for $T$ and let $p$
+  be a proof in $PA$ of the selector's correctness. Then, there must be some
+  $phi$ and some $n$ such that $T entails phi$ but
+  $not "Tr"_n (chevron.l phi chevron.r)$. However, for fixed $n$, $p$ ensures
+  that the selector correctly accepts the proof of $phi$ in $T$. This yields a
+  contradiction. Thus, $T$ must be sound.
+]
+
+Now we can introduce *self-verifying* theories.
 
 #definition[
-  Let $T$ be an extension of $PA$. Then $T$ is *(meta-)-self-verifying* if $T$
-  proves its own serial-soundness.
+  Let $T$ be an extension of $PA$. Then $T$ is *(meta-)-self-verifying* if $PA$
+  proves the following: $T$ proves its own serial-soundness.
 ]<metatheory:self-verifying>
 
 
