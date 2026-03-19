@@ -198,7 +198,7 @@ arc := right_arc | other_arc,
 right_arc := "-" - seq -> node - seq -> "->",
 other_arc := "<-" - seq -> node - seq -> *{"-" | "->"},
 
-node := "*" - seq -> path - lexeme -> *{"", binding},
+node := *{"", "*"} - seq -> path - lexeme -> *{"", binding},
 binding := ":=" - lexeme -> choices,
 choices := *{"", "|"}
   - lexeme -> unit
