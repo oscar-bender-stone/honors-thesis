@@ -142,41 +142,65 @@ This system is used to give semantics for meta-proofs, or proofs _on_ proofs.
 For more details, refer to @Artemov1994-ARTLOP.
 
 #let entails = $⊢$
-#let realizes = #box(draw: (6pt, 12pt), {
-  line((0pt, 0pt), (0pt, 100%))
-  place(center + horizon, dx: 2pt, $vdash$)
+#let realizes = math.class("relation", context {
+  // Use the Unicode turnstile
+  let ts = $entails$
+
+  // Measure the turnstile to make the bar the exact same height
+  let ts_metrics = measure(ts)
+  let bar_height = ts_metrics.height
+
+  // Create a custom-sized vertical bar
+  let bar = box(
+    line(start: (0pt, 0pt), end: (0pt, bar_height), stroke: 0.05em),
+  )
+
+  // Combine with a small, adjustable gap
+  bar
+  h(0.15em) // Increase this if you want them further apart
+  ts
 })
 
 #definition[
-  The *Logic of Proofs* is defined as follow:
-  - *Proof terms* are built recursively over a meta-variable $t$ as either:
-    - A *proof variable*, a symbol $x, y, ...$
-    - A *constant*, a symbol $c_1, ...$. These represent axioms.
-    - *Application* $t dot t$.
-    - *Sums* $t + t$.
-    - *Checker* $!t$.
+  The *(Constructive) Logic of Proofs (LP)* is defined as follows:
+  - *Proof terms* are built recursively as either:
+    - A *proof variable*, a symbol $x_1, x_2, ...$
+    - A *constant*, a symbol $c_1, c_2, ...$. These represent axioms.
+    - *Application*: $s dot t$ for proof terms $s, t$. This concatenates two
+      proofs together.
+    - *Sums*: $s + t$. This corresponds to logical disjunction.
+    - *Checker:* $!t$. This represents checking a proof.
   - *Formulas* are built recursively as either:
-    - Propositional variables $p, q, ...$
-    - False ($bot$)
-    - Logical implication ($=>$)
+    - Propositional variables $p_1, p_2, ...$
+    - False ($bot$).
+    - Logical implication ($=>$).
     - *Justification* $(t realizes F)$, where $t$ is a proof term and $F$ is a
-      formula.
+      formula. We say that $t$ *realizes* $F$.#footnote[Note that Artëmov
+        originally denostes this by $t : F$. However, this conflicts with
+        standard notation in type theory. For this reason, we have chosen to
+        write $t realizes F$ instead. Additionally, this relates back to the
+        connections between Artëmov's work and realizability. For details,
+        consult @Artemov1994-ARTLOP.]
   - The axioms are presented as follows:
     - All the rules of classical propositional logic, except the Law of the
       Excluded Middle ($phi or not phi$) and Explosion ($bot => phi$). Again,
       these are restricted for similar reasons in @metatheory:self-verifying.
-    - *Application:* $(s realizes (F => G)) => ((t realizes F) => (s dot t realizes G))$.
-    - *Sum:* $(s realizes F) => ((t realizes F) => ((s + t) realizes F))$.
+    - *Application:*
+      $(s realizes (F => G)) => ((t realizes F) => ((s dot t) realizes G))$.
+    - *Sum:* $(s realizes F) => ((s + t) realizes F)$ and
+      $(t realizes F) => ((s + t) realizes F)$.
     - *Reflection:* $(t realizes F) => F$.
     - *Checkability:* $(t realizes F) => (!t realizes (t realizes F))$.
-  - The inference rules are as follows:
+  - The inference rules are as follows, built on the *entailment relation* $⊢$:
     - *Modus Ponens:* if $⊢ F$ and $⊢ F => G$, then $⊢ G$.
-    - *Constant Specifications:* enables any base theory to be chosen through an
-      RE set of proof constants.
+    - *Constant Specifications:* this is an RE set of proof constants. Enables
+      any base theory to be expressed.
 
 ]<metatheory:def-logic-of-proofs>
 
-From this, we define a *meta-proof* in $PA$ as a proof term $t$ above.
+From this, we define a *meta-proof* in $PA$ as a proof term $t$ derived (under
+entailment) from a constant specification $cal("CS")$. Moreover, this
+$cal("CS")$ must be self-verifying (@metatheory:self-verifying).
 
 == Proof Completeness <metatheory:proof-completeness>
 
@@ -207,11 +231,11 @@ However, the aim of Welkin is to be _as_ expressive as possible, so we want to
 include _every_ impredicative theory possible as well.
 
 From Artëmov's approach, there is an enormous jump from $PA$ all the way to
-$ZFC$. This is because, over $PA$ as the base-theory, $ZFC$ is self-verifying
-(proves its own soundness. A reason for this power in $ZFC$ is the axiom of
-replacement, or even comprehension. We extend this realization using
-hyperarithmetic sets, which are known to cover every recursive ordinal, proven
-in @kleene-hyperarithmetic-covering. Our construction relies on a well known
+$ZFC$. This is because, over $PA$ as the base-theory, $ZFC$ is self-verifying. A
+reason for the power increase due to the axiom of replacement, or even
+comprehension. We extend this realization using hyperarithmetic sets, which are
+known to cover every recursive ordinal, proven in
+@kleene-hyperarithmetic-covering. Our construction relies on a well known
 principle of comprehension established in Reverse Mathematics:
 
 $exists X_(phi, lambda). forall n. (n in X <=> (exists p. T_{psi(p)}), phi(p))$,
@@ -225,7 +249,7 @@ $phi$ definable in the extended theory, stating that
 
 #set math.equation(numbering: _ => $(#math..filled)$)
 
-$exists X_(phi, lambda). forall n. (n in X <=> (exists p. T_{psi(p)}), phi(p))$,
+$exists X_(phi, lambda). forall n. (n in X_(phi, lambda) <=> (exists t. (t realizes_Lambda phi(n)))$,
 
 where $Lambda$ is the combination of all previous theories $T_beta$.
 
