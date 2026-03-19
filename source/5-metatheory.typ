@@ -116,10 +116,10 @@ We now introduce a stronger version of *serial-soundness*. We will reuse the
 term *selector* for this stronger notion.
 
 #definition[
-  Let $T$ be an extension of $PA$. Then $T$ is *serial-sound* if there is a
-  *selector* $s$. A *selector* is a total computable function of $s$ constructed
-  in $PA$, with inputs over proofs of $T$. This function must satisfy two
-  properties:
+  Let $T$ be an RE theory that extends $PA$. Then $T$ is *serial-sound* if there
+  is a *selector* $s$. A *selector* is a total computable function of $s$
+  constructed in $PA$, with inputs over proofs of $T$. This function must
+  satisfy two properties:
   - $s$ accepts all proofs in $T$.
   - Any proof $p$ accepted by $s$ must satisfy
     $"Tr"_n (chevron.l s(p) chevron.r)$, where $"Tr"_n$ is the $n$-th partial
@@ -178,13 +178,13 @@ Additionally, there is an important property we will need.
   across theories. To demonstrate this, let $"pa"$ be a unit corresponding to
   $PA$. (This can be done through a Turing machine corresponding to $PA$ and
   using @foundations:turing-completeness-section.) Now, let $T_1, T_2, T_3$ be
-  theories, corresponding to units $"T_1", "T_2", "T_3"$, respectively, wihth
-  include units $"phi"$ for each sentence $phi$. Set $"phi_1"- "T_i" -> "phi_2"$
-  if $T_i entails (phi_1 => phi_2)$. Now, set $"T_1"- "T_3"-> "T_2"$ if $T_3$ is
-  a self-verifying theory and
+  RE theories, with corresponding units $"T1", "T2", "T3"$, respectively. In
+  each theory, include include units $"phi"$ for each sentence $phi$. Set
+  $"phi1"- "Ti" -> "phi2"$ iff $T_i entails (phi_1 => phi_2)$. Now, set
+  $"T1"- "T3"-> "T2"$ iff $T_3$ is a self-verifying theory and
   $PA attach(entails, br: T_3) chevron.l (T_1 entails phi) => (T_2 entails phi) chevron.r$.
-  By @r:context-lift, a derivation of #box[$"phi_1" - "T" -> "phi_2"$] lifts
-  into #box[$"phi_1" - "T2" -> "phi_2"$] _within_ $"pa"$.
+  By @r:context-lift, a derivation of #box[$"phi1" - "T1" -> "phi2"$] lifts into
+  #box[$"phi1" - "T2" -> "phi2"$], with the latter contained in $"pa"$.
 ]<metatheory:remark-selector-proof-composition>
 
 
