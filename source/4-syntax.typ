@@ -400,7 +400,7 @@ $"LL"(1)$.
 #theorem[
   The Welkin grammar (provided in @syntax:figure-welkin-grammar) is $"LL"(1)$,
   and is therefore unambiguous.
-]
+]<syntax:LL1-proof>
 #proof[
   We proceed by checking the necessary conditions. First, we need to confirm
   that in any rule of the form $A | B$, $"*"{A, B}$, at least $A$ or $B$ are not
@@ -418,7 +418,8 @@ $"LL"(1)$.
     $FIRST(B)$ are disjoint. We say this has *conflict type* First/First.
   - For each rule $A - "seq" -> B$ or $A - "lexeme" -> B$, we need to confirm
     $SNFOLLOW(A)$ and $FIRST(B)$ are disjoint. We say this has *conflict type*
-    First/Follow.
+    First/Follow. This order reflects that the $"FIRST"$ sets must be calculated
+    first, _then_ the $"FOLLOW"$ sets.
 
   Note that a conflict type is refers to a _potential_ conflict, a property that
   would invalidate being $"LL"(1)$. Our last goal is to demonstrate these
@@ -438,7 +439,7 @@ $"LL"(1)$.
       columns: (auto, auto, auto),
       table.header([*ID*], [*Rule*], [*Subrule*]),
       [[1]], [`units`], [`{"," - lexeme -> unit}`],
-      [[2]], [`units`], [`[1] - lex_many_until -> *{"", ","}`],
+      [[2]], [`units`], [`[1] - lex_many_till -> *{"", ","}`],
       [[3]], [`units`], [`node - lexeme -> *{"", arc - lexeme -> unit}`],
       [[4]], [`arc`], [`right_arc | other_arc`],
       [[5]], [`node`], [`path - lexeme -> *{"", binding}`],
@@ -452,14 +453,26 @@ $"LL"(1)$.
   )<syntax:LL1-subrule-IDs>
 
   #figure(
-    [#show raw: set text(size: 7pt)
+    [
       #table(
-        columns: (0.2fr, 1fr, auto, auto),
+        columns: (auto, 1fr, 2fr, 2fr),
         table.header(
-          [*Subrule ID*], [*Conflict Type*], [*Set One*], [*Set Two*],
+          [*ID*], [*Conflict Type*], [*Set One*], [*Set Two*],
 
-          [[1]], [First/Follow], [${","}$], [${"*"}$],
-          [[2]], [First/Follow], [${"*"}$], [${"*"}$],
+          [[1]],
+          [First/Follow],
+          [$SNFOLLOW("unit") = emptyset$],
+          [$FIRST(#`unit`) = {#`*`, #`{`, #`"~"`, #`@`, #`HANDLE`}$],
+
+          [[2]],
+          [First/Follow],
+          [$SNFOLLOW([1]) = {#`,`}$],
+          [$FIRST({#`,`}) = {#`,`}$],
+
+          [[3]],
+          [First/Follow],
+          [$SNFOLLOW([1]) = {#raw(",")}$],
+          [${#raw("*")}$],
         ),
       )],
 

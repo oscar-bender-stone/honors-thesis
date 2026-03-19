@@ -3,45 +3,32 @@
 
 = Conclusion <conclusion>
 
-[TODO: update conclusion.]
+This thesis proposed Welkin, a universal, formalized information language.
+@rationale introduced the language design. @foundations developed the recursive
+definition of a unit (@foundations:unit), rules on units @table:unit-rules, and
+queries (@foundations:query), and information (@foundations:information). This
+section also proved that every unit is equivalent to some Turing machine
+(@foundations:turing-completeness-section). From there, @syntax developed the
+grammar (@syntax:figure-welkin-grammar). The syntax was defined with invertible
+operations (@syntax:invertible-descriptions), simultaneously providing _parsing_
+and _printing_. The main grammar was proven to be $"LL"(1)$ @syntax:LL1-proof,
+thereby showing it is unambiguous. Finally, @metatheory proved that the
+definition of information is complete, thereby completing @universal.
 
-This thesis introduced Welkin, a universal, formalized information language. The
-foundations were developed rigorousl. Moreovoer, the syntax (@syntax) was
-defined with invertible operations, simultaneously defining _parsing_ and
-_printing_. The main grammar was proven to be unambiguous through a suitable
-transformation (@syntax:proof-unambiguous). Finally, @metatheory proved that the
-definition of information is complete, thereby completing Goal 1 [TODO: add link
-to goal]. dthe to be accepted by an LL(1) grammar, showing that parsing is
-unambiguous. The semantics (@foundations) were provided with several passes to
-convert parse trees into units, which contain both a hierarchical and relational
-structure for scoping and direct representations, respectively. Units have key
-properties that enable them to express any partial computable function
-@foundations:turing-expressible, in conjungtion with expressing any truth
-management system, demonstrates *universality* of the system. This is
-practically demonstrated by showing that all the major paradigms in Information
-Management and Knowledge Management are expressible within Welkin. Finally, the
-bootstrap in @foundations self-hosts the language within a bounded 64 variant,
-whose complete Unambiguity (as well as the grammar's prior) establishes
-*standardization*. Revisions further enhance this by
+The remaining sections provide comparisons to existing approaches, as well as
+future work.
 
-The remaining sections show several areas for future work. This list is not
-exhaustive and, by the previous arguments, and can be applied to _any_ subject
-with computable representations (essentially, any human subject).
+== Comparisons to Existing Approaches <conclusion:comparisons>
 
-== Comparisons to Existing Literature <conclusion:comparisons>
+We compare from the solutions presented in the introduction (@introduction):
 
-In addition to domain specific proposals, there are approaches for general IM
-which still fail to resolve all issues. One prominent example is Burgin's
-General Theory of Information @burgin-information-book that comprehensively
-includes many separate areas for IM, including the complexity-based Algorithmic
-Information Theory, through a free parameter called an "infological system",
-which encompasses domain specific terminology and concepts. In contrast to other
-approaches, Burgin's generalized theory is flexible and enables greater coverage
-of different kinds of information @mark-burgin-legacy. Despite this coverage
-Burgin does not closely tie the free parameter with his formal analysis of
-Algorithmic Information Theory, making it unclear how to use this in a practical
-implementation. Burgin's Theory of Information, along with broad proposals, have
-severe shortcomings, highlighting major obstacles for IM.
+- *Resource Description Framework (RDF):*
+
+- *Labeled Property Graphs (LPGs):*
+
+- *Cyc:*
+
+- *fcaR (Formal Concept Analysis in R):*
 
 == Future Work <conclusion:future-work>
 
@@ -54,7 +41,13 @@ The author has several future projects for Welkin in mind. These include:
   Welkin. For example, writing _in_ Welkin, a user could define a grammar that
   takes their own syntax and _converts_ it into units.
 
-- *Revision System:* . These would be similar to a belief revision system.
+- *Creating an Efficient Implementation:* as the rules in @table:unit-rules, it
+  is plausible that an efficient implementation would be possible. Moreovoer,
+  optimizations could be expressed within Welkin itself, using handles for
+  specific resources or operations, such as base operations in Python.
+
+- *Revision System:* . These would be similar to a belief revision system,
+  introduced in @belief-revision-system.
 
 - *Package Managmeent:* building on revision systems, this would .
 

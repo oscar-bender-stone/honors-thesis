@@ -51,8 +51,9 @@
     "references/1-introduction.bib",
     "references/2-rationale.bib",
     "references/3-foundations.bib",
-    "references/4-metatheory.bib",
-    "references/5-syntax.bib",
+    "references/4-syntax.bib",
+    "references/5-metatheory.bib",
+    "references/6-conclusion.bib",
     "references/general.bib",
   )),
 )

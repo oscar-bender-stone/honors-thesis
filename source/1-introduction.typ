@@ -7,7 +7,7 @@
 #import "template/ams-article.typ": label-table
 
 
-= Introduction
+= Introduction <introduction>
 
 Information Management is the study of systematically storing and organizing
 data. Since the beginning of humanity, there has been a massive influx of data,
