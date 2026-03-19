@@ -480,9 +480,21 @@ $"LL"(1)$.
         [$emptyset$],
 
         [[6]],
-        [First/Follow],
+        [First/#linebreak() Follow],
         [$FIRST(#`|`) = { #`|` }$],
         [$SNFOLLOW("choice_list") = { #`,`, #`}`, #`EOF` }$],
+        [$emptyset$],
+
+        [[7]],
+        [First/#linebreak() Follow],
+        [$FIRST("arc") = { #`-`, #`<-` }$],
+        [$SNFOLLOW("chain") = { #`|`, #`,`, #`}`, #`EOF` }$],
+        [$emptyset$],
+
+        [[8]],
+        [First/#linebreak() First],
+        [$FIRST("right_arc") = { #`-` }$],
+        [$FIRST("other_arc") = { #`<-` }$],
         [$emptyset$],
       )
     ],
