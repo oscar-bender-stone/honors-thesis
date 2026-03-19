@@ -32,7 +32,12 @@ We compare from the solutions presented in the introduction (@introduction):
   isolated contexts.
 
 - *Labeled Property Graphs (LPGs):* this technology and Welkin are similarly
-  flexible.
+  flexible. Properties can be expressed through collections of arcs. The
+  definition of containment (@foundations:containment) is straightforward, and
+  it is likely to have an efficient implementation. However, in contrast to
+  LPGs, Welkin has a more unified definition than LPGs, without affecting
+  generality or specificity. Moreovoer, as with RDF, Welkin can easily express
+  logical constraints.
 
 - *Cyc:*
 
