@@ -477,7 +477,7 @@ $"LL"(1)$.
       [[4]],
       [First/ \ Follow],
       [SN-FOLLOW([4]) = { `|` }],
-      [FIRST("choice_list") = { `*`, `~`, `@`, \ `ID`, `STRING` }],
+      [FIRST("choice_list") = { `*`, `~`, `@`, `ID`, `STRING` }],
       [$emptyset$],
     )
   ]
