@@ -107,21 +107,27 @@ builds upon this result with a stronger property: *serial-soundness*. We will
 need a specific stronger version for our purposes.
 
 #definition[
-  Let $T$ be an extension of $PA$. Then $T$ is *(meta-)self-verifying* if there
-  is a total computable function $s$ over proofs of $T$, constructed in $PA$,
-  such that $T$ proves that $s$:
-  - Accepts all proofs in $T$.
+  Let $T$ be an extension of $PA$. Then $T$ is *serial-sound* if there is a
+  total computable function $s$ over proofs of $T$, constructed in $PA$, such
+  that:
+  - $s$ accepts all proofs in $T$.
   - Any proof $p$ accepted by $s$ must satisfy $"Tr"_n (s(p))$, where $"Tr"_n$
     is the $n$-th partial truth predicate. For details, refer to
     @hajek-pudlak-metamath-arithmetic[Ch. 1.1].
   Moreover, this selector must be proven _without_ use the general Law of the
   Excluded Middle ($phi or not phi$), and without the Principle of Explosion
   (#box[$bot => phi$]).
+]<metatheory:serial-soundness>
+
+We need to remove the Law of the Excluded Middle to ensure the proof is
+completely constructive. Additionally, we must ensure Principle of Explosion is
+not used to falsely prove claims.
+
+#definition[
+  Let $T$ be an extension of $PA$. Then $T$ is *(meta-)-self-verifying* if $T$
+  proves its own serial-soundness.
 ]<metatheory:self-verifying>
 
-We need to remove these principles to ensure the proof is completely
-constructive, and that the Principle of Explosion is not used to prove a false
-claim.
 
 Now, we can prove $"PA"$ is self-verifying, using partial truth predicates. This
 is similar to the Artëmov's approach for serial-consistency. Note the
@@ -158,17 +164,27 @@ $forall x. x in X "iff" x in X$. Although this is a very simple example, this
 does raise the question: what _can_ we reliably accept from a general theory? To
 generalize this example, we consider taking a _restriction_ of the theory. If
 this theory is sound, provable in an extension that _is_ self-verifying one, we
-can trust the specific claim from $T'$. We provide the full definition below.
+can trust the specific claim from $T'$. Note that this applies to embeddings of
+languages as well. For simplicity, we will only discuss suitable subsets on
+$T'$. We provide the full definition below.
 
 #definition[
-  Let $T'$ be a first order theory, and let $phi$ be a sentence. Then a $T'$
-  proof of $phi$ is *reliable* if there is some subset $T'' subset.eq T'$ that
-  can be extended to a self-verifying theory.
+  Let $T'$ be a first order theory, and let $phi$ be a sentence. A *reliable
+  proof* of $phi$ in $T'$ is a pair $(T'', p)$, where $p$ is a proof that
+  $T'' entails phi$, and $T''subset.eq T'$ can be extended to a self-verifying
+  theory. The set of *reliable proofs* for $phi$ in $T'$, denoted
+  $"Reliable"_T'(phi)$, is the set of pairs $(T'', p_1, p_2)$, where $T''$ is
+  described above, $p_1$ proves that $T''$ can extend to a self-verifying
+  theory, and $p_2$ is a proof that $T'' entails phi$.
 ]<metatheory:reliability>
 
-Welkin handles this via contexts, isolating conflicting sentences from each
-other. This is important in the final result of this section, refer to
-@metatheory:welkin-proof-completeness.
+Note that this definition is incomplete: in general, some sound subsets of $T'$
+will be excluded. We need to ensure that any theory used is _provably_ sound,
+i.e., extends to a self-verifying theory.
+
+In relation to Welkin, we can handle reliable proofs via contexts, isolating
+conflicting sentences from each other. This is important in the final result of
+this section, refer to @metatheory:welkin-proof-completeness.
 
 == Proof Completeness <metatheory:proof-completeness>
 
@@ -273,11 +289,11 @@ upper bound is the best one can hope for, in general.
 To complete the proof for Welkin, we call upon contextual lifting
 (@r:context-lift).
 
-#corollary[Welkin can express any proof from a provably sound RE
+#corollary[Welkin can express any reliable proof from from an RE
   theory.]<metatheory:welkin-proof-completeness>
 #proof[
-  First, note that an RE theory is provably sound if it can be expressed by some
-  meta-proof in $PA$. For any theory $T_1$, one can construct an extension
+  First, note that an RE theory is provably sound if it can be extended to a
+  self-verifying one. For any theory $T_1$, one can construct an extension
   $T_2 supset.eq T_1$ with a larger proof theoretic ordinal, based on
   @metatheory:complete-proof-expressivity. Additionally, $T_2$ itself is
   constructed to be self-verifying, and can therefore prove that $T_1$is
