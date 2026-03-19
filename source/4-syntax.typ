@@ -49,17 +49,17 @@ specific sections, consult @syntax:overview.
 )<syntax:overview>
 
 To make specific characters clearer, we write syntactic features in
-`type-writer font`. For clarity, we will write at a slightly higher level than
-@foundations.
+`type-writer font`.
 
 == Encoding <syntax:encoding>
 
 Welkin uses ASCII as its base encoding. The term ASCII is slightly ambiguous, as
-there are subtly distinct variants, so we formally define US-ASCII as a standard
-version. #footnote[Note that this table _itself_ is a representation, which
-  represents glyphs with binary words.] We provide the codes for each character
-in decimal and hexadecimal, but these can easily be converted into binary words
-in Welkin.
+there are subtly distinct variants. To address this problem, we formally define
+US-ASCII as a standard version. #footnote[Note that this table _itself_ is a
+  representation, which represents glyphs with binary words.] We define the
+encoding through *bytes*, which are words with of eight bits. We provide the
+codes for each character in decimal and hexadecimal. Note that the conversion
+into binary words, as directly used in Welkin, is straightforward.
 
 #figure(
   printable-ascii-table(),
@@ -69,8 +69,8 @@ in Welkin.
 #definition[
   Welkin's encoding consists of *Printable US-ASCII*, listed in
   @syntax:printable-ascii-codes, as well as character `EOF`, with code 58. An
-  *ASCII string* is the concatenation of any finite number of printable
-  characters, followed by an `EOF` character.
+  *ASCII string* is the concatenation of bytes, each of which correspond to a
+  character in the encoding. The last byte must end with the code for `EOF`.
 ]<syntax:encoding-strings>
 
 Moreover, we will need to define *character classes*, or important sets of
@@ -142,8 +142,9 @@ corresponding rule. Additionally, `WS` is short-hand for `WHITESPACE`
     followed by `B`.
 
 Additionally, the parsers above are allowed to have sets of characters called
-*token characters*. We assume these follow the "maximal munch" principle: the
-entire token must be consumed. This helps to simplify the grammar.
+*tokens*. We assume these follow the "maximal munch" principle: the entire token
+must be consumed _before_ processing other rules. This helps to simplify the
+grammar.
 
 == Strings and IDs <syntax:strings-and-ids>
 
