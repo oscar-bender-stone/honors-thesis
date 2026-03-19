@@ -197,25 +197,28 @@ $
 $
 
 Note that, because the sequence above is indexed by recursive ordinals, $T'$ is
-computable by some Turing machine.
+computable by some Turing machine. Moreover, $T'$ is self-verifying: one can
+combine the selectors for each $T_j$ into a single selector. This requires
+dovetailing, which is the simulation of these theories in paralelel. The
+definitions of each selector can be incrementally added, ensuring that all
+theories are covered.
 
 Now, set $T_lambda = T' union "Comp"_lambda (Delta^1_1)$. Here,
-$"Comp"_lambda (Delta^1_1)$ is an axiom schema over each proposition $phi$
-definable in the extended theory. It states that
+$"Comp"_lambda (Delta^1_1)$ is an axiom schema over each predicate $phi(n)$
+definable in $T'$. It states that:
 
 #set math.equation(numbering: none)
 $
   exists X_(phi, lambda). forall n. lr(
     (n in X_(phi, lambda) <=> PA attach(entails, br: T') phi(n))
   )
-  )
+  ).
 $
 
-To actually construct $T_lambda$, dovetailing can be applied. That is, one can
-simulate each of these theories in parallel, incrementally adding more steps
-from each theory used.
-
-Using the construction above, we can now prove the power of meta-proofs in $PA$.
+Constructing $T_lambda$ can be done with dovetailing, described above. This
+ensures that each limit stage does _not_ rely on non-constructive principles,
+such as Choice. Using the construction above, we can now prove the power of
+meta-proofs in $PA$.
 
 #theorem[$PA$, equipped with all possible meta-proofs, can reach any
   proof-theoretic ordinal. More precisely, for any recursive ordinal $alpha$,
