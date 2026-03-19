@@ -22,7 +22,12 @@ future work.
 
 We compare from the solutions presented in the introduction (@introduction):
 
-- *Resource Description Framework (RDF):*
+- *Resource Description Framework (RDF):* both Welkin and RDF use triple-based
+  relationships. Many of the same ideas about representations are included in
+  RDF. However, higher order representations are easier in the former, thanks to
+  representations being units. Additionally, logical reasoning is significantlly
+  more expressive and easier to use in Welkin, thanks to results like
+  @foundations:turing-completeness-section and the work in @metatheory.
 
 - *Labeled Property Graphs (LPGs):*
 

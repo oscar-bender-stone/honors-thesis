@@ -50,18 +50,18 @@ them, but not completely. The following provides a small list of major existing
 solutions. Reading these is optional; they are not needed to understand the
 thesis. We revisit these points in the conclusion (@conclusion:comparisons).
 
-- *Resource Description Framework (RDF):* These systems serve as the primary
-  implementations of an internet standard called the Web Ontology Language (OWL)
-  @OWL2. Information is stored as triples $"subject"-"predicate"->"object"$.
-  From there, the language can enforce rules and ensure new relationships are
-  derived _only_ from from previous ones. OWL has been highly successful in
-  providing a machine-readable format to websites across the internet, outlined
-  in @hitzler-review-the-semantic-web. However, despite their widespread
-  adoption, RDF-based solutions struggle with extensive sources of data.
-  Enforcing logical rules can be expensive @owl-approximate-reasoning.
-  Additionally, because OWL treats missing sources of data as _unknown_ rather
-  than _false_, it often fails to resolve conflicts between two sources
-  @hitzler-review-the-semantic-web.
+- *Resource Description Framework (RDF):* Systems based on this technology serve
+  as the primary implementations of an internet standard called the Web Ontology
+  Language (OWL) @OWL2. Information is stored as triples
+  $"subject"-"predicate"->"object"$. From there, the language can enforce rules
+  and ensure new relationships are derived _only_ from from previous ones. OWL
+  has been highly successful in providing a machine-readable format to websites
+  across the internet, outlined in @hitzler-review-the-semantic-web. However,
+  despite their widespread adoption, RDF-based solutions struggle with extensive
+  sources of data. Enforcing logical rules can be expensive
+  @owl-approximate-reasoning. Additionally, because OWL treats missing sources
+  of data as _unknown_ rather than _false_, it often fails to resolve conflicts
+  between two sources @hitzler-review-the-semantic-web.
 
 - *Labeled Property Graphs (LPGs):* This is an architecture defined by the
   ability to store rich, internal metadata within its components. Building on a
