@@ -166,10 +166,19 @@ as Turing machines allow.
 Additionally, there is an important property we will need.
 
 #lemma[Let $T, T'$ be theories, with $T$ being self-verifying. If $T$ proves
-  that $T'$ is self-verifying, then so does $PA$.]
+  that $T'$ is self-verifying, then so does
+  $PA$.]<metatheory:selector-composition>
 #proof[
   This corresponds to composing selector proofs.
 ]
+
+#remark[
+  Welkin can prove @metatheory:selector-composition as well thanks to contextual
+  lifting (@r:context-lift). Let $"pa"$ be a unit corresponding to $PA$. (This
+  can be done through a Turing machine corresponding to $PA$ and using
+  @foundations:turing-completeness-section.) Now, let $T_1, T_2$ be theories.
+]<metatheory:remark-selector-proof-composition>
+
 
 From this, we define a $T$*-meta-proof* in $PA$ as follows.
 
@@ -204,13 +213,9 @@ $T'$. We provide the full definition below.
   theory, and $p_2$ is a proof that $T'' entails phi$.
 ]<metatheory:reliability>
 
-Note that this definition is incomplete: in general, some sound subsets of $T'$
-will be excluded. We need to ensure that any theory used is _provably_ sound,
-i.e., extends to a self-verifying theory.
-
-In relation to Welkin, we can handle reliable proofs via contexts, isolating
-conflicting sentences from each other. This is important in the final result of
-this section, refer to @metatheory:welkin-proof-completeness.
+#remark[Note that this definition is incomplete: in general, some sound subsets
+  of $T'$ will be excluded. We need to ensure that any theory used is _provably_
+  sound, i.e., extends to a self-verifying theory.]
 
 == Proof Completeness <metatheory:proof-completeness>
 
@@ -295,7 +300,7 @@ Using the construction above, we can now prove the power of all meta-proofs in
 $PA$.
 
 #theorem[Through some self-verifying RE theory $T$, $PA$, equppied with all
-  $T$-meta-proofs, can reach any proof-theoretic ordinal. More precisely, for
+  $T$-meta-proofs, can majorize any proof-theoretic ordinal. More precisely, for
   any recursive ordinal $alpha$, there is an RE theory $T$ such that:
   - $PA$ meta-proves that $T$ proves its own serial-soundness.
   - $T$ has a proof-theoretic ordinal greater than $alpha$.
@@ -312,28 +317,23 @@ $PA$.
 Note, however, that detecting if an ordinal is recursive is undecidable. The
 upper bound is the best one can hope for, in general.
 
-To complete the proof for Welkin, we call upon contextual lifting
-(@r:context-lift).
+As an immediate corollary, we obtain the following.
 
-#corollary[Welkin can express any reliable proof from from an RE
-  theory.]<metatheory:welkin-proof-completeness>
-#proof[
-  First, note that an RE theory is provably sound if it can be extended to a
-  self-verifying one. For any theory $T_1$, one can construct an extension
-  $T_2 supset.eq T_1$ with a larger proof theoretic ordinal, based on
-  @metatheory:complete-proof-expressivity. Additionally, $T_2$ itself is
-  constructed to be self-verifying, and can therefore prove that $T_1$is
-  serial-sound, even if $T_1$ cannot.
+#corollary[
+  Let $T'$ be an RE theory, $phi$ a sentence, and $alpha$ a recursive ordinal.
+  Then, for reliable proof $(T'', p_1, p_2)$, there is a self-verifying
+  extension $T$ of $T''$, such that $T$ has proof-theoretic ordinal greater than
+  $alpha$.
+]<metatheory:reliable-proof-completeness>
 
-  Second, clearly $PA$ can be embedded into Welkin, based on
-  @foundations:turing-completeness-section. Call this unit $"pa"$. This unit
-  consists of sentences $a, b, ...$, and $a - "pa" -> b$ holds if
-  $PA entails a => b$. Additionally, we can embed the recursive definition of
-  meta-provability in Welkin. One way to do this is by creating a context in
-  $"pa"$ for each sentence $phi$, and adding $T - "phi" -> T'$ if $phi$ is
-  $T$-meta-provable in $T'$.
 
-  ${u_1 - "T'" -> u_2 -> ... - "T'" -> u_n}$, can be lifted to $T$ as well,
-  _within_ $"pa"$. By this observation and
-  @metatheory:complete-proof-expressivity, this completes the proof.
-]
+Combined with @metatheory:reliable-proof-completeness and
+@metatheory:remark-selector-proof-composition, the previous results prove a key
+property of Welkin, stated as a major corollary.
+
+#corollary[
+  Let $"pa"$ be a unit corresponding to $PA$, as in
+  @metatheory:remark-selector-proof-composition. Let $T'$ be an RE theory and
+  $phi$ a sentence. Suppose $P equiv (T'', p_1, p_2)$ be a reliable proof of
+  $phi$ in $T'$. Then, this proof in, written in $T'$, is accepted by a
+  derivation in $"pa"$. .] <metatheory:welkin-proof-completeness>
