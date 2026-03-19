@@ -141,14 +141,16 @@ From this, we define a *meta-proof* in $PA$ as follows.
   denoted $PA attach(entails, br: T) phi$, is any proof of
   $PA entails chevron.l T entails phi chevron.r$. Here,
   $chevron.l T entails phi chevron.r$ denotes the encoding of $T entails phi$ in
-  $PA$.
+  $PA$. Additionally, for theories $T$, $T'$ and a sentence $phi$, $phi$
+  $T$-*meta-provable* in $T'$ if there is some proof of
+  $PA entails chevron.l T entails (T' entails phi => T entails phi) chevron.r$
 ]
 
 Note that the base theory $T$ is important. This is because, two theories may be
-sound but prove $phi$ and $not phi$, respectively. Therefore, to determine
-whether $T' entails phi$ implies $T entails phi$ for general theories $T, T'$,
-we need. Note that, in Welkin, this is managed precisely through contexts. We
-will use this in the last proof, refer to @metatheory:welkin-proof-completeness.
+sound but prove $phi$ and $not phi$, respectively. This is this considered in
+the definition of meta-provability. In Welkin, these are managed precisely
+through certain contexts. We will define these in the last proof, refer to
+@metatheory:welkin-proof-completeness.
 
 == Proof Completeness <metatheory:proof-completeness>
 
@@ -254,18 +256,19 @@ To complete the proof for Welkin, we call upon contextual lifting
 #corollary[Welkin can express any proof from a provably sound RE
   theory.]<metatheory:welkin-proof-completeness>
 #proof[
-  First, note that an RE theory is provably sound if it can be expressed by a
+  First, note that an RE theory is provably sound if it can be expressed by some
   meta-proof in $PA$. For any theory $T_1$, one can construct an extension
   $T_2 supset.eq T_1$ with a larger proof theoretic ordinal, based on
-  @metatheory:complete-proof-expressivity. If some $T_2$ proves that $T_1$ is
-  sound, then its derivations can be meta-proven in $PA$.
+  @metatheory:complete-proof-expressivity. Additionally, $T_2$ itself is
+  constructed to be self-verifying, and can therefore prove that $T_1$is
+  serial-sound, even if $T_1$ cannot.
 
   Second, clearly $PA$ can be embedded into Welkin, based on
   @foundations:turing-completeness-section. Call this unit $"pa"$. We can
   express any self-verifying theories $"T"$ and $"T'"$ as units (again, via
   @foundations:turing-completeness-section), and we add the rule
-  $"T'" - "pa" -> "T"$ if in $"PA"$, we can prove that $"T"' entails phi$
-  implies $"T" entails phi$. Thus, any derivation
+  $"T'" - "pa" -> "T"$ if in $"PA"$, we can prove that any sentence $phi$ of
+  $"T"$ and is $"T"$-meta-provable in $"T'"$. Thus, any derivation
   ${u_1 - "T'" -> u_2 -> ... - "T'" -> u_n}$, can be lifted to $T$ as well,
   _within_ $"pa"$. By this observation and
   @metatheory:complete-proof-expressivity, this completes the proof.

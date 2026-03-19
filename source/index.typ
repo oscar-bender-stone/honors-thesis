@@ -16,7 +16,6 @@
       email: "osbe6746@colorado.edu",
     ),
   ),
-  // date: [March 18, 2026],
   defense-date: [March 26, 2026],
   committee: (
     (
