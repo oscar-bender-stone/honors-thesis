@@ -472,6 +472,18 @@ $"LL"(1)$.
         [$FIRST(#`:=`) = { #`:=` }$],
         [$FIRST("arc") union SNFOLLOW("unit") = { #`-`, #`<-`, #`,`, #`}`, #`EOF` }$],
         [$emptyset$],
+
+        [[5]],
+        [First#linebreak()/Follow],
+        [$FIRST("chain") = { #`*`, #`~`, #`@`, #`ID`, #`STRING` }$],
+        [$SNFOLLOW("choice_list") = { #`,`, #`}`, #`EOF` }$],
+        [$emptyset$],
+
+        [[6]],
+        [First/Follow],
+        [$FIRST(#`|`) = { #`|` }$],
+        [$SNFOLLOW("choice_list") = { #`,`, #`}`, #`EOF` }$],
+        [$emptyset$],
       )
     ],
 
