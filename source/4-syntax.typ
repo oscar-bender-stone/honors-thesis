@@ -458,27 +458,25 @@ $"LL"(1)$.
 
   #figure(
     [
+
       #table(
-        columns: (auto, 1fr, 2fr, 2fr),
-        table.header(
-          [*ID*], [*Conflict Type*], [*Set One*], [*Set Two*],
+        columns: 5,
+        align: left,
+        [*ID*], [*Conflict Type*], [*Set One*], [*Set Two*], [*Intersection*],
 
-          [[1]],
-          [First/#linebreak()Follow],
-          [$SNFOLLOW(#`","`) =$],
-          [$FIRST(#`unit`) = {#`*`, #`{`, #`"~"`, #`@`, #`HANDLE`}$],
+        [[1]],
+        [First/Follow],
+        [$FIRST(#`,`) = {#`,`}$],
+        [$SNFOLLOW("units") = {#`}`, #`EOF`}$],
+        [$emptyset$],
 
-          [[2]],
-          [First/#linebreak()Follow],
-          [$SNFOLLOW([1]) = {#`,`}$],
-          [$FIRST({#`{"", ","}`}) = {#`,`}$],
-
-          [[3]],
-          [First/#linebreak()Follow],
-          [$SNFOLLOW([1]) = {#raw(",")}$],
-          [${#raw("*")}$],
-        ),
-      )],
+        [[2]],
+        [First/Follow],
+        [$FIRST(#`unit`) = { #`*`, #`~`, #`@`, #`ID`, #`STR`}$],
+        [$SNFOLLOW("units") = { #`}`, #`EOF`}$],
+        [$emptyset$],
+      )
+    ],
 
     caption: [Calculations for the main possible conflicts, along with the
       corresponding sets. Subrule IDs are listed in @syntax:LL1-subrule-IDs.],
