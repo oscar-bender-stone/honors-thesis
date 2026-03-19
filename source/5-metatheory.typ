@@ -8,7 +8,7 @@
   corollary, equation_block, lemma, proof, theorem,
 )
 
-#import "template/ams-article.typ": proof-sketch
+#import "template/ams-article.typ": proof-sketch, recursion
 
 = Metatheory <metatheory>
 
@@ -41,21 +41,21 @@ respectively.
 #let PA = math.text("PA")
 #let PRA = math.text("PRA")
 #let ZFC = math.text("ZFC")
+#let entails = $⊢$
+
 
 For simplicity, we will make our base theory Peano Arithmetic ($PA$). Recall
 that any unit is equivalent to a Turing machine
 (@foundations:turing-completeness-section). Because any Turing machine can be
 expressed through a simple encoding in $PA$, so to can units, as well as the
 rules in @table:unit-rules. A future work will consider weaker theories that can
-embed Welkin. Additionally, we make two assumptions without loss of generality:
+embed Welkin. Additionally, we we will consider only RE first-order theories
+$T$. This is because any formal system must be defined with proofs accepted by
+some Turing machine. In turn, this Turing machine can be expressed as a first
+order theory.
 
-- First, we will consider only RE first-order theories $T$. This is because any
-  formal system must be defined with proofs accepted by some Turing machine. In
-  turn, this Turing machine can be expressed as a first order theory.
-
-- Secondly, we will only consider theories in the language of $PA$. Any
-  first-order theory can encoded through arithmetic, using a similar
-  construction from the point above.
+As notation, we will write $T entails phi$ to mean that $T$ entails $phi$.
+Logical implication is denoted by $=>$.
 
 == Artëmov's Selector Proofs <metatheory:artemov-selector-proofs>
 
@@ -131,19 +131,21 @@ define its own truth predicate _at the object language_
 general. We do not avoid Tarski's theorem, but we do approximate it _as_ closely
 as Turing machines allow.
 
-From this, we define a *meta-proof* in $PA$ as follows.
-
-#let entails = $⊢$
-#let metaproves = $attach(⊢, br: "meta")$
+From this, we define a $T$*-meta-proof* in $PA$ as follows.
 
 #definition[
-  Let $T$ be a self-verifying theory. Then a $T$-*meta-proof* in $PA$ of $phi$,
+  Let $T$ be a self-verifying theory. Then a $T$*-meta-proof* in $PA$ of $phi$,
   denoted $PA attach(entails, br: T) phi$, is any proof of
   $PA entails chevron.l T entails phi chevron.r$. Here,
   $chevron.l T entails phi chevron.r$ denotes the encoding of $T entails phi$ in
-  $PA$. Additionally, for theories $T$, $T'$ and a sentence $phi$, $phi$
-  $T$-*meta-provable* in $T'$ if there is some proof of
-  $PA entails chevron.l T entails chevron.l T' entails phi => T entails phi chevron.r chevron.r$
+  $PA$. Additionally, consider theories $T$, $T'$ and a sentence $phi$. Then we
+  define when $phi$ is $T$*-meta-provable* in $T'$ recursively:
+  #recursion[
+    $PA entails chevron.l (T' entails phi) => (T' entails phi) chevron.r$.
+  ][
+    For some $T''$,
+    $PA entails chevron.l (T'' entails chevron.l((T' entails phi) => (T entails phi) chevron.r) chevron.r$.
+  ]
 ]
 
 Note that the base theory $T$ is important. This is because, two theories may be
