@@ -27,9 +27,12 @@ We compare from the solutions presented in the introduction (@introduction):
   RDF. However, higher order representations are easier in the former, thanks to
   representations being units. Additionally, logical reasoning is significantlly
   more expressive and easier to use in Welkin, thanks to results like
-  @foundations:turing-completeness-section and the work in @metatheory.
+  @foundations:turing-completeness-section and the work in @metatheory. Managing
+  diverse sources of information, as well as conflicts, is addressed with
+  isolated contexts.
 
-- *Labeled Property Graphs (LPGs):*
+- *Labeled Property Graphs (LPGs):* this technology and Welkin are similarly
+  flexible.
 
 - *Cyc:*
 
