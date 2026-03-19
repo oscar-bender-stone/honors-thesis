@@ -39,6 +39,7 @@ and set theory. For specific references, consult @mendelson_logic and
 )<metatheory:overview>
 
 #let PA = math.text("PA")
+#let ZFC = math.text("ZFC")
 
 For simplicity, we will make our base theory Peano Arithmetic, denoted $PA$.
 Recall that any unit is equivalent to a Turing machine
@@ -116,136 +117,6 @@ expressed in several ways.
 
 == Proof Completeness <metatheory:proof-completeness>
 
-== Truth and Soundness
-
-We embed "Convention T", or Tarski's criterion for truth
-@tarski-undefinability-truth, as unit. Recall that, at this stage, Welkin deals
-with truh systems. The user's task is to ensure they accurately represent their
-referents, because these are free parameters in the theory (refer to the
-discussion below @foundations:handle). For this reason, the aim is to
-demonstrate the _preservation_ of these truth systems. This means preserving
-their axioms and rules of inference. With this goal in mind, we define a *truth
-predicate* accordingly.
-
-// So the original convention T is:
-// [phi] is true iff phi,
-// where [] is the Goedel number, and phi
-// is a sentence in Peano Arithmetic.
-
-#definition[Let $c$ be a context. A unit $t$ is called a *truth predicate* for
-  $c$ if for every unit $u$, $u - c -> t$ if and only if $u - "in" -> c$.
-]<metatheory:truth>
-
-Truth systems in Welkin, however, are separated by contexts. How can it be
-determined whether a unit is "sound", or truthful about derivations? Our
-approach is to _merge_ the contents and determine if they match. This precisely
-uses rule ? for whether a representation is contained in a unit. [TODO: still
-need to clarify global context here! Also, ensure that .]
-
-#definition[
-  A unit $u$ is *sound* if for every context $c$ and representation
-  ${{a - d -> b} - "in" -> c} - "in" -> u$, ${@c, {a - d -> b}} <--> c$.
-]
-
-In other words, adding the representation ${a - d -> b}$ does *not* add new
-information to $c$.
-
-[TODO: discuss Tarski's undefinability theorem here.]
-
-In this setting, Gödel's incompleteness theorems manifest in the undecidability
-of derivations. The second cannot be avoided with soundness outright, but it can
-with a weaker notion. With the _usual_ notions of soundness, the second cannot
-be avoided. But it this can be mitigated using a weaker notion of soundness.
-
-[TODO: define the equivalent of total computable functions for units! And
-determine if a *single* input is enough to trust soundness. If not, need to
-construct examples to show why!]
-
-#definition[
-  A unit $u$ is *serial-sound* if there is a total computable function such that
-  the following property holds: given an arbitrary, but fixed, unit $v$ as
-  input, verifies that any representation "claimed in $u$" is "actually in $v$".
-  Moreover the selector must be proven *constructively*, or "without
-  explosion"[TODO: define in general!].
-]<metatheory:serial-sound>
-
-Note that not every total computable function can be proven to be total. For
-this reason, we have a more technical definition in @metatheory:meta-unit. For
-now, we can prove the following.
-
-[TODO: make this much more succinct and do not rely on bootstrap anymore]
-[TODO[SMALL]: make sure to clarify this proof!]
-#lemma[
-  The unit $"verifier"$ is serial-sound.
-]
-
-Moreover, serial-soundness is transitive, just as with soundness. This
-corresponds to composition of meta-proofs.
-
-#lemma[
-  Let $u$, $u'$, $u''$ be units, and suppose $u$ is serial-sound. If $u$ proves
-  that $u'$ is serial-sound and $u'$ proves that $u''$ is serial sound, then $u$
-  proves that $u''$ is serial sound.
-]<metatheory:serial-soundness-transitive>
-#proof[
-  Suppose $u$ is serial-sound. Then, in the context $u$, $u$ contains the a
-  selector of $u'$. This selector can then be composed with that from $u''$
-  proven in $u'$ to complete the proof.]
-
-== The Meta Unit <metatheory:meta-unit>
-
-[TODO: complete! Want to ensure that proofs can be _chains_ of serial-sound
-units. Moreover, should include _any_ expressible derivation that is
-"reliable"!]
-
-#definition[
-  The *meta recursor* $"meta"$ over all units is defined recursively:
-  - *Base case:* $"verifier" - "in" -> "meta"$.
-  - *Recursive step:* for each proof in $"meta"$, adding a self-verifying unit
-    is a valid proof step.
-]<metatheory:meta-def>
-
-If $"meta"$ verifies a claim $C$, then we say that $"meta"$ *meta-proves* $C$.
-
-#remark[A different approach to create more powerful chains of theories is
-  _reflection_. One example is from Feferman @feferman-reflection: starting from
-  $"PA"$, one can add the encoded statement, roughly meaning: "$"PA"$ is sound".
-  One can then iterate this through transfinite induction. While this, too, is a
-  way to express all proofs, reflection is a _subset_ of our techniques.]
-
-[TODO: make this constructive! Probably possible. And maybe instead of
-consistency we want _coherency_, to generalize having a false operator? So to
-prevent _all_ things from being proved, or only useful things being proved?]
-
-#theorem[
-  The unit $"meta"$ meta-proves that serial soundness implies soundness.
-]<metatheory:serial-to-full-soundness>
-#proof[
-  Let $u$ be a serial sound unit. By way of contradiction, suppose $u$ is not
-  sound. Then there exists a specific instance $phi$ that $u$ contains but is
-  not true. However, as $u$ is finite, there is a finite trace that verifies the
-  failure of soundness. But, because the serial soundness proof is constructive,
-  it reliable proves that _no such_ trace exists, a contradiction. Therefore,
-  $u$ must be sound.
-]
-
-Remarkably, $"meta"$ _also_ meta-proves its own serial soundness.
-
-#corollary[The unit $"meta"$ meta-proves its own serial soundness, and hence,
-  soundness.
-]
-#proof[
-  Fix some claim $C$, and suppose $C$ can be proved by a terminating sequence of
-  self-verifying theories. On each $C$ with a proof, define $s$ to be one of
-  these proofs. [TODO: make sure choice is not needed! Probably need a way to
-  standardize this, though maybe it's already in the constructive definition? Or
-  the existence of _any_ of these is enough]. Clearly $s$ is total as the
-  sequence terminates, and is correct by construction. This proves $"meta"$ is
-  serial-sound. Thus, by @metatheory:serial-to-full-soundness, $"meta"$ is sound
-]
-
-== Proof of Complete Expressivity
-
 [TODO: find a simpler proof! Maybe we don't _need_ ordinals?]
 
 To show that this covers _every_ proof that can be computably recognized, we
@@ -271,14 +142,14 @@ of Welkin is to be _as_ expressive as possible, especially as impredicative
 theories have use in certain areas, e.g., formal methods projects [TODO: cite
 these!]
 
-Due to Artemov, there is a _massive_ jump from $I Delta_0$ all the way to
-$"ZFC"$. This is because, over $I Delta_0$ as the base-theory, $"ZFC"$ is
-self-verifying (proves its own soundness. A reason for this power in $"ZFC"$ is
-the axiom of replacement, or even comprehension. We extend this realization
-using hyperarithmetic sets, which are known to cover every recursive ordinal,
-refer to @kleene-ordinal-notation [TODO: make sure this citation is correct!].
-Based on Kleene's theorem, our key construction in the limit case is to add
-this: let $lambda$ be a limit ordinal and consider all given theories
+Due to Artemov, there is a _massive_ jump from $I Delta_0$ all the way to $ZFC$.
+This is because, over $PA$ as the base-theory, $ZFC$ is self-verifying (proves
+its own soundness. A reason for this power in $ZFC$ is the axiom of replacement,
+or even comprehension. We extend this realization using hyperarithmetic sets,
+which are known to cover every recursive ordinal, refer to
+@kleene-ordinal-notation [TODO: make sure this citation is correct!]. Based on
+Kleene's theorem, our key construction in the limit case is to add this: let
+$lambda$ be a limit ordinal and consider all given theories
 $T_1, T_2, ..., T_beta, ...$ with $beta < lambda$. Then
 $T_lambda = union.big_(beta < lambda) T_beta union "Comp"_lambda (Delta^1_1)$.
 The set $"Comp"_lambda (Delta^1_1)$ is an axiom schema over each proposition
