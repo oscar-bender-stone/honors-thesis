@@ -1,7 +1,8 @@
 # Honors Thesis 2025 (Work in Progress)
 
-**Warning**: This repository is still under development. Except breaking changes!
-This will be replaced with an official message once the thesis is completed.
+**Warning**: This repository is still under development. Except breaking
+changes! This will be replaced with an official message once the thesis is
+completed.
 
 ## Description
 
@@ -23,10 +24,11 @@ Licensed under the [CC-BY-SA-4.0 license](./LICENSES/CC-BY-SA-4.0.txt).
 
 You will need:
 
-- A Python package manager. (Recommended: [`uv`](https://docs.astral.sh/uv/getting-started/installation/)).
+- [`typst` (0.14.2)](https://typst.app/open-source/#download): typsetting
+  program for the thesis.
 
-- [`typst` (0.14.2)](https://typst.app/open-source/#download): typsetting program for the thesis.
-
+- [`just`](https://search.brave.com/search?q=rust+just+tool) for running
+  commands.
 
 ### Generating Documents
 
