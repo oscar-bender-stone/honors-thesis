@@ -202,7 +202,7 @@ right_arc := "-" - seq -> node - seq -> "->",
 other_arc := "<-" - seq -> node - seq -> *{"-" | "->"},
 
 node := *{"", "*"} - seq -> path,
-path := *{"", modifier} - seq -> trailer,
+path := *{"", modifier} - seq -> trailer - lexeme ,
 modifier := "~" - seq -> *{"", "@"} | "@",
 trailer := segment - seq -> *{"", "." - seq -> trailer},
 segment := HANDLE - lexeme -> *{"", graph},

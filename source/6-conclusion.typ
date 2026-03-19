@@ -13,7 +13,8 @@ grammar (@syntax:figure-welkin-grammar). The syntax was defined with invertible
 operations (@syntax:invertible-descriptions), simultaneously providing _parsing_
 and _printing_. The main grammar was proven to be $"LL"(1)$ @syntax:LL1-proof,
 thereby showing it is unambiguous. Finally, @metatheory proved that the
-definition of information is complete, thereby completing @universal.
+definition of information is complete @metatheory:proof-completeness, thereby
+completing @universal.
 
 The remaining sections provide comparisons to existing approaches, as well as
 future work.

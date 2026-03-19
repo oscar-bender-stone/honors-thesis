@@ -121,7 +121,7 @@ need a specific stronger version for our purposes.
   such that $T$ proves this selector only accepts sound proofs. Moreover, this
   selector may _not_ use the general Law of the Excluded Middle
   ($phi or not phi$) nor the Principle of Explosion (#box[$bot => phi$]).
-]
+]<metatheory:self-verifying>
 
 We need to remove these principles to ensure the proof is completely
 constructive, and that the Principle of Explosion is not used to prove a false
@@ -139,15 +139,46 @@ as Turing machines allow.
 
 Building on serial soundness, we need to leverage Artëmov's *Logic of Proofs*.
 This system is used to give semantics for meta-proofs, or proofs _on_ proofs.
+For more details, refer to @Artemov1994-ARTLOP.
+
+#let entails = $⊢$
+#let realizes = #box(draw: (6pt, 12pt), {
+  line((0pt, 0pt), (0pt, 100%))
+  place(center + horizon, dx: 2pt, $vdash$)
+})
 
 #definition[
+  The *Logic of Proofs* is defined as follow:
+  - *Proof terms* are built recursively over a meta-variable $t$ as either:
+    - A *proof variable*, a symbol $x, y, ...$
+    - A *constant*, a symbol $c_1, ...$. These represent axioms.
+    - *Application* $t dot t$.
+    - *Sums* $t + t$.
+    - *Checker* $!t$.
+  - *Formulas* are built recursively as either:
+    - Propositional variables $p, q, ...$
+    - False ($bot$)
+    - Logical implication ($=>$)
+    - *Justification* $(t realizes F)$, where $t$ is a proof term and $F$ is a
+      formula.
+  - The axioms are presented as follows:
+    - All the rules of classical propositional logic, except the Law of the
+      Excluded Middle ($phi or not phi$) and Explosion ($bot => phi$). Again,
+      these are restricted for similar reasons in @metatheory:self-verifying.
+    - *Application:* $(s realizes (F => G)) => ((t realizes F) => (s dot t realizes G))$.
+    - *Sum:* $(s realizes F) => ((t realizes F) => ((s + t) realizes F))$.
+    - *Reflection:* $(t realizes F) => F$.
+    - *Checkability:* $(t realizes F) => (!t realizes (t realizes F))$.
+  - The inference rules are as follows:
+    - *Modus Ponens:* if $⊢ F$ and $⊢ F => G$, then $⊢ G$.
+    - *Constant Specifications:* enables any base theory to be chosen through an
+      RE set of proof constants.
 
 ]<metatheory:def-logic-of-proofs>
 
+From this, we define a *meta-proof* in $PA$ as a proof term $t$ above.
 
 == Proof Completeness <metatheory:proof-completeness>
-
-[TODO: find a simpler proof! Maybe we don't _need_ ordinals?]
 
 To show that this covers _every_ proof that can be computably recognized, we
 need to discuss recursive ordinals. For more background on ordinals, refer to
@@ -159,40 +190,46 @@ only define specific properties needed for this thesis:
 - Recursive ordinals, roughly, can be defined through a Turing machine. The full
   definition is in @kleene-ordinal-notation.
 
-- The limit of these ordinals is called the *Church-Kleene ordinal*,
-  $churchkleene$.
+- The limit of these ordinals is called the *Church-Kleene ordinal*, denoted
+  $churchkleene$. This is the first non-recursive ordinal.
 
-At a high level, it is not enough to carry out a _successor_ step, and then
-solely combine theories through a union in the limit stage. At most, we can only
-reach the Feferman–Schütte ordinal, denoted $Gamma_0$. [CITE!]. [TODO: discuss
-predicative and impredicative theories more closely!] Feferman himself
-_advocated_ for the sole use of predicative mathematics [CITE]. However, the aim
-of Welkin is to be _as_ expressive as possible, especially as impredicative
-theories have use in certain areas, e.g., formal methods projects [TODO: cite
-these!]
+- Every RE first-order theory $T$ has a recursive proof ordinal. Here a proof
+  ordinal is related to the strength of the theory. More details are available
+  in @kleene-ordinal-notation.
 
-Due to Artëmov's, there is an enormous jump from $PA$ all the way to $ZFC$. This
-is because, over $PA$ as the base-theory, $ZFC$ is self-verifying (proves its
-own soundness. A reason for this power in $ZFC$ is the axiom of replacement, or
-even comprehension. We extend this realization using hyperarithmetic sets, which
-are known to cover every recursive ordinal, refer to @kleene-ordinal-notation
-[TODO: make sure this citation is correct!]. Based on Kleene's theorem, our key
-construction in the limit case is to add this: let $lambda$ be a limit ordinal
-and consider all given theories $T_1, T_2, ..., T_beta, ...$ with
+- There are existing encodings of ordinals into $PA$. For instance, consult .
+
+Roughly, it is not enough to carry out a _successor_ step, and then solely
+combine theories through a union in the limit stage. At most, we can only reach
+the Feferman–Schütte ordinal, denoted $Gamma_0$, as proven in
+@feferman-progressions. This chain is related to predicative mathematics.
+However, the aim of Welkin is to be _as_ expressive as possible, so we want to
+include _every_ impredicative theory possible as well.
+
+From Artëmov's approach, there is an enormous jump from $PA$ all the way to
+$ZFC$. This is because, over $PA$ as the base-theory, $ZFC$ is self-verifying
+(proves its own soundness. A reason for this power in $ZFC$ is the axiom of
+replacement, or even comprehension. We extend this realization using
+hyperarithmetic sets, which are known to cover every recursive ordinal, proven
+in @kleene-hyperarithmetic-covering. Our construction relies on a well known
+principle of comprehension established in Reverse Mathematics:
+
+$exists X_(phi, lambda). forall n. (n in X <=> (exists p. T_{psi(p)}), phi(p))$,
+
+We carry out this same construction for our use case. Let $lambda$ be a limit
+ordinal and consider all given theories $T_1, T_2, ..., T_beta, ...$ with
 $beta < lambda$. Then
 $T_lambda = union.big_(beta < lambda) T_beta union "Comp"_lambda (Delta^1_1)$.
 The set $"Comp"_lambda (Delta^1_1)$ is an axiom schema over each proposition
-$phi$ definable in the extended theory, stating that [TODO: clarify notation!
-And double check hyperarithmetic literature!]
+$phi$ definable in the extended theory, stating that
 
-$exists X_(phi, lambda). forall n. (n in X <=> (exists p. "Prov"(T_{psi(p)}), phi(p)))$.
+#set math.equation(numbering: _ => $(#math..filled)$)
 
-Note that this set is encoded through $I Delta_0$ through an appropriate
-encoding. And the provability predicate is also encoded through the base theory.
-[TODO: clarify these encodings!] This new axiom naturally extends the Axiom of
-Comprehension through _other_ sound theories.
+$exists X_(phi, lambda). forall n. (n in X <=> (exists p. T_{psi(p)}), phi(p))$,
 
-We now prove a major property of Welkin.[TODO: definitely clean up!]
+where $Lambda$ is the combination of all previous theories $T_beta$.
+
+Using this construction (), we can now prove the power of meta-proofs in $PA$.
 
 #theorem[$PA$, equipped with meta-proofs, can express any computably expressible
   proof from a sound RE theory. More precisely, for any recursive ordinal
@@ -216,7 +253,15 @@ upper bound is the best one can hope for, in general.
 To complete the proof for Welkin, we call upon contextual lifting
 (@r:context-lift).
 
-#corollary[Welkin can express]
+#corollary[Welkin can express any proof from a sound RE
+  theory.]<metatheory:welkin-proof-completeness>
 #proof[
-
+  Clearly $PA$ can be embedded into Welkin, based on
+  @foundations:turing-completeness-section. Call this unit $"pa"$. We can
+  express any self-verifying theory $"T"$ as a unit (again, via
+  @foundations:turing-completeness-section), and we add the rule
+  $"T'" - "pa" -> "T"$ if $"T"'$ extends $"T"$. Thus, any derivation expressed
+  in $"T"$, consisting of steps of the form $u_i - "T'" -> u_j$, mean that these
+  carry to $T$ as well _within_ $"pa"$. By this and
+  @metatheory:complete-proof-expressivity, this completes the proof.
 ]
