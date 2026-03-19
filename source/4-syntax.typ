@@ -453,40 +453,21 @@ $"LL"(1)$.
       [*ID*], [*Conflict Type*], [*Set One*], [*Set Two*], [*Intersection*],
 
       [[1]],
-      [First/ \ First],
-      [FIRST("") = $emptyset$],
-      [FIRST(`,`) = { `,` }],
+      [First/ \ Follow],
+      [SN-FOLLOW(\*{ "", [1] }) = \ { `}`, `EOF` }],
+      [FIRST([1]) = { `,` }],
       [$emptyset$],
 
       [[2]],
       [First/ \ Follow],
-      [SN-FOLLOW("unit") = \ { `:=`, `|`, `-`, `<-`, `.`, `{`, \ `*`, `@`, `~`,
-        `ID`, `STRING` }],
-      [FIRST([1]) = { `,` }],
+      [SN-FOLLOW([2]) = \ { `}`, `EOF` }],
+      [FIRST("unit") = { `*`, `~`, `@`, \ `ID`, `STRING` }],
       [$emptyset$],
 
       [[3]],
       [First/ \ First],
       [FIRST(`:=`) = { `:=` }],
-      [FIRST("arc") = { `-`, `<-` }],
-      [$emptyset$],
-
-      [[4]],
-      [First/ \ Follow],
-      [SN-FOLLOW([4]) = { `|` }],
-      [FIRST("choice_list") = { `*`, `~`, `@`, `ID`, `STRING` }],
-      [$emptyset$],
-
-      [[5]],
-      [First/ \ First],
-      [FIRST("") = $emptyset$],
-      [FIRST(`|`) = { `|` }],
-      [$emptyset$],
-
-      [[6]],
-      [First/ \ Follow],
-      [SN-FOLLOW("chain") = { `-`, `<-`, \ `.`, `{` }],
-      [FIRST([5]) = { `|` }],
+      [FIRST([7]) = { `-`, `<-` }],
       [$emptyset$],
     )
   ]
