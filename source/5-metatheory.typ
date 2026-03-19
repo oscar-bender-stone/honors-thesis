@@ -139,7 +139,6 @@ Additionally, there is an important property we will need.
   This corresponds to composing selector proofs.
 ]
 
-
 From this, we define a $T$*-meta-proof* in $PA$ as follows.
 
 #definition[
@@ -148,16 +147,16 @@ From this, we define a $T$*-meta-proof* in $PA$ as follows.
   $PA entails chevron.l T entails phi chevron.r$. Here,
   $chevron.l T entails phi chevron.r$ denotes the encoding of $T entails phi$ in
   $PA$.
-
-  // $PA$. Additionally, consider general $T', T''$ and a sentence $phi$. Then we
-  // $phi$ is $T'$*-meta-provable* in $T'$ if the following holds: there is some $T$ recursively:
 ]
 
 Note that the base theory $T$ is important. This is because, two theories may be
-sound but prove $phi$ and $not phi$, respectively.
-
-
-This is this considered in the definition of meta-provability.
+sound but prove $phi$ and $not phi$, respectively. Additionally, we want to
+cover more general theories. A theory may be unsound yet prove _some_ things
+correctly. For example, in Naive Set Theory, Russell's Paradox can be proven,
+but also true statements in $ZFC$, such as $forall x. x in X "iff" x in X$.
+Although this is a very simple example, this does raise the question: what _can_
+we reliably accept from a general theory? We characterize this precisely in the
+following definition.
 
 #definition[
   Let $T'$ be a first order theory, and let $phi$ be a sentence. Then $phi$ is
