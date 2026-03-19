@@ -25,7 +25,7 @@
       role: "Thesis Advisor",
     ),
     (
-      name: "Nathaniel hiem",
+      name: "Nathaniel Thiem",
       dept: "Mathematics",
       role: "Honors Council Representative",
     ),
