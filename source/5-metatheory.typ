@@ -304,15 +304,19 @@ upper bound is the best one can hope for, in general.
 To complete the proof for Welkin, we call upon contextual lifting
 (@r:context-lift).
 
-#corollary[Welkin can express any proof from a sound RE
+#corollary[Welkin can express any proof from a provably sound RE
   theory.]<metatheory:welkin-proof-completeness>
 #proof[
-  Clearly $PA$ can be embedded into Welkin, based on
+  First, note that an RE theory is provably sound if it can be expressed by a
+  meta-proof in $PA$. This is because $PA$ contains _all_ possible proofs, built
+  on reliable theories.
+
+  Second, clearly $PA$ can be embedded into Welkin, based on
   @foundations:turing-completeness-section. Call this unit $"pa"$. We can
-  express any self-verifying theory $"T"$ as a unit (again, via
+  express any self-verifying theories $"T"$ and $"T'"$ as units (again, via
   @foundations:turing-completeness-section), and we add the rule
   $"T'" - "pa" -> "T"$ if $"T"'$ extends $"T"$. Thus, any derivation expressed
-  in $"T"$, consisting of steps of the form $u_i - "T'" -> u_j$, mean that these
-  carry to $T$ as well _within_ $"pa"$. By this and
+  in $"T"$, consisting of steps of the form $u_i - "T'" -> u_j$, means that
+  these carry to $T$ as well, _within_ $"pa"$. By this observation and
   @metatheory:complete-proof-expressivity, this completes the proof.
 ]
