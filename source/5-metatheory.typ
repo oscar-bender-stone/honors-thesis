@@ -30,11 +30,6 @@ respectively.
     [Explains Artëmov's selector proofs, specifically his finitistic proof of
       Peano Arithmetic's consistency. Expands this to soundness.],
 
-    [@metatheory:artemov-logic-of-proofs],
-    [*Artëmov's Logic of Proofs*],
-    [Introduces Artëmov's *Logic of Proofs*, a logic that explains how
-      jutsifications work. We also define *serial-soundness*.],
-
     [@metatheory:proof-completeness],
     [*Proof Completeness*],
     [Proves that Welkin can define any proof that is a) based on a sound theory,
@@ -135,86 +130,22 @@ define its own truth predicate _at the object language_
 general. We do not avoid Tarski's theorem, but we do approximate it _as_ closely
 as Turing machines allow.
 
-== Artëmov's Logic of Proofs <metatheory:artemov-logic-of-proofs>
-
-Building on serial soundness, we need to leverage Artëmov's *Logic of Proofs*.
-This system is used to give semantics for meta-proofs, or proofs _on_ proofs.
-For more details, refer to @Artemov1994-ARTLOP.
-
-#let entails = $⊢$
-#let realizes = math.class("relation", context {
-  let ts = $entails$
-
-  let ts_metrics = measure(ts)
-  let bar_height = ts_metrics.height
-
-  let bar = box(
-    line(start: (0pt, 0pt), end: (0pt, bar_height), stroke: 0.05em),
-  )
-
-  bar
-  h(0.15em) // Increase this if you want them further apart
-  ts
-})
-
-#definition[
-  The *(Constructive) Logic of Proofs (LP)* is defined as follows:
-  - *Proof terms* are built recursively as either:
-    - A *proof variable*, a symbol $x_1, x_2, ...$
-    - A *constant*, a symbol $c_1, c_2, ...$. These represent axioms.
-    - *Application*: $s dot t$ for proof terms $s, t$. This concatenates two
-      proofs together.
-    - *Sums*: $s + t$. This corresponds to logical disjunction.
-    - *Checker:* $!t$. This represents checking a proof.
-  - *Formulas* are built recursively as either:
-    - Propositional variables $p_1, p_2, ...$
-    - False ($bot$).
-    - Logical implication ($=>$).
-    - *Justification* $(t realizes F)$, where $t$ is a proof term and $F$ is a
-      formula. We say that $t$ *realizes* $F$.#footnote[Note that Artëmov
-        originally denostes this by $t : F$. However, this conflicts with
-        standard notation in type theory. For this reason, we have chosen to
-        write $t realizes F$ instead. Additionally, the symbol $realizes$
-        solidifies the connection between Artëmov's work and realizability. For
-        details, consult @Artemov1994-ARTLOP.]
-  - The axioms are presented as follows:
-    - All the rules of classical propositional logic, except the Law of the
-      Excluded Middle ($p or not p$) and Explosion ($bot => p$). Again, these
-      are restricted for similar reasons from @metatheory:self-verifying.
-    - *Application:*
-      $(s realizes (F => G)) => ((t realizes F) => ((s dot t) realizes G))$.
-    - *Sum:* $(s realizes F) => ((s + t) realizes F)$ and
-      $(t realizes F) => ((s + t) realizes F)$.
-    - *Reflection:* $(t realizes F) => F$.
-    - *Checkability:* $(t realizes F) => (!t realizes (t realizes F))$. This
-      means that if a proof term realizes a formula, it can always be checked.
-  - The sole inference rule is built on the *entailment relation* $⊢$:
-    - *Modus Ponens:* if $⊢ F$ and $⊢ F => G$, then $⊢ G$.
-
-]<metatheory:def-logic-of-proofs>
-
-
-Additionally, we need *constant specifications*. A *constant specification* is a
-computable function that maps proof constants to axioms from
-@metatheory:def-logic-of-proofs, which themselves may be built from proof
-constants. This enables any base theory to be expressed. Details are provided in
-@Artemov1994-ARTLOP. For simplicity, we will treat this as an RE set of axioms
-in a first-order theory.
-
 From this, we define a *meta-proof* in $PA$ as follows.
 
+#let entails = $⊢$
+#let metaproves = $attach(⊢, br: "meta")$
+
 #definition[
-  A *meta-proof* in $PA$ is a proof term $t$ derived (under entailment) from a
-  constant specification $cal("CS")$. Moreover, this $cal("CS")$ must be
-  self-verifying (@metatheory:self-verifying). We write
-  $t attach(realizes, br: cal("CS")) F$ to specify which constants are used in
-  proving that $t$ realizes $F$.
+  Let $T$ be a self-verifying theory. Then a $T$-*meta-proof* in $PA$ of $phi$,
+  denoted $PA attach(entails, br: T) phi$, is any proof of
+  $PA entails chevron.l T entails phi chevron.r$. Here,
+  $chevron.l T entails phi chevron.r$ denotes the encoding of $T entails phi$ in
+  $PA$. Additionally, if some meta-proof of $phi$ in $PA$ exists, we say $PA$
+  *meta-proves* $phi$, denoted by $PA metaproves phi$.
 ]
 
 #let metaproves = math.attach(entails, br: $"meta"$)
 
-If there is a meta-proof in $PA$ of $phi$, we say $PA$ *meta-proves* $phi$,
-denoted $PA metaproves phi$.
 
 == Proof Completeness <metatheory:proof-completeness>
 
@@ -246,13 +177,14 @@ possible, so we want to include _every_ impredicative theory that we can express
 as well.
 
 To reach these impredicative theories, we can utilize Artëmov's approach.
-Following his method, one can soundly jump from $PA$ all the way to $ZFC$. This
-is because, over $PA$ as the base-theory, $ZFC$ is self-verifying. A reason for
-the power increase due to the axiom of replacement, or even comprehension. We
+Following his method, one can soundly jump from $PA$ all the way to $ZFC$; this,
+too, can be done with partial truth definitions. One reason why $ZFC$ is more
+powerful is because of the Axiom of Replacement, or even Comprehension. We
 extend this realization using hyperarithmetic sets, which are known to cover
-every recursive ordinal, proven in @kleene-hyperarithmetic-covering. Our
-construction relies on a well known principle of comprehension established in by
-Simpson in Reverse Mathematics @simpson-arithmetic:
+every recursive ordinal, proven in @kleene-hyperarithmetic-covering. To this
+end, our construction relies on a Simpson's principle of comprehension. This
+stems from Simpson's studies in Reverse Mathematics @simpson-arithmetic. The
+comprehension axiom states:
 
 #set math.equation(numbering: none)
 $ exists X. forall n. lr((n in X <=> Phi(n))) $
@@ -262,30 +194,35 @@ details, consult @simpson-arithmetic.
 
 We carry out this same construction for our use case. Let $lambda$ be a
 recursive limit ordinal, and consider all given theories
-$T_1, T_2, ..., T_beta, ...$ with $beta < lambda$. Note that, by definition,
-this sequence is computable by some Turing machine. Then
-$T_lambda = union.big_(beta < lambda) T_beta union "Comp"_lambda (Delta^1_1)$.
-The set $"Comp"_lambda (Delta^1_1)$ is an axiom schema over each proposition
-$phi$ definable in the extended theory. It states that
+$T_1, T_2, ..., T_beta, ...$ with $beta < lambda$. Define
+#set math.equation(numbering: none)
+$
+  T' = union.big_(beta <lambda) T_beta
+$
+
+Note that, by definition, $T'$ is computable by some Turing machine.
+
+Now, set $T_lambda = T' union "Comp"_lambda (Delta^1_1)$. Here,
+$"Comp"_lambda (Delta^1_1)$ is an axiom schema over each proposition $phi$
+definable in the extended theory. It states that
 
 #set math.equation(numbering: none)
 $
   exists X_(phi, lambda). forall n. lr(
-    (n in X_(phi, lambda) <=> (exists t. (t
-          attach(realizes, br: Lambda) phi(n))))
+    (n in X_(phi, lambda) <=> PA attach(entails, br: T') phi(n))
+  )
   )
 $
 
-where $Lambda$ is a constant specification, defined by all the constants in
-$union.big_(beta < lambda) T_beta$. To actually construct $T_lambda$,
-dovetailing can be applied. That is, one can simulate each of these theories in
-parallel, incrementally adding more steps from each theory used.
+To actually construct $T_lambda$, dovetailing can be applied. That is, one can
+simulate each of these theories in parallel, incrementally adding more steps
+from each theory used.
 
 Using the construction above, we can now prove the power of meta-proofs in $PA$.
 
-#theorem[$PA$, equipped with meta-proofs, can express any proof from a sound RE
-  theory. More precisely, for any recursive ordinal $alpha$, there is an RE
-  theory $T$ such that:
+#theorem[$PA$, equipped with all possible meta-proofs, can reach any
+  proof-theoretic ordinal. More precisely, for any recursive ordinal $alpha$,
+  there is an RE theory $T$ such that:
   - $PA$ meta-proves that $T$ proves its own serial-soundness.
   - $T$ has a theoretic proof ordinal greater than $alpha$.
 ]<metatheory:complete-proof-expressivity>
@@ -308,8 +245,9 @@ To complete the proof for Welkin, we call upon contextual lifting
   theory.]<metatheory:welkin-proof-completeness>
 #proof[
   First, note that an RE theory is provably sound if it can be expressed by a
-  meta-proof in $PA$. This is because $PA$ contains _all_ possible proofs, built
-  on reliable theories.
+  meta-proof in $PA$. For any theory $T_1$, one can construct an extension $T_2$
+  with a larger proof theoretic ordinal, based on
+  @metatheory:complete-proof-expressivity.
 
   Second, clearly $PA$ can be embedded into Welkin, based on
   @foundations:turing-completeness-section. Call this unit $"pa"$. We can
