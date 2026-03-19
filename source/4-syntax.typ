@@ -461,7 +461,7 @@ $"LL"(1)$.
       [[2]],
       [First/ \ Follow],
       [SN-FOLLOW([2]) = \ { `}`, `EOF` }],
-      [FIRST("unit") = { `*`, `@`, `~`, \ `ID`, `STRING` }],
+      [FIRST(`unit`) = { `*`, `@`, `~`, \ `ID`, `STRING` }],
       [$emptyset$],
 
       [[3]],
@@ -479,7 +479,7 @@ $"LL"(1)$.
 
       [[5]],
       [First/ \ Follow],
-      [SN-FOLLOW("choice_list") = \ { `,`, `}`, `EOF` }],
+      [SN-FOLLOW(`choice_list`) = \ { `,`, `}`, `EOF` }],
       [FIRST([5]) = { `*`, `~`, `@`, \ `ID`, `STRING` }],
       [$emptyset$],
 
@@ -497,8 +497,8 @@ $"LL"(1)$.
 
       [[8]],
       [First/ \ First],
-      [FIRST("right_arc") \ = { `-` }],
-      [FIRST("other_arc")\ = { `<-` }],
+      [FIRST(`right_arc`) \ = { `-` }],
+      [FIRST(`other_arc`)\ = { `<-` }],
       [$emptyset$],
 
       [[9]],
@@ -518,7 +518,7 @@ $"LL"(1)$.
       [First/ \ Follow],
       [SN-FOLLOW([11]) = \ { `ID`, `STRING`, `:=`, `-`, `<-`, \ `|`, `,`, `}`,
         `EOF`, `->` }],
-      [FIRST("modifiers") = { `@`, `~` }],
+      [FIRST(`modifiers`) = { `@`, `~` }],
       [$emptyset$],
 
       [[12]],
@@ -538,7 +538,7 @@ $"LL"(1)$.
       [First/ \ Follow],
       [SN-FOLLOW([14]) = \ { `.`, `:=`, `-`, `<-`, `|`, `,`, \ `}`, `EOF`, `->`
         }],
-      [FIRST("graph") = { `{` }],
+      [FIRST(`graph`) = { `{` }],
       [$emptyset$],
     )
   ]
