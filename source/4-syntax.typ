@@ -469,6 +469,24 @@ $"LL"(1)$.
       [FIRST(`:=`) = { `:=` }],
       [FIRST([7]) = { `-`, `<-` }],
       [$emptyset$],
+
+      [[4]],
+      [First/ \ Follow],
+      [SN-FOLLOW([4]) = \ { `*`, `~`, `@`, `ID`, `STRING`, \ `,`, `}`, `EOF` }],
+      [FIRST(`|`) = { `|` }],
+      [$emptyset$],
+
+      [[5]],
+      [First/ \ Follow],
+      [SN-FOLLOW("choice_list") = \ { `,`, `}`, `EOF` }],
+      [FIRST([5]) = { `*`, `~`, `@`, \ `ID`, `STRING` }],
+      [$emptyset$],
+
+      [[6]],
+      [First/ \ Follow],
+      [SN-FOLLOW(\*{ "", [6] }) = \ { `,`, `}`, `EOF` }],
+      [FIRST([6]) = { `|` }],
+      [$emptyset$],
     )
   ]
   #figure(
