@@ -487,6 +487,24 @@ $"LL"(1)$.
       [SN-FOLLOW(\*{ "", [6] }) = \ { `,`, `}`, `EOF` }],
       [FIRST([6]) = { `|` }],
       [$emptyset$],
+
+      [[7]],
+      [First/ \ Follow],
+      [SN-FOLLOW(\*{ "", [7] }) = \ { `|`, `,`, `}`, `EOF` }],
+      [FIRST([7]) = { `-`, `<-` }],
+      [$emptyset$],
+
+      [[8]],
+      [First/ \ First],
+      [FIRST("right_arc") = { `-` }],
+      [FIRST("other_arc") = { `<-` }],
+      [$emptyset$],
+
+      [[9]],
+      [First/ \ First],
+      [FIRST(`-`) = { `-` }],
+      [FIRST(`->`) = { `->` }],
+      [$emptyset$],
     )
   ]
   #figure(
