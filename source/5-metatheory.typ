@@ -193,15 +193,15 @@ recursive limit ordinal, and consider all given theories
 $T_1, T_2, ..., T_beta, ...$ with $beta < lambda$. Define
 #set math.equation(numbering: none)
 $
-  T' = union.big_(beta <lambda) T_beta
+  T' = union.big_(beta <lambda) T_beta.
 $
 
 Note that, because the sequence above is indexed by recursive ordinals, $T'$ is
 computable by some Turing machine. Moreover, $T'$ is self-verifying: one can
 combine the selectors for each $T_j$ into a single selector. This requires
-dovetailing, which is the simulation of these theories in paralelel. The
-definitions of each selector can be incrementally added, ensuring that all
-theories are covered.
+dovetailing, which simulates each selector in parallel. The outputs of each
+selector can be incrementally added, ensuring that they are enumerated in the
+final selector.
 
 Now, set $T_lambda = T' union "Comp"_lambda (Delta^1_1)$. Here,
 $"Comp"_lambda (Delta^1_1)$ is an axiom schema over each predicate $phi(n)$
@@ -215,7 +215,7 @@ $
   ).
 $
 
-Constructing $T_lambda$ can be done with dovetailing, described above. This
+Constructing $T_lambda$ can be done with dovetailing, as described above. This
 ensures that each limit stage does _not_ rely on non-constructive principles,
 such as Choice. Similarly, with the same technique, $T_lambda$ can be shown to
 be self-verifying.
@@ -227,7 +227,7 @@ $PA$.
   proof-theoretic ordinal. More precisely, for any recursive ordinal $alpha$,
   there is an RE theory $T$ such that:
   - $PA$ meta-proves that $T$ proves its own serial-soundness.
-  - $T$ has a theoretic proof ordinal greater than $alpha$.
+  - $T$ has a proof-theoretic ordinal greater than $alpha$.
 ]<metatheory:complete-proof-expressivity>
 #proof[
   As previously mentioned, autonomous progressions are enough to reach the
@@ -248,16 +248,17 @@ To complete the proof for Welkin, we call upon contextual lifting
   theory.]<metatheory:welkin-proof-completeness>
 #proof[
   First, note that an RE theory is provably sound if it can be expressed by a
-  meta-proof in $PA$. For any theory $T_1$, one can construct an extension $T_2$
-  with a larger proof theoretic ordinal, based on
-  @metatheory:complete-proof-expressivity.
+  meta-proof in $PA$. For any theory $T_1$, one can construct an extension
+  $T_2 supset.eq T_1$ with a larger proof theoretic ordinal, based on
+  @metatheory:complete-proof-expressivity. If some $T_2$ proves that $T_1$ is
+  sound, then its derivations can be meta-proven in $PA$.
 
   Second, clearly $PA$ can be embedded into Welkin, based on
   @foundations:turing-completeness-section. Call this unit $"pa"$. We can
   express any self-verifying theories $"T"$ and $"T'"$ as units (again, via
   @foundations:turing-completeness-section), and we add the rule
-  $"T'" - "pa" -> "T"$ if $"T"'$ extends $"T"$. Thus, any derivation expressed
-  in $"T"$, consisting of steps of the form $u_i - "T'" -> u_j$, means that
-  these carry to $T$ as well, _within_ $"pa"$. By this observation and
+  $"T'" - "pa" -> "T"$ if $"T"'$ extends $"T"$. Thus, any derivation
+  ${u_1 - "T'" -> u_2 -> ... - "T'" -> u_n}$, can be lifted to $T$ as well,
+  _within_ $"pa"$. By this observation and
   @metatheory:complete-proof-expressivity, this completes the proof.
 ]
