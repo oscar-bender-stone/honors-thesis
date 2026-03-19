@@ -179,12 +179,12 @@ Additionally, there is an important property we will need.
   $PA$. (This can be done through a Turing machine corresponding to $PA$ and
   using @foundations:turing-completeness-section.) Now, let $T_1, T_2, T_3$ be
   theories, corresponding to units $"T_1", "T_2", "T_3"$, respectively, wihth
-  include units $"phi$"$ for each sentence $phi$. Set
-  $"phi_1"- "T_i" -> "phi_2"$ if $T_i entails (phi_1 => phi_2)$. Now, set
-  $T_1 - T_3 -> T_2$ if $T_3$ is a self-verifying theory and
-  $PA entails_T_3 chevron.l (T_1 entails phi) => (T_2 entails phi) chevron.r$.
-  By @r:context-lift, a derivation of $"phi_1" - "T" - "phi_2"$ lifts into
-  $"phi_1" - "T2" - "phi_2"$ _within_ $"pa"$.
+  include units $"phi"$ for each sentence $phi$. Set $"phi_1"- "T_i" -> "phi_2"$
+  if $T_i entails (phi_1 => phi_2)$. Now, set $"T_1"- "T_3"-> "T_2"$ if $T_3$ is
+  a self-verifying theory and
+  $PA attach(entails, br: T_3) chevron.l (T_1 entails phi) => (T_2 entails phi) chevron.r$.
+  By @r:context-lift, a derivation of #box[$"phi_1" - "T" -> "phi_2"$] lifts
+  into #box[$"phi_1" - "T2" -> "phi_2"$] _within_ $"pa"$.
 ]<metatheory:remark-selector-proof-composition>
 
 
