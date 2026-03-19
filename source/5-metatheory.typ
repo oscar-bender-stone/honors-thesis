@@ -217,8 +217,11 @@ $
 
 Constructing $T_lambda$ can be done with dovetailing, described above. This
 ensures that each limit stage does _not_ rely on non-constructive principles,
-such as Choice. Using the construction above, we can now prove the power of
-meta-proofs in $PA$.
+such as Choice. Similarly, with the same technique, $T_lambda$ can be shown to
+be self-verifying.
+
+Using the construction above, we can now prove the power of all meta-proofs in
+$PA$.
 
 #theorem[$PA$, equipped with all possible meta-proofs, can reach any
   proof-theoretic ordinal. More precisely, for any recursive ordinal $alpha$,
