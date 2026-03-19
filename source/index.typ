@@ -36,11 +36,10 @@
     ),
   ),
   abstract: [This thesis proposes a universal information language called
-    Welkin. We introduce its use cases and rigorously define its underlying
-    theory and syntax. We prove that the syntax is unambiguous, and that Welkin
-    can express any concept and proof recognized by some computer program. We
-    conclude with future work, including standardization and revision
-    management.],
+    Welkin. We introduce its use cases, as well rigorusly define its rules and
+    syntax. We prove that the syntax is unambiguous, and that Welkin can express
+    any concept and proof recognized by some computer program. We conclude with
+    future work, including standardization and revision management.],
   notes: [This thesis used Google Gemini (#link("https://gemini.google.com/"))
     for the following tasks: reviewing the iterature, discussing conjectures,
     clarifying new concepts, evaluating new language features, and creating
