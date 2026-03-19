@@ -467,9 +467,10 @@ Welkin, this is exactly a derivation involving $q - c -> q$.
 #definition[
   Let $c$ and $q$ be units.
 
-  - A *derivation over* $c$ is a unit ${u_1 - c -> u_2 ... - c -> u_n}$ such
-    that each $u_i$ is either a) $u_i$ is contained in $c$, or b) an application
-    of a rule in @table:unit-rules from previous units $u_1, ..., u_j$.
+  - A *derivation over* $c$ is a unit ${u_1 - c -> u_2 - c -> ... - c -> u_n}$
+    such that for each $u_i$, either a) $u_i$ is contained in $c$, or b) $u_i$
+    is an application of a rule in @table:unit-rules from previous units
+    $u_1, ..., u_j$.
   - We say $u$ *contains information* about a query $q$ in context $c$ if it
     contains a derivation that ends with the unit ${q - c -> q}$. Moreovoer, we
     say it *is information* if it only contains derivations ending in
@@ -477,11 +478,11 @@ Welkin, this is exactly a derivation involving $q - c -> q$.
 ]<foundations:information>
 
 Our work in @metatheory proves that this definition is _complete_, or that _any_
-proof accepted by a Turing machine is accepted by Welkin. Note that this _highly
-depends_ on contextual lifting (@r:context-lift). Additionally, this enables
-proofs that certain queries are _not_ possible. This method is inherently
-incomplete, due to limitations in Turing machines. For more details, consult
-@metatheory.
+proof accepted by a Turing machine is accepted by Welkin. Note that this is
+possible thanks to contextual lifting (@r:context-lift). Additionally, this
+enables proofs that certain queries are _not_ possible. Nevertheless, this
+method is inherently incomplete, due to limitations in Turing machines. For more
+details, consult @metatheory.
 
 
 
