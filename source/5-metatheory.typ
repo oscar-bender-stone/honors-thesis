@@ -8,7 +8,7 @@
   corollary, equation_block, lemma, proof, theorem,
 )
 
-#import "template/ams-article.typ": proof-sketch, recursion
+#import "template/ams-article.typ": proof-sketch
 
 = Metatheory <metatheory>
 
@@ -131,6 +131,15 @@ define its own truth predicate _at the object language_
 general. We do not avoid Tarski's theorem, but we do approximate it _as_ closely
 as Turing machines allow.
 
+Additionally, there is an important property we will need.
+
+#lemma[Let $T, T'$ be theories, with $T$ being self-verifying. If $T$ proves
+  that $T'$ is self-verifying, then so does $PA$.]
+#proof[
+  This corresponds to composing selector proofs.
+]
+
+
 From this, we define a $T$*-meta-proof* in $PA$ as follows.
 
 #definition[
@@ -138,21 +147,28 @@ From this, we define a $T$*-meta-proof* in $PA$ as follows.
   denoted $PA attach(entails, br: T) phi$, is any proof of
   $PA entails chevron.l T entails phi chevron.r$. Here,
   $chevron.l T entails phi chevron.r$ denotes the encoding of $T entails phi$ in
-  $PA$. Additionally, consider theories $T$, $T'$ and a sentence $phi$. Then we
-  define when $phi$ is $T$*-meta-provable* in $T'$ recursively:
-  #recursion[
-    $PA entails chevron.l (T' entails phi) => (T' entails phi) chevron.r$.
-  ][
-    For some $T''$,
-    $PA entails chevron.l (T'' entails chevron.l((T' entails phi) => (T entails phi) chevron.r) chevron.r$.
-  ]
+  $PA$.
+
+  // $PA$. Additionally, consider general $T', T''$ and a sentence $phi$. Then we
+  // $phi$ is $T'$*-meta-provable* in $T'$ if the following holds: there is some $T$ recursively:
 ]
 
 Note that the base theory $T$ is important. This is because, two theories may be
-sound but prove $phi$ and $not phi$, respectively. This is this considered in
-the definition of meta-provability. In Welkin, these are managed precisely
-through certain contexts. We will define these in the last proof, refer to
-@metatheory:welkin-proof-completeness.
+sound but prove $phi$ and $not phi$, respectively.
+
+
+This is this considered in the definition of meta-provability.
+
+#definition[
+  Let $T'$ be a first order theory, and let $phi$ be a sentence. Then $phi$ is
+  *meta-provable* if, for some self-verifying theory $T$,
+  $PA attach(entails, br: T) chevron.l T' entails phi chevron.r.$
+]<metatheory:meta-provability>
+
+Observe that $T'$ need _not_ be sound. The point of this definition is to ensure
+_completeness_. Welkin handles this via contexts, isolating conflicting
+sentences from each other. This is important in the final result of this
+section, refer to @metatheory:welkin-proof-completeness.
 
 == Proof Completeness <metatheory:proof-completeness>
 
@@ -199,8 +215,10 @@ $ exists X. forall n. lr((n in X <=> Phi(n))) $
 where $Phi(n)$ is a predicate that is both $Sigma^1_1$ and $Pi^1_1$. For
 details, consult @simpson-arithmetic.
 
-We carry out this same construction for our use case. Let $lambda$ be a
-recursive limit ordinal, and consider all given theories
+We carry out this same construction for our use case. For simplicity, we will
+ensure that all constructed theories are self-verifying.
+
+Let $lambda$ be a recursive limit ordinal, and consider all given theories
 $T_1, T_2, ..., T_beta, ...$ with $beta < lambda$. Define
 #set math.equation(numbering: none)
 $
@@ -266,11 +284,13 @@ To complete the proof for Welkin, we call upon contextual lifting
   serial-sound, even if $T_1$ cannot.
 
   Second, clearly $PA$ can be embedded into Welkin, based on
-  @foundations:turing-completeness-section. Call this unit $"pa"$. We can
-  express any self-verifying theories $"T"$ and $"T'"$ as units (again, via
-  @foundations:turing-completeness-section), and we add the rule
-  $"T'" - "pa" -> "T"$ if in $"PA"$, we can prove that any sentence $phi$ of
-  $"T"$ and is $"T"$-meta-provable in $"T'"$. Thus, any derivation
+  @foundations:turing-completeness-section. Call this unit $"pa"$. This unit
+  consists of sentences $a, b, ...$, and $a - "pa" -> b$ holds if
+  $PA entails a => b$. Additionally, we can embed the recursive definition of
+  meta-provability in Welkin. One way to do this is by creating a context in
+  $"pa"$ for each sentence $phi$, and adding $T - "phi" -> T'$ if $phi$ is
+  $T$-meta-provable in $T'$.
+
   ${u_1 - "T'" -> u_2 -> ... - "T'" -> u_n}$, can be lifted to $T$ as well,
   _within_ $"pa"$. By this observation and
   @metatheory:complete-proof-expressivity, this completes the proof.
