@@ -359,8 +359,8 @@ $F$, and $F union E$ denotes the union of sets $F$ and $E$.
     ]
     - $SNFOLLOW(epsilon) = emptyset$
     - $SNFOLLOW(t) = emptyset$
-    - $SNFOLLOW(A dot B) = SNFOLLOW(A) union SNFOLLOW(B) "if" NULLABLE(A) "else" emptyset$.
-    - $SNFOLLOW(A | B) = SNFOLLOW(A) union SNFOLLOW(B) union (FIRST(A) "if" NULLABLE(B) "else" emptyset) union (FIRST(B) "if" NULLABLE(A) "else" emptyset)$.
+    - $SNFOLLOW(A | B) = SNFOLLOW(A) union SNFOLLOW(B) "if" NULLABLE(A) "else" emptyset$.
+    - $SNFOLLOW(A dot B) = SNFOLLOW(A) union SNFOLLOW(B) union (FIRST(A) "if" NULLABLE(B) "else" emptyset) union (FIRST(B) "if" NULLABLE(A) "else" emptyset)$.
 ]
 
 Using these properties, we are now ready to define $"LL"(1)$ grammars. Without
