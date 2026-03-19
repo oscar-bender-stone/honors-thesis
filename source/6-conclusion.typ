@@ -57,7 +57,8 @@ We compare from the solutions presented in the introduction (@introduction):
 
 == Future Work <conclusion:future-work>
 
-The author has several future projects for Welkin in mind. These include:
+The author has several future projects for Welkin in mind, particularly to reach
+goals @scalable and @standard. These include:
 
 - *Writing the Standard:* this would be a self contained document that
   describes. The Standard would _bootstrap_ the language, providing step-by-step
