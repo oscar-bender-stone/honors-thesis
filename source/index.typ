@@ -4,8 +4,8 @@
 #import "template/ams-article.typ": ams_article
 
 #show: ams_article.with(
-  draft: true,
-  defense-copy: false,
+  draft: false,
+  defense-copy: true,
   title: [Designing a Universal Information Language],
   authors: (
     (
@@ -36,7 +36,7 @@
     ),
   ),
   abstract: [This thesis proposes a universal information language called
-    Welkin. We introduce its use cases, as well rigorusly define its rules and
+    Welkin. We introduce its use cases, as well rigorously define its rules and
     syntax. We prove that the syntax is unambiguous, and that Welkin can express
     any concept and proof recognized by some computer program. We conclude with
     future work, including standardization and revision management.],
