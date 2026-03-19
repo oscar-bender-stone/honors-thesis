@@ -472,7 +472,7 @@ $"LL"(1)$.
 
       [[4]],
       [First/ \ Follow],
-      [SN-FOLLOW([4]) = \ { `*`, `~`, `@`, `ID`, `STRING`, \ `,`, `}`, `EOF`, \
+      [SN-FOLLOW([4]) = \ { `*`, `~`, `@`, `ID`, `STRING`, \ `,`, `}`, `EOF`,
         `-`, `->` }],
       [FIRST(`|`) = { `|` }],
       [$emptyset$],
@@ -485,20 +485,20 @@ $"LL"(1)$.
 
       [[6]],
       [First/ \ Follow],
-      [SN-FOLLOW(\*{"", [6]}) = \ { `,`, `}`, `EOF` }],
+      [SN-FOLLOW(\*{"", [6]}) = { `,`, `}`, `EOF` }],
       [FIRST([6]) = { `|` }],
       [$emptyset$],
 
       [[7]],
       [First/ \ Follow],
-      [SN-FOLLOW(\*{"", [7]}) = \ { `|`, `,`, `}`, `EOF` }],
+      [SN-FOLLOW(\*{"", [7]}) = { `|`, `,`, `}`, `EOF` }],
       [FIRST([7]) = { `-`, `<-` }],
       [$emptyset$],
 
       [[8]],
       [First/ \ First],
-      [FIRST("right_arc") = { `-` }],
-      [FIRST("other_arc") = { `<-` }],
+      [FIRST("right_arc") \ = { `-` }],
+      [FIRST("other_arc")\ = { `<-` }],
       [$emptyset$],
 
       [[9]],
