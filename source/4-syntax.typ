@@ -204,6 +204,8 @@ node := "*"
     path - lexeme -> *{"", binding}
   }
 
+graph :=  "{" - lexeme -> units - lexeme -> "}",
+
 binding := ":=" - lexeme -> choices,
 choices := *{"", "|"}
   - lexeme -> unit
@@ -213,15 +215,9 @@ choices := *{"", "|"}
     - lex_many_till -> *{"", "|"}
   },
 
-graph := path
-  - lexeme -> "{"
-  - lexeme -> units
-  - lexeme -> "}",
-
-path := *{"", "~"}
-  - seq -> *{"", "@"}
-  - seq -> HANDLE
-  - seq -> trailer,
+path := *{"", modifier} - seq -> base
+modifier := "~" - seq -> *{"", "@"} | "@"
+base := HANDLE - seq -> trailer
 
 trailer - *{
   "",
