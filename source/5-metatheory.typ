@@ -24,16 +24,15 @@ and set theory. For specific references, consult @mendelson_logic and
     columns: (20%, 25%, 55%),
     align: left,
     table.header([*Section Number*], [*Title*], [*Description*]),
-    [@metatheory:artemov-logic-of-proofs],
-    [Artemov's Selector Proofs],
-    [Establishes a generalized version of Artemov's *Logic of Proofs*, a logic
-      that explains how jutsifications work. We also define
-      *serial-soundness*.],
+    [@metatheory:artemov-selector-proofs],
+    [*Artemov's Selector Proofs*],
+    [Explains Artemov's selector proofs, specifically his finitistic proof of
+      Peano Arithmetic's consistency. Expands this to soundness.],
 
-    [Artemov's Logic of Proofs],
-    [Establishes a generalized version of Artemov's *Logic of Proofs*, a logic
-      that explains how jutsifications work. We also define
-      *serial-soundness*.],
+    [@metatheory:artemov-logic-of-proofs],
+    [*Artemov's Logic of Proofs*],
+    [Introduces Artemov's *Logic of Proofs*, a logic that explains how
+      jutsifications work. We also define *serial-soundness*.],
 
     [@metatheory:proof-completeness],
     [*Proof Completeness*],
@@ -86,21 +85,20 @@ onto the embedding in Welkin.
 #definition[
   Suppose $T$ is sufficiently strong to express its own proofs. Then $T$ is
   *serial-consistent* if there is a *selector* for $T$. A *selector* is a
-  computable function $s$#footnote[Technically, this is a primitive recursive
+  computable function#footnote[Technically, this is a primitive recursive
     function, but we will quickly generalize this to _any_ computable function.]
-  with two properties:
+  $s$ with two properties:
   - $s$ accepts any string that encodes a valid proof.
   - if $s$ accepts a proof, then it cannot contain a contradiction.
 ]<metatheroy:artemov-serial-consistency>
 
 Artemov overcomes Gödel's second incompleteness theorem. This theorem states
-that Peano Arithmetic $PA$ (as well as $HA$), cannot prove its own consistency.
-Artemov instead demonstrates that $PA$ proves its own _serial-consistency_, as
-follows:
+that Peano Arithmetic $PA$, cannot prove its own consistency. Artemov instead
+demonstrates that $PA$ proves its own _serial-consistency_, as follows:
 - He uses a weak meta-theory, in this case, Primitive Recursive Arithmetic
   ($PRA$). This theory is bounded by a weak principle of induction.
-- Artemov encodes all proofs as natural numbers in $PRA$. $PRA$ is sufficiently
-  strong _just_ to encode all of these proofs.
+- Artemov encodes all proofs as natural numbers in $PRA$; this theory is
+  sufficiently strong _just_ to encode all of these proofs.
 - Finally, he uses a proof by induction, over encoded proofs in $PRA$, to show
   that $PA$ proves each _individual_ proof contains no contradictions. This is
   possible through partial truth definitions.
@@ -121,7 +119,9 @@ need a specific stronger version for our purposes.
 #definition[
   Let $T$ be an extension of $PA$. Then $T$ is *(reliably) serial-sound* if
   there is a total computable function $s$ over proofs of $T$, constructed in
-  $PA$, such that $T$ proves this selector only accepts sound proofs.
+  $PA$, such that $T$ proves this selector only accepts sound proofs. Moreover,
+  this selector may _not_ use the general Law of the Excluded Middle
+  ($phi or not phi$) nor the Principle of Explosion (#box[$bot => phi$]).
 ]
 
 The exact same proof applies, using the same partial truth definition. Tarski's
