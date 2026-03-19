@@ -415,8 +415,8 @@ $"LL"(1)$.
   @syntax:LL1-calculations. To conserve space, each subrule is assigned an
   $"ID"$, and may be used in other subrules. We exclude easy cases, including
   `HANDLE`, or which start with a unique character. Moreover, any rule of the
-  form $"*"{"", A}$ immediately has disjoint $FIRST$ sets, so we exclude these
-  in the table.
+  form `*{"", A}` immediately has disjoint $FIRST$ sets, so we exclude most of
+  these in the table.
 
   With each of these properties satisfied, this proves that
   @syntax:figure-welkin-grammar is $"LL"(1)$. Thus, as all $"LL"(1)$ grammars
@@ -454,7 +454,7 @@ $"LL"(1)$.
 
       [[1]],
       [First/ \ Follow],
-      [SN-FOLLOW(\*{ "", [1] }) = \ { `}`, `EOF` }],
+      [SN-FOLLOW(\*{"", [1]}) = \ { `}`, `EOF` }],
       [FIRST([1]) = { `,` }],
       [$emptyset$],
 
@@ -484,13 +484,13 @@ $"LL"(1)$.
 
       [[6]],
       [First/ \ Follow],
-      [SN-FOLLOW(\*{ "", [6] }) = \ { `,`, `}`, `EOF` }],
+      [SN-FOLLOW(\*{"", [6]}) = \ { `,`, `}`, `EOF` }],
       [FIRST([6]) = { `|` }],
       [$emptyset$],
 
       [[7]],
       [First/ \ Follow],
-      [SN-FOLLOW(\*{ "", [7] }) = \ { `|`, `,`, `}`, `EOF` }],
+      [SN-FOLLOW(\*{"", [7]}) = \ { `|`, `,`, `}`, `EOF` }],
       [FIRST([7]) = { `-`, `<-` }],
       [$emptyset$],
 
@@ -528,7 +528,7 @@ $"LL"(1)$.
 
       [[13]],
       [First/ \ Follow],
-      [SN-FOLLOW(\*{ "", [13] }) = \ { `:=`, `-`, `<-`, `|`, `,`, \ `}`, `EOF`,
+      [SN-FOLLOW(\*{"", [13]}) = \ { `:=`, `-`, `<-`, `|`, `,`, \ `}`, `EOF`,
         `->` }],
       [FIRST([13]) = { `.` }],
       [$emptyset$],
