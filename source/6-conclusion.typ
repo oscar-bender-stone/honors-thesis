@@ -39,9 +39,16 @@ We compare from the solutions presented in the introduction (@introduction):
   generality or specificity. Moreovoer, as with RDF, Welkin can easily express
   logical constraints.
 
-- *Cyc:*
+- *Cyc:* .
 
-- *fcaR (Formal Concept Analysis in R):*
+- *fcaR (Formal Concept Analysis in R):* Welkin uses a lattice through
+  @table:unit-rules. This is similar to how Formal Concept Analysis (FCA)
+  studies a concept lattice. Welkin can also embed core or derived concepts, due
+  to the simplicity of @foundations:containment. Nevertheless, Welkin manages to
+  enable a simpler lattice and still be completely universal. Certain proofs,
+  when naively embedded, may be too large, but these can be adjusted through
+  finding better proofs. Contexts also enable easier comparisons across multiple
+  data sources.
 
 == Future Work <conclusion:future-work>
 
