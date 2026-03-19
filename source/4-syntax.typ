@@ -436,7 +436,7 @@ $"LL"(1)$.
       [[11]], [`trailer`], [`"." - seq -> choice`],
       [[12]], [`trailer`], [`segment - seq -> *{"", [11]}`],
     )],
-    caption: [IDs ],
+    caption: [IDs for each main subrule used in analysis.],
   )<syntax:LL1-subrule-IDs>
 
   #figure(

@@ -24,153 +24,39 @@ and set theory. For specific references, consult @mendelson_logic and
     columns: (20%, 25%, 55%),
     align: left,
     table.header([*Section Number*], [*Title*], [*Description*]),
-    // [*@syntax:encoding*], [*Encoding*], [Introduces the encoding for Welkin.],
+    [@metatheory:artemov-logic-of-proofs],
+    [Artemov's Logic of Proofs],
+    [Establishes a generalized version of Artemov's *Logic of Proofs*, a logic
+      that explains how jutsifications work. We also define
+      *serial-soundness*.],
+
+    [@metatheory:proof-completeness],
+    [*Proof Completeness*],
+    [Proves that Welkin can define any proof that is a) based on a sound theory,
+      and b) is accepted by some Turing machine.],
   ),
   caption: [Overview of @syntax.],
 )<metatheory:overview>
 
+#let PA = math.text("PA")
 
-+ We show that Welkin's base theory is equivalent to a weak fragment of
-  arithmetic, $I Delta_0$.
+For simplicity, we will make our base theory Peano Arithmetic, denoted $PA$.
+Recall that any unit is equivalent to a Turing machine
+@foundations:turing-completeness-section. Because any Turing machine can be
+expressed through a simple encoding in $PA$, so to can units, as well as the
+rules in @table:unit-rules. A future work will consider weaker theories that can
+embed Welkin. Additionally, we make two assumptions without loss of generality:
 
-+ We overview Artemov's work in serial consistency. @artemov_serial_consistency.
+- First, we will consider only RE first-order theories $T$. This is because any
+  formal system must be defined with proofs accepted by some Turing machine. In
+  turn, this Turing machine can be expressed as a first order theory, consult
+  @trakhtenbrot50.
 
-+ We establish the meta-theory, and show it can encompass any formal system.
+- Secondly, we will only consider theories in the language of $PA$. Any
+  first-order theory can encoded through arithmetic, using a similar
+  construction from the point above.
 
-+ We show the meta-theory "meta-proves" its own soundness, _without_
-  contradicting known impossibility results.
-
-+ We conclude with the definition of information.
-
-[TODO: define language of arithmetic!]
-
-We will make two assumptions without loss of generality:
-
-- First, we will consider only first-order theories $T$ that are RE. This is
-  because any formal system must be defined with proofs accepted by some Turing
-  machine. In turn, this Turing machine can be expressed as a first order
-  theory, consult @trakhtenbrot50. [TODO: maybe make more clearer claim?]
-
-- Secondly, we will only consider theories in the language of arithmetic [TODO:
-  maybe define?]. A first-order theory can be encoded via arithmetic, similar to
-  the assumption above.
-
-// In this proof, a step is to
-// show that for any Turing machine $M$, there is a a first-order theory whose
-// theorems concide with the language of $M$. [TODO: decide if we want to prove
-// this is true IN $I Delta_0$, to show that it alone is enough. Put into the
-// appendix. Pretty simple embedding.]
-
-== Establishing the Floor: $I Delta_0$
-
-To compare Welkin against other theories, we show the unit $"verify"$ can be
-translated to $I Delta_0$, a weak fragment of arithmetic, and vice versa. This
-subsection is optional, and we will keep the proofs at a high-level for
-readability. For background in first-order logic, please refer to
-@mendelson_logic.
-
-Herein, let $a <=> b$ denote $a$ if and only if $b$. Robinson Arithmetic denotes
-the base set of axioms; refer to @hajek-pudlak-metamath-arithmetic[Ch. 1], which
-use $I Sigma_0$ to denote $I Delta_0$.
-
-[TODO[SMALL]: fix equation labels!]
-
-#definition[*Robinson Arithmetic $Q$* is the first-order theory over the
-  language of arithmetic with the following axioms, universally quantified over
-  $x, y, z$:
-
-  - *Q1:* $not (S(x) != 0)$.
-  - *Q2:* $S(x) = S(y) => x = y$.
-  - *Q3:* $x != 0 => exists y. x = S(y)$.
-  - *Q4:* $x + 0 = x$.
-  - *Q5:* $x + S(y) = S(x + y)$.
-  - *Q6:* $x * 0 = 0$.
-  - *Q7:* $x * S(y) = (x * y) + x$.
-  - *Q8:* $x <= y equiv exists z. z + x = y$
-]<foundations:robinson-arithmetic>
-
-#definition[The theory $I Delta_0$ @paris-wilkie-delta-0-sets consists of $Q$
-  plus the *bounded induction schema*:
-
-  #equation_block(
-    prefix: "I",
-    [$(phi(0) and forall x. (phi(x) => phi(x + 1))) => forall x. phi(x)$],
-  )
-
-  for each $phi$ with bounded quantifiers, which means quantifiers
-  $exists x < t. psi(x, t)$ and $forall x < t. psi(x, t)$ where $x$ is free in
-  term $t$ and $psi(x, t)$ is quantifier free.
-]<foundations:I-Delta0>
-
-#remark[
-  Note that the induction schema is stronger than having open formulas. This
-  allows statements about, e.g., odd and even numbers to be proved. We will need
-  this to express $"verifier"$.
-]
-
-[TODO[MEDIUM]: make this more rigorous. ] #lemma[
-  The unit $"verifier"$ is definable in $I Delta_0$.
-]<foundations:I-Delta0-to-welkin>
-#proof-sketch[
-  The claim relies on defining $"unit"$. From there, one can easily express the
-  conditions in $"verifier"$ by simple recursion.
-
-  To this end, we first argue that the inductive definitions can be written in
-  $I Delta_0$. Clearly, every handle can be expressed, indexing each triple of
-  functions with Cantor's pairing function, sending triples
-  $("UID", "RID", "HID")$ to natural numbers. Similarly, representations can be
-  indexed by a pairing argument. It remains to show that blocks can be defined
-  as well. We claim that an extended pairing function can be made that is
-  defined inductively. [TODO: define this function!]
-
-  Second, it can be easily shown that each rule in @table:unit-rules are
-  definable by induction, in at most 7 variables.
-]
-
-An important consequence of this theorem is the following, proving that the
-meta-theory for Welkin is as minimal as possible.
-
-Now we proceed that Welkin's $"verifier"$ is itself can process any $I Delta_0$
-proof.
-
-#lemma[
-  There is a unit $"Q"$ in Welkin and a bijection from propositions $phi$ units
-  $u_phi$ such that $Q tack.r phi$ if and only if $u_phi - "part" -> "Q"$.
-]<metatheory:Q-in-welkin>
-#proof[
-  Let $"Q"$ be a new handle. Encode the naturals into words via
-  @foundations:word and @foundations:binary-word-equality, with successor
-  represented through pairs. [TODO: define addition and multiplication via
-  units, in the direct way.]
-
-  Axioms *Q1-Q3* easily follow from []. The remaining axioms are included in
-  $Q$. [TODO: note how quantifiers are correctly expressed in a separate lemma].
-  Using transitivity and ?, this completes the proof.
-]
-
-#theorem[
-  Welkin's $"verifier"$ verifies there is a context with all derivations of
-  $I Delta_0$.
-]<foundations:welkin-to-I-Delta0>
-#proof[
-  We prove that $"Q"$, constructed in @metatheory:Q-in-welkin, combined with the
-  $"verifier"$ unit proves the claim. TBD.
-]
-
-Taken together, we can prove that Welkin has a minimal metatheory.
-
-#corollary[_(Base Theory: $I Delta_0$)._ Suppose $T$ is another first order
-  theory that proves the existence of Welkin's $"verifier"$. Then
-  $T => I Delta_0$.
-]<foundations:welkin-minimal>
-#proof[
-  Over $I Delta_0$, @foundations:I-Delta0 proves the existence of $"verifier"$
-  implies $I Delta_0$. Thus, if $T$ proves the existence of $"verifier"$, it
-  must satisfy $I Delta_0$ as well, completing the proof.
-]
-
-
-== Artemov's Approach
+== Artemov's Logic of Proofs <metatheory:artemov-logic-of-proofs>
 
 A major goal in Welkin is to express any representable notion, _including_ any
 representabale proof. Proofs are a finite certificate that consists of a valid
@@ -227,6 +113,8 @@ approximate it _as_ closely as partial computable functions allow. Because some
 logics may not have a notion of inconsistency, we will not define consistency
 itself. However, given the results in @foundations, first order logic can be
 expressed in several ways.
+
+== Proof Completeness <metatheory:proof-completeness>
 
 == Truth and Soundness
 
