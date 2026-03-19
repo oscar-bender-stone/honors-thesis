@@ -26,14 +26,14 @@ respectively.
     align: left,
     table.header([*Section Number*], [*Title*], [*Description*]),
     [@metatheory:artemov-selector-proofs],
-    [*Artëmov's Selector Proofs*],
-    [Explains Artëmov's selector proofs, specifically his finitistic proof of
-      Peano Arithmetic's consistency. Expands this to soundness.],
+    [*Artëmov's #linebreak() Selector Proofs*],
+    [Explains Artëmov's selector proofs. This includes his finitistic proof of
+      Peano Arithmetic's consistency. Expands selector proofs for soundness.],
 
     [@metatheory:proof-completeness],
-    [*Proof Completeness*],
-    [Proves that Welkin can define any proof that is a) based on a sound theory,
-      and b) is accepted by some Turing machine.],
+    [*Proof #linebreak() Completeness*],
+    [Proves that Welkin can define any proof that based in a provably sound RE
+      theory.],
   ),
   caption: [Overview of @syntax.],
 )<metatheory:overview>
@@ -44,7 +44,7 @@ respectively.
 
 For simplicity, we will make our base theory Peano Arithmetic ($PA$). Recall
 that any unit is equivalent to a Turing machine
-@foundations:turing-completeness-section. Because any Turing machine can be
+(@foundations:turing-completeness-section). Because any Turing machine can be
 expressed through a simple encoding in $PA$, so to can units, as well as the
 rules in @table:unit-rules. A future work will consider weaker theories that can
 embed Welkin. Additionally, we make two assumptions without loss of generality:
@@ -56,10 +56,6 @@ embed Welkin. Additionally, we make two assumptions without loss of generality:
 - Secondly, we will only consider theories in the language of $PA$. Any
   first-order theory can encoded through arithmetic, using a similar
   construction from the point above.
-
-- Thirdly, we stick to first order theories that use classical logic for
-  simplicity. This will not affect completeness either. Again, the corresponding
-  Turing machine of a non-classical logic can be simulated by a classical one.
 
 == Artëmov's Selector Proofs <metatheory:artemov-selector-proofs>
 
@@ -200,7 +196,8 @@ $
   T' = union.big_(beta <lambda) T_beta
 $
 
-Note that, by definition, $T'$ is computable by some Turing machine.
+Note that, because the sequence above is indexed by recursive ordinals, $T'$ is
+computable by some Turing machine.
 
 Now, set $T_lambda = T' union "Comp"_lambda (Delta^1_1)$. Here,
 $"Comp"_lambda (Delta^1_1)$ is an axiom schema over each proposition $phi$
