@@ -204,8 +204,8 @@ right_arc := "-" - seq -> node - seq -> "->",
 other_arc := "<-" - seq -> node - seq -> *{"-" | "->"},
 
 node := *{"", "*"} - seq -> path,
-path := *{"", modifier} - seq -> trailer - lexeme ,
-modifier := "~" - seq -> *{"", "@"} | "@",
+path := *{"", modifiers} - seq -> trailer - seq -> *{"", graph},
+modifiers := "~" - seq -> *{"", "@"} | "@",
 trailer := segment - seq -> *{"", "." - seq -> trailer},
 segment := HANDLE - lexeme -> *{"", graph},
 graph :=  "{" - lexeme -> units - lexeme -> "}",
@@ -420,18 +420,38 @@ $"LL"(1)$.
     [#table(
       columns: (auto, auto, auto),
       table.header([*ID*], [*Rule*], [*Subrule*]),
-      [[1]], [`units`], [`{"," - lexeme -> unit}`],
-      [[2]], [`units`], [`[1] - lex_many_till -> *{"", ","}`],
-      [[3]], [`unit`], [`node - lexeme -> *{"", arc - lexeme -> unit}`],
-      [[4]], [`arc`], [`right_arc | other_arc`],
-      [[5]], [`node`], [`path - lexeme -> *{"", binding}`],
-      [[6]], [`node`], [`*{"", "*"} - seq -> [5]`],
-      [[7]], [`choices`], [`{"|" - lexeme -> unit}`],
-      [[8]], [`choices`], [`[7] - lex_many_till -> *{"", "|"}`],
-      [[9]], [`path`], [`*{"", modifier} - seq -> trailer`],
-      [[10]], [`segment`], [`HANDLE - seq -> *{"", graph}`],
-      [[11]], [`trailer`], [`"." - seq -> choice`],
-      [[12]], [`trailer`], [`segment - seq -> *{"", [11]}`],
+
+      [[1]], [`units`], [`*{ "", "," - lexeme -> units }`],
+
+      [[2]], [`units`], [`*{ "", unit - lexeme -> [1] }`],
+
+      [[3]], [`unit`], [`binding | chain`],
+
+      [[4]], [`unit`], [`binding | chain`],
+
+      [[5]], [`choices_list`], [`*{ "", "|" - lexeme -> choice_list }`],
+
+      [[6]], [`choices_list`], [`*{ "", chain - lexeme -> [4]}`],
+
+      [[7]], [`chain`], [`*{ "", arc - lexeme -> chain }`],
+
+      [[8]], [`arc`], [`right_arc | other_arc`],
+
+      [[9]], [`other_arc`], [`*{ "", "-" | "->" }`],
+
+      [[10]], [`node`], [`*{ "", "*" } - seq -> path`],
+
+      [[11]],
+      [`path`],
+      [`graph | *{ "", modifier } - seq -> trailer - seq -> *{ "", graph }`],
+
+      [[12]], [`path`], [`*{ "", modifier } - seq -> trailer`],
+
+      [[13]], [`path`], [`[12] - seq -> *{ "", graph }`],
+
+      [[14]], [`trailer`], [`*{ "", "." - seq -> trailer }`],
+
+      [[15]], [`trailer`], [`segment - seq -> [14]`],
     )],
     caption: [IDs for each main subrule used in analysis.],
   )<syntax:LL1-subrule-IDs>
