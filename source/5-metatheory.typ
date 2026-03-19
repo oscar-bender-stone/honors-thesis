@@ -114,8 +114,9 @@ need a specific stronger version for our purposes.
   - Any proof $p$ accepted by $s$ must satisfy $"Tr"_n (s(p))$, where $"Tr"_n$
     is the $n$-th partial truth predicate. For details, refer to
     @hajek-pudlak-metamath-arithmetic[Ch. 1.1].
-  Moreover, this selector may _not_ use the general Law of the Excluded Middle
-  ($phi or not phi$) nor the Principle of Explosion (#box[$bot => phi$]).
+  Moreover, this selector must be proven _without_ use the general Law of the
+  Excluded Middle ($phi or not phi$), and without the Principle of Explosion
+  (#box[$bot => phi$]).
 ]<metatheory:self-verifying>
 
 We need to remove these principles to ensure the proof is completely
