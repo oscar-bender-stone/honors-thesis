@@ -141,12 +141,14 @@ From this, we define a *meta-proof* in $PA$ as follows.
   denoted $PA attach(entails, br: T) phi$, is any proof of
   $PA entails chevron.l T entails phi chevron.r$. Here,
   $chevron.l T entails phi chevron.r$ denotes the encoding of $T entails phi$ in
-  $PA$. Additionally, if some meta-proof of $phi$ in $PA$ exists, we say $PA$
-  *meta-proves* $phi$, denoted by $PA metaproves phi$.
+  $PA$.
 ]
 
-#let metaproves = math.attach(entails, br: $"meta"$)
-
+Note that the base theory $T$ is important. This is because, two theories may be
+sound but prove $phi$ and $not phi$, respectively. Therefore, to determine
+whether $T' entails phi$ implies $T entails phi$ for general theories $T, T'$,
+we need. Note that, in Welkin, this is managed precisely through contexts. We
+will use this in the last proof, refer to @metatheory:welkin-proof-completeness.
 
 == Proof Completeness <metatheory:proof-completeness>
 
@@ -228,9 +230,9 @@ be self-verifying.
 Using the construction above, we can now prove the power of all meta-proofs in
 $PA$.
 
-#theorem[$PA$, equipped with all possible meta-proofs, can reach any
-  proof-theoretic ordinal. More precisely, for any recursive ordinal $alpha$,
-  there is an RE theory $T$ such that:
+#theorem[Through some self-verifying RE theory $T$, $PA$, equppied with all
+  $T$-meta-proofs, can reach any proof-theoretic ordinal. More precisely, for
+  any recursive ordinal $alpha$, there is an RE theory $T$ such that:
   - $PA$ meta-proves that $T$ proves its own serial-soundness.
   - $T$ has a proof-theoretic ordinal greater than $alpha$.
 ]<metatheory:complete-proof-expressivity>
@@ -262,7 +264,8 @@ To complete the proof for Welkin, we call upon contextual lifting
   @foundations:turing-completeness-section. Call this unit $"pa"$. We can
   express any self-verifying theories $"T"$ and $"T'"$ as units (again, via
   @foundations:turing-completeness-section), and we add the rule
-  $"T'" - "pa" -> "T"$ if $"T"'$ extends $"T"$. Thus, any derivation
+  $"T'" - "pa" -> "T"$ if in $"PA"$, we can prove that $"T"' entails phi$
+  implies $"T" entails phi$. Thus, any derivation
   ${u_1 - "T'" -> u_2 -> ... - "T'" -> u_n}$, can be lifted to $T$ as well,
   _within_ $"pa"$. By this observation and
   @metatheory:complete-proof-expressivity, this completes the proof.

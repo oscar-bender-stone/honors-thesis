@@ -4,8 +4,8 @@
 #import "template/ams-article.typ": ams_article
 
 #show: ams_article.with(
-  draft: false,
-  defense-copy: true,
+  draft: true,
+  defense-copy: false,
   title: [Designing a Universal Information Language],
   authors: (
     (
