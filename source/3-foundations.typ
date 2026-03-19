@@ -443,11 +443,10 @@ addressed in the next section.
 
 == Queries and Information <foundations:queries-and-information>
 
-By @foundations:turing-expressible, every partial computable can be expressed as
-a unit. Additionally, in the construction used, reductions of terms are _also_
-represented. This provides a ceiling on what queries we can _express_
-computably. For more details, refer to @hopcroft-automata-theory[Ch. 1]. This
-asks whether a representation is contained in a context.
+By @foundations:turing-expressible, any Turing machine can defined by a unit.
+Additionally, the construction _also_ represents reductions of terms. This
+provides a ceiling on what queries we can express computably. For more details,
+refer to @hopcroft-automata-theory[Ch. 1].
 
 #definition[
   Let $c$ and $q$ be units. A *query over* $c$ is the following question: is $q$
@@ -461,7 +460,7 @@ i.e., determining whether any Turing machine halts can be determined through a
 query in Welkin.
 
 Although general queries are uncomputable, we can verify _certificates_. These
-provide a specific derivation that demonstrates the query is true or false. In
+provide a specific derivation, which demonstrates a query is true or false. In
 Welkin, this is exactly a derivation involving $q - c -> q$.
 
 #definition[
