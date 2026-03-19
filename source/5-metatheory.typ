@@ -188,18 +188,33 @@ For more details, refer to @Artemov1994-ARTLOP.
     - *Reflection:* $(t realizes F) => F$.
     - *Checkability:* $(t realizes F) => (!t realizes (t realizes F))$. This
       means that if a proof term realizes a formula, it can always be checked.
-  - The inference rules are as follows, built on the *entailment relation* $⊢$:
+  - The sole inference rule is built on the *entailment relation* $⊢$:
     - *Modus Ponens:* if $⊢ F$ and $⊢ F => G$, then $⊢ G$.
-    - *Constant Specifications:* this is an RE set of proof constants. Enables
-      any base theory to be expressed.
 
 ]<metatheory:def-logic-of-proofs>
 
-From this, we define a *meta-proof* in $PA$ as a proof term $t$ derived (under
-entailment) from a constant specification $cal("CS")$. Moreover, this
-$cal("CS")$ must be self-verifying (@metatheory:self-verifying). We write
-$t attach(realizes, br: cal("CS")) F$ to specify which constants are used in
-proving that $t$ realizes $F$.
+
+Additionally, we need *constant specifications*. A *constant specification* is a
+computable function that maps proof constants to axioms from
+@metatheory:def-logic-of-proofs, which themselves may be built from proof
+constants. This enables any base theory to be expressed. Details are provided in
+@Artemov1994-ARTLOP. For simplicity, we will treat this as an RE set of axioms
+in a first-order theory.
+
+From this, we define a *meta-proof* in $PA$ as follows.
+
+#definition[
+  A *meta-proof* in $PA$ is a proof term $t$ derived (under entailment) from a
+  constant specification $cal("CS")$. Moreover, this $cal("CS")$ must be
+  self-verifying (@metatheory:self-verifying). We write
+  $t attach(realizes, br: cal("CS")) F$ to specify which constants are used in
+  proving that $t$ realizes $F$.
+]
+
+#let metaproves = math.attach(entails, br: $"meta"$)
+
+If there is a meta-proof in $PA$ of $phi$, we say $PA$ *meta-proves* $phi$,
+denoted $PA metaproves phi$.b
 
 == Proof Completeness <metatheory:proof-completeness>
 
@@ -268,9 +283,9 @@ parallel, incrementally adding more steps from each theory used.
 
 Using the construction above, we can now prove the power of meta-proofs in $PA$.
 
-#theorem[$PA$, equipped with meta-proofs, can express any computably expressible
-  proof from a sound RE theory. More precisely, for any recursive ordinal
-  $alpha$, there is an RE theory $T$ such that:
+#theorem[$PA$, equipped with meta-proofs, can express any proof from a sound RE
+  theory. More precisely, for any recursive ordinal $alpha$, there is an RE
+  theory $T$ such that:
   - $PA$ meta-proves that $T$ proves its own serial-soundness.
   - $T$ has a theoretic proof ordinal greater than $alpha$.
 ]<metatheory:complete-proof-expressivity>
