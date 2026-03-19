@@ -431,7 +431,7 @@ $"LL"(1)$.
 
       [[5]], [`choices_list`], [`*{ "", "|" - lexeme -> choice_list }`],
 
-      [[6]], [`choices_list`], [`*{ "", chain - lexeme -> [4]}`],
+      [[6]], [`choices_list`], [`*{ "", chain - lexeme -> [5]}`],
 
       [[7]], [`chain`], [`*{ "", arc - lexeme -> chain }`],
 
