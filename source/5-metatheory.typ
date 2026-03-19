@@ -257,10 +257,10 @@ $
   exists X_(phi, lambda). forall n. (n in X_(phi, lambda) <=> (exists t. (t realizes_Lambda phi(n)))
 $
 
-where $Lambda$ is the combination of all previous theories $T_beta$. Dovetailing
-can be applied to actually construct this theory. That is, one can simulate each
-of these theories in parallel, incrementally adding more steps from each theory
-used.
+where $Lambda$ is a constant specification, defined as the combination of all
+previous theories $T_beta$. To actually construct each step, dovetailing can be
+applied. That is, one can simulate each of these theories in parallel,
+incrementally adding more steps from each theory used.
 
 Using the construction above, we can now prove the power of meta-proofs in $PA$.
 
