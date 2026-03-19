@@ -467,6 +467,18 @@ $"LL"(1)$.
       [FIRST("") = $emptyset$],
       [FIRST("unit") = { `*`, `~`, `@`, \ `ID`, `STRING` }],
       [$emptyset$],
+
+      [[3]],
+      [First/ \ First],
+      [FIRST(`:=`) = { `:=` }],
+      [FIRST("arc") = { `-`, `<-` }],
+      [$emptyset$],
+
+      [[4]],
+      [First/ \ Follow],
+      [SN-FOLLOW([4]) = { `|` }],
+      [FIRST("choice_list") = { `*`, `~`, `@`, \ `ID`, `STRING` }],
+      [$emptyset$],
     )
   ]
   #figure(
