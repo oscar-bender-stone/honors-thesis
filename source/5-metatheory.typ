@@ -15,9 +15,10 @@
 This section proves that Welkin's definition of information
 (@foundations:information) is as general as possible, outlined in
 @metatheory:overview. This proof is optional, and most readers are recommended
-to jump to @conclusion. We assume the reader has background in first-order logic
-and set theory. For specific references, consult @mendelson_logic and
-@monk-set-theory, respectively.
+to jump to @conclusion. We assume the reader has background in first-order
+logic, set theory, and the arithmetic hierarchy. For specific references,
+consult @mendelson_logic, @monk-set-theory, and @simpson-arithmetic,
+respectively.
 
 #figure(
   table(
@@ -55,8 +56,7 @@ embed Welkin. Additionally, we make two assumptions without loss of generality:
 
 - First, we will consider only RE first-order theories $T$. This is because any
   formal system must be defined with proofs accepted by some Turing machine. In
-  turn, this Turing machine can be expressed as a first order theory, consult
-  @trakhtenbrot50.
+  turn, this Turing machine can be expressed as a first order theory.
 
 - Secondly, we will only consider theories in the language of $PA$. Any
   first-order theory can encoded through arithmetic, using a similar
@@ -183,14 +183,15 @@ For more details, refer to @Artemov1994-ARTLOP.
         consult @Artemov1994-ARTLOP.]
   - The axioms are presented as follows:
     - All the rules of classical propositional logic, except the Law of the
-      Excluded Middle ($phi or not phi$) and Explosion ($bot => phi$). Again,
-      these are restricted for similar reasons in @metatheory:self-verifying.
+      Excluded Middle ($p or not p$) and Explosion ($bot => p$). Again, these
+      are restricted for similar reasons from @metatheory:self-verifying.
     - *Application:*
       $(s realizes (F => G)) => ((t realizes F) => ((s dot t) realizes G))$.
     - *Sum:* $(s realizes F) => ((s + t) realizes F)$ and
       $(t realizes F) => ((s + t) realizes F)$.
     - *Reflection:* $(t realizes F) => F$.
-    - *Checkability:* $(t realizes F) => (!t realizes (t realizes F))$.
+    - *Checkability:* $(t realizes F) => (!t realizes (t realizes F))$. This
+      means that if a proof term realizes a formula, it can always be checked.
   - The inference rules are as follows, built on the *entailment relation* $⊢$:
     - *Modus Ponens:* if $⊢ F$ and $⊢ F => G$, then $⊢ G$.
     - *Constant Specifications:* this is an RE set of proof constants. Enables
@@ -206,7 +207,7 @@ $cal("CS")$ must be self-verifying (@metatheory:self-verifying).
 
 To show that this covers _every_ proof that can be computably recognized, we
 need to discuss recursive ordinals. For more background on ordinals, refer to
-@monk-set-theory[Ch. 2], @kleene-ordinal-notation. For our purposes, we will
+@monk-set-theory[Ch. 2] and @proof-theory-ordinals. For our purposes, we will
 only define specific properties needed for this thesis:
 
 #let churchkleene = $omega^"CK"_1$
@@ -221,24 +222,29 @@ only define specific properties needed for this thesis:
   ordinal is related to the strength of the theory. More details are available
   in @kleene-ordinal-notation.
 
-- There are existing encodings of ordinals into $PA$. For instance, consult .
+- There are existing encodings of ordinals into $PA$. For one approach, consult
+  @proof-theory-ordinals[Ch. 6].
 
-Roughly, it is not enough to carry out a _successor_ step, and then solely
-combine theories through a union in the limit stage. At most, we can only reach
-the Feferman–Schütte ordinal, denoted $Gamma_0$, as proven in
-@feferman-progressions. This chain is related to predicative mathematics.
-However, the aim of Welkin is to be _as_ expressive as possible, so we want to
-include _every_ impredicative theory possible as well.
+Note that we can only reach so far with the successor stage. If we only permit
+unionis in the limit stage, we can only reach the Feferman–Schütte ordinal,
+denoted $Gamma_0$, as proven in @feferman-progressions. This ordinal is related
+to predicative mathematics. However, the aim of Welkin is to be _as_ expressive
+as possible, so we want to include _every_ impredicative theory that we can
+express as well.
 
-From Artëmov's approach, there is an enormous jump from $PA$ all the way to
-$ZFC$. This is because, over $PA$ as the base-theory, $ZFC$ is self-verifying. A
-reason for the power increase due to the axiom of replacement, or even
-comprehension. We extend this realization using hyperarithmetic sets, which are
-known to cover every recursive ordinal, proven in
-@kleene-hyperarithmetic-covering. Our construction relies on a well known
-principle of comprehension established in Reverse Mathematics:
+To reach these impredicative theories, we can utilize Artëmov's approach.
+Following his method, one can soundly jump from $PA$ all the way to $ZFC$. This
+is because, over $PA$ as the base-theory, $ZFC$ is self-verifying. A reason for
+the power increase due to the axiom of replacement, or even comprehension. We
+extend this realization using hyperarithmetic sets, which are known to cover
+every recursive ordinal, proven in @kleene-hyperarithmetic-covering. Our
+construction relies on a well known principle of comprehension established in by
+Simpson in Reverse Mathematics @simpson-arithmetic:
 
-$exists X_(phi, lambda). forall n. (n in X <=> (exists p. T_{psi(p)}), phi(p))$,
+$ exists X. forall n. (n in X <=> Phi(n)) $
+
+where $Phi(n)$ is a predicate that is both $Sigma^1_1$ and $Pi^1_1$. For
+details, consult @simpson-arithmetic.
 
 We carry out this same construction for our use case. Let $lambda$ be a limit
 ordinal and consider all given theories $T_1, T_2, ..., T_beta, ...$ with
@@ -247,13 +253,16 @@ $T_lambda = union.big_(beta < lambda) T_beta union "Comp"_lambda (Delta^1_1)$.
 The set $"Comp"_lambda (Delta^1_1)$ is an axiom schema over each proposition
 $phi$ definable in the extended theory, stating that
 
-#set math.equation(numbering: _ => $(#math..filled)$)
+$
+  exists X_(phi, lambda). forall n. (n in X_(phi, lambda) <=> (exists t. (t realizes_Lambda phi(n)))
+$
 
-$exists X_(phi, lambda). forall n. (n in X_(phi, lambda) <=> (exists t. (t realizes_Lambda phi(n)))$,
+where $Lambda$ is the combination of all previous theories $T_beta$. Dovetailing
+can be applied to actually construct this theory. That is, one can simulate each
+of these theories in parallel, incrementally adding more steps from each theory
+used.
 
-where $Lambda$ is the combination of all previous theories $T_beta$.
-
-Using this construction (), we can now prove the power of meta-proofs in $PA$.
+Using the construction above, we can now prove the power of meta-proofs in $PA$.
 
 #theorem[$PA$, equipped with meta-proofs, can express any computably expressible
   proof from a sound RE theory. More precisely, for any recursive ordinal
