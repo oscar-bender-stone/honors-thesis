@@ -109,8 +109,12 @@ need a specific stronger version for our purposes.
 #definition[
   Let $T$ be an extension of $PA$. Then $T$ is *(meta-)self-verifying* if there
   is a total computable function $s$ over proofs of $T$, constructed in $PA$,
-  such that $T$ proves this selector only accepts sound proofs. Moreover, this
-  selector may _not_ use the general Law of the Excluded Middle
+  such that $T$ proves that $s$:
+  - Accepts all proofs in $T$.
+  - Any proof $p$ accepted by $s$ must satisfy $"Tr"_n (s(p))$, where $"Tr"_n$
+    is the $n$-th partial truth definition. For details, refer to
+    @hajek-pudlak-metamath-arithmetic[Ch. 1.1]).
+  Moreover, this selector may _not_ use the general Law of the Excluded Middle
   ($phi or not phi$) nor the Principle of Explosion (#box[$bot => phi$]).
 ]<metatheory:self-verifying>
 
