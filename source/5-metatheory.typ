@@ -25,6 +25,11 @@ and set theory. For specific references, consult @mendelson_logic and
     align: left,
     table.header([*Section Number*], [*Title*], [*Description*]),
     [@metatheory:artemov-logic-of-proofs],
+    [Artemov's Selector Proofs],
+    [Establishes a generalized version of Artemov's *Logic of Proofs*, a logic
+      that explains how jutsifications work. We also define
+      *serial-soundness*.],
+
     [Artemov's Logic of Proofs],
     [Establishes a generalized version of Artemov's *Logic of Proofs*, a logic
       that explains how jutsifications work. We also define
@@ -39,10 +44,11 @@ and set theory. For specific references, consult @mendelson_logic and
 )<metatheory:overview>
 
 #let PA = math.text("PA")
+#let PRA = math.text("PRA")
 #let ZFC = math.text("ZFC")
 
-For simplicity, we will make our base theory Peano Arithmetic, denoted $PA$.
-Recall that any unit is equivalent to a Turing machine
+For simplicity, we will make our base theory Peano Arithmetic ($PA$). Recall
+that any unit is equivalent to a Turing machine
 @foundations:turing-completeness-section. Because any Turing machine can be
 expressed through a simple encoding in $PA$, so to can units, as well as the
 rules in @table:unit-rules. A future work will consider weaker theories that can
@@ -57,16 +63,20 @@ embed Welkin. Additionally, we make two assumptions without loss of generality:
   first-order theory can encoded through arithmetic, using a similar
   construction from the point above.
 
-== Artemov's Logic of Proofs <metatheory:artemov-logic-of-proofs>
+- Thirdly, we stick to first order theories that use classical logic for
+  simplicity. This will not affect completeness due to Gödel's double-negation
+  translation. More details are available in @goedel-double-translation, but the
+  details are not important here.
+
+== Artemov's Selector Proofs <metatheory:artemov-selector-proofs>
 
 A major goal in Welkin is to express any representable notion, _including_ any
 representabale proof. Proofs are a finite certificate that consists of a valid
 sequence of steps. Importantly, proofs can be verified using a _total_
 computable function, one that can check _any_ given proof. Because of the
 requirement for computable checking, limitations in computable functions apply.
-These are illustrated by several impossibility theorems in the literature,
-including Gödel's infamous incompleteness theorems
-@goedel-original-incompletness-theorems.
+These are illustrated by several impossibility theorems, including Gödel's
+infamous incompleteness theorems @goedel-original-incompletness-theorems.
 
 However, previous impossibility results rely on proving strong properties of
 proofs. Artemov argues that weaker, constructive properties can be used instead.
@@ -84,20 +94,20 @@ onto the embedding in Welkin.
 ]<metatheroy:artemov-serial-consistency>
 
 Artemov overcomes Gödel's second incompleteness theorem. This theorem states
-that Peano Arithmetic $"PA"$, providing basic properties of the natural numbers,
-cannot prove its own consistency. Artemov instead demonstrates that $"PA"$
-proves its own _serial-consistency_, as follows:
+that Peano Arithmetic $PA$ (as well as $HA$), cannot prove its own consistency.
+Artemov instead demonstrates that $PA$ proves its own _serial-consistency_, as
+follows:
 - He uses a weak meta-theory, in this case, Primitive Recursive Arithmetic
-  ($"PRA"$). This theory is bounded by a weak principle of induction.
-- Artemov encodes all proofs as natural numbers in $"PRA"$. $"PRA"$ is
-  sufficiently strong _just_ to encode all of these proofs.
-- Finally, he uses a proof by induction, over encoded proofs in $"PRA"$, to show
-  that $"PA"$ proves each _individual_ proof contains no contradictions. This is
+  ($PRA$). This theory is bounded by a weak principle of induction.
+- Artemov encodes all proofs as natural numbers in $PRA$. $PRA$ is sufficiently
+  strong _just_ to encode all of these proofs.
+- Finally, he uses a proof by induction, over encoded proofs in $PRA$, to show
+  that $PA$ proves each _individual_ proof contains no contradictions. This is
   possible through partial truth definitions.
 
-To be clear: Artemov does _not_ show that there is a _single_ proof that $"PA"$
-is consistent, that works for all proofs. Instead, his method _takes_ a proof as
-a parameter. There have been extensive discussion on the validity of this
+To be clear: Artemov does _not_ show that there is a _single_ proof that $PA$ is
+consistent, that works for all proofs. Instead, his method _takes_ a proof as a
+parameter. There have been extensive discussion on the validity of this
 technique, and its acceptance by other logicians.#footnote[The discussion is
   available online at: #link(
     "https://mathoverflow.net/questions/469247/situation-with-artemovs-paper",
@@ -105,15 +115,30 @@ technique, and its acceptance by other logicians.#footnote[The discussion is
 
 Despite its initial controversy, Artemov's techniques follow closely with
 several constructive schools, consult @artemov_serial_consistency. This thesis
-builds upon this result with a stronger property: *serial-soundness*. The exact
-same proof applies, using the same partial truth definition. Tarski's theorem
-says that a formal system cannot define its own truth predicate _at the object
-language_ @tarski-undefinability-truth. In fact, this truth predicate is
+builds upon this result with a stronger property: *serial-soundness*. We will
+need a specific stronger version for our purposes.
+
+#definition[
+  Let $T$ be an extension of $PA$. Then $T$ is *(reliably) serial-sound* if
+  there is a total computable function $s$ over proofs of $T$, constructed in
+  $PA$, such that $T$ proves this selector only accepts sound proofs.
+]
+
+The exact same proof applies, using the same partial truth definition. Tarski's
+theorem says that a formal system cannot define its own truth predicate _at the
+object language_ @tarski-undefinability-truth. In fact, this truth predicate is
 uncomputable, in general. We do not avoid Tarski's theorem, but we do
 approximate it _as_ closely as partial computable functions allow. Because some
 logics may not have a notion of inconsistency, we will not define consistency
 itself. However, given the results in @foundations, first order logic can be
 expressed in several ways.
+
+== Artemov's Logic of Proofs <metatheory:artemov-logic-of-proofs>
+
+In addition to serial soundness.
+
+
+
 
 == Proof Completeness <metatheory:proof-completeness>
 
