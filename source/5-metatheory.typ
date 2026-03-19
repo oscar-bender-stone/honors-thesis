@@ -63,9 +63,8 @@ embed Welkin. Additionally, we make two assumptions without loss of generality:
   construction from the point above.
 
 - Thirdly, we stick to first order theories that use classical logic for
-  simplicity. This will not affect completeness due to Gödel's double-negation
-  translation. More details are available in @goedel-double-translation, but the
-  details are not important here.
+  simplicity. This will not affect completeness either. Again, the corresponding
+  Turing machine of a non-classical logic can be simulated by a classical one.
 
 == Artëmov's Selector Proofs <metatheory:artemov-selector-proofs>
 
@@ -117,21 +116,24 @@ builds upon this result with a stronger property: *serial-soundness*. We will
 need a specific stronger version for our purposes.
 
 #definition[
-  Let $T$ be an extension of $PA$. Then $T$ is *(meta-) self-verifying* if there
+  Let $T$ be an extension of $PA$. Then $T$ is *(meta-)self-verifying* if there
   is a total computable function $s$ over proofs of $T$, constructed in $PA$,
   such that $T$ proves this selector only accepts sound proofs. Moreover, this
   selector may _not_ use the general Law of the Excluded Middle
   ($phi or not phi$) nor the Principle of Explosion (#box[$bot => phi$]).
 ]
 
-The exact same proof applies, using the same partial truth definition. Tarski's
-theorem says that a formal system cannot define its own truth predicate _at the
-object language_ @tarski-undefinability-truth. In fact, this truth predicate is
-uncomputable, in general. We do not avoid Tarski's theorem, but we do
-approximate it _as_ closely as partial computable functions allow. Because some
-logics may not have a notion of inconsistency, we will not define consistency
-itself. However, given the results in @foundations, first order logic can be
-expressed in several ways.
+We need to remove these principles to ensure the proof is completely
+constructive, and that the Principle of Explosion is not used to prove a false
+claim.
+
+Now, we can prove $"PA"$ is self-verifying, using partial truth definitions.
+This is similar to the Artëmov's approach for serial-consistency. Note the
+limitations posed by Tarski's theorem. This says that a formal system cannot
+define its own truth predicate _at the object language_
+@tarski-undefinability-truth. In fact, this truth predicate is uncomputable, in
+general. We do not avoid Tarski's theorem, but we do approximate it _as_ closely
+as Turing machines allow.
 
 == Artëmov's Logic of Proofs <metatheory:artemov-logic-of-proofs>
 
@@ -148,18 +150,17 @@ This system is used to give semantics for meta-proofs, or proofs _on_ proofs.
 [TODO: find a simpler proof! Maybe we don't _need_ ordinals?]
 
 To show that this covers _every_ proof that can be computably recognized, we
-need to discuss recursive ordinals. We provide an embedding via $"unit"$. For
-more background on ordinals, refer to @monk-set-theory[Ch. 2],
-@kleene-ordinal-notation. To keep the presentation self-contained, we will
-define a unit for recursive ordinals. [TODO: maybe use a separate appendix?]
+need to discuss recursive ordinals. For more background on ordinals, refer to
+@monk-set-theory[Ch. 2], @kleene-ordinal-notation. For our purposes, we will
+only define specific properties needed for this thesis:
 
-// #definition[The unit $"recursive_ordinal"$ is defined recursively, containing
-//   nothing else:
-//   - *Base:* $0 in "recursive_ordinal"$.
-//   - *Successor:*
-//   - *Limit:*
-// ]<metatheory:transfinite-induction>
+#let churchkleene = $omega^"CK"_1$
 
+- Recursive ordinals, roughly, can be defined through a Turing machine. The full
+  definition is in @kleene-ordinal-notation.
+
+- The limit of these ordinals is called the *Church-Kleene ordinal*,
+  $churchkleene$.
 
 At a high level, it is not enough to carry out a _successor_ step, and then
 solely combine theories through a union in the limit stage. At most, we can only
