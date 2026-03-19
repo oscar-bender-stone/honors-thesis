@@ -192,8 +192,10 @@ start := units - lexeme -> EOF,
 
 units := "" | {unit - lexeme -> *{"", "," - lexeme -> units}},
 
-unit := binding | chain,
-binding := HANDLE - lexeme -> ":=" - lexeme -> choices,
+unit := node - lexeme -> *{
+  ":=" - lexeme -> choices,
+  *{"", arc - lexeme -> chain}
+},
 choices := *{"", "|"} - lexeme -> choices_list,
 choices_list := *{"",
   chain - lexeme -> *{"", "|" - lexeme -> choice_list}
@@ -202,11 +204,14 @@ chain := *{"", "*"} - seq -> path - lexeme -> *{"", arc - lexeme -> chain},
 
 arc := right_arc | other_arc,
 right_arc := "-" - seq -> node - seq -> "->",
-other_arc := "<-" - seq -> node - seq -> *{"-" | "->"},
+other_arc := "<-" - seq -> node - seq -> *{"-", "->"},
 
 node := *{"", "*"} - seq -> path,
 path := *{"", modifiers} - seq -> trailer - seq -> *{"", graph},
-modifiers := "~" - seq -> *{"", "@"} | "@",
+modifiers := *{
+  "@",
+  "~" - seq -> *{"", "@"}
+},
 trailer := segment - seq -> *{"", "." - seq -> trailer},
 segment := HANDLE - lexeme -> *{"", graph},
 graph :=  "{" - lexeme -> units - lexeme -> "}",
@@ -421,38 +426,23 @@ $"LL"(1)$.
     [#table(
       columns: (auto, auto, auto),
       table.header([*ID*], [*Rule*], [*Subrule*]),
-
       [[1]], [`units`], [`*{ "", "," - lexeme -> units }`],
+      [[2]], [`units`], [`"" | { unit - lexeme -> ... }`],
+      [[3]],
+      [`unit`],
+      [`{ ":=" - lexeme -> choices | *{ "", arc - lexeme -> chain } }`],
 
-      [[2]], [`units`], [`*{ "", unit - lexeme -> [1] }`],
-
-      [[3]], [`unit`], [`binding | chain`],
-
-      [[4]], [`unit`], [`binding | chain`],
-
-      [[5]], [`choices_list`], [`*{ "", "|" - lexeme -> choice_list }`],
-
-      [[6]], [`choices_list`], [`*{ "", chain - lexeme -> [5]}`],
-
+      [[4]], [`choices`], [`*{ "", "|" }`],
+      [[5]], [`choice_list`], [`*{ "", "|" - lexeme -> choice_list }`],
+      [[6]], [`choice_list`], [`*{ "", chain - lexeme -> [5]}`],
       [[7]], [`chain`], [`*{ "", arc - lexeme -> chain }`],
-
       [[8]], [`arc`], [`right_arc | other_arc`],
-
-      [[9]], [`other_arc`], [`*{ "", "-" | "->" }`],
-
-      [[10]], [`node`], [`*{ "", "*" } - seq -> path`],
-
-      [[11]],
-      [`path`],
-      [`graph | *{ "", modifier } - seq -> trailer - seq -> *{ "", graph }`],
-
-      [[12]], [`path`], [`*{ "", modifier } - seq -> trailer`],
-
-      [[13]], [`path`], [`[12] - seq -> *{ "", graph }`],
-
-      [[14]], [`trailer`], [`*{ "", "." - seq -> trailer }`],
-
-      [[15]], [`trailer`], [`segment - seq -> [14]`],
+      [[9]], [`other_arc`], [`*{"-", "->" }`],
+      [[10]], [`node`], [`*{"", "*" } - seq -> path`],
+      [[11]], [`path`], [`*{"", modifiers} - seq -> trailer`],
+      [[12]], [`modifiers`], [`*{"@", "~" - seq -> *{ "", "@" }}`],
+      [[13]], [`trailer`], [`*{ "", "." - seq -> trailer }`],
+      [[14]], [`segment`], [`*{ "", graph }`],
     )],
     caption: [IDs for each main subrule used in analysis.],
   )<syntax:LL1-subrule-IDs>
