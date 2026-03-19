@@ -447,58 +447,30 @@ $"LL"(1)$.
     caption: [IDs for each main subrule used in analysis.],
   )<syntax:LL1-subrule-IDs>
 
+  #let calculations-table = [
+
+    #show table.cell: set text(size: 0.85em)
+    #table(
+      columns: 5,
+      align: left,
+      [*ID*], [*Conflict Type*], [*Set One*], [*Set Two*], [*Intersection*],
+
+      [[1]],
+      [First/ \ Follow],
+      [SN-FOLLOW("unit") = \ { `:=`, `|`, `-`, `<-`, `.`, `{`, \ `*`, `@`, `~`,
+        `ID`, `STRING` }],
+      [FIRST([1]) = { `,` }],
+      [$emptyset$],
+
+      [[2]],
+      [First/ \ First],
+      [FIRST("") = $emptyset$],
+      [FIRST("unit") = { `*`, `~`, `@`, \ `ID`, `STRING` }],
+      [$emptyset$],
+    )
+  ]
   #figure(
-    [
-
-      #table(
-        columns: 5,
-        align: left,
-        [*ID*], [*Conflict Type*], [*Set One*], [*Set Two*], [*Intersection*],
-
-        [[1]],
-        [First#linebreak()/Follow],
-        [$FIRST(#`,`) = {#`,`}$],
-        [$SNFOLLOW("units") = {#`}`, #`EOF`}$],
-        [$emptyset$],
-
-        [[2]],
-        [First#linebreak()/Follow],
-        [$FIRST(#`unit`) = { #`*`, #`~`, #`@`, #`ID`, #`STRING`}$],
-        [$SNFOLLOW("units") = { #`}`, #`EOF`}$],
-        [$emptyset$],
-
-        [[3]],
-        [First#linebreak()/First],
-        [$FIRST(#`:=`) = { #`:=` }$],
-        [$FIRST("arc") union SNFOLLOW("unit") = { #`-`, #`<-`, #`,`, #`}`, #`EOF` }$],
-        [$emptyset$],
-
-        [[5]],
-        [First#linebreak()/Follow],
-        [$FIRST("chain") = { #`*`, #`~`, #`@`, #`ID`, #`STRING` }$],
-        [$SNFOLLOW("choice_list") = { #`,`, #`}`, #`EOF` }$],
-        [$emptyset$],
-
-        [[6]],
-        [First/#linebreak() Follow],
-        [$FIRST(#`|`) = { #`|` }$],
-        [$SNFOLLOW("choice_list") = { #`,`, #`}`, #`EOF` }$],
-        [$emptyset$],
-
-        [[7]],
-        [First/#linebreak() Follow],
-        [$FIRST("arc") = { #`-`, #`<-` }$],
-        [$SNFOLLOW("chain") = { #`|`, #`,`, #`}`, #`EOF` }$],
-        [$emptyset$],
-
-        [[8]],
-        [First/#linebreak() First],
-        [$FIRST("right_arc") = { #`-` }$],
-        [$FIRST("other_arc") = { #`<-` }$],
-        [$emptyset$],
-      )
-    ],
-
+    calculations-table,
     caption: [Calculations for the main possible conflicts, along with the
       corresponding sets. Subrule IDs are listed in @syntax:LL1-subrule-IDs.],
   )<syntax:LL1-calculations>
