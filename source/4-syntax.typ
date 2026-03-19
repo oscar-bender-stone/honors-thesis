@@ -66,7 +66,6 @@ in Welkin.
   caption: [Printable US-ASCII codes and glyphs.],
 )<syntax:printable-ascii-codes>
 
-
 #definition[
   Welkin's encoding consists of *Printable US-ASCII*, listed in
   @syntax:printable-ascii-codes, as well as character `EOF`, with code 58. An
@@ -142,6 +141,10 @@ corresponding rule. Additionally, `WS` is short-hand for `WHITESPACE`
   - *Printer:* prints zero or more instances of `A` _with_ optional whitespace,
     followed by `B`.
 
+Additionally, the parsers above are allowed to have sets of characters called
+*token characters*. We assume these follow the "maximal munch" principle: the
+entire token must be consumed. This helps to simplify the grammar.
+
 == Strings and IDs <syntax:strings-and-ids>
 
 Strings are defined in @syntax:string, and they allow escaped single or double
@@ -190,12 +193,11 @@ units := "" | {unit - lexeme -> *{"", "," - lexeme -> units}},
 
 unit := binding | chain,
 binding := HANDLE - lexeme -> ":=" - lexeme -> choices,
-chain - lexeme -> *{"", ":=" - lexeme -> choices},
-chain := node - lexeme -> *{"", arc - lexeme -> chain},
 choices := *{"", "|"} - lexeme -> choices_list,
 choices_list := *{"",
   chain - lexeme -> *{"", "|" - lexeme -> choice_list}
 },
+chain := *{"", "*"} - seq -> path - lexeme -> *{"", arc - lexeme -> chain},
 
 arc := right_arc | other_arc,
 right_arc := "-" - seq -> node - seq -> "->",
@@ -332,19 +334,19 @@ $F$, and $F union E$ denotes the union of sets $F$ and $E$.
 
 #definition[
   (@edelmann-ll1-parsing). Let $A, B$ be meta-variables for parser combinators .
-  Moreover, let $c$ be a meta-variable for a simple combinator, one which
-  consumes a single literal character. The following properties on parsing
-  combinators are defined recursively:
+  Moreover, let $t$ be a meta-variable for a simple combinator, one which
+  consumes a single token. The following properties on parsing combinators are
+  defined recursively:
 
   - $NULLABLE$: returns a boolean, checking whether a combinator matches
     $epsilon$. We say a combinator is *nullable* if this check returns true.
     - $NULLABLE(epsilon) = "True"$.
-    - $NULLABLE(c) = "False"$.
+    - $NULLABLE(t) = "False"$.
     - $NULLABLE(A | B) = NULLABLE(A) "or" NULLABLE(B)$.
     - $NULLABLE(A B) = NULLABLE(A) "and" NULLABLE(B)$.
   - $FIRST$: gathers the first character in a combinator.
     - $FIRST(epsilon) = emptyset$.
-    - $FIRST(c) = {c}$.
+    - $FIRST(t) = {t}$.
     - $FIRST(A | B) = FIRST(A) union FIRST(B)$.
     - $FIRST(A dot B) = FIRST(A) union FIRST(B) "if" NULLABLE(A) "else" FIRST(A)$.
   - $SNFOLLOW$: this set stands for "should not follow". It is used to locally
@@ -355,7 +357,7 @@ $F$, and $F union E$ denotes the union of sets $F$ and $E$.
       parsing context. For details, consult @edelmann-ll1-parsing.
     ]
     - $SNFOLLOW(epsilon) = emptyset$
-    - $SNFOLLOW(c) = emptyset$
+    - $SNFOLLOW(t) = emptyset$
     - $SNFOLLOW(A dot B) = SNFOLLOW(A) union SNFOLLOW(B) "if" NULLABLE(A) "else" emptyset$.
     - $SNFOLLOW(A | B) = SNFOLLOW(A) union SNFOLLOW(B) union (FIRST(A) "if" NULLABLE(B) "else" emptyset) union (FIRST(B) "if" NULLABLE(A) "else" emptyset)$.
 ]
