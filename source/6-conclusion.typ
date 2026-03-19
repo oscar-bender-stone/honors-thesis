@@ -73,7 +73,8 @@ The author has several future projects for Welkin in mind. These include:
   to a belief revision system, introduced in @belief-revision-system.
 
 - *Package Management:* building on revision systems, users could organize their
-  Welkin code into packages.
+  Welkin code into packages. These would promote modular pieces of code, as well
+  as simplify code distribution.
 
 - *Creating Query Solvers:* this would involve incorporating an information base
   with a program called a _solver_. Given a query, the solver would first
