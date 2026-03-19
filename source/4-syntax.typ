@@ -430,7 +430,7 @@ $"LL"(1)$.
       [[2]], [`units`], [`"" | { unit - lexeme -> ... }`],
       [[3]],
       [`unit`],
-      [`{ ":=" - lexeme -> choices | *{ "", arc - lexeme -> chain } }`],
+      [`*{ ":=" - lexeme -> choices, *{ "", `#linebreak()`arc - lexeme -> chain } }`],
 
       [[4]], [`choices`], [`*{ "", "|" }`],
       [[5]], [`choice_list`], [`*{ "", "|" - lexeme -> choice_list }`],
@@ -478,6 +478,18 @@ $"LL"(1)$.
       [First/ \ Follow],
       [SN-FOLLOW([4]) = { `|` }],
       [FIRST("choice_list") = { `*`, `~`, `@`, `ID`, `STRING` }],
+      [$emptyset$],
+
+      [[5]],
+      [First/ \ First],
+      [FIRST("") = $emptyset$],
+      [FIRST(`|`) = { `|` }],
+      [$emptyset$],
+
+      [[6]],
+      [First/ \ Follow],
+      [SN-FOLLOW("chain") = { `-`, `<-`, \ `.`, `{` }],
+      [FIRST([5]) = { `|` }],
       [$emptyset$],
     )
   ]
