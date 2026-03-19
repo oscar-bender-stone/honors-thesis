@@ -461,7 +461,7 @@ $"LL"(1)$.
       [[2]],
       [First/ \ Follow],
       [SN-FOLLOW([2]) = \ { `}`, `EOF` }],
-      [FIRST("unit") = { `*`, `~`, `@`, \ `ID`, `STRING` }],
+      [FIRST("unit") = { `*`, `@`, `~`, \ `ID`, `STRING` }],
       [$emptyset$],
 
       [[3]],
@@ -472,7 +472,8 @@ $"LL"(1)$.
 
       [[4]],
       [First/ \ Follow],
-      [SN-FOLLOW([4]) = \ { `*`, `~`, `@`, `ID`, `STRING`, \ `,`, `}`, `EOF` }],
+      [SN-FOLLOW([4]) = \ { `*`, `~`, `@`, `ID`, `STRING`, \ `,`, `}`, `EOF`, \
+        `-`, `->` }],
       [FIRST(`|`) = { `|` }],
       [$emptyset$],
 
