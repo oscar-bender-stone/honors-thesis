@@ -186,8 +186,7 @@ several languages.
 #let grammar = ```
 start := units - lexeme -> EOF,
 
-units := ""
-  | {
+units := "" | {
     unit - lexeme -> {"," - lexeme -> unit}
           - lex_many_until -> *{"", ","}
     },
@@ -213,11 +212,6 @@ modifier := "~" - seq -> *{"", "@"} | "@"
 trailer := segment - seq -> *{"", "." - seq -> choice},
 segment := HANDLE - lexeme -> *{"", graph},
 graph :=  "{" - lexeme -> units - lexeme -> "}",
-
-trailer - *{
-  "",
-  "." - seq -> *{graph, HANDLE - seq -> trailer}
-}
 
 HANDLE := ID | STRING
 
@@ -431,14 +425,16 @@ $"LL"(1)$.
       table.header([*ID*], [*Rule*], [*Subrule*]),
       [[1]], [`units`], [`{"," - lexeme -> unit}`],
       [[2]], [`units`], [`[1] - lex_many_till -> *{"", ","}`],
-      [[3]], [`units`], [`node - lexeme -> *{"", arc - lexeme -> unit}`],
+      [[3]], [`unit`], [`node - lexeme -> *{"", arc - lexeme -> unit}`],
       [[4]], [`arc`], [`right_arc | other_arc`],
       [[5]], [`node`], [`path - lexeme -> *{"", binding}`],
-      [[6]], [`node`], [`"*" - seq_many_till -> *{graph, [5]}`],
+      [[6]], [`node`], [`*{"", "*"} - seq -> [5]`],
       [[7]], [`choices`], [`{"|" - lexeme -> unit}`],
       [[8]], [`choices`], [`[7] - lex_many_till -> *{"", "|"}`],
-      [[9]], [`trailer`], [`HANDLE - seq -> trailer`],
-      [[10]], [`trailer`], [`"." - seq -> *{graph, [9]}`],
+      [[9]], [`path`], [`*{"", modifier} - seq -> trailer`],
+      [[10]], [`segment`], [`HANDLE - seq -> *{"", graph}`],
+      [[11]], [`trailer`], [`"." - seq -> choice`],
+      [[12]], [`trailer`], [`segment - seq -> *{"", [11]}`],
     )],
     caption: [IDs ],
   )<syntax:LL1-subrule-IDs>
