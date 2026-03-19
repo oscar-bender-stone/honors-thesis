@@ -198,14 +198,7 @@ arc := right_arc | other_arc,
 right_arc := "-" - seq -> node - seq -> "->",
 other_arc := "<-" - seq -> node - seq -> *{"-" | "->"},
 
-node := "*"
-  - seq_many_till -> *{
-    graph,
-    path - lexeme -> *{"", binding}
-  }
-
-graph :=  "{" - lexeme -> units - lexeme -> "}",
-
+node := "*" - seq -> path - lexeme -> *{"", binding},
 binding := ":=" - lexeme -> choices,
 choices := *{"", "|"}
   - lexeme -> unit
@@ -215,9 +208,11 @@ choices := *{"", "|"}
     - lex_many_till -> *{"", "|"}
   },
 
-path := *{"", modifier} - seq -> base
+path := *{"", modifier} - seq -> trailer
 modifier := "~" - seq -> *{"", "@"} | "@"
-base := HANDLE - seq -> trailer
+trailer := segment - seq -> *{"", "." - seq -> choice},
+segment := HANDLE - lexeme -> *{"", graph},
+graph :=  "{" - lexeme -> units - lexeme -> "}",
 
 trailer - *{
   "",
