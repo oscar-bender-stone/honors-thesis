@@ -39,7 +39,12 @@ We compare from the solutions presented in the introduction (@introduction):
   generality or specificity. Moreovoer, as with RDF, Welkin can easily express
   logical constraints.
 
-- *Cyc:* .
+- *Cyc:* both Welkin and Cyc support logical reasoning and rely on context-based
+  reasoning. While Cyc currently encodes more rules, Welkin is more flexible and
+  directly expressive for users. Additionally, Welkin is provided in an open
+  formal specification, and is therefore not tied to proprietary details. A
+  deeper comparison is limited precisely because Cyc is proprietary, in both its
+  engine and hard-coded rules.
 
 - *fcaR (Formal Concept Analysis in R):* Welkin uses a lattice through
   @table:unit-rules. This is similar to how Formal Concept Analysis (FCA)
