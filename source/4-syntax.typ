@@ -424,9 +424,10 @@ $"LL"(1)$.
   would invalidate being $"LL"(1)$. Our last goal is to demonstrate these
   conflicts are _absent_ in the grammar. This is readily verified in
   @syntax:LL1-calculations. To conserve space, each subrule is assigned an
-  $"ID"$, and may be used in other subrules. . Moreover, any rule of the form
-  $"*"{"", A}$ immediately has disjoint $FIRST$ sets, so we exclude these in the
-  table.
+  $"ID"$, and may be used in other subrules. We exclude easy cases, including
+  `HANDLE`, or which start with a unique character. Moreover, any rule of the
+  form $"*"{"", A}$ immediately has disjoint $FIRST$ sets, so we exclude these
+  in the table.
 
   With each of these properties satisfied, this proves that
   @syntax:figure-welkin-grammar is $"LL"(1)$. Thus, as all $"LL"(1)$ grammars
@@ -437,20 +438,16 @@ $"LL"(1)$.
       columns: (auto, auto, auto),
       table.header([*ID*], [*Rule*], [*Subrule*]),
       [[1]], [`units`], [`{"," - lexeme -> unit}`],
-      [[2]], [`units`], [`{[1] - lex_many_until -> unit}`],
-      [[3]], [`units`], [`unit - lexeme -> [2]`],
-      [[4]], [`unit`], [`*{"", arc - lexeme -> unit}`],
-      [[5]], [`node`], [`path - lexeme -> *{"", binding}`],
-      [[6]], [`node`], [`*{graph, [5]}`],
-      [[7]], [`node`], [`"*" - seq_many_until -> [6]`],
-      [[8]], [`choices`], [`{"|" - lexeme -> unit}`],
-      [[9]], [`choices`], [`[8] - lex_many_till -> *{"", "|"}`],
-      [[10]], [`binding`], [`":=" - lexeme -> choices`],
-      [[11]], [`path`], [`HANDLE - seq -> *{"", "|"}`],
-      [[11]], [`trailer`], [`HANDLE - seq -> trailer`],
-      [[12]], [`trailer`], [`*{graph, [11]}`],
-      [[13]], [`trailer`], [`"." - seq -> [12]`],
-      [[13]], [`HANDLE`], [`ID | STRING`],
+      [[2]], [`units`], [`[1] - lex_many_until -> *{"", ","}`],
+      [[3]], [`node`], [`path - lexeme -> *{"", binding}`],
+      [[4]], [`node`], [`*{graph, [3]}`],
+      [[5]], [`node`], [`"*" - seq_many_until -> [6]`],
+      [[6]], [`choices`], [`{"|" - lexeme -> unit}`],
+      [[7]], [`choices`], [`[8] - lex_many_till -> *{"", "|"}`],
+      [[8]], [`path`], [`HANDLE - seq -> *{"", "|"}`],
+      [[9]], [`trailer`], [`HANDLE - seq -> trailer`],
+      [[10]], [`trailer`], [`*{graph, [11]}`],
+      [[11]], [`trailer`], [`"." - seq -> [12]`],
     )],
     caption: [IDs ],
   )<syntax:LL1-subrule-IDs>
