@@ -174,9 +174,17 @@ Additionally, there is an important property we will need.
 
 #remark[
   Welkin can prove @metatheory:selector-composition as well thanks to contextual
-  lifting (@r:context-lift). Let $"pa"$ be a unit corresponding to $PA$. (This
-  can be done through a Turing machine corresponding to $PA$ and using
-  @foundations:turing-completeness-section.) Now, let $T_1, T_2$ be theories.
+  lifting (@r:context-lift). This enables a reliable way to transfer proofs
+  across theories. To demonstrate this, let $"pa"$ be a unit corresponding to
+  $PA$. (This can be done through a Turing machine corresponding to $PA$ and
+  using @foundations:turing-completeness-section.) Now, let $T_1, T_2, T_3$ be
+  theories, corresponding to units $"T_1", "T_2", "T_3"$, respectively, wihth
+  include units $"phi$"$ for each sentence $phi$. Set
+  $"phi_1"- "T_i" -> "phi_2"$ if $T_i entails (phi_1 => phi_2)$. Now, set
+  $T_1 - T_3 -> T_2$ if $T_3$ is a self-verifying theory and
+  $PA entails_T_3 chevron.l (T_1 entails phi) => (T_2 entails phi) chevron.r$.
+  By @r:context-lift, a derivation of $"phi_1" - "T" - "phi_2"$ lifts into
+  $"phi_1" - "T2" - "phi_2"$ _within_ $"pa"$.
 ]<metatheory:remark-selector-proof-composition>
 
 
@@ -332,7 +340,7 @@ Combined with @metatheory:reliable-proof-completeness and
 property of Welkin, stated as a major corollary.
 
 #corollary[
-  Let $"pa"$ be a unit corresponding to $PA$, as in
+  Let $"pa"$ be a unit corresponding to $PA$, as described in
   @metatheory:remark-selector-proof-composition. Let $T'$ be an RE theory and
   $phi$ a sentence. Suppose $P equiv (T'', p_1, p_2)$ be a reliable proof of
   $phi$ in $T'$. Then, this proof in, written in $T'$, is accepted by a
