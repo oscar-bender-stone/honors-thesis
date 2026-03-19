@@ -91,7 +91,7 @@ demonstrates that $PA$ proves its own _serial-consistency_, as follows:
   sufficiently strong _just_ to encode all of these proofs.
 - Finally, he uses a proof by induction, over encoded proofs in $PRA$, to show
   that $PA$ proves each _individual_ proof contains no contradictions. This is
-  possible through partial truth definitions.
+  possible through partial truth predicates.
 
 To be clear: Artëmov does _not_ show that there is a _single_ proof that $PA$ is
 consistent, that works for all proofs. Instead, his method _takes_ a proof as a
@@ -123,8 +123,8 @@ We need to remove these principles to ensure the proof is completely
 constructive, and that the Principle of Explosion is not used to prove a false
 claim.
 
-Now, we can prove $"PA"$ is self-verifying, using partial truth definitions.
-This is similar to the Artëmov's approach for serial-consistency. Note the
+Now, we can prove $"PA"$ is self-verifying, using partial truth predicates. This
+is similar to the Artëmov's approach for serial-consistency. Note the
 limitations posed by Tarski's theorem. This says that a formal system cannot
 define its own truth predicate _at the object language_
 @tarski-undefinability-truth. In fact, this truth predicate is uncomputable, in
@@ -179,7 +179,7 @@ as well.
 
 To reach these impredicative theories, we can utilize Artëmov's approach.
 Following his method, one can soundly jump from $PA$ all the way to $ZFC$; this,
-too, can be done with partial truth definitions. One reason why $ZFC$ is more
+too, can be done with partial truth predicates. One reason why $ZFC$ is more
 powerful is because of the Axiom of Replacement, or even Comprehension. We
 extend this realization using hyperarithmetic sets, which are known to cover
 every recursive ordinal, proven in @kleene-hyperarithmetic-covering. To this
