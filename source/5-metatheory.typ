@@ -143,7 +143,7 @@ From this, we define a *meta-proof* in $PA$ as follows.
   $chevron.l T entails phi chevron.r$ denotes the encoding of $T entails phi$ in
   $PA$. Additionally, for theories $T$, $T'$ and a sentence $phi$, $phi$
   $T$-*meta-provable* in $T'$ if there is some proof of
-  $PA entails chevron.l T entails (T' entails phi => T entails phi) chevron.r$
+  $PA entails chevron.l T entails chevron.l T' entails phi => T entails phi chevron.r chevron.r$
 ]
 
 Note that the base theory $T$ is important. This is because, two theories may be
