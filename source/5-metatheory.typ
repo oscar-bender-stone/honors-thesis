@@ -152,22 +152,23 @@ From this, we define a $T$*-meta-proof* in $PA$ as follows.
 Note that the base theory $T$ is important. This is because, two theories may be
 sound but prove $phi$ and $not phi$, respectively. Additionally, we want to
 cover more general theories. A theory may be unsound yet prove _some_ things
-correctly. For example, in Naive Set Theory, Russell's Paradox can be proven,
-but also true statements in $ZFC$, such as $forall x. x in X "iff" x in X$.
-Although this is a very simple example, this does raise the question: what _can_
-we reliably accept from a general theory? We characterize this precisely in the
-following definition.
+correctly. For example, in Naive Set Theory (encoded in arithmetic), Russell's
+Paradox can be proven, but also true statements in $ZFC$, such as
+$forall x. x in X "iff" x in X$. Although this is a very simple example, this
+does raise the question: what _can_ we reliably accept from a general theory? To
+generalize this example, we consider taking a _restriction_ of the theory. If
+this theory is sound, provable in an extension that _is_ self-verifying one, we
+can trust the specific claim from $T'$. We provide the full definition below.
 
 #definition[
-  Let $T'$ be a first order theory, and let $phi$ be a sentence. Then $phi$ is
-  *meta-provable* if, for some self-verifying theory $T$,
-  $PA attach(entails, br: T) chevron.l T' entails phi chevron.r.$
-]<metatheory:meta-provability>
+  Let $T'$ be a first order theory, and let $phi$ be a sentence. Then a $T'$
+  proof of $phi$ is *reliable* if there is some subset $T'' subset.eq T'$ that
+  can be extended to a self-verifying theory.
+]<metatheory:reliability>
 
-Observe that $T'$ need _not_ be sound. The point of this definition is to ensure
-_completeness_. Welkin handles this via contexts, isolating conflicting
-sentences from each other. This is important in the final result of this
-section, refer to @metatheory:welkin-proof-completeness.
+Welkin handles this via contexts, isolating conflicting sentences from each
+other. This is important in the final result of this section, refer to
+@metatheory:welkin-proof-completeness.
 
 == Proof Completeness <metatheory:proof-completeness>
 
