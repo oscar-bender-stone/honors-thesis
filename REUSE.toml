@@ -1,7 +1,7 @@
 version = 1
 
 [[annotations]]
-path = ["document/thesis.pdf"]
+path = ["document/thesis.pdf", "document/presentation.pdf"]
 SPDX-FileCopyrightText = "Oscar Bender-Stone <oscar-bender-stone@protonmail.com>"
 SPDX-License-Identifier = "CC-BY-SA-4.0"
 
@@ -11,7 +11,7 @@ path = [
   ".gitignore",
   "**/.gitignore",
   "**/.python-version",
-  "source/references/*.bib",
+  "source/thesis/references/*.bib",
 ]
 SPDX-FileCopyrightText = "Oscar Bender-Stone <oscar-bender-stone@protonmail.com>"
 SPDX-License-Identifier = "CC0-1.0"
