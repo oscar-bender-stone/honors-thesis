@@ -74,12 +74,12 @@
           self.colors.secondary,
           dir: rtl,
         ),
-        inset: 2.5em,
+        inset: 1.2em,
         radius: 0.5em,
         breakable: false,
         {
           text(
-            size: 1.5em,
+            size: 1.3em,
             fill: self.colors.neutral-lightest,
             weight: "bold",
             info.title,
@@ -95,6 +95,7 @@
           }
         },
       )
+
       v(1em)
       text(
         size: 1.2em,
@@ -364,11 +365,11 @@
     ),
     config-methods(
       init: (self: none, body) => {
-        // Explicitly set the main slide content to BLACK here
+        // TODO: decide suitable dark
+        // color for main text font
         set text(font: "STIX Two Text", size: 22pt, fill: black)
         show math.equation: set text(font: "STIX Two Math")
 
-        // Suppress native printing of level 1/2 headings so Touying handles them
         show heading.where(level: 1): none
         show heading.where(level: 2): none
         body
