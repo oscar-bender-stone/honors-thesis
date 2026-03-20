@@ -23,6 +23,7 @@
 
 // TODO: fix pauses between bullets at same level!
 == Background
+#pause
 - Information Management: studies how to *store* and *organize* data#pause
   #pause
   - Throughout _all_ history: so much data!
@@ -45,7 +46,7 @@
     ]#pause
 
 == Problems
-
+#pause
 - How to _actually_ manage information?
   - *Information base:* a database of information
 - *Depth:* domain specific data
@@ -64,7 +65,7 @@
     ]
 
 == Existing Solutions
-
+#pause
 #list(
   compare-list([*Resource Description Language (RDF)*], (
     info[Used in Web Ontology Language *(OWL)*],
@@ -105,7 +106,7 @@
 = Language Overview
 
 == General Requirements
-
+#pause
 + Express any computer program#pause
   - Need effective operations#pause
   - Established notion: *Turing machines*#footnote[Turing, A. M. (1936). On
@@ -120,18 +121,24 @@
 - Achieve both through *representations*
 
 == Representations
-
+#pause
 - Centered around _representing_ things
-- $a - c -> b$: $a$ *represents* $b$ *in context* $c$
-  - $a$: *sign*
-  - $b$: *referent*
-  - $c$: *context*
-- Each component is called a *handle*
-  - Name origin: file/resource handles (programs)
-  - Enables user-defined meaning
-  - How to _mechanically_ use? *Truth*
-
+- $a - c -> b$: $a$ *represents* $b$ *in context* $c$#pause
+  - $a$: *sign*#pause
+  - $b$: *referent*#pause
+  - $c$: *context*#pause
+- Track _faithfulness_ of representations through *truth*
 == Units
+#pause
+- *Finitely defined*#pause
+- Can be broken down, combined
+  - Written with braces ${a, b, ..., z}$#pause
+- Built from *Handles*#pause
+  - Name origin: file/resource handles (programs)#pause
+  - Enables user-defined meaning#pause
+  - User's goal: correctly specify!#pause
+- Representations are units#pause
+- Each unit has its own *context*
 
 == Information
 
