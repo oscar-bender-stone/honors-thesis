@@ -265,7 +265,6 @@
     block(
       width: 100%,
       fill: sky-gradient,
-      outset: (x: 2em),
       grid(
         // Explicitly hardcoded 70% width for the center to force left-to-right wrapping without squishing
         columns: (10%, auto, 10%),
@@ -295,13 +294,12 @@
   }
 
   let footer(self) = {
+    let footer-fontsize = 0.7em
+
     block(
-      width: 100%,
-      height: 2.2em,
       fill: sky-gradient,
-      outset: (x: 2em),
       grid(
-        columns: (auto, 1fr, auto, 1fr, auto),
+        columns: (auto, auto, auto, auto, auto),
         rows: 100%,
         align: (
           left + horizon,
@@ -312,19 +310,28 @@
         ),
 
         box(inset: (left: 1em, right: 1.5em))[
-          #text(fill: white, weight: "bold", size: 0.9em, self.info.author)
+          #text(
+            fill: white,
+            weight: "bold",
+            size: footer-fontsize,
+            self.info.author,
+          )
         ],
 
         block(width: 100%, height: 100%, fill: dot-pattern),
 
         box(inset: (x: 1.5em))[
-          #text(fill: white, size: 0.9em, utils.display-info-date(self))
+          #text(
+            fill: white,
+            size: footer-fontsize,
+            utils.display-info-date(self),
+          )
         ],
 
         block(width: 100%, height: 100%, fill: dot-pattern),
 
         box(inset: (left: 1.5em, right: 1em))[
-          #text(fill: white, weight: "bold", size: 0.9em)[
+          #text(fill: white, weight: "bold", size: footer-fontsize)[
             #context [
               #utils.slide-counter.display() / #utils.last-slide-number
             ]
@@ -337,7 +344,7 @@
   show: touying-slides.with(
     config-page(
       ..utils.page-args-from-aspect-ratio(aspect-ratio),
-      margin: (top: 4.5em, bottom: 2.7em, left: 2em, right: 2em),
+      margin: (top: 3.4em, bottom: 2.0em, left: 2em, right: 2em),
       header: header,
       footer: footer,
       background: draft-watermark,
