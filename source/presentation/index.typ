@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template.typ": elegant-blue-theme, title-slide
+#import "template.typ": elegant-blue-theme, pause, title-slide
 #import "compare-list.typ": compare-list, con, info, pro
 
 #show: elegant-blue-theme.with(
@@ -15,24 +15,28 @@
 
 = Introduction
 
+// TODO: fix pauses between bullets at same level!
 == Background
-- Information Management: studies how to *store* and *organize* data
+- Information Management: studies how to *store* and *organize* data#pause
+  #pause
   - Throughout _all_ history: so much data!
-  - Organize through *information*
-- What _is_ information?
+  - Organize through *information*#pause
+- What _is_ information?#pause
   - Depends on who you ask!
+  #pause
   - *Ackoff:* Data-to-Wisdom Hierarchy #footnote[Ackoff, R. L. (1989). _From
       Data to Wisdom_. J. Appl. Syst. Anal., 16, 3–9.
-    ]
+    ]#pause
     - Data $=>$ Information $=>$ Wisdom
+    #pause
   - *Buckland:* Based on usage#footnote[Buckland, M. K. (1991). _Information as
       thing_. JASIS, 42(5), 351–360.
-    ]
+    ]#pause
     - Can be a _process_, or _knowledge_
     - Most useful as _thing_
   - *Floridi:* Information is *truthful*#footnote[Floridi, L. (2010).
       _Information: A Very Short Introduction_. Oxford University Press.
-    ]
+    ]#pause
 
 == Problems
 
@@ -41,11 +45,11 @@
 - *Depth:* domain specific data
   - Example: Amazon (product suggestions)#footnote[Smith & Linden (2017). Two
       Decades of Recommender Systems at Amazon.com. IEEE Internet Comput. 21(3).
-    ]
-- *Breadth:* different kinds of data
+    ]#pause
+- *Breadth:* different kinds of data#pause
   - Example: Wikipedia#footnote[Mesgari, M., et al. (2015). "The sum of all
       human knowledge": A systematic review of Wikipedia. JASIST, 66(2).
-    ]
+    ]#pause
 - *Standardization:* ambiguous interpretations
   - Related issue: being *interoperable*
   - *Interoperable:* a portable data format
