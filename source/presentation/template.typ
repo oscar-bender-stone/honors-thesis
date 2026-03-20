@@ -235,7 +235,7 @@
     primary: rgb("#4da6ff"),
     secondary: rgb("#80ccff"),
     // Changed text-main to a uniform black so all body text is standard
-    text-main: rgb("#198CFD"),
+    text-main: color.mix(rgb("#80ccff"), rgb("#4da6ff")),
   )
 
   let sky-gradient = gradient.linear(
