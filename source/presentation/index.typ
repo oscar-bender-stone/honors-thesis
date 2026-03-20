@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template.typ": elegant-blue-theme, pause, title-slide
+#import "template.typ": elegant-blue-theme, pause, title-slide, uncover
 #import "compare-list.typ": compare-list, con, info, pro
 
 #show: elegant-blue-theme.with(
@@ -109,11 +109,29 @@
   - Avoid empty symbols!#pause
   - Symbol Grounding Problem#footnote[Harnad, S. (1990). _The Symbol Grounding
       Problem._ Physica D, 42, 335–346.
-    ]
+    ]#pause
 
-== Base Operations
+- Achieve both through *representations*
+
+== Representations
+
+== Units
+
+== Information
+
+== Turing Completeness
 
 = Syntax
+
+== Overview
+
+== Encoding
+
+== Invertible Syntax Descriptions
+
+== The Welkin Grammar
+
+== Outline of Unambiguity
 
 = Metatheory
 
