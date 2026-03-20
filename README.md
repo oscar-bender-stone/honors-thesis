@@ -18,7 +18,8 @@ completed.
 
 **Outside Reader:** [Gowtham Kaki](gowtham.kaki@colorado.edu)
 
-Licensed under the [CC-BY-SA-4.0 license](./LICENSES/CC-BY-SA-4.0.txt).
+The thesis **and** presentation are licensed under the
+[CC-BY-SA-4.0 license](./LICENSES/CC-BY-SA-4.0.txt).
 
 ## Available Scripts
 
