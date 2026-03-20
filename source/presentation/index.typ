@@ -191,9 +191,18 @@
     )).]
 
 - Define US-ASCII: Printable + `EOF` (code: 58)
+- *Token:* collection of contiguous characters
+  - Simplifies grammar
 
-
-== Invertible Syntax Descriptions
+== Building Blocks
+- *Invertible Syntax Descriptions:* pairs of functions:#footnote[Rendel &
+    Ostermann (2010). Invertible syntax descriptions. Haskell '10.]#pause
+  - *Parser*: takes (_consumes_) tokens, converts into a data
+    structure#footnote[For computer scientists: this is an AST.]#pause
+  - *Printer*: converts a data structure into a string
+  - Identity: when parser succeeds, is "reversible" with printer.
+- Need *maximal munch:*#pause consume tokens, not characters#pause
+  - Simplifies grammar
 
 == The Welkin Grammar
 
