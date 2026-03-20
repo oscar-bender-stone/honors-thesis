@@ -12,6 +12,7 @@ path = [
   "**/.gitignore",
   "**/.python-version",
   "source/thesis/references/*.bib",
+  "source/presentation/references.bib",
 ]
 SPDX-FileCopyrightText = "Oscar Bender-Stone <oscar-bender-stone@protonmail.com>"
 SPDX-License-Identifier = "CC0-1.0"
