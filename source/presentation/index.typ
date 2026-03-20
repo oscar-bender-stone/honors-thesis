@@ -16,7 +16,7 @@
 
 == Background
 
-== Background
+== Existing Solutions
 
 = Foundations
 

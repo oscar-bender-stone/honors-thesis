@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
+
 #import "@preview/touying:0.6.3": *
 
 // --- RE-EXPORTS & CUSTOM COMPONENTS ---
@@ -30,18 +31,15 @@
     }
 
     if display-title != none and display-title != [] {
-      // Fixed: `block` does not take `margin`. Use `pad` to create spacing.
-      pad(bottom: 1em)[
-        #block(
-          width: 100%,
-          text(
-            fill: self.colors.primary,
-            weight: "bold",
-            size: 1.4em,
-            display-title,
-          ),
-        )
-      ]
+      block(
+        width: 100%,
+        text(
+          fill: self.colors.primary,
+          weight: "bold",
+          size: 1.4em,
+          display-title,
+        ),
+      )
     }
 
     body
@@ -128,7 +126,7 @@
   let content = {
     std.align(center + horizon)[
       #block(
-        std.align(left)[
+        align(left)[
           #text(
             fill: self.colors.text-main,
             weight: "bold",
@@ -136,16 +134,17 @@
           )[#title]
           #v(1em)
 
-          // Removed adaptive-columns to force a strict, clear vertical list
-          #text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
-            #components.custom-progressive-outline(
-              level: level,
-              alpha: 100%,
-              depth: 1,
-              numbered: (numbered,),
-              vspace: (0.8em,),
-            )
-          ]
+          #components.adaptive-columns(
+            text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
+              #components.custom-progressive-outline(
+                level: level,
+                alpha: 100%,
+                depth: 1,
+                numbered: (numbered,),
+                vspace: (0.8em,),
+              )
+            ],
+          )
         ],
       )
     ]
@@ -164,7 +163,7 @@
   let content = {
     std.align(center + horizon)[
       #block(
-        std.align(left)[
+        align(left)[
           #text(
             fill: self.colors.text-main,
             weight: "bold",
@@ -172,16 +171,17 @@
           )[Agenda]
           #v(1em)
 
-          // Removed adaptive-columns to force a strict, clear vertical list
-          #text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
-            #components.custom-progressive-outline(
-              level: level,
-              alpha: 30%,
-              depth: 1,
-              numbered: (numbered,),
-              vspace: (0.8em,),
-            )
-          ]
+          #components.adaptive-columns(
+            text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
+              #components.custom-progressive-outline(
+                level: level,
+                alpha: 30%,
+                depth: 1,
+                numbered: (numbered,),
+                vspace: (0.8em,),
+              )
+            ],
+          )
         ],
       )
     ]
@@ -229,7 +229,8 @@
   let palette = (
     primary: rgb("#4da6ff"),
     secondary: rgb("#80ccff"),
-    text-main: rgb("#165a9e"),
+    // Changed text-main to a uniform black so all body text is standard
+    text-main: rgb("#000000"),
   )
 
   let sky-gradient = gradient.linear(
@@ -260,12 +261,18 @@
       width: 100%,
       fill: sky-gradient,
       outset: (x: 2em),
-      block(
-        width: 100%,
-        fill: dot-pattern,
-        // Fixed: Explicitly bypass the local `align` parameter by calling `std.align`
-        // to prevent "expected function, found alignment" compiler errors.
-        pad(y: 0.8em, std.align(center + horizon)[
+      grid(
+        // Use 1fr (dots), auto (centered progress), 1fr (dots)
+        // to guarantee dots do not intersect the progress text
+        columns: (1fr, auto, 1fr),
+        rows: auto,
+        align: (left + horizon, center + horizon, right + horizon),
+
+        // Left side dots
+        block(width: 100%, height: 100%, fill: dot-pattern),
+
+        // Centered mini-slides, removed the heading title box
+        box(inset: (x: 1em), pad(y: 0.8em)[
           #components.mini-slides(
             self: self,
             fill: white,
@@ -273,6 +280,9 @@
             display-section: true,
           )
         ]),
+
+        // Right side dots
+        block(width: 100%, height: 100%, fill: dot-pattern),
       ),
     )
   }
