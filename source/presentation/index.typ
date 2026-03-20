@@ -16,6 +16,8 @@
 
 == Background
 
+== Background
+
 = Foundations
 
 = Syntax

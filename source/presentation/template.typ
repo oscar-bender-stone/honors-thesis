@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
+
 #import "@preview/touying:0.6.3": *
 
 // --- RE-EXPORTS & CUSTOM COMPONENTS ---
@@ -23,21 +24,20 @@
     show: std.align.with(self.store.align)
     show: setting
 
-    // Automatically render the slide title (from `== Subheader`)
-    // at the top of the slide body, completely below the banner.
-    if (
-      "title" in self.store
-        and self.store.title != none
-        and self.store.title != auto
-    ) {
+    // Fixed: Explicitly fetch the active level 2 heading (e.g. `== Background`)
+    // to guarantee it renders reliably below the banner every time.
+    let display-title = if title != auto { title } else {
+      utils.display-current-heading(level: 2)
+    }
+
+    if display-title != none and display-title != [] {
       block(
         width: 100%,
-        margin: (bottom: 1em),
         text(
           fill: self.colors.primary,
           weight: "bold",
           size: 1.4em,
-          self.store.title,
+          display-title,
         ),
       )
     }
@@ -58,7 +58,12 @@
 // 2. Define custom Title Slide
 #let title-slide(config: (:), extra: none, ..args) = touying-slide-wrapper(
   self => {
-    self = utils.merge-dicts(self, config)
+    // Fixed: Strips the banner/footer and equalizes margins so content is perfectly centered
+    self = utils.merge-dicts(
+      self,
+      config-page(header: none, footer: none, margin: 2em),
+      config,
+    )
     let info = self.info + args.named()
 
     let body = {
@@ -110,7 +115,44 @@
   },
 )
 
-// 3. Define custom Transition Slide (Highlights current section)
+// 3. Define custom Outline Slide (Shows ALL sections, no dimming)
+#let outline-slide(
+  config: (:),
+  title: "Agenda",
+  level: 1,
+  numbered: false,
+  ..args,
+) = touying-slide-wrapper(self => {
+  let content = {
+    std.align(center + horizon)[
+      #block(
+        align(left)[
+          #text(
+            fill: self.colors.text-main,
+            weight: "bold",
+            size: 1.6em,
+          )[#title]
+          #v(1em)
+
+          #components.adaptive-columns(
+            text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
+              #components.custom-progressive-outline(
+                level: level,
+                alpha: 100%,
+                depth: 1,
+                numbered: (numbered,),
+                vspace: (0.8em,),
+              )
+            ],
+          )
+        ],
+      )
+    ]
+  }
+  touying-slide(self: self, config: config, content)
+})
+
+// 4. Define custom Transition Slide (Highlights current section)
 #let new-section-slide(
   config: (:),
   level: 1,
@@ -122,7 +164,6 @@
     std.align(center + horizon)[
       #block(
         align(left)[
-          // The title of the transition slide
           #text(
             fill: self.colors.text-main,
             weight: "bold",
@@ -130,16 +171,17 @@
           )[Agenda]
           #v(1em)
 
-          // Lists all sections, highlights current, dims the rest
-          #text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
-            #components.custom-progressive-outline(
-              level: level,
-              alpha: 30%, // Opacity of non-active sections
-              depth: 1,
-              numbered: (numbered,),
-              vspace: (0.8em,),
-            )
-          ]
+          #components.adaptive-columns(
+            text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
+              #components.custom-progressive-outline(
+                level: level,
+                alpha: 30%,
+                depth: 1,
+                numbered: (numbered,),
+                vspace: (0.8em,),
+              )
+            ],
+          )
         ],
       )
     ]
@@ -147,7 +189,7 @@
   touying-slide(self: self, config: config, content)
 })
 
-// 4. Define custom Focus Slide
+// 5. Define custom Focus Slide
 #let focus-slide(
   config: (:),
   align: horizon + center,
@@ -184,11 +226,10 @@
   ..args,
   body,
 ) = {
-  // 1. The Natural Sky Palette
   let palette = (
-    primary: rgb("#4da6ff"), // Natural Sky Blue
-    secondary: rgb("#80ccff"), // Soft Light Sky
-    text-main: rgb("#0044cc"), // Dark, saturated blue for text
+    primary: rgb("#4da6ff"),
+    secondary: rgb("#80ccff"),
+    text-main: rgb("#0044cc"),
   )
 
   let sky-gradient = gradient.linear(
@@ -197,7 +238,6 @@
     dir: rtl,
   )
 
-  // Use Typst's modern `tiling` function for the dots
   let dot-pattern = tiling(size: (12pt, 12pt))[
     #circle(radius: 1.5pt, fill: rgb("#ffffff60"))
   ]
@@ -218,32 +258,32 @@
   let header(self) = {
     block(
       width: 100%,
-      height: 2.5em,
+      // Fixed: Removed absolute height. Allowed auto expansion.
       fill: sky-gradient,
       outset: (x: 2em),
       grid(
         columns: (auto, 1fr, auto),
-        rows: 100%,
+        rows: auto,
         align: (left + horizon, center + horizon, right + horizon),
 
-        // Displays current `= Section` heading
-        box(inset: (right: 1.5em))[
+        // Fixed: Reduced inset to 0.5em. Added pad so 'auto' height stretches cleanly
+        box(inset: (right: 0.5em), pad(y: 0.8em)[
           #text(fill: white, weight: "bold", size: 1.1em)[
             #utils.display-current-heading(level: 1)
           ]
-        ],
+        ]),
 
         block(width: 100%, height: 100%, fill: dot-pattern),
 
-        // Dot Progress Bar mapping the current section's slides
-        box(inset: (left: 1.5em))[
+        // Fixed: Reduced inset to 0.5em. Added display-section to mirror image.
+        box(inset: (left: 0.5em), pad(y: 0.8em)[
           #components.mini-slides(
             self: self,
             fill: white,
-            alpha: 80%,
-            display-section: false,
+            alpha: 50%,
+            display-section: true,
           )
-        ],
+        ]),
       ),
     )
   }
@@ -265,7 +305,6 @@
           right + horizon,
         ),
 
-        // Generous padding applied to prevent edge cutoffs
         box(inset: (left: 1em, right: 1.5em))[
           #text(fill: white, weight: "bold", size: 0.9em, self.info.author)
         ],
@@ -278,7 +317,6 @@
 
         block(width: 100%, height: 100%, fill: dot-pattern),
 
-        // Generous padding applied to prevent edge cutoffs
         box(inset: (left: 1.5em, right: 1em))[
           #text(fill: white, weight: "bold", size: 0.9em)[
             #context [
@@ -293,10 +331,8 @@
   show: touying-slides.with(
     config-page(
       ..utils.page-args-from-aspect-ratio(aspect-ratio),
-      // Mathematically calculated margins to make panels perfectly flush with the screen edges:
-      // Margin Top (3.0em) = Header Height (2.5em) + Header Ascent (0.5em)
-      // Margin Bottom (2.7em) = Footer Height (2.2em) + Footer Descent (0.5em)
-      margin: (top: 3.0em, bottom: 2.7em, left: 2em, right: 2em),
+      // Increased top margin to gracefully handle the 'auto' expanding multi-row header
+      margin: (top: 4.5em, bottom: 2.7em, left: 2em, right: 2em),
       header: header,
       footer: footer,
       background: draft-watermark,
@@ -311,7 +347,7 @@
     ),
     config-common(
       slide-fn: slide,
-      new-section-slide-fn: new-section-slide, // Registers the auto-outline transition slides
+      new-section-slide-fn: new-section-slide,
       slide-level: 2,
     ),
     config-colors(
@@ -327,10 +363,9 @@
         set text(font: "STIX Two Text", size: 22pt, fill: self.colors.text-main)
         show math.equation: set text(font: "STIX Two Math")
 
-        show heading.where(level: 1): it => {
-          set text(fill: self.colors.text-main, weight: "bold", size: 1.6em)
-          pad(top: 0.5em, bottom: 0.8em, it.body)
-        }
+        // Suppress native printing of level 1/2 headings so Touying handles them
+        show heading.where(level: 1): none
+        show heading.where(level: 2): none
         body
       },
     ),
