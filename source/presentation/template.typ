@@ -1,7 +1,6 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-
 #import "@preview/touying:0.6.3": *
 
 // --- RE-EXPORTS & CUSTOM COMPONENTS ---
@@ -24,22 +23,25 @@
     show: std.align.with(self.store.align)
     show: setting
 
-    // Fixed: Explicitly fetch the active level 2 heading (e.g. `== Background`)
+    // Explicitly fetch the active level 2 heading (e.g. `== Background`)
     // to guarantee it renders reliably below the banner every time.
     let display-title = if title != auto { title } else {
       utils.display-current-heading(level: 2)
     }
 
     if display-title != none and display-title != [] {
-      block(
-        width: 100%,
-        text(
-          fill: self.colors.primary,
-          weight: "bold",
-          size: 1.4em,
-          display-title,
-        ),
-      )
+      // Fixed: `block` does not take `margin`. Use `pad` to create spacing.
+      pad(bottom: 1em)[
+        #block(
+          width: 100%,
+          text(
+            fill: self.colors.primary,
+            weight: "bold",
+            size: 1.4em,
+            display-title,
+          ),
+        )
+      ]
     }
 
     body
@@ -58,7 +60,7 @@
 // 2. Define custom Title Slide
 #let title-slide(config: (:), extra: none, ..args) = touying-slide-wrapper(
   self => {
-    // Fixed: Strips the banner/footer and equalizes margins so content is perfectly centered
+    // Strips the banner/footer and equalizes margins so content is perfectly centered
     self = utils.merge-dicts(
       self,
       config-page(header: none, footer: none, margin: 2em),
@@ -126,7 +128,7 @@
   let content = {
     std.align(center + horizon)[
       #block(
-        align(left)[
+        std.align(left)[
           #text(
             fill: self.colors.text-main,
             weight: "bold",
@@ -134,17 +136,16 @@
           )[#title]
           #v(1em)
 
-          #components.adaptive-columns(
-            text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
-              #components.custom-progressive-outline(
-                level: level,
-                alpha: 100%,
-                depth: 1,
-                numbered: (numbered,),
-                vspace: (0.8em,),
-              )
-            ],
-          )
+          // Removed adaptive-columns to force a strict, clear vertical list
+          #text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
+            #components.custom-progressive-outline(
+              level: level,
+              alpha: 100%,
+              depth: 1,
+              numbered: (numbered,),
+              vspace: (0.8em,),
+            )
+          ]
         ],
       )
     ]
@@ -163,7 +164,7 @@
   let content = {
     std.align(center + horizon)[
       #block(
-        align(left)[
+        std.align(left)[
           #text(
             fill: self.colors.text-main,
             weight: "bold",
@@ -171,17 +172,16 @@
           )[Agenda]
           #v(1em)
 
-          #components.adaptive-columns(
-            text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
-              #components.custom-progressive-outline(
-                level: level,
-                alpha: 30%,
-                depth: 1,
-                numbered: (numbered,),
-                vspace: (0.8em,),
-              )
-            ],
-          )
+          // Removed adaptive-columns to force a strict, clear vertical list
+          #text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
+            #components.custom-progressive-outline(
+              level: level,
+              alpha: 30%,
+              depth: 1,
+              numbered: (numbered,),
+              vspace: (0.8em,),
+            )
+          ]
         ],
       )
     ]
@@ -229,7 +229,7 @@
   let palette = (
     primary: rgb("#4da6ff"),
     secondary: rgb("#80ccff"),
-    text-main: rgb("#0044cc"),
+    text-main: rgb("#165a9e"),
   )
 
   let sky-gradient = gradient.linear(
@@ -258,25 +258,14 @@
   let header(self) = {
     block(
       width: 100%,
-      // Fixed: Removed absolute height. Allowed auto expansion.
       fill: sky-gradient,
       outset: (x: 2em),
-      grid(
-        columns: (auto, 1fr, auto),
-        rows: auto,
-        align: (left + horizon, center + horizon, right + horizon),
-
-        // Fixed: Reduced inset to 0.5em. Added pad so 'auto' height stretches cleanly
-        box(inset: (right: 0.5em), pad(y: 0.8em)[
-          #text(fill: white, weight: "bold", size: 1.1em)[
-            #utils.display-current-heading(level: 1)
-          ]
-        ]),
-
-        block(width: 100%, height: 100%, fill: dot-pattern),
-
-        // Fixed: Reduced inset to 0.5em. Added display-section to mirror image.
-        box(inset: (left: 0.5em), pad(y: 0.8em)[
+      block(
+        width: 100%,
+        fill: dot-pattern,
+        // Fixed: Explicitly bypass the local `align` parameter by calling `std.align`
+        // to prevent "expected function, found alignment" compiler errors.
+        pad(y: 0.8em, std.align(center + horizon)[
           #components.mini-slides(
             self: self,
             fill: white,
@@ -331,7 +320,6 @@
   show: touying-slides.with(
     config-page(
       ..utils.page-args-from-aspect-ratio(aspect-ratio),
-      // Increased top margin to gracefully handle the 'auto' expanding multi-row header
       margin: (top: 4.5em, bottom: 2.7em, left: 2em, right: 2em),
       header: header,
       footer: footer,
