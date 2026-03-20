@@ -79,7 +79,7 @@
 
 == Proposed Solution
 #pause
-- *Welkin*: my information language
+- *Welkin*: an information language
   #pause
   - Pronounced: "VEL-KIN"
   #pause
@@ -96,7 +96,17 @@
   - *Standardization:* be completely _unambiguous_#pause
     - Have a formal specification
 
-= Foundations
+= Language Overview
+
+== General Requirements
+
+- Need at least two things:#pause
+
+  + Express any computer program#pause
+
+  + Enable user-defined _meaning_
+
+== Base Operations
 
 = Syntax
 
