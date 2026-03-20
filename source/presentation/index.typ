@@ -5,8 +5,8 @@
 
 #show: elegant-blue-theme.with(
   draft: true,
-  title: [Designing a Universal Information Language],
-  author: [Oscar Bender-Stone],
+  title: [Test],
+  author: [Author],
 )
 
 #title-slide()
