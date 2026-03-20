@@ -376,6 +376,11 @@
 
         show heading.where(level: 1): none
         show heading.where(level: 2): none
+
+        show hide: it => {
+          show footnote: none
+          it
+        }
         body
       },
     ),

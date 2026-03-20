@@ -11,6 +11,12 @@
   date: [March 26, 2026],
 )
 
+
+#show hide: it => {
+  show footnote: none
+  it
+}
+
 #title-slide()
 
 = Introduction
@@ -114,6 +120,16 @@
 - Achieve both through *representations*
 
 == Representations
+
+- Centered around _representing_ things
+- $a - c -> b$: $a$ *represents* $b$ *in context* $c$
+  - $a$: *sign*
+  - $b$: *referent*
+  - $c$: *context*
+- Each component is called a *handle*
+  - Name origin: file/resource handles (programs)
+  - Enables user-defined meaning
+  - How to _mechanically_ use? *Truth*
 
 == Units
 
