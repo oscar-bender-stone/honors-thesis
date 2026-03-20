@@ -7,6 +7,7 @@
   draft: true,
   title: [Test],
   author: [Author],
+  date: [March 26, 2026],
 )
 
 #title-slide()
