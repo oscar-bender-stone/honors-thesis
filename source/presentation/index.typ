@@ -19,6 +19,19 @@
 
 #title-slide()
 
+#let matched-dash = math.class(
+  "relation",
+  box(
+    width: 0.764em, // Your measured 7.64 stem width / 10
+    height: 0.5em, // Keeps baseline alignment consistent
+    align(
+      center + horizon,
+      line(length: 0.764em, stroke: 0.049em + black), // Your measured 0.49 thickness
+    ),
+  ),
+)
+#show math.minus: matched-dash
+
 = Introduction
 
 // TODO: fix pauses between bullets at same level!
@@ -90,7 +103,9 @@
   #pause
   - Pronounced: "VEL-KIN"
   #pause
-  - Old German word, meaning "cloud", "sky"
+  - Old German word, meaning "cloud", "sky"#footnote[Oxford English Dictionary
+      (2025), s.v. "welkin, n."
+    ]
 #pause
 - *Goals:* #pause
   - *Universality:* be completely expressive#pause
@@ -106,6 +121,7 @@
 = Language Overview
 
 == General Requirements
+
 #pause
 + Express any computer program#pause
   - Need effective operations#pause
@@ -121,6 +137,7 @@
 - Achieve both through *representations*
 
 == Representations
+
 #pause
 - Centered around _representing_ things
 - $a - c -> b$: $a$ *represents* $b$ *in context* $c$#pause
@@ -129,6 +146,7 @@
   - $c$: *context*#pause
 - Track _faithfulness_ of representations through *truth*
 == Units
+
 #pause
 - *Finitely defined*#pause
 - Can be broken down, combined
@@ -142,7 +160,19 @@
 
 == Information
 
+- Representations #pause $~$ *Truth*
+- Information #pause $~$ *Proofs*
+-
+
+== Rules
+
+- *Internal Transitivity:*
+- *Contextual Lifting:*#pause
+- *Lattice Laws:*
+  - Units as sets
+
 == Turing Completeness
+-
 
 = Syntax
 
