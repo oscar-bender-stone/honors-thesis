@@ -36,12 +36,22 @@
 
 == Problems
 
-- *Depth*
-
-- *Breadth*
-
-- *Standardization*
-
+- How to _actually_ manage information?
+  - *Information base:* a database of information
+- *Depth:* domain specific data
+  - Example: Amazon (product suggestions)#footnote[Smith & Linden (2017). Two
+      Decades of Recommender Systems at Amazon.com. IEEE Internet Comput. 21(3).
+    ]
+- *Breadth:* different kinds of data
+  - Example: Wikipedia#footnote[Mesgari, M., et al. (2015). "The sum of all
+      human knowledge": A systematic review of Wikipedia. JASIST, 66(2).
+    ]
+- *Standardization:* ambiguous interpretations
+  - Related issue: being *interoperable*
+  - *Interoperable:* a portable data format
+  - Example: US health records#footnote[Reisman, M. (2017). EHRs: The challenge
+      of making electronic data usable. P & T, 42(9), 572–575.
+    ]
 
 == Existing Solutions
 
