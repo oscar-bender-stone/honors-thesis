@@ -34,7 +34,7 @@
       block(
         width: 100%,
         text(
-          fill: self.colors.primary,
+          fill: self.colors.text-main,
           weight: "bold",
           size: 1.4em,
           display-title,
@@ -126,6 +126,7 @@
   let content = {
     std.align(center + horizon)[
       #block(
+        width: 100%,
         align(left)[
           #text(
             fill: self.colors.text-main,
@@ -134,17 +135,19 @@
           )[#title]
           #v(1em)
 
-          #components.adaptive-columns(
-            text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
+          // Removed adaptive-columns to force a single vertical list.
+          // Reduced font size and vspace to ensure it fits onto one slide.
+          #block(width: 100%)[
+            #text(fill: self.colors.text-main, weight: "bold", size: 0.95em)[
               #components.custom-progressive-outline(
                 level: level,
                 alpha: 100%,
                 depth: 1,
                 numbered: (numbered,),
-                vspace: (0.8em,),
+                vspace: (0.4em,),
               )
-            ],
-          )
+            ]
+          ]
         ],
       )
     ]
@@ -163,6 +166,7 @@
   let content = {
     std.align(center + horizon)[
       #block(
+        width: 100%,
         align(left)[
           #text(
             fill: self.colors.text-main,
@@ -171,17 +175,18 @@
           )[Agenda]
           #v(1em)
 
-          #components.adaptive-columns(
-            text(fill: self.colors.text-main, weight: "bold", size: 1.3em)[
+          // Removed adaptive-columns, scaled down font size/spacing
+          #block(width: 100%)[
+            #text(fill: self.colors.text-main, weight: "bold", size: 0.95em)[
               #components.custom-progressive-outline(
                 level: level,
                 alpha: 30%,
                 depth: 1,
                 numbered: (numbered,),
-                vspace: (0.8em,),
+                vspace: (0.4em,),
               )
-            ],
-          )
+            ]
+          ]
         ],
       )
     ]
@@ -230,7 +235,7 @@
     primary: rgb("#4da6ff"),
     secondary: rgb("#80ccff"),
     // Changed text-main to a uniform black so all body text is standard
-    text-main: rgb("#000000"),
+    text-main: rgb("#198CFD"),
   )
 
   let sky-gradient = gradient.linear(
@@ -262,17 +267,17 @@
       fill: sky-gradient,
       outset: (x: 2em),
       grid(
-        // Use 1fr (dots), auto (centered progress), 1fr (dots)
-        // to guarantee dots do not intersect the progress text
-        columns: (1fr, auto, 1fr),
+        // Use 1fr, 4fr, 1fr to give the center progress bar room to flow horizontally and wrap
+        columns: (1fr, 4fr, 1fr),
         rows: auto,
         align: (left + horizon, center + horizon, right + horizon),
 
         // Left side dots
         block(width: 100%, height: 100%, fill: dot-pattern),
 
-        // Centered mini-slides, removed the heading title box
-        box(inset: (x: 1em), pad(y: 0.8em)[
+        // Centered mini-slides, swapped box for block to enable text wrapping
+        block(width: 100%, inset: (x: 1em), pad(y: 0.8em)[
+          #set par(leading: 0.6em)
           #components.mini-slides(
             self: self,
             fill: white,
