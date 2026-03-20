@@ -34,7 +34,7 @@
       block(
         width: 100%,
         text(
-          fill: self.colors.text-main,
+          fill: self.colors.primary,
           weight: "bold",
           size: 1.4em,
           display-title,
@@ -234,7 +234,6 @@
   let palette = (
     primary: rgb("#4da6ff"),
     secondary: rgb("#80ccff"),
-    // Changed text-main to a uniform black so all body text is standard
     text-main: color.mix(rgb("#80ccff"), rgb("#4da6ff")),
   )
 
@@ -267,22 +266,24 @@
       fill: sky-gradient,
       outset: (x: 2em),
       grid(
-        // Use 1fr, 4fr, 1fr to give the center progress bar room to flow horizontally and wrap
-        columns: (1fr, 4fr, 1fr),
+        // Explicitly hardcoded 70% width for the center to force left-to-right wrapping without squishing
+        columns: (10%, auto, 10%),
         rows: auto,
         align: (left + horizon, center + horizon, right + horizon),
 
         // Left side dots
         block(width: 100%, height: 100%, fill: dot-pattern),
 
-        // Centered mini-slides, swapped box for block to enable text wrapping
+        // Centered mini-slides using block and safe align context
+
         block(width: 100%, inset: (x: 1em), pad(y: 0.8em)[
-          #set par(leading: 0.6em)
+          #set par(leading: 0.8em)
           #components.mini-slides(
             self: self,
-            fill: white,
+            fill: rgb("#ffffff"),
             alpha: 50%,
             display-section: true,
+            linebreaks: false,
           )
         ]),
 
@@ -363,7 +364,8 @@
     ),
     config-methods(
       init: (self: none, body) => {
-        set text(font: "STIX Two Text", size: 22pt, fill: self.colors.text-main)
+        // Explicitly set the main slide content to BLACK here
+        set text(font: "STIX Two Text", size: 22pt, fill: black)
         show math.equation: set text(font: "STIX Two Math")
 
         // Suppress native printing of level 1/2 headings so Touying handles them
