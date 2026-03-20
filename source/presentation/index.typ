@@ -11,9 +11,6 @@
   date: [March 26, 2026],
 )
 
-#show bibliography: none // Don't print the big list at the end
-#bibliography("references.bib", style: "ams-slides.csl")
-
 #title-slide()
 
 = Introduction
@@ -105,7 +102,9 @@
 
 + Express any computer program#pause
   - Need effective operations#pause
-  - Established notion: _Turing machines_#footnote[@turing1936]
+  - Established notion: *Turing machines*#footnote[Turing, A. M. (1936). On
+      Computable Numbers. Proc. Lond. Math. Soc., 42, 230–265.
+    ]
 + Enable user-defined _meaning_#pause
   - Avoid empty symbols!#pause
   - Symbol Grounding Problem#footnote[Harnad, S. (1990). _The Symbol Grounding
