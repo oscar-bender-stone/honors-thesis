@@ -77,6 +77,25 @@
   )),
 )
 
+== Proposed Solution
+#pause
+- *Welkin*: my information language
+  #pause
+  - Pronounced: "VEL-KIN"
+  #pause
+  - Old German word, meaning "cloud", "sky"
+#pause
+- *Goals:* #pause
+  - *Universality:* be completely expressive#pause
+    - _Any_ computer program#pause
+    - _Any_ "reliable" proof#pause
+  - *Scalability:* work at any size#pause
+    - Be efficient#pause
+    - Support: future optimizations
+    - Describe improvements _in_ Welkin#pause
+  - *Standardization:* be completely _unambiguous_#pause
+    - Have a formal specification
+
 = Foundations
 
 = Syntax
