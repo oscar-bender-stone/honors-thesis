@@ -5,13 +5,15 @@
 
 #show: elegant-blue-theme.with(
   draft: true,
-  title: [Designing an Information Language [DRAFT]],
+  title: [Designing a Universal Information Language],
   author: [Oscar Bender-Stone],
 )
 
 #title-slide()
 
 = Introduction
+
+== Background
 
 = Foundations
 
