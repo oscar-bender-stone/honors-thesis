@@ -374,7 +374,7 @@
       init: (self: none, body) => {
         // TODO: decide suitable dark
         // color for main text font
-        set text(font: "STIX Two Text", size: 22pt, fill: black)
+        set text(font: "STIX Two Text", size: 18pt, fill: black)
         show math.equation: set text(font: "STIX Two Math")
 
         show heading.where(level: 1): none

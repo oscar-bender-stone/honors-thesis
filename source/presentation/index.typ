@@ -17,6 +17,29 @@
 
 == Background
 
+- Information has _many_ meanings
+- *Ackoff:* Data-to-Wisdom Hierarchy #footnote[Ackoff, R. L. (1989). _From Data
+    to Wisdom_. J. Appl. Syst. Anal., 16, 3–9.
+  ]
+  - Data $=>$ Information $=>$ Wisdom
+- *Buckland:* Based on usage#footnote[Buckland, M. K. (1991). _Information as
+    thing_. JASIS, 42(5), 351–360.
+  ]
+  - Can be a _process_, or _knowledge_
+  - Most useful as _thing_
+- *Floridi:* Information is *truthful*#footnote[Floridi, L. (2010).
+    _Information: A Very Short Introduction_. Oxford University Press.
+  ]
+
+== Problems
+
+- *Depth*
+
+- *Breadth*
+
+- *Standardization*
+
+
 == Existing Solutions
 
 #list(
@@ -25,7 +48,7 @@
     pro[Built to be *interoperable*],
     con[No built-in logic engine],
   )),
-  compare-list([Labeled Property Graphs (*LPGs*)], (
+  compare-list([*Labeled Property Graphs (LPGs)*], (
     info[Stores *properties* (node/edge metadata)],
     pro[Efficient queries],
     con[Not standardized],
