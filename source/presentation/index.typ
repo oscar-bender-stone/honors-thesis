@@ -172,13 +172,26 @@
   - Units as sets
 
 == Turing Completeness
--
+#pause
+- Part of Universality
+- Interpretation: $a - c -> b$ iff
+  $phi_c (chevron.l phi_a chevron.r) = chevron.l phi_b chevron.r$
 
 = Syntax
 
 == Overview
 
 == Encoding
+
+- Characters written in `type-writer font`#footnote[Font used: Intel One Mono
+    (#link(
+      "https://github.com/intel/intel-one-mono",
+    )), licensed under OFL 1.1 (#link(
+      "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",
+    )).]
+
+- Define US-ASCII: Printable + `EOF` (code: 58)
+
 
 == Invertible Syntax Descriptions
 
