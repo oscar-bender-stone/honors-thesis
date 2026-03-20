@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 #import "template.typ": elegant-blue-theme, title-slide
+#import "compare-list.typ": compare-list, con, info, pro
 
 #show: elegant-blue-theme.with(
   draft: true,
@@ -18,40 +19,18 @@
 
 == Existing Solutions
 
-// TODO: incorporate compare list into code
-#let compare-list(items, neutral-marker: []) = {
-  // Define our markers
-  let pro-marker = text(fill: green, weight: "bold")[✓]
-  let con-marker = text(fill: red, weight: "bold")[✕]
-
-  list(
-    ..items.map(it => {
-      // Ensure we are working with a string to check prefixes
-      let content = it
-      let current-marker = neutral-marker
-
-      if type(it) == str {
-        if it.starts-with("+") {
-          current-marker = pro-marker
-          content = it.slice(1).trim() // Remove the "+" and extra space
-        } else if it.starts-with("-") {
-          current-marker = con-marker
-          content = it.slice(1).trim() // Remove the "-" and extra space
-        }
-      }
-
-      list.item(marker: current-marker)[#content]
-    }),
-  )
-}
-- Resource Description Framework:
-  - Part of: Web Ontology Language (OWL)
-  - Widely used on internet
-  - No built-in logical engine
-- Labeled Property Graphs:
-  - Stores *properties* (internal metadata) in nodes, edges
-  - Efficient querying
-- Cyc
+#list(
+  compare-list([Resource Description Language], (
+    info[Used in Web Ontology Language (*OWL*)],
+    pro[Widely used on internet; *interoperable*],
+    con[No built-in logic engine],
+  )),
+  compare-list([Labeled Property Graphs], (
+    info[Stores *properties* (node/edge metadata)],
+    pro[Efficient queries],
+    con[Not standardized],
+  )),
+)
 
 = Foundations
 
