@@ -4,9 +4,6 @@
 
 #import "@preview/touying:0.6.3": *
 
-// --- RE-EXPORTS & CUSTOM COMPONENTS ---
-#let pause = pause
-
 // 1. Define custom standard slide wrapper
 #let slide(
   title: auto,

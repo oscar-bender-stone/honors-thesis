@@ -1,12 +1,14 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
+#import "@preview/touying:0.6.3": pause
+
 #let info(body) = (type: "info", body: body)
 #let pro(body) = (type: "pro", body: body)
 #let con(body) = (type: "con", body: body)
 
-#let compare-list(title, items) = {
-  // We use a fixed width for markers to ensure vertical alignment
+// TODO: add pauses
+#let compare-list(title, items, pause: true) = {
   let mk(content, color: black) = box(
     width: 0.8em,
     align(center + horizon, text(fill: color, weight: "bold", content)),
@@ -20,10 +22,8 @@
 
   list.item[
     #title
-    // Adjust this value to change the gap between title and first child
     #v(0.4em, weak: true)
 
-    // Adjust 'left' to match your document's standard nesting indentation
     #pad(left: 1.5em)[
       #grid(
         columns: (auto, 1fr),
@@ -37,7 +37,6 @@
           .flatten()
       )
     ]
-    // Adds a tiny bit of breathing room after the grid
     #v(0.2em, weak: true)
   ]
 }
