@@ -32,7 +32,7 @@
 )
 #show math.minus: matched-dash
 
-
+// TODO: remove extra slide due to ASCII table!
 #let printable-ascii-table(num-triples: 7) = {
   let to-hex(n) = {
     let h = str(n, base: 16)
@@ -94,9 +94,6 @@
       .flatten(),
   )
 }
-
-// Set your desired number of column triples here (e.g., 5 or 6)
-#printable-ascii-table(num-triples: 6)
 
 = Introduction
 
@@ -393,7 +390,6 @@
   caption: [Full Welkin grammar.],
 )
 
-
 // TODO: add details about FIRST/SN-FOLLOW?
 == Outline of Unambiguity
 
@@ -438,7 +434,7 @@
 #pause
 - Write the Standard#pause
 - Create a Fast Implementation#pause
-- Revision System#pause
+- Query Solvers#pause
 - Revision System#pause
 - Package Management#pause
 
