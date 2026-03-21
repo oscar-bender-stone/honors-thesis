@@ -146,21 +146,37 @@
 == Existing Solutions
 #pause
 #list(
-  compare-list([*Resource Description Language (RDF)*], (
-    info[Used in Web Ontology Language *(OWL)*],
-    pro[Built to be *interoperable*],
-    con[No built-in logic engine],
-  )),
-  compare-list([*Labeled Property Graphs (LPGs)*], (
-    info[Stores *properties* (node/edge metadata)],
-    pro[Efficient queries],
-    con[Not standardized],
-  )),
-  compare-list([*Cyc*], (
-    info[Largest *knowledge base* to date],
-    pro[Sophisticated logic engine],
-    con[Hard-coded, proprietary rules],
-  )),
+  compare-list(
+    [*Resource Description Language (RDF):*],
+    citation: [Hitzler et al. (2009). _OWL 2 Web Ontology Language Primer_.
+      W3C.],
+    (
+      info[Used in Web Ontology Language *(OWL)*],
+      pro[Built to be *interoperable*],
+      con[No built-in logic engine],
+    ),
+  ),
+  compare-list(
+    [*Labeled Property Graphs (LPGs):*],
+    citation: [Robinson, Webber & Eifrem (2015). _Graph Databases_ (2nd ed.).
+      O'Reilly.],
+    (
+      info[Stores *properties* (node/edge metadata)],
+      pro[Efficient queries],
+      con[Not standardized],
+      con[No logic engine. Hacky tooling/scripts],
+    ),
+  ),
+  compare-list(
+    [*Cyc:*],
+    citation: [Lenat (1995). _CYC: A large-scale investment in knowledge
+      infrastructure_. CACM 38(11).],
+    (
+      info[Largest *knowledge base* to date],
+      pro[Sophisticated logic engine],
+      con[Hard-coded, proprietary rules],
+    ),
+  ),
 )
 
 == Proposed Solution
@@ -375,8 +391,43 @@
 )
 
 
+// TODO: add details about FIRST/SN-FOLLOW?
 == Outline of Unambiguity
+
+- Simple grammar class: $"LL"(1)$#pause
+- Desirable properties:
+  - Unambiguous: every valid input produces _one_ output#pause
+  - Efficient parsing#footnote[
+      Consult: Aho et al. (2006). _Compilers: Principles, Techniques, and Tools_
+      (2nd ed.).
+    ]#pause
+
+- For our parsers, need Edelmann et. al:#pause#footnote[Edelmann et al. (2020).
+    _Zippy LL(1) parsing with derivatives_. PLDI 2020.]
+  - Involves recursive equations on sets#pause
+  - Need: certain sets are djsoint#pause
+  - For details, refer to thesis
 
 = Metatheory
 
+- *Resource Description Framework:*
+  - Similar ideas/terms about representations
+  - Welkin:
+    - Higher order terms
+    - Better ogical reasoning
+- *Labeled Property Graphs:*
+  - Simple core idea + expressive
+  - Welkin:
+    - Formal definitions and grammar
+    - Logical engine
+- *Cyc:*
+  - Similarly depend on contexts
+  - Welkin:
+    - Flexible data format
+    - Open specification
+
 = Conclusion
+
+== Comparisons to Existing Solutions
+
+== Future Work

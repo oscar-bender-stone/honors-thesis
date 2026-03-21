@@ -7,28 +7,27 @@
 #let pro(body) = (type: "pro", body: body)
 #let con(body) = (type: "con", body: body)
 
-// TODO: add pauses
-#let compare-list(title, items, pause: true) = {
+#let compare-list(title, items, pause: true, citation: none) = {
   let mk(content, color: black) = box(
     width: 0.8em,
     align(center + horizon, text(fill: color, weight: "bold", content)),
   )
 
   let markers = (
-    info: mk([‣]), // Standard Level-2 Triangle
+    info: mk([‣]),
     pro: mk([+], color: green.darken(15%)),
     con: mk([#sym.minus], color: red.darken(15%)),
   )
 
   list.item[
-    #title
+    #title #if citation != none { footnote(citation) }
     #v(0.4em, weak: true)
 
     #pad(left: 1.5em)[
       #grid(
         columns: (auto, 1fr),
-        column-gutter: 0.7em, // Space between marker and text
-        row-gutter: 0.6em, // Space between items
+        column-gutter: 0.7em,
+        row-gutter: 0.6em,
         ..items
           .map(it => {
             let item = if type(it) == str { info(it) } else { it }
