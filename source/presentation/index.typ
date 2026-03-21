@@ -32,6 +32,72 @@
 )
 #show math.minus: matched-dash
 
+
+#let printable-ascii-table(num-triples: 7) = {
+  let to-hex(n) = {
+    let h = str(n, base: 16)
+    if h.len() == 1 { "0" + h } else { h }
+  }
+
+  let get-glyph(n) = {
+    if n == 32 { [Space] } else if n <= 126 { raw(str.from-unicode(n)) } else {
+      ""
+    }
+  }
+
+  set text(font: "STIX Two Text", size: 12pt)
+
+  // 95 printable characters (32 to 126)
+  let total-chars = 95
+  // Dynamically calculate how many rows we need based on columns
+  let rows = calc.ceil(total-chars / num-triples)
+
+  table(
+    columns: (auto, auto, auto) * num-triples,
+    inset: (x: 3pt, y: 3pt),
+    align: (col, row) => (right, center, center).at(calc.rem(col, 3)),
+    stroke: none,
+
+    // Header Rule
+    table.hline(y: 0, stroke: 1.5pt + black),
+    table.hline(y: 1, stroke: 0.75pt + black),
+
+    // Bottom Rule - now uses the dynamic row count correctly
+    table.hline(y: rows + 1, stroke: 1.5pt + black),
+
+    // Dynamic Vertical separators between the triples
+    ..range(1, num-triples).map(i => table.vline(
+      x: i * 3,
+      stroke: 0.5pt + black,
+    )),
+
+    // Header Row
+    table.header(
+      ..range(num-triples).map(_ => ([*Dec.*], [*Hex.*], [*Glyph*])).flatten(),
+    ),
+
+    // Data Rows
+    ..range(rows)
+      .map(r => {
+        let cells = ()
+        for i in range(num-triples) {
+          let n = 32 + r + (i * rows)
+          if n <= 126 {
+            cells += (str(n), upper(to-hex(n)), get-glyph(n))
+          } else {
+            // Fill empty cells if the last column is shorter than the rest
+            cells += ("", "", "")
+          }
+        }
+        cells
+      })
+      .flatten(),
+  )
+}
+
+// Set your desired number of column triples here (e.g., 5 or 6)
+#printable-ascii-table(num-triples: 6)
+
 = Introduction
 
 // TODO: fix pauses between bullets at same level!
@@ -174,8 +240,12 @@
 == Turing Completeness
 #pause
 - Part of Universality
-- Interpretation: $a - c -> b$ iff
-  $phi_c (chevron.l phi_a chevron.r) = chevron.l phi_b chevron.r$
+- *Theorem:* #pause _every unit corresponds to some program, and vice versa._
+  - $phi$: some mapping between units and programs
+  - Interpretation: #pause $a - c -> b$ iff
+    $phi_c (chevron.l phi_a chevron.r) = chevron.l phi_b chevron.r$
+  - $chevron.l phi_a chevron.r$: #pause encodes $phi_a$ as a string
+- Later: #pause completeness for *proofs*!
 
 = Syntax
 
@@ -190,9 +260,17 @@
       "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",
     )).]
 
-- Define US-ASCII: Printable + `EOF` (code: 58)
+- Define US-ASCII: Printable (codes: 32-126) + `EOF` (code: 127)
 - *Token:* collection of contiguous characters
   - Simplifies grammar
+
+== US-ASCII
+
+
+#figure(
+  printable-ascii-table(),
+  caption: [Printable US-ASCII codes and glyphs.],
+)<syntax:printable-ascii-codes>
 
 == Building Blocks
 - *Invertible Syntax Descriptions:* pairs of functions:#footnote[Rendel &

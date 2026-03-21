@@ -14,7 +14,7 @@
     }
   }
 
-  set text(font: "New Computer Modern", size: 8pt)
+  set text(font: "STIX Two Text", size: 8pt)
 
   // 95 printable characters (32 to 126).
   // 95 / 4 = 23.75 -> We'll use 24 rows.
