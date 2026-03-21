@@ -409,6 +409,8 @@
 
 = Metatheory
 
+#let entails = $⊢$
+
 == Primer
 #pause
 - Terminology
@@ -452,6 +454,7 @@
     - Excluded Middle: $phi or not phi$#pause
     - Explosion: $bot => phi$#pause
 - *Self-verifying*: _in_ PA, $T$ can prove its own serial-soundness
+  - $"PA" attach(entails, br: T) phi$ if $T entails phi$, $T$ self-verifying
 
 == Reliable Proofs
 
@@ -488,9 +491,23 @@
 
 // TODO: cite!
 == Proof Completeness (con't)
-- Need to construct comprehension#pause
-  - Inspiration: Simpson's comprehension axiom
-- TL;DR: Artëmov + Simpson = Proofs 💯#pause
+- Need to construct comprehension
+  - Use Simpson's comprehension axiom:
+    $ exists X. forall n. lr((n in X <=> Phi(n))) $
+  - $Phi$: very complex formula ($Delta^1_1$)
+- Let:
+  - $lambda$ be limit of recursive $beta_1, beta_2, ...$
+  - Each $T_beta_i$ self-verifying
+  - $T' = union.big_(beta <lambda) T_beta$
+  - $"Comp"_lambda (Delta^1_1) = exists X_(phi, lambda). forall n. lr(
+      (n in X_(phi, lambda) <=> "PA" attach(entails, br: T') phi(n))
+    )
+    )$
+- Our construction: $T_lambda$
+  - ✔️ Eventually reaches limit
+  - ✔️ Self-verifying
+  - ✔️ *Constructive*
+- TL;DR: Artëmov + Simpson + Reliability = Proofs 💯
 
 
 
