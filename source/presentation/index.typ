@@ -266,11 +266,45 @@
 
 == US-ASCII
 
-
 #figure(
   printable-ascii-table(),
   caption: [Printable US-ASCII codes and glyphs.],
 )<syntax:printable-ascii-codes>
+
+== Character Classes
+
+#figure(
+  // Using 'auto' for both ensures the table is only as wide as its longest line
+  table(
+    columns: (auto, auto),
+    align: left,
+    stroke: none,
+    column-gutter: 1.2em,
+    // Narrower gap between columns
+    inset: (x: 0pt, y: 0.5em),
+    // Tighter vertical rows
+
+    // Top boundary - 1pt for a lighter feel than 1.5pt
+    table.hline(stroke: 1pt),
+
+    [*Set Name*], [*Characters*],
+
+    // Header separator
+    table.hline(stroke: 0.5pt),
+
+    [`PRINTABLE`], [Listed in Table 1],
+    [`WHITESPACE`], [`\t` | `\r` | Space],
+    [`DELIMITER`], [`{` | `}` | `'` | `"` | `.` | `,`],
+    [`RESERVED`], [`DELIMITER` | `*` | `@`],
+    [`SQ_CHAR`], [Any `PRINTABLE` except `'` and `\`],
+    [`DQ_CHAR`], [Any `PRINTABLE` except `"` and `\`],
+    [`ID_CHAR`], [Any `PRINTABLE` not in `RESERVED` or `WHITESPACE`],
+
+    // Bottom boundary
+    table.hline(stroke: 1pt),
+  ),
+  caption: [Key character classes.],
+) <syntax:character-classes>
 
 == Building Blocks
 - *Invertible Syntax Descriptions:* pairs of functions:#footnote[Rendel &
@@ -283,6 +317,63 @@
   - Simplifies grammar
 
 == The Welkin Grammar
+#figure(
+  text(size: 13pt)[
+    #grid(
+      columns: (1fr, 1fr, 1fr),
+      column-gutter: 1.5em,
+      align: top,
+
+      // Column 1: Core Rules
+      block(inset: 0pt)[
+        ```
+        start := units - lexeme -> EOF,
+        units := "" | {unit - lexeme -> *{"", "," - lexeme -> units}},
+        unit := node - lexeme -> *{
+          ":=" - lexeme -> choices,
+          *{"", arc - lexeme -> chain}
+        },
+        choices := *{"", "|"} - lexeme -> choices_list,
+        choices_list := *{"",
+          chain - lexeme -> *{"", "|" - lexeme -> choice_list}
+        },
+        chain := *{"", "*"} - seq -> path - lexeme -> *{"", arc - lexeme -> chain},
+        arc := right_arc | other_arc,
+        right_arc := "-" - seq -> node - seq -> "->",
+        other_arc := "<-" - seq -> node - seq -> *{"-", "->"},
+        ```
+      ],
+
+      // Column 2: Graph/Path Logic
+      block(inset: 0pt)[
+        ```
+        node := *{"", "*"} - seq -> path,
+        path := *{"", modifiers} - seq -> trailer - seq -> *{"", graph},
+        modifiers := *{
+          "@",
+          "~" - seq -> *{"", "@"}
+        },
+        trailer := segment - seq -> *{"", "." - seq -> trailer},
+        segment := HANDLE - lexeme -> *{"", graph},
+        graph :=  "{" - lexeme -> units - lexeme -> "}",
+        HANDLE := ID | STRING,
+        ```
+      ],
+
+      // Column 3: Strings and Identifiers
+      block(inset: 0pt)[
+        ```
+        STRING := SQ_STRING | DQ_STRING,
+        SQ_STRING := "'" - seq -> *{SQ_CHAR, "\'"} - seq_many_till -> "'",
+        DQ_STRING := '"' - seq -> *{DQ_CHAR, '\"'} - seq_many_till -> '"',
+        ID := ID_CHAR - seq_many_till -> *{RESERVED, WHITESPACE}
+        ```
+      ],
+    )
+  ],
+  caption: [Full Welkin grammar.],
+)
+
 
 == Outline of Unambiguity
 
