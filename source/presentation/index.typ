@@ -215,7 +215,7 @@
       Problem._ Physica D, 42, 335–346.
     ]#pause
 
-- Achieve both through *representations*
+- Achieve both via *representations*
 
 == Representations
 
@@ -225,7 +225,7 @@
   - $a$: *sign*#pause
   - $b$: *referent*#pause
   - $c$: *context*#pause
-- Track _faithfulness_ of representations through *truth*
+- Track _faithfulness_ of representations via *truth*
 == Units
 
 #pause
@@ -239,11 +239,15 @@
 - Representations are units#pause
 - Each unit has its own *context*
 
+// TODO: make more complete!
 == Information
 
-- Representations #pause $~$ *Truth*
-- Information #pause $~$ *Proofs*
--
+- Representations #pause $~$ *Truth*#pause
+- Information #pause $~$ *Proofs*#pause
+  - Includes simple facts
+  - Expands to complex truh systems
+- Major result: can express _any_ "reliable" proof
+  - More details later! (Metatheory)
 
 == Rules
 
