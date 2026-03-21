@@ -409,6 +409,35 @@
 
 = Metatheory
 
+== Primer
+#pause
+- Terminology
+  - *Peano Arithmetic* (PA): natural numbers + induction
+  - Important: corresponds to a Turing machine, $"TM"_"PA"$
+  - *Consistency:* no proofs contain falsehood ($bot$)
+- Many theorems on limit:s#pause
+  - *Gödel incompleteness*#pause
+    - *First:* PA can't prove everything#pause
+    - *Second*: PA cannot prove _own_ consistency#pause
+  - Tarski undefinability#pause
+  - Etc.#pause
+// TODO: maybe break up
+- Usual approach: _chain of stronger theories_#pause
+  - Keep adding $"Con" ("PA")$#pause
+  - _Technically_ enough, based on Feferman's work[TODO: cite!]#pause
+  - Problem: want _constructive_ & _solid_ foundations#pause
+
+== Artëmov's #linebreak() Selector Proofs
+#pause
+- Artëmov _changes_ this paradigm#pause
+  - There is a _weaker_ proof: *selectors*#pause
+  - Takes a proof in _as input_#pause
+  - Technically, a meta-proof#pause
+
+== Serial-Soundness & Reliable Proofs
+
+== Proof Completeness
+
 = Conclusion
 
 == Comparisons to Existing Solutions
