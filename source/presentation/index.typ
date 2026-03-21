@@ -119,7 +119,7 @@
     - Most useful as _thing_
   - *Floridi:* Information is *truthful*#footnote[Floridi, L. (2010).
       _Information: A Very Short Introduction_. Oxford University Press.
-    ]#pause
+    ]
 
 == Problems
 #pause
@@ -186,14 +186,14 @@
       (2025), s.v. "welkin, n."
     ]
 - *Goals:*#pause
-  - *Universality:* be completely expressive(*done*)
+  - *Universality:* be completely expressive (*done*)
     - _Any_ computer program
     - _Any_ "reliable" proof
   - *Scalability:* work at any size (*WIP*)
     - Be efficient
     - Support: future optimizations
     - Describe improvements _in_ Welkin
-  - *Standardization:* be completely _unambiguous_(*WIP*)#pause
+  - *Standardization:* be completely _unambiguous_ (*WIP*)#pause
     - Have a formal specification
 
 = Language Overview
@@ -217,7 +217,7 @@
 == Representations
 
 #pause
-- Centered around _representing_ things
+- Centered around _representing_ things #pause
 - $a - c -> b$: $a$ *represents* $b$ *in context* $c$#pause
   - $a$: *sign*#pause
   - $b$: *referent*#pause
@@ -425,17 +425,46 @@
 - Usual approach: _chain of stronger theories_#pause
   - Keep adding $"Con" ("PA")$#pause
   - _Technically_ enough, based on Feferman's work[TODO: cite!]#pause
-  - Problem: want _constructive_ & _solid_ foundations#pause
+  - Problem: want _constructive_ & _solid_ foundations
 
-== Artëmov's #linebreak() Selector Proofs
+== Artëmov's Selector Proofs
 #pause
 - Artëmov _changes_ this paradigm#pause
   - There is a _weaker_ proof: *selectors*#pause
-  - Takes a proof in _as input_#pause
-  - Technically, a meta-proof#pause
+- *Selector:* algorithm that takes proofs as inputs#pause
+  1. Takes in _any_ proof#pause
+  2. If it accepts a proof, no $bot$ appears#pause
+- Artëmov
 
-== Serial-Soundness & Reliable Proofs
+== Serial-Soundness
 
+#pause
+- Extend Artëmov to *serial-soundness:*
+  - Secret: _same_ technique!
+  - Use Tarski's *partial truh predicates*#footnote[
+      TODO: cite
+
+    ]
+  - Partial truth predicate: [TODO: define!]
+- *Serial soundness:* a theory $T supset.eq "PA"$ such that there is some
+  selector s.t.
+  - Inputs: proofs#pause
+  - Accepts all proofs#pause
+  - Accepts a proof iff preserves truth#pause
+  - _cannot_ be proven with:
+    - Excluded Middle: $phi or not phi$#pause
+    - Explosion: $bot => phi$#pause
+    - Ensures *reliability*!#pause
+- *Self-verifying*: _in_ $PA$, $T$ can prove its own serial-soundness
+
+== Reliable Proofs
+
+- How to generalize to _any_ theory?
+  - Example: Naive Set Theory
+    - Can't _fully trust b/c, e.g., Russell's Paradox
+    - But 
+
+// TODO: complete
 == Proof Completeness
 
 = Conclusion
