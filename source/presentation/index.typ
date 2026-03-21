@@ -446,26 +446,53 @@
 
     ]
   - Partial truth predicate: [TODO: define!]
-- *Serial soundness:* a theory $T supset.eq "PA"$ such that there is some
-  selector s.t.
-  - Inputs: proofs#pause
-  - Accepts all proofs#pause
-  - Accepts a proof iff preserves truth#pause
+- *Serial soundness:* a RE theory $T supset.eq "PA"$ with a selector s.t.:
+  - Accepts all proofs + preserves truth#pause
   - _cannot_ be proven with:
     - Excluded Middle: $phi or not phi$#pause
     - Explosion: $bot => phi$#pause
-    - Ensures *reliability*!#pause
-- *Self-verifying*: _in_ $PA$, $T$ can prove its own serial-soundness
+- *Self-verifying*: _in_ PA, $T$ can prove its own serial-soundness
 
 == Reliable Proofs
 
-- How to generalize to _any_ theory?
-  - Example: Naive Set Theory
-    - Can't _fully trust b/c, e.g., Russell's Paradox
-    - But 
+- How to generalize to _any_ theory?#pause
+  - Example: Naive Set Theory#pause
+    - Can't _fully_ trust b/c, e.g., Russell's Paradox#pause
+    - But can trust, e.g., $x in X <=> x in X$#pause
+    - Idea: check for sound _restricted_ theory
+- Let $T_1 supset.eq "PA"$, $phi$ a sentence#pause
+- *Reliable proof*: a triple $(S, p_S, p_phi)$ s.t:
+  - $S supset.eq T_1$#pause
+  - $p_S$: constructs some self-verifying $S' supset.eq S$#pause
+  - $p_phi$: $S$-proof of $phi$
 
-// TODO: complete
 == Proof Completeness
+- *Note:* still has incompletness!#pause
+  - Proofs are limited! (Not surprising)#pause
+  - Also: not a _single_ theory suffices#pause
+  - But, a theories _can_ be self-verifying!#pause
+- How to prove?
+  - Basic idea: $"ZFC"$ is self-verifying!
+    - Again, same proof from Artëmov!
+  - HUGE leap; how to generalize?
+  - Answer: comprehension!
+
+// TODO: add citations!
+== Crash Course: Recursive Ordinals
+- Roughly: certain transitive sets ($x in y in z => x in z$)#pause
+  - Contents can be enumerated by some program#pause
+- Limit: *Church Kleene Ordinal* ($omega^"CK"_1$)#pause
+- *Proof-theoretic ordinal:* measures theory strength
+  - Important: this is recursive if $T$ is RE _and_ sound#pause
+  - Bounded below $omega^"CK"_1$!#pause
+
+// TODO: cite!
+== Proof Completeness (con't)
+- Need to construct comprehension#pause
+  - Inspiration: Simpson's comprehension axiom
+- TL;DR: Artëmov + Simpson = Proofs 💯#pause
+
+
 
 = Conclusion
 
