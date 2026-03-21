@@ -413,6 +413,10 @@
 
 = Metatheory
 
+= Conclusion
+
+== Comparisons to Existing Solutions
+
 - *Resource Description Framework:*
   - Similar ideas/terms about representations
   - Welkin:
@@ -429,8 +433,15 @@
     - Flexible data format
     - Open specification
 
-= Conclusion
-
-== Comparisons to Existing Solutions
 
 == Future Work
+#pause
+- Write the Standard#pause
+- Create a Fast Implementation#pause
+- Revision System#pause
+- Revision System#pause
+- Package Management#pause
+
+== Thank you!
+
+Questions?
