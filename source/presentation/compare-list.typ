@@ -7,6 +7,7 @@
 #let pro(body) = (type: "pro", body: body)
 #let con(body) = (type: "con", body: body)
 
+// TODO: make sure cons are working correctly
 #let compare-list(title, items, pause: true, citation: none) = {
   let mk(content, color: black) = box(
     width: 0.8em,

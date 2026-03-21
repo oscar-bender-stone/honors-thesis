@@ -163,7 +163,7 @@
     (
       info[Stores *properties* (node/edge metadata)],
       pro[Efficient queries],
-      con[Not standardized],
+      // con[Not standardized],
       con[No logic engine. Hacky tooling/scripts],
     ),
   ),
@@ -179,25 +179,24 @@
   ),
 )
 
+// TODO: fix pausing!
+// Doesn't work with this list
 == Proposed Solution
 #pause
 - *Welkin*: an information language
-  #pause
   - Pronounced: "VEL-KIN"
-  #pause
   - Old German word, meaning "cloud", "sky"#footnote[Oxford English Dictionary
       (2025), s.v. "welkin, n."
     ]
-#pause
-- *Goals:* #pause
-  - *Universality:* be completely expressive#pause
-    - _Any_ computer program#pause
-    - _Any_ "reliable" proof#pause
-  - *Scalability:* work at any size#pause
-    - Be efficient#pause
+- *Goals:*#pause
+  - *Universality:* be completely expressive(*done*)
+    - _Any_ computer program
+    - _Any_ "reliable" proof
+  - *Scalability:* work at any size (*WIP*)
+    - Be efficient
     - Support: future optimizations
-    - Describe improvements _in_ Welkin#pause
-  - *Standardization:* be completely _unambiguous_#pause
+    - Describe improvements _in_ Welkin
+  - *Standardization:* be completely _unambiguous_(*WIP*)#pause
     - Have a formal specification
 
 = Language Overview
