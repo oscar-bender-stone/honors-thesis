@@ -21,14 +21,13 @@
       utils.display-current-heading(level: 2)
     }
 
-    // Fixed-height block ensures the body text starts at the same Y-level
     block(
       width: 100%,
       height: 4.5em,
       inset: (top: 2.2em, bottom: 0.1em),
       if display-title != none and display-title != [] {
         text(
-          fill: self.colors.primary,
+          fill: black, // Changed from primary blue to black
           weight: "bold",
           size: 1.4em,
           display-title,
@@ -55,7 +54,7 @@
   self => {
     self = utils.merge-dicts(
       self,
-      config-page(header: none, footer: none, margin: 2em),
+      config-page(header: none, footer: none, margin: 2em, fill: white),
       config,
     )
     let info = self.info + args.named()
@@ -74,7 +73,7 @@
         {
           text(
             size: 1.3em,
-            fill: self.colors.neutral-lightest,
+            fill: black, // Changed to black
             weight: "bold",
             info.title,
           )
@@ -82,7 +81,7 @@
             parbreak()
             text(
               size: 1.1em,
-              fill: self.colors.neutral-lightest,
+              fill: black, // Changed to black
               weight: "bold",
               info.subtitle,
             )
@@ -92,7 +91,7 @@
       v(1em)
       text(
         size: 1.2em,
-        fill: self.colors.text-main,
+        fill: black, // Changed to black
         weight: "bold",
         info.author,
       )
@@ -100,7 +99,7 @@
         parbreak()
         text(
           size: 1.0em,
-          fill: self.colors.text-main,
+          fill: black, // Changed to black
           utils.display-info-date(self),
         )
       }
@@ -120,10 +119,10 @@
   let content = {
     std.align(center + horizon)[
       #block(width: 100%, align(left)[
-        #text(fill: self.colors.text-main, weight: "bold", size: 1.6em)[#title]
+        #text(fill: black, weight: "bold", size: 1.6em)[#title]
         #v(1em)
         #block(width: 100%)[
-          #text(fill: self.colors.text-main, weight: "bold", size: 0.95em)[
+          #text(fill: black, weight: "bold", size: 0.95em)[
             #components.custom-progressive-outline(
               level: level,
               alpha: 100%,
@@ -150,10 +149,10 @@
   let content = {
     std.align(center + horizon)[
       #block(width: 100%, align(left)[
-        #text(fill: self.colors.text-main, weight: "bold", size: 1.6em)[Agenda]
+        #text(fill: black, weight: "bold", size: 1.6em)[Agenda]
         #v(1em)
         #block(width: 100%)[
-          #text(fill: self.colors.text-main, weight: "bold", size: 0.95em)[
+          #text(fill: black, weight: "bold", size: 0.95em)[
             #components.custom-progressive-outline(
               level: level,
               alpha: 30%,
@@ -189,7 +188,7 @@
       footer: none,
     ),
   )
-  set text(fill: self.colors.neutral-lightest, weight: "bold", size: 1.5em)
+  set text(fill: black, weight: "bold", size: 1.5em) // Changed to black
   touying-slide(self: self, config: config, std.align(align, body))
 })
 
@@ -202,14 +201,14 @@
   subtitle: none,
   author: none,
   date: datetime.today(),
-  draft: false, // User can toggle this when calling the theme
+  draft: false,
   ..args,
   body,
 ) = {
   let palette = (
     primary: rgb("#4da6ff"),
     secondary: rgb("#80ccff"),
-    text-main: color.mix(rgb("#80ccff"), rgb("#4da6ff")),
+    text-main: black, // Changed to black
   )
 
   let sky-gradient = gradient.linear(
@@ -219,16 +218,15 @@
   )
   let dot-pattern = tiling(size: (12pt, 12pt))[#circle(
     radius: 1.5pt,
-    fill: rgb("#ffffff60"),
+    fill: rgb("#00000020"), // Made dots dark/subtle
   )]
 
-  // RESTORED: Draft watermark logic
   let draft-watermark = if draft {
     std.align(center + horizon)[
       #rotate(-35deg)[
         #text(
           size: 140pt,
-          fill: rgb("#4da6ff25"),
+          fill: rgb("#00000010"),
           weight: "bold",
           font: "STIX Two Text",
         )[DRAFT]
@@ -249,8 +247,8 @@
           #set par(leading: 0.8em)
           #components.mini-slides(
             self: self,
-            fill: rgb("#ffffff"),
-            alpha: 50%,
+            fill: black, // Changed from white to black
+            alpha: 60%,
             display-section: true,
             linebreaks: false,
           )
@@ -275,20 +273,20 @@
           right + horizon,
         ),
         box(inset: (left: 1em, right: 1.5em))[#text(
-          fill: white,
+          fill: black, // Changed from white to black
           weight: "bold",
           size: footer-fontsize,
           self.info.author,
         )],
         block(width: 100%, height: 100%, fill: dot-pattern),
         box(inset: (x: 1.5em))[#text(
-          fill: white,
+          fill: black, // Changed from white to black
           size: footer-fontsize,
           utils.display-info-date(self),
         )],
         block(width: 100%, height: 100%, fill: dot-pattern),
         box(inset: (left: 1.5em, right: 1em))[
-          #text(fill: white, weight: "bold", size: footer-fontsize)[
+          #text(fill: black, weight: "bold", size: footer-fontsize)[
             #context [
               #utils.slide-counter.display() / #utils.last-slide-number
             ]
@@ -300,11 +298,12 @@
 
   show: touying-slides.with(
     config-page(
+      fill: white,
       ..utils.page-args-from-aspect-ratio(aspect-ratio),
       margin: (top: 3.4em, bottom: 2.0em, left: 2em, right: 2em),
       header: header,
       footer: footer,
-      background: draft-watermark, // APPLIED: Background watermark
+      background: draft-watermark,
       header-ascent: 0.5em,
       footer-descent: 0.5em,
     ),
@@ -319,7 +318,7 @@
       primary-dark: palette.primary,
       secondary: palette.secondary,
       text-main: palette.text-main,
-      neutral-lightest: rgb("#ffffff"),
+      neutral-lightest: rgb("#000000"), // Set to black
       neutral-darkest: rgb("#000000"),
     ),
     config-methods(
@@ -350,9 +349,9 @@
   )
   let body = {
     show: std.align.with(center + horizon)
-    text(size: 2.5em, fill: self.colors.primary, weight: "bold", title)
+    text(size: 2.5em, fill: black, weight: "bold", title) // Changed to black
     v(0.5em)
-    text(size: 1.8em, fill: self.colors.text-main, weight: "bold", subtitle)
+    text(size: 1.8em, fill: black, weight: "bold", subtitle) // Changed to black
   }
   touying-slide(self: self, body)
 })

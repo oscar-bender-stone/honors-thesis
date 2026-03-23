@@ -194,11 +194,11 @@
 - *Universality:* be completely expressive #pause (*done*)#pause
   - _Any_ computer program#pause
   - _Any_ "reliable" proof#pause
-- *Scalability:* work at any size #pause (*WIP*)#pause
+- *Scalability:* work at any size #pause (*In progress*)#pause
   - Be efficient#pause
   - Support: future optimizations#pause
   - Describe improvements _in_ Welkin#pause
-- *Standardization:* be completely _unambiguous_ #pause (*WIP*)#pause
+- *Standardization:* be completely _unambiguous_ #pause (*In progress*)#pause
   - Have a formal specification
 
 = Language Overview
