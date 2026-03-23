@@ -2,8 +2,30 @@
 // SPDX-License-Identifier: MIT
 
 #import "@preview/touying:0.6.3": *
+// 1. Alias the original pause and meanwhile to avoid recursion
+#import "@preview/touying:0.6.3": meanwhile as ty-meanwhile, pause as ty-pause
 
-// 1. Fixed title block slide wrapper
+// --- FOOTNOTE & PAUSE FIX ---
+// We track which 'pause chunk' we are currently in
+#let pause-tracker = counter("touying-pause-tracker")
+
+// Export the overridden pause and meanwhile globally
+#let pause = pause-tracker.step() + ty-pause
+#let meanwhile = pause-tracker.update(0) + ty-meanwhile
+
+// Intercept footnote so it only renders when the subslide has reached its chunk
+#let old-footnote = footnote
+#let footnote(..args) = context {
+  let current-pause = pause-tracker.get().first() + 1
+  touying-fn-wrapper(self => {
+    if self.subslide >= current-pause {
+      old-footnote(..args)
+    }
+  })
+}
+// ----------------------------
+
+// 2. Fixed title block slide wrapper
 #let slide(
   title: auto,
   align: auto,
@@ -36,6 +58,10 @@
     )
 
     show: setting
+
+    // Reset the pause tracker at the beginning of every new slide body
+    pause-tracker.update(0)
+
     std.align(self.store.align, body)
   }
 
@@ -49,7 +75,7 @@
   )
 })
 
-// 2. Title Slide
+// 3. Title Slide
 #let title-slide(config: (:), extra: none, ..args) = touying-slide-wrapper(
   self => {
     self = utils.merge-dicts(
@@ -108,7 +134,7 @@
   },
 )
 
-// 3. Outline Slide
+// 4. Outline Slide
 #let outline-slide(
   config: (:),
   title: "Agenda",
@@ -138,7 +164,7 @@
   touying-slide(self: self, config: config, content)
 })
 
-// 4. Transition Slide
+// 5. Transition Slide
 #let new-section-slide(
   config: (:),
   level: 1,
@@ -168,7 +194,7 @@
   touying-slide(self: self, config: config, content)
 })
 
-// 5. Focus Slide
+// 6. Focus Slide
 #let focus-slide(
   config: (:),
   align: horizon + center,
@@ -355,3 +381,4 @@
   }
   touying-slide(self: self, body)
 })
+

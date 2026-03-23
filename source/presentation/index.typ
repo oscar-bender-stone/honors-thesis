@@ -104,7 +104,7 @@
 #pause
 - Information helps us *store* and *organize* data #pause
   - Throughout _all_ history: so much data!
-  - How to actually use it?
+  - Want to actually use in, e.g., decisions
 - Inquiry: what _is_ information?#pause
   - Depends on who you ask!
   #pause
@@ -295,6 +295,8 @@
   - Encoding: characters#pause
     - Building blocks of strings#pause
   - Grammar: strings allowed by language
+    - Punctuation
+    - How strings are combined
 
 == Encoding
 
@@ -327,7 +329,6 @@
     - Also ensures efficiency
   - More details in thesis
 
-== Grammar (con't)
 #figure(
   text(size: 13pt)[
     #grid(
@@ -396,7 +397,7 @@
   - Etc.#pause
 - Usual approach: _chain of stronger theories_#pause
   - Extend by $"Con"(T)$ (encoding of consistency)#pause
-  - _Technically_ enough, WITH non-constructive methods#footnote[Feferman
+  - Technically: this is enough, WITH non-constructive methods#footnote[Feferman
       (1962). Transfinite Recursive Progressions of Axiomatic Theories. J. Symb.
       Log. 27(3).
     ]#pause
@@ -406,15 +407,14 @@
 
 == Artëmov's Selector Proofs
 #pause
-- Artëmov#footnote[Artemov (2024). Serial properties, selector proofs and the
-    provability of consistency. J. Logic Comput. 35(3).
-  ] _changes_ this paradigm#pause
-  - Proves a weaker property: *selector consistency*
+- Artëmov _changes_ this paradigm#footnote[Artemov (2024). Serial properties,
+    selector proofs and the provability of consistency. J. Logic Comput. 35(3).
+  ] #pause
+  - Proves a weaker property: *selector-consistency*
 - Approach: over a theory $T$, build a computable function _over_ $T$-proofs
-#pause
-+ Enumerate through all $T$-proofs in a meta-theory (e.g., $"PA"$)
-+ For _each_ proof, prove it is consistent (no $bot$) in $T$
-
+  #pause
+  + Enumerate through all $T$-proofs in a meta-theory (e.g., $"PA"$)#pause
+  + Using $T$ show each $T$-proof $p$ is consistent (no $bot$)#pause
 - This _almost_ works#pause
   - If $T$ inconsistent: arises from _some_ finite counter-example#pause
   - Proof above: meant to show _no_ such example exists!#pause
@@ -425,18 +425,19 @@
 
 #pause
 - Extend Artëmov to *serial-soundness:*
-  - Secret: _same_ technique!
-  - Use *partial truh predicates*#footnote[Consult: Hájek & Pudlák (2017).
-      Metamathematics of First-Order Arithmetic. Cambridge.
+  - Secret: _same_ technique!#footnote[Consult: Artemov (2024). Serial
+      properties, selector proofs and the provability of consistency. J. Logic
+      Comput. 35(3).
     ]
-    - Approximates truth up to $n$ derviations
-- *Serial soundness:* a first-order RE theory $T$ with a selector s.t.:
+- Let $T$ be a first-order, RE theory
+- $T$ is *serial-sound*, if for some total function $s$:#pause
   - Accepts all proofs + preserves truth#pause
   - _cannot_ be proven with:
     - Excluded Middle: $phi or not phi$#pause
     - Explosion: $bot => phi$#pause
-- *Self-verifying*: _in_ PA, $T$ can prove its own serial-soundness
-  - $"PA" attach(entails, br: T) phi$ if $T entails phi$ and $T$ self-verifying
+- $T$ is *self-verifying* if, _in_ PA, $T$ can prove its own serial-soundness
+  - Notation: $"PA" attach(entails, br: T) phi$ if $T entails phi$ and $T$
+    self-verifying
 
 == Reliable Proofs
 
@@ -457,12 +458,12 @@
 - *Note:* still has incompleteness!#pause
   - Proofs are limited! (Not surprising)#pause
   - Also: not a _single_ theory suffices#pause
-  - But, a theories _can_ be self-verifying!#pause
-- How to prove?#pause
+  - However, a theory _can_ be self-verifying!#pause
+- How to reach limit on proofs?#pause
   - Basic idea: $"ZFC"$ is self-verifying!#pause
     - Again, same proof from Artëmov!#pause
-  - HUGE leap; how to extend it?#pause
-  - Answer: comprehension!
+  - *Huge* leap in power; how to extend it?#pause
+  - Answer: comprehension!#pause
   - Details in thesis
 
 = Conclusion
