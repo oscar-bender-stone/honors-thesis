@@ -332,6 +332,20 @@
 - Need *maximal munch:*#pause consume tokens, not characters#pause
   - Simplifies grammar
 
+== Building Blocks (cont')
+
+- `A, B`: general rules#pause
+- `A - seq -> B`:#pause
+  - *Parser:* apply `A`, then `B`.#pause
+  - *Printer:* prints `AB`.#pause
+- `A - seq_many_till -> B`:#pause
+  - *Parser:* Apply `A` zero more times, _until_ the `B` accepts input#pause
+  - *Printer:* prints zero or more `A`, then `B`#pause
+- `A - lexeme -> B`:#pause
+  - Same as `seq`, but whitespace allowed#pause
+- `A - lex_many_till -> B`:#pause
+  - Same as `seq_many_till`, but whitespace allowed#pause
+
 == The Welkin Grammar
 #figure(
   text(size: 13pt)[
@@ -394,15 +408,15 @@
 == Outline of Unambiguity
 
 - Simple grammar class: $"LL"(1)$#pause
-- Desirable properties:
-  - Unambiguous: every valid input produces _one_ output#pause
-  - Efficient parsing#footnote[
-      Consult: Aho et al. (2006). _Compilers: Principles, Techniques, and Tools_
-      (2nd ed.).
-    ]#pause
+- Desirable properties:#footnote[
+    Consult: Aho et al. (2006). _Compilers: Principles, Techniques, and Tools_
+    (2nd ed.).
 
-- For our parsers, need Edelmann et. al:#pause#footnote[Edelmann et al. (2020).
-    _Zippy LL(1) parsing with derivatives_. PLDI 2020.]
+  ]
+  - Unambiguous: every valid input produces _one_ output#pause
+  - Efficient parsing
+- For our parsers, need Edelmann et. al:#footnote[Edelmann et al. (2020). _Zippy
+    LL(1) parsing with derivatives_. PLDI 2020.]#pause
   - Involves recursive equations on sets#pause
   - Need: certain sets are djsoint#pause
   - For details, refer to thesis
@@ -414,6 +428,9 @@
 == Primer
 #pause
 - Terminology
+  - *First Order Logic:*#pause
+    - Propositional logic (and, or, not)#pause
+    - Quantifiers (forall, exists)
   - *Peano Arithmetic* (PA): natural numbers + induction
   - Important: corresponds to a Turing machine, $"TM"_"PA"$
   - *Consistency:* no proofs contain falsehood ($bot$)
