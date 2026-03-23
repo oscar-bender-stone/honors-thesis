@@ -329,7 +329,7 @@
     - Also ensures efficiency
   - *Notes*:#pause
     - Current proofs are done#pause
-    - Grammar *may* change
+    - Grammar is *not* finalized
 
 #figure(
   text(size: 13pt)[
