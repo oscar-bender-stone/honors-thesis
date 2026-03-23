@@ -531,8 +531,11 @@
 // TODO: maybe break up
 - Usual approach: _chain of stronger theories_#pause
   - Extend by $"Con"(T)$ (encoding of consistency)#pause
-  - _Technically_ enough, based on Feferman's work[TODO: cite!]#pause
-  - Problem: want _constructive_ & _solid_ foundations
+  - _Technically_ enough, WITH non-constructive methods#footnote[Feferman
+      (1962). Transfinite Recursive Progressions of Axiomatic Theories. J. Symb.
+      Log. 27(3).
+    ]#pause
+  - Problem: want to identify + trust proofs!
 
 
 == Artëmov's Selector Proofs
