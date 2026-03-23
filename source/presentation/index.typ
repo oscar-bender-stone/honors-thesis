@@ -547,10 +547,10 @@
 #pause
 - Extend Artëmov to *serial-soundness:*
   - Secret: _same_ technique!
-  - Use Tarski's *partial truh predicates*#footnote[
-      TODO: cite
+  - Use *partial truh predicates*#footnote[Consult: Hájek & Pudlák (2017).
+      Metamathematics of First-Order Arithmetic. Cambridge.
     ]
-  - Partial truth predicate: approximation up to length $n$ derivations
+    - Approximates truth up to $n$ derviations
 - *Serial soundness:* a first-order RE theory $T$ with a selector s.t.:
   - Accepts all proofs + preserves truth#pause
   - _cannot_ be proven with:
@@ -595,12 +595,16 @@
   - Important: this is recursive if $T$ is RE _and_ sound#pause
   - Bounded _strictly_ below $omega^"CK"_1$!#pause
 
-// TODO: cite!
-== Proof Completeness (con't)
+// TODO: finish recursive defs
+== Crash Course: Arithmetic Hierarchy
+- Measures complexity of $"PA"$ formulas
 - Need to construct comprehension
   - Use Simpson's comprehension axiom:
     $ exists X. forall n. lr((n in X <=> Phi(n))) $
   - $Phi$: very complex formula ($Delta^1_1$)
+
+// TODO: cite!
+== Proof Completeness (con't)
 - Let:
   - $lambda$ be limit of recursive $beta_1, beta_2, ...$
   - Each $T_beta_i$ self-verifying
