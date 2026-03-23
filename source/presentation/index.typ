@@ -319,7 +319,7 @@
 
 
 == Grammar
-- Build on two papers
+- Build on two papers (details in thesis)
   - First: *Invertible Syntax Descriptions*#footnote[Rendel & Ostermann (2010).
       Invertible syntax descriptions. Haskell '10.]
     - Processes strings, forwards and back
@@ -327,7 +327,6 @@
       parsing with derivatives_. PLDI 2020.]
     - Used in proof of unambiguity
     - Also ensures efficiency
-  - More details in thesis
   - *Notes*:#pause
     - Current proofs are done#pause
     - Grammar *may* change

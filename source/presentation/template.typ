@@ -2,30 +2,36 @@
 // SPDX-License-Identifier: MIT
 
 #import "@preview/touying:0.6.3": *
-// 1. Alias the original pause and meanwhile to avoid recursion
 #import "@preview/touying:0.6.3": meanwhile as ty-meanwhile, pause as ty-pause
 
-// --- FOOTNOTE & PAUSE FIX ---
-// We track which 'pause chunk' we are currently in
-#let pause-tracker = counter("touying-pause-tracker")
-
-// Export the overridden pause and meanwhile globally
-#let pause = pause-tracker.step() + ty-pause
-#let meanwhile = pause-tracker.update(0) + ty-meanwhile
+// --- 1. FOOTNOTE & PAUSE FIX (METADATA APPROACH) ---
+// We track pauses using invisible metadata so it NEVER breaks lists or layout
+#let pause = ty-pause + metadata("touying-pause-marker")
+#let meanwhile = ty-meanwhile
 
 // Intercept footnote so it only renders when the subslide has reached its chunk
 #let old-footnote = footnote
 #let footnote(..args) = context {
-  let current-pause = pause-tracker.get().first() + 1
+  let loc = here()
+  // Query all metadata markers before this exact footnote
+  let all-markers = query(selector(metadata).before(loc)).map(m => m.value)
+
+  let pause-count = 0
+  for val in all-markers.rev() {
+    if val == "touying-slide-start" { break } // Only count pauses in current slide
+    if val == "touying-pause-marker" { pause-count += 1 }
+  }
+
+  let required-subslide = pause-count + 1
   touying-fn-wrapper(self => {
-    if self.subslide >= current-pause {
+    if self.subslide >= required-subslide {
       old-footnote(..args)
     }
   })
 }
-// ----------------------------
+// ---------------------------------------------------
 
-// 2. Fixed title block slide wrapper
+// 1. Fixed title block slide wrapper
 #let slide(
   title: auto,
   align: auto,
@@ -43,26 +49,24 @@
       utils.display-current-heading(level: 2)
     }
 
-    block(
-      width: 100%,
-      height: 4.5em,
-      inset: (top: 2.2em, bottom: 0.1em),
-      if display-title != none and display-title != [] {
+    // Removed fixed height and reduced inset
+    if display-title != none and display-title != [] {
+      block(
+        width: 100%,
+        inset: (top: 0.5em, bottom: 0.5em), // Massively reduced top inset
         text(
-          fill: black, // Changed from primary blue to black
+          fill: black,
           weight: "bold",
           size: 1.4em,
           display-title,
-        )
-      },
-    )
+        ),
+      )
+    }
 
     show: setting
 
-    // Reset the pause tracker at the beginning of every new slide body
-    pause-tracker.update(0)
-
-    std.align(self.store.align, body)
+    // Attach invisible slide-start marker for accurate footnote tracking
+    std.align(self.store.align, metadata("touying-slide-start") + body)
   }
 
   touying-slide(
@@ -75,7 +79,7 @@
   )
 })
 
-// 3. Title Slide
+// 2. Title Slide
 #let title-slide(config: (:), extra: none, ..args) = touying-slide-wrapper(
   self => {
     self = utils.merge-dicts(
@@ -99,7 +103,7 @@
         {
           text(
             size: 1.3em,
-            fill: black, // Changed to black
+            fill: black,
             weight: "bold",
             info.title,
           )
@@ -107,7 +111,7 @@
             parbreak()
             text(
               size: 1.1em,
-              fill: black, // Changed to black
+              fill: black,
               weight: "bold",
               info.subtitle,
             )
@@ -117,7 +121,7 @@
       v(1em)
       text(
         size: 1.2em,
-        fill: black, // Changed to black
+        fill: black,
         weight: "bold",
         info.author,
       )
@@ -125,16 +129,16 @@
         parbreak()
         text(
           size: 1.0em,
-          fill: black, // Changed to black
+          fill: black,
           utils.display-info-date(self),
         )
       }
     }
-    touying-slide(self: self, body)
+    touying-slide(self: self, metadata("touying-slide-start") + body)
   },
 )
 
-// 4. Outline Slide
+// 3. Outline Slide
 #let outline-slide(
   config: (:),
   title: "Agenda",
@@ -146,7 +150,7 @@
     std.align(center + horizon)[
       #block(width: 100%, align(left)[
         #text(fill: black, weight: "bold", size: 1.6em)[#title]
-        #v(1em)
+        #v(0.5em) // Reduced from 1em
         #block(width: 100%)[
           #text(fill: black, weight: "bold", size: 0.95em)[
             #components.custom-progressive-outline(
@@ -161,10 +165,14 @@
       ])
     ]
   }
-  touying-slide(self: self, config: config, content)
+  touying-slide(
+    self: self,
+    config: config,
+    metadata("touying-slide-start") + content,
+  )
 })
 
-// 5. Transition Slide
+// 4. Transition Slide
 #let new-section-slide(
   config: (:),
   level: 1,
@@ -176,7 +184,7 @@
     std.align(center + horizon)[
       #block(width: 100%, align(left)[
         #text(fill: black, weight: "bold", size: 1.6em)[Agenda]
-        #v(1em)
+        #v(0.5em) // Reduced from 1em
         #block(width: 100%)[
           #text(fill: black, weight: "bold", size: 0.95em)[
             #components.custom-progressive-outline(
@@ -191,10 +199,14 @@
       ])
     ]
   }
-  touying-slide(self: self, config: config, content)
+  touying-slide(
+    self: self,
+    config: config,
+    metadata("touying-slide-start") + content,
+  )
 })
 
-// 6. Focus Slide
+// 5. Focus Slide
 #let focus-slide(
   config: (:),
   align: horizon + center,
@@ -214,8 +226,12 @@
       footer: none,
     ),
   )
-  set text(fill: black, weight: "bold", size: 1.5em) // Changed to black
-  touying-slide(self: self, config: config, std.align(align, body))
+  set text(fill: black, weight: "bold", size: 1.5em)
+  touying-slide(
+    self: self,
+    config: config,
+    metadata("touying-slide-start") + std.align(align, body),
+  )
 })
 
 
@@ -234,7 +250,7 @@
   let palette = (
     primary: rgb("#4da6ff"),
     secondary: rgb("#80ccff"),
-    text-main: black, // Changed to black
+    text-main: black,
   )
 
   let sky-gradient = gradient.linear(
@@ -244,7 +260,7 @@
   )
   let dot-pattern = tiling(size: (12pt, 12pt))[#circle(
     radius: 1.5pt,
-    fill: rgb("#00000020"), // Made dots dark/subtle
+    fill: rgb("#00000020"),
   )]
 
   let draft-watermark = if draft {
@@ -269,11 +285,11 @@
         rows: auto,
         align: (left + horizon, center + horizon, right + horizon),
         block(width: 100%, height: 100%, fill: dot-pattern),
-        block(width: 100%, inset: (x: 1em), pad(y: 0.8em)[
+        block(width: 100%, inset: (x: 1em), pad(y: 0.5em)[
           #set par(leading: 0.8em)
           #components.mini-slides(
             self: self,
-            fill: black, // Changed from white to black
+            fill: black,
             alpha: 60%,
             display-section: true,
             linebreaks: false,
@@ -299,14 +315,14 @@
           right + horizon,
         ),
         box(inset: (left: 1em, right: 1.5em))[#text(
-          fill: black, // Changed from white to black
+          fill: black,
           weight: "bold",
           size: footer-fontsize,
           self.info.author,
         )],
         block(width: 100%, height: 100%, fill: dot-pattern),
         box(inset: (x: 1.5em))[#text(
-          fill: black, // Changed from white to black
+          fill: black,
           size: footer-fontsize,
           utils.display-info-date(self),
         )],
@@ -326,7 +342,7 @@
     config-page(
       fill: white,
       ..utils.page-args-from-aspect-ratio(aspect-ratio),
-      margin: (top: 3.4em, bottom: 2.0em, left: 2em, right: 2em),
+      margin: (top: 2.8em, bottom: 2.0em, left: 2em, right: 2em), // Reduced top margin
       header: header,
       footer: footer,
       background: draft-watermark,
@@ -344,7 +360,7 @@
       primary-dark: palette.primary,
       secondary: palette.secondary,
       text-main: palette.text-main,
-      neutral-lightest: rgb("#000000"), // Set to black
+      neutral-lightest: rgb("#000000"),
       neutral-darkest: rgb("#000000"),
     ),
     config-methods(
@@ -375,10 +391,9 @@
   )
   let body = {
     show: std.align.with(center + horizon)
-    text(size: 2.5em, fill: black, weight: "bold", title) // Changed to black
+    text(size: 2.5em, fill: black, weight: "bold", title)
     v(0.5em)
-    text(size: 1.8em, fill: black, weight: "bold", subtitle) // Changed to black
+    text(size: 1.8em, fill: black, weight: "bold", subtitle)
   }
-  touying-slide(self: self, body)
+  touying-slide(self: self, metadata("touying-slide-start") + body)
 })
-
