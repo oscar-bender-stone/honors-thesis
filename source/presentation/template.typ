@@ -393,3 +393,41 @@
 
   body
 }
+
+
+#let end-slide(
+  config: (:),
+  title: "Thank you!",
+  subtitle: "Questions?",
+) = touying-slide-wrapper(self => {
+  // Strip header/footer and ensure background is white
+  self = utils.merge-dicts(
+    self,
+    config-page(header: none, footer: none, fill: white, margin: 2em),
+    config,
+  )
+
+  let body = {
+    show: std.align.with(center + horizon)
+
+    // Primary "Thank you" text using theme colors
+    text(
+      size: 2.5em,
+      fill: self.colors.primary,
+      weight: "bold",
+      title,
+    )
+
+    v(0.5em) // Spacing between the two
+
+    // Secondary "Questions" text
+    text(
+      size: 1.8em,
+      fill: self.colors.text-main,
+      weight: "bold",
+      subtitle,
+    )
+  }
+
+  touying-slide(self: self, body)
+})

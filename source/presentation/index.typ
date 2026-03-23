@@ -1,7 +1,9 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "template.typ": elegant-blue-theme, pause, title-slide, uncover
+#import "template.typ": (
+  elegant-blue-theme, end-slide, pause, title-slide, uncover,
+)
 #import "compare-list.typ": compare-list, con, info, pro
 
 #show: elegant-blue-theme.with(
@@ -582,7 +584,7 @@
 - How to prove?#pause
   - Basic idea: $"ZFC"$ is self-verifying!#pause
     - Again, same proof from Artëmov!#pause
-  - HUGE leap; how to generalize?#pause
+  - HUGE leap; how to extend it?#pause
   - Answer: comprehension!
 
 // TODO: add citations!
@@ -590,23 +592,37 @@
 #pause
 - Roughly: certain transitive sets ($x in y in z => x in z$)#pause
   - Contents: enumerated by some Turing machine#pause
+  - Generalized induction: *transfinite induction*
+    - Adds a *limit case*
 - Limit: *Church-Kleene Ordinal* ($omega^"CK"_1$)#pause
 - *Proof-theoretic ordinal:* measures theory strength
   - Important: this is recursive if $T$ is RE _and_ sound#pause
-  - Bounded _strictly_ below $omega^"CK"_1$!#pause
+  - Bounded _strictly_ below $omega^"CK"_1$!
+  - Using inducitve step: can reach Feferman-Schütte ordinal $Gamma_0$
+  - For us: how to reach _anywhere_ below $omega^"CK"_1$?
+  - Use inductive step from Feferman#footnote[Feferman (1962). Transfinite
+      Recursive Progressions of Axiomatic Theories. J. Symb. Log. 27(3).]
 
 // TODO: finish recursive defs
-== Crash Course: Arithmetic Hierarchy
-- Measures complexity of $"PA"$ formulas
+== Crash Course: Simpson Comprehension
+- Enter Simpson#footnote[Simpson (2009). Subsystems of Second Order Arithmetic
+    (2nd ed.). Cambridge
+  ] #pause
 - Need to construct comprehension
   - Use Simpson's comprehension axiom:
     $ exists X. forall n. lr((n in X <=> Phi(n))) $
   - $Phi$: very complex formula ($Delta^1_1$)
+    - Also called *hyperarithmetic*
+    - By Kleene, this reaches everywhere below $omega^"CK"_1$!#footnote[Kleene
+        (1944). On the Forms of the Predicates in the Theory of Constructive
+        Ordinals. Am. J. Math. 66(1).
+      ]
 
-// TODO: cite!
-== Proof Completeness (con't)
+== Proof Completeness
+#pause
+- Time for construction!:#pause
 - Let:
-  - $lambda$ be limit of recursive $beta_1, beta_2, ...$
+  - $lambda$ be limit of recursive ordinals $beta_1, beta_2, ...$
   - Each $T_beta_i$ self-verifying
   - $T' = union.big_(beta <lambda) T_beta$
   - $"Comp"_lambda (Delta^1_1) = exists X_(phi, lambda). forall n. lr(
@@ -614,7 +630,10 @@
     )
     )$
 - Our construction: $T_lambda$
-  - ✔️ Eventually reaches limit
+  - ✔️ Eventually reaches limit#footnote[Proven in: Kleene (1944). On the Forms
+      of the Predicates in the Theory of Constructive Ordinals. Am. J. Math.
+      66(1).
+    ]
   - ✔️ Self-verifying
   - ✔️ *Constructive*
 - TL;DR: Artëmov + Simpson + Reliability = Proofs 💯
@@ -648,6 +667,6 @@
 - Revision System#pause
 - Package Management#pause
 
-== Thank you!
 
-Questions?
+#end-slide()
+
