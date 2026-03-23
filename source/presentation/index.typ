@@ -207,7 +207,7 @@
       Computable Numbers. Proc. Lond. Math. Soc., 42, 230–265.
     ]
 + Enable user-defined _meaning_#pause
-  - Avoid empty symbols!#pause
+  - Avoid hollow symbols!#pause
   - Symbol Grounding Problem#footnote[Harnad, S. (1990). _The Symbol Grounding
       Problem._ Physica D, 42, 335–346.
     ]#pause
@@ -238,26 +238,26 @@
 
 // TODO: make more complete!
 == Information
-
+#pause
 - Representations #pause $~$ *Truth*#pause
 - Information #pause $~$ *Proofs*#pause
-  - Includes simple facts
-  - Expands to complex truh systems
-- Major result: can express _any_ "reliable" proof
+  - Includes simple facts#pause
+  - Expands to complex truth systems#pause
+- Major result: can express _any_ "reliable" proof#pause
   - More details later! (Metatheory)
 
 == Rules
 
-- *Internal Transitivity:*
+- *Internal Transitivity:* $a - c -> b$ and $b - c -> d$ imply $a - c -> d$
 - *Contextual Lifting:*#pause
 - *Lattice Laws:*
   - Units as sets
 
 == Turing Completeness
 #pause
-- Part of Universality
+- Part of Universality#pause
 - *Theorem:* #pause _every unit corresponds to some program, and vice versa._
-  - $phi$: some mapping between units and programs
+  - $phi$: some mapping between units and programs#pause
   - Interpretation: #pause $a - c -> b$ iff
     $phi_c (chevron.l phi_a chevron.r) = chevron.l phi_b chevron.r$
   - $chevron.l phi_a chevron.r$: #pause encodes $phi_a$ as a string
