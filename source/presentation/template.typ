@@ -1,10 +1,9 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-
 #import "@preview/touying:0.6.3": *
 
-// 1. Define custom standard slide wrapper
+// 1. Fixed title block slide wrapper
 #let slide(
   title: auto,
   align: auto,
@@ -18,28 +17,27 @@
   if title != auto { self.store.title = title }
 
   let new-setting = body => {
-    show: std.align.with(self.store.align)
-    show: setting
-
-    // Explicitly fetch the active level 2 heading (e.g. `== Background`)
-    // to guarantee it renders reliably below the banner every time.
     let display-title = if title != auto { title } else {
       utils.display-current-heading(level: 2)
     }
 
-    if display-title != none and display-title != [] {
-      block(
-        width: 100%,
+    // Fixed-height block ensures the body text starts at the same Y-level
+    block(
+      width: 100%,
+      height: 4.5em,
+      inset: (top: 2.2em, bottom: 0.1em),
+      if display-title != none and display-title != [] {
         text(
           fill: self.colors.primary,
           weight: "bold",
           size: 1.4em,
           display-title,
-        ),
-      )
-    }
+        )
+      },
+    )
 
-    body
+    show: setting
+    std.align(self.store.align, body)
   }
 
   touying-slide(
@@ -52,10 +50,9 @@
   )
 })
 
-// 2. Define custom Title Slide
+// 2. Title Slide
 #let title-slide(config: (:), extra: none, ..args) = touying-slide-wrapper(
   self => {
-    // Strips the banner/footer and equalizes margins so content is perfectly centered
     self = utils.merge-dicts(
       self,
       config-page(header: none, footer: none, margin: 2em),
@@ -92,7 +89,6 @@
           }
         },
       )
-
       v(1em)
       text(
         size: 1.2em,
@@ -113,7 +109,7 @@
   },
 )
 
-// 3. Define custom Outline Slide (Shows ALL sections, no dimming)
+// 3. Outline Slide
 #let outline-slide(
   config: (:),
   title: "Agenda",
@@ -123,37 +119,27 @@
 ) = touying-slide-wrapper(self => {
   let content = {
     std.align(center + horizon)[
-      #block(
-        width: 100%,
-        align(left)[
-          #text(
-            fill: self.colors.text-main,
-            weight: "bold",
-            size: 1.6em,
-          )[#title]
-          #v(1em)
-
-          // Removed adaptive-columns to force a single vertical list.
-          // Reduced font size and vspace to ensure it fits onto one slide.
-          #block(width: 100%)[
-            #text(fill: self.colors.text-main, weight: "bold", size: 0.95em)[
-              #components.custom-progressive-outline(
-                level: level,
-                alpha: 100%,
-                depth: 1,
-                numbered: (numbered,),
-                vspace: (0.4em,),
-              )
-            ]
+      #block(width: 100%, align(left)[
+        #text(fill: self.colors.text-main, weight: "bold", size: 1.6em)[#title]
+        #v(1em)
+        #block(width: 100%)[
+          #text(fill: self.colors.text-main, weight: "bold", size: 0.95em)[
+            #components.custom-progressive-outline(
+              level: level,
+              alpha: 100%,
+              depth: 1,
+              numbered: (numbered,),
+              vspace: (0.4em,),
+            )
           ]
-        ],
-      )
+        ]
+      ])
     ]
   }
   touying-slide(self: self, config: config, content)
 })
 
-// 4. Define custom Transition Slide (Highlights current section)
+// 4. Transition Slide
 #let new-section-slide(
   config: (:),
   level: 1,
@@ -163,36 +149,27 @@
 ) = touying-slide-wrapper(self => {
   let content = {
     std.align(center + horizon)[
-      #block(
-        width: 100%,
-        align(left)[
-          #text(
-            fill: self.colors.text-main,
-            weight: "bold",
-            size: 1.6em,
-          )[Agenda]
-          #v(1em)
-
-          // Removed adaptive-columns, scaled down font size/spacing
-          #block(width: 100%)[
-            #text(fill: self.colors.text-main, weight: "bold", size: 0.95em)[
-              #components.custom-progressive-outline(
-                level: level,
-                alpha: 30%,
-                depth: 1,
-                numbered: (numbered,),
-                vspace: (0.4em,),
-              )
-            ]
+      #block(width: 100%, align(left)[
+        #text(fill: self.colors.text-main, weight: "bold", size: 1.6em)[Agenda]
+        #v(1em)
+        #block(width: 100%)[
+          #text(fill: self.colors.text-main, weight: "bold", size: 0.95em)[
+            #components.custom-progressive-outline(
+              level: level,
+              alpha: 30%,
+              depth: 1,
+              numbered: (numbered,),
+              vspace: (0.4em,),
+            )
           ]
-        ],
-      )
+        ]
+      ])
     ]
   }
   touying-slide(self: self, config: config, content)
 })
 
-// 5. Define custom Focus Slide
+// 5. Focus Slide
 #let focus-slide(
   config: (:),
   align: horizon + center,
@@ -220,12 +197,12 @@
 // --- THEME DEFINITION ---
 #let elegant-blue-theme(
   aspect-ratio: "16-9",
-  align: horizon,
+  align: top + left,
   title: none,
   subtitle: none,
   author: none,
   date: datetime.today(),
-  draft: false,
+  draft: false, // User can toggle this when calling the theme
   ..args,
   body,
 ) = {
@@ -240,11 +217,12 @@
     palette.secondary,
     dir: rtl,
   )
+  let dot-pattern = tiling(size: (12pt, 12pt))[#circle(
+    radius: 1.5pt,
+    fill: rgb("#ffffff60"),
+  )]
 
-  let dot-pattern = tiling(size: (12pt, 12pt))[
-    #circle(radius: 1.5pt, fill: rgb("#ffffff60"))
-  ]
-
+  // RESTORED: Draft watermark logic
   let draft-watermark = if draft {
     std.align(center + horizon)[
       #rotate(-35deg)[
@@ -263,16 +241,10 @@
       width: 100%,
       fill: sky-gradient,
       grid(
-        // Explicitly hardcoded 70% width for the center to force left-to-right wrapping without squishing
         columns: (10%, auto, 10%),
         rows: auto,
         align: (left + horizon, center + horizon, right + horizon),
-
-        // Left side dots
         block(width: 100%, height: 100%, fill: dot-pattern),
-
-        // Centered mini-slides using block and safe align context
-
         block(width: 100%, inset: (x: 1em), pad(y: 0.8em)[
           #set par(leading: 0.8em)
           #components.mini-slides(
@@ -283,8 +255,6 @@
             linebreaks: false,
           )
         ]),
-
-        // Right side dots
         block(width: 100%, height: 100%, fill: dot-pattern),
       ),
     )
@@ -292,7 +262,6 @@
 
   let footer(self) = {
     let footer-fontsize = 0.7em
-
     block(
       fill: sky-gradient,
       grid(
@@ -305,28 +274,19 @@
           center + horizon,
           right + horizon,
         ),
-
-        box(inset: (left: 1em, right: 1.5em))[
-          #text(
-            fill: white,
-            weight: "bold",
-            size: footer-fontsize,
-            self.info.author,
-          )
-        ],
-
+        box(inset: (left: 1em, right: 1.5em))[#text(
+          fill: white,
+          weight: "bold",
+          size: footer-fontsize,
+          self.info.author,
+        )],
         block(width: 100%, height: 100%, fill: dot-pattern),
-
-        box(inset: (x: 1.5em))[
-          #text(
-            fill: white,
-            size: footer-fontsize,
-            utils.display-info-date(self),
-          )
-        ],
-
+        box(inset: (x: 1.5em))[#text(
+          fill: white,
+          size: footer-fontsize,
+          utils.display-info-date(self),
+        )],
         block(width: 100%, height: 100%, fill: dot-pattern),
-
         box(inset: (left: 1.5em, right: 1em))[
           #text(fill: white, weight: "bold", size: footer-fontsize)[
             #context [
@@ -344,16 +304,11 @@
       margin: (top: 3.4em, bottom: 2.0em, left: 2em, right: 2em),
       header: header,
       footer: footer,
-      background: draft-watermark,
+      background: draft-watermark, // APPLIED: Background watermark
       header-ascent: 0.5em,
       footer-descent: 0.5em,
     ),
-    config-info(
-      title: title,
-      subtitle: subtitle,
-      author: author,
-      date: date,
-    ),
+    config-info(title: title, subtitle: subtitle, author: author, date: date),
     config-common(
       slide-fn: slide,
       new-section-slide-fn: new-section-slide,
@@ -369,65 +324,35 @@
     ),
     config-methods(
       init: (self: none, body) => {
-        // TODO: decide suitable dark
-        // color for main text font
         set text(font: "STIX Two Text", size: 18pt, fill: black)
         show math.equation: set text(font: "STIX Two Math")
-
         show heading.where(level: 1): none
         show heading.where(level: 2): none
-
-        show hide: it => {
-          show footnote: none
-          it
-        }
         body
       },
     ),
-    config-store(
-      align: align,
-      title: none,
-    ),
+    config-store(align: align, title: none),
     ..args,
   )
 
   body
 }
 
-
 #let end-slide(
   config: (:),
   title: "Thank you!",
   subtitle: "Questions?",
 ) = touying-slide-wrapper(self => {
-  // Strip header/footer and ensure background is white
   self = utils.merge-dicts(
     self,
     config-page(header: none, footer: none, fill: white, margin: 2em),
     config,
   )
-
   let body = {
     show: std.align.with(center + horizon)
-
-    // Primary "Thank you" text using theme colors
-    text(
-      size: 2.5em,
-      fill: self.colors.primary,
-      weight: "bold",
-      title,
-    )
-
-    v(0.5em) // Spacing between the two
-
-    // Secondary "Questions" text
-    text(
-      size: 1.8em,
-      fill: self.colors.text-main,
-      weight: "bold",
-      subtitle,
-    )
+    text(size: 2.5em, fill: self.colors.primary, weight: "bold", title)
+    v(0.5em)
+    text(size: 1.8em, fill: self.colors.text-main, weight: "bold", subtitle)
   }
-
   touying-slide(self: self, body)
 })
