@@ -328,6 +328,9 @@
     - Used in proof of unambiguity
     - Also ensures efficiency
   - More details in thesis
+  - *Notes*:#pause
+    - Current proofs are done#pause
+    - Grammar *may* change
 
 #figure(
   text(size: 13pt)[
@@ -503,7 +506,7 @@
 #pause
 - Write the Standard#pause
 - Create a Fast Implementation#pause
-- Query Solvers#pause
+- Information Search Programs#pause
 - Revision System#pause
 - Package Management#pause
 
