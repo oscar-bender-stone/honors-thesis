@@ -184,15 +184,13 @@
     ]#pause
   - Represents _expansive_ nature of language
 
-
 == Goals
 - *Universality:* be completely expressive #pause (*done*)#pause
   - _Any_ computer program#pause
   - _Any_ "reliable" proof#pause
 - *Scalability:* work at any size #pause (*In progress*)#pause
   - Be efficient#pause
-  - Support: future optimizations#pause
-  - Describe improvements _in_ Welkin#pause
+  - Can add optimizations _in_ Welkin#pause
 - *Standardization:* be completely _unambiguous_ #pause (*In progress*)#pause
   - Have a formal specification
 
@@ -206,11 +204,12 @@
   - Established notion: *Turing machines*#footnote[Turing, A. M. (1936). On
       Computable Numbers. Proc. Lond. Math. Soc., 42, 230–265.
     ]
-+ Enable user-defined _meaning_#pause
-  - Avoid hollow symbols!#pause
++ Enable user-defined meaning#pause
+  - Avoid meaningless symbols!#pause
   - Symbol Grounding Problem#footnote[Harnad, S. (1990). _The Symbol Grounding
       Problem._ Physica D, 42, 335–346.
     ]#pause
+  - Treat as free parameter in theory
 
 - Achieve both via *representations*
 
@@ -226,21 +225,20 @@
 == Units
 
 #pause
-- *Finitely defined*#pause
-- Can be broken down, combined
-  - Written with braces ${a, b, ..., z}$#pause
+- Units are *finite programs*
 - Built from *Handles*#pause
   - Name origin: file/resource handles (programs)#pause
   - Enables user-defined meaning#pause
   - User's goal: correctly specify!#pause
-- Representations are units#pause
-- Each unit has its own *context*
+- Each unit contains its own *context* of representations
+  - Written with braces ${a, b, ..., z}$#pause
+  - Representations are _also_ units
 
 // TODO: make more complete!
 == Information
 #pause
-- Representations #pause $~$ *Truth*#pause
-- Information #pause $~$ *Proofs*#pause
+- Representations $=$ *Truth*#pause
+- Information $=$ *Proofs*#pause
   - Includes simple facts#pause
   - Expands to complex truth systems#pause
 - Major result: can express _any_ "reliable" proof#pause
@@ -269,81 +267,34 @@
   )
 }
 
-== Rules: Primary
+== Rules
 
-#rule-table(blue, (
-  [R1],
-  [Internal Transitivity],
-  [$a - c -> b$ and $b - c -> d$ imply $a - c -> d$],
-  [R2],
-  [Pair Congruence],
-  [If $a - c -> b$, then ${a, d} - c -> {b, d}$],
-  [R3],
-  [Sign Congruence],
-  [If $a - c -> b$, then ${a - g -> d} - c -> {b - g -> d}$],
-  [R4],
-  [Context Congruence],
-  [If $a - c -> b$, then ${d - a -> g} - c -> {d - b -> g}$],
-  [R5],
-  [Referent Congruence],
-  [If $a - c -> b$, then ${d - g -> a} - c -> {d - g -> b}$],
-  [R6],
-  [Contextual Lifting],
-  [$a - c -> b$ and $d - a -> g$ \ imply ${d - b -> g} prec.curly.eq c$],
-  [R7],
-  [Refinement],
-  [${a - c -> b, a - c -> d} --> {a - c -> b}$],
-))
-== Rules: Empty Unit
-
-#rule-table(teal, (
-  [R8],
-  [Empty Set],
-  [${g, {}} <- c -> g$],
-  [R9],
-  [Sign Absorption],
-  [${{} - a -> b} - c -> {}$],
-  [R10],
-  [Context Absorption],
-  [${a - {} -> b} - c -> {}$],
-  [R11],
-  [Referent Absorption],
-  [${a - b -> {}} - c -> {}$],
-))
-
-== Rules: Lattice
-
-#rule-table(olive, (
-  [R12],
-  [Handle Equality],
-  [If $h_1 = h_2$, then $h_1 <-c-> h_2$],
-  [R13],
-  [Derivation],
-  [${a - g -> a} <- c -> {{g, a} <--> g}$],
-  [R14],
-  [Idempotency],
-  [${a, a} <-c-> a$],
-  [R15],
-  [Associativity],
-  [${a, {b, c}} <-c-> {{a, b}, c}$],
-  [R16],
-  [Commutativity],
-  [${a, b} <-c-> {b, a}$],
-))
+- Three categories:#pause
+  - *Primary:*#pause
+    - Transitivity in a context#pause
+    - Congruence (build new units)#pause
+  - *Empty*#pause
+    - Defines empty unit#pause
+    - Enables exclusions#pause
+  - *Lattice*#pause
+    - Makes units position independent#pause
+- For details: consult thesis
 
 == Turing Completeness
 #pause
 - Part of Universality#pause
-- *Theorem:* #pause _every unit corresponds to some program, and vice versa._
-  - $phi$: some mapping between units and programs#pause
-  - Interpretation: #pause $a - c -> b$ iff
-    $phi_c (chevron.l phi_a chevron.r) = chevron.l phi_b chevron.r$
-  - $chevron.l phi_a chevron.r$: #pause encodes $phi_a$ as a string
+- *Theorem:* _every unit corresponds to some program, and vice versa._#pause
+  - For details: consult thesis
 - Later: #pause completeness for *proofs*!
 
 = Syntax
 
-== Overview
+== Syntax
+
+- Two main parts#pause
+  - Encoding: characters#pause
+    - Building blocks of strings#pause
+  - Grammar: strings allowed by language
 
 == Encoding
 
@@ -355,8 +306,7 @@
     )).]
 
 - Define US-ASCII: Printable (codes: 32-126) + `EOF` (code: 127)
-- *Token:* collection of contiguous characters
-  - Simplifies grammar
+- Character classes: refer to thesis
 
 == US-ASCII
 
@@ -365,66 +315,19 @@
   caption: [Printable US-ASCII codes and glyphs.],
 )<syntax:printable-ascii-codes>
 
-== Character Classes
 
-#figure(
-  // Using 'auto' for both ensures the table is only as wide as its longest line
-  table(
-    columns: (auto, auto),
-    align: left,
-    stroke: none,
-    column-gutter: 1.2em,
-    // Narrower gap between columns
-    inset: (x: 0pt, y: 0.5em),
-    // Tighter vertical rows
+== Grammar
+- Build on two papers
+  - First: *Invertible Syntax Descriptions*#footnote[Rendel & Ostermann (2010).
+      Invertible syntax descriptions. Haskell '10.]
+    - Processes strings, forwards and back
+  - Second: Edelmann et. al.#footnote[Edelmann et al. (2020). _Zippy LL(1)
+      parsing with derivatives_. PLDI 2020.]
+    - Used in proof of unambiguity
+    - Also ensures efficiency
+  - More details in thesis
 
-    // Top boundary - 1pt for a lighter feel than 1.5pt
-    table.hline(stroke: 1pt),
-
-    [*Set Name*], [*Characters*],
-
-    // Header separator
-    table.hline(stroke: 0.5pt),
-
-    [`PRINTABLE`], [Listed in Table 1],
-    [`WHITESPACE`], [`\t` | `\r` | Space],
-    [`DELIMITER`], [`{` | `}` | `'` | `"` | `.` | `,`],
-    [`RESERVED`], [`DELIMITER` | `*` | `@`],
-    [`SQ_CHAR`], [Any `PRINTABLE` except `'` and `\`],
-    [`DQ_CHAR`], [Any `PRINTABLE` except `"` and `\`],
-    [`ID_CHAR`], [Any `PRINTABLE` not in `RESERVED` or `WHITESPACE`],
-
-    // Bottom boundary
-    table.hline(stroke: 1pt),
-  ),
-  caption: [Key character classes.],
-) <syntax:character-classes>
-
-== Building Blocks
-- *Invertible Syntax Descriptions:* pairs of functions:#footnote[Rendel &
-    Ostermann (2010). Invertible syntax descriptions. Haskell '10.]#pause
-  - *Parser*: takes (_consumes_) tokens, converts into a data
-    structure#footnote[For computer scientists: this is an AST.]#pause
-  - *Printer*: converts a data structure into a string
-  - Identity: when parser succeeds, is "reversible" with printer.
-- Need *maximal munch:*#pause consume tokens, not characters#pause
-  - Simplifies grammar
-
-== Building Blocks (cont')
-#pause
-- Let `A, B`: general rules#pause
-- `A - seq -> B`:#pause
-  - *Parser:* apply `A`, then `B`.#pause
-  - *Printer:* prints `AB`.#pause
-- `A - seq_many_till -> B`:#pause
-  - *Parser:* Apply `A` zero more times, _until_ the `B` accepts input#pause
-  - *Printer:* prints zero or more `A`, then `B`#pause
-- `A - lexeme -> B`:#pause
-  - Same as `seq`, but whitespace allowed#pause
-- `A - lex_many_till -> B`:#pause
-  - Same as `seq_many_till`, but whitespace allowed#pause
-
-== The Welkin Grammar
+== Grammar (con't)
 #figure(
   text(size: 13pt)[
     #grid(
@@ -481,23 +384,6 @@
   ],
   caption: [Full Welkin grammar.],
 )
-
-// TODO: add details about FIRST/SN-FOLLOW?
-== Outline of Unambiguity
-
-- Simple grammar class: $"LL"(1)$#pause
-- Desirable properties:#footnote[
-    Consult: Aho et al. (2006). _Compilers: Principles, Techniques, and Tools_
-    (2nd ed.).
-
-  ]
-  - Unambiguous: every valid input produces _one_ output#pause
-  - Efficient parsing
-- For our parsers, need Edelmann et. al:#footnote[Edelmann et al. (2020). _Zippy
-    LL(1) parsing with derivatives_. PLDI 2020.]#pause
-  - Involves recursive equations on sets#pause
-  - Need: certain sets are djsoint#pause
-  - For details, refer to thesis
 
 = Metatheory
 
