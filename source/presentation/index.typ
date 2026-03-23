@@ -182,21 +182,24 @@
 // Doesn't work with this list
 == Proposed Solution
 #pause
-- *Welkin*: an information language
-  - Pronounced: "VEL-KIN"
+- *Welkin*: an information language#pause
+  - Pronounced: "VEL-KIN"#pause
   - Old German word, meaning "cloud", "sky"#footnote[Oxford English Dictionary
       (2025), s.v. "welkin, n."
-    ]
-- *Goals:*#pause
-  - *Universality:* be completely expressive (*done*)
-    - _Any_ computer program
-    - _Any_ "reliable" proof
-  - *Scalability:* work at any size (*WIP*)
-    - Be efficient
-    - Support: future optimizations
-    - Describe improvements _in_ Welkin
-  - *Standardization:* be completely _unambiguous_ (*WIP*)#pause
-    - Have a formal specification
+    ]#pause
+  - Represents _expansive_ nature of language
+
+
+== Goals
+- *Universality:* be completely expressive #pause (*done*)#pause
+  - _Any_ computer program#pause
+  - _Any_ "reliable" proof#pause
+- *Scalability:* work at any size #pause (*WIP*)#pause
+  - Be efficient#pause
+  - Support: future optimizations#pause
+  - Describe improvements _in_ Welkin#pause
+- *Standardization:* be completely _unambiguous_ #pause (*WIP*)#pause
+  - Have a formal specification
 
 = Language Overview
 
@@ -644,21 +647,23 @@
 = Conclusion
 
 == Comparisons to Existing Solutions
-
-- *Resource Description Framework:*
-  - Similar ideas/terms about representations
-  - Welkin:
-    - Higher order terms
-    - Better ogical reasoning
-- *Labeled Property Graphs:*
-  - Simple core idea + expressive
-  - Welkin:
-    - Formal definitions and grammar
+#pause
+- *Resource Description Framework:*#pause
+  - Similar ideas/terms about representations#pause
+  - Welkin:#pause
+    - Higher order terms#pause
+    - Better ogical reasoning#pause
+- *Labeled Property Graphs:*#pause
+  - Simple core idea + expressive#pause
+  - Welkin:#pause
+    - Formal definitions and grammar#pause
     - Logical engine
-- *Cyc:*
-  - Similarly depend on contexts
-  - Welkin:
-    - Flexible data format
+== Comparisons to Existing Solutions (cont')
+#pause
+- *Cyc:*#pause
+  - Similarly depend on contexts#pause
+  - Welkin:#pause
+    - Flexible data format#pause
     - Open specification
 
 
