@@ -601,19 +601,19 @@
 - *Proof-theoretic ordinal:* measures theory strength
   - Important: this is recursive if $T$ is RE _and_ sound#pause
   - Bounded _strictly_ below $omega^"CK"_1$!
-  - Using inducitve step: can reach Feferman-Schütte ordinal $Gamma_0$
+  - Using inducitve step: can reach Feferman-Schütte ordinal
+    $Gamma_0$#footnote[Feferman (1962). Transfinite Recursive Progressions of
+      Axiomatic Theories. J. Symb. Log. 27(3).]
   - For us: how to reach _anywhere_ below $omega^"CK"_1$?
-  - Use inductive step from Feferman#footnote[Feferman (1962). Transfinite
-      Recursive Progressions of Axiomatic Theories. J. Symb. Log. 27(3).]
-
 // TODO: finish recursive defs
 == Crash Course: Simpson Comprehension
 - Enter Simpson#footnote[Simpson (2009). Subsystems of Second Order Arithmetic
     (2nd ed.). Cambridge
   ] #pause
-- Need to construct comprehension
-  - Use Simpson's comprehension axiom:
-    $ exists X. forall n. lr((n in X <=> Phi(n))) $
+- Simpson worked on _Reverse Mathematics_
+  - Studies the axioms necessary to prove theorems
+- We need his comprehension axiom:
+  $ exists X. forall n. lr((n in X <=> Phi(n))) $
   - $Phi$: very complex formula ($Delta^1_1$)
     - Also called *hyperarithmetic*
     - By Kleene, this reaches everywhere below $omega^"CK"_1$!#footnote[Kleene
@@ -624,21 +624,21 @@
 == Proof Completeness
 #pause
 - Time for construction!:#pause
-- Let:
-  - $lambda$ be limit of recursive ordinals $beta_1, beta_2, ...$
-  - Each $T_beta_i$ self-verifying
-  - $T' = union.big_(beta <lambda) T_beta$
+- Let:#pause
+  - $lambda$ be limit of recursive ordinals $beta_1, beta_2, ...$#pause
+  - Each $T_beta_i$ self-verifying#pause
+  - $T' = union.big_(beta <lambda) T_beta$#pause
   - $"Comp"_lambda (Delta^1_1) = exists X_(phi, lambda). forall n. lr(
       (n in X_(phi, lambda) <=> "PA" attach(entails, br: T') phi(n))
     )
-    )$
-- Our construction: $T_lambda$
+    )$#pause
+- Our construction: $T_lambda$#pause
   - ✔️ Eventually reaches limit#footnote[Proven in: Kleene (1944). On the Forms
       of the Predicates in the Theory of Constructive Ordinals. Am. J. Math.
       66(1).
-    ]
-  - ✔️ Self-verifying
-  - ✔️ *Constructive*
+    ]#pause
+  - ✔️ Self-verifying#pause
+  - ✔️ *Constructive*#pause
 - TL;DR: Artëmov + Simpson + Reliability = Proofs 💯
 
 = Conclusion
