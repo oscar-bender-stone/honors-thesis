@@ -387,32 +387,13 @@
 
 = Metatheory
 
-#let entails = $⊢$
-
-== Primer
-- Terminology
-  - *RE:* accepted by some Turing machine
-    - Might not halt!
-  - *Formal system:*
-    - A decidable set of *formulas* #pause
-    - A RE set of *rules* #pause
-    - A computable *verifier* on *derivations* #pause
-  - *First Order Logic:*#pause
-    - Propositional logic (and, or, not)#pause
-    - Quantifiers (for all, exists)#pause
-  - *Peano Arithmetic* (PA): natural numbers + induction
-  - *Consistency:* no proofs contain falsehood ($bot$)
 == Formal System Limits
 
 - Many theorems on limit:s#pause
   - *Gödel incompleteness*#pause
     - *First:* PA can't prove everything#pause
     - *Second*: PA cannot prove _own_ consistency#pause
-  - Tarski undefinability#pause
-    - Cannot define all $"PA"$-truths _in_ $"PA"$
-    - Tarski's Criterion:#pause $T(phi) <=> phi$#pause
   - Etc.#pause
-// TODO: maybe break up
 - Usual approach: _chain of stronger theories_#pause
   - Extend by $"Con"(T)$ (encoding of consistency)#pause
   - _Technically_ enough, WITH non-constructive methods#footnote[Feferman
@@ -421,15 +402,24 @@
     ]#pause
   - Problem: want to identify + trust proofs!
 
+#let entails = $⊢$
 
 == Artëmov's Selector Proofs
 #pause
-- Artëmov _changes_ this paradigm#pause
-  - There is a _weaker_ proof: *selectors*#pause
-- *Selector:* algorithm that takes proofs as inputs#pause
-  1. Takes in _any_ proof#pause
-  2. If it accepts a proof, no $bot$ appears#pause
-- Artëmov
+- Artëmov#footnote[Artemov (2024). Serial properties, selector proofs and the
+    provability of consistency. J. Logic Comput. 35(3).
+  ] _changes_ this paradigm#pause
+  - Proves a weaker property: *selector consistency*
+- Approach: over a theory $T$, build a computable function _over_ $T$-proofs
+#pause
++ Enumerate through all $T$-proofs in a meta-theory (e.g., $"PA"$)
++ For _each_ proof, prove it is consistent (no $bot$) in $T$
+
+- This _almost_ works#pause
+  - If $T$ inconsistent: arises from _some_ finite counter-example#pause
+  - Proof above: meant to show _no_ such example exists!#pause
+  - Problem: could use $bot$ to prove!#pause
+  - Need to add restriction: *must be constructive*
 
 == Serial-Soundness
 
@@ -473,59 +463,19 @@
     - Again, same proof from Artëmov!#pause
   - HUGE leap; how to extend it?#pause
   - Answer: comprehension!
-
-// TODO: add citations!
-== Crash Course: Recursive Ordinals
-#pause
-- Roughly: certain transitive sets ($x in y in z => x in z$)#pause
-  - Contents: enumerated by some Turing machine#pause
-  - Generalized induction: *transfinite induction*
-    - Adds a *limit case*
-- Limit: *Church-Kleene Ordinal* ($omega^"CK"_1$)#pause
-- *Proof-theoretic ordinal:* measures theory strength
-  - Important: this is recursive if $T$ is RE _and_ sound#pause
-  - Bounded _strictly_ below $omega^"CK"_1$!
-  - Using inducitve step: can reach Feferman-Schütte ordinal
-    $Gamma_0$#footnote[Feferman (1962). Transfinite Recursive Progressions of
-      Axiomatic Theories. J. Symb. Log. 27(3).]
-  - For us: how to reach _anywhere_ below $omega^"CK"_1$?
-// TODO: finish recursive defs
-== Crash Course: Simpson Comprehension
-- Enter Simpson#footnote[Simpson (2009). Subsystems of Second Order Arithmetic
-    (2nd ed.). Cambridge
-  ] #pause
-- Simpson worked on _Reverse Mathematics_
-  - Studies the axioms necessary to prove theorems
-- We need his comprehension axiom:
-  $ exists X. forall n. lr((n in X <=> Phi(n))) $
-  - $Phi$: very complex formula ($Delta^1_1$)
-    - Also called *hyperarithmetic*
-    - By Kleene, this reaches everywhere below $omega^"CK"_1$!#footnote[Kleene
-        (1944). On the Forms of the Predicates in the Theory of Constructive
-        Ordinals. Am. J. Math. 66(1).
-      ]
-
-== Proof Completeness
-#pause
-- Time for construction!:#pause
-- Let:#pause
-  - $lambda$ be limit of recursive ordinals $beta_1, beta_2, ...$#pause
-  - Each $T_beta_i$ self-verifying#pause
-  - $T' = union.big_(beta <lambda) T_beta$#pause
-  - $"Comp"_lambda (Delta^1_1) = exists X_(phi, lambda). forall n. lr(
-      (n in X_(phi, lambda) <=> "PA" attach(entails, br: T') phi(n))
-    )
-    )$#pause
-- Our construction: $T_lambda$#pause
-  - ✔️ Eventually reaches limit#footnote[Proven in: Kleene (1944). On the Forms
-      of the Predicates in the Theory of Constructive Ordinals. Am. J. Math.
-      66(1).
-    ]#pause
-  - ✔️ Self-verifying#pause
-  - ✔️ *Constructive*#pause
-- TL;DR: Artëmov + Simpson + Reliability = Proofs 💯
+  - Details in thesis
 
 = Conclusion
+
+== Conclusion
+- Welkin is a universal information language#pause
+  - Provided basic rules#pause
+  - Provided syntax#pause
+  - Provided metatheory#pause
+- Goals:#pause
+  - Universal (*done*)#pause
+  - Scalable (*in progress*)#pause
+  - Standardization (*in progress*)
 
 == Comparisons to Existing Solutions
 #pause
