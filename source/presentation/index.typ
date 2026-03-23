@@ -102,11 +102,10 @@
 // TODO: fix pauses between bullets at same level!
 == Background
 #pause
-- Information Management: studies how to *store* and *organize* data#pause
-  #pause
+- Information helps us *store* and *organize* data #pause
   - Throughout _all_ history: so much data!
-  - Organize through *information*#pause
-- What _is_ information?#pause
+  - How to actually use it?
+- Inquiry: what _is_ information?#pause
   - Depends on who you ask!
   #pause
   - *Ackoff:* Data-to-Wisdom Hierarchy #footnote[Ackoff, R. L. (1989). _From
@@ -128,19 +127,15 @@
 - How to _actually_ manage information?
   - *Information base:* a database of information
 - *Depth:* domain specific data
-  - Example: Amazon (product suggestions)#footnote[Smith & Linden (2017). Two
-      Decades of Recommender Systems at Amazon.com. IEEE Internet Comput. 21(3).
-    ]#pause
-- *Breadth:* different kinds of data#pause
-  - Example: Wikipedia#footnote[Mesgari, M., et al. (2015). "The sum of all
-      human knowledge": A systematic review of Wikipedia. JASIST, 66(2).
-    ]#pause
+  - Terminology, kinds of data, etc.
+- *Breadth:* wide variety of domains#pause
+  - Different principles, methods
+  - Example: Physics $!=$ Literature!
 - *Standardization:* ambiguous interpretations
   - Related issue: being *interoperable*
-  - *Interoperable:* a portable data format
-  - Example: US health records#footnote[Reisman, M. (2017). EHRs: The challenge
-      of making electronic data usable. P & T, 42(9), 572–575.
-    ]
+    - *Interoperable:* a portable data format
+    - Example: U.S. Health records
+    - Transfer is hard, even for the _same_ patient
 
 == Existing Solutions
 #pause
