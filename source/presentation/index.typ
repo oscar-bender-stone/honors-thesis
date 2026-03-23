@@ -246,12 +246,90 @@
 - Major result: can express _any_ "reliable" proof#pause
   - More details later! (Metatheory)
 
-== Rules
 
-- *Internal Transitivity:* $a - c -> b$ and $b - c -> d$ imply $a - c -> d$
-- *Contextual Lifting:*#pause
-- *Lattice Laws:*
-  - Units as sets
+#let rule-table(theme-color, rows) = {
+  table(
+    columns: (0.6fr, 1.8fr, 3fr),
+    inset: (x: 10pt, y: 12pt),
+    align: (center + horizon, left + horizon, left + horizon),
+    stroke: none,
+    // Remove all borders for a modern look
+    fill: (x, y) => if y == 0 { theme-color.lighten(80%) },
+
+    // Header
+    table.header([*ID*], [*Name*], [*Rule*]),
+
+    // Horizontal line under header
+    table.hline(stroke: 1.5pt + theme-color),
+
+    ..rows,
+
+    // Bottom line
+    table.hline(stroke: 0.5pt + theme-color),
+  )
+}
+
+== Rules: Primary
+
+#rule-table(blue, (
+  [R1],
+  [Internal Transitivity],
+  [$a - c -> b$ and $b - c -> d$ imply $a - c -> d$],
+  [R2],
+  [Pair Congruence],
+  [If $a - c -> b$, then ${a, d} - c -> {b, d}$],
+  [R3],
+  [Sign Congruence],
+  [If $a - c -> b$, then ${a - g -> d} - c -> {b - g -> d}$],
+  [R4],
+  [Context Congruence],
+  [If $a - c -> b$, then ${d - a -> g} - c -> {d - b -> g}$],
+  [R5],
+  [Referent Congruence],
+  [If $a - c -> b$, then ${d - g -> a} - c -> {d - g -> b}$],
+  [R6],
+  [Contextual Lifting],
+  [$a - c -> b$ and $d - a -> g$ \ imply ${d - b -> g} prec.curly.eq c$],
+  [R7],
+  [Refinement],
+  [${a - c -> b, a - c -> d} --> {a - c -> b}$],
+))
+== Rules: Empty Unit
+
+#rule-table(teal, (
+  [R8],
+  [Empty Set],
+  [${g, {}} <- c -> g$],
+  [R9],
+  [Sign Absorption],
+  [${{} - a -> b} - c -> {}$],
+  [R10],
+  [Context Absorption],
+  [${a - {} -> b} - c -> {}$],
+  [R11],
+  [Referent Absorption],
+  [${a - b -> {}} - c -> {}$],
+))
+
+== Rules: Lattice
+
+#rule-table(olive, (
+  [R12],
+  [Handle Equality],
+  [If $h_1 = h_2$, then $h_1 <-c-> h_2$],
+  [R13],
+  [Derivation],
+  [${a - g -> a} <- c -> {{g, a} <--> g}$],
+  [R14],
+  [Idempotency],
+  [${a, a} <-c-> a$],
+  [R15],
+  [Associativity],
+  [${a, {b, c}} <-c-> {{a, b}, c}$],
+  [R16],
+  [Commutativity],
+  [${a, b} <-c-> {b, a}$],
+))
 
 == Turing Completeness
 #pause
@@ -333,8 +411,8 @@
   - Simplifies grammar
 
 == Building Blocks (cont')
-
-- `A, B`: general rules#pause
+#pause
+- Let `A, B`: general rules#pause
 - `A - seq -> B`:#pause
   - *Parser:* apply `A`, then `B`.#pause
   - *Printer:* prints `AB`.#pause
@@ -426,25 +504,34 @@
 #let entails = $⊢$
 
 == Primer
-#pause
 - Terminology
+  - *RE:* accepted by some Turing machine
+    - Might not halt!
+  - *Formal system:*
+    - A decidable set of *formulas* #pause
+    - A RE set of *rules* #pause
+    - A computable *verifier* on *derivations* #pause
   - *First Order Logic:*#pause
     - Propositional logic (and, or, not)#pause
-    - Quantifiers (forall, exists)
+    - Quantifiers (for all, exists)#pause
   - *Peano Arithmetic* (PA): natural numbers + induction
-  - Important: corresponds to a Turing machine, $"TM"_"PA"$
   - *Consistency:* no proofs contain falsehood ($bot$)
+== Formal System Limits
+
 - Many theorems on limit:s#pause
   - *Gödel incompleteness*#pause
     - *First:* PA can't prove everything#pause
     - *Second*: PA cannot prove _own_ consistency#pause
   - Tarski undefinability#pause
+    - Cannot define all $"PA"$-truths _in_ $"PA"$
+    - Tarski's Criterion:#pause $T(phi) <=> phi$#pause
   - Etc.#pause
 // TODO: maybe break up
 - Usual approach: _chain of stronger theories_#pause
-  - Keep adding $"Con" ("PA")$#pause
+  - Extend by $"Con"(T)$ (encoding of consistency)#pause
   - _Technically_ enough, based on Feferman's work[TODO: cite!]#pause
   - Problem: want _constructive_ & _solid_ foundations
+
 
 == Artëmov's Selector Proofs
 #pause
@@ -462,49 +549,51 @@
   - Secret: _same_ technique!
   - Use Tarski's *partial truh predicates*#footnote[
       TODO: cite
-
     ]
-  - Partial truth predicate: [TODO: define!]
-- *Serial soundness:* a RE theory $T supset.eq "PA"$ with a selector s.t.:
+  - Partial truth predicate: approximation up to length $n$ derivations
+- *Serial soundness:* a first-order RE theory $T$ with a selector s.t.:
   - Accepts all proofs + preserves truth#pause
   - _cannot_ be proven with:
     - Excluded Middle: $phi or not phi$#pause
     - Explosion: $bot => phi$#pause
 - *Self-verifying*: _in_ PA, $T$ can prove its own serial-soundness
-  - $"PA" attach(entails, br: T) phi$ if $T entails phi$, $T$ self-verifying
+  - $"PA" attach(entails, br: T) phi$ if $T entails phi$ and $T$ self-verifying
 
 == Reliable Proofs
 
+#show sym.emptyset: math.diameter
+
 - How to generalize to _any_ theory?#pause
   - Example: Naive Set Theory#pause
-    - Can't _fully_ trust b/c, e.g., Russell's Paradox#pause
+    - Can't _fully_ trust b/c Russell's Paradox#pause
     - But can trust, e.g., $x in X <=> x in X$#pause
     - Idea: check for sound _restricted_ theory
-- Let $T_1 supset.eq "PA"$, $phi$ a sentence#pause
+- Let $T_1$ be an RE theory, $phi$ a sentence#pause
 - *Reliable proof*: a triple $(S, p_S, p_phi)$ s.t:
-  - $S supset.eq T_1$#pause
+  - $S supset.eq T_1$, $S != emptyset$#pause
   - $p_S$: constructs some self-verifying $S' supset.eq S$#pause
   - $p_phi$: $S$-proof of $phi$
 
 == Proof Completeness
-- *Note:* still has incompletness!#pause
+- *Note:* still has incompleteness!#pause
   - Proofs are limited! (Not surprising)#pause
   - Also: not a _single_ theory suffices#pause
   - But, a theories _can_ be self-verifying!#pause
-- How to prove?
-  - Basic idea: $"ZFC"$ is self-verifying!
-    - Again, same proof from Artëmov!
-  - HUGE leap; how to generalize?
+- How to prove?#pause
+  - Basic idea: $"ZFC"$ is self-verifying!#pause
+    - Again, same proof from Artëmov!#pause
+  - HUGE leap; how to generalize?#pause
   - Answer: comprehension!
 
 // TODO: add citations!
 == Crash Course: Recursive Ordinals
+#pause
 - Roughly: certain transitive sets ($x in y in z => x in z$)#pause
-  - Contents can be enumerated by some program#pause
-- Limit: *Church Kleene Ordinal* ($omega^"CK"_1$)#pause
+  - Contents: enumerated by some Turing machine#pause
+- Limit: *Church-Kleene Ordinal* ($omega^"CK"_1$)#pause
 - *Proof-theoretic ordinal:* measures theory strength
   - Important: this is recursive if $T$ is RE _and_ sound#pause
-  - Bounded below $omega^"CK"_1$!#pause
+  - Bounded _strictly_ below $omega^"CK"_1$!#pause
 
 // TODO: cite!
 == Proof Completeness (con't)
@@ -525,8 +614,6 @@
   - ✔️ Self-verifying
   - ✔️ *Constructive*
 - TL;DR: Artëmov + Simpson + Reliability = Proofs 💯
-
-
 
 = Conclusion
 
