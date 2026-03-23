@@ -100,7 +100,7 @@
 = Introduction
 
 // TODO: fix pauses between bullets at same level!
-== Background
+== Introduction
 #pause
 - Information helps us *store* and *organize* data #pause
   - Throughout _all_ history: so much data!
@@ -122,10 +122,8 @@
       _Information: A Very Short Introduction_. Oxford University Press.
     ]
 
-== Problems
+== Challenges in Managing Information
 #pause
-- How to _actually_ manage information?
-  - *Information base:* a database of information
 - *Depth:* domain specific data
   - Terminology, kinds of data, etc.
 - *Breadth:* wide variety of domains#pause
