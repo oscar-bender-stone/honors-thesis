@@ -1,8 +1,7 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-// SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
-// SPDX-License-Identifier: MIT
+#import "template.typ": pause
 
 #let info(body) = (type: "info", body: body)
 #let pro(body) = (type: "pro", body: body)
@@ -34,7 +33,7 @@
         ..items
           .map(it => {
             let item = if type(it) == str { info(it) } else { it }
-            (markers.at(item.type), item.body)
+            (markers.at(item.type), [#item.body#pause])
           })
           .flatten()
       )

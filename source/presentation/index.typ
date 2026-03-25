@@ -136,11 +136,11 @@
   - Terminology, kinds of data, etc.#pause
   - Example: animal taxonomy
 - *Breadth:* wide variety of domains#pause
-  - Different principles, methods
-  - Example: Physics $!=$ Biology!
-- *Standardization:* ambiguous interpretations
-  - Related issue: being *interoperable*
-    - *Interoperable:* a portable data format
+  - Different principles, methods#pause
+  - Example: Physics $!=$ Biology!#pause
+- *Standardization:* ambiguous interpretations#pause
+  - Related issue: being *interoperable*#pause
+    - *Interoperable:* a portable data format#pause
     - Example: U.S. Health records
 
 == Existing Solutions
