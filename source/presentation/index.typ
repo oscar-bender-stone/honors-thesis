@@ -118,7 +118,7 @@
   - Terminology, kinds of data, etc.#pause
 - *Breadth:* wide variety of domains#pause
   - Different principles, methods
-  - Example: Physics $!=$ Literature!
+  - Example: Physics $!=$ Biology!
 - *Standardization:* ambiguous interpretations
   - Related issue: being *interoperable*
     - *Interoperable:* a portable data format
@@ -463,7 +463,7 @@
   - Similar ideas/terms about representations#pause
   - Welkin:#pause
     - Higher order terms#pause
-    - Better ogical reasoning#pause
+    - Better logical reasoning#pause
 - *Labeled Property Graphs:*#pause
   - Simple core idea + expressive#pause
   - Welkin:#pause
