@@ -96,7 +96,7 @@
   )
 })
 
-// 2. Updated Title Slide with Committee Support
+// 2. Updated Title Slide with Committee Support and Honors Badge
 #let title-slide(config: (:), extra: none, ..args) = touying-slide-wrapper(
   self => {
     self = utils.merge-dicts(
@@ -111,14 +111,18 @@
 
       // Honors Thesis Badge/Indicator
       if "honors" in info and info.honors == true {
-        text(
-          size: 0.9em,
-          weight: "bold",
-          fill: self.colors.primary.darken(20%),
-          [HONORS THESIS],
+        block(
+          fill: gradient.linear(
+            self.colors.primary,
+            self.colors.secondary,
+            dir: rtl,
+          ),
+          inset: (x: 1em, y: 0.5em),
+          radius: 0.3em,
+          text(size: 1.3em, weight: "bold", fill: black, [Honors Thesis:]),
         )
-        v(0.5em)
       }
+      v(-1pt, weak: true)
 
       block(
         fill: gradient.linear(
@@ -166,22 +170,22 @@
       // --- COMMITTEE SECTION ---
       if "committee" in info and info.committee != none {
         v(2em)
-        block(width: 90%, {
+        text(size: 1.0em, weight: "bold", fill: black)[Committee Members]
+        v(0.6em)
+        block(width: 95%, {
           set text(size: 0.75em)
+          let count = info.committee.len()
           grid(
-            columns: (1fr, 1fr, 1fr),
-            column-gutter: 1.5em,
+            columns: (1fr,) * count,
+            column-gutter: 1em,
             row-gutter: 1.2em,
             align: center,
-            // Data Rows - Switched order to Name / Dept / Role
-            ..info
-              .committee
-              .map(member => (
-                [*#member.name*],
-                text(style: "italic", member.dept),
-                member.role,
-              ))
-              .flatten()
+            // Each member occupies one column with stacked info
+            ..info.committee.map(member => [
+              *#member.name* \
+              #member.dept \
+              #member.role
+            ])
           )
         })
       }
