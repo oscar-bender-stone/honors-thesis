@@ -415,7 +415,7 @@
   #pause
   + Enumerate through all $T$-proofs in a meta-theory (e.g., $"PA"$)#pause
   + Using $T$ show each $T$-proof $p$ is consistent (no $bot$)#pause
-- This works...#pause_almost_#pause
+- This works...#pause _almost_#pause
   - If $T$ inconsistent: arises from _some_ finite counter-example#pause
   - Proof above: meant to show _no_ such example exists!#pause
   - Problem: could use $bot$ to prove!#pause
