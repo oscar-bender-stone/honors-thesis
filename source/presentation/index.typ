@@ -13,15 +13,15 @@
   date: [March 26, 2026],
 )
 
-// Bulletproof footnote fix: Replaces native footnotes with inline citation blocks.
-// This prevents Typst from allocating hidden footnote space (causing blank slides)
-// AND avoids the `context` crash caused by the previous `show hide:` workaround.
-#show footnote: it => {
+// Hijack the footnote function to create an inline citation block.
+// This completely prevents Typst from generating bottom-of-page footnotes
+// AND formats the inline note with the theme's black font color.
+#let footnote(body) = {
   super[\*]
   block(width: 100%, inset: (top: 0.2em, left: 1em), text(
     size: 0.75em,
-    fill: luma(120),
-    [\* ] + it.body,
+    fill: black,
+    [\* ] + body,
   ))
 }
 
