@@ -134,6 +134,7 @@
 #pause
 - *Depth:* domain specific data
   - Terminology, kinds of data, etc.#pause
+  - Example: animal taxonomy
 - *Breadth:* wide variety of domains#pause
   - Different principles, methods
   - Example: Physics $!=$ Biology!
@@ -141,7 +142,6 @@
   - Related issue: being *interoperable*
     - *Interoperable:* a portable data format
     - Example: U.S. Health records
-    - Transfer is hard, even for the _same_ patient
 
 == Existing Solutions
 #pause
