@@ -129,9 +129,8 @@
 #pause
 // Using standard list syntax `- ` with pauses interleaved works flawlessly!
 - #compare-list(
-    [*Resource Description Language (RDF):*],
-    citation: [Hitzler et al. (2009). _OWL 2 Web Ontology Language Primer_.
-      W3C.],
+    [*Resource Description Language (RDF):*#t-footnote[Hitzler et al. (2009).
+        _OWL 2 Web Ontology Language Primer_. W3C.]],
     (
       info[Used in Web Ontology Language *(OWL)*],
       pro[Built to be *interoperable*],
@@ -140,9 +139,8 @@
   )
 #pause
 - #compare-list(
-    [*Labeled Property Graphs (LPGs):*],
-    citation: [Robinson, Webber & Eifrem (2015). _Graph Databases_ (2nd ed.).
-      O'Reilly.],
+    [*Labeled Property Graphs (LPGs):*#t-footnote[Robinson, Webber & Eifrem
+        (2015). _Graph Databases_ (2nd ed.). O'Reilly.]],
     (
       info[Stores *properties* (node/edge metadata)],
       pro[Efficient queries],
@@ -152,9 +150,8 @@
   )
 #pause
 - #compare-list(
-    [*Cyc:*],
-    citation: [Lenat (1995). _CYC: A large-scale investment in knowledge
-      infrastructure_. CACM 38(11).],
+    [*Cyc:*#t-footnote[Lenat (1995). _CYC: A large-scale investment in knowledge
+        infrastructure_. CACM 38(11).]],
     (
       info[Largest *knowledge base* to date],
       pro[Sophisticated logic engine],

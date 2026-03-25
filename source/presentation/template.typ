@@ -8,15 +8,17 @@
 #let meanwhile = ty-meanwhile
 
 // --- CUSTOM FOOTNOTE SYSTEM ---
-// Bypasses the built-in Typst footnote layout to prevent blank slides on pauses
-#let t-footnote-counter = counter("t-footnote")
+// Bypasses the built-in Typst footnote layout to prevent blank slides on pauses.
+// Gathers all footnotes for a slide and renders them stably at the bottom to avoid
+// injecting Touying marks inside context blocks.
+#let t-fn-counter = counter("t-fn-counter")
 #let t-footnote-state = state("t-footnote-state", ())
 
 #let t-footnote(body) = {
-  t-footnote-counter.step()
+  t-fn-counter.step()
   context {
-    let val = t-footnote-counter.get().first()
-    text(fill: black)[#super(str(val))]
+    let idx = t-fn-counter.get().first()
+    text(fill: black)[#super(str(idx))]
   }
   t-footnote-state.update(arr => arr + (body,))
 }
@@ -35,9 +37,9 @@
   if title != auto { self.store.title = title }
 
   let new-setting = body => {
-    // Reset footnote state per subslide so numbering stays consistent
+    // Reset footnote state per slide
     t-footnote-state.update(())
-    t-footnote-counter.update(0)
+    t-fn-counter.update(0)
 
     let display-title = if title != auto { title } else {
       utils.display-current-heading(level: 2)
@@ -63,16 +65,18 @@
 
     // Safely render accumulated custom footnotes at absolute bottom
     context {
-      let fns = t-footnote-state.get()
-      if fns.len() > 0 {
+      let all-fns = t-footnote-state.get()
+      if all-fns.len() > 0 {
         place(bottom + left, block(width: 100%, {
           line(length: 30%, stroke: 0.5pt + black)
           v(0.2em)
+
           set text(fill: black, font: "STIX Two Text", size: 0.6em)
           set par(leading: 0.4em)
-          for (i, fn) in fns.enumerate() {
+
+          for (i, fn) in all-fns.enumerate() {
+            if i != 0 { [\ ] }
             [#super(str(i + 1)) #fn]
-            if i != fns.len() - 1 { [\ ] }
           }
         }))
       }
