@@ -1,14 +1,11 @@
 // SPDX-FileCopyrightText: 2026 Oscar Bender-Stone <oscar-bender-stone@protonmail.com>
 // SPDX-License-Identifier: MIT
 
-#import "@preview/touying:0.6.3": pause
-
 #let info(body) = (type: "info", body: body)
 #let pro(body) = (type: "pro", body: body)
 #let con(body) = (type: "con", body: body)
 
-// TODO: make sure cons are working correctly
-#let compare-list(title, items, pause: true, citation: none) = {
+#let compare-list(title, items, citation: none) = {
   let mk(content, color: black) = box(
     width: 0.8em,
     align(center + horizon, text(fill: color, weight: "bold", content)),
@@ -20,7 +17,7 @@
     con: mk([#sym.minus], color: red.darken(15%)),
   )
 
-  list.item[
+  [
     #title #if citation != none { footnote(citation) }
     #v(0.4em, weak: true)
 
