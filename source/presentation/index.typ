@@ -125,7 +125,7 @@
 == Challenges in Managing Information
 #pause
 - *Depth:* domain specific data
-  - Terminology, kinds of data, etc.
+  - Terminology, kinds of data, etc.#pause
 - *Breadth:* wide variety of domains#pause
   - Different principles, methods
   - Example: Physics $!=$ Literature!
@@ -235,8 +235,8 @@
 // TODO: make more complete!
 == Information
 #pause
-- Representations $=$ *Truth*#pause
-- Information $=$ *Proofs*#pause
+- Representations = *Truth*#pause
+- Information = *Proofs*#pause
   - Includes simple facts#pause
   - Expands to complex truth systems#pause
 - Major result: can express _any_ "reliable" proof#pause
@@ -317,14 +317,14 @@
 
 
 == Grammar
-- Build on two papers (details in thesis)
+- Build on two papers (details in thesis)#pause
   - First: *Invertible Syntax Descriptions*#footnote[Rendel & Ostermann (2010).
       Invertible syntax descriptions. Haskell '10.]
-    - Processes strings, forwards and back
+    - Processes strings, forwards and back#pause
   - Second: Edelmann et. al.#footnote[Edelmann et al. (2020). _Zippy LL(1)
       parsing with derivatives_. PLDI 2020.]
-    - Used in proof of unambiguity
-    - Also ensures efficiency
+    - Used in proof of unambiguity#pause
+    - Also ensures efficiency#pause
   - *Notes*:#pause
     - Current proofs are done#pause
     - Grammar is *not* finalized
@@ -411,32 +411,33 @@
     selector proofs and the provability of consistency. J. Logic Comput. 35(3).
   ] #pause
   - Early Mentions (No Framework): Hilbert, Gödel, etc.#pause
-  - Proves a weaker property: *selector-consistency*
+  - Proves a weaker property: *serial-consistency*
 - Approach: over a theory $T$, build a computable function _over_ $T$-proofs
   #pause
   + Enumerate through all $T$-proofs in a meta-theory (e.g., $"PA"$)#pause
-  + Using $T$ show each $T$-proof $p$ is consistent (no $bot$)#pause
-- This works...#pause _almost_#pause
+  + Using $T$, show each $T$-proof $p$ is consistent (no $bot$)#pause
+- This works..._Almost_#pause
   - If $T$ inconsistent: arises from _some_ finite counter-example#pause
   - Proof above: meant to show _no_ such example exists!#pause
-  - Problem: could use $bot$ to prove!#pause
+  - Problem: could use $bot$ to prove this!#pause
   - Need to add restriction: *must be constructive*
 
 == Serial-Soundness
 
 #pause
-- Extend Artëmov to *serial-soundness:*
+- Extend Artëmov to *serial-soundness:*#pause
   - Secret: _same_ technique!#footnote[Consult: Artemov (2024). Serial
       properties, selector proofs and the provability of consistency. J. Logic
       Comput. 35(3).
-    ]
-- Let $T$ be a first-order, RE theory
+    ]#pause
+- Let $T$ be a first-order, RE theory#pause
 - $T$ is *serial-sound*, if for some total function $s$:#pause
   - Accepts all proofs + preserves truth#pause
-  - _cannot_ be proven with:
+  - _cannot_ be proven with:#pause
     - Excluded Middle: $phi or not phi$#pause
     - Explosion: $bot => phi$#pause
-- $T$ is *self-verifying* if, _in_ PA, $T$ can prove its own serial-soundness
+- $T$ is *self-verifying* if, _in_ PA, $T$ can prove its own
+  serial-soundness#pause
   - Notation: $"PA" attach(entails, br: T) phi$ if $T entails phi$ and $T$
     self-verifying
 
