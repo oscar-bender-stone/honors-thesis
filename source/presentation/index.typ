@@ -101,7 +101,7 @@
 - Inquiry: what _is_ information?#pause
   - Depends on who you ask!
   #pause
-  - *Ackoff:* Data-to-Wisdom Hierarchy #t-footnote[Ackoff, R. L. (1989). _From
+  - *Ackoff:* Data-to-Wisdom Hierarchy#t-footnote[Ackoff, R. L. (1989). _From
       Data to Wisdom_. J. Appl. Syst. Anal., 16, 3–9.]#pause
     - Data $=>$ Information $=>$ Wisdom
     #pause

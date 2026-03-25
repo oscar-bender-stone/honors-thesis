@@ -9,19 +9,22 @@
 
 // --- CUSTOM FOOTNOTE SYSTEM ---
 // Bypasses the built-in Typst footnote layout to prevent blank slides on pauses.
-// Gathers all footnotes for a slide and renders them stably at the bottom to avoid
-// injecting Touying marks inside context blocks.
+// Tracks the Touying pause state internally to perfectly sync bottom text with subslides
+// without relying on context-breaking layout wrappers.
 #let t-fn-counter = counter("t-fn-counter")
 #let t-footnote-state = state("t-footnote-state", ())
 
-#let t-footnote(body) = {
+#let t-footnote(body) = box({
   t-fn-counter.step()
   context {
     let idx = t-fn-counter.get().first()
+    let trigger = counter("touying-pause").get().first()
+    t-footnote-state.update(arr => (
+      arr + ((step: trigger, idx: idx, body: body),)
+    ))
     text(fill: black)[#super(str(idx))]
   }
-  t-footnote-state.update(arr => arr + (body,))
-}
+})
 
 // 1. Fixed title block slide wrapper
 #let slide(
@@ -65,8 +68,13 @@
 
     // Safely render accumulated custom footnotes at absolute bottom
     context {
+      let current-frame = counter("touying-step").get().first()
       let all-fns = t-footnote-state.get()
-      if all-fns.len() > 0 {
+
+      // Filter so only footnotes attached to visible pauses are rendered at the bottom
+      let visible-fns = all-fns.filter(fn => fn.step <= current-frame)
+
+      if visible-fns.len() > 0 {
         place(bottom + left, block(width: 100%, {
           line(length: 30%, stroke: 0.5pt + black)
           v(0.2em)
@@ -74,9 +82,9 @@
           set text(fill: black, font: "STIX Two Text", size: 0.6em)
           set par(leading: 0.4em)
 
-          for (i, fn) in all-fns.enumerate() {
+          for (i, fn) in visible-fns.enumerate() {
             if i != 0 { [\ ] }
-            [#super(str(i + 1)) #fn]
+            [#super(str(fn.idx)) #fn.body]
           }
         }))
       }
