@@ -426,7 +426,7 @@
   - Example: Naive Set Theory#pause
     - Can't _fully_ trust b/c Russell's Paradox#pause
     - But can trust, e.g., $x in X <=> x in X$#pause
-    - Idea: check for sound _restricted_ theory
+    - Idea: check for some sound _restricted_ theory
 - Let $T_1$ be an RE theory, $phi$ a sentence#pause
 - *Reliable proof*: a triple $(S, p_S, p_phi)$ s.t:
   - $S supset.eq T_1$, $S != emptyset$#pause
@@ -435,7 +435,7 @@
 
 == Proof Completeness
 - *Note:* still has incompleteness!#pause
-  - Proofs are limited! (Not surprising)#pause
+  - Proofs are limited (Not surprising)#pause
   - Also: not a _single_ theory suffices#pause
   - However, a theory _can_ be self-verifying!#pause
 - How to reach limit on proofs?#pause
