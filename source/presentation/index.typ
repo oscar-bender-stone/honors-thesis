@@ -13,6 +13,18 @@
   date: [March 26, 2026],
 )
 
+// Bulletproof footnote fix: Replaces native footnotes with inline citation blocks.
+// This prevents Typst from allocating hidden footnote space (causing blank slides)
+// AND avoids the `context` crash caused by the previous `show hide:` workaround.
+#show footnote: it => {
+  super[\*]
+  block(width: 100%, inset: (top: 0.2em, left: 1em), text(
+    size: 0.75em,
+    fill: luma(120),
+    [\* ] + it.body,
+  ))
+}
+
 #title-slide()
 
 // Replaced hardcoded black with context text.fill so it can be colored (e.g., red in cons)
@@ -131,8 +143,7 @@
 
 == Existing Solutions
 #pause
-#list(
-  compare-list(
+- #compare-list(
     [*Resource Description Language (RDF):*],
     citation: [Hitzler et al. (2009). _OWL 2 Web Ontology Language Primer_.
       W3C.],
@@ -141,8 +152,9 @@
       pro[Built to be *interoperable*],
       con[No built-in logic engine],
     ),
-  ),
-  compare-list(
+  )
+#pause
+- #compare-list(
     [*Labeled Property Graphs (LPGs):*],
     citation: [Robinson, Webber & Eifrem (2015). _Graph Databases_ (2nd ed.).
       O'Reilly.],
@@ -152,8 +164,9 @@
       // con[Not standardized],
       con[No logic engine. Hacky tooling/scripts],
     ),
-  ),
-  compare-list(
+  )
+#pause
+- #compare-list(
     [*Cyc:*],
     citation: [Lenat (1995). _CYC: A large-scale investment in knowledge
       infrastructure_. CACM 38(11).],
@@ -162,8 +175,7 @@
       pro[Sophisticated logic engine],
       con[Hard-coded, proprietary rules],
     ),
-  ),
-)
+  )
 
 == Proposed Solution
 #pause
