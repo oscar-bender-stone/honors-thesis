@@ -96,7 +96,7 @@
   )
 })
 
-// 2. Title Slide
+// 2. Updated Title Slide with Committee Support
 #let title-slide(config: (:), extra: none, ..args) = touying-slide-wrapper(
   self => {
     self = utils.merge-dicts(
@@ -108,6 +108,18 @@
 
     let body = {
       show: std.align.with(center + horizon)
+
+      // Honors Thesis Badge/Indicator
+      if "honors" in info and info.honors == true {
+        text(
+          size: 0.9em,
+          weight: "bold",
+          fill: self.colors.primary.darken(20%),
+          [HONORS THESIS],
+        )
+        v(0.5em)
+      }
+
       block(
         fill: gradient.linear(
           self.colors.primary,
@@ -149,6 +161,34 @@
           fill: black,
           utils.display-info-date(self),
         )
+      }
+
+      // --- COMMITTEE SECTION ---
+      if "committee" in info and info.committee != none {
+        v(2em)
+        block(width: 90%, {
+          set text(size: 0.75em)
+          grid(
+            columns: (1fr, 1fr, 1fr),
+            column-gutter: 1.5em,
+            row-gutter: 1.2em,
+            align: center,
+            // Data Rows - Switched order to Name / Dept / Role
+            ..info
+              .committee
+              .map(member => (
+                [*#member.name*],
+                text(style: "italic", member.dept),
+                member.role,
+              ))
+              .flatten()
+          )
+        })
+      }
+
+      if extra != none {
+        v(1em)
+        extra
       }
     }
     touying-slide(self: self, body)
@@ -260,6 +300,8 @@
   subtitle: none,
   author: none,
   date: datetime.today(),
+  committee: none,
+  honors: false,
   draft: false,
   ..args,
   body,
@@ -366,7 +408,14 @@
       header-ascent: 0.5em,
       footer-descent: 0.5em,
     ),
-    config-info(title: title, subtitle: subtitle, author: author, date: date),
+    config-info(
+      title: title,
+      subtitle: subtitle,
+      author: author,
+      date: date,
+      committee: committee,
+      honors: honors,
+    ),
     config-common(
       slide-fn: slide,
       new-section-slide-fn: new-section-slide,

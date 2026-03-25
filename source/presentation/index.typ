@@ -11,6 +11,24 @@
   title: [Designing a Universal Information Language],
   author: [Oscar Bender-Stone],
   date: [March 26, 2026],
+  honors: true,
+  committee: (
+    (
+      name: "Keith Kearnes",
+      dept: "Mathematics",
+      role: "Thesis Advisor",
+    ),
+    (
+      name: "Nathaniel Thiem",
+      dept: "Mathematics",
+      role: "Honors Council Representative",
+    ),
+    (
+      name: "Gowtham Kaki",
+      dept: "Computer Science",
+      role: "Outside Reader",
+    ),
+  ),
 )
 
 #title-slide()
