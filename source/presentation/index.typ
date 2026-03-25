@@ -7,7 +7,7 @@
 #import "compare-list.typ": compare-list, con, info, pro
 
 #show: elegant-blue-theme.with(
-  draft: true,
+  draft: false,
   title: [Designing a Universal Information Language],
   author: [Oscar Bender-Stone],
   date: [March 26, 2026],
