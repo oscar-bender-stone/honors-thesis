@@ -447,7 +447,7 @@
     - Idea: check for some sound _restricted_ theory
 - Let $T_1$ be an RE theory, $phi$ a sentence#pause
 - *Reliable proof*: a triple $(S, p_S, p_phi)$ s.t:
-  - $S supset.eq T_1$, $S != emptyset$#pause
+  - $S subset.eq_"RE" T_1$, $S != emptyset$#pause
   - $p_S$: constructs some self-verifying $S' supset.eq S$#pause
   - $p_phi$: $S$-proof of $phi$
 
@@ -471,8 +471,8 @@
   - Provided syntax#pause
   - Provided metatheory#pause
 - Goals:#pause
-  - Universal (*done*)#pause
-  - Scalable (*in progress*)#pause
+  - Universality(*done*)#pause
+  - Scalability (*in progress*)#pause
   - Standardization (*in progress*)
 
 == Comparisons to Existing Solutions
