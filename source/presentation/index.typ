@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 #import "template.typ": (
-  elegant-blue-theme, end-slide, pause, title-slide, uncover,
+  elegant-blue-theme, end-slide, pause, t-footnote, title-slide, uncover,
 )
 #import "compare-list.typ": compare-list, con, info, pro
 
@@ -13,21 +13,9 @@
   date: [March 26, 2026],
 )
 
-// Hijack the footnote function to create an inline citation block.
-// This completely prevents Typst from generating bottom-of-page footnotes
-// AND formats the inline note with the theme's black font color.
-#let footnote(body) = {
-  super[\*]
-  block(width: 100%, inset: (top: 0.2em, left: 1em), text(
-    size: 0.75em,
-    fill: black,
-    [\* ] + body,
-  ))
-}
-
 #title-slide()
 
-// Replaced hardcoded black with context text.fill so it can be colored (e.g., red in cons)
+// Dynamically inherits text.fill so it can be colored (e.g., red in cons)
 #let matched-dash = context math.class(
   "relation",
   box(
@@ -41,7 +29,7 @@
 )
 #show math.minus: matched-dash
 
-// ASCII table scaled down slightly to prevent it from causing an extra blank slide
+// Scaled down to guarantee no extra blank slides
 #let printable-ascii-table(num-triples: 7) = {
   let to-hex(n) = {
     let h = str(n, base: 16)
@@ -54,7 +42,7 @@
     }
   }
 
-  set text(font: "STIX Two Text", size: 10.5pt)
+  set text(font: "STIX Two Text", size: 9pt) // Reduced to fit beautifully
 
   // 95 printable characters (32 to 126)
   let total-chars = 95
@@ -63,7 +51,7 @@
 
   table(
     columns: (auto, auto, auto) * num-triples,
-    inset: (x: 3pt, y: 2.5pt),
+    inset: (x: 2pt, y: 1.5pt), // Reduced inset
     align: (col, row) => (right, center, center).at(calc.rem(col, 3)),
     stroke: none,
 
@@ -71,10 +59,10 @@
     table.hline(y: 0, stroke: 1.5pt + black),
     table.hline(y: 1, stroke: 0.75pt + black),
 
-    // Bottom Rule - now uses the dynamic row count correctly
+    // Bottom Rule
     table.hline(y: rows + 1, stroke: 1.5pt + black),
 
-    // Dynamic Vertical separators between the triples
+    // Dynamic Vertical separators
     ..range(1, num-triples).map(i => table.vline(
       x: i * 3,
       stroke: 0.5pt + black,
@@ -94,7 +82,6 @@
           if n <= 126 {
             cells += (str(n), upper(to-hex(n)), get-glyph(n))
           } else {
-            // Fill empty cells if the last column is shorter than the rest
             cells += ("", "", "")
           }
         }
@@ -114,19 +101,16 @@
 - Inquiry: what _is_ information?#pause
   - Depends on who you ask!
   #pause
-  - *Ackoff:* Data-to-Wisdom Hierarchy #footnote[Ackoff, R. L. (1989). _From
-      Data to Wisdom_. J. Appl. Syst. Anal., 16, 3–9.
-    ]#pause
+  - *Ackoff:* Data-to-Wisdom Hierarchy #t-footnote[Ackoff, R. L. (1989). _From
+      Data to Wisdom_. J. Appl. Syst. Anal., 16, 3–9.]#pause
     - Data $=>$ Information $=>$ Wisdom
     #pause
-  - *Buckland:* Based on usage#footnote[Buckland, M. K. (1991). _Information as
-      thing_. JASIS, 42(5), 351–360.
-    ]#pause
+  - *Buckland:* Based on usage#t-footnote[Buckland, M. K. (1991). _Information
+      as thing_. JASIS, 42(5), 351–360.]#pause
     - Can be a _process_, or _knowledge_
     - Most useful as _thing_
-  - *Floridi:* Information is *truthful*#footnote[Floridi, L. (2010).
-      _Information: A Very Short Introduction_. Oxford University Press.
-    ]
+  - *Floridi:* Information is *truthful*#t-footnote[Floridi, L. (2010).
+      _Information: A Very Short Introduction_. Oxford University Press.]
 
 == Challenges in Managing Information
 #pause
@@ -143,6 +127,7 @@
 
 == Existing Solutions
 #pause
+// Using standard list syntax `- ` with pauses interleaved works flawlessly!
 - #compare-list(
     [*Resource Description Language (RDF):*],
     citation: [Hitzler et al. (2009). _OWL 2 Web Ontology Language Primer_.
@@ -181,9 +166,8 @@
 #pause
 - *Welkin*: an information language#pause
   - Pronounced: "VEL-KIN"#pause
-  - Old German word, meaning "cloud", "sky"#footnote[Oxford English Dictionary
-      (2025), s.v. "welkin, n."
-    ]#pause
+  - Old German word, meaning "cloud", "sky"#t-footnote[Oxford English Dictionary
+      (2025), s.v. "welkin, n."]#pause
   - Represents _expansive_ nature of language
 
 == Goals
@@ -203,14 +187,12 @@
 #pause
 + Express any computer program#pause
   - Need effective operations#pause
-  - Established notion: *Turing machines*#footnote[Turing, A. M. (1936). On
-      Computable Numbers. Proc. Lond. Math. Soc., 42, 230–265.
-    ]
+  - Established notion: *Turing machines*#t-footnote[Turing, A. M. (1936). On
+      Computable Numbers. Proc. Lond. Math. Soc., 42, 230–265.]
 + Enable user-defined meaning#pause
   - Avoid meaningless symbols!#pause
-  - Symbol Grounding Problem#footnote[Harnad, S. (1990). _The Symbol Grounding
-      Problem._ Physica D, 42, 335–346.
-    ]#pause
+  - Symbol Grounding Problem#t-footnote[Harnad, S. (1990). _The Symbol Grounding
+      Problem._ Physica D, 42, 335–346.]#pause
   - Treat as free parameter in theory
 
 - Achieve both via *representations*
@@ -302,12 +284,8 @@
 
 == Encoding
 
-- Characters written in `type-writer font`#footnote[Font used: Intel One Mono
-    (#link(
-      "https://github.com/intel/intel-one-mono",
-    )), licensed under OFL 1.1 (#link(
-      "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",
-    )).]
+- Characters written in `type-writer font`#t-footnote[Font used: Intel One Mono
+    (#link("https://github.com/intel/intel-one-mono")), licensed under OFL 1.1.]
 
 - Define US-ASCII: Printable (codes: 32-126) + `EOF` (code: 127)
 - Character classes: refer to thesis
@@ -322,10 +300,10 @@
 
 == Grammar
 - Build on two papers (details in thesis)#pause
-  - First: *Invertible Syntax Descriptions*#footnote[Rendel & Ostermann (2010).
-      Invertible syntax descriptions. Haskell '10.]
+  - First: *Invertible Syntax Descriptions*#t-footnote[Rendel & Ostermann
+      (2010). Invertible syntax descriptions. Haskell '10.]
     - Processes strings, forwards and back#pause
-  - Second: Edelmann et. al.#footnote[Edelmann et al. (2020). _Zippy LL(1)
+  - Second: Edelmann et. al.#t-footnote[Edelmann et al. (2020). _Zippy LL(1)
       parsing with derivatives_. PLDI 2020.]
     - Used in proof of unambiguity#pause
     - Also ensures efficiency#pause
@@ -401,19 +379,18 @@
   - Etc.#pause
 - Usual approach: _chain of stronger theories_#pause
   - Extend by $"Con"(T)$ (encoding of consistency)#pause
-  - Technically: this is enough, WITH non-constructive methods#footnote[Feferman
-      (1962). Transfinite Recursive Progressions of Axiomatic Theories. J. Symb.
-      Log. 27(3).
-    ]#pause
+  - Technically: this is enough, WITH non-constructive
+    methods#t-footnote[Feferman (1962). Transfinite Recursive Progressions of
+      Axiomatic Theories. J. Symb. Log. 27(3).]#pause
   - Problem: want to identify + trust proofs!
 
 #let entails = $⊢$
 
 == Artëmov's Selector Proofs
 #pause
-- Artëmov _changes_ this paradigm#footnote[Artemov (2024). Serial properties,
-    selector proofs and the provability of consistency. J. Logic Comput. 35(3).
-  ] #pause
+- Artëmov _changes_ this paradigm#t-footnote[Artemov (2024). Serial properties,
+    selector proofs and the provability of consistency. J. Logic Comput. 35(3).]
+  #pause
   - Early Mentions (No Framework): Hilbert, Gödel, etc.#pause
   - Proves a weaker property: *serial-consistency*
 - Approach: over a theory $T$, build a computable function _over_ $T$-proofs
@@ -430,10 +407,9 @@
 
 #pause
 - Extend Artëmov to *serial-soundness:*#pause
-  - Secret: _same_ technique!#footnote[Consult: Artemov (2024). Serial
+  - Secret: _same_ technique!#t-footnote[Consult: Artemov (2024). Serial
       properties, selector proofs and the provability of consistency. J. Logic
-      Comput. 35(3).
-    ]#pause
+      Comput. 35(3).]#pause
 - Let $T$ be a first-order, RE theory#pause
 - $T$ is *serial-sound*, if for some total function $s$:#pause
   - Accepts all proofs + preserves truth#pause

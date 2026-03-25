@@ -7,6 +7,20 @@
 #let pause = ty-pause
 #let meanwhile = ty-meanwhile
 
+// --- CUSTOM FOOTNOTE SYSTEM ---
+// Bypasses the built-in Typst footnote layout to prevent blank slides on pauses
+#let t-footnote-counter = counter("t-footnote")
+#let t-footnote-state = state("t-footnote-state", ())
+
+#let t-footnote(body) = {
+  t-footnote-counter.step()
+  context {
+    let val = t-footnote-counter.get().first()
+    text(fill: black)[#super(str(val))]
+  }
+  t-footnote-state.update(arr => arr + (body,))
+}
+
 // 1. Fixed title block slide wrapper
 #let slide(
   title: auto,
@@ -21,6 +35,10 @@
   if title != auto { self.store.title = title }
 
   let new-setting = body => {
+    // Reset footnote state per subslide so numbering stays consistent
+    t-footnote-state.update(())
+    t-footnote-counter.update(0)
+
     let display-title = if title != auto { title } else {
       utils.display-current-heading(level: 2)
     }
@@ -40,7 +58,25 @@
 
     show: setting
 
+    // Render the main content
     std.align(self.store.align, body)
+
+    // Safely render accumulated custom footnotes at absolute bottom
+    context {
+      let fns = t-footnote-state.get()
+      if fns.len() > 0 {
+        place(bottom + left, block(width: 100%, {
+          line(length: 30%, stroke: 0.5pt + black)
+          v(0.2em)
+          set text(fill: black, font: "STIX Two Text", size: 0.6em)
+          set par(leading: 0.4em)
+          for (i, fn) in fns.enumerate() {
+            [#super(str(i + 1)) #fn]
+            if i != fns.len() - 1 { [\ ] }
+          }
+        }))
+      }
+    }
   }
 
   touying-slide(
@@ -343,16 +379,6 @@
         show math.equation: set text(font: "STIX Two Math")
         show heading.where(level: 1): none
         show heading.where(level: 2): none
-
-        // BULLETPROOF FOOTNOTE FIX:
-        // Completely suppresses footnotes originating from hidden subslides.
-        // This ensures the footnote entry only appears alongside the unhidden text,
-        // which singlehandedly prevents the "extra blank slides" overflow issue!
-        show hide: it => {
-          show footnote: none
-          it
-        }
-
         body
       },
     ),
