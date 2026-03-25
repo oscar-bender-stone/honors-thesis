@@ -4,32 +4,8 @@
 #import "@preview/touying:0.6.3": *
 #import "@preview/touying:0.6.3": meanwhile as ty-meanwhile, pause as ty-pause
 
-// --- 1. FOOTNOTE & PAUSE FIX (METADATA APPROACH) ---
-// We track pauses using invisible metadata so it NEVER breaks lists or layout
-#let pause = ty-pause + metadata("touying-pause-marker")
+#let pause = ty-pause
 #let meanwhile = ty-meanwhile
-
-// Intercept footnote so it only renders when the subslide has reached its chunk
-#let old-footnote = footnote
-#let footnote(..args) = context {
-  let loc = here()
-  // Query all metadata markers before this exact footnote
-  let all-markers = query(selector(metadata).before(loc)).map(m => m.value)
-
-  let pause-count = 0
-  for val in all-markers.rev() {
-    if val == "touying-slide-start" { break } // Only count pauses in current slide
-    if val == "touying-pause-marker" { pause-count += 1 }
-  }
-
-  let required-subslide = pause-count + 1
-  touying-fn-wrapper(self => {
-    if self.subslide >= required-subslide {
-      old-footnote(..args)
-    }
-  })
-}
-// ---------------------------------------------------
 
 // 1. Fixed title block slide wrapper
 #let slide(
@@ -49,11 +25,10 @@
       utils.display-current-heading(level: 2)
     }
 
-    // Removed fixed height and reduced inset
     if display-title != none and display-title != [] {
       block(
         width: 100%,
-        inset: (top: 0.5em, bottom: 0.5em), // Massively reduced top inset
+        inset: (top: 0.5em, bottom: 0.5em),
         text(
           fill: black,
           weight: "bold",
@@ -65,8 +40,7 @@
 
     show: setting
 
-    // Attach invisible slide-start marker for accurate footnote tracking
-    std.align(self.store.align, metadata("touying-slide-start") + body)
+    std.align(self.store.align, body)
   }
 
   touying-slide(
@@ -134,7 +108,7 @@
         )
       }
     }
-    touying-slide(self: self, metadata("touying-slide-start") + body)
+    touying-slide(self: self, body)
   },
 )
 
@@ -150,7 +124,7 @@
     std.align(center + horizon)[
       #block(width: 100%, align(left)[
         #text(fill: black, weight: "bold", size: 1.6em)[#title]
-        #v(0.5em) // Reduced from 1em
+        #v(0.5em)
         #block(width: 100%)[
           #text(fill: black, weight: "bold", size: 0.95em)[
             #components.custom-progressive-outline(
@@ -168,7 +142,7 @@
   touying-slide(
     self: self,
     config: config,
-    metadata("touying-slide-start") + content,
+    content,
   )
 })
 
@@ -184,7 +158,7 @@
     std.align(center + horizon)[
       #block(width: 100%, align(left)[
         #text(fill: black, weight: "bold", size: 1.6em)[Agenda]
-        #v(0.5em) // Reduced from 1em
+        #v(0.5em)
         #block(width: 100%)[
           #text(fill: black, weight: "bold", size: 0.95em)[
             #components.custom-progressive-outline(
@@ -202,7 +176,7 @@
   touying-slide(
     self: self,
     config: config,
-    metadata("touying-slide-start") + content,
+    content,
   )
 })
 
@@ -230,7 +204,7 @@
   touying-slide(
     self: self,
     config: config,
-    metadata("touying-slide-start") + std.align(align, body),
+    std.align(align, body),
   )
 })
 
@@ -342,7 +316,7 @@
     config-page(
       fill: white,
       ..utils.page-args-from-aspect-ratio(aspect-ratio),
-      margin: (top: 2.8em, bottom: 2.0em, left: 2em, right: 2em), // Reduced top margin
+      margin: (top: 2.8em, bottom: 2.0em, left: 2em, right: 2em),
       header: header,
       footer: footer,
       background: draft-watermark,
@@ -369,6 +343,16 @@
         show math.equation: set text(font: "STIX Two Math")
         show heading.where(level: 1): none
         show heading.where(level: 2): none
+
+        // BULLETPROOF FOOTNOTE FIX:
+        // Completely suppresses footnotes originating from hidden subslides.
+        // This ensures the footnote entry only appears alongside the unhidden text,
+        // which singlehandedly prevents the "extra blank slides" overflow issue!
+        show hide: it => {
+          show footnote: none
+          it
+        }
+
         body
       },
     ),
@@ -395,5 +379,5 @@
     v(0.5em)
     text(size: 1.8em, fill: black, weight: "bold", subtitle)
   }
-  touying-slide(self: self, metadata("touying-slide-start") + body)
+  touying-slide(self: self, body)
 })

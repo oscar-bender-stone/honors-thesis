@@ -13,28 +13,23 @@
   date: [March 26, 2026],
 )
 
-
-#show hide: it => {
-  show footnote: none
-  it
-}
-
 #title-slide()
 
-#let matched-dash = math.class(
+// Replaced hardcoded black with context text.fill so it can be colored (e.g., red in cons)
+#let matched-dash = context math.class(
   "relation",
   box(
-    width: 0.764em, // Your measured 7.64 stem width / 10
-    height: 0.5em, // Keeps baseline alignment consistent
+    width: 0.764em,
+    height: 0.5em,
     align(
       center + horizon,
-      line(length: 0.764em, stroke: 0.049em + black), // Your measured 0.49 thickness
+      line(length: 0.764em, stroke: 0.049em + text.fill),
     ),
   ),
 )
 #show math.minus: matched-dash
 
-// TODO: remove extra slide due to ASCII table!
+// ASCII table scaled down slightly to prevent it from causing an extra blank slide
 #let printable-ascii-table(num-triples: 7) = {
   let to-hex(n) = {
     let h = str(n, base: 16)
@@ -47,7 +42,7 @@
     }
   }
 
-  set text(font: "STIX Two Text", size: 12pt)
+  set text(font: "STIX Two Text", size: 10.5pt)
 
   // 95 printable characters (32 to 126)
   let total-chars = 95
@@ -56,7 +51,7 @@
 
   table(
     columns: (auto, auto, auto) * num-triples,
-    inset: (x: 3pt, y: 3pt),
+    inset: (x: 3pt, y: 2.5pt),
     align: (col, row) => (right, center, center).at(calc.rem(col, 3)),
     stroke: none,
 
@@ -99,7 +94,6 @@
 
 = Introduction
 
-// TODO: fix pauses between bullets at same level!
 == Introduction
 #pause
 - Information helps us *store* and *organize* data #pause
@@ -171,8 +165,6 @@
   ),
 )
 
-// TODO: fix pausing!
-// Doesn't work with this list
 == Proposed Solution
 #pause
 - *Welkin*: an information language#pause
@@ -416,9 +408,9 @@
   #pause
   + Enumerate through all $T$-proofs in a meta-theory (e.g., $"PA"$)#pause
   + Using $T$, show each $T$-proof $p$ is consistent (no $bot$)#pause
-- This works..._Almost_#pause
-  - If $T$ inconsistent: arises from _some_ finite counter-example#pause
-  - Proof above: meant to show _no_ such example exists!#pause
+- This works..._almost_#pause
+  - Any inconsistency is _finite_
+  - Method above aims to show _no_ such example exists#pause
   - Problem: could use $bot$ to prove this!#pause
   - Need to add restriction: *must be constructive*
 
@@ -433,7 +425,7 @@
 - Let $T$ be a first-order, RE theory#pause
 - $T$ is *serial-sound*, if for some total function $s$:#pause
   - Accepts all proofs + preserves truth#pause
-  - _cannot_ be proven with:#pause
+  - Correctness _cannot_ be proven with:#pause
     - Excluded Middle: $phi or not phi$#pause
     - Explosion: $bot => phi$#pause
 - $T$ is *self-verifying* if, _in_ PA, $T$ can prove its own
@@ -511,4 +503,3 @@
 
 
 #end-slide()
-
