@@ -7,10 +7,6 @@
 #let pause = ty-pause
 #let meanwhile = ty-meanwhile
 
-// --- CUSTOM FOOTNOTE SYSTEM ---
-// Bypasses the built-in Typst footnote layout to prevent blank slides on pauses.
-// Tracks the Touying pause state internally to perfectly sync bottom text with subslides
-// without relying on context-breaking layout wrappers.
 #let t-fn-counter = counter("t-fn-counter")
 #let t-footnote-state = state("t-footnote-state", ())
 
@@ -76,11 +72,10 @@
 
       if visible-fns.len() > 0 {
         place(bottom + left, block(width: 100%, {
-          line(length: 30%, stroke: 0.5pt + black)
-          v(0.2em)
+          line(length: 100%, stroke: 1pt + black)
+          v(0.2em, weak: true)
 
           set text(fill: black, font: "STIX Two Text", size: 0.6em)
-          set par(leading: 0.4em)
 
           for (i, fn) in visible-fns.enumerate() {
             if i != 0 { [\ ] }
