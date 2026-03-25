@@ -410,6 +410,7 @@
 - Artëmov _changes_ this paradigm#footnote[Artemov (2024). Serial properties,
     selector proofs and the provability of consistency. J. Logic Comput. 35(3).
   ] #pause
+  - Early Mentions (No Framework): Hilbert, Gödel, etc.
   - Proves a weaker property: *selector-consistency*
 - Approach: over a theory $T$, build a computable function _over_ $T$-proofs
   #pause
