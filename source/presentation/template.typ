@@ -462,7 +462,6 @@
 
   body
 }
-
 #let end-slide(
   config: (:),
   title: "Thank you!",
@@ -470,14 +469,39 @@
 ) = touying-slide-wrapper(self => {
   self = utils.merge-dicts(
     self,
+    // Ensure standard page background
     config-page(header: none, footer: none, fill: white, margin: 2em),
     config,
   )
+
   let body = {
     show: std.align.with(center + horizon)
-    text(size: 2.5em, fill: black, weight: "bold", title)
-    v(0.5em)
-    text(size: 1.8em, fill: black, weight: "bold", subtitle)
+
+    // 1. Defined the standard theme gradient, just like the focus/title slides.
+    let sky-gradient = gradient.linear(
+      self.colors.primary,
+      self.colors.secondary,
+      dir: rtl,
+    )
+
+    // 2. Added the panel using block()
+    block(
+      width: auto, // Expand to fit the text only
+      fill: sky-gradient, // Apply the blue gradient
+      inset: 1.5em, // Padding around the text
+      radius: 0.5em, // Matching the corner radius of the title slide
+      breakable: false,
+      {
+        text(size: 2.5em, fill: black, weight: "bold", title)
+
+        if subtitle != none {
+          // parbreak() forces standard paragraph vertical spacing
+          parbreak()
+          text(size: 1.8em, fill: black, weight: "bold", subtitle)
+        }
+      },
+    )
   }
+
   touying-slide(self: self, body)
 })
