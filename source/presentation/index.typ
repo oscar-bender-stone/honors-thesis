@@ -389,7 +389,7 @@
 
 == Formal System Limits
 
-- Many theorems on limit:s#pause
+- Many theorems on limits:#pause
   - *Gödel incompleteness*#pause
     - *First:* PA can't prove everything#pause
     - *Second*: PA cannot prove _own_ consistency#pause
