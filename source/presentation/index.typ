@@ -115,7 +115,7 @@
 - Information helps us *store* and *organize* data #pause
   - Throughout _all_ history: so much data!
   - Want to actually use in, e.g., decisions
-- Inquiry: what _is_ information?#pause
+- Question: what _is_ information?#pause
   - Depends on who you ask!
   #pause
   - *Ackoff:* Data-to-Wisdom Hierarchy#t-footnote[Ackoff, R. L. (1989). _From
@@ -188,10 +188,10 @@
 - *Universality:* be completely expressive #pause (*done*)#pause
   - _Any_ computer program#pause
   - _Any_ "reliable" proof#pause
-- *Scalability:* work at any size #pause (*In progress*)#pause
+- *Scalability:* work at any size #pause (*in progress*)#pause
   - Be efficient#pause
   - Can add optimizations _in_ Welkin#pause
-- *Standardization:* be completely _unambiguous_ #pause (*In progress*)#pause
+- *Standardization:* be completely _unambiguous_ #pause (*in progress*)#pause
   - Have a formal specification
 
 = Language Overview
@@ -200,14 +200,14 @@
 
 #pause
 + Express any computer program#pause
-  - Need effective operations#pause
-  - Established notion: *Turing machines*#t-footnote[Turing, A. M. (1936). On
-      Computable Numbers. Proc. Lond. Math. Soc., 42, 230–265.]
+  - Upper bound: effective operations#pause
+  - => *Turing machines*#t-footnote[Turing, A. M. (1936). On Computable Numbers.
+      Proc. Lond. Math. Soc., 42, 230–265.]
 + Enable user-defined meaning#pause
   - Avoid meaningless symbols!#pause
   - Symbol Grounding Problem#t-footnote[Harnad, S. (1990). _The Symbol Grounding
       Problem._ Physica D, 42, 335–346.]#pause
-  - Treat as free parameter in theory
+  - Treat user-defined denotations as free parameters
 
 - Achieve both via *representations*
 
@@ -290,7 +290,7 @@
 == Syntax
 
 - Two main parts#pause
-  - Encoding: characters#pause
+  - Encoding: numerical codes of characters #pause
     - Building blocks of strings#pause
   - Grammar: strings allowed by language
     - Punctuation
@@ -321,7 +321,8 @@
   - Second: Edelmann et. al.#t-footnote[Edelmann et al. (2020). _Zippy LL(1)
       parsing with derivatives_. PLDI 2020.]#pause
     - Used in proof of unambiguity#pause
-  - Also ensures efficiency#pause
+    - Also ensures efficiency#pause
+  - For details: refer to thesis#pause
 - *Notes*:#pause
   - Current proofs are done#pause
   - Grammar is *not* finalized
@@ -447,9 +448,9 @@
     - Can't _fully_ trust b/c Russell's Paradox#pause
     - But can trust, e.g., $A subset.eq B <=> A union B = B$#pause
     - Idea: check for some sound _restricted_ theory
-- Let $T_1$ be an RE theory, $phi$ a sentence#pause
+- Let $T'$ be an RE theory, $phi$ a sentence#pause
 - *Reliable proof*: a triple $(S, p_S, p_phi)$ s.t:
-  - $S attach(subset.eq, br: "RE") T_1$, $S != emptyset$#pause
+  - $S attach(subset.eq, br: "RE") T'$, $S != emptyset$#pause
   - $p_S$: constructs some self-verifying $S' supset.eq S$#pause
   - $p_phi$: $S$-proof of $phi$
 
@@ -458,7 +459,8 @@
   - Proofs are limited (Not surprising)#pause
   - Also: not a _single_ theory suffices#pause
   - However, a theory _can_ be self-verifying!#pause
-- How to reach limit on proofs?#pause
+- Proof completeness = reaching limit _on_ proofs#pause
+- How to get proof completeness?#pause
   - Basic idea: $"ZFC"$ is self-verifying!#pause
     - Again, same proof from Artëmov!#pause
   - *Huge* leap in power; how to extend it?#pause
@@ -469,11 +471,11 @@
 
 == Conclusion
 - Welkin is a universal information language#pause
-  - Provided basic rules#pause
-  - Provided syntax#pause
-  - Provided metatheory#pause
+  - Simple Rules#pause
+  - Formalized Syntax#pause
+  - Robust Metatheory#pause
 - Goals:#pause
-  - Universality(*done*)#pause
+  - Universality (*done*)#pause
   - Scalability (*in progress*)#pause
   - Standardization (*in progress*)
 
@@ -496,7 +498,6 @@
   - Welkin:#pause
     - Flexible data format#pause
     - Open specification
-
 
 == Future Work
 #pause
