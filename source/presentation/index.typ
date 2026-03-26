@@ -445,7 +445,7 @@
 - How to generalize to _any_ theory?#pause
   - Example: Naive Set Theory#pause
     - Can't _fully_ trust b/c Russell's Paradox#pause
-    - But can trust, e.g., $x in X <=> x in X$#pause
+    - But can trust, e.g., $A subset.eq B <=> A union B = B$#pause
     - Idea: check for some sound _restricted_ theory
 - Let $T_1$ be an RE theory, $phi$ a sentence#pause
 - *Reliable proof*: a triple $(S, p_S, p_phi)$ s.t:

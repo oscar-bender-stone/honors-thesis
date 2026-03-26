@@ -8,6 +8,7 @@
 #let meanwhile = ty-meanwhile
 
 #let t-fn-counter = counter("t-fn-counter")
+// Revert back to a simple array; no page numbering required!
 #let t-footnote-state = state("t-footnote-state", ())
 
 #let t-footnote(body) = {
@@ -15,6 +16,7 @@
   context {
     let idx = t-fn-counter.get().first()
     let trigger = counter("touying-pause").get().first()
+
     t-footnote-state.update(arr => (
       arr + ((step: trigger, idx: idx, body: body),)
     ))
@@ -36,55 +38,23 @@
   if title != auto { self.store.title = title }
 
   let new-setting = body => {
-    // Reset footnote state per slide
-    t-footnote-state.update(())
+    // Reset footnote counter per slide so numbering restarts
     t-fn-counter.update(0)
+    t-footnote-state.update(())
 
     let display-title = if title != auto { title } else {
       utils.display-current-heading(level: 2)
     }
 
-    // The actual content to display, with user settings applied
-    let content-body = {
-      show: setting
-      std.align(self.store.align, body)
-    }
+    // A strict 3-row grid layout guarantees no element can trigger a page break.
+    // The (auto, 1fr, auto) distribution forces the footnotes to exact bottom and
+    // cleanly shrinks the remaining available space for the text so they never overlap!
+    let content-area = block(width: 100%, height: 100%, breakable: false, grid(
+      columns: 100%,
+      rows: (auto, 1fr, auto),
 
-    // A strict container that fills the available vertical space.
-    // 'breakable: false' prevents ANY content from spilling over and creating a blank slide.
-    let content-area = block(width: 100%, height: 100%, breakable: false, {
-      // 1. Render the body FIRST so the footnote state gets populated
-      content-body
-
-      // 2. Read state and safely render custom footnotes at the absolute bottom
-      place(bottom + left, context {
-        let current-frame = counter("touying-step").get().first()
-        let all-fns = t-footnote-state.get()
-
-        // Filter so only footnotes attached to visible pauses are rendered at the bottom
-        let visible-fns = all-fns.filter(fn => fn.step <= current-frame)
-
-        if visible-fns.len() > 0 {
-          block(width: 100%, {
-            line(length: 100%, stroke: 1pt + black)
-            v(0.2em, weak: true)
-
-            set text(fill: black, font: "STIX Two Text", size: 0.6em)
-
-            for (i, fn) in visible-fns.enumerate() {
-              if i != 0 { [\ ] }
-              [#super(str(fn.idx)) #fn.body]
-            }
-          })
-        }
-      })
-    })
-
-    // Layout the title and the strictly bounded content area
-    if display-title != none and display-title != [] {
-      grid(
-        columns: 100%,
-        rows: (auto, 1fr), // 1fr forces content-area to exactly fill remaining space
+      // ROW 1: Title Area
+      if display-title != none and display-title != [] {
         block(
           width: 100%,
           inset: (top: 0.5em, bottom: 0.5em),
@@ -94,12 +64,40 @@
             size: 1.4em,
             display-title,
           ),
-        ),
-        content-area
-      )
-    } else {
-      content-area
-    }
+        )
+      } else { none },
+
+      // ROW 2: Main Content Area (Expands to fill remaining space)
+      block(width: 100%, height: 100%, {
+        show: setting
+        std.align(self.store.align, body)
+      }),
+
+      // ROW 3: Footnote Area
+      // Because this evaluates structurally *after* Row 2, standard .get() captures
+      // all state safely without needing .final() or page number lookups!
+      context {
+        let current-frame = counter("touying-step").get().first()
+        let all-fns = t-footnote-state.get()
+
+        // Filter out footnotes attached to future pauses
+        let visible-fns = all-fns.filter(fn => fn.step <= current-frame)
+
+        if visible-fns.len() > 0 {
+          block(width: 100%, {
+            line(length: 100%, stroke: 1pt + black)
+            v(0.2em, weak: true)
+            set text(fill: black, font: "STIX Two Text", size: 0.6em)
+            for (i, fn) in visible-fns.enumerate() {
+              if i != 0 { [\ ] }
+              [#super(str(fn.idx)) #fn.body]
+            }
+          })
+        }
+      }
+    ))
+
+    content-area
   }
 
   touying-slide(
