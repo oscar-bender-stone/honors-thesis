@@ -60,7 +60,7 @@
     }
   }
 
-  set text(font: "STIX Two Text", size: 9pt) // Reduced to fit beautifully
+  set text(font: "STIX Two Text", size: 12pt)
 
   // 95 printable characters (32 to 126)
   let total-chars = 95
@@ -69,7 +69,6 @@
 
   table(
     columns: (auto, auto, auto) * num-triples,
-    inset: (x: 2pt, y: 1.5pt), // Reduced inset
     align: (col, row) => (right, center, center).at(calc.rem(col, 3)),
     stroke: none,
 
@@ -300,9 +299,10 @@
 == Encoding
 
 - Characters written in `type-writer font`#t-footnote[Font used: Intel One Mono
-    (#link("https://github.com/intel/intel-one-mono")), licensed under OFL 1.1.]
+    (#link("https://github.com/intel/intel-one-mono")), licensed under OFL
+    1.1.]#pause
 
-- Define US-ASCII: Printable (codes: 32-126) + `EOF` (code: 127)
+- Define US-ASCII: Printable (codes: 32-126) + `EOF` (code: 127)#pause
 - Character classes: refer to thesis
 
 == US-ASCII
@@ -313,17 +313,20 @@
 )<syntax:printable-ascii-codes>
 
 
-== Grammar
-- Part One: *Invertible Syntax Descriptions*#t-footnote[Rendel & Ostermann
-    (2010). Invertible syntax descriptions. Haskell '10.]
-  - Processes strings, forwards and back
-- Part Two: Edelmann et. al.#t-footnote[Edelmann et al. (2020). _Zippy LL(1)
-    parsing with derivatives_. PLDI 2020.]
-  - Used in proof of unambiguity#pause
+== Grammar Approach
+- Based on two papers#pause
+  - First: *Invertible Syntax Descriptions*#t-footnote[Rendel & Ostermann
+      (2010). Invertible syntax descriptions. Haskell '10.]#pause
+    - Processes strings, forwards and back#pause
+  - Second: Edelmann et. al.#t-footnote[Edelmann et al. (2020). _Zippy LL(1)
+      parsing with derivatives_. PLDI 2020.]#pause
+    - Used in proof of unambiguity#pause
   - Also ensures efficiency#pause
 - *Notes*:#pause
   - Current proofs are done#pause
   - Grammar is *not* finalized
+
+== Full Grammar
 
 #figure(
   text(size: 13pt)[
