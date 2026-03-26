@@ -271,6 +271,7 @@
   - *Primary:*#pause
     - Transitivity in a context#pause
     - Congruence (build new units)#pause
+    - Contextual lifting (use _between_ contexts)
   - *Empty*#pause
     - Defines empty unit#pause
     - Enables exclusions#pause
@@ -452,7 +453,8 @@
 - *Reliable proof*: a triple $(S, p_S, p_phi)$ s.t:
   - $S attach(subset.eq, br: "RE") T'$, $S != emptyset$#pause
   - $p_S$: constructs some self-verifying $S' supset.eq S$#pause
-  - $p_phi$: $S$-proof of $phi$
+  - $p_phi$: $S$-proof of $phi$#pause
+- *Note:* needs contextual lifting!
 
 == Proof Completeness
 - *Note:* still has incompleteness!#pause
