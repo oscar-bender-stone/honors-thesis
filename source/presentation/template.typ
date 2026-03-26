@@ -10,7 +10,7 @@
 #let t-fn-counter = counter("t-fn-counter")
 #let t-footnote-state = state("t-footnote-state", ())
 
-#let t-footnote(body) = box({
+#let t-footnote(body) = {
   t-fn-counter.step()
   context {
     let idx = t-fn-counter.get().first()
@@ -20,7 +20,7 @@
     ))
     text(fill: black)[#super(str(idx))]
   }
-})
+}
 
 // 1. Fixed title block slide wrapper
 #let slide(
@@ -44,45 +44,61 @@
       utils.display-current-heading(level: 2)
     }
 
-    if display-title != none and display-title != [] {
-      block(
-        width: 100%,
-        inset: (top: 0.5em, bottom: 0.5em),
-        text(
-          fill: black,
-          weight: "bold",
-          size: 1.4em,
-          display-title,
-        ),
-      )
+    // The actual content to display, with user settings applied
+    let content-body = {
+      show: setting
+      std.align(self.store.align, body)
     }
 
-    show: setting
+    // A strict container that fills the available vertical space.
+    // 'breakable: false' prevents ANY content from spilling over and creating a blank slide.
+    let content-area = block(width: 100%, height: 100%, breakable: false, {
+      // 1. Render the body FIRST so the footnote state gets populated
+      content-body
 
-    // Render the main content
-    std.align(self.store.align, body)
+      // 2. Read state and safely render custom footnotes at the absolute bottom
+      place(bottom + left, context {
+        let current-frame = counter("touying-step").get().first()
+        let all-fns = t-footnote-state.get()
 
-    // Safely render accumulated custom footnotes at absolute bottom
-    context {
-      let current-frame = counter("touying-step").get().first()
-      let all-fns = t-footnote-state.get()
+        // Filter so only footnotes attached to visible pauses are rendered at the bottom
+        let visible-fns = all-fns.filter(fn => fn.step <= current-frame)
 
-      // Filter so only footnotes attached to visible pauses are rendered at the bottom
-      let visible-fns = all-fns.filter(fn => fn.step <= current-frame)
+        if visible-fns.len() > 0 {
+          block(width: 100%, {
+            line(length: 100%, stroke: 1pt + black)
+            v(0.2em, weak: true)
 
-      if visible-fns.len() > 0 {
-        place(bottom + left, block(width: 100%, {
-          line(length: 100%, stroke: 1pt + black)
-          v(0.2em, weak: true)
+            set text(fill: black, font: "STIX Two Text", size: 0.6em)
 
-          set text(fill: black, font: "STIX Two Text", size: 0.6em)
+            for (i, fn) in visible-fns.enumerate() {
+              if i != 0 { [\ ] }
+              [#super(str(fn.idx)) #fn.body]
+            }
+          })
+        }
+      })
+    })
 
-          for (i, fn) in visible-fns.enumerate() {
-            if i != 0 { [\ ] }
-            [#super(str(fn.idx)) #fn.body]
-          }
-        }))
-      }
+    // Layout the title and the strictly bounded content area
+    if display-title != none and display-title != [] {
+      grid(
+        columns: 100%,
+        rows: (auto, 1fr), // 1fr forces content-area to exactly fill remaining space
+        block(
+          width: 100%,
+          inset: (top: 0.5em, bottom: 0.5em),
+          text(
+            fill: black,
+            weight: "bold",
+            size: 1.4em,
+            display-title,
+          ),
+        ),
+        content-area
+      )
+    } else {
+      content-area
     }
   }
 

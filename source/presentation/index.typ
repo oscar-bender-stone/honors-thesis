@@ -314,17 +314,16 @@
 
 
 == Grammar
-- Build on two papers (details in thesis)#pause
-  - First: *Invertible Syntax Descriptions*#t-footnote[Rendel & Ostermann
-      (2010). Invertible syntax descriptions. Haskell '10.]
-    - Processes strings, forwards and back#pause
-  - Second: Edelmann et. al.#t-footnote[Edelmann et al. (2020). _Zippy LL(1)
-      parsing with derivatives_. PLDI 2020.]
-    - Used in proof of unambiguity#pause
-    - Also ensures efficiency#pause
-  - *Notes*:#pause
-    - Current proofs are done#pause
-    - Grammar is *not* finalized
+- Part One: *Invertible Syntax Descriptions*#t-footnote[Rendel & Ostermann
+    (2010). Invertible syntax descriptions. Haskell '10.]
+  - Processes strings, forwards and back
+- Part Two: Edelmann et. al.#t-footnote[Edelmann et al. (2020). _Zippy LL(1)
+    parsing with derivatives_. PLDI 2020.]
+  - Used in proof of unambiguity#pause
+  - Also ensures efficiency#pause
+- *Notes*:#pause
+  - Current proofs are done#pause
+  - Grammar is *not* finalized
 
 #figure(
   text(size: 13pt)[
@@ -447,7 +446,7 @@
     - Idea: check for some sound _restricted_ theory
 - Let $T_1$ be an RE theory, $phi$ a sentence#pause
 - *Reliable proof*: a triple $(S, p_S, p_phi)$ s.t:
-  - $S subset.eq_"RE" T_1$, $S != emptyset$#pause
+  - $S attach(subset.eq, br: "RE") T_1$, $S != emptyset$#pause
   - $p_S$: constructs some self-verifying $S' supset.eq S$#pause
   - $p_phi$: $S$-proof of $phi$
 
