@@ -107,7 +107,7 @@ cloud @dictionary:welkin. This word represents the expansive nature of the
 language, able to express any concept and justification that can be processed
 through a computer program. Welkin has three design goals, listed in @goals: to
 be *universal*, *scalable*, and *standardized*. This thesis focuses on proving
-it is universal, discussed in detail at @rationale. The latter goals, to be
+it is universal, discussed in detail at @design. The latter goals, to be
 scalable and standardized, are partially met in certain parts of the thesis.
 However, due to time restrictions, these are not fully complete and left for a
 future work.
@@ -118,13 +118,12 @@ containing a relationship between a *sign* representing a *referent* in a
   semiotics. This theory studies the relationship between a symbol, the object
   it represents, and the interpretation that provides that meaning
   @sep-peirce-semiotics. Our notion is different in that contexts are a
-  generalized interpretant; refer to @rationale:unit.] Contexts provide
-flexibility to define domain-specific terminology, and are provided rules
-inspired by McCarthy's work in AI systems @mccarthy-contexts. Moreover, truth is
-defined relative to contexts and enables the user to recognize _under which
-conditions_ a statement is true. In this way, the information base keeps
-theories with conflicting claims isolated, providing a clear separation from
-other contexts.
+  generalized interpretant; refer to @design:unit.] Contexts provide flexibility
+to define domain-specific terminology, and are provided rules inspired by
+McCarthy's work in AI systems @mccarthy-contexts. Moreover, truth is defined
+relative to contexts and enables the user to recognize _under which conditions_
+a statement is true. In this way, the information base keeps theories with
+conflicting claims isolated, providing a clear separation from other contexts.
 
 Building on representations, information is defined as a sequence of
 representations, with each step being valid within a context and a base set of
@@ -178,8 +177,8 @@ This thesis is organized according to @introduction:thesis-organization.
     columns: (20%, 25%, 55%),
     align: left,
     table.header([*Section Number*], [*Title*], [*Description*]),
-    [*@rationale*],
-    [*Rationale*],
+    [*@design*],
+    [*Language Design*],
     [Introduces Welkin at a high level, with guiding examples.],
 
     [*@foundations*],

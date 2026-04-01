@@ -6,7 +6,7 @@
 
 #import "template/ams-article.typ": example
 
-= Language Design <rationale>
+= Language Design <design>
 
 In this section, we justify the design of Welkin.
 
@@ -35,7 +35,7 @@ Combined together, we can now state universality as follows: an information base
 is universal _if it can represent anything representable by a computer program._
 We will clarify how we define "representable" in the next section.
 
-== Units <rationale:unit>
+== Units <design:unit>
 
 The first core concept in Welkin is the notion of a *handle*. Handles are left
 as free parameters in the theory#footnote[For mathematicians, this is analogous
@@ -49,7 +49,7 @@ handles are uniquely identified through their *ID*.
   `tires`, another for `wheels`, and so for. Each of these names are then
   _distinct_, ensuring one category does not interfere with another. Specific
   items can be given their own handles as well.
-]<rationale:example-1>
+]<design:example-1>
 
 Having unique indexes is only one important aspect of handles. Another is that
 they are precisely by their relationships. These are written as
@@ -68,7 +68,7 @@ given study of interest.
   $"Mammal" - "Taxonomy" -> "Cat"$. Adding the rule
   $"Animal" - "Taxonomy" -> "Mammal"$ would allow simple deductions, such as
   $"Animal" - "Taxonomy" -> "Dog"$.
-]<rationale:example-2>
+]<design:example-2>
 
 We represent handles in Welkin using an extended notion called a *unit*. A unit
 is either a handle, a finite collection of units, or a representation.
@@ -89,7 +89,7 @@ _fixed_ context $c$.
   performed.
 ]
 
-== Mechanizing Information <rationale:mechanizing-information>
+== Mechanizing Information <design:mechanizing-information>
 
 From the notion of a unit, we practically define information on a unit $v$ as a
 _unit that tracks reductions in $v$_. Formally, we define information as a unit

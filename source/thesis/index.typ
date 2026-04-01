@@ -47,7 +47,7 @@
   bibliography: bibliography((
     "references/misc.bib",
     "references/1-introduction.bib",
-    "references/2-rationale.bib",
+    "references/2-design.bib",
     "references/3-foundations.bib",
     "references/4-syntax.bib",
     "references/5-metatheory.bib",
@@ -60,7 +60,7 @@
 #outline()
 
 #include "1-introduction.typ"
-#include "2-rationale.typ"
+#include "2-design.typ"
 #include "3-foundations.typ"
 #include "4-syntax.typ"
 #include "5-metatheory.typ"

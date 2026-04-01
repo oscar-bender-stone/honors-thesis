@@ -4,7 +4,7 @@
 = Conclusion <conclusion>
 
 This thesis proposed Welkin, a universal, formalized information language.
-@rationale introduced the language design. @foundations developed the recursive
+@design introduced the language design. @foundations developed the recursive
 definition of a unit (@foundations:unit), rules on units @table:unit-rules, and
 queries (@foundations:query), and information (@foundations:information). This
 section also proved that every unit is equivalent to some Turing machine

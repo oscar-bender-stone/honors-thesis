@@ -263,11 +263,11 @@ organizing units as modules, as well as make it easier to use the language.
   non-transitive rules can be expressed through combining contexts.
 - *@r:pair-congruence\-@r:referent-congruence* enable the transfer of arcs onto
   pairs and other arcs.
-- @r:context-lift was previously discussed in
-  @rationale:mechanizing-information. This provides a mechanism to test the
-  relability of certain representations. That is, if $a$ represents $b$ in
-  context $c$, then $a$ is a *surrogate* for $b$. This means that all
-  representations contained in $a$ can be transferred onto $b$, _within_ $c$.
+- @r:context-lift was previously discussed in @design:mechanizing-information.
+  This provides a mechanism to test the relability of certain representations.
+  That is, if $a$ represents $b$ in context $c$, then $a$ is a *surrogate* for
+  $b$. This means that all representations contained in $a$ can be transferred
+  onto $b$, _within_ $c$.
 - @r:refine is explained as follows: suppose $a$ is a unit, and in a block, $a$
   represents two other units $b, d$. Then this block _represents_ ${a --> b}$
   and ${a --> d}$, separately. This provides a mechanism to _refine_ a general
