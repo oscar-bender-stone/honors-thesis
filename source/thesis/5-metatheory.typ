@@ -64,7 +64,7 @@ Logical implication is denoted by $=>$.
 == Artëmov's Selector Proofs <metatheory:artemov-selector-proofs>
 
 A major goal in Welkin is to express any representable notion, _including_ any
-representabale proof. Proofs are a finite certificate that consists of a valid
+representable proof. Proofs are a finite certificate that consists of a valid
 sequence of steps. Importantly, proofs can be verified using a _total_
 computable function, one that can check _any_ given proof. Because of the
 requirement for computable checking, limitations in computable functions apply.
@@ -307,7 +307,7 @@ be self-verifying.
 Using the construction above, we can now prove the power of all meta-proofs in
 $PA$.
 
-#theorem[Through some self-verifying RE theory $T$, $PA$, equppied with all
+#theorem[Through some self-verifying RE theory $T$, $PA$, equipped with all
   $T$-meta-proofs, can majorize any proof-theoretic ordinal. More precisely, for
   any recursive ordinal $alpha$, there is an RE theory $T$ such that:
   - $PA$ meta-proves that $T$ proves its own serial-soundness.

@@ -359,15 +359,15 @@ mechanically through truth.
   purpose of a term.]
 
 At this point, we are concerned with showing _some_ $phi$ exists, necessary to
-fulfill @universal. We are not concerned about efficiency; this will be left for
-a future work, refer to @conclusion. To construct $phi$, we want to create an
-embedding into the $"SK"$-combinator calculus. This is an equational theory,
-first developed by Schönfinkel @schoenfinkel-combinators, and independently
-discovered by Curry @curry-grundlagen. In this theory, a *combinator* is a
-higher-order function: a function that takes in other functions as inputs.
-#footnote[A remark for logicians: this calculus is extremely similar to a
-  Hilbert-style proof system, with $K$ and $S$ corresponding to the rules
-  $(phi => (psi => phi))$ and
+fulfill @universal (Universality). We are not concerned about efficiency; this
+will be left for a future work, refer to @conclusion. To construct $phi$, we
+want to create an embedding into the $"SK"$-combinator calculus. This is an
+equational theory, first developed by Schönfinkel @schoenfinkel-combinators, and
+independently discovered by Curry @curry-grundlagen. In this theory, a
+*combinator* is a higher-order function: a function that takes in other
+functions as inputs. #footnote[A remark for logicians: this calculus is
+  extremely similar to a Hilbert-style proof system, with $K$ and $S$
+  corresponding to the rules $(phi => (psi => phi))$ and
   $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.
   This was one of Curry's insights in connecting logic to computation
   @curry-grundlagen.] As a simplification, we present this calculus using a
@@ -398,9 +398,9 @@ high level:
   respectively. For more details, refer to
   @turner-applicative-languages-combinators.
 
-- Each rule in @table:unit-rules are themselves finite, ranging over a finite
-  number of meta-variables. These, too, can be encoded as combinators through
-  if/else statements.
+- Each rule in @table:unit-rules is finite, ranging over a finite number of
+  meta-variables. These, too, can be encoded as combinators through if/else
+  statements.
 
 It remains to show that every combinator is included in this embedding. For
 this, we prove the following. Our proof technique uses recursion within Welkin.
@@ -462,8 +462,8 @@ refer to @hopcroft-automata-theory[Ch. 1].
   Let $c$ and $q$ be units. A *query over* $c$ is the following question: is $q$
   derived by $c$?]<foundations:query>
 
-Certain queries are easy, particular those restriicted to containment. Consider,
-for example, we immediately have that $p subset.eq.sq {p, q}$, hence
+Certain queries are easy, particular those restricted to containment. Consider,
+for example, we immediately have that $p subset.eq.sq c equiv {p, q}$, hence
 $p prec.curly.eq c$. However, in general, this will be uncomputable, due to
 @foundations:turing-expressible. In fact, this problem is is $"RE"$-complete,
 i.e., determining whether any Turing machine halts can be determined through a
@@ -476,12 +476,13 @@ Welkin, this is exactly a derivation involving $q - c -> q$.
 #definition[
   Let $c$ and $q$ be units.
 
-  - A *derivation over* $c$ is a unit ${u_1 - c -> u_2 - c -> ... - c -> u_n}$
-    such that for each $u_i$, either a) $u_i$ is contained in $c$, or b) $u_i$
-    is an application of a rule in @table:unit-rules from previous units
+  - A *derivation over* $c$ is a unit
+    ${u_1 - c -> u_2, u_2 - c -> u_3, ..., u_{n-1} - c -> u_n}$ such that for
+    each $u_i$, either a) $u_i$ is contained in $c$, or b) $u_i$ is an
+    application of a rule in @table:unit-rules from previous units
     $u_1, ..., u_j$.
   - We say $u$ *contains information* about a query $q$ in context $c$ if it
-    contains a derivation that ends with the unit ${q - c -> q}$. Moreovoer, we
+    contains a derivation that ends with the unit ${q - c -> q}$. Moreover, we
     say it *is information* if it only contains derivations ending in
     ${q - c -> q}$.
 ]<foundations:information>

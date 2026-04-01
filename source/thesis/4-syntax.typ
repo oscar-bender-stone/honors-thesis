@@ -33,7 +33,7 @@ specific sections, consult @syntax:overview.
 
     [*@syntax:welkin-grammar*],
     [*The Welkin #linebreak() Grammar*],
-    [Presentts the Welkin grammar, defining which strings are syntactically
+    [Presents the Welkin grammar, defining which strings are syntactically
       allowed.],
 
     [*@syntax:proof-unambiguous*],
@@ -420,7 +420,7 @@ $"LL"(1)$.
 
   With each of these properties satisfied, this proves that
   @syntax:figure-welkin-grammar is $"LL"(1)$. Thus, as all $"LL"(1)$ grammars
-  are uanmbiguous by construction, so is the Welkin grammar.
+  are unambiguous by construction, so is the Welkin grammar.
 
   #figure(
     [#table(
