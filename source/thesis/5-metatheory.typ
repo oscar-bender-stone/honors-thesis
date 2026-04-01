@@ -212,14 +212,16 @@ languages as well. For simplicity, we will only discuss suitable subsets on
 $T'$. We provide the full definition below.
 
 #definition[
-  Let $T'$ be a first order theory, and let $phi$ be a sentence. A *reliable
-  proof* of $phi$ in $T'$ is a pair $(T'', p)$, where $p$ is a proof that
-  $T'' entails phi$, and $T''subset.eq T'$ can be extended to a self-verifying
-  theory. The set of *reliable proofs* for $phi$ in $T'$, denoted
-  $"Reliable"_T'(phi)$, is the set of pairs $(T'', p_1, p_2)$, where $T''$ is
-  described above, $p_1$ proves that $T''$ can extend to a self-verifying
-  theory, and $p_2$ is a proof that $T'' entails phi$.
+  Let $T$ be a first order theory, and let $phi$ be a sentence. A *reliable
+  proof* of $phi$ in $T$ is a pair $(S, p_S, p_phi)$, where:
+  - $S$ is a non-empty $"RE"$ subset of $T$,
+  - $p_S$ is a proof that there is some self-verifying extension
+    $S' supset.eq S$.
+  - $p_phi$ is a proof of $phi$ in $S$
 ]<metatheory:reliability>
+
+We denote the set of all reliable proofs for $phi$ in $T$ as
+$"Reliable"(T;phi)$
 
 #remark[Note that this definition is incomplete: in general, some sound subsets
   of $T'$ will be excluded. We need to ensure that any theory used is _provably_
@@ -248,7 +250,7 @@ only define specific properties needed for this thesis:
   @proof-theory-ordinals[Ch. 6].
 
 Note that we can only reach so far with the successor stage. If we only permit
-unionis in the limit stage, we can only reach the Feferman–Schütte ordinal
+unions in the limit stage, we can only reach the Feferman–Schütte ordinal
 $Gamma_0$, as proven in @feferman-progressions. This ordinal is related to
 predicative mathematics. However, the aim of Welkin is to be _as_ expressive as
 possible, so we want to include _every_ impredicative theory that we can express
@@ -328,12 +330,11 @@ upper bound is the best one can hope for, in general.
 As an immediate corollary, we obtain the following.
 
 #corollary[
-  Let $T'$ be an RE theory, $phi$ a sentence, and $alpha$ a recursive ordinal.
-  Then, for reliable proof $(T'', p_1, p_2)$, there is a self-verifying
-  extension $T$ of $T''$, such that $T$ has proof-theoretic ordinal greater than
+  Let $T$ be an RE theory, $phi$ a sentence, and $alpha$ a recursive ordinal.
+  Then, for any reliable proof $(S, p_S, p_phi)$, there is a self-verifying
+  extension $S'$ of $S$, such that $S'$ has proof-theoretic ordinal greater than
   $alpha$.
 ]<metatheory:reliable-proof-completeness>
-
 
 Combined with @metatheory:reliable-proof-completeness and
 @metatheory:remark-selector-proof-composition, the previous results prove a key
@@ -342,6 +343,5 @@ property of Welkin, stated as a major corollary.
 #corollary[
   Let $"pa"$ be a unit corresponding to $PA$, as described in
   @metatheory:remark-selector-proof-composition. Let $T'$ be an RE theory and
-  $phi$ a sentence. Suppose $P equiv (T'', p_1, p_2)$ be a reliable proof of
-  $phi$ in $T'$. Then, this proof in, written in $T'$, is accepted by a
-  derivation in $"pa"$. .] <metatheory:welkin-proof-completeness>
+  $phi$ a sentence. Then any reliable proof in $"Reliable"(T;P)$ is accepted by
+  a derivation in $"pa"$.] <metatheory:welkin-proof-completeness>
