@@ -52,7 +52,7 @@ handles are uniquely identified through their *ID*.
 ]<design:example-1>
 
 Having unique indexes is only one important aspect of handles. Another is that
-they are precisely by their relationships. These are written as
+they are precisely characterized by their relationships. These are written as
 *representations* $a - c -> b$. This is read as: $a$ *represents* $b$ *in
 context* $c$. Here, we call $a$ the *sign*, $b$ the *referent*, and $c$ the
 *context*. One can interpret this characterization as follows: handles are
@@ -63,8 +63,8 @@ given study of interest.
 
 #example[
   An animal taxonomy can be stored through representations. Here, we write
-  $"A" -$ for handles $"A", "B"$ if $"B"$ is a special case of $"A"$. For
-  example, $"Mammal" - "Taxonomy" -> "Dog"$ and
+  $"A" - "Taxonomy" -> "B"$ for handles $"A", "B"$ if $"B"$ is a special case of
+  $"A"$. For example, we can add $"Mammal" - "Taxonomy" -> "Dog"$, as well as
   $"Mammal" - "Taxonomy" -> "Cat"$. Adding the rule
   $"Animal" - "Taxonomy" -> "Mammal"$ would allow simple deductions, such as
   $"Animal" - "Taxonomy" -> "Dog"$.
@@ -81,12 +81,12 @@ and representations. Writing $a - c -> b$, therefore, only applies to the
 _fixed_ context $c$.
 
 #example[
-  A business could represent their operations using a unit $"business"$ that
+  A business could represent their operations using a unit $"business1"$ that
   contains units for their workers and ledgers. This allows another unit, say
-  $"business2"$, to contain its _own_ label $"workers"$ that is separate from
-  the one in $"business"$. In addition to separate labels, these contexts can
-  have _distinct_ rules, such as those for how business operations are
-  performed.
+  $"business2"$, to contain a label $"workers"$. Here, we can separate
+  $"business1.workers"$ and $"business2.workers"$. In addition to separate
+  units, these contexts can have _distinct_ rules, such as those for how
+  business operations are performed.
 ]
 
 == Mechanizing Information <design:mechanizing-information>
