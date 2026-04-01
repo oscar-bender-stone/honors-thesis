@@ -61,9 +61,10 @@ For high-level notation, we write $a equiv b$ to mean that $a$ is definitionally
 equivalent to $b$. High level notation will _not_ be stated in the syntax unless
 where noted. We will be pedantic in most notation for complete precision.
 Moreover, implementation details are outside the scope of this thesis. This
-includes, e.g., practically restricting user input by fixed upper bounds.
+includes, e.g., practically restricting the size of user input to a maximum
+bound.
 
-#definition[
+TODO: rephrase this! #definition[
   A *bit* is either of the symbols $0$ or $1$. A *binary word* is either the
   symbol $epsilon$ (the *empty word*), and if $w$ is a finite binary word, so
   are $w 0$ and $w 1$, where the juxtaposition of symbols denote
@@ -80,12 +81,12 @@ explicit certificate, a bit that shows how two words are distinct.
 #definition[
   Equality $#W-eq$ and inequality $#W-neq$ on words $w_1, w_2$ is defined
   recursively and as nothing else:
-  - *Base case:* $epsilon = epsilon$.
+  - *Base case:* $epsilon #W-eq epsilon$.
   - *Recursive step:* suppose $w_1 #W-eq b_1w_1'$ and $w_2 #W-eq b_2w_2'$, where
-    $b_1, b_2$ as bits and $w_1', w_2'$ are words. Then $w_1 #W-eq w_2$ if and
-    only if $b_1, b_2$ are both $0$ or $1$, and $w'_1 #W-eq w'_2$. Moreover,
-    $w_1 #W-neq w_2$ if and only if $b_1$ and $b_2$ are distinct bits or
-    $w'_1 #W-neq w'_2$.
+    $b_1, b_2$ are bits and $w_1', w_2'$ are words. Then $w_1 #W-eq w_2$ if and
+    only if $b_1, b_2$ are both $b_1 equiv 0 equiv b_2$ or
+    $b_1 equiv 1 equiv b_2$, and $w'_1 #W-eq w'_2$. Moreover, $w_1 #W-neq w_2$
+    if and only if $b_1$ and $b_2$ are distinct bits or $w'_1 #W-neq w'_2$.
 ]<foundations:binary-word-equality>
 
 Words alone do not carry meaning. Instead, meaning is provided through
@@ -134,7 +135,7 @@ representations. We present the complete definition as follows.
 
 We require more notation. First, we define $a <- c -> b$ to mean that both
 $a - c -> b$ and $a <- c - b$ hold. Second, we add a symbol $prec.curly.eq$ for
-*derives*, where $a derivedby g$ iff #box[$a - b -> a$]. The relation
+*derives*, where $a derivedby g$ iff #box[$a - g -> a$]. The relation
 $a derivedby g$ is read as either "$a$ is derived by $g$," or "$g$ derives $a$".
 
 Now we may introduce the rules on units. These are provided in
@@ -225,11 +226,11 @@ units and $h_1, h_2$ for handles.
       name: "Derivation",
       lbl: "r:derivation",
       content: [
-        #box[${a - g -> a} <- c -> {{g, a} <--> g}$]
+        #box[${a - g -> a} <- c -> {{g, a} <- c -> g}$]
       ],
     ),
     (
-      name: "Idempotentcy",
+      name: "Idempotency",
       lbl: "r:idempotent",
       content: [${a, a} <-c-> a$],
     ),
@@ -264,7 +265,7 @@ organizing units as modules, as well as make it easier to use the language.
 - *@r:pair-congruence\-@r:referent-congruence* enable the transfer of arcs onto
   pairs and other arcs.
 - @r:context-lift was previously discussed in @design:mechanizing-information.
-  This provides a mechanism to test the relability of certain representations.
+  This provides a mechanism to test the reliability of certain representations.
   That is, if $a$ represents $b$ in context $c$, then $a$ is a *surrogate* for
   $b$. This means that all representations contained in $a$ can be transferred
   onto $b$, _within_ $c$.
@@ -273,10 +274,10 @@ organizing units as modules, as well as make it easier to use the language.
   and ${a --> d}$, separately. This provides a mechanism to _refine_ a general
   unit into a more specific one.
 - *@r:empty\-@r:referent-null* define the behavior of the empty unit ${}$,
-  similar to the empty set. @r:sign-null and the like specifically states that
-  ${}$ contains _no_ representations. Thus, if a representation has a component
-  that is ${}$, then it carries no meaning. This provides a mechanism to
-  _exclude_ units in a context. This is useful for imposing invariants.
+  similar to the empty set. @r:sign-null\-@r:referent-null specifically states
+  that ${}$ contains _no_ representations. Thus, if a representation has a
+  component that is ${}$, then it carries no meaning. This provides a mechanism
+  to _exclude_ units in a context. This is useful for imposing invariants.
 - @r:handle-eq enables equality in words and handles to pass through into
   representations. Besides this, note that equivalences on units are entirely
   user defined.
@@ -285,7 +286,7 @@ organizing units as modules, as well as make it easier to use the language.
   point below.
 - *@r:idempotent\-@r:commutativity* ensure that information can be repeated and
   arranged in any order. Together with @r:transitivity, this means that units
-  have a *semi-lattice* structure, a term first introduced by Birkoff
+  have a *semi-lattice* structure, a term first introduced by Birkhoff
   @birkhoff-1967-lattice. Moreover, $prec.curly.eq$ is the corresponding partial
   order, which is a relation that is transitive ($x prec.curly.eq y$ and
   $y prec.curly.eq z$ entail $x prec.curly.eq z$) and reflexive
@@ -308,11 +309,20 @@ In addition to @table:unit-rules, we need a form of *containment*.
 
 #definition[
   Let $u$ and $c$ be units. Then $u$ is *contained in* $c$, denoted
-  $u subset.eq.sq c$, if either $u equiv {}$, or for some unit $v$,
-  $c <--> {u, v}$.
+  $u subset.eq.sq c$, if, for some unit $v$, $c <--> {u, v}$.
 ]<foundations:containment>
 
 One can easily verify that $u subset.eq.sq v$ implies $u derives v$.
+
+// TODO: determine if we should finish this!
+// #lemma[
+//   Suppose $u subset.eq.sq v$. Then $u derives v$.
+// ]
+// #proof[
+//   Suppose $u subset.eq.sq v$ so that for some $r$. By @r:derivation, it suffices to show that
+//   $v <--> {u, v}$.
+// ]
+
 
 Finally, we add more notation. We write:
 

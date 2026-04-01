@@ -102,7 +102,7 @@ difference" @bateson-ecology-of-mind. Our practical distinction between
 information and knowledge is that we _use_ information, but users can assert
 their own notions of these terms by creating restricted contexts. There are
 technical constructions to show that our definition is _as general_ as possible
-(@foundations:information).
+(refer to @metatheory).
 
 An important rule pivotal to information is the following rule called
 *contextual lifting*:
@@ -139,7 +139,7 @@ ASCII in `type-writer` font.#footnote[This font is Intel One Mono (#link(
 
 - In ASCII, #box[`a - b -> c`] for representations. These can be interpreted
   _as_ rewrite rules, depending on the context. The shorthand #box[`a --> b`] is
-  used for the overarching context. Moreovoer, #box[`a <--> b`] means
+  used for the overarching context. Moreover, #box[`a <--> b`] means
   #box[`a --> b`] and #box[`b --> a`].
 
 - Traditional braces `{ }` to denote closed definitions of contexts, inspired by
@@ -168,9 +168,9 @@ ASCII in `type-writer` font.#footnote[This font is Intel One Mono (#link(
   units can _then_ be analyzed by others to promote translations to other human
   languages, or be studied through the _overarching relationships_ in the units.
 
-In general, the minimal restricted keywords is crucial for providing support for
-other languages. An implementation of Welkin will contain a small section of
-ASCII encoding for easier standardization, but the rest of the program can be
-done _entirely_ in the user's native language. This is a novel feature in most
+In general, the minimal punctuation is crucial for providing support for other
+languages. An implementation of Welkin will contain a small section of ASCII
+encoding for easier standardization, but the rest of the program can be done
+_entirely_ in the user's native language. This is a novel feature in most
 programming languages, which are either predominantly English or are fine tuned
 to a specific human language.
