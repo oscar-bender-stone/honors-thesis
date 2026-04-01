@@ -6,6 +6,7 @@
 
 #import "template/ams-article.typ": label-table
 
+// FIXME: fix numbering for theorems! Very important!
 
 = Introduction <introduction>
 
