@@ -432,7 +432,7 @@ this, we prove the following. Our proof technique uses recursion within Welkin.
   composition, suppose $L - L -> A$ and $L - L -> B$. Then by @r:transitivity,
   $M - L -> A$ and $N - L -> B$, so by @r:sign-congruence and
   @r:context-congruence, ${N - M -> L} - L -> {B - A -> L}$. Another application
-  of @r:transitivity yields $L --> {B - A -> L}$. The rules $L --> K | S$ and
+  of @r:transitivity yields $L --> {B - A -> L}$. The rules $L --> *{K, S}$ and
   $L - L -> {N - M -> L}$ are the only terms with sign $L$ (besides $L$ itself),
   so $L$ contains _exactly_ the terms in the SK-calculus.
 

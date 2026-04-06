@@ -55,11 +55,11 @@ To make specific characters clearer, we write syntactic features in
 
 Welkin uses ASCII as its base encoding. The term ASCII is slightly ambiguous, as
 there are subtly distinct variants. To address this problem, we formally define
-US-ASCII as a standard version. #footnote[Note that this table _itself_ is a
-  representation, which represents glyphs with binary words.] We define the
-encoding through *bytes*, which are words with of eight bits. We provide the
-codes for each character in decimal and hexadecimal. Note that the conversion
-into binary words, as directly used in Welkin, is straightforward.
+US-ASCII as a standard version. We define the encoding through *bytes*, which
+are words with of eight bits. We provide the codes for each character in decimal
+and hexadecimal. Note that the conversion into binary words, as directly used in
+Welkin, is straightforward. Each code is assigned to a unique symbol called a
+*glyph*.
 
 #figure(
   printable-ascii-table(),
@@ -68,9 +68,11 @@ into binary words, as directly used in Welkin, is straightforward.
 
 #definition[
   Welkin's encoding consists of *Printable US-ASCII*, listed in
-  @syntax:printable-ascii-codes, as well as character `EOF`, with code 58. An
+  @syntax:printable-ascii-codes, as well as character `EOF`, with code 127. An
   *ASCII string* is the concatenation of bytes, each of which correspond to a
-  character in the encoding. The last byte must end with the code for `EOF`.
+  character in the encoding.#footnote[Note that this table _itself_ is a
+    representation, which represents glyphs with binary words.] The last byte
+  must end with the code for `EOF`.
 ]<syntax:encoding-strings>
 
 Moreover, we will need to define *character classes*, or important sets of
