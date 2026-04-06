@@ -5,7 +5,6 @@
 // under the MIT license:
 // https://github.com/typst/templates
 
-
 // Matched dash so that
 // representations can be written
 // $a - b -> c$
@@ -33,7 +32,7 @@
   "unary",
   move(dy: 0.2pt, scale(80%, $tilde$)),
 )
-
+A
 #let end-def = sym.triangle
 
 // Sizes used across the template.
@@ -128,9 +127,6 @@
     none
   }
 
-  // Create a single, shared counter for theorem-like environments
-  let theorem-counter = counter("theorem-shared")
-
   // Formats the author's names in a list with commas and a
   // final "and".
   let names = authors.map(author => author.name)
@@ -211,8 +207,6 @@
       let i = counter(page).get().first()
       if i == 1 {
         // Page 1 footer
-        // v(1fr) // Push content to bottom of footer area
-
         // Metadata block
         if (date, msc, keywords, thanks, notes).any(it => it != none) {
           set par(first-line-indent: 0pt)
@@ -267,6 +261,12 @@
     }
 
     block({
+      // Reset theorem counter on ANY numbered heading so that
+      // indexing starts at 1 for every dot (e.g. Section 3.1.1)
+      if it.numbering != none {
+        counter(figure.where(kind: "thmenv")).update(0)
+      }
+
       set text(size: normal-size, weight: 400)
       set par(first-line-indent: 0em)
       if it.level == 1 {
@@ -279,8 +279,7 @@
           #v(normal-size, weak: true)
         ]
 
-        theorem-counter.update(1)
-        // Reset equation counter at each new section
+        // Reset equation counter at each new level 1 section
         counter(math.equation).update(0)
       } else {
         v(11pt, weak: true)
@@ -315,11 +314,10 @@
     if el != none and el.func() == figure and el.kind == "rule" {
       // Get the specific number at the referenced location
       let num = counter(figure.where(kind: "rule")).at(el.location()).first()
-
       // Construct the reference as a link, using the supplement (your prefix) + number
       link(it.target)[*#el.supplement#num*]
     } else {
-      // Return all other references (to sections, equations, etc.) as normal
+      // Return all other references (to sections, equations, theorems etc.) as normal
       it
     }
   }
@@ -338,14 +336,10 @@
   // to look more LaTeX's "booktabs"
 
   // 1. Globally override all table strokes FIRST.
-  // This forces zero vertical lines and handles the top/header rules.
   show table: set table(
     inset: (x: 0.75em, y: 0.5em),
     align: horizon,
     stroke: (x, y) => (
-      // Heavy 1.5pt rule at the very top
-      // Light 0.5pt rule under the header (row 1)
-      // No lines anywhere else (left, right, bottom)
       top: if y == 0 { 1.0pt + black } else if y == 1 { 0.5pt + black } else {
         none
       },
@@ -361,13 +355,14 @@
     outset: 0pt,
     it,
   )
+
   // Figures
   set figure(gap: 17pt)
   show figure: set block(above: 12.5pt, below: 15pt)
   show figure: it => {
-    // Avoid using "rule" for rule-table
-    if it.kind == "rule" {
-      return it.body
+    // Avoid using general figure styles for rule-table or thmenv
+    if it.kind == "rule" or it.kind == "thmenv" {
+      return it
     }
     // Customize the figure's caption.
     show figure.caption: caption => {
@@ -381,61 +376,40 @@
     }
 
     // We want a bit of space around tables and images.
-    // Do images here,
-    // as we already covered tables
     show image: pad.with(x: 23pt)
-
-    // Display the figure's body and caption.
     it
   }
 
-  let format-header(it, is-emph: false) = {
-    let content = {
+  // Theorem Environments handling
+  // We handle them under a unified "thmenv" kind so they share a native counter.
+  show figure.where(kind: "thmenv"): set align(start)
+  show figure.where(kind: "thmenv"): it => block(spacing: 11.5pt, {
+    let is-thm = it.supplement in ([Theorem], [Lemma], [Corollary])
+    let is-rem = it.supplement == [Remark]
+
+    let header = {
       it.supplement
       if it.numbering != none {
-        [ ] + theorem-counter.display(it.numbering)
+        [ ] + it.counter.display(it.numbering)
       }
       if it.caption != none {
-        [ (] + it.caption + [)]
+        [ (] + it.caption.body + [)]
       }
       [.]
     }
 
-    if is-emph { emph(content) } else { strong(content) }
-  }
+    if is-rem { emph(header) } else { strong(header) }
+    [ ]
 
-  // Override more general 'show figure' above
-  show figure.where(kind: "theorem"): set align(start)
-  show figure.where(kind: "theorem"): it => block(spacing: 11.5pt, {
-    theorem-counter.step()
-    format-header(it, is-emph: false)
-    [ ] + emph(it.body)
-  })
-
-  show figure.where(kind: "definition"): set align(start)
-  show figure.where(kind: "definition"): it => block(spacing: 11.5pt, {
-    theorem-counter.step()
-    format-header(it, is-emph: false)
-    [ ] + it.body
-
-    sym.wj
-    sym.space.nobreak
-    h(1fr)
-
-    $#end-def$
-  })
-
-  show figure.where(kind: "remark"): set align(start)
-  show figure.where(kind: "remark"): it => block(spacing: 11.5pt, {
-    theorem-counter.step()
-    format-header(it, is-emph: true)
-    [ ] + it.body
-
-    sym.wj
-    sym.space.nobreak
-    h(1fr)
-
-    $#end-def$
+    if is-thm {
+      emph(it.body)
+    } else {
+      it.body
+      sym.wj
+      sym.space.nobreak
+      h(1fr)
+      $#end-def$
+    }
   })
 
   // Display the title and authors.
@@ -509,33 +483,30 @@
   })
 }
 
-// This is the single numbering format all our environments will use
-#let theorem-numbering-format = n => counter(heading).display() + [#n]
+// Ensure the dot prefixes always match the parent headings.
+#let theorem-numbering-format = n => counter(heading).display("1.1.") + str(n)
 
-
-#let create-theorem(kind, supplement) = (arg1, arg2: none, ..rest) => {
+#let create-theorem(supplement) = (arg1, arg2: none, ..rest) => {
   let (name, body) = if arg2 == none { (none, arg1) } else { (arg1, arg2) }
 
+  // Utilizing a unified kind "thmenv" allows references and counters to sync perfectly.
+  // We pass the "name" to the caption to format it inside the show rule.
   figure(
-    // We attach the name to the body using metadata
-    if name != none {
-      (metadata((name: name)), body).join()
-    } else {
-      body
-    },
-    kind: kind,
+    body,
+    kind: "thmenv",
     supplement: supplement,
+    caption: name,
     numbering: theorem-numbering-format,
   )
 }
 
-#let theorem = create-theorem("theorem", [Theorem])
-#let lemma = create-theorem("theorem", [Lemma])
-#let corollary = create-theorem("theorem", [Corollary])
-#let definition = create-theorem("definition", [Definition])
-#let example = create-theorem("definition", [Example])
-#let remark = create-theorem("remark", [Remark])
-#let experiment = create-theorem("definition", [Experiment])
+#let theorem = create-theorem([Theorem])
+#let lemma = create-theorem([Lemma])
+#let corollary = create-theorem([Corollary])
+#let definition = create-theorem([Definition])
+#let example = create-theorem([Example])
+#let remark = create-theorem([Remark])
+#let experiment = create-theorem([Experiment])
 
 
 // This function creates a scoped environment for a list of equations.
