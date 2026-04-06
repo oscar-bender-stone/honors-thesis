@@ -15,7 +15,6 @@
 // Stem width: 7.64 points
 // Thickness: 0.49 points
 // Base font size: 10.0002pt
-// TODO: improve width
 #let matched-dash = math.class(
   "relation",
   box(

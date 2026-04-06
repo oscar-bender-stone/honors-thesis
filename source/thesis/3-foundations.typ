@@ -55,8 +55,6 @@ Additionally, we adopt several conventions:
 
 == Words and Handles <foundations:words-and-handles>
 
-// TODO: replace equiv with a delta equiv
-
 For high-level notation, we write $a equiv b$ to mean that $a$ is definitionally
 equivalent to $b$. High level notation will _not_ be stated in the syntax unless
 where noted. We will be pedantic in most notation for complete precision.
@@ -64,9 +62,8 @@ Moreover, implementation details are outside the scope of this thesis. This
 includes, e.g., practically restricting the size of user input to a maximum
 bound.
 
-TODO: rephrase this! #definition[
-  A *bit* is either of the symbols $0$ or $1$. A *binary word* is either the
-  symbol $epsilon$ (the *empty word*), and if $w$ is a finite binary word, so
+#definition[
+  A *bit* is either one of the symbols $0$ or $1$. A *binary word* is defined recursively: $epsilon$ is a word (the *empty word*), and if $w$ is a finite binary word, so
   are $w 0$ and $w 1$, where the juxtaposition of symbols denote
   *concatenation*. Nothing else is a word.
 ]<foundations:word>
@@ -158,7 +155,6 @@ units and $h_1, h_2$ for handles.
         #box[${a, d} - c -> {b, d}$]
       ],
     ),
-    // TODO: combine congruence axioms into one
     (
       name: "Sign Congruence",
       lbl: "r:sign-congruence",
