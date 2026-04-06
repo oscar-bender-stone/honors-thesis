@@ -3,15 +3,15 @@
 <!-- SPDX-License-Identifier: CC-BY-SA-3.0 -->
 
 <?xml version="1.0" encoding="utf-8"?>
-<style xmlns="http://purl.org/net/xbiblio/csl" class="note" version="1.0" default-locale="en-US">
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" default-locale="en-US">
   <info>
-    <title>AMS Slide Full-Text Footnote</title>
-    <id>http://www.zotero.org/styles/ams-slide-full-text</id>
+    <title>AMS Alphanumeric Label Style</title>
+    <id>http://www.zotero.org/styles/ams-alphanumeric-label</id>
     <link href="http://www.zotero.org/styles/american-mathematical-society-label" rel="template"/>
     <author>
       <name>Oscar Bender-Stone</name>
     </author>
-    <category citation-format="note"/>
+    <category citation-format="label"/>
     <category field="math"/>
     <updated>2026-03-20T15:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
@@ -93,52 +93,10 @@
     </choose>
   </macro>
 
-  <!-- FIXED CITATION BLOCK: This ensures the full reference text appears on the slide -->
+  <!-- FIXED CITATION BLOCK: This ensures only the alphanumeric label [Mez+09] appears inline -->
   <citation>
-    <layout suffix="." delimiter="; ">
-      <group delimiter=", ">
-        <text macro="author"/>
-        <text macro="title"/>
-        <choose>
-          <if type="article-journal">
-            <group delimiter=" ">
-              <text variable="container-title" font-style="italic"/> 
-              <text macro="locators"/>
-              <text variable="page"/>
-            </group>
-          </if>
-          <else-if type="chapter paper-conference" match="any">
-            <group delimiter=", ">
-              <group delimiter=" ">
-                <text term="in"/>
-                <text variable="container-title" font-style="italic"/>
-                <text macro="editor" prefix="(" suffix=")"/>
-              </group>
-              <text macro="locators"/>
-              <text macro="publisher"/>
-              <group delimiter=" ">
-                <label variable="page" form="short"/>
-                <text variable="page"/>
-              </group>
-            </group>
-          </else-if>
-          <else-if type="thesis">
-            <text variable="genre"/>
-            <text variable="publisher"/>
-            <date variable="issued">
-              <date-part name="year"/>
-            </date>
-          </else-if>
-          <else>
-            <text macro="edition"/>
-            <text macro="locators"/>
-            <text macro="publisher"/>
-            <date variable="issued">
-              <date-part name="year"/>
-            </date>
-          </else>
-        </choose>
-      </group>
+    <layout prefix="[" suffix="]" delimiter="; ">
+      <text variable="citation-label"/>
     </layout>
   </citation>
 
@@ -157,7 +115,7 @@
         <choose>
           <if type="article-journal">
             <group delimiter=" ">
-              <text variable="container-title" font-style="italic"/>
+              <text variable="container-title" font-style="italic"/> 
               <text macro="locators"/>
               <text variable="page"/>
             </group>
