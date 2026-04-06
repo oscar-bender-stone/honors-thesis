@@ -112,30 +112,30 @@ need a specific stronger version for our purposes.
 
 == Serial-Soundness and Reliable Proofs <metatheory:serial-soundness-and-reliability>
 
-We now introduce a stronger version of *serial-soundness*. We will reuse the
-term *selector* for this stronger notion.
+We now introduce a stronger version of *serial-soundness*. For this, we rely on
+partial truth predicates, defined in @hajek-pudlak-metamath-arithmetic[Ch. 1.1].
+We reuse the term *selector* for our purposes.
 
 // TODO: clarify what it means to be true here!
 // Is it that all derivations from p are true?
 #definition[
-  Let $T$ be an RE theory that extends $PA$. Then $T$ is *serial-sound* if there
-  is a *selector* $s$. A *selector* is a decider $s$ constructed in $PA$. This
-  is a total computable function, whose inputs are proofs of $T$, and outputs
-  are either $"T"$ (true) or $"F"$ (false). This function must satisfy two
-  properties:
-  - $s$ accepts all proofs in $T$.
-  - Any proof $p$ accepted by $s$ must satisfy
-    $"Tr"_n (chevron.l s(p) = T chevron.r)$, where $"Tr"_n$ is the $n$-th
-    partial truth predicate. For details, refer to
-    @hajek-pudlak-metamath-arithmetic[Ch. 1.1].
-  Moreover, this selector must be proven _without_ use the general Law of the
-  Excluded Middle ($phi or not phi$), and without the Principle of Explosion
-  (#box[$bot => phi$]). In this case, we call $s$
+  Let $T$ be an RE theory that interprets arithmetic. Then $T$ is *serial-sound*
+  if there is a *selector* $s$. A *selector* is a total computable function $s$
+  with two requirements that must be provable in $PA$:
+  - Given any $T$-proof $p$, $s(p)$ is defined as a $T$-proof $t_p$ of
+  $"Tr"_n (chevron.l p chevron.r)$ for some natural number $n$. Here, $"Tr"_n$
+  is the $n$-th partial truth predicate (@hajek-pudlak-metamath-arithmetic[Ch.
+    1.1]).
+  - The selector must defined *constructively*. In other words, there must be a
+    constructive approach to construct $s(p)$ given $T$-proof $p$. In other
+    words, $s$ must be proven in $PA$ _without_ using the general Law of the
+    Excluded Middle ($phi or not phi$), and without the Principle of Explosion
+    (#box[$bot => phi$]).
 ]<metatheory:serial-soundness>
 
 #remark[We need to remove the Law of the Excluded Middle to ensure the proof is
   completely constructive. Additionally, we must ensure Principle of Explosion
-  is not used to falsely prove claims.]
+  is not used to prove non-truths.]
 
 #remark[
   We will briefly explain why, in the meta-theory, serial-soundness is enough to
