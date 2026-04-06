@@ -63,8 +63,9 @@ includes, e.g., practically restricting the size of user input to a maximum
 bound.
 
 #definition[
-  A *bit* is either one of the symbols $0$ or $1$. A *binary word* is defined recursively: $epsilon$ is a word (the *empty word*), and if $w$ is a finite binary word, so
-  are $w 0$ and $w 1$, where the juxtaposition of symbols denote
+  A *bit* is either one of the symbols $0$ or $1$. A *binary word* is defined
+  recursively: $epsilon$ is a word (the *empty word*), and if $w$ is a finite
+  binary word, so are $w 0$ and $w 1$, where the juxtaposition of symbols denote
   *concatenation*. Nothing else is a word.
 ]<foundations:word>
 
