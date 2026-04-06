@@ -374,8 +374,8 @@ Using these properties, we are now ready to define $"LL"(1)$ grammars. Without
 loss of generality, we assume the set of parser combinators contains rules
 strictly of the form $A | B$, $A dot B$, or $x mapsto (A dot x) or B$. We will
 implicitly use this form when examining the proof for the Welkin grammar.
-#definition[(@compilers-dragon-book[Ch. 5]). A set $P$ of parsing combinators is
-  $"LL"(1)$ if and only if, for all $A$ and $B$:
+#definition[(@edelmann-ll1-parsing[Sect. 4.5]). A set $P$ of parsing combinators
+  is $"LL"(1)$ if and only if, for all $A$ and $B$:
   - For any rule $A | B in P$, at most $A$ or $B$ are nullable, and $FIRST(A)$
     and $FIRST(B)$ are disjoint.
   - For any rule $A dot B in P$, $SNFOLLOW(A) inter FIRST(B) = emptyset$. In
@@ -409,7 +409,7 @@ $"LL"(1)$.
   - For each rule $A - "seq" -> B$ or $A - "lexeme" -> B$, we need to confirm
     $SNFOLLOW(A)$ and $FIRST(B)$ are disjoint. We say this has *conflict type*
     First/Follow. This order reflects that the $"FIRST"$ sets must be calculated
-    first, _then_ the $"FOLLOW"$ sets.
+    first, _then_ the $"SNFOLLOW"$ sets.
 
   Note that a conflict type is refers to a _potential_ conflict, a property that
   would invalidate being $"LL"(1)$. Our last goal is to demonstrate these
