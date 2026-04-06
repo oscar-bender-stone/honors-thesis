@@ -115,16 +115,19 @@ need a specific stronger version for our purposes.
 We now introduce a stronger version of *serial-soundness*. We will reuse the
 term *selector* for this stronger notion.
 
+// TODO: clarify what it means to be true here!
+// Is it that all derivations from p are true?
 #definition[
   Let $T$ be an RE theory that extends $PA$. Then $T$ is *serial-sound* if there
-  is a *selector* $s$. A *selector* is a total computable function of $s$
-  constructed in $PA$, with inputs over proofs of $T$. This function must
-  satisfy two properties:
+  is a *selector* $s$. A *selector* is a decider $s$ constructed in $PA$. This
+  is a total computable function, whose inputs are proofs of $T$, and outputs
+  are either $"T"$ (true) or $"F"$ (false). This function must satisfy two
+  properties:
   - $s$ accepts all proofs in $T$.
   - Any proof $p$ accepted by $s$ must satisfy
-    $"Tr"_n (chevron.l s(p) chevron.r)$, where $"Tr"_n$ is the $n$-th partial
-    truth predicate. For details, refer to @hajek-pudlak-metamath-arithmetic[Ch.
-      1.1].
+    $"Tr"_n (chevron.l s(p) = T chevron.r)$, where $"Tr"_n$ is the $n$-th
+    partial truth predicate. For details, refer to
+    @hajek-pudlak-metamath-arithmetic[Ch. 1.1].
   Moreover, this selector must be proven _without_ use the general Law of the
   Excluded Middle ($phi or not phi$), and without the Principle of Explosion
   (#box[$bot => phi$]). In this case, we call $s$
