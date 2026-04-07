@@ -83,7 +83,7 @@ goals @scalable and @standard. These include:
   revision system could be built as a core library. This could enable users to
   have greater control than existing tools. For instance, differences between
   versions could be easily analyzed _in_ Welkin. This feature would be similar
-  to a belief revision system, introduced in @belief-revision-system.
+  to a belief revision system, a term introduced in @belief-revision-system.
 
 - *Package Management:* building on revision systems, users could organize their
   Welkin code into packages. These would promote modular pieces of code, as well

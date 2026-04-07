@@ -95,9 +95,9 @@ From the notion of a unit, we practically define information on a unit $v$ as a
 _unit that tracks reductions in $v$_. Formally, we define information as a unit
 containing a derivation ending in a unit containing $v$. Key to this definition
 is making it _context-based_, thereby enabling separate truth-management systems
-(those systems defined by some Turing machine). This notion corresponds to
-Burgin's idea of information as an _operator_ that transforms a system, and is
-closely to Bateson's famous quote that "information is a difference that makes a
+(defined by some Turing machine). This notion corresponds to Burgin's idea of
+information as an _operator_ that transforms a system, and is closely to
+Bateson's famous quote that "information is a difference that makes a
 difference" @bateson-ecology-of-mind. Our practical distinction between
 information and knowledge is that we _use_ information, but users can assert
 their own notions of these terms by creating restricted contexts. There are
@@ -138,10 +138,10 @@ ASCII in `type-writer` font.#footnote[This font is Intel One Mono (#link(
     "https://github.com/intel/intel-one-mono/blob/main/OFL.txt",
   )).] These include:
 
-- In ASCII, #box[`a - b -> c`] for representations. These can be interpreted
-  _as_ rewrite rules, depending on the context. The shorthand #box[`a --> b`] is
-  used for the overarching context. Moreover, #box[`a <--> b`] means
-  #box[`a --> b`] and #box[`b --> a`].
+- In ASCII, #box[`a - b -> c`] for representations. These can be interpreted as
+  rewrite rules, depending on the context. The shorthand #box[`a --> b`] is used
+  for the overarching context. Moreover, #box[`a <--> b`] means #box[`a --> b`]
+  and #box[`b --> a`].
 
 - Traditional braces `{ }` to denote closed definitions of contexts, inspired by
   the C programming language.
@@ -151,7 +151,7 @@ ASCII in `type-writer` font.#footnote[This font is Intel One Mono (#link(
   prefixed with `@`. Subsets of units can be written via `u.{v, x}`, or even
   `u.{v --> x}` to refer to a subset of representations.
 
-- Imports are done through `@u`, which takes all units in `u` and puts them into
+- Imports are done through `*u`, which takes all units in `u` and puts them into
   the current scope. In other words, the implementation _implicitly_ adds
   denotations `v <--> a.v` for each unit `v` in `u`.
 

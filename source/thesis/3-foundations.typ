@@ -134,7 +134,8 @@ representations. We present the complete definition as follows.
 We require more notation. First, we define $a <- c -> b$ to mean that both
 $a - c -> b$ and $a <- c - b$ hold. Second, we add a symbol $prec.curly.eq$ for
 *derives*, where $a derivedby g$ iff #box[$a - g -> a$]. The relation
-$a derivedby g$ is read as either "$a$ is derived by $g$," or "$g$ derives $a$".
+$a derivedby g$ is read as either: "$a$ is derived by $g$," or "$g$ derives
+$a$".
 
 Now we may introduce the rules on units. These are provided in
 @table:unit-rules, stated over stated over meta-variables $a, b, c, d, g$ for
@@ -355,7 +356,7 @@ independently discovered by Curry @curry-grundlagen. In this theory, a
 functions as inputs. #footnote[A remark for logicians: this calculus is
   extremely similar to a Hilbert-style proof system, with $K$ and $S$
   corresponding to the rules $(phi => (psi => phi))$ and
-  $(phi => (psi => zeta)) => ((phi => zeta) => (psi => zeta))$, respectively.
+  $(phi => (psi => zeta)) => ((phi => psi) => (phi => zeta))$, respectively.
   This was one of Curry's insights in connecting logic to computation
   @curry-grundlagen.] As a simplification, we present this calculus using a
 *reduction relation* instead of equality.
@@ -366,9 +367,8 @@ functions as inputs. #footnote[A remark for logicians: this calculus is
   The $"SK"$-combinator calculus consists of the following:
   - A *term* is defined recursively as either $K$ or $S$, and if $M, N$ are
     terms, so is $(M)$ and their *application* $M N$.
-  - Evaluation: $M$ *reduces* to $N$, written $M #sk-imp N$, if their equality
-    can be deduced from the following axioms, defined over meta-variables
-    $A, B, P, Q$:
+  - Evaluation: $M$ *reduces* to $N$, written $M #sk-imp N$, if it can be
+    deduced from the following axioms, defined over meta-variables $A, B, P, Q$:
     - *Base Axioms:*
       - $((K A) B) #sk-imp M$.
       - $(((S A) B) P) #sk-imp (A P) (B P)$.

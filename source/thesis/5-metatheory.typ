@@ -121,7 +121,7 @@ partial truth predicates, defined in @hajek-pudlak-metamath-arithmetic[Ch. 1.1].
   truth predicate* at $n$ if there is some predicate $"Tr"_n$ such that, for
   each (encoded) $Sigma^0_n$ predicate $phi$ and sequence of terms
   $arrow(y) equiv (y_1, ..., y_m)$,
-  $T entails ("Tr"_n (chevron.l phi chevron.r, arrow(y)) <=> phi(arrow(y)))$.
+  $T entails (forall arrow(y). "Tr"_n (chevron.l phi chevron.r, arrow(y)) <=> phi(arrow(y)))$.
   Here, a $Sigma^0_n$ formula contains exactly $n$ alternating quantifiers.
 ]
 
@@ -155,10 +155,10 @@ We will reuse the term *selector* for our purposes.
   justify soundness. By way of contradiction, suppose $T$ is a theory that is
   serial-sound but not sound.#footnote[Constructively, proof of contradiction
     may be used to prove a _negative_ statement. Thus, our use of contradiction
-    in this argument is permissible.] Let $s$ be a selector for $T$ and let $p$
-  be a proof in $PA$ of the selector's correctness. Then, there must be some
-  $phi$ and some $n$ such that $T entails phi$ but
-  $not "Tr"_n (chevron.l phi chevron.r)$. However, for fixed $n$, $p$ ensures
+    in this argument is permissible.] Let $s$ be a selector for $T$ and let $P$
+  be a constructive proof in $PA$ of the selector's correctness. Then, there
+  must be some $phi$ and some $n$ such that $T entails phi$ but
+  $not "Tr"_n (chevron.l phi chevron.r)$. However, for fixed $n$, $P$ ensures
   that the selector correctly accepts the proof of $phi$ in $T$. This yields a
   contradiction. Thus, $T$ must be sound.
 ]
@@ -176,10 +176,10 @@ Now we can introduce *self-verifying* theories.
 
 #remark[
   The use of partial truth predicates is important for
-  @metatheory:self-verifying due to Tarski's Theorem. This states that formal
-  system cannot define its own truth predicate _at the object language_
+  @metatheory:self-verifying due to Tarski's Theorem. This states that any
+  formal system cannot define its own truth predicate _at the object language_
   @tarski-undefinability-truth. We avoid this problem by incorporating a
-  meta-theory, which uses point-wise definitions. However, Gödel's first
+  meta-theory, which uses selector-based definitions. However, Gödel's first
   incompleteness theorem still applies: the _specific_ truth value of some
   proposition cannot be proven in the meta-theory. The limit of what we can
   prove is made more precise in @metatheory:proof-completeness.]
@@ -225,7 +225,7 @@ cover more general theories. A theory may be unsound yet prove _some_ things
 correctly. For example, in Naive Set Theory (encoded in arithmetic), Russell's
 Paradox can be proven, but also true statements in $ZFC$, such as
 $X subset.eq Y <=> X union Y = Y$. Although this is a very simple example, this
-does raise the question: what _can_ we reliably accept from a general theory? To
+does raise the question: what _can_ we reliably accept from _any_ theory? To
 generalize this example, we consider taking a _restriction_ of the theory. If
 this theory is sound, provable in an extension that _is_ self-verifying one, we
 can trust the specific claim from $T'$. Note that this applies to embeddings of
@@ -242,7 +242,7 @@ $T'$. We provide the full definition below.
 ]<metatheory:reliability>
 
 We denote the set of all reliable proofs for $phi$ in $T$ as
-$"Reliable"(T;phi)$
+$"Reliable"(T;phi)$.
 
 #remark[Note that this definition is incomplete: in general, some sound subsets
   of $T'$ will be excluded. We need to ensure that any theory used is _provably_
@@ -257,8 +257,9 @@ only define specific properties needed for this thesis:
 
 #let churchkleene = $omega^"CK"_1$
 
-- Recursive ordinals, roughly, can be defined through a Turing machine. The full
-  definition is in @kleene-ordinal-notation.
+- Recursive ordinals are transitive sets ($x in y in z$ imply $x in z$), and
+  whose elements can be enumerated by some Turing machine. The full definition
+  is in @kleene-ordinal-notation.
 
 - The limit of these ordinals is called the *Church-Kleene ordinal*, denoted
   $churchkleene$. This is the first non-recursive ordinal.
@@ -282,10 +283,10 @@ Following his method, one can soundly jump from $PA$ all the way to $ZFC$; this,
 too, can be done with partial truth predicates. One reason why $ZFC$ is more
 powerful is because of the Axiom of Replacement, or even Comprehension. We
 extend this realization using hyperarithmetic sets, which are known to cover
-every recursive ordinal, proven in @kleene-hyperarithmetic-covering. To this
-end, our construction relies on a Simpson's principle of comprehension. This
-stems from Simpson's studies in Reverse Mathematics @simpson-arithmetic. The
-comprehension axiom states:
+every recursive ordinal, as proven in @kleene-hyperarithmetic-covering. To this
+end, our construction relies on a Simpson's principle of comprehension,
+originating from Reverse Mathematics @simpson-arithmetic. The comprehension
+axiom states:
 
 #set math.equation(numbering: none)
 $ exists X. forall n. lr((n in X <=> Phi(n))) $
@@ -345,8 +346,12 @@ $PA$.
   proof.
 ]
 
-Note, however, that detecting if an ordinal is recursive is undecidable. The
-upper bound is the best one can hope for, in general.
+#remark[Note, however, that detecting if an ordinal is recursive is undecidable.
+  The upper bound is the best one can hope for, in general. Additionally,
+  because each RE theory $T$ has a recursive ordinal, we cannot obtain the
+  _exact_ limit $churchkleene$. This means that more powerful approximations $T$
+  will be needed. However, each _individual_ approximation can be stated in
+  $PA$.]
 
 As an immediate corollary, we obtain the following.
 

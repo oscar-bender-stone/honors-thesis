@@ -116,11 +116,11 @@ users more seamlessly switch between a string and the underlying unit. Specific
 details are provided in @invertible-syntax-descriptions.
 
 For our use case, we will need four invertible syntax descriptions. These are
-based on functions from `parsec`, a Haskell combinator parser library. Here, `A`
-and `B` denote meta-variables over syntax descriptions. Parsing `A` means
-applying the parser in `A`, and likewise, printing `A` means printing the
-corresponding rule. Additionally, `WS` is short-hand for `WHITESPACE`
-(@syntax:character-classes).
+based on functions from `parsec`, a Haskell combinator parser library (refer to
+@leijen-meijer-parsec). Here, `A` and `B` denote meta-variables over syntax
+descriptions. Parsing `A` means applying the parser in `A`, and likewise,
+printing `A` means printing the corresponding rule. Additionally, `WS` is
+short-hand for `WHITESPACE` (@syntax:character-classes).
 
 - `A - seq -> B`:
   - *Parser:* Consumes a string based on `A`. immediately followed by the rule
@@ -340,7 +340,7 @@ $F$, and $F union E$ denotes the union of sets $F$ and $E$.
 #let SNFOLLOW = math.text("SN-FOLLOW")
 
 #definition[
-  (@edelmann-ll1-parsing). Let $A, B$ be meta-variables for parser combinators .
+  (@edelmann-ll1-parsing). Let $A, B$ be meta-variables for parser combinators.
   Moreover, let $t$ be a meta-variable for a simple combinator, one which
   consumes a single token. The following properties on parsing combinators are
   defined recursively:
@@ -374,7 +374,7 @@ loss of generality, we assume the set of parser combinators contains rules
 strictly of the form $A | B$, $A dot B$, or $x mapsto (A dot x) or B$. We will
 implicitly use this form when examining the proof for the Welkin grammar.
 #definition[(@edelmann-ll1-parsing[Sect. 4.5]). A set $P$ of parsing combinators
-  is $"LL"(1)$ if and only if, for all $A$ and $B$:
+  is *$"LL"(1)$* if and only if, for all $A$ and $B$:
   - For any rule $A | B in P$, at most $A$ or $B$ are nullable, and $FIRST(A)$
     and $FIRST(B)$ are disjoint.
   - For any rule $A dot B in P$, $SNFOLLOW(A) inter FIRST(B) = emptyset$. In
