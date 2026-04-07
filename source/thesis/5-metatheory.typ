@@ -145,8 +145,8 @@ We will reuse the term *selector* for our purposes.
     constructive approach to construct $s(p)$ given $T$-proof $p$. In other
     words, $s$ must be proven correct in $PA$ _without_ using the general Law of
     the Excluded Middle ($phi or not phi$), and without the Principle of
-    Explosion (#box[$bot => phi$]). Note that each $s(p)$ _may_ contain these
-    principles, if derivable from the axioms.
+    Explosion (#box[$bot => phi$]). Note that, as a $T$-proof, $s(p)$ _may_
+    contain these principles.
 ]<metatheory:serial-soundness>
 
 #remark[We need to remove the Law of the Excluded Middle to ensure the proof is
