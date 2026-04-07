@@ -453,50 +453,57 @@ $"LL"(1)$.
       $A dot B$ or $A | B$.],
   )<syntax:LL1-subrule-IDs>
 
-  // 1. Define the two-line expressions to save space
+  // 1. Define the two-line expressions
   #let sf-fb = [$"SNFOLLOW"(A)$ \ $inter "FIRST"(B)$]
   #let fa-fb = [$"FIRST"(A)$ \ $inter "FIRST"(B)$]
 
-  // 2. Automate the set formatting (handles raw backticks and commas automatically)
-  #let fmt-set(items) = {
+  // 2. Automate the formatting
+  #let fmt-eq(lhs, items) = {
     if items.len() == 0 {
-      [$emptyset$] // If empty array, return the empty set symbol
+      [$#lhs = emptyset$]
     } else {
-      // Join items with a comma and space, allowing Typst to naturally line-break here
-      [\{ ] + items.map(it => raw(it)).join([, ]) + [ \}]
+      // Math for the left side, text with raw blocks for the right side
+      [$#lhs =$ \{] + items.map(it => raw(it)).join([, ]) + [\}]
     }
   }
 
-  // 3. Define the raw data for the table
-  // Format: (ID, Expression, Left-hand side, Array of A tokens, Array of B tokens)
+  #let fmt-set(items) = {
+    if items.len() == 0 {
+      [$emptyset$]
+    } else {
+      [\{] + items.map(it => raw(it)).join([, ]) + [\}]
+    }
+  }
+
+  // 3. Define the raw data
   #let data = (
     (
       1,
       sf-fb,
-      [$"SNFOLLOW"("unit") =$],
+      $"SNFOLLOW"("unit")$,
       (".", "{", "-", "<-", "|", "*", "@", "~", "ID", "STRING", ":="),
       (",",),
     ),
-    (2, sf-fb, [$"SNFOLLOW"("node") =$], (".", "{"), (":=", "-", "<-")),
-    (3, fa-fb, [$"FIRST"(A) =$], (":=",), ("-", "<-")),
-    (4, sf-fb, [$"SNFOLLOW"(A) =$], (), ("*", "@", "~", "ID", "STRING")),
-    (5, sf-fb, [$"SNFOLLOW"("chain") =$], (".", "{", "-", "<-"), ("|",)),
-    (6, sf-fb, [$"SNFOLLOW"("node") =$], (".", "{"), ("-", "<-")),
-    (7, fa-fb, [$"FIRST"(A) =$], ("-",), ("<-",)),
-    (8, sf-fb, [$"SNFOLLOW"("node") =$], (".", "{"), ("->",)),
-    (9, sf-fb, [$"SNFOLLOW"("node") =$], (".", "{"), ("-", "->")),
-    (10, sf-fb, [$"SNFOLLOW"(A) =$], (), ("@", "~", "ID", "STRING")),
-    (11, sf-fb, [$"SNFOLLOW"(A) =$], ("@",), ("ID", "STRING")),
-    (12, sf-fb, [$"SNFOLLOW"("trailer") =$], (".",), ("{",)),
-    (13, sf-fb, [$"SNFOLLOW"("HANDLE") =$], (), (".",)),
-    (14, fa-fb, [$"FIRST"(A) =$], ("@",), ("~",)),
+    (2, sf-fb, $"SNFOLLOW"("node")$, (".", "{"), (":=", "-", "<-")),
+    (3, fa-fb, $"FIRST"(A)$, (":=",), ("-", "<-")),
+    (4, sf-fb, $"SNFOLLOW"(A)$, (), ("*", "@", "~", "ID", "STRING")),
+    (5, sf-fb, $"SNFOLLOW"("chain")$, (".", "{", "-", "<-"), ("|",)),
+    (6, sf-fb, $"SNFOLLOW"("node")$, (".", "{"), ("-", "<-")),
+    (7, fa-fb, $"FIRST"(A)$, ("-",), ("<-",)),
+    (8, sf-fb, $"SNFOLLOW"("node")$, (".", "{"), ("->",)),
+    (9, sf-fb, $"SNFOLLOW"("node")$, (".", "{"), ("-", "->")),
+    (10, sf-fb, $"SNFOLLOW"(A)$, (), ("@", "~", "ID", "STRING")),
+    (11, sf-fb, $"SNFOLLOW"(A)$, ("@",), ("ID", "STRING")),
+    (12, sf-fb, $"SNFOLLOW"("trailer")$, (".",), ("{",)),
+    (13, sf-fb, $"SNFOLLOW"("HANDLE")$, (), (".",)),
+    (14, fa-fb, $"FIRST"(A)$, ("@",), ("~",)),
   )
 
   // 4. Generate the table dynamically
   #let calculations-table = [
     #show table.cell: set text(size: 0.85em)
     #table(
-      columns: (auto, auto, 2fr, 1.5fr, auto),
+      columns: (auto, auto, 2.5fr, 1.5fr, auto),
       align: left,
       [*ID*],
       [*Expression*],
@@ -504,21 +511,17 @@ $"LL"(1)$.
       [*Set for* $B$],
       [*Intersection*],
 
-      // Loop through the data and flatten it into table cells
       ..data
         .map(row => (
           [\[#row.at(0)\]],
           row.at(1),
-          // Use #box to prevent the left-hand side from ever breaking onto two lines,
-          // but append a space so the set itself can wrap to the next line safely!
-          box(row.at(2)) + [ ] + fmt-set(row.at(3)),
+          fmt-eq(row.at(2), row.at(3)),
           fmt-set(row.at(4)),
           [$emptyset$],
         ))
         .flatten(),
     )
   ]
-
 
   #figure(
     calculations-table,
