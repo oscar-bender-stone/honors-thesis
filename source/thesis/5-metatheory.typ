@@ -131,21 +131,22 @@ Clearly $"Tr"_n$, if it exists, must be unique. Additionally, several important
 theories define a partial truth predicate, including $PA$ and $ZFC$
 (@artemov_serial_consistency[Sect. 3.1]). Note, however, that this definition
 includes _inconsistent_ theories as well. We rectify this in the definition of
-serial-soundness below. We will reuse the term *selector* for our purposes.
+serial-soundness below, largely based on @artemov_serial_consistency[Sect. 3.1].
+We will reuse the term *selector* for our purposes.
 
 #definition[
   Let $T$ be an RE theory that interprets arithmetic. Then $T$ is *serial-sound*
   if there is a *selector* $s$. A *selector* is a total computable function $s$
   with two requirements that must be provable in $PA$:
-  - Given any $T$-proof $p$, $s(p)$ is defined as a $T$-proof $t_p$ of
-  $"Tr"_n (chevron.l p chevron.r)$ for some natural number $n$. Here, $"Tr"_n$
-  is the $n$-th partial truth predicate (@hajek-pudlak-metamath-arithmetic[Ch.
-    1.1]).
+  - For any $T$-proof $p$ with steps $phi_1, ..., phi_n$, $s(p)$ is a $T$-proof
+    $t_p$ of $"Tr"_n(p) (chevron.l and.big phi_i chevron.r)$. Here, $n(p)$ is
+    defined as the largest $m$ such that some $phi_i$ is a $Sigma^0_m$ formula.
   - The selector must defined *constructively*. In other words, there must be a
     constructive approach to construct $s(p)$ given $T$-proof $p$. In other
-    words, $s$ must be proven in $PA$ _without_ using the general Law of the
-    Excluded Middle ($phi or not phi$), and without the Principle of Explosion
-    (#box[$bot => phi$]).
+    words, $s$ must be proven correct in $PA$ _without_ using the general Law of
+    the Excluded Middle ($phi or not phi$), and without the Principle of
+    Explosion (#box[$bot => phi$]). Note that each $s(p)$ _may_ contain these
+    principles, if derivable from the axioms.
 ]<metatheory:serial-soundness>
 
 #remark[We need to remove the Law of the Excluded Middle to ensure the proof is
@@ -168,20 +169,25 @@ serial-soundness below. We will reuse the term *selector* for our purposes.
 Now we can introduce *self-verifying* theories.
 
 #definition[
-  Let $T$ be an extension of $PA$. Then $T$ is *(meta-)-self-verifying* if $PA$
-  proves the following: $T$ proves its own serial-soundness.
+  Let $T$ be a first-order theory that interprets $PA$. Then $T$ is
+  *(meta-)-self-verifying* if $PA$ proves the following: $T$ proves its own
+  serial-soundness.
 ]<metatheory:self-verifying>
 
+#remark[It is straightforward to prove $"PA"$ is self-verifying. Most of this is
+  done in @artemov_serial_consistency[Sect. 3.1] via partial truth predicates.]
 
-Now, we can prove $"PA"$ is self-verifying, using partial truth predicates. This
-is similar to the Artëmov's approach for serial-consistency. Note the
-limitations posed by Tarski's theorem. This says that a formal system cannot
-define its own truth predicate _at the object language_
-@tarski-undefinability-truth. In fact, this truth predicate is uncomputable, in
-general. We do not avoid Tarski's theorem, but we do approximate it _as_ closely
-as Turing machines allow.
+#remark[
+  The use of partial truth predicates is important for
+  @metatheory:self-verifying due to Tarski's Theorem. This states that formal
+  system cannot define its own truth predicate _at the object language_
+  @tarski-undefinability-truth. We avoid this problem by incorporating a
+  meta-theory, which uses point-wise definitions. However, Gödel's first
+  incompleteness theorem still applies: the _specific_ truth value of some
+  proposition cannot be proven in the meta-theory. This limit is made more
+  precise in @metatheory:proof-completeness.]
 
-Additionally, there is an important property we will need.
+We need to establish an important property of self-verifying theories.
 
 #lemma[Let $T, T'$ be theories, with $T$ being self-verifying. If $T$ proves
   that $T'$ is self-verifying, then so does
