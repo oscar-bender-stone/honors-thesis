@@ -408,14 +408,11 @@ $"LL"(1)$.
   - For each rule $A - "seq" -> B$ or $A - "lexeme" -> B$, we need to confirm
     $SNFOLLOW(A)$ and $FIRST(B)$ are disjoint.
 
-  Note that a conflict type is refers to a _potential_ conflict, a property that
-  would invalidate being $"LL"(1)$. Our last goal is to demonstrate these
-  conflicts are _absent_ in the grammar. This is readily verified in
-  @syntax:LL1-calculations. To conserve space, each subrule is assigned an
-  $"ID"$, and may be used in other subrules. We exclude easy cases, including
-  `HANDLE`, or which start with a unique character. Moreover, any rule of the
-  form `*{"", A}` clearly has disjoint $FIRST$ sets, so we exclude most of these
-  in the table.
+  We demonstrate these conditions hold in @syntax:LL1-calculations. To conserve
+  space, each subrule is assigned an $"ID"$, and may be used in other subrules.
+  We exclude easy cases, including `HANDLE`, or which start with a unique
+  character. Moreover, any rule of the form `*{"", A}` clearly has disjoint
+  $FIRST$ sets, so we exclude most of these in @syntax:LL1-calculations.
 
   With each of these properties satisfied, this proves that
   @syntax:figure-welkin-grammar is $"LL"(1)$. Thus, as all $"LL"(1)$ grammars
@@ -456,98 +453,72 @@ $"LL"(1)$.
       $A dot B$ or $A | B$.],
   )<syntax:LL1-subrule-IDs>
 
+  // 1. Define the two-line expressions to save space
+  #let sf-fb = [$"SNFOLLOW"(A)$ \ $inter "FIRST"(B)$]
+  #let fa-fb = [$"FIRST"(A)$ \ $inter "FIRST"(B)$]
+
+  // 2. Automate the set formatting (handles raw backticks and commas automatically)
+  #let fmt-set(items) = {
+    if items.len() == 0 {
+      [$emptyset$] // If empty array, return the empty set symbol
+    } else {
+      // Join items with a comma and space, allowing Typst to naturally line-break here
+      [\{ ] + items.map(it => raw(it)).join([, ]) + [ \}]
+    }
+  }
+
+  // 3. Define the raw data for the table
+  // Format: (ID, Expression, Left-hand side, Array of A tokens, Array of B tokens)
+  #let data = (
+    (
+      1,
+      sf-fb,
+      [$"SNFOLLOW"("unit") =$],
+      (".", "{", "-", "<-", "|", "*", "@", "~", "ID", "STRING", ":="),
+      (",",),
+    ),
+    (2, sf-fb, [$"SNFOLLOW"("node") =$], (".", "{"), (":=", "-", "<-")),
+    (3, fa-fb, [$"FIRST"(A) =$], (":=",), ("-", "<-")),
+    (4, sf-fb, [$"SNFOLLOW"(A) =$], (), ("*", "@", "~", "ID", "STRING")),
+    (5, sf-fb, [$"SNFOLLOW"("chain") =$], (".", "{", "-", "<-"), ("|",)),
+    (6, sf-fb, [$"SNFOLLOW"("node") =$], (".", "{"), ("-", "<-")),
+    (7, fa-fb, [$"FIRST"(A) =$], ("-",), ("<-",)),
+    (8, sf-fb, [$"SNFOLLOW"("node") =$], (".", "{"), ("->",)),
+    (9, sf-fb, [$"SNFOLLOW"("node") =$], (".", "{"), ("-", "->")),
+    (10, sf-fb, [$"SNFOLLOW"(A) =$], (), ("@", "~", "ID", "STRING")),
+    (11, sf-fb, [$"SNFOLLOW"(A) =$], ("@",), ("ID", "STRING")),
+    (12, sf-fb, [$"SNFOLLOW"("trailer") =$], (".",), ("{",)),
+    (13, sf-fb, [$"SNFOLLOW"("HANDLE") =$], (), (".",)),
+    (14, fa-fb, [$"FIRST"(A) =$], ("@",), ("~",)),
+  )
+
+  // 4. Generate the table dynamically
   #let calculations-table = [
     #show table.cell: set text(size: 0.85em)
     #table(
-      columns: 5,
+      columns: (auto, auto, 2fr, 1.5fr, auto),
       align: left,
-      [*ID*], [*Condition*], [*Set for* $A$], [*Set for* $B$], [*Intersection*],
+      [*ID*],
+      [*Expression*],
+      [*Set for* $A$],
+      [*Set for* $B$],
+      [*Intersection*],
 
-      [[1]],
-      [$SNFOLLOW(A) inter FIRST(B)$],
-      [ $SNFOLLOW$(`unit`) = `{ ., {, -, <-, |, *, @, ~, ID, STRING, := }` ],
-      [ `{ , }` ],
-      [$emptyset$],
-
-      [[2]],
-      [$SNFOLLOW(A) inter FIRST(B)$],
-      [ $SNFOLLOW$(`node`) = `{ ., { }` ],
-      [ `{ :=, -, <- }` ],
-      [$emptyset$],
-
-      [[3]],
-      [$FIRST(A) inter FIRST(B)$],
-      [ $FIRST(A) =$ `{ := }` ],
-      [ `{ -, <- }` ],
-      [$emptyset$],
-
-      [[4]],
-      [$SNFOLLOW(A) inter FIRST(B)$],
-      [ $SNFOLLOW(A) = emptyset$ ],
-      [ `{ *, @, ~, ID, STRING }` ],
-      [$emptyset$],
-
-      [[5]],
-      [$SNFOLLOW(A) inter FIRST(B)$],
-      [ $SNFOLLOW$(`chain`) = `{ ., {, -, <- }` ],
-      [ `{ | }` ],
-      [$emptyset$],
-
-      [[6]],
-      [$SNFOLLOW(A) inter FIRST(B)$],
-      [ $SNFOLLOW$(`node`) = `{ ., { }` ],
-      [ `{ -, <- }` ],
-      [$emptyset$],
-
-      [[7]],
-      [$FIRST(A) inter FIRST(B)$],
-      [ $FIRST(A) =$ `{ - }` ],
-      [ `{ <- }` ],
-      [$emptyset$],
-
-      [[8]],
-      [$SNFOLLOW(A) inter FIRST(B)$],
-      [ $SNFOLLOW$(`node`) = `{ ., { }` ],
-      [ `{ -> }` ],
-      [$emptyset$],
-
-      [[9]],
-      [$SNFOLLOW(A) inter FIRST(B)$],
-      [ $SNFOLLOW$(`node`) = `{ ., { }` ],
-      [ `{ -, -> }` ],
-      [$emptyset$],
-
-      [[10]],
-      [$SNFOLLOW(A) inter FIRST(B)$],
-      [ $SNFOLLOW(A) = emptyset$ ],
-      [ `{ @, ~, ID, STRING }` ],
-      [$emptyset$],
-
-      [[11]],
-      [$SNFOLLOW(A) inter FIRST(B)$],
-      [ $SNFOLLOW(A) =$ `{ @ }` ],
-      [ `{ ID, STRING }` ],
-      [$emptyset$],
-
-      [[12]],
-      [$SNFOLLOW(A) inter FIRST(B)$],
-      [ $SNFOLLOW$(`trailer`) = `{ . }` ],
-      [ `{ { }` ],
-      [$emptyset$],
-
-      [[13]],
-      [$SNFOLLOW(A) inter FIRST(B)$],
-      [ $SNFOLLOW$(`HANDLE`) = $emptyset$ ],
-      [ `{ . }` ],
-      [$emptyset$],
-
-      [[14]],
-      [$FIRST(A) inter FIRST(B)$],
-      [ $FIRST(A) =$ `{ @ }` ],
-      [ `{ ~ }` ],
-      [$emptyset$],
+      // Loop through the data and flatten it into table cells
+      ..data
+        .map(row => (
+          [\[#row.at(0)\]],
+          row.at(1),
+          // Use #box to prevent the left-hand side from ever breaking onto two lines,
+          // but append a space so the set itself can wrap to the next line safely!
+          box(row.at(2)) + [ ] + fmt-set(row.at(3)),
+          fmt-set(row.at(4)),
+          [$emptyset$],
+        ))
+        .flatten(),
     )
   ]
+
 
   #figure(
     calculations-table,

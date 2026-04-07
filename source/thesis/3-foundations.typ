@@ -311,16 +311,6 @@ In addition to @table:unit-rules, we need a form of *containment*.
 
 One can easily verify that $u subset.eq.sq v$ implies $u derives v$.
 
-// TODO: determine if we should finish this!
-// #lemma[
-//   Suppose $u subset.eq.sq v$. Then $u derives v$.
-// ]
-// #proof[
-//   Suppose $u subset.eq.sq v$ so that for some $r$. By @r:derivation, it suffices to show that
-//   $v <--> {u, v}$.
-// ]
-
-
 Finally, we add more notation. We write:
 
 - $"*"{a_1, ..., a_n} - c -> b$ for

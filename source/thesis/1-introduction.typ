@@ -11,28 +11,29 @@
 = Introduction <introduction>
 
 Information Management is the study of systematically storing and organizing
-data. Since the beginning of humanity, there has been a massive influx of data,
-including physical and digital forms. Not a single person understands all of it.
-For effective use, raw databases are increasingly structured into organized
-_information bases_ to prove context surrounding the source and nature of data.
-The conceptual foundation for this process often traces back to Ackoff
-@ackoff-wisdom. His data-to-wisdom hierarchy posits that information is the
-process of transforming raw data into structured content. In turn, this content
-can be used to answer user queries. However, the term "information" has not been
-standardized in the literature and is used with distinct meanings. For example,
-Buckland @buckland-information-as-thing recognizes three different ways
-information is interpreted: as a _process_, as _knowledge_, and as _a thing_.
-While each of these are important, Buckland emphasizes that to _use_
-information, one must work with information as a thing—a tangible record like a
-document or digital file. Another author, Floridi, builds upon this tangible
-idea by requiring data to be truthful @floridi-information-2010. Information
-must not only be in concrete records, but also accurately represent a topic of
-interest. As shown in this small sample of authors, the word information has
-several meanings, and they are driven by the goal to organize data.
+data. Throughout human history, there has been a massive influx of data,
+including physical and digital forms. While databases have scaled to address
+this growth, most data has not been perceived or understood. For greater
+understanding, databases are increasingly structured into organized _information
+bases_ that provide context, including the source of the data. The conceptual
+foundation for this process often traces back to Ackoff @ackoff-wisdom. His
+data-to-wisdom hierarchy posits that information is the process of transforming
+raw data into structured content. In turn, this content can be used to answer
+user queries. However, the term "information" has not been standardized in the
+literature and is used with distinct meanings. For example, Buckland
+@buckland-information-as-thing recognizes three different ways information is
+interpreted: as a _process_, as _knowledge_, and as _a thing_. While each of
+these are important, Buckland emphasizes that to _use_ information, one must
+work with information as a thing—a tangible record like a document or digital
+file. Another author, Floridi, builds upon this tangible idea by requiring data
+to be truthful @floridi-information-2010. Information must not only be in
+concrete records, but also accurately represent a topic of interest. As shown in
+this small sample of authors, the word information has several meanings, and
+they are driven by the goal to organize data.
 
 Despite efforts to understand information, there are ongoing problems in real
 world projects. One of these issues is the _depth_ of domains. For example, at
-major retailers like Amazon, inventory and recommendation systems use immense
+major retailers like Amazon, inventory and recommendation systems use large
 amounts of data to power personalized recommendations to users
 @amazon-large-data-report. Another issue is the immense _breadth_ of different
 subjects. As a well known example, Wikipedia struggles to constantly update its
@@ -60,8 +61,8 @@ thesis. We revisit these points in the conclusion (@conclusion:comparisons).
   across the internet, outlined in @hitzler-review-the-semantic-web. However,
   despite their widespread adoption, RDF-based solutions struggle with extensive
   sources of data. Enforcing logical rules can be expensive
-  @owl-approximate-reasoning. Additionally, because OWL treats missing sources
-  of data as _unknown_ rather than _false_, it often fails to resolve conflicts
+  @owl-approximate-reasoning. Additionally, because OWL treats data with missing
+  sources as _unknown_ rather than _false_, it often fails to resolve conflicts
   between two sources @hitzler-review-the-semantic-web.
 
 - *Labeled Property Graphs (LPGs):* This is an architecture defined by the
