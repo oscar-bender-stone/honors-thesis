@@ -114,10 +114,25 @@ need a specific stronger version for our purposes.
 
 We now introduce a stronger version of *serial-soundness*. For this, we rely on
 partial truth predicates, defined in @hajek-pudlak-metamath-arithmetic[Ch. 1.1].
-We reuse the term *selector* for our purposes.
 
-// TODO: clarify what it means to be true here!
-// Is it that all derivations from p are true?
+#definition[
+  (@hajek-pudlak-metamath-arithmetic[Ch. 1.1]). Let $n$ be any natural number
+  and $T$ a first-order theory that interprets $PA$. Then $T$ has a *partial
+  truth predicate* at $n$ if there is some predicate $"Tr"_n$ such that, for
+  each (encoded) $Sigma^0_n$ predicate $phi$ and sequence of terms
+  $arrow(y) equiv (y_1, ..., y_m)$,
+
+  $T entails ("Tr"_n(chevron.l phi chevron.r, arrow(y)) <=> phi(arrow(y)))$.
+
+  Here, a $Sigma^0_n$ formula contains exactly $n$ alternating quantifiers.
+]
+
+Clearly $"Tr"_n$, if it exists, must be unique. Additionally, several important
+theories define a partial truth predicate, including $PA$ and $ZFC$
+(@artemov_serial_consistency[Sect. 3.1]). Note, however, that this definition
+includes _inconsistent_ theories as well. We rectify this in the definition of
+serial-soundness below. We will reuse the term *selector* for our purposes.
+
 #definition[
   Let $T$ be an RE theory that interprets arithmetic. Then $T$ is *serial-sound*
   if there is a *selector* $s$. A *selector* is a total computable function $s$
