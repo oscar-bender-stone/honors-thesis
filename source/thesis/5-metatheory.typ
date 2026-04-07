@@ -121,9 +121,7 @@ partial truth predicates, defined in @hajek-pudlak-metamath-arithmetic[Ch. 1.1].
   truth predicate* at $n$ if there is some predicate $"Tr"_n$ such that, for
   each (encoded) $Sigma^0_n$ predicate $phi$ and sequence of terms
   $arrow(y) equiv (y_1, ..., y_m)$,
-
-  $T entails ("Tr"_n(chevron.l phi chevron.r, arrow(y)) <=> phi(arrow(y)))$.
-
+  $T entails ("Tr"_n (chevron.l phi chevron.r, arrow(y)) <=> phi(arrow(y)))$.
   Here, a $Sigma^0_n$ formula contains exactly $n$ alternating quantifiers.
 ]
 
@@ -189,8 +187,8 @@ Now we can introduce *self-verifying* theories.
 
 We need to establish an important property of self-verifying theories.
 
-#lemma[Let $T, T'$ be theories, with $T$ being self-verifying. If $T$ proves
-  that $T'$ is self-verifying, then so does
+#lemma[Let $T, T'$ be theories, with $T$ being self-verifying. If $T$
+  constructively proves that $T'$ is self-verifying, then so does
   $PA$.]<metatheory:selector-composition>
 #proof[
   This corresponds to composing selector proofs.
@@ -227,7 +225,7 @@ sound but prove $phi$ and $not phi$, respectively. Additionally, we want to
 cover more general theories. A theory may be unsound yet prove _some_ things
 correctly. For example, in Naive Set Theory (encoded in arithmetic), Russell's
 Paradox can be proven, but also true statements in $ZFC$, such as
-$forall x. x in X "iff" x in X$. Although this is a very simple example, this
+$X subset.eq Y <=> X union Y = Y$. Although this is a very simple example, this
 does raise the question: what _can_ we reliably accept from a general theory? To
 generalize this example, we consider taking a _restriction_ of the theory. If
 this theory is sound, provable in an extension that _is_ self-verifying one, we
@@ -238,10 +236,10 @@ $T'$. We provide the full definition below.
 #definition[
   Let $T$ be a first order theory, and let $phi$ be a sentence. A *reliable
   proof* of $phi$ in $T$ is a pair $(S, p_S, p_phi)$, where:
-  - $S$ is a non-empty $"RE"$ subset of $T$,
-  - $p_S$ is a proof that there is some self-verifying extension
-    $S' supset.eq S$.
-  - $p_phi$ is a proof of $phi$ in $S$
+  - $S$ is a non-empty, $"RE"$ subset of $T$,
+  - $p_S$ is a $"PA"$-proof that there is some self-verifying extension
+    $S' supset.eq S$,
+  - $p_phi$ is a proof of $phi$ in $S$.
 ]<metatheory:reliability>
 
 We denote the set of all reliable proofs for $phi$ in $T$ as
@@ -327,8 +325,8 @@ $
 
 Constructing $T_lambda$ can be done with dovetailing, as described above. This
 ensures that each limit stage does _not_ rely on non-constructive principles,
-such as Choice. Similarly, with the same technique, $T_lambda$ can be shown to
-be self-verifying.
+such as the Axiom of Choice. Similarly, with the same technique, $T_lambda$ can
+be shown to be self-verifying.
 
 Using the construction above, we can now prove the power of all meta-proofs in
 $PA$.
