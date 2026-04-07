@@ -36,15 +36,15 @@ major retailers like Amazon, inventory and recommendation systems use immense
 amounts of data to power personalized recommendations to users
 @amazon-large-data-report. Another issue is the immense _breadth_ of different
 subjects. As a well known example, Wikipedia struggles to constantly update its
-vast and interconnected web of knowledge, as found in
+vast and interconnected web of knowledge, as asserted in
 @mesgari-research-review-on-wikipedia. Along with the depth and breadth of
 different disciplines, standardization is complex. Most systems have their own
-unique data formats, so making formats that are *interoperable* is hard. (A
-format is *interoperable* if data can be transferred to different formats.) For
-instance, transferring information between two medical platforms is notoriously
-difficult, even if they store the _same_ information about a patient
-@reisman-interoperable-data. These problems continue to be a challenge in
-effectively utilizing frameworks for information.
+unique data formats, so making formats that are *interoperable* is hard. (A data
+format is *interoperable* if the underlying data can be transferred to other
+formats.) For instance, transferring information between two medical platforms
+is notoriously difficult, even if they store the _same_ information about a
+patient @reisman-interoperable-data. These problems continue to be a challenge
+in effectively utilizing frameworks for information.
 
 In consideration of these issues, several solutions partially resolve some of
 them, but not completely. The following provides a small list of major existing
@@ -53,7 +53,7 @@ thesis. We revisit these points in the conclusion (@conclusion:comparisons).
 
 - *Resource Description Framework (RDF):* Systems based on this technology serve
   as the primary implementations of an internet standard called the Web Ontology
-  Language (OWL) @OWL2. Information is stored as triples
+  Language (OWL) @OWL2. Information is stored as triples:
   $"subject"-"predicate"->"object"$. From there, the language can enforce rules
   and ensure new relationships are derived _only_ from from previous ones. OWL
   has been highly successful in providing a machine-readable format to websites
@@ -144,7 +144,7 @@ will discuss most definitions and proofs at a high level.
       (
         lbl: "universal",
         name: "Universality",
-        content: [The language must enable user-created parameters, whosse
+        content: [The language must enable user-created parameters, whose
           symbolic representation is accepted by a computer program. Any program
           must be definable in the language.],
       ),

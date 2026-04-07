@@ -12,7 +12,7 @@ section also proves that every unit is equivalent to some Turing machine
 grammar (@syntax:figure-welkin-grammar). The syntax was defined with invertible
 operations (@syntax:invertible-descriptions), simultaneously providing _parsing_
 and _printing_. The main grammar is proven to be $"LL"(1)$ @syntax:LL1-proof,
-thereby showing it is unambiguous. Finally, @metatheory demonstrates that the
+demonstrating it is unambiguous. Finally, @metatheory demonstrates that the
 definition of information is complete @metatheory:proof-completeness, thereby
 completing @universal.
 
@@ -61,15 +61,15 @@ We compare from the solutions presented in the introduction (@introduction):
 The author has several future projects for Welkin in mind, particularly to reach
 goals @scalable and @standard. These include:
 
-- *Writing the Standard:* this would be a self contained document that
-  describes. The Standard would _bootstrap_ the language, providing step-by-step
-  instructions on how to implement a Welkin information base. There would also
-  be a core library that enables user created languages that convert _into_
-  Welkin. For example, writing _in_ Welkin, a user could define a grammar that
-  takes their own syntax and _converts_ it into units.
+- *Writing the Standard:* this would be a self contained document that describes
+  Welkin from basic principles. The Standard would _bootstrap_ the language,
+  providing step-by-step instructions on how to implement a Welkin information
+  base. There would also be a core library that enables user created languages
+  that convert _into_ Welkin. For example, writing _in_ Welkin, a user could
+  define a grammar that takes their own syntax and _converts_ it into units.
 
 - *Creating an Efficient Implementation:* as the rules in @table:unit-rules, it
-  is plausible that an efficient implementation would be possible. Moreover,
+  is plausible that an efficient query engine could be made in Welkin. Moreover,
   optimizations could be expressed within Welkin itself, using handles for
   specific resources or operations, such as base operations in Python.
 

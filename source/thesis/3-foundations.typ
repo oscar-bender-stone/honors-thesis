@@ -433,9 +433,9 @@ this, we prove the following. Our proof technique uses recursion within Welkin.
   composition, suppose $L - L -> A$ and $L - L -> B$. Then by @r:transitivity,
   $M - L -> A$ and $N - L -> B$, so by @r:sign-congruence and
   @r:context-congruence, ${N - M -> L} - L -> {B - A -> L}$. Another application
-  of @r:transitivity yields $L --> {B - A -> L}$. The rules $L --> *{K, S}$ and
-  $L - L -> {N - M -> L}$ are the only terms with sign $L$ (besides $L$ itself),
-  so $L$ contains _exactly_ the terms in the SK-calculus.
+  of @r:transitivity yields $L --> {B - A -> L}$. The rules $L - L -> "*"{K, S}$
+  and $L - L -> {N - M -> L}$ are the only terms with sign $L$ (besides $L$
+  itself), so $L$ contains _exactly_ the terms in the SK-calculus.
 
   Second, the base axioms for $K$ and $S$ are already included, and transitivity
   is provided by @r:transitivity.
@@ -474,7 +474,7 @@ Welkin, this is exactly a derivation involving $q - c -> q$.
   Let $c$ and $q$ be units.
 
   - A *derivation over* $c$ is a unit
-    ${u_1 - c -> u_2, u_2 - c -> u_3, ..., u_{n-1} - c -> u_n}$ such that for
+    ${u_1 - c -> u_2, u_2 - c -> u_3, ..., u_(n-1) - c -> u_n}$ such that for
     each $u_i$, either a) $u_i$ is contained in $c$, or b) $u_i$ is an
     application of a rule in @table:unit-rules from previous units
     $u_1, ..., u_j$.
