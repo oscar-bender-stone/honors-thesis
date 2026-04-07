@@ -38,7 +38,7 @@ We will clarify how we define "representable" in the next section.
 == Units <design:unit>
 
 The first core concept in Welkin is the notion of a *handle*. Handles are left
-as free parameters in the theory#footnote[For mathematicians, this is analogous
+as free parameters in the theory.#footnote[For mathematicians, this is analogous
   to how key notions are left undefined in Hilbert's formalism of geometry, or
   how a "set" is an undefined notion in set theory.] In an information base,
 handles are uniquely identified through their *ID*.
@@ -115,14 +115,15 @@ An important rule pivotal to information is the following rule called
 )
 
 Written in symbols: $a - c -> b$ and $p - a -> q$ implies $p - b -> q$ _within_
-$c$. Lifting is a notion closely tied to McCarthy's notion of lifting, but
-formulated with representations. The idea is, if $a$ represents $b$ in context
-$c$, then $a$ is a *surrogate* for $b$ relative to $c$. In other words, $a$ is a
-_faithful_ proxy to $b$: if there is a relationship in context $a$, then it will
-_also_ be in context $b$. Specific examples can be found throughout the
-literature, including @declarative-formalization-knowledge-translation.
-Additionally, lifting means that the definition of information is theoretically
-_as general_ as possible. For details, consult @metatheory.
+$c$. Lifting is a notion closely tied to McCarthy's notion of lifting
+@mccarthy-contexts, but formulated with representations. The idea is, if $a$
+represents $b$ in context $c$, then $a$ is a *surrogate* for $b$ relative to
+$c$. In other words, $a$ is a _faithful_ proxy to $b$: if there is a
+relationship in context $a$, then it will _also_ be in context $b$. Specific
+examples can be found throughout the literature, including
+@declarative-formalization-knowledge-translation. Additionally, lifting means
+that the definition of information is theoretically _as general_ as possible.
+For details, consult @metatheory.
 
 == Base Operations
 
