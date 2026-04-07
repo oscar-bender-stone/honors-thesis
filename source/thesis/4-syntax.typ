@@ -214,8 +214,7 @@ modifiers := *{
   "@",
   "~" - seq -> *{"", "@"}
 },
-trailer := segment - seq -> *{"", "." - seq -> trailer},
-segment := HANDLE - lexeme -> *{"", graph},
+trailer := HANDLE - seq -> *{"", "." - seq -> trailer},
 graph :=  "{" - lexeme -> units - lexeme -> "}",
 
 HANDLE := ID | STRING,
@@ -441,7 +440,6 @@ $"LL"(1)$.
       [[11]], [`path`], [`*{ "", modifiers }`],
       [[12]], [`modifiers`], [`*{"@", "~" - seq -> *{ "", "@" }}`],
       [[13]], [`trailer`], [`"." - seq -> trailer`],
-      [[14]], [`segment`], [`*{ "", graph }`],
     )],
     caption: [IDs for each main subrule used in analysis.],
   )<syntax:LL1-subrule-IDs>
@@ -457,7 +455,7 @@ $"LL"(1)$.
       [[1]],
       [First/ \ Follow],
       [SN-FOLLOW(\*{"", [1]}) = \ { `}`, `EOF` }],
-      [FIRST([1]) = { `,` }],
+      [FIRST([1]) = { `*`, `@`, `~`, `ID`, `STRING` }],
       [$emptyset$],
 
       [[2]],
@@ -474,8 +472,7 @@ $"LL"(1)$.
 
       [[4]],
       [First/ \ Follow],
-      [SN-FOLLOW([4]) = \ { `*`, `~`, `@`, `ID`, `STRING`, \ `,`, `}`, `EOF`,
-        `-`, `->` }],
+      [SN-FOLLOW([4]) = \ { `*`, `~`, `@`, `ID`, `STRING`, \ `,`, `}`, `EOF`}],
       [FIRST(`|`) = { `|` }],
       [$emptyset$],
 
@@ -511,14 +508,13 @@ $"LL"(1)$.
 
       [[10]],
       [First/ \ Follow],
-      [SN-FOLLOW([10]) = \ { `*` }],
+      [SN-FOLLOW([10]) = \ { `@`, `~`, `ID`, `STRING` }],
       [FIRST(`*`) = { `*` }],
       [$emptyset$],
 
       [[11]],
       [First/ \ Follow],
-      [SN-FOLLOW([11]) = \ { `ID`, `STRING`, `:=`, `-`, `<-`, \ `|`, `,`, `}`,
-        `EOF`, `->` }],
+      [SN-FOLLOW([11]) = \ { `ID`, `STRING` }],
       [FIRST(`modifiers`) = { `@`, `~` }],
       [$emptyset$],
 
@@ -530,16 +526,9 @@ $"LL"(1)$.
 
       [[13]],
       [First/ \ Follow],
-      [SN-FOLLOW(\*{"", [13]}) = \ { `:=`, `-`, `<-`, `|`, `,`, \ `}`, `EOF`,
-        `->` }],
+      [SN-FOLLOW(\*{"", [13]}) = \ { `:=`, `-`, `<-`, `->`, \ `*`, `|`, `,`,
+        `}`, `EOF`}],
       [FIRST([13]) = { `.` }],
-      [$emptyset$],
-
-      [[14]],
-      [First/ \ Follow],
-      [SN-FOLLOW([14]) = \ { `.`, `:=`, `-`, `<-`, `|`, `,`, \ `}`, `EOF`, `->`
-        }],
-      [FIRST(`graph`) = { `{` }],
       [$emptyset$],
     )
   ]
