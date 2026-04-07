@@ -404,11 +404,9 @@ $"LL"(1)$.
   Third, we must confirm that certain pairs of sets are disjoint, based on
   @syntax:LL1 and @syntax:original-to-edelmann. More precisely:
   - For each rule $A | B$ or $"*"{A, B}$, we need to confirm $FIRST(A)$ and
-    $FIRST(B)$ are disjoint. We say this has *conflict type* First/First.
+    $FIRST(B)$ are disjoint.
   - For each rule $A - "seq" -> B$ or $A - "lexeme" -> B$, we need to confirm
-    $SNFOLLOW(A)$ and $FIRST(B)$ are disjoint. We say this has *conflict type*
-    First/Follow. This order reflects that the $"FIRST"$ sets must be calculated
-    first, _then_ the $"SNFOLLOW"$ sets.
+    $SNFOLLOW(A)$ and $FIRST(B)$ are disjoint.
 
   Note that a conflict type is refers to a _potential_ conflict, a property that
   would invalidate being $"LL"(1)$. Our last goal is to demonstrate these
@@ -424,117 +422,139 @@ $"LL"(1)$.
   are unambiguous by construction, so is the Welkin grammar.
 
   #figure(
-    [#table(
-      columns: (auto, auto, auto),
-      table.header([*ID*], [*Rule*], [*Subrule*]),
-      [[1]], [`units`], [`"," - lexeme -> units`],
-      [[2]], [`units`], [`"" | { unit - lexeme -> *{ "", [1] } }`],
-      [[3]], [`unit`], [`":=" - lexeme -> choices | *{ "", [7] }`],
-      [[4]], [`choices`], [`*{ "", "|" }`],
-      [[5]], [`choice_list`], [`chain - lexeme -> *{ "", [6] }`],
-      [[6]], [`choice_list`], [`"|" - lexeme -> choice_list`],
-      [[7]], [`chain`], [`arc - lexeme -> chain`],
-      [[8]], [`arc`], [`right_arc | other_arc`],
-      [[9]], [`other_arc`], [`*{"-", "->" }`],
-      [[10]], [`node`], [`*{ "", "*" }`],
-      [[11]], [`path`], [`*{ "", modifiers }`],
-      [[12]], [`modifiers`], [`*{"@", "~" - seq -> *{ "", "@" }}`],
-      [[13]], [`trailer`], [`"." - seq -> trailer`],
-    )],
-    caption: [IDs for each main subrule used in analysis.],
+    [
+      #show table.cell: set text(size: 0.85em)
+      #table(
+        columns: (auto, auto, auto),
+        table.header([*ID*], [*Rule*], [*Subrule* ($A$ op $B$)]),
+        [[1]], [`units`], [ `unit` $dot$ `*{"", "," - lexeme -> units}` ],
+        [[2]],
+        [`unit`],
+        [ `node` $dot$ `*{ ":=" - lexeme -> choices, *{...} }` ],
+
+        [[3]],
+        [`unit`],
+        [ `":=" - lexeme -> choices` $|$ `*{"", arc - lexeme -> chain}` ],
+
+        [[4]], [`choices`], [ `*{"", "|"}` $dot$ `choice_list` ],
+        [[5]],
+        [`choice_list`],
+        [ `chain` $dot$ `*{"", "|" - lexeme -> choice_list}` ],
+
+        [[6]], [`chain`], [ `node` $dot$ `*{"", arc - lexeme -> chain}` ],
+        [[7]], [`arc`], [ `right_arc` $|$ `other_arc` ],
+        [[8]], [`right_arc`], [ `"-" - seq -> node` $dot$ `"->"` ],
+        [[9]], [`other_arc`], [ `"<-" - seq -> node` $dot$ `*{"-", "->"}` ],
+        [[10]], [`node`], [ `*{"", "*"}` $dot$ `path` ],
+        [[11]], [`path`], [ `*{"", modifiers}` $dot$ `trailer` ],
+        [[12]], [`path`], [ `trailer` $dot$ `*{"", graph}` ],
+        [[13]], [`trailer`], [ `HANDLE` $dot$ `*{"", "." - seq -> trailer}` ],
+        [[14]], [`modifiers`], [ `"@"` $|$ `"~"` $dot$ `*{"", "@"}` ],
+      )],
+    caption: [IDs provided for each key subrule in the Welkin grammar
+      (@syntax:figure-welkin-grammar). Each subrule either has the form
+      $A dot B$ or $A | B$.],
   )<syntax:LL1-subrule-IDs>
 
   #let calculations-table = [
-
     #show table.cell: set text(size: 0.85em)
     #table(
       columns: 5,
       align: left,
-      [*ID*], [*Conflict Type*], [*Set One*], [*Set Two*], [*Intersection*],
+      [*ID*], [*Condition*], [*Set for* $A$], [*Set for* $B$], [*Intersection*],
 
       [[1]],
-      [First/ \ Follow],
-      [SN-FOLLOW(\*{"", [1]}) = \ { `}`, `EOF` }],
-      [FIRST([1]) = { `*`, `@`, `~`, `ID`, `STRING` }],
+      [$SNFOLLOW(A) inter FIRST(B)$],
+      [ $SNFOLLOW$(`unit`) = `{ ., {, -, <-, |, *, @, ~, ID, STRING, := }` ],
+      [ `{ , }` ],
       [$emptyset$],
 
       [[2]],
-      [First/ \ Follow],
-      [SN-FOLLOW([2]) = \ { `}`, `EOF` }],
-      [FIRST(`unit`) = { `*`, `@`, `~`, \ `ID`, `STRING` }],
+      [$SNFOLLOW(A) inter FIRST(B)$],
+      [ $SNFOLLOW$(`node`) = `{ ., { }` ],
+      [ `{ :=, -, <- }` ],
       [$emptyset$],
 
       [[3]],
-      [First/ \ First],
-      [FIRST(`:=`) = { `:=` }],
-      [FIRST([7]) = { `-`, `<-` }],
+      [$FIRST(A) inter FIRST(B)$],
+      [ $FIRST(A) =$ `{ := }` ],
+      [ `{ -, <- }` ],
       [$emptyset$],
 
       [[4]],
-      [First/ \ Follow],
-      [SN-FOLLOW([4]) = \ { `*`, `~`, `@`, `ID`, `STRING`, \ `,`, `}`, `EOF`}],
-      [FIRST(`|`) = { `|` }],
+      [$SNFOLLOW(A) inter FIRST(B)$],
+      [ $SNFOLLOW(A) = emptyset$ ],
+      [ `{ *, @, ~, ID, STRING }` ],
       [$emptyset$],
 
       [[5]],
-      [First/ \ Follow],
-      [SN-FOLLOW(`choice_list`) = \ { `,`, `}`, `EOF` }],
-      [FIRST([5]) = { `*`, `~`, `@`, \ `ID`, `STRING` }],
+      [$SNFOLLOW(A) inter FIRST(B)$],
+      [ $SNFOLLOW$(`chain`) = `{ ., {, -, <- }` ],
+      [ `{ | }` ],
       [$emptyset$],
 
       [[6]],
-      [First/ \ Follow],
-      [SN-FOLLOW(\*{"", [6]}) = { `,`, `}`, `EOF` }],
-      [FIRST([6]) = { `|` }],
+      [$SNFOLLOW(A) inter FIRST(B)$],
+      [ $SNFOLLOW$(`node`) = `{ ., { }` ],
+      [ `{ -, <- }` ],
       [$emptyset$],
 
       [[7]],
-      [First/ \ Follow],
-      [SN-FOLLOW(\*{"", [7]}) = { `|`, `,`, `}`, `EOF` }],
-      [FIRST([7]) = { `-`, `<-` }],
+      [$FIRST(A) inter FIRST(B)$],
+      [ $FIRST(A) =$ `{ - }` ],
+      [ `{ <- }` ],
       [$emptyset$],
 
       [[8]],
-      [First/ \ First],
-      [FIRST(`right_arc`) \ = { `-` }],
-      [FIRST(`other_arc`)\ = { `<-` }],
+      [$SNFOLLOW(A) inter FIRST(B)$],
+      [ $SNFOLLOW$(`node`) = `{ ., { }` ],
+      [ `{ -> }` ],
       [$emptyset$],
 
       [[9]],
-      [First/ \ First],
-      [FIRST(`-`) = { `-` }],
-      [FIRST(`->`) = { `->` }],
+      [$SNFOLLOW(A) inter FIRST(B)$],
+      [ $SNFOLLOW$(`node`) = `{ ., { }` ],
+      [ `{ -, -> }` ],
       [$emptyset$],
 
       [[10]],
-      [First/ \ Follow],
-      [SN-FOLLOW([10]) = \ { `@`, `~`, `ID`, `STRING` }],
-      [FIRST(`*`) = { `*` }],
+      [$SNFOLLOW(A) inter FIRST(B)$],
+      [ $SNFOLLOW(A) = emptyset$ ],
+      [ `{ @, ~, ID, STRING }` ],
       [$emptyset$],
 
       [[11]],
-      [First/ \ Follow],
-      [SN-FOLLOW([11]) = \ { `ID`, `STRING` }],
-      [FIRST(`modifiers`) = { `@`, `~` }],
+      [$SNFOLLOW(A) inter FIRST(B)$],
+      [ $SNFOLLOW(A) =$ `{ @ }` ],
+      [ `{ ID, STRING }` ],
       [$emptyset$],
 
       [[12]],
-      [First/ \ First],
-      [FIRST(`@`) = { `@` }],
-      [FIRST(`~`) = { `~` }],
+      [$SNFOLLOW(A) inter FIRST(B)$],
+      [ $SNFOLLOW$(`trailer`) = `{ . }` ],
+      [ `{ { }` ],
       [$emptyset$],
 
       [[13]],
-      [First/ \ Follow],
-      [SN-FOLLOW(\*{"", [13]}) = \ { `:=`, `-`, `<-`, `->`, \ `*`, `|`, `,`,
-        `}`, `EOF`}],
-      [FIRST([13]) = { `.` }],
+      [$SNFOLLOW(A) inter FIRST(B)$],
+      [ $SNFOLLOW$(`HANDLE`) = $emptyset$ ],
+      [ `{ . }` ],
+      [$emptyset$],
+
+      [[14]],
+      [$FIRST(A) inter FIRST(B)$],
+      [ $FIRST(A) =$ `{ @ }` ],
+      [ `{ ~ }` ],
       [$emptyset$],
     )
   ]
+
   #figure(
     calculations-table,
-    caption: [Calculations for the main possible conflicts, along with the
-      corresponding sets. Subrule IDs are listed in @syntax:LL1-subrule-IDs.],
+    caption: [Calculations used to detect the presence of potential conflicts.
+      Subrules are given by their IDs, provided in @syntax:LL1-subrule-IDs.],
   )<syntax:LL1-calculations>
 ]
+
+
+
