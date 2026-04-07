@@ -41,7 +41,7 @@ The first core concept in Welkin is the notion of a *handle*. Handles are left
 as free parameters in the theory.#footnote[For mathematicians, this is analogous
   to how key notions are left undefined in Hilbert's formalism of geometry, or
   how a "set" is an undefined notion in set theory.] In an information base,
-handles are uniquely identified through their *ID*.
+each handle is uniquely identified through their *ID*.
 
 #example[
   Consider a business that distributes vehicle parts. The inventory could be
