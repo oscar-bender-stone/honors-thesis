@@ -139,12 +139,11 @@ We will reuse the term *selector* for our purposes.
   - For any $T$-proof $p$ with steps $phi_1, ..., phi_n$, $s(p)$ is a $T$-proof
     $t_p$ of $"Tr"_n(p) (chevron.l and.big phi_i chevron.r)$. Here, $n(p)$ is
     defined as the largest $m$ such that some $phi_i$ is a $Sigma^0_m$ formula.
-  - The selector must defined *constructively*. In other words, there must be a
-    constructive approach to construct $s(p)$ given $T$-proof $p$. In other
-    words, $s$ must be proven correct in $PA$ _without_ using the general Law of
-    the Excluded Middle ($phi or not phi$), and without the Principle of
-    Explosion (#box[$bot => phi$]). Note that, as a $T$-proof, $s(p)$ _may_
-    contain these principles.
+  - The selector must defined *constructively*. In other words, $s$ must be
+    proven correct in $PA$ _without_ using the general Law of the Excluded
+    Middle ($phi or not phi$), and without the Principle of Explosion
+    (#box[$bot => phi$]). Note that, as a $T$-proof, $s(p)$ _may_ contain these
+    principles.
 ]<metatheory:serial-soundness>
 
 #remark[We need to remove the Law of the Excluded Middle to ensure the proof is
@@ -182,8 +181,8 @@ Now we can introduce *self-verifying* theories.
   @tarski-undefinability-truth. We avoid this problem by incorporating a
   meta-theory, which uses point-wise definitions. However, Gödel's first
   incompleteness theorem still applies: the _specific_ truth value of some
-  proposition cannot be proven in the meta-theory. This limit is made more
-  precise in @metatheory:proof-completeness.]
+  proposition cannot be proven in the meta-theory. The limit of what we can
+  prove is made more precise in @metatheory:proof-completeness.]
 
 We need to establish an important property of self-verifying theories.
 
