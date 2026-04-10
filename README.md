@@ -1,4 +1,4 @@
-# Honors Thesis 2025 (Work in Progress)
+# Honors Thesis 2025
 
 **Warning**: This repository is still under development. Except breaking
 changes! This will be replaced with an official message once the thesis is
@@ -33,11 +33,15 @@ You will need:
 
 ### Generating Documents
 
-Note that only PDF is supported, but HTML export will eventually be added.
+Note that only PDF is supported.
 
-- Compile the thesis: `just compile`.
+- Thesis:
+  - Compile: `just compile`
+  - Compile while editing: `just watch`
 
-- Compile while editing: `just watch`.
+- Presentation
+  - `just compile presentation`
+  - Compile while editing: `just watch presentation`
 
 ### Compliance
 
