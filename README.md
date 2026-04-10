@@ -1,8 +1,4 @@
-# Honors Thesis 2025
-
-**Warning**: This repository is still under development. Except breaking
-changes! This will be replaced with an official message once the thesis is
-completed.
+# Honors Thesis 2025-2026
 
 ## Description
 
@@ -40,9 +36,9 @@ Note that only PDF is supported.
   - Compile while editing: `just watch`
 
 - Presentation
-  - `just compile presentation`
+  - Compile: `just compile presentation`
   - Compile while editing: `just watch presentation`
 
 ### Compliance
 
-- `just reuse-lint`: confirm [REUSE](https://reuse.software/faq/) compliance.
+- Confirm [REUSE](https://reuse.software) compilance: `just reuse-lint`.
